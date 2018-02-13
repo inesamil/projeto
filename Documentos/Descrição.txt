@@ -1,0 +1,15 @@
+Aplicação móvel que recebe dados de dispositivos inteligentes (IoT devices) para a gestão de stocks.
+
+Este projeto visa a manutenção dos produtos armazenados, quer seja em casa (frigoríficos, armários, etc.), quer num armazém (secções, corredores, etc.). A leitura das caraterísticas dos produtos é efetuada assumindo a existência de tags NFC nos mesmos ou caso contrário inserção dos dados de forma manual pelo utilizador. Estes dados serão armazenados numa base de dados, para posteriormente, através de uma aplicação móvel (para Android) e uma possível aplicação Web (para maior controlo gráfico), permitir as seguintes funcionalidades: 
+ 
+- Informar o utilizador dos produtos existentes ou inexistentes, a sua validade e a sua quantidade;
+- Possibilidade de especificar a quantidade mínima de um determinado produto;
+- Indicação dos produtos a ter sempre em stock;
+- Alertas sobre os produtos que estão perto da data de validade;
+- Geração da lista de compras com os produtos em falta.
+
+A nível alimentar propõem-se ainda as seguintes funcionalidades extra:
+
+- Sugestão de receitas que utilizem os produtos mais perto do fim da validade;
+- Inserção de receitas a realizar num futuro próximo, para acrescentar alimentos não básicos à lista de compras;
+- Apresentação de promoções existentes nos supermercados, dos alimentos que estão perto do limite mínimo.
