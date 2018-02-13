@@ -1,0 +1,11 @@
+/* A_smart_fridge_with_an_ability_to_enhance_health_a.pdf */
+
+@article{luo2009smart,
+  title={A smart fridge with an ability to enhance health and enable better nutrition},
+  author={Luo, Suhuai and Jin, Jesse and Li, Jiaming and others},
+  journal={International Journal of Multimedia and Ubiquitous Engineering},
+  volume={4},
+  number={2},
+  pages={66--80},
+  year={2009}
+}
