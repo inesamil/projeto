@@ -12,4 +12,6 @@ A nível alimentar propõem-se ainda as seguintes funcionalidades extra:
 
 - Sugestão de receitas que utilizem os produtos mais perto do fim da validade;
 - Inserção de receitas a realizar num futuro próximo, para acrescentar alimentos não básicos à lista de compras;
-- Apresentação de promoções existentes nos supermercados, dos alimentos que estão perto do limite mínimo.
+- Listas partilhadas entre utilizadores da mesma casa;
+- Listas de contenção em situações de emergência;
+- Alergias alimentares.
