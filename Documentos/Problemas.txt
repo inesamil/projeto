@@ -1,0 +1,7 @@
+
+   - Entradas e Saídas de Produtos --> SOLUÇÕES: obtenção dessa informação do HW e/ou (Lote + Nº Série)
+   - Obtenção do identificador único do produto (Lote + Nº Série)
+   - Base de Dados 1) Relacional mas única (produtos de casas diferentes na mesma BD) ou 2) Não Relacional/Documental (1 documento por casa)
+   - Definir info NFC
+   - Acesso/Escrita à BD alojada na net (produto final Web API - dados em JSON) - DAL --> linguagem ?
+   - Autenticação para o acesso a dados
