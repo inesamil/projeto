@@ -1,0 +1,30 @@
+Entradas e Saídas de Produtos:
+	- Hardware com 2 sensores;
+
+NFC ou RFID:
+	- NFC possíbilidade de escrita na tag NFC;
+	- Quantidade de memória 8k;
+
+Base de dados:
+	- Relacional e único;
+	- Modelo dados é estático;
+	- PostGreSQL;
+
+Acesso/Escrita à BD:
+	- Java (Spring boot);
+
+Autenticação:
+	- Feita na Web API;
+
+--------------------------------------------------------
+Embalagens: https://www.fda.gov/downloads/food/guidanceregulation/ucm265446.pdf
+--------------------------------------------------------
+Informação NFC:
+	*Lista dos ingredientes;
+	*Nome do Produto;
+	*Data de validade (DDM/DLM);
+	*Alergénios;
+	*Quantidade;
+	*Condições de conservação;
+	*Instruções de utilização;
+
