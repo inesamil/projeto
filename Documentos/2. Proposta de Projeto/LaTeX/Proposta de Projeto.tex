@@ -1,0 +1,96 @@
+% Classe do documento e parâmetros gerais.
+\documentclass[a4paper,openright,twoside,11pt]{report}
+
+%
+% Times New Roman font.
+%
+\usefont{T1}{ptm}{m}{n}
+\selectfont
+
+% Packages a utilizar e respetivos parâmetros.
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\addto{\captionsportuguese}{\renewcommand{\bibname}{Refer\^{e}ncias}}
+\addto{\captionsportuguese}{\renewcommand{\contentsname}{\'Indice}}
+\addto{\captionsportuguese}{\renewcommand{\appendixname}{Anexo}}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage[Algoritmo]{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\renewcommand{\algorithmicrequire}{\textbf{Dados: }}
+\renewcommand{\algorithmicensure}{\textbf{Resultado: }}
+\usepackage{indentfirst}
+
+% Definições das dimensões das páginas
+\setlength{\textheight}{24.00cm}
+\setlength{\textwidth}{15.50cm}
+\setlength{\topmargin}{0.35cm}
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\oddsidemargin}{0.25cm}
+\setlength{\evensidemargin}{0.25cm}
+
+%
+% Times New Roman font.
+%
+\usefont{T1}{ptm}{m}{n}
+\selectfont
+
+
+%\renewcommand{\baselinestretch}{1}
+
+%
+% Página inicial (capa)
+%
+\title{
+	\vspace{-60mm}
+	\begin{minipage}[l]{160mm}
+		\resizebox{50mm}{!}{\includegraphics{./figures/logoISEL.png}}\\
+	\end{minipage}\\
+	\vspace{20mm}
+	% Título do projeto na forma capitalizada. A primeira letra de cada palavra deve ser maiúscula.
+	{\bf Gestão Inteligente de Produtos}
+}
+
+% Nome dos autores (um por linha)
+\author{
+	\begin{tabular}{ll}
+		& 42142 \hspace{0.1cm} Ana Santos, \hspace{0.3cm} 42142@alunos.isel.ipl.pt, \hspace{0.1cm} 967064568\\
+		& 42162 \hspace{0.1cm} Inês Soares, \hspace{0.35cm} 42162@alunos.isel.ipl.pt, \hspace{0.1cm} 914182857\\
+		& 42181 \hspace{0.1cm} Nuno Veloso, \hspace{0.1cm} 42181@alunos.isel.ipl.pt, \hspace{0.1cm} 910364327\\
+	\end{tabular}
+}
+
+\date{
+	\vspace{80mm}
+	\begin{tabular}{ll}
+		{Orientadores} & Nuno Datia \\
+				       & Matilde Pato\\
+	\end{tabular}\\
+	% Deixar o indicador respetivo em função da versão do relatório.
+	\vspace{10mm}
+	Proposta de Projeto realizado no âmbito de Projeto e Seminário,\\
+	do curso de licenciatura em Engenharia Informática e de Computadores\\
+	Semestre de Verão 2017/2018\\
+	\vspace{20mm}
+	Março de 2018
+}
+
+\begin{document}
+
+	\maketitle
+
+	\baselineskip 18pt % line spacing: 12pt for single, 18pt for 1 1/2, and 24pt for double spacing
+	
+	\newpage
+	\thispagestyle{empty}
+	% Fim da contracapa
+	
+	% Iniciar a numeração de páginas
+	\setcounter{page}{1}
+	\pagenumbering{arabic}
+	
+	% Capitulo 1
+	\include{Capitulo1}
+\end{document}
