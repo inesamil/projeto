@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.28)  2 MAR 2018 17:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.28)  7 MAR 2018 19:19
 entering extended mode
 **"./Proposta de Projeto.tex"
 ("Proposta de Projeto.tex"
@@ -442,7 +442,7 @@ Document Style - pseudocode environments for use with the `algorithmicx' style
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\indentfirst.sty"
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
 )
-("Proposta de Projeto.aux" (Capitulo1.aux))
+("Proposta de Projeto.aux" (Introducao.aux) (Analise.aux))
 \openout1 = `"Proposta de Projeto.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 80.
@@ -550,28 +550,37 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 {C:/Users/Nuno Veloso/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./fig
 ures/logoISEL.png>]
-\openout2 = `Capitulo1.aux'.
+\openout2 = `Introducao.aux'.
 
- (Capitulo1.tex) [1
+ (Introducao.tex) [1
 
 
-] ("Proposta de Projeto.aux"
-(Capitulo1.aux)) ) 
+]
+\openout2 = `Analise.aux'.
+
+ (Analise.tex [2
+
+
+
+]) [3]
+("Proposta de Projeto.aux" (Introducao.aux) (Analise.aux)) ) 
 Here is how much of TeX's memory you used:
- 3025 strings out of 493303
- 41410 string characters out of 3138836
- 108643 words of memory out of 3000000
- 6508 multiletter control sequences out of 15000+200000
- 10493 words of font info for 32 fonts, out of 3000000 for 9000
+ 3043 strings out of 493303
+ 41937 string characters out of 3138836
+ 109053 words of memory out of 3000000
+ 6518 multiletter control sequences out of 15000+200000
+ 10801 words of font info for 33 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,13n,25p,949b,307s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-mbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb
-><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Prog
-ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on "Proposta de Projeto.pdf" (2 pages, 75477 bytes).
+ 41i,13n,25p,1102b,307s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
+lic/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmti10.pfb>
+Output written on "Proposta de Projeto.pdf" (4 pages, 103334 bytes).
 PDF statistics:
- 28 PDF objects out of 1000 (max. 8388607)
+ 38 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

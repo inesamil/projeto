@@ -1,0 +1,10 @@
+%
+% Introdução
+%
+\chapter*{Introdução} \label{Intro}
+
+Com o boom da IoT nos dias de hoje, o homem ainda realiza tarefas no seu dia-a-dia que poderiam ser substituídas por recursos mais inteligentes. Libertando-o para outras atividades como lazer. Assim, o nosso trabalho vai no sentido de dar repostas a "como evitar transtornos causados na altura de reabastecer a nossa despensa? controlo de stock de alimentos e outros produtos? artigos fora de prazo?". Se entendermos que a nossa casa funciona como uma empresa, onde existem pessoas que podem realizar as mesmas tarefas, e.g. ir às compras, tornar o sistema de controlo de stock mais eficiente nas nossas casas é como planear e montar uma infraestrutura de ligação, processamento e armazenamento na gestão de frotas numa transportadora.
+
+De forma a responder às perguntas levantadas anteriormente, pretendemos desenhar duas aplicações, uma móvel e uma web. Aplicações estas que interagem diretamente com uma Web API, que está relacionada com uma Base de Dados, através de uma Camada de Acesso a Dados (DAL) e de uma com a Lógica de Negócio (BLL). A recolha de dados, i.e., informação dos produtos existentes, é lida por um leitor de {\itshape tags} (NFC ou RFID) e transmitida para a Web API, para ser armazenada. Os locais de armazenamento de produtos devem dispor de dispositivos de hardware, equipados com scanners capazes de ler os dois tipos de {\itshape tags} e sensores de movimento. A adoção destas peças é a chave na monitorização dos stocks, é de realçar a dependência do projeto nelas para a distinção do tipo de movimento, de entrada ou saída.
+
+No âmbito do nosso projeto assumimos a existência de dois estados para os produtos, avulsos e embalados. Os primeiros são conservados em sistemas de arrumação (caixas, sacos, etc.), que contém {\itshape tags} NFC programáveis por {\itshape smartphones}. Os detalhes dos produtos são especificados pelo utilizador e carregados para a {\itshape tag}. Enquanto que para os produtos embalados, admitimos que os produtores utilizam {\itshape tags}, NFC ou RFID, para guardar os rótulos em formato standard (CSV).

@@ -1,0 +1,16 @@
+%
+% Análise
+%
+\chapter*{Análise} \label{Analise}
+
+Para a realização deste projeto encontrámos algumas dificuldades que se prendem com o facto de os produtos não terem rótulos digitais. Isto é um problema para a concretização do projeto, na medida em que se torna menos eficiente a obtenção dos dados presentes nos produtos. Contudo, assumindo que este dilema é resolvido fora do âmbito do projeto, apenas é preciso definir um formato standard de como os dados devem ser armazenados nas \textit{tags}, que podem ser NFC ou RFID. Formato este que deve ser respeitado por todos os produtores, assim, os produtos em vez de terem um código de barras, têm uma \textit{tag} RFID ou uma \textit{tag} NFC, com a informação necessária. E aplicando a responsabilidade da leitura das \textit{tags} nos dispositivos de hardware, e não fazendo este parte do campo de ação do nosso projeto, apenas necessitamos de gerir a informação transmitida pelos mesmos.
+
+\vspace{1cm}
+\textbf{Existem riscos associados a dispositivos IoT, quando não adoptam funcionalidades de segurança (...) PESQUISAR}
+\vspace{1cm}
+
+O projeto será dividido em 5 camadas principais, inter relacionadas entre si. A camada mais acima é a das aplicações, uma mobile, para a plataforma \textit{Android} e usando a linguagem \textit{Kotlin}, e uma web, utilizando a linguagem \textit{JavaScript}, com a \textit{framework Express}. Abaixo encontra-se a Web API, para a construção desta faremos uso de uma \textit{framework} da \textit{Spring}, chamada de \textit{Spring Boot}. Esta ferramenta nunca foi utilizada, porém está a ser lecionada numa cadeira assistida por todos. A terceira camada, Camada da Lógica de Negócio (BLL), cuja separação da camada que a antecede é uma linha muito ténue. A Camada de Acesso a Dados, a segunda camada, será realizada com a linguagem de programação JAVA, com JDBC API, e é responsável por aceder à base dados com uma maior abstração, podendo-se escrever instruções SQL e obter os dados através de uma interface. Por último temos a Base de Dados, recorrendo ao SGBD \textit{PostgreSQL}, também ainda não usado.
+
+\vspace{1cm}
+\textbf{Problema causado pela desistência de um dos elementos do grupo no planeamento}
+\vfill
