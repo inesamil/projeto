@@ -1,5 +1,5 @@
 % Classe do documento e parâmetros gerais.
-\documentclass[a4paper,openright,twoside,11pt]{report}
+\documentclass[a4paper,openany,twoside,11pt]{report}
 
 %
 % Times New Roman font.
@@ -21,6 +21,7 @@
 \renewcommand{\algorithmicrequire}{\textbf{Dados: }}
 \renewcommand{\algorithmicensure}{\textbf{Resultado: }}
 \usepackage{indentfirst}
+\usepackage{pgfgantt}
 
 % Definições das dimensões das páginas
 \setlength{\textheight}{24.00cm}
@@ -96,5 +97,8 @@
 	
 	% Análise
 	\include{Analise}
+	
+	% Planeamento
+	\include{Planeamento}
 	
 \end{document}
