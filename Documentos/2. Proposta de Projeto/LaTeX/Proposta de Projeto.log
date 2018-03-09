@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.28)  9 MAR 2018 16:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.28)  9 MAR 2018 23:40
 entering extended mode
 **"./Proposta de Projeto.tex"
 ("Proposta de Projeto.tex"
@@ -918,15 +918,17 @@ LaTeX Font Info:    Try loading font information for OT1+phv on input line 22.
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
 )
 LaTeX Font Info:    Font shape `OT1/phv/mc/it' in size <10> not available
-(Font)              Font shape `OT1/phv/mc/sl' tried instead on input line 69.
+(Font)              Font shape `OT1/phv/mc/sl' tried instead on input line 138.
+
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10.95> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 80.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 138.
 LaTeX Font Info:    Font shape `OT1/phv/bc/it' in size <10.95> not available
-(Font)              Font shape `OT1/phv/bc/sl' tried instead on input line 80.
+(Font)              Font shape `OT1/phv/bc/sl' tried instead on input line 138.
+
 Missing character: There is no , in font nullfont!
 )
-Overfull \hbox (176.8344pt too wide) in paragraph at lines 135--102
-[][] 
+Overfull \hbox (76.22444pt too wide) in paragraph at lines 24--102
+[]  [] 
  []
 
 
@@ -942,7 +944,7 @@ LaTeX Font Warning: Font shape `OT1/cmr/mc/n' undefined
 
 
 ]
-Overfull \vbox (352.50377pt too high) has occurred while \output is active []
+Overfull \vbox (75.13358pt too high) has occurred while \output is active []
 
 
 [5] ("Proposta de Projeto.aux" (Introducao.aux) (Analise.aux) (Planeamento.aux)
@@ -954,11 +956,11 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  15618 strings out of 493303
  320339 string characters out of 3138836
- 398382 words of memory out of 3000000
+ 426375 words of memory out of 3000000
  18825 multiletter control sequences out of 15000+200000
  25052 words of font info for 50 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,13n,77p,1102b,825s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 62i,13n,84p,1102b,838s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
