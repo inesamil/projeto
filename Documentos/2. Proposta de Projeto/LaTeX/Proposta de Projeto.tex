@@ -10,14 +10,16 @@
 % Packages a utilizar e respetivos parâmetros.
 \usepackage[utf8]{inputenc}
 \usepackage[portuguese]{babel}
-\addto{\captionsportuguese}{\renewcommand{\bibname}{Refer\^{e}ncias}}
-\addto{\captionsportuguese}{\renewcommand{\contentsname}{\'Indice}}
-\addto{\captionsportuguese}{\renewcommand{\appendixname}{Anexo}}
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage[Algoritmo]{algorithm}
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
+
+\addto{\captionsportuguese}{\renewcommand{\bibname}{Refer\^{e}ncias}}
+\addto{\captionsportuguese}{\renewcommand{\contentsname}{\'Indice}}
+\addto{\captionsportuguese}{\renewcommand{\appendixname}{Anexo}}
+
 \renewcommand{\algorithmicrequire}{\textbf{Dados: }}
 \renewcommand{\algorithmicensure}{\textbf{Resultado: }}
 \usepackage{indentfirst}
@@ -51,7 +53,7 @@
 	\end{minipage}\\
 	\vspace{20mm}
 	% Título do projeto na forma capitalizada. A primeira letra de cada palavra deve ser maiúscula.
-	{\bf Gestão Inteligente de Produtos}
+	{\bf Gestão Inteligente de Stocks}
 }
 
 % Nome dos autores (um por linha)
@@ -66,8 +68,8 @@
 \date{
 	\vspace{80mm}
 	\begin{tabular}{ll}
-		{Orientadores} & Nuno Datia, \hspace{0.3cm}datia@isel.ipl.pt\\
-				       & Matilde Pato, \hspace{0.1cm}mpato@deetc.isel.pt\\
+		{Orientadores} & Matilde Pato, \hspace{0.1cm}mpato@deetc.isel.pt\\
+				       & Nuno Datia, \hspace{0.3cm}datia@isel.ipl.pt\\
 	\end{tabular}\\
 	% Deixar o indicador respetivo em função da versão do relatório.
 	\vspace{10mm}
@@ -83,10 +85,6 @@
 	\maketitle
 
 	\baselineskip 18pt % line spacing: 12pt for single, 18pt for 1 1/2, and 24pt for double spacing
-	
-	\newpage
-	\thispagestyle{empty}
-	% Fim da contracapa
 	
 	% Iniciar a numeração de páginas
 	\setcounter{page}{1}

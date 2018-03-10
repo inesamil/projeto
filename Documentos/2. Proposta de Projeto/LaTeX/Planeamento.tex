@@ -1,7 +1,7 @@
 %
 % Planeamento
 %
-\chapter*{Planeamento} \label{Planeamento}
+\section*{Planeamento} \label{Planeamento}
 
 %
 % A fairly complicated example from section 2.9 of the package
@@ -20,15 +20,15 @@
 \setganttlinklabel{f-s}{FINISH-TO-START}
 \setganttlinklabel{f-f}{FINISH-TO-FINISH}
 \sffamily
-\vspace{-10mm}
-\hspace{-25mm}
+
+\hspace{-30mm}
 \resizebox{20cm}{23cm}{
 	\begin{ganttchart}[
 		canvas/.append style={fill=none, draw=black!5, line width=.75pt},
 		hgrid style/.style={draw=black!5, line width=.75pt},
 		vgrid={*1{draw=black!5, line width=.75pt}},
 		vgrid={*3{draw=none}, dotted},
-		today=2,
+		today=3,
 		today rule/.style={
 			draw=black!64,
 			dash pattern=on 3.5pt off 4.5pt,
@@ -69,11 +69,11 @@
 		% Estudo do Problema 
 		\ganttgroup[progress=90]{Estudo do problema}{1}{2} \\
 		\ganttbar[progress=100]{Comparação das Tecnologias (\textit{NFC} vs \textit{RFID})}{1}{1} \\
-		\ganttbar[progress=80]{Definição do Formato de Dados das \textit{Tags}}{1}{1} \\
+		\ganttbar[progress=90]{Definição do Formato de Dados das \textit{Tags}}{1}{1} \\
 		
 		% Modelo de Dados
 		\ganttgroup[progress=85]{Modelo de Dados}{2}{3}\\ 
-		\ganttbar[progress=85]{Descrição do Problema}{2}{2} \\ 
+		\ganttbar[progress=95]{Descrição do Problema}{2}{2} \\ 
 		\ganttbar[progress=85]{Modelo EA}{2}{2} \\
 		\ganttbar[progress=85]{Modelo Relacional}{2}{2} \\
 		\ganttbar[progress=85]{Domínio dos Atributos}{2}{2}  \ganttnewline[grid]
@@ -88,32 +88,32 @@
 		\ganttbar[progress=0]{Testes}{4}{5}  \\
 		
 		% Camada de Acesso a Dados
-		\ganttgroup[progress=0]{Camada de Acesso a Dados}{6}{7}\\  
-		\ganttbar[progress=0]{Desenvolvimento}{6}{7}\\
+		\ganttgroup[progress=0]{Camada de Acesso a Dados}{5}{7}\\  
+		\ganttbar[progress=0]{Desenvolvimento}{5}{7}\\
 		\ganttbar[progress=0]{Documentação}{7}{7} \\
-		\ganttbar[progress=0]{Testes}{6}{7} \\
+		\ganttbar[progress=0]{Testes}{5}{7} \\
 		
 		% Camada da Lógica de Negócio
-		\ganttgroup[progress=0]{Camada da Lógica de Negócio}{8}{10}\\  
-		\ganttbar[progress=0]{Desenvolvimento}{8}{10}\\
+		\ganttgroup[progress=0]{Camada da Lógica de Negócio}{7}{10}\\  
+		\ganttbar[progress=0]{Desenvolvimento}{7}{10}\\
 		\ganttbar[progress=0]{Documentação}{10}{10} \\
-		\ganttbar[progress=0]{Testes}{8}{10}  \ganttnewline[grid]
+		\ganttbar[progress=0]{Testes}{7}{10}  \ganttnewline[grid]
 		
 		% MILESTONE: Relatório de Progresso
 		\ganttmilestone[ name=M2]{\textbf{Entrega do Relatório de Progresso}}{10} \ganttnewline[grid]
 		
 		% WEB API
-		\ganttgroup[progress=0]{WEB API}{11}{13}\\  
-		\ganttbar[progress=0]{Desenvolvimento}{11}{13}\\
+		\ganttgroup[progress=0]{WEB API}{9}{13}\\  
+		\ganttbar[progress=0]{Desenvolvimento}{9}{13}\\
 		\ganttbar[progress=0]{Documentação}{13}{13} \\
-		\ganttbar[progress=0]{Testes}{11}{13}  \\
+		\ganttbar[progress=0]{Testes}{10}{13}  \\
 		
 		% Aplicações (Android e Website)
-		\ganttgroup[progress=0]{Aplicações (Android e Website)}{3}{15} \\
+		\ganttgroup[progress=0]{Aplicações (Android e Website)}{3}{14} \\
 		\ganttbar[progress=0]{Desenho das User Interfaces}{3}{4}\\
-		\ganttbar[progress=0]{Desenvolvimento}{14}{15}\\
-		\ganttbar[progress=0]{Documentação}{15}{15} \\
-		\ganttbar[progress=0]{Testes}{14}{15}  \ganttnewline[grid]
+		\ganttbar[progress=0]{Desenvolvimento}{12}{14}\\
+		\ganttbar[progress=0]{Documentação}{14}{14} \\
+		\ganttbar[progress=0]{Testes}{13}{14}  \ganttnewline[grid]
 		
 		% MILESTONE: Cartaz e Versão Beta
 		\ganttmilestone[ name=M3]{\textbf{Entrega do Cartaz e Versão Beta}}{14} \ganttnewline[grid]
