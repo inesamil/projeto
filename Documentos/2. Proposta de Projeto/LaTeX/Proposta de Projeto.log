@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  10 MAR 2018 17:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  10 MAR 2018 17:44
 entering extended mode
 **"./Proposta de Projeto.tex"
 ("Proposta de Projeto.tex"
@@ -963,19 +963,14 @@ ogoISEL.png>]
 \openout2 = `Introducao.aux'.
 
  (Introducao.tex
-<./figures/Esquema_Estrutura_Projeto_Geral.png, id=13, 1298.8525pt x 790.955pt>
-
+<./figures/Esquema_Estrutura_Projeto_Geral.png, id=13, 1089.06876pt x 773.89125
+pt>
 File: ./figures/Esquema_Estrutura_Projeto_Geral.png Graphic file (type png)
 <use ./figures/Esquema_Estrutura_Projeto_Geral.png>
 Package pdftex.def Info: ./figures/Esquema_Estrutura_Projeto_Geral.png  used on
  input line 17.
-(pdftex.def)             Requested size: 649.42467pt x 395.47653pt.
-)
-Overfull \hbox (10.89941pt too wide) in paragraph at lines 14--94
-[]  [] 
- []
-
-[1
+(pdftex.def)             Requested size: 544.53305pt x 386.94467pt.
+) [1
 
  <./figures/Esquema_Estrutura_Projeto_Geral.png>]
 \openout2 = `Analise.aux'.
@@ -986,8 +981,7 @@ Overfull \hbox (10.89941pt too wide) in paragraph at lines 14--94
 ]
 \openout2 = `Planeamento.aux'.
 
-
-(Planeamento.tex
+ (Planeamento.tex
 LaTeX Font Info:    Try loading font information for OT1+phv on input line 22.
 
 ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\ot1phv.fd"
@@ -1022,7 +1016,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  15623 strings out of 493303
  326103 string characters out of 3129784
- 426416 words of memory out of 3000000
+ 426419 words of memory out of 3000000
  18829 multiletter control sequences out of 15000+200000
  25358 words of font info for 51 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1038,7 +1032,7 @@ ata/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvbo8ac.pfb><C:/Users/i
 nesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8ac.pfb><C:
 /Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvro8a
 c.pfb>
-Output written on "Proposta de Projeto.pdf" (4 pages, 193939 bytes).
+Output written on "Proposta de Projeto.pdf" (4 pages, 188358 bytes).
 PDF statistics:
  58 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
