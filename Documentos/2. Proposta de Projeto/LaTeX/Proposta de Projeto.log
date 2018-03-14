@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.28)  14 MAR 2018 17:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.28)  14 MAR 2018 17:23
 entering extended mode
 **"./Proposta de Projeto.tex"
 ("Proposta de Projeto.tex"
@@ -901,7 +901,7 @@ pt>
 File: ./figures/Esquema_Estrutura_Projeto_Geral.png Graphic file (type png)
 <use ./figures/Esquema_Estrutura_Projeto_Geral.png>
 Package pdftex.def Info: ./figures/Esquema_Estrutura_Projeto_Geral.png  used on
- input line 17.
+ input line 16.
 (pdftex.def)             Requested size: 544.53305pt x 386.94467pt.
 ) [1
 
@@ -962,7 +962,7 @@ c/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/
 uhvb8ac.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvbo8ac.pfb>
 <C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8ac.pfb><C:/Program F
 iles/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvro8ac.pfb>
-Output written on "Proposta de Projeto.pdf" (4 pages, 187844 bytes).
+Output written on "Proposta de Projeto.pdf" (4 pages, 187859 bytes).
 PDF statistics:
  56 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
