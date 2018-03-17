@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.28)  14 MAR 2018 17:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.28)  17 MAR 2018 12:56
 entering extended mode
 **"./Proposta de Projeto.tex"
 ("Proposta de Projeto.tex"
@@ -921,12 +921,12 @@ LaTeX Font Info:    Try loading font information for OT1+phv on input line 22.
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
 )
 LaTeX Font Info:    Font shape `OT1/phv/mc/it' in size <10> not available
-(Font)              Font shape `OT1/phv/mc/sl' tried instead on input line 138.
+(Font)              Font shape `OT1/phv/mc/sl' tried instead on input line 133.
 
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10.95> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 138.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 133.
 LaTeX Font Info:    Font shape `OT1/phv/bc/it' in size <10.95> not available
-(Font)              Font shape `OT1/phv/bc/sl' tried instead on input line 138.
+(Font)              Font shape `OT1/phv/bc/sl' tried instead on input line 133.
 
 Missing character: There is no , in font nullfont!
 )
@@ -947,10 +947,10 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 15626 strings out of 493303
- 320614 string characters out of 3138836
- 427427 words of memory out of 3000000
- 18832 multiletter control sequences out of 15000+200000
+ 15625 strings out of 493303
+ 320595 string characters out of 3138836
+ 426430 words of memory out of 3000000
+ 18831 multiletter control sequences out of 15000+200000
  25358 words of font info for 51 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,13n,84p,1218b,838s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -962,7 +962,7 @@ c/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/
 uhvb8ac.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvbo8ac.pfb>
 <C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8ac.pfb><C:/Program F
 iles/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvro8ac.pfb>
-Output written on "Proposta de Projeto.pdf" (4 pages, 187859 bytes).
+Output written on "Proposta de Projeto.pdf" (4 pages, 188005 bytes).
 PDF statistics:
  56 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
