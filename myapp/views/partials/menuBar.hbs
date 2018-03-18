@@ -1,38 +1,82 @@
 <style>
-	/* The navigation bar */
-	.navbar {
-		overflow: hidden;
-		position: fixed; /* Set the navbar to fixed position */
-		top: 0; /* Position the navbar at the top of the page */
-		width: 100%; /* Full width */
+	body{
+		border:0%;
+		margin:0%;
+		padding:0;
 	}
-	/* Links inside the navbar */
-	.navbar a {
-		float: left;
-		display: block;
-		background-color: #E53935;
-		color: white;
-		text-align: center;
-		padding: 14px 16px;
-		text-decoration: none;
+
+	.nav{  font-size: 0;
+		background:#E53935;
+		height:50px;
 	}
-	/* Change background on mouse-over */
-	.navbar a:hover {
-		background: white;
-		color: black;
+	.left-ctn{
+		margin-right:auto;
+		float:left;
 	}
-	.active {
-    	background-color:  white;
-		color: black;
+	.left-ctn div{
+		display:inline-block;
 	}
+
+	.right-ctn{
+		display:inline-block;
+		margin-left:auto;
+		float:right;
+	}
+
+	.right-ctn div{
+		display:inline-block;
+	}
+
+	.btn{
+		font-size: 18px;
+		font-family: 
+		display:inline-block;
+		height:50px;
+		width:100px;
+		text-align:center;
+		line-height: 35px;
+		color:white;
+		border-radius: 0px
+	}
+
+	.btn2{
+		font-size:16px;
+		top: 0;
+		display:inline-block;
+		height:50px;
+		width:100px;
+		text-align:center;
+		line-height:50px;
+		color:white;
+	}
+
+	.btn:hover {
+		background:white;
+		color:black;
+	}
+
+	.btn2:hover {
+		color:white;
+		text-decoration:none
+	}
+
+	.header {
+		height:300px;
+		width:100%;
+  		background:rgba(229, 56, 53, 0.95);
+	}
+
 </style>
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color: #E53935; padding:0">
-  	<div style="padding:0; margin:0">
-	  	<div class="active" style="display: inline-block; height:100%; padding:0; margin:0"><a href="/">Home</a></div>
-	  	<div style="display: inline-block; height:100%; padding:0; margin:0"><a href="/">Products</a></div>
-	  	<div style="display: inline-block; height:100%; padding:0; margin:0"><a href="/">Recipes</a></div>
-	  	<div style="display: inline-block; height:100%; padding:0; margin:0"><a href="/">Lists</a></div>
-		{{> accountButtons}}
+<nav class="nav">
+	<div class="left-ctn">
+		<div><a class="btn" href="/">Home</a></div>
+		<div><a class="btn" href="/">Lists</a></div>
+		<div><a class="btn" href="/">Products</a></div>
+		<div><a class="btn" href="/">Recipes</a></div>
   	</div>
+	<div class="right-ctn">
+		{{> accountButtons}}
+	</div>
 </nav>
+

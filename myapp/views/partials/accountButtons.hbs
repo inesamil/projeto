@@ -1,21 +1,8 @@
-<ul class="nav navbar-nav navbar-right">
-    {{#if userLoggedIn}}
-        <li>
-            <a href="/{{username}}" style="color: white">
-                <span class="glyphicon glyphicon-user" style="color: white"></span> Profile</a>
-        </li>
-        <li>
-            <a href="/logout" style="olor: #ffffff">
-                <span class="glyphicon glyphicon-log-out" style="color: white"></span> Logout</a>
-        </li>
-        {{else}}
-        <li>
-            <a href="/register" style="color: #ffffff">
-                <span class="glyphicon glyphicon-user" style="color: white"></span> Sign Up</a>
-        </li>
-        <li>
-            <a href="/login" style="color: #ffffff">
-                <span class="glyphicon glyphicon-log-in" style="color: white"></span> Login</a>
-        </li>
-    {{/if}}
-</ul>
+
+{{#if userLoggedIn}}
+    <div><a class="btn2" href="/{{username}}"><span class="glyphicon glyphicon-user"></span> Profile</a></div>
+    <div><a class="btn2" href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></div>
+{{else}}
+    <div><a class="btn2" href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></div>
+    <div><a class="btn2" href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></div>
+{{/if}}
