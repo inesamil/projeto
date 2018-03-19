@@ -1,0 +1,196 @@
+% Classe do documento e parâmetros gerais.
+\documentclass[a4paper,openright,twoside,11pt]{report}
+
+%
+% Times New Roman font.
+%
+\usefont{T1}{ptm}{m}{n}
+\selectfont
+
+% Packages a utilizar e respetivos parâmetros.
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\addto{\captionsportuguese}{\renewcommand{\bibname}{Refer\^{e}ncias}}
+\addto{\captionsportuguese}{\renewcommand{\contentsname}{\'Indice}}
+\addto{\captionsportuguese}{\renewcommand{\appendixname}{Anexo}}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage[Algoritmo]{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{indentfirst}
+
+\renewcommand{\algorithmicrequire}{\textbf{Dados: }}
+\renewcommand{\algorithmicensure}{\textbf{Resultado: }}
+
+% Definições das dimensões das páginas
+\setlength{\textheight}{24.00cm}
+\setlength{\textwidth}{15.50cm}
+\setlength{\topmargin}{0.35cm}
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\oddsidemargin}{0.25cm}
+\setlength{\evensidemargin}{0.25cm}
+
+%
+% Times New Roman font.
+%
+\usefont{T1}{ptm}{m}{n}
+\selectfont
+
+
+%\renewcommand{\baselinestretch}{1}
+
+%
+% Página inicial (capa)
+%
+\title{
+   \vspace{-60mm}
+   \begin{minipage}[l]{160mm}
+   	\resizebox{50mm}{!}{\includegraphics{./figures/logoISEL.png}}\\
+   \end{minipage}\\
+   \vspace{20mm}
+   % Título do projeto na forma capitalizada. A primeira letra de cada palavra deve ser maiúscula.
+   {\bf Gestão Inteligente de Stocks}
+}
+
+% Nome dos autores (um por linha)
+\author{
+	\begin{tabular}{ll}
+		& 42142 \hspace{0.1cm} Ana Santos, \hspace{0.3cm} 42142@alunos.isel.ipl.pt, \hspace{0.1cm} 967064568\\
+		& 42162 \hspace{0.1cm} Inês Soares, \hspace{0.35cm} 42162@alunos.isel.ipl.pt, \hspace{0.1cm} 914182857\\
+		& 42181 \hspace{0.1cm} Nuno Veloso, \hspace{0.1cm} 42181@alunos.isel.ipl.pt, \hspace{0.1cm} 910364327\\
+	\end{tabular}
+}
+
+
+\date{
+	\vspace{80mm}
+	\begin{tabular}{ll}
+		{Orientadores} & Matilde Pato, \hspace{0.1cm}mpato@deetc.isel.pt\\
+		& Nuno Datia, \hspace{0.37cm}datia@isel.ipl.pt\\
+	\end{tabular}\\
+	% Deixar o indicador respetivo em função da versão do relatório.
+	\vspace{10mm}
+	Relatório de progresso realizado no âmbito de Projeto e Seminário,\\
+	do curso de licenciatura em Engenharia Informática e de Computadores\\
+	Semestre de Verão 2017/2018\\
+	\vspace{20mm}
+	Março de 2018
+}
+
+\begin{document}
+
+\pagenumbering{roman}
+\thispagestyle{empty}
+\maketitle
+
+\baselineskip 18pt % line spacing: 12pt for single, 18pt for 1 1/2, and 24pt for double spacing
+
+\newpage
+\thispagestyle{empty}
+% Fim da contracapa
+
+% Página com identificação completa (número e nome) e assinaturas dos estudante(s) e do(s) orientador(es)
+\cleardoublepage\newpage
+\setcounter{page}{1}
+\begin{center}
+{\Large\bf Instituto Superior de Engenharia de Lisboa}\\
+{\large Licenciatura em Engenharia Informática e de Computadores}\\
+%Projecto e Seminário\\
+\vspace{50mm}
+{\large \bf  Gestão Inteligente de Stocks}\\
+\vspace{20mm}
+\begin{tabular}{rl}
+  42142 & Ana Rita Ferreira dos Santos\\
+  42162 & Inês Lima Amil Soares\\
+  42181 & Nuno Manuel Olival Veloso\\
+\end{tabular}\\
+\vspace{8mm}
+\noindent\rule{12cm}{0.6pt}\\
+\vspace{10mm}
+\noindent\rule{12cm}{0.6pt}\\
+\vspace{10mm}
+\begin{tabular}{rl}
+  Orientadores: & Nuno Miguel Soares Datia\\   
+                & Matilde Pós-de-Mina Pato\\
+\end{tabular}\\
+\vspace{8mm}
+\noindent\rule{12cm}{0.6pt}\\
+\vspace{10mm}
+\noindent\rule{12cm}{0.6pt}\\
+\vspace{15mm}
+Relatório de progresso realizado no âmbito de Projeto e Seminário,\\
+do curso de licenciatura em Engenharia Informática e de Computadores\\
+Semestre de Verão 2017/2018\\
+\vspace{20mm}
+Março de 2018\\
+\end{center}
+
+% Página de resumo em Português
+\cleardoublepage\newpage
+\chapter*{Resumo}
+Texto do resumo.\\
+
+Breve descrição do projecto, dos resultados importantes e das conclusões: o objectivo é dar ao leitor uma visão global do projecto (não deve exceder uma página). 
+
+{\bf Palavras-chave:} lista de palavras-chave, ordenadas alfabeticamente, separadas por ;.
+
+% Página de resumo em Inglês
+\cleardoublepage\newpage
+\chapter*{Abstract}
+Abstract text (1 page).\\
+
+{\bf Keywords:} sorted keyword list, delimited by ;.
+
+% Página de agradecimentos
+\cleardoublepage\newpage
+\chapter*{Agradecimentos}
+Texto dos agradecimentos. É opcional.\\
+
+% Geração do índice de conteúdos
+\cleardoublepage\newpage
+\tableofcontents
+\cleardoublepage
+
+% Geração do índice de figuras
+\listoffigures
+\cleardoublepage
+
+% Geração do índice de tabelas
+\listoftables
+\cleardoublepage
+
+% Iniciar a numeração de páginas
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+% Capitulo 1
+%\include{capitulo1}
+
+% Capitulo 2
+%\include{capitulo2}
+
+% Capitulo 3
+%\include{capitulo3}
+
+% Capitulo 4
+%\include{capitulo4}
+
+% Capitulo 5
+%\include{capitulo5}
+
+% Referências
+\bibliographystyle{unsrt}
+\bibliography{referencias}
+
+% Anexos (opcional)
+\appendix
+
+% Anexo 1
+%\include{anexo1}
+
+% Anexo 2
+%\include{anexo2}
+
+\end{document}
