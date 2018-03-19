@@ -1,0 +1,60 @@
+\ifglsentryexists{gcd}{}%
+{%
+\gls@defglossaryentry{gcd}%
+{%
+name={GCD},%
+sort={GCD},%
+type={acronym},%
+first={Greatest Common Divisor\glsspace (GCD)},%
+firstplural={Greatest Common Divisors\glsspace (GCDs)},%
+text={GCD},%
+plural={GCDs},%
+description={Greatest Common Divisor},%
+descriptionplural={Greatest Common Divisor\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Greatest Common Divisor},%
+longplural={Greatest Common Divisors},%
+short={GCD},%
+shortplural={GCDs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{lcm}{}%
+{%
+\gls@defglossaryentry{lcm}%
+{%
+name={LCM},%
+sort={LCM},%
+type={acronym},%
+first={Least Common Multiple\glsspace (LCM)},%
+firstplural={Least Common Multiples\glsspace (LCMs)},%
+text={LCM},%
+plural={LCMs},%
+description={Least Common Multiple},%
+descriptionplural={Least Common Multiple\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Least Common Multiple},%
+longplural={Least Common Multiples},%
+short={LCM},%
+shortplural={LCMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%

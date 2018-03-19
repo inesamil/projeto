@@ -1,12 +1,12 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.28)  17 MAR 2018 18:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  19 MAR 2018 21:35
 entering extended mode
 **"./Relatorio de Progresso.tex"
 ("Relatorio de Progresso.tex"
 LaTeX2e <2017-04-15>
 Babel <3.17> and hyphenation patterns for 75 language(s) loaded.
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\report.cls"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\report.cls"
 Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\size11.clo"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\size11.clo"
 File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -23,23 +23,21 @@ File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \bibindent=\dimen102
 )
 LaTeX Font Info:    Try loading font information for T1+ptm on input line 7.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1ptm.fd"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1ptm.fd"
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\inputenc.sty"
 Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\utf8.def"
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
 File: t1enc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
    defining Unicode char U+00A0 (decimal 160)
    defining Unicode char U+00A1 (decimal 161)
@@ -280,7 +278,7 @@ File: t1enc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
 File: ot1enc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
    defining Unicode char U+00A0 (decimal 160)
    defining Unicode char U+00A1 (decimal 161)
@@ -321,7 +319,7 @@ File: ot1enc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encoding OMS
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
 File: omsenc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -344,70 +342,79 @@ Now handling font encoding U ...
    defining Unicode char U+2026 (decimal 8230)
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
-))
-("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.sty"
+)) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\babel.s
+ty"
 Package: babel 2018/01/24 3.17 The Babel package
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\babel\switch.def"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\switch.def
+"
 File: switch.def 2018/01/24 3.17 Babel switching mechanism
 )
 *************************************
 * Local config file bblopts.cfg used
 *
-("C:\Program Files\MiKTeX 2.9\tex\latex\arabi\bblopts.cfg"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\arabi\bblopts.cfg"
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
  babel
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\babel-portuges\portuges.ldf"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\babel-portuges\por
+tuges.ldf"
 Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.def"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\babel.def"
 File: babel.def 2018/01/24 3.17 Babel common definitions
-
-("C:\Program Files\MiKTeX 2.9\tex\generic\babel\switch.def"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\switch.def
+"
 File: switch.def 2018/01/24 3.17 Babel switching mechanism
 )
 \babel@savecnt=\count88
 \U@D=\dimen103
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\babel\txtbabel.def")
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\txtbabel.d
+ef")
 \bbl@dirlevel=\count89
 )
 Package babel Info: Making " an active character on input line 145.
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\graphicx.
+sty"
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\keyval.st
+y"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\graphics.
+sty"
 Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\trig.sty"
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\graphics.cfg"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics-cfg\graph
+ics.cfg"
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-def\pdftex.def"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics-def\pdfte
+x.def"
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\url\url.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\url\url.sty"
 \Urlmuskip=\muskip10
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\algorithms\algorithm.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algorithms\algorit
+hm.sty"
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
 nment
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\float\float.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\float\float.sty"
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count90
 \float@exts=\toks17
@@ -415,13 +422,14 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks18
 \@floatcapt=\box27
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ifthen.sty"
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \@float@every@algorithm=\toks19
 \c@algorithm=\count91
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\algorithmicx\algorithmicx.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algorithmicx\algor
+ithmicx.sty"
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
@@ -435,67 +443,367 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 \c@ALG@storecount=\count97
 \c@ALG@tmpcounter=\count98
 \ALG@tmplength=\skip45
-) ("C:\Program Files\MiKTeX 2.9\tex\latex\algorithmicx\algpseudocode.sty"
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algorithmicx\algps
+eudocode.sty"
 Package: algpseudocode 
 
 Document Style - pseudocode environments for use with the `algorithmicx' style
-) ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\indentfirst.sty"
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\indentfirst.
+sty"
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
 )
-("Relatorio de Progresso.aux")
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\base\gl
+ossaries.sty"
+Package: glossaries 2018/03/07 v4.36 (NLCT)
+
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\xkeyval\xkeyval.st
+y"
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\xkeyval\xkeyval.
+tex"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\xkeyval\xkvutils
+.tex"
+\XKV@toks=\toks20
+\XKV@tempa@toks=\toks21
+)
+\XKV@depth=\count99
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\mfirstuc\mfirstuc.
+sty"
+Package: mfirstuc 2017/11/14 v2.06 (NLCT)
+
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\etoolbox\etoolbox.
+sty"
+Package: etoolbox 2018/02/11 v2.5e e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count100
+)
+\@glsmfirst=\toks22
+\@glsmrest=\toks23
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\textcase\textcase.
+sty"
+Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
+) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\xfor\xfor.sty"
+Package: xfor 2009/02/05 v1.05 (NLCT)
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\datatool\datatool-
+base.sty"
+Package: datatool-base 2017/11/12 v2.29 (NLCT)
+
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsmath.st
+y"
+Package: amsmath 2017/09/02 v2.17a AMS math features
+\@mathmargin=\skip46
+
+For additional information on amsmath, use the `?' option.
+
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amstext.st
+y"
+Package: amstext 2000/06/29 v2.01 AMS text
+
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty
+"
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks24
+\ex@=\dimen106
+))
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty
+"
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen107
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty
+"
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count101
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count102
+\leftroot@=\count103
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count104
+\DOTSCASE@=\count105
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box28
+\strutbox@=\box29
+\big@size=\dimen108
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count106
+\c@MaxMatrixCols=\count107
+\dotsspace@=\muskip11
+\c@parentequation=\count108
+\dspbrk@lvl=\count109
+\tag@help=\toks25
+\row@=\count110
+\column@=\count111
+\maxfields@=\count112
+\andhelp@=\toks26
+\eqnshift@=\dimen109
+\alignsep@=\dimen110
+\tagshift@=\dimen111
+\tagwidth@=\dimen112
+\totwidth@=\dimen113
+\lineht@=\dimen114
+\@envbody=\toks27
+\multlinegap=\skip47
+\multlinetaggap=\skip48
+\mathdisplay@stack=\toks28
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\substr\substr.sty"
+Package: substr 2009/10/20 v1.2 Handle substrings
+\c@su@anzahl=\count113
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\datatool\datatool-
+fp.sty"
+Package: datatool-fp 2017/11/12 v2.29 (NLCT)
+ ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp.sty"
+Package: fp 1995/04/02
+`Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\defpattern.sty"
+Package: defpattern 1994/10/12
+\actioncount=\count114
+) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-basic.sty"
+Package: fp-basic 1996/05/13
+\FP@xs=\count115
+\FP@xia=\count116
+\FP@xib=\count117
+\FP@xfa=\count118
+\FP@xfb=\count119
+\FP@rega=\count120
+\FP@regb=\count121
+\FP@regs=\count122
+\FP@times=\count123
+) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-addons.sty
+"
+Package: fp-addons 1995/03/15
+) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-snap.sty"
+Package: fp-snap 1995/04/05
+) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-exp.sty"
+Package: fp-exp 1995/04/03
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-trigo.sty"
+Package: fp-trigo 1995/04/14
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-pas.sty"
+Package: fp-pas 1994/08/29
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-random.sty"
+Package: fp-random 1995/02/23
+\FPseed=\count124
+) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-eqn.sty"
+Package: fp-eqn 1995/04/03
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-upn.sty"
+Package: fp-upn 1996/10/21
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-eval.sty"
+Package: fp-eval 1995/04/03
+)))
+\@dtl@toks=\toks29
+\@dtl@tmpcount=\count125
+\dtl@tmplength=\skip49
+\dtl@sortresult=\count126
+\@dtl@numgrpsepcount=\count127
+\@dtl@datatype=\count128
+\dtl@codeA=\count129
+\dtl@codeB=\count130
+\@dtl@foreach@level=\count131
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\base\gl
+ossaries-compatible-307.sty"
+Package: glossaries-compatible-307 2018/03/07 v4.36 (NLCT)
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tracklang\tracklan
+g.sty"
+Package: tracklang 2018/02/21 v1.3.5 (NLCT) Track Languages
+
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\tracklang\trackl
+ang.tex"))
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\translator\transla
+tor.sty"
+Package: translator 2018/01/04 v1.12 Easy translation of strings in LaTeX
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries-portuge
+s\glossaries-portuges.ldf"
+File: glossaries-portuges.ldf 2014/11/23 v1.0
+
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries-portuge
+s\glossaries-portuges-utf8.ldf"))
+\gls@level=\count132
+\@gls@tmpb=\toks30
+\gls@tmplen=\skip50
+\glskeylisttok=\toks31
+\glslabeltok=\toks32
+\glsshorttok=\toks33
+\glslongtok=\toks34
+
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\styles\
+glossary-hypernav.sty"
+Package: glossary-hypernav 2018/03/07 v4.36 (NLCT)
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\styles\
+glossary-list.sty"
+Package: glossary-list 2018/03/07 v4.36 (NLCT)
+\glslistdottedwidth=\skip51
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\styles\
+glossary-long.sty"
+Package: glossary-long 2018/03/07 v4.36 (NLCT)
+
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\longtable.st
+y"
+Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip52
+\LTright=\skip53
+\LTpre=\skip54
+\LTpost=\skip55
+\LTchunksize=\count133
+\LTcapwidth=\dimen115
+\LT@head=\box30
+\LT@firsthead=\box31
+\LT@foot=\box32
+\LT@lastfoot=\box33
+\LT@cols=\count134
+\LT@rows=\count135
+\c@LT@tables=\count136
+\c@LT@chunks=\count137
+\LT@p@ftn=\toks35
+)
+\glsdescwidth=\skip56
+\glspagelistwidth=\skip57
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\styles\
+glossary-super.sty"
+Package: glossary-super 2018/03/07 v4.36 (NLCT)
+
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\supertabular\super
+tabular.sty"
+Package: supertabular 2004/02/20 v4.1e the supertabular environment
+\c@tracingst=\count138
+\ST@wd=\dimen116
+\ST@rightskip=\skip58
+\ST@leftskip=\skip59
+\ST@parfillskip=\skip60
+\ST@pageleft=\dimen117
+\ST@headht=\dimen118
+\ST@tailht=\dimen119
+\ST@pagesofar=\dimen120
+\ST@pboxht=\dimen121
+\ST@lineht=\dimen122
+\ST@stretchht=\dimen123
+\ST@prevht=\dimen124
+\ST@toadd=\dimen125
+\ST@dimen=\dimen126
+\ST@pbox=\box34
+))
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\styles\
+glossary-tree.sty"
+Package: glossary-tree 2018/03/07 v4.36 (NLCT)
+\glstreeindent=\skip61
+))
+
+! LaTeX Error: Option clash for package glossaries.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.22 
+     
+The package glossaries has already been loaded with options:
+  []
+There has now been an attempt to load it with options
+  [toc]
+Adding the global options:
+  ,toc
+to your \documentclass declaration may fix this.
+Try typing  <return>  to proceed.
+
+\@input{abreviaturas.aux}
+\openout2 = `abreviaturas.aux'.
+
+(abreviaturas.tex
+\glswrite=\write3
+\glo@main@file=\write4
+\openout4 = `"Relatorio de Progresso.glo"'.
+
+Package glossaries Info: Writing glossary file "Relatorio de Progresso".glo on 
+input line 3.
+) ("Relatorio de Progresso.aux" (resumo.aux) (abstract.aux)
+(agradecimentos.aux))
 \openout1 = `"Relatorio de Progresso.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
 
-("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.mk
+ii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count99
-\scratchdimen=\dimen106
-\scratchbox=\box28
-\nofMPsegments=\count100
-\nofMParguments=\count101
-\everyMPshowfont=\toks20
-\MPscratchCnt=\count102
-\MPscratchDim=\dimen107
-\MPnumerator=\count103
-\makeMPintoPDFobject=\count104
-\everyMPtoPDFconversion=\toks21
-) ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
+\scratchcounter=\count139
+\scratchdimen=\dimen127
+\scratchbox=\box35
+\nofMPsegments=\count140
+\nofMParguments=\count141
+\everyMPshowfont=\toks36
+\MPscratchCnt=\count142
+\MPscratchDim=\dimen128
+\MPnumerator=\count143
+\makeMPintoPDFobject=\count144
+\everyMPtoPDFconversion=\toks37
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-
+base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\infware
+rr.sty"
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\grfext.st
+y"
 Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\kvdefin
+ekeys.sty"
 Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds
+.sty"
 Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 )))
-("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\kvoptions
+.sty"
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\kvsetke
+ys.sty"
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\etexcmd
+s.sty"
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ifluate
+x.sty"
 Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 )
@@ -504,11 +812,13 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )))
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\pdftexc
+mds.sty"
 Package: pdftexcmds 2018/01/21 v0.26 Utility functions of pdfTeX for LuaTeX (HO
 )
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.s
+ty"
 Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
 )
 Package pdftexcmds Info: LuaTeX not detected.
@@ -522,78 +832,95 @@ Package grfext Info: Graphics extension search list:
 (grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
-)
+) ("Relatorio de Progresso.glsdefs")
 <./figures/logoISEL.png, id=1, 173.448pt x 104.5506pt>
 File: ./figures/logoISEL.png Graphic file (type png)
 <use ./figures/logoISEL.png>
-Package pdftex.def Info: ./figures/logoISEL.png  used on input line 86.
+Package pdftex.def Info: ./figures/logoISEL.png  used on input line 90.
 (pdftex.def)             Requested size: 173.44757pt x 104.55034pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 86--86
+Underfull \hbox (badness 10000) in paragraph at lines 90--90
 
  []
 
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <17.28> on input line 86.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 86.
 
-Overfull \hbox (14.22636pt too wide) in paragraph at lines 86--86
+Overfull \hbox (14.22636pt too wide) in paragraph at lines 90--90
  []$ 
  []
 
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 86.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 86.
 [1
 
-{C:/Users/Nuno Veloso/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./fig
-ures/logoISEL.png>] [2
+
+
+\newlabel{abreviaturas}{{}{i}}
+\providecommand\@glsorder[1]{}
+\providecommand\@istfilename[1]{}
+\@istfilename{"Relatorio de Progresso".ist}
+\@glsorder{word}
+\openout3 = `"Relatorio de Progresso.ist"'.
+
+
+{C:/Users/inesa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./figures/l
+ogoISEL.png>] [2
+
+] [1]
+\openout2 = `resumo.aux'.
+
+ (resumo.tex [2
+
 
 ]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 104.
- [1] [2
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 133--134
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
 
  []
 
-[3
-
-] [4
+) [3
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 142--143
+\openout2 = `abstract.aux'.
+
+ (abstract.tex [4
+
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
 
  []
 
-[5
-
-] [6
+) [5
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 149--150
+\openout2 = `agradecimentos.aux'.
+
+ (agradecimentos.tex [6
+
+
+
+])
+Underfull \hbox (badness 10000) in paragraph at lines 4--143
 
  []
 
 [7
 
-] [8
+]
+No file "Relatorio de Progresso".gls.
+[8
 
 ] ("Relatorio de Progresso.toc")
-\tf@toc=\write3
-\openout3 = `"Relatorio de Progresso.toc"'.
+\tf@toc=\write5
+\openout5 = `"Relatorio de Progresso.toc"'.
 
  [9
+
+
 
 ] [10
 
 ] ("Relatorio de Progresso.lof")
-\tf@lof=\write4
-\openout4 = `"Relatorio de Progresso.lof"'.
+\tf@lof=\write6
+\openout6 = `"Relatorio de Progresso.lof"'.
 
 
 [11
@@ -601,8 +928,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 149--150
 ] [12
 
 ] ("Relatorio de Progresso.lot")
-\tf@lot=\write5
-\openout5 = `"Relatorio de Progresso.lot"'.
+\tf@lot=\write7
+\openout7 = `"Relatorio de Progresso.lot"'.
 
  [13
 
@@ -614,21 +941,22 @@ LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
 ) [1
 
-] ("Relatorio de Progresso.aux") ) 
+] ("Relatorio de Progresso.aux" (resumo.aux) (abstract.aux)
+(agradecimentos.aux)) ) 
 Here is how much of TeX's memory you used:
- 3033 strings out of 493303
- 41738 string characters out of 3138836
- 107291 words of memory out of 3000000
- 6511 multiletter control sequences out of 15000+200000
- 11983 words of font info for 37 fonts, out of 3000000 for 9000
+ 9668 strings out of 493303
+ 165352 string characters out of 3129784
+ 271575 words of memory out of 3000000
+ 12974 multiletter control sequences out of 15000+200000
+ 13105 words of font info for 42 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,13n,25p,293b,307s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-mr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-
-Output written on "Relatorio de Progresso.pdf" (17 pages, 88846 bytes).
+ 45i,13n,37p,2020b,336s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/inesa/AppData/Local/
+Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/inesa/Ap
+pData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb>
+Output written on "Relatorio de Progresso.pdf" (17 pages, 87437 bytes).
 PDF statistics:
  76 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
