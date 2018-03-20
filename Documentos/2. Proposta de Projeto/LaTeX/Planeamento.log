@@ -1,0 +1,2671 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  19 MAR 2018 22:45
+entering extended mode
+**./Planeamento.tex
+(Planeamento.tex
+LaTeX2e <2017-04-15>
+Babel <3.17> and hyphenation patterns for 75 language(s) loaded.
+! Undefined control sequence.
+l.4 \section
+            *{Planeamento} \label{Planeamento}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 \section*
+             {Planeamento} \label{Planeamento}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no * in font nullfont!
+Missing character: There is no P in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 4--5
+[]
+ []
+
+! Undefined control sequence.
+l.11 \definecolor
+                 {barblue}{RGB}{153,204,254}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.11 \definecolor{b
+                   arblue}{RGB}{153,204,254}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no b in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no R in font nullfont!
+Missing character: There is no G in font nullfont!
+Missing character: There is no B in font nullfont!
+Missing character: There is no 1 in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no 3 in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no 4 in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no 4 in font nullfont!
+! Undefined control sequence.
+l.12 \definecolor
+                 {groupblue}{RGB}{51,102,254}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no g in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no R in font nullfont!
+Missing character: There is no G in font nullfont!
+Missing character: There is no B in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no 1 in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no 1 in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no 4 in font nullfont!
+! Undefined control sequence.
+l.13 \definecolor
+                 {linkred}{RGB}{165,0,33}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no l in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no R in font nullfont!
+Missing character: There is no G in font nullfont!
+Missing character: There is no B in font nullfont!
+Missing character: There is no 1 in font nullfont!
+Missing character: There is no 6 in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no 3 in font nullfont!
+Missing character: There is no 3 in font nullfont!
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 11--14
+[]
+ []
+
+! Undefined control sequence.
+l.19 \setganttlinklabel
+                       {s-s}{START-TO-START}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.19 \setganttlinklabel{s
+                         -s}{START-TO-START}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no s in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no S in font nullfont!
+Missing character: There is no T in font nullfont!
+Missing character: There is no A in font nullfont!
+Missing character: There is no R in font nullfont!
+Missing character: There is no T in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no T in font nullfont!
+Missing character: There is no O in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no S in font nullfont!
+Missing character: There is no T in font nullfont!
+Missing character: There is no A in font nullfont!
+Missing character: There is no R in font nullfont!
+Missing character: There is no T in font nullfont!
+! Undefined control sequence.
+l.20 \setganttlinklabel
+                       {f-s}{FINISH-TO-START}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no f in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no F in font nullfont!
+Missing character: There is no I in font nullfont!
+Missing character: There is no N in font nullfont!
+Missing character: There is no I in font nullfont!
+Missing character: There is no S in font nullfont!
+Missing character: There is no H in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no T in font nullfont!
+Missing character: There is no O in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no S in font nullfont!
+Missing character: There is no T in font nullfont!
+Missing character: There is no A in font nullfont!
+Missing character: There is no R in font nullfont!
+Missing character: There is no T in font nullfont!
+! Undefined control sequence.
+l.21 \setganttlinklabel
+                       {f-f}{FINISH-TO-FINISH}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no f in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no F in font nullfont!
+Missing character: There is no I in font nullfont!
+Missing character: There is no N in font nullfont!
+Missing character: There is no I in font nullfont!
+Missing character: There is no S in font nullfont!
+Missing character: There is no H in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no T in font nullfont!
+Missing character: There is no O in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no F in font nullfont!
+Missing character: There is no I in font nullfont!
+Missing character: There is no N in font nullfont!
+Missing character: There is no I in font nullfont!
+Missing character: There is no S in font nullfont!
+Missing character: There is no H in font nullfont!
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 22.
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\ot1phv.fd"
+File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
+)
+Overfull \hbox (20.0pt too wide) in paragraph at lines 19--23
+[]
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.24 \hspace{-30mm}
+                   
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+l.25 \resizebox
+               {20cm}{23cm}{
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Environment ganttchart undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.26 	\begin{ganttchart}
+                        [
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Undefined control sequence.
+l.37 		today label font=\small
+                              \bfseries,
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.38 		today label={\small
+                          \bfseries HOJE},
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.40 		title label font=\bfseries\footnotesize
+                                              ,
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.43 		bar label font=\mdseries\small
+                                     \color{black!70},
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.43 		bar label font=\mdseries\small\color
+                                           {black!70},
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.47 ...progress label font=\mdseries\footnotesize
+                                                  \color{black!70},
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.47 ...ss label font=\mdseries\footnotesize\color
+                                                  {black!70},
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+l.56 		progress label text={#
+                             1\% completo},
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.58 		group progress label font=\bfseries\small
+                                                ,
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.60 		link label font=\scriptsize
+                                  \bfseries,
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 24--63
+[]
+ []
+
+
+Overfull \hbox (48.89966pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 20cm23cm
+ []
+
+
+Overfull \hbox (2.77989pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 [
+ []
+
+
+Overfull \hbox (19.44983pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 can-
+ []
+
+
+Overfull \hbox (54.22934pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 vas/.append
+ []
+
+
+Overfull \hbox (66.54941pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 style=fill=none,
+ []
+
+
+Overfull \hbox (61.26949pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 draw=black!5,
+ []
+
+
+Overfull \hbox (15.55981pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 line
+ []
+
+
+Overfull \hbox (54.19916pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 width=.75pt,
+ []
+
+
+Overfull \hbox (22.27963pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 hgrid
+ []
+
+
+Overfull \hbox (113.78883pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 style/.style=draw=black!5,
+ []
+
+
+Overfull \hbox (15.55981pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 line
+ []
+
+
+Overfull \hbox (54.19916pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 width=.75pt,
+ []
+
+
+Overfull \hbox (98.27898pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 vgrid=*1draw=black!5,
+ []
+
+
+Overfull \hbox (15.55981pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 line
+ []
+
+
+Overfull \hbox (54.19916pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 width=.75pt,
+ []
+
+
+Overfull \hbox (89.23895pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 vgrid=*3draw=none,
+ []
+
+
+Overfull \hbox (17.22972pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 dot-
+ []
+
+
+Overfull \hbox (16.67966pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 ted,
+ []
+
+
+Overfull \hbox (11.66978pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 to-
+ []
+
+
+Overfull \hbox (29.99973pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 day=3,
+ []
+
+
+Overfull \hbox (11.66978pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 to-
+ []
+
+
+Overfull \hbox (15.81993pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 day
+ []
+
+
+Overfull \hbox (48.77924pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 rule/.style=
+ []
+
+
+Overfull \hbox (66.82942pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 draw=black!64,
+ []
+
+
+Overfull \hbox (21.67981pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 dash
+ []
+
+
+Overfull \hbox (17.22972pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 pat-
+ []
+
+
+Overfull \hbox (34.43954pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 tern=on
+ []
+
+
+Overfull \hbox (22.2396pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 3.5pt
+ []
+
+
+Overfull \hbox (11.11987pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 off
+ []
+
+
+Overfull \hbox (25.01949pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 4.5pt,
+ []
+
+
+Overfull \hbox (15.55981pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 line
+ []
+
+
+Overfull \hbox (51.41927pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 width=1.5pt
+ []
+
+
+Overfull \hbox (2.77989pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 ,
+ []
+
+
+Overfull \hbox (11.66978pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 to-
+ []
+
+
+Overfull \hbox (15.81993pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 day
+ []
+
+
+Overfull \hbox (11.10986pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 la-
+ []
+
+
+Overfull \hbox (13.33984pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 bel
+ []
+
+
+Overfull \hbox (24.49957pt too wide) in paragraph at lines 24--63
+\OT1/phv/m/n/10 font=\OT1/phv/bc/n/10 ,
+ []
+
+
+Overfull \hbox (10.46982pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 to-
+ []
+
+
+Overfull \hbox (13.97986pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 day
+ []
+
+
+Overfull \hbox (9.5698pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 la-
+ []
+
+
+Overfull \hbox (41.24922pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 bel=HOJE,
+ []
+
+
+Overfull \hbox (7.73982pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 ti-
+ []
+
+
+Overfull \hbox (83.37816pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 tle/.style=draw=none,
+ []
+
+
+Overfull \hbox (36.22908pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 fill=none,
+ []
+
+
+Overfull \hbox (7.73982pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 ti-
+ []
+
+
+Overfull \hbox (9.5698pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 tle
+ []
+
+
+Overfull \hbox (9.5698pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 la-
+ []
+
+
+Overfull \hbox (11.84972pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 bel
+ []
+
+
+Overfull \hbox (22.39961pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 font=,
+ []
+
+
+Overfull \hbox (7.73982pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 ti-
+ []
+
+
+Overfull \hbox (9.5698pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 tle
+ []
+
+
+Overfull \hbox (9.5698pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 la-
+ []
+
+
+Overfull \hbox (11.84972pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 bel
+ []
+
+
+Overfull \hbox (53.3088pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 node/.append
+ []
+
+
+Overfull \hbox (65.97865pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 style=below=7pt,
+ []
+
+
+Overfull \hbox (10.01974pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 in-
+ []
+
+
+Overfull \hbox (21.26964pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 clude
+ []
+
+
+Overfull \hbox (7.73982pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 ti-
+ []
+
+
+Overfull \hbox (9.5698pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 tle
+ []
+
+
+Overfull \hbox (7.28978pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 in
+ []
+
+
+Overfull \hbox (16.85973pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 can-
+ []
+
+
+Overfull \hbox (39.36934pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 vas=false,
+ []
+
+
+Overfull \hbox (12.75977pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 bar
+ []
+
+
+Overfull \hbox (9.5698pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 la-
+ []
+
+
+Overfull \hbox (11.84972pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 bel
+ []
+
+
+Overfull \hbox (52.63934pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 font=\OT1/phv/mc/n/10 black!70,
+ []
+
+
+Overfull \hbox (11.84984pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 bar
+ []
+
+
+Overfull \hbox (9.10985pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 la-
+ []
+
+
+Overfull \hbox (10.93982pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 bel
+ []
+
+
+Overfull \hbox (50.15915pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 node/.append
+ []
+
+
+Overfull \hbox (55.14899pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 style=left=2cm,
+ []
+
+
+Overfull \hbox (43.76924pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 bar/.append
+ []
+
+
+Overfull \hbox (64.3991pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 style=draw=none,
+ []
+
+
+Overfull \hbox (45.04941pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 fill=black!63,
+ []
+
+
+Overfull \hbox (11.84984pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 bar
+ []
+
+
+Overfull \hbox (9.10985pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 in-
+ []
+
+
+Overfull \hbox (18.21983pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 com-
+ []
+
+
+Overfull \hbox (49.69905pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 plete/.append
+ []
+
+
+Overfull \hbox (63.65901pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 style=fill=barblue,
+ []
+
+
+Overfull \hbox (11.84984pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 bar
+ []
+
+
+Overfull \hbox (31.82967pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 progress
+ []
+
+
+Overfull \hbox (9.10985pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 la-
+ []
+
+
+Overfull \hbox (10.93982pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 bel
+ []
+
+
+Overfull \hbox (50.74919pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 font=black!70,
+ []
+
+
+Overfull \hbox (20.89975pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 group
+ []
+
+
+Overfull \hbox (9.10985pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 in-
+ []
+
+
+Overfull \hbox (18.21983pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 com-
+ []
+
+
+Overfull \hbox (49.69905pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 plete/.append
+ []
+
+
+Overfull \hbox (72.70892pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 style=fill=groupblue,
+ []
+
+
+Overfull \hbox (4.09998pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 x
+ []
+
+
+Overfull \hbox (47.17915pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 unit=0.55cm,
+ []
+
+
+Overfull \hbox (4.09998pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 y
+ []
+
+
+Overfull \hbox (13.21971pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 unit
+ []
+
+
+Overfull \hbox (6.8298pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 ti-
+ []
+
+
+Overfull \hbox (38.05928pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 tle=0.6cm,
+ []
+
+
+Overfull \hbox (4.09998pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 y
+ []
+
+
+Overfull \hbox (13.21971pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 unit
+ []
+
+
+Overfull \hbox (52.5191pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 chart=0.75cm,
+ []
+
+
+Overfull \hbox (20.89975pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 group
+ []
+
+
+Overfull \hbox (10.93967pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 left
+ []
+
+
+Overfull \hbox (26.66939pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 shift=0,
+ []
+
+
+Overfull \hbox (20.89975pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 group
+ []
+
+
+Overfull \hbox (16.06967pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 right
+ []
+
+
+Overfull \hbox (26.66939pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 shift=0,
+ []
+
+
+Overfull \hbox (20.89975pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 group
+ []
+
+
+Overfull \hbox (36.24922pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 height=.5,
+ []
+
+
+Overfull \hbox (20.89975pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 group
+ []
+
+
+Overfull \hbox (21.87976pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 peaks
+ []
+
+
+Overfull \hbox (8.65977pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 tip
+ []
+
+
+Overfull \hbox (11.84984pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 po-
+ []
+
+
+Overfull \hbox (8.64989pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 si-
+ []
+
+
+Overfull \hbox (24.84946pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 tion=0,
+ []
+
+
+Overfull \hbox (31.82967pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 progress
+ []
+
+
+Overfull \hbox (9.10985pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 la-
+ []
+
+
+Overfull \hbox (10.93982pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 bel
+ []
+
+
+Overfull \hbox (29.61946pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 text=1%
+ []
+
+
+Overfull \hbox (18.21983pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 com-
+ []
+
+
+Overfull \hbox (19.73958pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 pleto,
+ []
+
+
+Overfull \hbox (20.89975pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 group
+ []
+
+
+Overfull \hbox (9.10985pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 la-
+ []
+
+
+Overfull \hbox (10.93982pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 bel
+ []
+
+
+Overfull \hbox (50.15915pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 node/.append
+ []
+
+
+Overfull \hbox (57.42888pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 style=left=.6cm,
+ []
+
+
+Overfull \hbox (20.89975pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 group
+ []
+
+
+Overfull \hbox (31.82967pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 progress
+ []
+
+
+Overfull \hbox (9.10985pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 la-
+ []
+
+
+Overfull \hbox (10.93982pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 bel
+ []
+
+
+Overfull \hbox (20.50946pt too wide) in paragraph at lines 24--63
+\OT1/phv/mc/n/10 font=\OT1/phv/bc/n/10 ,
+ []
+
+
+Overfull \hbox (44.89894pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 link/.style=-
+ []
+
+
+Overfull \hbox (20.85956pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 latex,
+ []
+
+
+Overfull \hbox (14.12961pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 line
+ []
+
+
+Overfull \hbox (47.61893pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 width=1.5pt,
+ []
+
+
+Overfull \hbox (29.16927pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 linkred,
+ []
+
+
+Overfull \hbox (14.12961pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 link
+ []
+
+
+Overfull \hbox (9.5698pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 la-
+ []
+
+
+Overfull \hbox (11.84972pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 bel
+ []
+
+
+Overfull \hbox (22.39961pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 font=,
+ []
+
+
+Overfull \hbox (14.12961pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 link
+ []
+
+
+Overfull \hbox (9.5698pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 la-
+ []
+
+
+Overfull \hbox (11.84972pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 bel
+ []
+
+
+Overfull \hbox (53.3088pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 node/.append
+ []
+
+
+Overfull \hbox (46.60905pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 style=below
+ []
+
+
+Overfull \hbox (19.81964pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 left=-
+ []
+
+
+Overfull \hbox (12.29979pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 2pt
+ []
+
+
+Overfull \hbox (14.57971pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 and
+ []
+
+
+Overfull \hbox (12.29979pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 0pt
+ []
+
+
+Overfull \hbox (16.40977pt too wide) in paragraph at lines 24--63
+\OT1/phv/bc/n/10 ]120 
+ []
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/mc/n' undefined
+(Font)              using `OT1/cmr/m/n' instead on input line 63.
+
+
+! LaTeX Error: The font size command \normalsize is not defined:
+               there is probably something wrong with the class file.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.63 		
+       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[1
+! Undefined control sequence.
+<write> \newlabel{Planeamento}{{}{\thepage 
+                                           }}
+l.63 		
+       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+\newlabel{Planeamento}{{}{}}
+{C:/Users/inesa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+! Undefined control sequence.
+l.65 		\gantttitle
+                  {Fev.}{1} \gantttitle{Mar.}{4}   \gantttitle{Abr.}{5} \gan...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.65 		\gantttitle{F
+                    ev.}{1} \gantttitle{Mar.}{4}   \gantttitle{Abr.}{5} \gan...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+l.65 		\gantttitle{Fev.}{1} \gantttitle
+                                       {Mar.}{4}   \gantttitle{Abr.}{5} \gan...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.65 ...ev.}{1} \gantttitle{Mar.}{4}   \gantttitle
+                                                  {Abr.}{5} \gantttitle{Mai....
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.65 ...ar.}{4}   \gantttitle{Abr.}{5} \gantttitle
+                                                  {Mai.}{4}   \gantttitle{Ju...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.65 ...br.}{5} \gantttitle{Mai.}{4}   \gantttitle
+                                                  {Jun.}{4}   \gantttitle{Ju...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.65 ....}{4}   \gantttitle{Jun.}{4}   \gantttitle
+                                                  {Jul.}{2}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \gantttitlelist 
+                                
+l.67 		\gantttitlelist
+                      {1,...,20}{1} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (40.20969pt too wide) in paragraph at lines 65--68
+[]\OT1/phv/bc/n/10 Fev.1
+ []
+
+
+Overfull \hbox (20.93967pt too wide) in paragraph at lines 65--68
+\OT1/phv/bc/n/10 Mar.4
+ []
+
+
+Overfull \hbox (20.47958pt too wide) in paragraph at lines 65--68
+\OT1/phv/bc/n/10 Abr.5
+ []
+
+
+Overfull \hbox (20.50961pt too wide) in paragraph at lines 65--68
+\OT1/phv/bc/n/10 Mai.4
+ []
+
+
+Overfull \hbox (21.26964pt too wide) in paragraph at lines 65--68
+\OT1/phv/bc/n/10 Jun.4
+ []
+
+
+Overfull \hbox (18.53964pt too wide) in paragraph at lines 65--68
+\OT1/phv/bc/n/10 Jul.2 
+ []
+
+
+Overfull \hbox (29.6392pt too wide) in paragraph at lines 65--68
+\OT1/phv/bc/n/10 1,...,201 
+ []
+
+! Undefined control sequence.
+l.70 		\ganttgroup
+                  [progress=90]{Estudo do problema}{1}{2} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.70 		\ganttgroup[
+                   progress=90]{Estudo do problema}{1}{2} \\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.71 		\ganttbar
+                [progress=100]{Compara√ß√£o das Tecnologias (\textit{NFC} vs...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ß in font phvb7tn!
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no £ in font phvb7tn!
+LaTeX Font Info:    Font shape `OT1/phv/bc/it' in size <10> not available
+(Font)              Font shape `OT1/phv/bc/sl' tried instead on input line 71.
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.72 		\ganttbar
+                [progress=90]{Defini√ß√£o do Formato de Dados das \textit{Ta...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ß in font phvb7tn!
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no £ in font phvb7tn!
+
+Overfull \hbox (102.09871pt too wide) in paragraph at lines 70--73
+[]\OT1/phv/bc/n/10 [progress=90]Estudo
+ []
+
+
+Overfull \hbox (10.01978pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 do
+ []
+
+
+Overfull \hbox (20.79967pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 prob-
+ []
+
+
+Overfull \hbox (27.80956pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 lema12 
+ []
+
+
+Overfull \hbox (99.41843pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 [progress=100]Comparao
+ []
+
+
+Overfull \hbox (14.12976pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 das
+ []
+
+
+Overfull \hbox (16.37973pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 Tec-
+ []
+
+
+Overfull \hbox (20.03952pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 nolo-
+ []
+
+
+Overfull \hbox (16.40965pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 gias
+ []
+
+
+Overfull \hbox (19.5797pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 (\OT1/phv/bc/sl/10 NFC
+ []
+
+
+Overfull \hbox (9.11987pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 vs
+ []
+
+
+Overfull \hbox (31.42941pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/sl/10 RFID\OT1/phv/bc/n/10 )11 
+ []
+
+
+Overfull \hbox (82.09859pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 [progress=90]Definio
+ []
+
+
+Overfull \hbox (10.01978pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 do
+ []
+
+
+Overfull \hbox (15.78978pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 For-
+ []
+
+
+Overfull \hbox (19.5897pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 mato
+ []
+
+
+Overfull \hbox (9.56982pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 de
+ []
+
+
+Overfull \hbox (13.20982pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 Da-
+ []
+
+
+Overfull \hbox (14.57971pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 dos
+ []
+
+
+Overfull \hbox (14.12976pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/n/10 das
+ []
+
+
+Overfull \hbox (27.58955pt too wide) in paragraph at lines 70--73
+\OT1/phv/bc/sl/10 Tags\OT1/phv/bc/n/10 11 
+ []
+
+! Undefined control sequence.
+l.75 		\ganttgroup
+                  [progress=98.75]{Modelo de Dados}{2}{3}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.75 		\ganttgroup[
+                   progress=98.75]{Modelo de Dados}{2}{3}\\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.76 		\ganttbar
+                [progress=100]{Descri√ß√£o do Problema}{2}{2} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ß in font phvb7tn!
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no £ in font phvb7tn!
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.77 		\ganttbar
+                [progress=95]{Modelo EA}{2}{2} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.78 		\ganttbar
+                [progress=95]{Modelo Relacional}{2}{2} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.79 		\ganttbar
+                [progress=95]{Dom√≠nio dos Atributos}{2}{2}  \ganttnewline[g...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ≠ in font phvb7tn!
+! Undefined control sequence.
+l.79 ...m√≠nio dos Atributos}{2}{2}  \ganttnewline
+                                                  [grid]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (114.40839pt too wide) in paragraph at lines 75--80
+[]\OT1/phv/bc/n/10 [progress=98.75]Modelo
+ []
+
+
+Overfull \hbox (9.56982pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 de
+ []
+
+
+Overfull \hbox (13.20982pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 Da-
+ []
+
+
+Overfull \hbox (23.69958pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 dos23 
+ []
+
+
+Overfull \hbox (88.94856pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 [progress=100]Descrio
+ []
+
+
+Overfull \hbox (10.01978pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 do
+ []
+
+
+Overfull \hbox (21.25975pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 Prob-
+ []
+
+
+Overfull \hbox (27.80956pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 lema22 
+ []
+
+
+Overfull \hbox (83.00862pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 [progress=95]Modelo
+ []
+
+
+Overfull \hbox (20.50977pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 EA22 
+ []
+
+
+Overfull \hbox (83.00862pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 [progress=95]Modelo
+ []
+
+
+Overfull \hbox (20.04965pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 Rela-
+ []
+
+
+Overfull \hbox (32.8193pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 cional22 
+ []
+
+
+Overfull \hbox (84.82857pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 [progress=95]Domnio
+ []
+
+
+Overfull \hbox (14.57971pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 dos
+ []
+
+
+Overfull \hbox (21.85957pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 Atrib-
+ []
+
+
+Overfull \hbox (7.73985pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 u-
+ []
+
+
+Overfull \hbox (21.41966pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 tos22
+ []
+
+
+Overfull \hbox (20.94954pt too wide) in paragraph at lines 75--80
+\OT1/phv/bc/n/10 [grid] 
+ []
+
+! Undefined control sequence.
+l.82 		\ganttmilestone
+                      [ name=M1]{\textbf{Entrega da Proposta de Projeto}}{3}...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.82 		\ganttmilestone[
+                        name=M1]{\textbf{Entrega da Proposta de Projeto}}{3}...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+l.82 ...da Proposta de Projeto}}{3}  \ganttnewline
+                                                  [grid]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (22.72997pt too wide) in paragraph at lines 82--83
+[]\OT1/phv/bc/n/10 [
+ []
+
+
+Overfull \hbox (70.85898pt too wide) in paragraph at lines 82--83
+\OT1/phv/bc/n/10 name=M1]Entrega
+ []
+
+
+Overfull \hbox (9.56982pt too wide) in paragraph at lines 82--83
+\OT1/phv/bc/n/10 da
+ []
+
+
+Overfull \hbox (16.24986pt too wide) in paragraph at lines 82--83
+\OT1/phv/bc/n/10 Pro-
+ []
+
+
+Overfull \hbox (21.86961pt too wide) in paragraph at lines 82--83
+\OT1/phv/bc/n/10 posta
+ []
+
+
+Overfull \hbox (9.56982pt too wide) in paragraph at lines 82--83
+\OT1/phv/bc/n/10 de
+ []
+
+
+Overfull \hbox (16.24986pt too wide) in paragraph at lines 82--83
+\OT1/phv/bc/n/10 Pro-
+ []
+
+
+Overfull \hbox (19.13962pt too wide) in paragraph at lines 82--83
+\OT1/phv/bc/n/10 jeto3
+ []
+
+
+Overfull \hbox (20.94954pt too wide) in paragraph at lines 82--83
+\OT1/phv/bc/n/10 [grid] 
+ []
+
+! Undefined control sequence.
+l.85 		\ganttgroup
+                  [progress=0]{Base de Dados}{4}{5}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.85 		\ganttgroup[
+                   progress=0]{Base de Dados}{4}{5}\\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.86 		\ganttbar
+                [progress=0]{Desenvolvimento}{4}{5}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.87 		\ganttbar
+                [progress=0]{Documenta√ß√£o}{5}{5} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ß in font phvb7tn!
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no £ in font phvb7tn!
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.88 		\ganttbar
+                [progress=0]{Testes}{4}{5}  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (89.34897pt too wide) in paragraph at lines 85--89
+[]\OT1/phv/bc/n/10 [progress=0]Base
+ []
+
+
+Overfull \hbox (9.56982pt too wide) in paragraph at lines 85--89
+\OT1/phv/bc/n/10 de
+ []
+
+
+Overfull \hbox (13.20982pt too wide) in paragraph at lines 85--89
+\OT1/phv/bc/n/10 Da-
+ []
+
+
+Overfull \hbox (23.69958pt too wide) in paragraph at lines 85--89
+\OT1/phv/bc/n/10 dos45 
+ []
+
+
+Overfull \hbox (126.2079pt too wide) in paragraph at lines 85--89
+\OT1/phv/bc/n/10 [progress=0]Desenvolvimento45 
+ []
+
+
+Overfull \hbox (108.52827pt too wide) in paragraph at lines 85--89
+\OT1/phv/bc/n/10 [progress=0]Documentao55 
+ []
+
+
+Overfull \hbox (84.36871pt too wide) in paragraph at lines 85--89
+\OT1/phv/bc/n/10 [progress=0]Testes45 
+ []
+
+! Undefined control sequence.
+l.91 		\ganttgroup
+                  [progress=0]{Camada de Acesso a Dados}{5}{7}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.91 		\ganttgroup[
+                   progress=0]{Camada de Acesso a Dados}{5}{7}\\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.92 		\ganttbar
+                [progress=0]{Desenvolvimento}{5}{7}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.93 		\ganttbar
+                [progress=0]{Documenta√ß√£o}{7}{7} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ß in font phvb7tn!
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no £ in font phvb7tn!
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.94 		\ganttbar
+                [progress=0]{Testes}{5}{7} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (101.64877pt too wide) in paragraph at lines 91--95
+[]\OT1/phv/bc/n/10 [progress=0]Camada
+ []
+
+
+Overfull \hbox (9.56982pt too wide) in paragraph at lines 91--95
+\OT1/phv/bc/n/10 de
+ []
+
+
+Overfull \hbox (29.16956pt too wide) in paragraph at lines 91--95
+\OT1/phv/bc/n/10 Acesso
+ []
+
+
+Overfull \hbox (4.55994pt too wide) in paragraph at lines 91--95
+\OT1/phv/bc/n/10 a
+ []
+
+
+Overfull \hbox (13.20982pt too wide) in paragraph at lines 91--95
+\OT1/phv/bc/n/10 Da-
+ []
+
+
+Overfull \hbox (23.69958pt too wide) in paragraph at lines 91--95
+\OT1/phv/bc/n/10 dos57 
+ []
+
+
+Overfull \hbox (126.2079pt too wide) in paragraph at lines 91--95
+\OT1/phv/bc/n/10 [progress=0]Desenvolvimento57 
+ []
+
+
+Overfull \hbox (108.52827pt too wide) in paragraph at lines 91--95
+\OT1/phv/bc/n/10 [progress=0]Documentao77 
+ []
+
+
+Overfull \hbox (84.36871pt too wide) in paragraph at lines 91--95
+\OT1/phv/bc/n/10 [progress=0]Testes57 
+ []
+
+! Undefined control sequence.
+l.97 		\ganttgroup
+                  [progress=0]{Camada da L√≥gica de Neg√≥cio}{7}{10}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.97 		\ganttgroup[
+                   progress=0]{Camada da L√≥gica de Neg√≥cio}{7}{10}\\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ≥ in font phvb7tn!
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ≥ in font phvb7tn!
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.98 		\ganttbar
+                [progress=0]{Desenvolvimento}{7}{10}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.99 		\ganttbar
+                [progress=0]{Documenta√ß√£o}{10}{10} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ß in font phvb7tn!
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no £ in font phvb7tn!
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.100 		\ganttbar
+                 [progress=0]{Testes}{7}{10}  \ganttnewline[grid]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.100 ...progress=0]{Testes}{7}{10}  \ganttnewline
+                                                  [grid]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (101.64877pt too wide) in paragraph at lines 97--101
+[]\OT1/phv/bc/n/10 [progress=0]Camada
+ []
+
+
+Overfull \hbox (9.56982pt too wide) in paragraph at lines 97--101
+\OT1/phv/bc/n/10 da
+ []
+
+
+Overfull \hbox (21.41954pt too wide) in paragraph at lines 97--101
+\OT1/phv/bc/n/10 Lgica
+ []
+
+
+Overfull \hbox (9.56982pt too wide) in paragraph at lines 97--101
+\OT1/phv/bc/n/10 de
+ []
+
+
+Overfull \hbox (18.21971pt too wide) in paragraph at lines 97--101
+\OT1/phv/bc/n/10 Neg-
+ []
+
+
+Overfull \hbox (25.52953pt too wide) in paragraph at lines 97--101
+\OT1/phv/bc/n/10 cio710 
+ []
+
+
+Overfull \hbox (130.76784pt too wide) in paragraph at lines 97--101
+\OT1/phv/bc/n/10 [progress=0]Desenvolvimento710 
+ []
+
+
+Overfull \hbox (117.64815pt too wide) in paragraph at lines 97--101
+\OT1/phv/bc/n/10 [progress=0]Documentao1010 
+ []
+
+
+Overfull \hbox (88.92865pt too wide) in paragraph at lines 97--101
+\OT1/phv/bc/n/10 [progress=0]Testes710
+ []
+
+
+Overfull \hbox (20.94954pt too wide) in paragraph at lines 97--101
+\OT1/phv/bc/n/10 [grid] 
+ []
+
+! Undefined control sequence.
+l.103 		\ganttmilestone
+                       [ name=M2]{\textbf{Entrega do Relat√≥rio de Progresso...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.103 		\ganttmilestone[
+                         name=M2]{\textbf{Entrega do Relat√≥rio de Progresso...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ≥ in font phvb7tn!
+! Undefined control sequence.
+l.103 ...elat√≥rio de Progresso}}{9} \ganttnewline
+                                                  [grid]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (22.72997pt too wide) in paragraph at lines 103--104
+[]\OT1/phv/bc/n/10 [
+ []
+
+
+Overfull \hbox (70.85898pt too wide) in paragraph at lines 103--104
+\OT1/phv/bc/n/10 name=M2]Entrega
+ []
+
+
+Overfull \hbox (10.01978pt too wide) in paragraph at lines 103--104
+\OT1/phv/bc/n/10 do
+ []
+
+
+Overfull \hbox (13.20982pt too wide) in paragraph at lines 103--104
+\OT1/phv/bc/n/10 Re-
+ []
+
+
+Overfull \hbox (9.5698pt too wide) in paragraph at lines 103--104
+\OT1/phv/bc/n/10 la-
+ []
+
+
+Overfull \hbox (13.20969pt too wide) in paragraph at lines 103--104
+\OT1/phv/bc/n/10 trio
+ []
+
+
+Overfull \hbox (9.56982pt too wide) in paragraph at lines 103--104
+\OT1/phv/bc/n/10 de
+ []
+
+
+Overfull \hbox (16.24986pt too wide) in paragraph at lines 103--104
+\OT1/phv/bc/n/10 Pro-
+ []
+
+
+Overfull \hbox (31.44946pt too wide) in paragraph at lines 103--104
+\OT1/phv/bc/n/10 gresso9
+ []
+
+
+Overfull \hbox (20.94954pt too wide) in paragraph at lines 103--104
+\OT1/phv/bc/n/10 [grid] 
+ []
+
+! Undefined control sequence.
+l.106 		\ganttgroup
+                   [progress=0]{WEB API}{9}{13}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.106 		\ganttgroup[
+                    progress=0]{WEB API}{9}{13}\\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.107 		\ganttbar
+                 [progress=0]{Desenvolvimento}{9}{13}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.108 		\ganttbar
+                 [progress=0]{Documenta√ß√£o}{13}{13} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ß in font phvb7tn!
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no £ in font phvb7tn!
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.109 		\ganttbar
+                 [progress=0]{Testes}{10}{13}  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (88.87912pt too wide) in paragraph at lines 106--110
+[]\OT1/phv/bc/n/10 [progress=0]WEB
+ []
+
+
+Overfull \hbox (27.3496pt too wide) in paragraph at lines 106--110
+\OT1/phv/bc/n/10 API913 
+ []
+
+
+Overfull \hbox (130.76784pt too wide) in paragraph at lines 106--110
+\OT1/phv/bc/n/10 [progress=0]Desenvolvimento913 
+ []
+
+
+Overfull \hbox (117.64815pt too wide) in paragraph at lines 106--110
+\OT1/phv/bc/n/10 [progress=0]Documentao1313 
+ []
+
+
+Overfull \hbox (93.48859pt too wide) in paragraph at lines 106--110
+\OT1/phv/bc/n/10 [progress=0]Testes1013 
+ []
+
+! Undefined control sequence.
+l.112 		\ganttgroup
+                   [progress=0]{Aplica√ß√µes (Android e Website)}{3}{14} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.112 		\ganttgroup[
+                    progress=0]{Aplica√ß√µes (Android e Website)}{3}{14} \\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ß in font phvb7tn!
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no µ in font phvb7tn!
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.113 		\ganttbar
+                 [progress=0]{Desenho das User Interfaces}{3}{4}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.114 		\ganttbar
+                 [progress=0]{Desenvolvimento}{12}{14}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.115 		\ganttbar
+                 [progress=0]{Documenta√ß√£o}{14}{14} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ß in font phvb7tn!
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no £ in font phvb7tn!
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.116 		\ganttbar
+                 [progress=0]{Testes}{13}{14}  \ganttnewline[grid]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.116 ...rogress=0]{Testes}{13}{14}  \ganttnewline
+                                                  [grid]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (103.47858pt too wide) in paragraph at lines 112--117
+[]\OT1/phv/bc/n/10 [progress=0]Aplicaes
+ []
+
+
+Overfull \hbox (16.38974pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 (An-
+ []
+
+
+Overfull \hbox (20.3496pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 droid
+ []
+
+
+Overfull \hbox (4.55994pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 e
+ []
+
+
+Overfull \hbox (19.75987pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 Web-
+ []
+
+
+Overfull \hbox (30.5395pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 site)314 
+ []
+
+
+Overfull \hbox (84.37863pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 [progress=0]Desenho
+ []
+
+
+Overfull \hbox (14.12976pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 das
+ []
+
+
+Overfull \hbox (18.22974pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 User
+ []
+
+
+Overfull \hbox (10.01974pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 In-
+ []
+
+
+Overfull \hbox (13.0599pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 ter-
+ []
+
+
+Overfull \hbox (30.08958pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 faces34 
+ []
+
+
+Overfull \hbox (135.32777pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 [progress=0]Desenvolvimento1214 
+ []
+
+
+Overfull \hbox (117.64815pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 [progress=0]Documentao1414 
+ []
+
+
+Overfull \hbox (93.48859pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 [progress=0]Testes1314
+ []
+
+
+Overfull \hbox (20.94954pt too wide) in paragraph at lines 112--117
+\OT1/phv/bc/n/10 [grid] 
+ []
+
+! Undefined control sequence.
+l.119 		\ganttmilestone
+                       [ name=M3]{\textbf{Entrega do Cartaz e Vers√£o Beta}}...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.119 		\ganttmilestone[
+                         name=M3]{\textbf{Entrega do Cartaz e Vers√£o Beta}}...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no £ in font phvb7tn!
+! Undefined control sequence.
+l.119 ...Cartaz e Vers√£o Beta}}{14} \ganttnewline
+                                                  [grid]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (22.72997pt too wide) in paragraph at lines 119--120
+[]\OT1/phv/bc/n/10 [
+ []
+
+
+Overfull \hbox (70.85898pt too wide) in paragraph at lines 119--120
+\OT1/phv/bc/n/10 name=M3]Entrega
+ []
+
+
+Overfull \hbox (10.01978pt too wide) in paragraph at lines 119--120
+\OT1/phv/bc/n/10 do
+ []
+
+
+Overfull \hbox (16.24986pt too wide) in paragraph at lines 119--120
+\OT1/phv/bc/n/10 Car-
+ []
+
+
+Overfull \hbox (11.38988pt too wide) in paragraph at lines 119--120
+\OT1/phv/bc/n/10 taz
+ []
+
+
+Overfull \hbox (4.55994pt too wide) in paragraph at lines 119--120
+\OT1/phv/bc/n/10 e
+ []
+
+
+Overfull \hbox (22.27975pt too wide) in paragraph at lines 119--120
+\OT1/phv/bc/n/10 Verso
+ []
+
+
+Overfull \hbox (26.88963pt too wide) in paragraph at lines 119--120
+\OT1/phv/bc/n/10 Beta14
+ []
+
+
+Overfull \hbox (20.94954pt too wide) in paragraph at lines 119--120
+\OT1/phv/bc/n/10 [grid] 
+ []
+
+! Undefined control sequence.
+l.122 		\ganttgroup
+                   [progress=22.5]{Escrita}{1}{20} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.122 		\ganttgroup[
+                    progress=22.5]{Escrita}{1}{20} \\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.123 		\ganttbar
+                 [progress=90,name=S1A]{Proposta de Projeto}{1}{4} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.124 		\ganttbar
+                 [progress=0,name=S1B]{Relat√≥rio de progresso}{4}{10} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ≥ in font phvb7tn!
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.125 		\ganttbar
+                 [progress=0,name=S5C]{Relat√≥rio Beta}{11}{14} \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ≥ in font phvb7tn!
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.126 		\ganttbar
+                 [progress=0,name=S5D]{Relat√≥rio Final}{14}{20}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no √ in font phvb7tn!
+Missing character: There is no ≥ in font phvb7tn!
+! Undefined control sequence.
+<recently read> \ganttbar 
+                          
+l.127 		\ganttbar
+                 [progress=0,name=S5E]{Desenvolvimento do cartaz}{12}{14} \g...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.127 ...lvimento do cartaz}{12}{14} \ganttnewline
+                                                  [grid]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (122.17839pt too wide) in paragraph at lines 122--128
+[]\OT1/phv/bc/n/10 [progress=22.5]Escrita120 
+ []
+
+
+Overfull \hbox (134.138pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 [progress=90,name=S1A]Proposta
+ []
+
+
+Overfull \hbox (9.56982pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 de
+ []
+
+
+Overfull \hbox (16.24986pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 Pro-
+ []
+
+
+Overfull \hbox (23.69955pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 jeto14 
+ []
+
+
+Overfull \hbox (124.71793pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 [progress=0,name=S1B]Relatrio
+ []
+
+
+Overfull \hbox (9.56982pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 de
+ []
+
+
+Overfull \hbox (15.78978pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 pro-
+ []
+
+
+Overfull \hbox (40.56934pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 gresso410 
+ []
+
+
+Overfull \hbox (124.71793pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 [progress=0,name=S5C]Relatrio
+ []
+
+
+Overfull \hbox (36.0095pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 Beta1114 
+ []
+
+
+Overfull \hbox (124.71793pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 [progress=0,name=S5D]Relatrio
+ []
+
+
+Overfull \hbox (10.01974pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 Fi-
+ []
+
+
+Overfull \hbox (30.08946pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 nal1420 
+ []
+
+
+Overfull \hbox (161.0774pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 [progress=0,name=S5E]Desenvolvimento
+ []
+
+
+Overfull \hbox (10.01978pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 do
+ []
+
+
+Overfull \hbox (14.88988pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 car-
+ []
+
+
+Overfull \hbox (29.62962pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 taz1214
+ []
+
+
+Overfull \hbox (20.94954pt too wide) in paragraph at lines 122--128
+\OT1/phv/bc/n/10 [grid] 
+ []
+
+! Undefined control sequence.
+l.130 		\ganttmilestone
+                       [ name=M4]{\textbf{Entrega do Projecto}}{20}  \ganttn...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.130 		\ganttmilestone[
+                         name=M4]{\textbf{Entrega do Projecto}}{20}  \ganttn...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+l.130 ...{Entrega do Projecto}}{20}  \ganttnewline
+                                                  [grid]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (22.72997pt too wide) in paragraph at lines 130--131
+[]\OT1/phv/bc/n/10 [
+ []
+
+
+Overfull \hbox (70.85898pt too wide) in paragraph at lines 130--131
+\OT1/phv/bc/n/10 name=M4]Entrega
+ []
+
+
+Overfull \hbox (10.01978pt too wide) in paragraph at lines 130--131
+\OT1/phv/bc/n/10 do
+ []
+
+
+Overfull \hbox (16.24986pt too wide) in paragraph at lines 130--131
+\OT1/phv/bc/n/10 Pro-
+ []
+
+
+Overfull \hbox (28.25949pt too wide) in paragraph at lines 130--131
+\OT1/phv/bc/n/10 jecto20
+ []
+
+
+Overfull \hbox (20.94954pt too wide) in paragraph at lines 130--131
+\OT1/phv/bc/n/10 [grid] 
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{ganttchart}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.132 	\end{ganttchart}
+                       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+)
+! Emergency stop.
+<*> ./Planeamento.tex
+                     
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 79 strings out of 493303
+ 1312 string characters out of 3129784
+ 59826 words of memory out of 3000000
+ 3719 multiletter control sequences out of 15000+200000
+ 9395 words of font info for 21 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 20i,4n,14p,156b,126s stack positions out of 5000i,500n,10000p,200000b,50000s
+!  ==> Fatal error occurred, no output PDF file produced!
