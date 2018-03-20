@@ -1,5 +1,22 @@
-<div class="header">
-	<h1>Gestão Inteligente de Stocks</h1>
-	<p>Paragraph</p>
-	<button></button>
-</div>>
+<header class="header">
+	{{#if login}}
+		{{> menuBarHomeOnly}}
+		<br>
+		<div class="center-ctn">
+			<a class="header-login-btn" href="/logout">Logout</a>
+		</div>
+	{{else}}
+		{{> menuBar}}
+		<h1 class="header-title">Gestão Inteligente de Stocks</h1>
+		<br>
+		<div class="center-ctn">
+			<a class="header-login-btn" href="/login">Login</a>
+			<br>
+			<br>
+			<a class="header-signup-btn" href="/signup" style="display: inline-block">
+				Don't have an account ?  
+				<span class="glyphicon glyphicon-chevron-right"></span>
+			</a>
+		</div>
+	{{/if}}
+</header>
