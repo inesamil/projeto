@@ -10,5 +10,9 @@ router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login', layout: '/layouts/loginLayout'});
 });
 
+router.get('/signup', function(req, res, next) {
+  res.render('register', { title: 'Register', layout: '/layouts/registerLayout'});
+});
+
 
 module.exports = router;
