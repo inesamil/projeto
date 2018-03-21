@@ -1,0 +1,32 @@
+<style>
+    table {
+        margin-top: 1vh;
+        margin-left:auto; 
+        margin-right:auto;
+        font-family: arial, sans-serif;
+        width: 80%;
+    }
+
+    td, th {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #E0E0E0;
+    }
+</style>
+
+<table class="center">
+    <caption>{{title}}</caption>
+    <tr>
+        <th>Item</th>
+        <th style="width:1vw; white-space:nowrap; text-align:right">Units</th>
+    </tr>
+    {{#each items}}
+    <tr>
+        <td>{{item}}</td>
+        <td style="width:1vw; white-space:nowrap; text-align:right">{{units}}</td>
+    </tr>
+    {{/each}}
+</table>

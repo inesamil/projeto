@@ -1,0 +1,37 @@
+<style>
+    table {
+        margin-top: 1vh;
+        margin-left:auto; 
+        margin-right:auto;
+        width: 80%;
+    }
+
+    td, th {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #E0E0E0;
+    }
+</style>
+
+<table class="center">
+    <caption>{{title}}</caption>
+    {{#each houses}}
+    <tr>
+        <td>
+            <div class="container">
+                <div>
+                    <span class='glyphicon glyphicon-home' style='font-size:100px; display:inline-block'></span>
+                    <h4  style='font-size:30px; display:inline-block'> {{houseName}}</h4>
+                </div>
+                <h6>Members</h6> 
+                {{#each members}}
+                <p>{{member}}</p>
+                {{/each}}
+            </div>
+        </td>
+    </tr>
+    {{/each}}
+</table>
