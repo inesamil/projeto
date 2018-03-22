@@ -1,0 +1,28 @@
+<h2 style="margin-left: 1vw">Profile</h2>
+<div class="box">
+    <div class="tab"> 
+        <button class="tablinks" onclick="openTab(event, 'MyInformation')" id="defaultOpen">My Information</button>
+        <button class="tablinks" onclick="openTab(event, 'MyHouses')">My Houses</button>
+        <button class="tablinks" onclick="openTab(event, 'MyAllergies')">My Allergies</button>
+        <button class="tablinks" onclick="openTab(event, 'MyStorages')">My Storages</button> 
+    </div>
+
+    <div id="MyInformation" class="tabcontent">
+        {{> myInformation}}
+    </div>
+
+    <div id="MyHouses" class="tabcontent">
+        {{> houses}}
+    </div>
+
+    <div id="MyAllergies" class="tabcontent">
+        <p>My Allergies!</p>
+    </div>
+
+    <div id="MyStorages" class="tabcontent">
+        <p>My Allergies!</p>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/javascripts/profileScripts.js"></script>
