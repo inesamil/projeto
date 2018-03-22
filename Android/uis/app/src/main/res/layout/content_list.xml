@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/listToolbar"
+        layout="@layout/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/listImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/listConstraintLayout"
+        app:layout_constraintEnd_toStartOf="@+id/downloadText"
+        app:layout_constraintStart_toStartOf="@+id/listConstraintLayout"
+        app:layout_constraintTop_toTopOf="@+id/listConstraintLayout"
+        app:srcCompat="@drawable/ic_download" />
+
+    <TextView
+        android:id="@+id/downloadText"
+        android:layout_width="85dp"
+        android:layout_height="0dp"
+        android:text="@string/download"
+        app:layout_constraintBottom_toBottomOf="@+id/listConstraintLayout"
+        app:layout_constraintEnd_toEndOf="@+id/listConstraintLayout"
+        app:layout_constraintTop_toTopOf="@+id/listConstraintLayout" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/listConstraintLayout"
+        android:layout_width="143dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listToolbar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listConstraintLayout" />
+
+</android.support.constraint.ConstraintLayout>

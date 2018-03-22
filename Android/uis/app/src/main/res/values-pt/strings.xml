@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- Login Activity -->
+    <string name="login">Iniciar Sessão</string>
+    <string name="sing_in">ENTRAR</string>
+    <string name="username">Nome do Utilizador</string>
+    <string name="password">Palavra-Chave</string>
+    <string name="register">Não tem conta?</string>
+    <string name="or">OU</string>
+    <string name="sing_up">REGISTE-SE</string>
+    <string name="about">Sobre</string>
+    <!-- Register Activity -->
+    <string name="basic_information">Informação Básica</string>
+    <string name="fullname">Nome Completo</string>
+    <string name="email">Email</string>
+    <string name="age">Idade</string>
+    <string name="private_information">Informação Privada</string>
+    <string name="confirm_password">Confirmar Palavra-Chave</string>
+    <string name="already_have_an_account">Já tem uma conta?</string>
+    <!-- Initial Setup 1 Activity -->
+    <string name="initial_setup_1_3">Configuração Inicial - Casa (1/x)</string>
+    <string name="houses_name">Nome da casa</string>
+    <string name="next">PRÓXIMO</string>
+    <string name="already_have_house">Já tem uma casa?</string>
+    <!-- Product Category Activity -->
+    <string name="products_label">Produtos</string>
+    <string name="categories">Categorias</string>
+    <!-- right_menu_with_search and right_menu -->
+    <string name="search">Procurar</string>
+    <string name="invitations">Convites</string>
+    <string name="preferences">Definições</string>
+    <!-- content_product_category_item.xml -->
+    <string-array name="products_categories">
+        <item>DIÁRIO</item>
+        <item>BEBIDAS</item>
+        <item>MOLHOS</item>
+        <item>CONGELADOS</item>
+        <item>FRUTAS</item>
+        <item>PICANTES</item>
+    </string-array>
+    <!--Product Diary Activity-->
+    <string name="diary">Diário</string>
+    <!-- content_product_diary_item.xml -->
+    <string-array name="products_diaries">
+        <item>LEITE</item>
+        <item>IOGURTE</item>
+        <item>QUEIJO</item>
+    </string-array>
+    <!-- nav_bar_menu.xml -->
+    <string name="homePage">PÁGINA PRINCIPAL</string>
+    <string name="lists">Listas</string>
+    <string name="products">Produtos</string>
+    <string name="recipes">Receitas</string>
+    <string name="profile">O meu perfil</string>
+    <string name="settings">Definições</string>
+    <!-- content_list.xml -->
+    <string name="download">Transferir para offline</string>
+    <!-- content_list_item.xml -->
+    <string-array name="names">
+        <item>Leite</item>
+        <item>Açúcar</item>
+        <item>Ovos</item>
+    </string-array>
+    <string-array name="numbers">
+        <item>2</item>
+        <item>1</item>
+        <item>12</item>
+    </string-array>
+    <!-- List Activity -->
+    <string name="listLabel">Lista de Compras</string>
+    <!-- Settings Activity -->
+    <string name="settingsLabel">Definições</string>
+    <!-- About Activity -->
+    <string name="aboutLabel">Sobre</string>
+    <!-- content_stock_item_list_item -->
+    <string name="filter">Filtro</string>
+    <string name="details">Detalhes</string>
+    <!-- StockItemList Activity -->
+    <string name="stockItemListLabel">Lista</string>
+    <!-- content_recipes_item.xml -->
+    <string name="tryRecipe">Experimentar</string>
+    <!-- Recipes Activity -->
+    <string name="recipesLabel">Receitas</string>
+    <!-- StockItemDetails Activity -->
+    <string name="stockItemDetailsLabel">Detalhes do Item</string>
+    <!-- content_stock_item_details.xml -->
+    <string name="allergens">Alergénios</string>
+    <string name="expirationDate">Data de validade</string>
+    <string name="storage">Armazenamento</string>
+    <string name="description">Descrição</string>
+    <string name="movements">Movimentos</string>
+</resources>
