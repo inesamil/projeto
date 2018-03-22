@@ -23,6 +23,42 @@ router.get('/', function(req, res, next) {
   res.render('houses', context);
 });
 
+
+/* GET Categories Products */
+router.get('/categories/:name', function(req, res, next) {
+  
+  const context = {
+    title: req.params.name,
+    products: [
+      {
+        productName: "Milk"
+      },
+      {
+        productName: "Yogurt"
+      },
+      {
+        productName: "Cheese"
+      }
+    ]
+  }
+  res.render('categoriesProducts', context);
+});
+
+/* GET invitations */
+router.get('/invitations', function(req, res, next) {
+  
+  const context = {
+    invitations: [
+      {
+        username: "larasmith",
+        houseName: "Smith's"
+      }
+    ]
+  }
+  res.render('invitations', context);
+});
+
+
 router.get('/login', function(req, res, next) {
   const context = {
     title: 'Login', 
