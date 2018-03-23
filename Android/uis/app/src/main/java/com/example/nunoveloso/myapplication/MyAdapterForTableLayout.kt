@@ -11,8 +11,8 @@ class MyAdapterForTableLayout(private val myDataset: Array<Any>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // Layouts
-    private val headerLayout: Int = R.layout.table_header
-    private val rowLayout: Int = R.layout.table_row
+    private val headerLayout: Int = R.layout.content_allergies_table_header
+    private val rowLayout: Int = R.layout.content_allergies_table_row
 
     // View Holder Types
     private val HEADER: Int = 0

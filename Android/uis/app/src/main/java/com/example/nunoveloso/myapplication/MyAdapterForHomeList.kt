@@ -9,7 +9,7 @@ import android.widget.TextView
 class MyAdapterForHomeList(private val myDataset: Array<Any>) :
         RecyclerView.Adapter<MyAdapterForHomeList.MyViewHolder>() {
 
-    private val listItemLayout: Int = R.layout.list_overview
+    private val listItemLayout: Int = R.layout.content_home
 
     // Provide a reference to the views for each data item
     // Access to all the views for a data item in a view holder.

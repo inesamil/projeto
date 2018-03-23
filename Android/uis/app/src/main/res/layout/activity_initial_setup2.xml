@@ -11,9 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/initial_setup"
         android:textColor="@android:color/black"
         android:textSize="18sp"
@@ -21,7 +21,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.016" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/dashText"
@@ -30,7 +30,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/dash"
         android:textColor="@android:color/black"
         android:textSize="18sp"
@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/initialSetupText"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.017" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/familyMembersText"
@@ -47,50 +47,67 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/family_members"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/dashText"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.017" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/babiesText"
+    <android.support.v7.widget.CardView
+        android:id="@+id/babiesCardView1"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:background="@drawable/box"
-        android:gravity="center|start"
-        android:paddingLeft="8dp"
-        android:text="@string/babies"
-        app:layout_constraintEnd_toStartOf="@+id/babiesNumEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/initialSetupText" />
-
-    <EditText
-        android:id="@+id/babiesNumEditText"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/box"
-        android:ems="10"
-        android:hint="@string/default_number"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/babiesMinusBtn"
-        app:layout_constraintTop_toBottomOf="@+id/initialSetupText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initialSetupText">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/babiesConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme">
+
+            <TextView
+                android:id="@+id/babiesText"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center|start"
+                android:paddingLeft="8dp"
+                android:text="@string/babies"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/babiesNumEditText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/babiesNumEditText"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:ems="10"
+                android:hint="@string/default_number"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 
     <Button
         android:id="@+id/babiesMinusBtn"
@@ -120,39 +137,53 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/initialSetupText" />
 
-    <TextView
-        android:id="@+id/childrenText"
+    <android.support.v7.widget.CardView
+        android:id="@+id/childrenCardView"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/box"
-        android:gravity="center|start"
-        android:paddingLeft="8dp"
-        android:text="@string/children"
-        app:layout_constraintEnd_toStartOf="@+id/childrenNumEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/babiesText" />
-
-    <EditText
-        android:id="@+id/childrenNumEditText"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/box"
-        android:ems="10"
-        android:hint="@string/default_number"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/childrenMinusBtn"
-        app:layout_constraintTop_toBottomOf="@+id/babiesNumEditText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/babiesCardView1">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/childrenConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/childrenText"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center|start"
+                android:paddingLeft="8dp"
+                android:text="@string/children"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/childrenNumEditText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/childrenNumEditText"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:ems="10"
+                android:hint="@string/default_number"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 
     <Button
         android:id="@+id/childrenMinusBtn"
@@ -182,38 +213,53 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/babiesPlusBtn" />
 
-    <TextView
-        android:id="@+id/adultsText"
+    <android.support.v7.widget.CardView
+        android:id="@+id/adultsCardView"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/box"
-        android:gravity="center|start"
-        android:paddingLeft="8dp"
-        android:text="@string/adults"
-        app:layout_constraintEnd_toStartOf="@+id/adultsNumEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/childrenText" />
-
-    <EditText
-        android:id="@+id/adultsNumEditText"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/box"
-        android:ems="10"
-        android:hint="@string/default_number"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/adultsMinusBtn"
-        app:layout_constraintTop_toBottomOf="@+id/childrenNumEditText" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/childrenCardView">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/adultsConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/adultsText"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center|start"
+                android:paddingLeft="8dp"
+                android:text="@string/adults"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/adultsNumEditText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/adultsNumEditText"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:ems="10"
+                android:hint="@string/default_number"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 
     <Button
         android:id="@+id/adultsMinusBtn"
@@ -243,40 +289,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/childrenPlusBtn" />
 
-    <TextView
-        android:id="@+id/seniorsText"
+    <android.support.v7.widget.CardView
+        android:id="@+id/seniorsCardView"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:background="@drawable/box"
-        android:gravity="center|start"
-        android:paddingLeft="8dp"
-        android:text="@string/seniors"
-        app:layout_constraintEnd_toStartOf="@+id/seniorNumEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adultsText" />
-
-    <EditText
-        android:id="@+id/seniorNumEditText"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:background="@drawable/box"
-        android:ems="10"
-        android:hint="@string/default_number"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/seniorsMinusBtn"
-        app:layout_constraintTop_toBottomOf="@+id/adultsNumEditText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adultsCardView">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/seniorsConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/seniorsText"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:paddingLeft="8dp"
+                android:text="@string/seniors"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/seniorNumEditText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/seniorNumEditText"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/default_number"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 
     <Button
         android:id="@+id/seniorsMinusBtn"
