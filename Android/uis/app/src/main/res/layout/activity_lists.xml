@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- A RecyclerView with some commonly used attributes -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view_lists"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="14dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createNewListBtn" />
+
+    <Button
+        android:id="@+id/createNewListBtn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/circle_red_stroke"
+        android:paddingBottom="3dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="1dp"
+        android:paddingStart="1dp"
+        android:text="@string/plus"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/createNewListText"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/create_new_list"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintStart_toEndOf="@+id/createNewListBtn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

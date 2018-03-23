@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RedTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/red_800</item>
+        <item name="colorAccent">@color/red_600</item>
+        <item name="colorPrimary">@color/red_600</item>
+        <item name="android:statusBarColor">@color/red_600</item>
+        <item name="android:colorBackground">@android:color/holo_orange_dark</item>
+        <item name="android:colorForeground">@android:color/black</item>
+        <item name="android:windowBackground">@color/grey_50</item>
+    </style>
+
+</resources>
