@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#ff4081</color>
+    <color name="colorPrimary">#fafafa</color>
+    <color name="colorPrimaryDark">#c62828</color>
+    <color name="colorAccent">@color/amber_400</color>
+
+    <!-- Cyan -->
+    <color name="cyan_50">#e0f7fa</color>
+    <color name="cyan_100">#b2ebf2</color>
+    <color name="cyan_200">#80deea</color>
+    <color name="cyan_300">#4dd0e1</color>
+    <color name="cyan_800">#00838F</color>
+    <color name="cyan_900">#006064</color>
+
+    <!-- Grey -->
+    <color name="grey_50">#fafafa</color>
+
+    <!-- Light Blue -->
+    <color name="light_blue_100">#b3e5fc</color>
+    <color name="light_blue_200">#81d4fa</color>
+    <color name="light_blue_300">#4FC3F7</color>
+
+    <!-- Red -->
+    <color name="red_600">#e53935</color>
+    <color name="red_800">#c62828</color>
+
+    <!-- Orange -->
+    <color name="amber_400">#ffca28</color>
 </resources>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <color name="colorPrimary">#3F51B5</color>
+        <color name="colorPrimaryDark">#303F9F</color>
+        <color name="colorAccent">#ff4081</color>
+    </resources>-->

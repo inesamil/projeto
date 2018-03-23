@@ -92,4 +92,25 @@
     <string name="storage">Storage</string>
     <string name="description">Description</string>
     <string name="movements">Movements</string>
+    <!-- Initial Setup - Family Members -->
+    <string name="initial_setup">Initial Setup</string>
+    <string name="family_members">Family Members</string>
+    <string name="dash">-</string>
+    <string name="babies">Babies (0\-3 years)</string>
+    <string name="children">Children (4\-14 years)</string>
+    <string name="adults">Adults (15\-64 years)</string>
+    <string name="seniors">Seniors (65\+ years)</string>
+    <string name="start">Let\'s Get Started</string>
+    <string name="default_number">0</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="title_activity_login">Sign in</string>
+    <!-- Activity Lists -->
+    <string name="create_new_list">Create new list</string>
+    <!-- Allergies -->
+    <string name="allergics_question">Are there members with allergies in the house ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="allergics">Allergics</string>
+    <string name="save">Save</string>
 </resources>

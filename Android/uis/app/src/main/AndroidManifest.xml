@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/RedTheme">
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,6 +50,10 @@
             android:name=".StockItemDetailsActivity"
             android:label="@string/stockItemDetailsLabel"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AllergiesActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".ListsActivity" />
+        <activity android:name=".InitialSetup2Activity" />
     </application>
 
 </manifest>

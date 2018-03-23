@@ -92,4 +92,24 @@
     <string name="storage">Armazenamento</string>
     <string name="description">Descrição</string>
     <string name="movements">Movimentos</string>
+    <!-- Initial Setup - Family Members -->
+    <string name="initial_setup">Configuração Inicial</string>
+    <string name="family_members">Membros da Família</string>
+    <string name="dash">-</string>
+    <string name="babies">Bebés (0\-3 anos)</string>
+    <string name="children">Crianças (4\-14 anos)</string>
+    <string name="adults">Adultos (15\-64 anos)</string>
+    <string name="seniors">Seniores (65\+ anos)</string>
+    <string name="start">Vamos Começar</string>
+    <string name="default_number">0</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <!-- Activity Lists -->
+    <string name="create_new_list">Criar nova lista</string>
+    <!-- Allergies -->
+    <string name="allergics_question">Existem membros com alergias em casa ?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="allergics">Alérgicos</string>
+    <string name="save">Gravar</string>
 </resources>
