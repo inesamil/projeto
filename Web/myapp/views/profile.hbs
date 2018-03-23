@@ -1,4 +1,10 @@
-<h2 style="margin-left: 1vw">Profile</h2>
+<div>
+    <h2 class="profile-title">Profile</h2>
+    <button class="profile-edit-btn" onclick="edit()">
+        <span class="glyphicon glyphicon-pencil"></span>  Edit
+    </button>
+</div>
+
 <div class="box">
     <div class="tab"> 
         <button class="tablinks" onclick="openTab(event, 'MyInformation')" id="defaultOpen">My Information</button>
@@ -8,7 +14,7 @@
     </div>
 
     <div id="MyInformation" class="tabcontent">
-        {{> myInformation}}
+        {{> myInformation userInfo}}
     </div>
 
     <div id="MyHouses" class="tabcontent">

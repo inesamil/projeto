@@ -253,8 +253,24 @@ a {
 .tabcontent {
   float: left;
   padding: 0px 12px;
-  height: 100%;
   width: 70%;
   border-left: none;
+}
 
+.profile-title {
+  float: left;
+  margin-left: 1vw
+}
+
+.profile-edit-btn {
+  display: block;
+  float: right;
+  margin-top: 5vh;
+  height: calc(25px + (40 - 25)*(100vw - 600px)/(800-600));
+  width: calc(50px + (75 - 50)*(100vw - 600px)/(800-600));
+  border: none;
+  outline: none;
+  font-size: calc(12px + (16 - 12)*(100vw - 600px)/(800-600));
+  color: white;
+  background: #E53935
 }

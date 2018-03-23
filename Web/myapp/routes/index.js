@@ -20,13 +20,11 @@ router.get('/', function(req, res, next) {
       }
     ]
   }
-  res.render('houses', context);
+  res.render('index', context);
 });
 
-
-/* GET Categories Products */
+/* GET Categories' Products */
 router.get('/categories/:name', function(req, res, next) {
-  
   const context = {
     title: req.params.name,
     products: [
@@ -44,9 +42,8 @@ router.get('/categories/:name', function(req, res, next) {
   res.render('categoriesProducts', context);
 });
 
-/* GET invitations */
+/* GET Invitations */
 router.get('/invitations', function(req, res, next) {
-  
   const context = {
     invitations: [
       {
@@ -58,7 +55,7 @@ router.get('/invitations', function(req, res, next) {
   res.render('invitations', context);
 });
 
-
+/* GET Login Form */
 router.get('/login', function(req, res, next) {
   const context = {
     title: 'Login', 
@@ -69,6 +66,7 @@ router.get('/login', function(req, res, next) {
   res.render('login', context);
 });
 
+/* GET Sign Up Form */
 router.get('/signup', function(req, res, next) {
   const context = {
     title: 'Register', 

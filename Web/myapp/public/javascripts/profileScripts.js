@@ -1,3 +1,10 @@
+let openedTab = "MyInformation"
+
+const mapTabEdit = {
+    "MyInformation": 'editInfo',
+    "MyHouses": 'user'
+}
+
 function openTab(evt, tabId) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -10,6 +17,14 @@ function openTab(evt, tabId) {
     }
     document.getElementById(tabId).style.display = "block";
     evt.currentTarget.className += " active";
+}
+
+function edit() {
+    mapTabEdit[openedTab]()
+}
+
+function editInfo() {
+    // PUT
 }
 
 // Get the element with id="defaultOpen" and click on it
