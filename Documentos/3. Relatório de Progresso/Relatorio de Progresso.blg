@@ -1,8 +1,11 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: Relatorio de Progresso.aux
-A level-1 auxiliary file: Resumo.aux
+A level-1 auxiliary file: resumo.aux
+A level-1 auxiliary file: abstract.aux
+A level-1 auxiliary file: agradecimentos.aux
+A level-1 auxiliary file: capitulo1.aux
 The style file: unsrt.bst
 I couldn't open database file referencias.bib
----line 6 of file Relatorio de Progresso.aux
+---line 16 of file Relatorio de Progresso.aux
  : \bibdata{referencias
  :                     }
 I'm skipping whatever remains of this command

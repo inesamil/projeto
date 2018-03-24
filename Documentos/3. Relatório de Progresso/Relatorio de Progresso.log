@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  19 MAR 2018 21:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  24 MAR 2018 21:58
 entering extended mode
 **"./Relatorio de Progresso.tex"
 ("Relatorio de Progresso.tex"
@@ -710,50 +710,41 @@ glossary-tree.sty"
 Package: glossary-tree 2018/03/07 v4.36 (NLCT)
 \glstreeindent=\skip61
 ))
-
-! LaTeX Error: Option clash for package glossaries.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.22 
-     
-The package glossaries has already been loaded with options:
-  []
-There has now been an attempt to load it with options
-  [toc]
-Adding the global options:
-  ,toc
-to your \documentclass declaration may fix this.
-Try typing  <return>  to proceed.
-
-\@input{abreviaturas.aux}
-\openout2 = `abreviaturas.aux'.
-
-(abreviaturas.tex
 \glswrite=\write3
 \glo@main@file=\write4
 \openout4 = `"Relatorio de Progresso.glo"'.
 
 Package glossaries Info: Writing glossary file "Relatorio de Progresso".glo on 
-input line 3.
-) ("Relatorio de Progresso.aux" (resumo.aux) (abstract.aux)
-(agradecimentos.aux))
+input line 45.
+\glo@acronym@file=\write5
+\openout5 = `"Relatorio de Progresso.acn"'.
+
+Package glossaries Info: Writing glossary file "Relatorio de Progresso".acn on 
+input line 45.
+
+\@input{abreviaturas.aux}
+\openout2 = `abreviaturas.aux'.
+
+(abreviaturas.tex)
+\@input{terminologia.aux}
+\openout2 = `terminologia.aux'.
+
+(terminologia.tex) ("Relatorio de Progresso.aux" (resumo.aux) (abstract.aux)
+(agradecimentos.aux) (capitulo1.aux))
 \openout1 = `"Relatorio de Progresso.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
 
 ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.mk
 ii"
@@ -833,37 +824,50 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 ) ("Relatorio de Progresso.glsdefs")
-<./figures/logoISEL.png, id=1, 173.448pt x 104.5506pt>
-File: ./figures/logoISEL.png Graphic file (type png)
-<use ./figures/logoISEL.png>
-Package pdftex.def Info: ./figures/logoISEL.png  used on input line 90.
-(pdftex.def)             Requested size: 173.44757pt x 104.55034pt.
+Package epstopdf Info: Source file: <./figures/logo_ISEL_principal.eps>
+(epstopdf)                    date: 2018-03-24 10:41:46
+(epstopdf)                    size: 823386 bytes
+(epstopdf)             Output file: <./figures/logo_ISEL_principal-eps-converte
+d-to.pdf>
+(epstopdf)                    date: 2018-03-24 10:44:06
+(epstopdf)                    size: 25524 bytes
+(epstopdf)             Command: <epstopdf --outfile=./figures/logo_ISEL_princip
+al-eps-converted-to.pdf ./figures/logo_ISEL_principal.eps>
+(epstopdf)             \includegraphics on input line 95.
+Package epstopdf Info: Output file is already uptodate.
+<./figures/logo_ISEL_principal-eps-converted-to.pdf, id=1, 427.5975pt x 302.128
+75pt>
+File: ./figures/logo_ISEL_principal-eps-converted-to.pdf Graphic file (type pdf
+)
+<use ./figures/logo_ISEL_principal-eps-converted-to.pdf>
+Package pdftex.def Info: ./figures/logo_ISEL_principal-eps-converted-to.pdf  us
+ed on input line 95.
+(pdftex.def)             Requested size: 427.59645pt x 302.128pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 90--90
+Underfull \hbox (badness 10000) in paragraph at lines 95--95
 
  []
 
 
-Overfull \hbox (14.22636pt too wide) in paragraph at lines 90--90
+Overfull \hbox (14.22636pt too wide) in paragraph at lines 95--95
  []$ 
  []
 
 [1
 
-
-
-\newlabel{abreviaturas}{{}{i}}
-\providecommand\@glsorder[1]{}
-\providecommand\@istfilename[1]{}
-\@istfilename{"Relatorio de Progresso".ist}
-\@glsorder{word}
 \openout3 = `"Relatorio de Progresso.ist"'.
 
 
-{C:/Users/inesa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./figures/l
-ogoISEL.png>] [2
 
-] [1]
+\newlabel{abreviaturas}{{}{i}}
+
+
+\newlabel{terminologia}{{}{i}}
+
+{C:/Users/inesa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./figures/l
+ogo_ISEL_principal-eps-converted-to.pdf>] [2] [1
+
+]
 \openout2 = `resumo.aux'.
 
  (resumo.tex [2
@@ -898,29 +902,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--5
 
 
 ])
-Underfull \hbox (badness 10000) in paragraph at lines 4--143
+Underfull \hbox (badness 10000) in paragraph at lines 4--148
 
  []
 
 [7
 
-]
-No file "Relatorio de Progresso".gls.
-[8
+] [8
+
 
 ] ("Relatorio de Progresso.toc")
-\tf@toc=\write5
-\openout5 = `"Relatorio de Progresso.toc"'.
+\tf@toc=\write6
+\openout6 = `"Relatorio de Progresso.toc"'.
 
  [9
-
-
 
 ] [10
 
 ] ("Relatorio de Progresso.lof")
-\tf@lof=\write6
-\openout6 = `"Relatorio de Progresso.lof"'.
+\tf@lof=\write7
+\openout7 = `"Relatorio de Progresso.lof"'.
 
 
 [11
@@ -928,37 +929,71 @@ No file "Relatorio de Progresso".gls.
 ] [12
 
 ] ("Relatorio de Progresso.lot")
-\tf@lot=\write7
-\openout7 = `"Relatorio de Progresso.lot"'.
+\tf@lot=\write8
+\openout8 = `"Relatorio de Progresso.lot"'.
 
  [13
 
 ] [14
 
-] ("Relatorio de Progresso.bbl"
+]
+No file "Relatorio de Progresso".acr.
+[15] [16
+
+]
+No file "Relatorio de Progresso".gls.
+[17] [18
+
+]
+\openout2 = `capitulo1.aux'.
+
+ (capitulo1.tex
+Cap\'{\i }tulo 1.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 19.
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 19.
+
+[1
+
+
+]
+
+LaTeX Warning: Reference `esquema_geral' on page 2 undefined on input line 50.
+
+) [2] ("Relatorio de Progresso.bbl"
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [1
+) [3
+
 
 ] ("Relatorio de Progresso.aux" (resumo.aux) (abstract.aux)
-(agradecimentos.aux)) ) 
+(agradecimentos.aux) (capitulo1.aux))
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 9668 strings out of 493303
- 165352 string characters out of 3129784
- 271575 words of memory out of 3000000
- 12974 multiletter control sequences out of 15000+200000
- 13105 words of font info for 42 fonts, out of 3000000 for 9000
+ 10038 strings out of 493303
+ 171236 string characters out of 3129784
+ 279242 words of memory out of 3000000
+ 13316 multiletter control sequences out of 15000+200000
+ 14057 words of font info for 45 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 45i,13n,37p,2020b,336s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/
-type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/inesa/AppData/Local/
-Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/inesa/Ap
-pData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on "Relatorio de Progresso.pdf" (17 pages, 87437 bytes).
+ 45i,13n,37p,1992b,341s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmbx10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmbx12.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/inesa/AppData/Local/Programs/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/inesa/AppData/Loc
+al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/ines
+a/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on "Relatorio de Progresso.pdf" (23 pages, 133367 bytes).
 PDF statistics:
- 76 PDF objects out of 1000 (max. 8388607)
+ 105 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

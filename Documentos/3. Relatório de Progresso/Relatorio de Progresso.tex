@@ -17,7 +17,7 @@
 \usepackage{algpseudocode}
 \usepackage{indentfirst}
 \usepackage[utf8]{inputenc}
-\usepackage{glossaries}
+\usepackage[toc, acronym]{glossaries}
 
 \addto{\captionsportuguese}{\renewcommand{\bibname}{Refer\^{e}ncias}}
 \addto{\captionsportuguese}{\renewcommand{\contentsname}{\'Indice}}
@@ -41,8 +41,14 @@
 \usefont{T1}{ptm}{m}{n}
 \selectfont
 
+% Glossários
+\makeglossaries
+
 % Abreviaturas
 \include{abreviaturas}
+
+% Terminologia
+\include{terminologia}
 
 %
 % Página inicial (capa)
@@ -50,9 +56,9 @@
 \title{
    \vspace{-60mm}
    \begin{minipage}[l]{160mm}
-   	\resizebox{50mm}{!}{\includegraphics{./figures/logoISEL.png}}\\
+   	\resizebox{90mm}{!}{\includegraphics{./figures/logo_ISEL_principal}}\\
    \end{minipage}\\
-   \vspace{20mm}
+   \vspace{15mm}
    % Título do projeto na forma capitalizada. A primeira letra de cada palavra deve ser maiúscula.
    {\bf Gestão Inteligente de Stocks}
 }
@@ -141,10 +147,6 @@ Março de 2018\\
 % Página de agradecimentos
 \include{agradecimentos}
 
-% Geração do índice de abreviaturas
-\printglossary[title=Special Terms, toctitle=List of terms]
-\cleardoublepage
-
 % Geração do índice de conteúdos
 \cleardoublepage\newpage
 \tableofcontents
@@ -158,12 +160,20 @@ Março de 2018\\
 \listoftables
 \cleardoublepage
 
+% Geração do índice de abreviaturas
+\printglossary[type=\acronymtype, title=Lista de Acrónimos e Abreviaturas, toctitle=Lista de Acrónimos e Abreviaturas]
+\cleardoublepage
+
+% Geração do índice de terminologia
+\printglossary[title=Lista de Terminologia, toctitle=Lista de Terminologia]
+\cleardoublepage
+
 % Iniciar a numeração de páginas
 \setcounter{page}{1}
 \pagenumbering{arabic}
 
 % Capitulo 1
-%\include{capitulo1}
+\include{capitulo1}
 
 % Capitulo 2
 %\include{capitulo2}
