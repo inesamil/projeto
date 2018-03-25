@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS public."StockItemMovement" (
 	stockItemMovement_type boolean NOT NULL,
 	stockItemMovement_dateTime timestamp NOT NULL,
 	stockItemMovement_quantity smallint NOT NULL CHECK (stockItemMovement_quantity > 0),
-	PRIMARY KEY (house_id, stockItem_sku, stockItemMovement_type, stockItemMovement_dateTime, stockItemMovement_quantity),
+	PRIMARY KEY (house_id, stockItem_sku, storage_id, stockItemMovement_type, stockItemMovement_dateTime, stockItemMovement_quantity),
 	FOREIGN KEY (house_id, stockItem_sku) REFERENCES public."StockItem" (house_id, stockItem_sku),
 	FOREIGN KEY (house_id, storage_id) REFERENCES public."Storage" (house_id, storage_id)
 );
