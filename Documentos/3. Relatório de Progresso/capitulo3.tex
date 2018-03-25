@@ -42,7 +42,7 @@
 		
 		\item SharedRecipe(recipe\_id, user\_username) \newline
 		\acrshort{cp}:(recipe\_id, user\_username) \newline
-		\acrshort{ce}: \{(recipe\_id) ref Recipe, (user\_username) ref User\}
+		\acrshort{ce}: \{(recipe\_id) ref UserRecipe, (user\_username) ref User\}
 		
 		\item List(house\_id, list\_id, list\_name, list\_type) \newline
 		\acrshort{cp}: (house\_id, list\_id) \newline
@@ -67,9 +67,9 @@
 		\acrshort{cp}: (category\_id, product\_id) \newline
 		\acrshort{ce}: \{(category\_id) ref Category\}
 		
-		\item StockItem(house\_id, stockItem\_sku, category\_id, product\_id, stockItem\_brand, stockItem\_segment, stockItem\_variety, stockItem\_quantity, stockItem\_ segmentUnit, stockItem\_decription, stockItem\_conservationStorage) \newline
+		\item StockItem(house\_id, stockItem\_sku, category\_id, product\_id, stockItem\_brand, stockItem\_segment, stockItem\_variety, stockItem\_quantity, stockItem\_segmentUnit, stockItem\_description, stockItem\_conservationStorage) \newline
 		\acrshort{cp}: (house\_id, stockItem\_sku) \newline
-		\acrshort{occ}: (house\_id, category\_id, product\_id, stockItem\_brand, stockItem\_segment, stockItem\_variety) \newline
+		\acrshort{occ}: (house\_id, category\_id, product\_id, stockItem\_brand, stockItem\_segment, \newline stockItem\_variety) \newline
 		\acrshort{ce}: \{(house\_id) ref House, (category\_id, product\_id) ref Product\}
 		
 		\item Ingredient(recipe\_id, category\_id, product\_id, ingredient\_quantity, ingredient\_quantityUnit) \newline
@@ -89,8 +89,8 @@
 		\acrshort{ce}: \{(house\_id, stockItem\_sku) ref StockItem, (house\_id, storage\_id) ref Storage\}
 		
 		\item StockItemMovement(house\_id, stockItem\_sku, storage\_id, stockItemMovement\_type, \newline stockItemMovement\_dateTime, StockItemMovement\_quantity) \newline
-		\acrshort{cp}: (house\_id, stockItem\_sku, storage\_id, stockItemMovement\_type, stockItemMovement\_dateTime, StockItemMovement\_quantity) \newline
-		\acrshort{ce}: \{(house\_id, stockItem\_sku) ref StockItem, (storage\_id) ref Storage\}
+		\acrshort{cp}: (house\_id, stockItem\_sku, storage\_id, stockItemMovement\_type, \newline stockItemMovement\_dateTime, StockItemMovement\_quantity) \newline
+		\acrshort{ce}: \{(house\_id, stockItem\_sku) ref StockItem, (house\_id, storage\_id) ref Storage\}
 		
 		\item HouseAllergy(house\_id, allergy\_allergen, houseAllergy\_alergicsNum) \newline
 		\acrshort{cp}: (house\_id, allergy\_allergen) \newline
@@ -107,9 +107,9 @@
 		\item Date(date\_date) \newline
 		\acrshort{cp}: (date\_date)
 	
-		\item ExpirationDate(date\_date, house\_id, stockItem\_sku) \newline
-		\acrshort{cp}: (date\_date, house\_id, stockItem\_sku) \newline
-		\acrshort{ce}: \{(date\_date) ref Date, (house\_id, stockItem\_sku) ref StockItem\}
+		\item ExpirationDate(house\_id, stockItem\_sku, date\_date) \newline
+		\acrshort{cp}: (house\_id, stockItem\_sku, date\_date) \newline
+		\acrshort{ce}: \{(house\_id, stockItem\_sku) ref StockItem, (date\_date) ref Date\}
 
 	\end{description}	
 }
