@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  25 MAR 2018 14:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  25 MAR 2018 18:15
 entering extended mode
 **"./Relatorio de Progresso.tex"
 ("Relatorio de Progresso.tex"
@@ -791,18 +791,30 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 sty"
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 ))
-\c@CountExamples=\count143
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ulem\ulem.sty"
+\UL@box=\box37
+\UL@hyphenbox=\box38
+\UL@skip=\skip65
+\UL@hook=\toks38
+\UL@height=\dimen131
+\UL@pe=\count143
+\UL@pixel=\dimen132
+\ULC@box=\box39
+Package: ulem 2012/05/18
+\ULdepth=\dimen133
+)
+\c@CountExamples=\count144
 \glswrite=\write3
 \glo@main@file=\write4
 \openout4 = `"Relatorio de Progresso.glo"'.
 
 Package glossaries Info: Writing glossary file "Relatorio de Progresso".glo on 
-input line 59.
+input line 60.
 \glo@acronym@file=\write5
 \openout5 = `"Relatorio de Progresso.acn"'.
 
 Package glossaries Info: Writing glossary file "Relatorio de Progresso".acn on 
-input line 59.
+input line 60.
 
 \@input{abreviaturas.aux}
 \openout2 = `abreviaturas.aux'.
@@ -815,33 +827,33 @@ input line 59.
 (agradecimentos.aux) (capitulo1.aux) (capitulo2.aux) (capitulo3.aux))
 \openout1 = `"Relatorio de Progresso.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
 
 ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.mk
 ii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count144
-\scratchdimen=\dimen131
-\scratchbox=\box37
-\nofMPsegments=\count145
-\nofMParguments=\count146
-\everyMPshowfont=\toks38
-\MPscratchCnt=\count147
-\MPscratchDim=\dimen132
-\MPnumerator=\count148
-\makeMPintoPDFobject=\count149
-\everyMPtoPDFconversion=\toks39
+\scratchcounter=\count145
+\scratchdimen=\dimen134
+\scratchbox=\box40
+\nofMPsegments=\count146
+\nofMParguments=\count147
+\everyMPshowfont=\toks39
+\MPscratchCnt=\count148
+\MPscratchDim=\dimen135
+\MPnumerator=\count149
+\makeMPintoPDFobject=\count150
+\everyMPtoPDFconversion=\toks40
 )
 ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-
 base.sty"
@@ -893,7 +905,7 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 ) ("Relatorio de Progresso.glsdefs")
-\AtBeginShipoutBox=\box38
+\AtBeginShipoutBox=\box41
 Package epstopdf Info: Source file: <./figures/logo_ISEL_principal.eps>
 (epstopdf)                    date: 2018-03-24 10:41:46
 (epstopdf)                    size: 823386 bytes
@@ -903,7 +915,7 @@ d-to.pdf>
 (epstopdf)                    size: 25524 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/logo_ISEL_princip
 al-eps-converted-to.pdf ./figures/logo_ISEL_principal.eps>
-(epstopdf)             \includegraphics on input line 109.
+(epstopdf)             \includegraphics on input line 110.
 Package epstopdf Info: Output file is already uptodate.
 <./figures/logo_ISEL_principal-eps-converted-to.pdf, id=1, 427.5975pt x 302.128
 75pt>
@@ -911,15 +923,15 @@ File: ./figures/logo_ISEL_principal-eps-converted-to.pdf Graphic file (type pdf
 )
 <use ./figures/logo_ISEL_principal-eps-converted-to.pdf>
 Package pdftex.def Info: ./figures/logo_ISEL_principal-eps-converted-to.pdf  us
-ed on input line 109.
+ed on input line 110.
 (pdftex.def)             Requested size: 427.59645pt x 302.128pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 109--109
+Underfull \hbox (badness 10000) in paragraph at lines 110--110
 
  []
 
 
-Overfull \hbox (14.22636pt too wide) in paragraph at lines 109--109
+Overfull \hbox (14.22636pt too wide) in paragraph at lines 110--110
  []$ 
  []
 
@@ -968,7 +980,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--5
 
 
 ])
-Underfull \hbox (badness 10000) in paragraph at lines 4--162
+Underfull \hbox (badness 10000) in paragraph at lines 4--163
 
  []
 
@@ -1060,80 +1072,74 @@ rsion <1.7>, but at most version <1.5> allowed
 <./files/EA.pdf, id=102, 845.07724pt x 597.55246pt>
 File: ./files/EA.pdf Graphic file (type pdf)
 <use ./files/EA.pdf>
-Package pdftex.def Info: ./files/EA.pdf  used on input line 10.
-(pdftex.def)             Requested size: 845.07518pt x 597.551pt.
+Package pdftex.def Info: ./files/EA.pdf  used on input line 13.
+(pdftex.def)             Requested size: 422.53758pt x 298.7755pt.
 
-
-pdfTeX warning: pdflatex.exe (file ./files/EA.pdf): PDF inclusion: found PDF ve
-rsion <1.7>, but at most version <1.5> allowed
-File: ./files/EA.pdf Graphic file (type pdf)
-<use ./files/EA.pdf>
-Package pdftex.def Info: ./files/EA.pdf  used on input line 10.
-(pdftex.def)             Requested size: 845.07518pt x 597.551pt.
-
-
-pdfTeX warning: pdflatex.exe (file ./files/EA.pdf): PDF inclusion: found PDF ve
-rsion <1.7>, but at most version <1.5> allowed
-
-
-pdfTeX warning: pdflatex.exe (file ./files/EA.pdf): PDF inclusion: found PDF ve
-rsion <1.7>, but at most version <1.5> allowed
-<./files/EA.pdf, id=105, page=1, 845.07724pt x 597.55246pt>
-File: ./files/EA.pdf Graphic file (type pdf)
-<use ./files/EA.pdf, page 1>
-Package pdftex.def Info: ./files/EA.pdf , page1 used on input line 10.
-(pdftex.def)             Requested size: 845.07518pt x 597.551pt.
-File: ./files/EA.pdf Graphic file (type pdf)
-<use ./files/EA.pdf, page 1>
-Package pdftex.def Info: ./files/EA.pdf , page1 used on input line 10.
-(pdftex.def)             Requested size: 597.55902pt x 422.5328pt.
-File: ./files/EA.pdf Graphic file (type pdf)
-<use ./files/EA.pdf, page 1>
-Package pdftex.def Info: ./files/EA.pdf , page1 used on input line 10.
-(pdftex.def)             Requested size: 597.55902pt x 422.5328pt.
-File: ./files/EA.pdf Graphic file (type pdf)
-<use ./files/EA.pdf, page 1>
-Package pdftex.def Info: ./files/EA.pdf , page1 used on input line 10.
-(pdftex.def)             Requested size: 597.55902pt x 422.5328pt.
-)
-Overfull \hbox (714.09251pt too wide) in paragraph at lines 9--196
-[]$[]$ 
+Overfull \hbox (128.08243pt too wide) in paragraph at lines 13--14
+ [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 9--196
-
+Overfull \hbox (25.2703pt too wide) in paragraph at lines 22--24
+[]\OT1/cmr/m/n/10.95 House(house[]id, house[]name, house[]babiesNumber, house[]
+childrenNumber, house[]adultsNumber,
  []
 
-File: ./files/EA.pdf Graphic file (type pdf)
-<use ./files/EA.pdf, page 1>
-Package pdftex.def Info: ./files/EA.pdf , page1 used on input line 196.
-(pdftex.def)             Requested size: 597.55902pt x 422.5328pt.
+
+Overfull \hbox (17.31941pt too wide) in paragraph at lines 32--34
+[]\OT1/cmr/m/n/10.95 Recipe(recipe[]id, re-cipe[]name, re-cipe[]instructions, r
+e-cipe[]difficulty, re-cipe[]time, re-cipe[]servings,
+ []
+
 [9
 
 
 
- <./files/EA.pdf>] ("Relatorio de Progresso.bbl" [10
+] [10 <./files/EA.pdf>]
+Overfull \hbox (28.39114pt too wide) in paragraph at lines 70--74
+[]\OT1/cmr/m/n/10.95 StockItem(house[]id, stoc-kI-tem[]sku, ca-te-gory[]id, pro
+-duct[]id, stoc-kI-tem[]brand, stoc-kI-tem[]segment,
+ []
 
 
-]
+Overfull \hbox (1.11949pt too wide) in paragraph at lines 84--86
+[]\OT1/cmr/m/n/10.95 StockItem($[]$, $[]$, stoc-kI-tem[]brand, stoc-kI-tem[]seg
+ment, stoc-kI-tem[]variety,
+ []
+
+
+Overfull \hbox (54.08716pt too wide) in paragraph at lines 84--86
+\OT1/cmr/m/n/10.95 stoc-kI-tem[]quantity, stoc-kI-tem[]segmentUnit, stoc-kI-tem
+[]decription, stoc-kI-tem[]conservationStorage) 
+ []
+
+[11]
+Overfull \hbox (13.51743pt too wide) in paragraph at lines 128--130
+[]\OT1/cmr/m/n/10.95 ListProduct(house[]id, list[]id, ca-te-gory[]id, pro-duct[
+]id, list-Pro-duct[]brand, list-Pro-duct[]quantity) 
+ []
+
+) [12] ("Relatorio de Progresso.bbl"
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [11] ("Relatorio de Progresso.aux" (resumo.aux) (abstract.aux)
+) [13
+
+
+] ("Relatorio de Progresso.aux" (resumo.aux) (abstract.aux)
 (agradecimentos.aux) (capitulo1.aux) (capitulo2.aux) (capitulo3.aux))
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 11373 strings out of 493303
- 191608 string characters out of 3129784
- 308796 words of memory out of 3000000
- 14598 multiletter control sequences out of 15000+200000
- 14356 words of font info for 46 fonts, out of 3000000 for 9000
+ 11544 strings out of 493303
+ 193639 string characters out of 3129784
+ 310440 words of memory out of 3000000
+ 14765 multiletter control sequences out of 15000+200000
+ 14462 words of font info for 47 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 45i,18n,47p,2020b,449s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 45i,13n,39p,2020b,357s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/cm/cmbx12.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/f
@@ -1143,9 +1149,9 @@ al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/inesa/
 AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:
 /Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
 mti10.pfb>
-Output written on "Relatorio de Progresso.pdf" (31 pages, 349137 bytes).
+Output written on "Relatorio de Progresso.pdf" (33 pages, 357943 bytes).
 PDF statistics:
- 148 PDF objects out of 1000 (max. 8388607)
+ 151 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

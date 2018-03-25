@@ -15,3 +15,5 @@
 \contentsline {section}{\numberline {2.4}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{7}
 \contentsline {chapter}{\numberline {3}Solu\IeC {\c c}\IeC {\~a}o do Problema}{9}
 \contentsline {section}{\numberline {3.1}Modelo de Dados}{9}
+\contentsline {subsection}{\numberline {3.1.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{9}
+\contentsline {subsection}{\numberline {3.1.2}Modelo Relacional}{9}

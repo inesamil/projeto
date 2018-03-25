@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS public."StockItem" (
 	stockItem_description text,
 	stockItem_conservationStorage character varying(128) NOT NULL,
 	PRIMARY KEY (house_id, stockItem_sku),
-	UNIQUE (category_id, product_id, stockItem_brand, stockItem_segment, stockItem_variety),
+	UNIQUE (house_id, category_id, product_id, stockItem_brand, stockItem_segment, stockItem_variety),
 	FOREIGN KEY (category_id, product_id) REFERENCES public."Product" (category_id, product_id)
 );
 
