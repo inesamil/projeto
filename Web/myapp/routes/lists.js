@@ -2,8 +2,21 @@ var express = require('express')
 var router = express.Router()
 
 /* GET Lists */
-router.get('/', function(req, res, next) {
-  
+router.get('', function(req, res, next) {
+    const context = {
+        lists: [
+            {
+                listName: `Groceries List`,
+            },
+            {
+                listName: `Dark List`,
+            },
+            {
+                listName: `Groceries List`,
+            }
+          ]
+    }
+    res.render('lists', context)
 })
 
 router.get('/:listname', function(req, res, next) {

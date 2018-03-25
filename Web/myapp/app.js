@@ -11,6 +11,7 @@ const categories = require('./routes/categories')
 const lists = require('./routes/lists')
 const users = require('./routes/users')
 const setUp = require('./routes/initialSetUp')
+const products = require('./routes/products')
 
 const app = express()
 
@@ -39,6 +40,7 @@ app.use('/categories', categories)
 app.use('/lists', lists)
 app.use('/users', users)
 app.use('/setup', setUp)
+app.use('/products', products)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

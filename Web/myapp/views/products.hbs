@@ -1,0 +1,50 @@
+<style>
+    .card {
+        margin-top: 1vh;
+        margin-left:auto; 
+        margin-right:auto;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 40%;
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+</style>
+
+<div>
+    <h1>{{product}}</h1>
+    <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search for names.." title="Type in a name">
+    {{#each products}}
+    <div class="card"> 
+        <h3 class= "container">{{productName}}</h3>
+        <h5 style="text-align: right">Qt {{total}}</h5>
+        <p>{{marca}}</p>
+        {{#each locals}}
+        <div style="text-align: center;">
+            <h4 style='display:inline-block;word-spacing: 85px;'>{{localName}} {{units}}</h4>
+        </div>
+        {{/each}}
+    </div>
+{{/each}}
+</div>
+
+<script>
+    function filterFunction() {
+        var input, filter, div, li, a, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("myUL");
+        li = div.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+
+            }
+        }
+    }
+</script>
