@@ -40,7 +40,7 @@
 		\acrshort{cp}: (recipe\_id) \newline
 		\acrshort{ce}: \{(recipe\_id) ref Recipe, (user\_username) ref User\}
 		
-		\item SharedRecipes(recipe\_id, user\_username) \newline
+		\item SharedRecipe(recipe\_id, user\_username) \newline
 		\acrshort{cp}:(recipe\_id, user\_username) \newline
 		\acrshort{ce}: \{(recipe\_id) ref Recipe, (user\_username) ref User\}
 		
@@ -114,9 +114,59 @@
 	\end{description}	
 }
 
+\noindent\textbf{Restrições de Integridade}
+\begin{description}
+	\item RI1: house\_name é uma cadeia de caracteres de comprimento igual ou inferior a 35, podendo incluir letras, números, pontos e underscores;
+	\item RI2: house\_babiesNumber é um número inteiro pertencente ao intervalo [0, 100];
+	\item RI3: house\_childrenNumber é um número inteiro pertencente ao intervalo [0, 100];
+	\item RI4: house\_adultsNumber é um número inteiro pertencente ao intervalo [0, 100];
+	\item RI5: house\_seniorsNumber é um número inteiro pertencente ao intervalo [0, 100];
+	\item RI6: user\_username é uma cadeia de caracteres de comprimento igual ou inferior a 30, podendo incluir letras, números, pontos e underscores;
+	\item RI7: user\_email é uma cadeia de caracteres de comprimento igual ou inferior a 254, podendo incluir letras, números, pontos, underscores e arroba;
+	\item RI8: user\_age é um número inteiro pertencente ao intervalo [0, 150];
+	\item RI9: user\_name é uma cadeia de caracteres de comprimento igual ou inferior a 70, sendo apenas composto por letras;
+	\item RI10: user\_password é uma cadeia de caracteres de comprimento igual ou inferior a 50, podendo incluir letras, números, caracteres especiais;
+	\item RI11: allergy\_allergen é uma cadeia de caracteres de comprimento igual ou inferior a 75;
+	\item RI12: recipe\_name é uma cadeia de caracteres de comprimento igual ou inferior a 35, podendo incluir letras, números, pontos e underscores;
+	\item RI13: recipe\_difficulty pode tomar um destes valores [‘easy’, ‘average’, ‘difficult’];
+	\item RI14: recipe\_time número inteiro superior a 0;
+	\item RI15: recipe\_servings número inteiro superior a 0;
+	\item RI16: recipe\_cuisine é uma cadeia de caracteres de comprimento igual ou inferior a 35;
+	\item RI17: recipe\_dishType é uma cadeia de caracteres de comprimento igual ou inferior a 35;
+	\item RI18: recipe\_type tem de tomar um destes valores [‘system, ‘user];
+	\item RI19: list\_name é uma cadeia de caracteres de comprimento igual ou inferior a 35, podendo incluir letras, números, pontos e underscores;
+	\item RI20: list\_type tem de tomar um destes valores [‘system, ‘user];
+	\item RI21: category\_name é uma cadeia de caracteres de comprimento igual ou inferior a 35, sendo apenas composto por letras;
+	\item RI22: product\_name é uma cadeia de caracteres de comprimento igual ou inferior a 35, sendo apenas composto por letras;
+	\item RI23: product\_shelfLife é um número superior a 0;
+	\item RI24: product\_shelfLifeTimeUnit tem de tomar um destes valores [‘day’, ‘week’, ‘month’, ‘year’];
+	\item RI25: stockItem\_sku é uma cadeia de caracteres de comprimento igual ou inferior a 128, gerada pela composição de category\_id, product\_id, stockItem\_brand, stockItem\_segment e stockItem\_variety;
+	\item RI26: stockItem\_brand é uma cadeia de caracteres de comprimento igual ou inferior a 35;
+	\item RI27: stockItem\_segment é uma cadeia de caracteres de comprimento igual ou inferior a 35;
+	\item RI28: stockItem\_variety é uma cadeia de caracteres de comprimento igual ou inferior a 35;
+	\item RI29: stockItem\_quantity é um número superior a 0;
+	\item RI30: stockItem\_segmentUnit tem de tomar um destes valores [‘kg’, ‘dag’, ‘hg’, ‘g’, ‘dg’, ‘cg’, ‘mg’, ‘kl’, ‘hl’, ‘dal’, ‘l’, ‘dl’, ‘cl’, ‘ml’, ‘oz’, ‘lb’, ‘pt’, ‘fl oz’, ‘units’];
+	\item RI31: stockItem\_conservationStorage é uma cadeia de caracteres de comprimento igual ou inferior a 128;
+	\item RI32: ingredient\_quantity é um número superior a 0;
+	\item RI33: ingredient\_quantityUnit tem de tomar um destes valores [‘kg’, ‘dag’, ‘hg’, ‘g’, ‘dg’, ‘cg’, ‘mg’, ‘kl’, ‘hl’, ‘dal’, ‘l’, ‘dl’, ‘cl’, ‘ml’, ‘oz’, ‘lb’, ‘pt’, ‘fl oz’, ‘units’];
+	\item RI34: storage\_name é uma cadeia de caracteres de comprimento igual ou inferior a 35;
+\end{description}
 
-
-
+% Domínio dos Atributos
+\subsection{Domínio dos Atributos}
+\begin{center}
+	\begin{tabular}{ |c|c|c|c|c|c| } 
+		\hline
+		Entidade & Atributo & Domínio & Tipo Variável (PostgreSQL) & Restrições & Obrigatório\\
+		\hline
+		\multirow{3}{4em}{House} & house\_id & Número inteiro & bigserial &  & sim \\ 
+		\hline
+		& house\_name & Cadeia de caracteres de comprimento variável & até 35 carateres (letras, números, ponto, underscores) & sim \\ 
+		\hline
+		& cell8 & cell9 \\ 
+		\hline
+	\end{tabular}
+\end{center}
 
 
 

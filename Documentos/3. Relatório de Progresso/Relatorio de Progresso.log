@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  25 MAR 2018 22:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  25 MAR 2018 23:13
 entering extended mode
 **"./Relatorio de Progresso.tex"
 ("Relatorio de Progresso.tex"
@@ -803,18 +803,26 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 Package: ulem 2012/05/18
 \ULdepth=\dimen133
 )
-\c@CountExamples=\count144
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\multirow\multirow.
+sty"
+Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
+\multirow@colwidth=\skip66
+\multirow@cntb=\count144
+\multirow@dima=\skip67
+\bigstrutjot=\dimen134
+)
+\c@CountExamples=\count145
 \glswrite=\write3
 \glo@main@file=\write4
 \openout4 = `"Relatorio de Progresso.glo"'.
 
 Package glossaries Info: Writing glossary file "Relatorio de Progresso".glo on 
-input line 60.
+input line 61.
 \glo@acronym@file=\write5
 \openout5 = `"Relatorio de Progresso.acn"'.
 
 Package glossaries Info: Writing glossary file "Relatorio de Progresso".acn on 
-input line 60.
+input line 61.
 
 \@input{abreviaturas.aux}
 \openout2 = `abreviaturas.aux'.
@@ -827,32 +835,32 @@ input line 60.
 (agradecimentos.aux) (capitulo1.aux) (capitulo2.aux) (capitulo3.aux))
 \openout1 = `"Relatorio de Progresso.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
 
 ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.mk
 ii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count145
-\scratchdimen=\dimen134
+\scratchcounter=\count146
+\scratchdimen=\dimen135
 \scratchbox=\box40
-\nofMPsegments=\count146
-\nofMParguments=\count147
+\nofMPsegments=\count147
+\nofMParguments=\count148
 \everyMPshowfont=\toks39
-\MPscratchCnt=\count148
-\MPscratchDim=\dimen135
-\MPnumerator=\count149
-\makeMPintoPDFobject=\count150
+\MPscratchCnt=\count149
+\MPscratchDim=\dimen136
+\MPnumerator=\count150
+\makeMPintoPDFobject=\count151
 \everyMPtoPDFconversion=\toks40
 )
 ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-
@@ -915,7 +923,7 @@ d-to.pdf>
 (epstopdf)                    size: 25524 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/logo_ISEL_princip
 al-eps-converted-to.pdf ./figures/logo_ISEL_principal.eps>
-(epstopdf)             \includegraphics on input line 110.
+(epstopdf)             \includegraphics on input line 111.
 Package epstopdf Info: Output file is already uptodate.
 <./figures/logo_ISEL_principal-eps-converted-to.pdf, id=1, 427.5975pt x 302.128
 75pt>
@@ -923,15 +931,15 @@ File: ./figures/logo_ISEL_principal-eps-converted-to.pdf Graphic file (type pdf
 )
 <use ./figures/logo_ISEL_principal-eps-converted-to.pdf>
 Package pdftex.def Info: ./figures/logo_ISEL_principal-eps-converted-to.pdf  us
-ed on input line 110.
+ed on input line 111.
 (pdftex.def)             Requested size: 427.59645pt x 302.128pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 110--110
+Underfull \hbox (badness 10000) in paragraph at lines 111--111
 
  []
 
 
-Overfull \hbox (14.22636pt too wide) in paragraph at lines 110--110
+Overfull \hbox (14.22636pt too wide) in paragraph at lines 111--111
  []$ 
  []
 
@@ -980,7 +988,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--5
 
 
 ])
-Underfull \hbox (badness 10000) in paragraph at lines 4--163
+Underfull \hbox (badness 10000) in paragraph at lines 4--164
 
  []
 
@@ -1107,11 +1115,16 @@ Overfull \hbox (13.51743pt too wide) in paragraph at lines 99--102
 ]id, list-Pro-duct[]brand, list-Pro-duct[]quantity) 
  []
 
-) [12] ("Relatorio de Progresso.bbl"
+[12] [13]
+Overfull \hbox (311.87842pt too wide) in paragraph at lines 158--169
+ [] 
+ []
+
+) [14] ("Relatorio de Progresso.bbl"
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [13
+) [15
 
 
 ] ("Relatorio de Progresso.aux" (resumo.aux) (abstract.aux)
@@ -1121,10 +1134,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 11544 strings out of 493303
- 193639 string characters out of 3129784
- 310440 words of memory out of 3000000
- 14765 multiletter control sequences out of 15000+200000
+ 11586 strings out of 493303
+ 194407 string characters out of 3129784
+ 311956 words of memory out of 3000000
+ 14803 multiletter control sequences out of 15000+200000
  14462 words of font info for 47 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,13n,39p,2020b,361s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1137,9 +1150,9 @@ al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/inesa/
 AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:
 /Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
 mti10.pfb>
-Output written on "Relatorio de Progresso.pdf" (33 pages, 357083 bytes).
+Output written on "Relatorio de Progresso.pdf" (35 pages, 362845 bytes).
 PDF statistics:
- 151 PDF objects out of 1000 (max. 8388607)
+ 157 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
