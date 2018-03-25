@@ -4,14 +4,16 @@
 \contentsline {section}{\numberline {1.2}Metas e Objetivos}{2}
 \contentsline {section}{\numberline {1.3}Especifica\IeC {\c c}\IeC {\~o}es do Projecto e Resumo da Solu\IeC {\c c}\IeC {\~a}o}{2}
 \contentsline {section}{\numberline {1.4}Estrutura do Relat\IeC {\'o}rio}{2}
-\contentsline {chapter}{\numberline {2}Formula\IeC {\c c}\IeC {\~a}o do Problema }{3}
-\contentsline {section}{\numberline {2.1}Descri\IeC {\c c}\IeC {\~a}o do Problema}{3}
-\contentsline {section}{\numberline {2.2}Requisitos Funcionais e N\IeC {\~a}o Funcionais}{4}
-\contentsline {subsection}{\numberline {2.2.1}Requisitos Funcionais}{4}
-\contentsline {subsection}{\numberline {2.2.2}Requisitos N\IeC {\~a}o Funcionais}{4}
-\contentsline {section}{\numberline {2.3}Dificuldades Encontradas}{5}
-\contentsline {subsection}{\numberline {2.3.1}R\IeC {\'o}tulos em Formato N\IeC {\~a}o Digital}{5}
-\contentsline {subsection}{\numberline {2.3.2}Aus\IeC {\^e}ncia de Identificador \IeC {\'U}nico nos Itens}{5}
-\contentsline {section}{\numberline {2.4}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{5}
-\contentsline {chapter}{\numberline {3}Solu\IeC {\c c}\IeC {\~a}o do Problema}{7}
-\contentsline {section}{\numberline {3.1}Modelo de Dados}{7}
+\contentsline {chapter}{\numberline {2}Formula\IeC {\c c}\IeC {\~a}o do Problema }{5}
+\contentsline {section}{\numberline {2.1}Descri\IeC {\c c}\IeC {\~a}o do Problema}{5}
+\contentsline {section}{\numberline {2.2}Requisitos Funcionais e N\IeC {\~a}o Funcionais}{6}
+\contentsline {subsection}{\numberline {2.2.1}Requisitos Funcionais}{6}
+\contentsline {subsection}{\numberline {2.2.2}Requisitos N\IeC {\~a}o Funcionais}{6}
+\contentsline {section}{\numberline {2.3}Dificuldades Encontradas}{7}
+\contentsline {subsection}{\numberline {2.3.1}R\IeC {\'o}tulos em Formato N\IeC {\~a}o Digital}{7}
+\contentsline {subsection}{\numberline {2.3.2}Aus\IeC {\^e}ncia de Identificador \IeC {\'U}nico nos Itens}{7}
+\contentsline {section}{\numberline {2.4}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{7}
+\contentsline {chapter}{\numberline {3}Solu\IeC {\c c}\IeC {\~a}o do Problema}{9}
+\contentsline {section}{\numberline {3.1}Modelo de Dados}{9}
+\contentsline {subsection}{\numberline {3.1.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{9}
+\contentsline {subsection}{\numberline {3.1.2}Modelo Relacional}{9}

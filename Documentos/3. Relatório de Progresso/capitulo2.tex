@@ -3,16 +3,16 @@
 %
 \chapter{Formulação do Problema } \label{cap2}
 
-Neste capítulo o problema é descrito de forma detalhada, bem como os requisitos funcionais e não funcionais. A secção \ref{sec23} apresenta as dificuldades que surgiram no decorrer do projeto. São expostas na secção \ref{sec24} noções da gestão de stocks 
+Neste capítulo o problema é descrito de forma detalhada na secção \ref{sec21}, bem como os requisitos funcionais e não funcionais na secção \ref{sec22}. A secção \ref{sec23} apresenta as dificuldades que surgiram no decorrer do projeto. São expostas na secção \ref{sec24} noções da gestão de stocks 
 
 
 %
 % Secção 2.1
 %
 \section{Descrição do Problema} \label{sec21}
-No âmbito do projeto existe a necessidade de criar um sistema de informação que permita gerir os produtos em stock de uma dada casa.
+No âmbito do projeto existe a necessidade de criar um sistema de informação que permita gerir os itens em stock de uma dada casa.
 
-Uma casa está associada a um ou mais utilizadores, podendo um utilizador ter várias casas. Cada casa é caracterizada por um identificador único, um nome, atribuído por um utilizador no momento de registo da casa, quantos bebés, crianças, adultos e seniores vivem nessa casa. Cada utilizador é identificado univocamente por um email ou por um nome de utilizador, pelo nome da própria pessoa, idade e uma password. Para cada casa podem existir um ou mais administradores. Um utilizador pode criar as suas listas e as suas receitas. As listas que este cria pode decidir se quer partilhar com os restantes utilizadores da casa a que pertence, nunca podendo partilhar com utilizadores fora da sua casa. Existem listas que são comuns a todos os utilizadores registados, contudo são particulares a cada casa. As listas partilhadas pelos vários utilizadores dependem dos produtos que cada utilizador tem em casa. As receitas que um utilizador cria podem ser partilhadas com todos os utilizadores registados ou só com determinados utilizadores. Existem ainda um conjunto de receitas que são partilhadas por todos os utilizadores registados.
+Uma casa está associada a um ou mais utilizadores, podendo um utilizador ter várias casas. Cada casa é caracterizada por um identificador único, um nome, atribuído por um utilizador no momento de registo da casa, quantos bebés, crianças, adultos e seniores vivem nessa casa. Cada utilizador é identificado univocamente por um email ou por um nome de utilizador, pelo nome da própria pessoa, idade e uma password. Para cada casa podem existir um ou mais administradores. Um utilizador pode criar as suas listas e as suas receitas. As listas que este cria pode decidir se quer partilhar com os restantes utilizadores da casa a que pertence, nunca podendo partilhar com utilizadores fora da sua casa. Existem listas do sistema que são comuns a todos os utilizadores registados, contudo são particulares a cada casa. As listas partilhadas pelos vários utilizadores dependem dos produtos que cada utilizador tem em casa. As receitas que um utilizador cria podem ser partilhadas com todos os utilizadores registados ou só com determinados utilizadores. Existem ainda um conjunto de receitas que são partilhadas por todos os utilizadores registados.
 
 Cada receita é identificada por um identificador único, um nome, uma preparação, uma dificuldade, um tempo, quantas doses, qual o tipo de cozinha e qual o tipo de prato. Cada receita pode ter vários ingredientes. Para cada receita deve ser possível saber a quantidade dos vários ingredientes que a compõem.
 Cada lista é identificada por um identificador único e um nome. Uma lista pode ter vários produtos. Para os produtos presentes numa lista pode ser possível saber a sua marca e a quantidade de um produto na lista. Um produto é identificado pelo seu identificador único, contém um nome, se é comestível ou não, e a validade perecível. Um produto pertence a uma categoria, podendo uma categoria ter vários produtos. Uma categoria é identificada por um identificador único ou um nome. Um produto pode ter vários itens em casa. Uma casa pode ter vários itens presentes na mesma. 
@@ -35,7 +35,7 @@ Para cada casa deve ser possível saber que alergias os seus membros têm e para
 	\item Alertas sobre os produtos que estão perto da data de validade;
 	\item Geração da lista de compras com os produtos em falta;
 	\item Possibilidade de especificar os produtos a ter sempre em stock bem como as suas quantidades mínimas;	
-	\item Lista de Compras Offline (permite rasurar para uso no supermercado);
+	\item Lista de Compras \textit{Offline} (permite rasurar para uso no supermercado);
 	\item Listas partilhadas entre utilizadores da mesma casa;
 	\item Criação de Listas (As Minhas Listas);
 	\item Especificação das alergias dos membros da casa.
@@ -45,7 +45,7 @@ Para cada casa deve ser possível saber que alergias os seus membros têm e para
 \subsection{Requisitos Não Funcionais}
 \begin{itemize}
 	\item Lista de produtos quase a expirar;
-	\item Lista de produtos idesejados (Lista Negra);
+	\item Lista de produtos indesejados (Lista Negra);
 	\item Lista de contenção em situações de emergência (Lista SOS);
 	\item Sugestão de receitas que utilizem os produtos mais perto do fim da validade;
 	\item Inserção de receitas (As Minhas Receitas);
@@ -105,7 +105,7 @@ Artigo aprovado para aquisição, armazenamento e emissão, e geralmente mantido
 %https://sphereoi.com/studios/category-segment-and-brand-whats-the-difference/
 
 \vspace{0.2cm}
-\textbf{Brand (Marca, em Português)} - Um símbolo de identificação, marca, logótipo, nome, palavra e/ou frase que as empresas usam para distinguir seus produtos dos outros.
+\textbf{Brand (Marca, em Português)} - Um símbolo de identificação, marca, logótipo, nome, palavra e/ou frase que as empresas usam para distinguir os seus produtos dos outros.
 
 %Read more: Brand https://www.investopedia.com/terms/b/brand.asp#ixzz5Al2FpNL2
  
@@ -117,7 +117,7 @@ Artigo aprovado para aquisição, armazenamento e emissão, e geralmente mantido
 %https://sphereoi.com/studios/category-segment-and-brand-whats-the-difference/
 
 \vspace{0.2cm}
-\textbf{Variety (Variedade, em Português)} - A variedade é confusa porque pode ser difícil entender onde a especialização da segmentação termina e a especialização em prol da Variedade começa. A variação é sobre a personalização de um produto para se adequar ao caráter do consumidor individual. Ver exemplo 2.
+\textbf{Variety (Variedade, em Português)} - A variedade é confusa porque pode ser difícil de entender onde a especialização da segmentação termina e a especialização em prol da Variedade começa. A variação é sobre a personalização de um produto para se adequar ao caráter do consumidor individual. Ver exemplo 2.
 
 %https://sphereoi.com/studios/category-segment-and-brand-whats-the-difference/
 \vspace{0.5cm}
