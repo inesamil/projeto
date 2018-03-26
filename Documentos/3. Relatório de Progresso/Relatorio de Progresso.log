@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.28)  26 MAR 2018 18:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.28)  27 MAR 2018 00:57
 entering extended mode
 **"./Relatorio de Progresso.tex"
 ("Relatorio de Progresso.tex"
@@ -768,18 +768,26 @@ Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
 \multirow@dima=\skip67
 \bigstrutjot=\dimen134
 )
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\array.sty"
+Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
+\col@sep=\dimen135
+\extrarowheight=\dimen136
+\NC@list=\toks39
+\extratabsurround=\skip68
+\backup@length=\skip69
+)
 \c@CountExamples=\count145
 \glswrite=\write3
 \glo@main@file=\write4
 \openout4 = `"Relatorio de Progresso.glo"'.
 
 Package glossaries Info: Writing glossary file "Relatorio de Progresso".glo on 
-input line 63.
+input line 68.
 \glo@acronym@file=\write5
 \openout5 = `"Relatorio de Progresso.acn"'.
 
 Package glossaries Info: Writing glossary file "Relatorio de Progresso".acn on 
-input line 63.
+input line 68.
 
 \@input{abreviaturas.aux}
 \openout2 = `abreviaturas.aux'.
@@ -792,32 +800,32 @@ input line 63.
 (agradecimentos.aux) (capitulo1.aux) (capitulo2.aux) (capitulo3.aux))
 \openout1 = `"Relatorio de Progresso.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
 
 ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count146
-\scratchdimen=\dimen135
+\scratchdimen=\dimen137
 \scratchbox=\box40
 \nofMPsegments=\count147
 \nofMParguments=\count148
-\everyMPshowfont=\toks39
+\everyMPshowfont=\toks40
 \MPscratchCnt=\count149
-\MPscratchDim=\dimen136
+\MPscratchDim=\dimen138
 \MPnumerator=\count150
 \makeMPintoPDFobject=\count151
-\everyMPtoPDFconversion=\toks40
+\everyMPtoPDFconversion=\toks41
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -871,7 +879,7 @@ d-to.pdf>
 (epstopdf)                    size: 25524 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/logo_ISEL_princip
 al-eps-converted-to.pdf ./figures/logo_ISEL_principal.eps>
-(epstopdf)             \includegraphics on input line 113.
+(epstopdf)             \includegraphics on input line 118.
 Package epstopdf Info: Output file is already uptodate.
 <./figures/logo_ISEL_principal-eps-converted-to.pdf, id=1, 427.5975pt x 302.128
 75pt>
@@ -879,15 +887,15 @@ File: ./figures/logo_ISEL_principal-eps-converted-to.pdf Graphic file (type pdf
 )
 <use ./figures/logo_ISEL_principal-eps-converted-to.pdf>
 Package pdftex.def Info: ./figures/logo_ISEL_principal-eps-converted-to.pdf  us
-ed on input line 113.
+ed on input line 118.
 (pdftex.def)             Requested size: 427.59645pt x 302.128pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 113--113
+Underfull \hbox (badness 10000) in paragraph at lines 118--118
 
  []
 
 
-Overfull \hbox (14.22636pt too wide) in paragraph at lines 113--113
+Overfull \hbox (14.22636pt too wide) in paragraph at lines 118--118
  []$ 
  []
 
@@ -936,7 +944,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--5
 
 
 ])
-Underfull \hbox (badness 10000) in paragraph at lines 4--166
+Underfull \hbox (badness 10000) in paragraph at lines 4--171
 
  []
 
@@ -962,17 +970,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--166
 
 ] [12
 
-] ("Relatorio de Progresso.lot")
+] ("Relatorio de Progresso.lot" [13
+
+])
 \tf@lot=\write8
 \openout8 = `"Relatorio de Progresso.lot"'.
 
- [13
-
-] [14
-
-]
+ [14]
 No file "Relatorio de Progresso".acr.
-[15] [16
+[15
+
+] [16
 
 ]
 No file "Relatorio de Progresso".gls.
@@ -1067,41 +1075,170 @@ Overfull \hbox (13.51743pt too wide) in paragraph at lines 99--102
  []
 
 [12] [13]
-Overfull \hbox (311.87842pt too wide) in paragraph at lines 158--169
- [] 
+Overfull \hbox (5.05035pt too wide) in paragraph at lines 176--176
+ \OT1/cmr/m/n/10.95 house[]childrenNumber 
  []
 
-) [14] ("Relatorio de Progresso.bbl"
+
+Overfull \hbox (56.68152pt too wide) in paragraph at lines 164--177
+ [][] 
+ []
+
+
+Overfull \hbox (17.80899pt too wide) in paragraph at lines 185--197
+ [][] 
+ []
+
+
+Overfull \hbox (22.24985pt too wide) in paragraph at lines 205--213
+ [][] 
+ []
+
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 237.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
+File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 237.
+
+Overfull \hbox (37.57986pt too wide) in paragraph at lines 222--238
+ [][] 
+ []
+
+
+Overfull \hbox (18.11015pt too wide) in paragraph at lines 246--254
+ [][] 
+ []
+
+
+Overfull \hbox (26.03708pt too wide) in paragraph at lines 262--271
+ [][] 
+ []
+
+
+Overfull \hbox (37.23044pt too wide) in paragraph at lines 279--288
+ [][] 
+ []
+
+
+Overfull \hbox (4.48349pt too wide) in paragraph at lines 315--324
+ [][] 
+ []
+
+
+Overfull \hbox (17.80899pt too wide) in paragraph at lines 332--343
+ [][] 
+ []
+
+
+Overfull \hbox (19.17776pt too wide) in paragraph at lines 351--360
+ [][] 
+ []
+
+
+Overfull \hbox (9.09583pt too wide) in paragraph at lines 380--380
+ \OT1/cmr/m/n/10.95 duct[]shelfLifeTimeUnit 
+ []
+
+
+Overfull \hbox (76.87827pt too wide) in paragraph at lines 368--381
+ [][] 
+ []
+
+
+Overfull \hbox (95.37161pt too wide) in paragraph at lines 389--407
+ [][] 
+ []
+
+
+Overfull \hbox (62.67363pt too wide) in paragraph at lines 415--427
+ [][] 
+ []
+
+
+Overfull \hbox (46.06613pt too wide) in paragraph at lines 435--446
+ [][] 
+ []
+
+
+Overfull \hbox (68.31633pt too wide) in paragraph at lines 454--464
+ [][] 
+ []
+
+
+Overfull \hbox (111.50806pt too wide) in paragraph at lines 472--483
+ [][] 
+ []
+
+
+Overfull \hbox (115.84447pt too wide) in paragraph at lines 491--504
+ [][] 
+ []
+
+
+Overfull \hbox (87.93512pt too wide) in paragraph at lines 512--522
+ [][] 
+ []
+
+
+Overfull \hbox (54.84175pt too wide) in paragraph at lines 530--543
+ [][] 
+ []
+
+
+Overfull \hbox (56.42343pt too wide) in paragraph at lines 551--561
+ [][] 
+ []
+
+
+Overfull \hbox (17.98909pt too wide) in paragraph at lines 576--576
+ \OT1/cmr/m/n/10.95 (AAAA/MM/DD)| 
+ []
+
+
+Overfull \hbox (17.98909pt too wide) in paragraph at lines 595--595
+ \OT1/cmr/m/n/10.95 (AAAA/MM/DD)| 
+ []
+
+
+Overfull \hbox (40.97176pt too wide) in paragraph at lines 585--596
+ [][] 
+ []
+
+) [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] ("Relatorio de Progresso.bb
+l" [24
+
+
+]
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [15
-
-
-] ("Relatorio de Progresso.aux" (resumo.aux) (abstract.aux)
+) [25] ("Relatorio de Progresso.aux" (resumo.aux) (abstract.aux)
 (agradecimentos.aux) (capitulo1.aux) (capitulo2.aux) (capitulo3.aux))
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 11588 strings out of 493303
- 190018 string characters out of 3138836
- 311968 words of memory out of 3000000
- 14805 multiletter control sequences out of 15000+200000
+ 11673 strings out of 493303
+ 191599 string characters out of 3138836
+ 413021 words of memory out of 3000000
+ 14885 multiletter control sequences out of 15000+200000
  14462 words of font info for 47 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,13n,39p,2020b,361s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmti10.pfb>
-Output written on "Relatorio de Progresso.pdf" (35 pages, 362743 bytes).
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmti10.pfb>
+Output written on "Relatorio de Progresso.pdf" (45 pages, 397801 bytes).
 PDF statistics:
- 157 PDF objects out of 1000 (max. 8388607)
+ 195 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
