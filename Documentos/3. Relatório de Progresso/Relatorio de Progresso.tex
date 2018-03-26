@@ -32,7 +32,7 @@
 
 % Exemplos
 \newcounter{CountExamples}
-\newcommand{\exampleblock}[1]{
+\newcommand{\exampleblock}[2]{
 	\noindent\fbox{
 		\parbox{\textwidth}{
 			\stepcounter{CountExamples}
@@ -40,7 +40,9 @@
 			
 			#1
 		}
-}}
+		%\label{ex:#2}
+	}
+}
 
 % Definições das dimensões das páginas
 \setlength{\textheight}{24.00cm}
