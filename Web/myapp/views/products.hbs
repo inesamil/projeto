@@ -11,23 +11,47 @@
     .card:hover {
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     }
+
+    a:hover {
+        text-decoration: none;
+    }
 </style>
 
 <div>
     <h1>{{product}}</h1>
     <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search for names.." title="Type in a name">
-    {{#each products}}
-    <div class="card"> 
-        <h3 class= "container">{{productName}}</h3>
-        <h5 style="text-align: right">Qt {{total}}</h5>
-        <p>{{marca}}</p>
-        {{#each locals}}
-        <div style="text-align: center;">
-            <h4 style='display:inline-block;word-spacing: 85px;'>{{localName}} {{units}}</h4>
-        </div>
-        {{/each}}
+    <div id="myUL">
+        {{#each products}}
+        <li id="divCard" class="card" style="list-style-type: none;">
+            <a href="/products/milk/{{productName}}" style="color:black" >
+                <h3 class= "container">{{productName}}</h3>
+                <p style="text-indent: 4%;">{{marca}}</p>
+                <h5 style="text-align: right;">Qt {{total}}</h5>
+                
+                <table class='table'>
+                    <thead class='thead-dark'>
+                        <tr>
+                            <th style='text-indent: 20%;'>Local</th>
+                            <th style='text-indent: 20%;'>Units</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {{#each locals}}
+                                <tr>
+                                    <td>
+                                        <h4 style='text-indent: 37%;'>{{localName}} </h4>
+                                    </td>
+                                    <td>
+                                        <h4 style='text-indent: 50%;'>{{units}}</h4>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                    </tbody>
+                </table>
+            </a>
+        </li>
+    {{/each}}
     </div>
-{{/each}}
 </div>
 
 <script>
@@ -38,7 +62,7 @@
         div = document.getElementById("myUL");
         li = div.getElementsByTagName("li");
         for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("a")[0];
+            a = li[i].getElementsByTagName("h3")[0];
             if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
                 li[i].style.display = "";
             } else {
