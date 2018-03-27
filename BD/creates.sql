@@ -186,6 +186,7 @@ CREATE TABLE IF NOT EXISTS public."ExpirationDate" (
 	house_id bigint NOT NULL CHECK (house_id > 0),
 	stockItem_sku character varying(128) NOT NULL,
 	date_date timestamp NOT NULL REFERENCES public."Date" (date_date),
+	date_quantity smallint NOT NULL CHECK (date_quantity > 0),
 	PRIMARY KEY (house_id, stockItem_sku, date_date),
 	FOREIGN KEY (house_id, stockItem_sku) REFERENCES public."StockItem" (house_id, stockItem_sku)
 );
