@@ -102,6 +102,36 @@ END;
 $$ LANGUAGE plpgsql;
 
 
+ -- Procedure to insert a UserList
+ -- DROP FUNCTION insert_user_list
+CREATE OR REPLACE FUNCTION insert_user_list(houseId bigint, listName character varying(35), username character varying(30), shareable boolean) 
+RETURNS VOID AS $$
+BEGIN
+	--BEGIN
+		-- Add List
+		INSERT INTO public."List" (house_id, list_name, list_type) VALUES (houseId, listName, 'user');
+		
+		-- Add UserList
+		INSERT INTO public."UserList" (house_id, list_id, user_username, list_shareable) VALUES (houseId, listId, username, shareable)
+	--COMMIT;
+END;
+$$ LANGUAGE plpgsql;
+
+ -- Procedure to insert a SystemList
+ -- DROP FUNCTION insert_system_list
+CREATE OR REPLACE FUNCTION insert_system_list(houseId bigint, listName character varying(35)) 
+RETURNS VOID AS $$
+BEGIN
+	--BEGIN
+		-- Add List
+		INSERT INTO public."List" (house_id, list_name, list_type) VALUES (houseId, listName, 'system');
+		
+		-- Add UserList
+		INSERT INTO public."SystemList" (house_id, list_id) VALUES (houseId, listId)
+	--COMMIT;
+END;
+$$ LANGUAGE plpgsql;
+
 ---TESTS---
 
 SELECT delete_user('ze')
