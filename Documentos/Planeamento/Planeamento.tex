@@ -1,0 +1,134 @@
+%
+% Planeamento
+%
+\documentclass[tikz,a4paper]{standalone}
+\usepackage{pgfgantt}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\title{Gantt Charts with the pgfgantt Package}
+\begin{document}
+	
+	%
+	% A fairly complicated example from section 2.9 of the package
+	% documentation. This reproduces an example from Wikipedia:
+	% http://en.wikipedia.org/wiki/Gantt_chart
+	%
+	\definecolor{barblue}{RGB}{153,204,254}
+	\definecolor{groupblue}{RGB}{51,102,254}
+	\definecolor{linkred}{RGB}{165,0,33}
+	\renewcommand\sfdefault{phv}
+	\renewcommand\mddefault{mc}
+	\renewcommand\bfdefault{bc}
+	\setganttlinklabel{s-s}{START-TO-START}
+	\setganttlinklabel{f-s}{FINISH-TO-START}
+	\setganttlinklabel{f-f}{FINISH-TO-FINISH}
+	\sffamily
+	\begin{ganttchart}[
+		canvas/.append style={fill=none, draw=black!5, line width=.75pt},
+		hgrid style/.style={draw=black!5, line width=.75pt},
+		vgrid={*1{draw=black!5, line width=.75pt}},
+		vgrid={*3{draw=none}, dotted},
+		today=5,
+		today rule/.style={
+			draw=black!64,
+			dash pattern=on 3.5pt off 4.5pt,
+			line width=1.5pt
+		},
+		today label font=\small\bfseries,
+		today label={\small\bfseries HOJE},
+		title/.style={draw=none, fill=none},
+		title label font=\bfseries\footnotesize,
+		title label node/.append style={below=7pt},
+		include title in canvas=false,
+		bar label font=\mdseries\small\color{black!70},
+		bar label node/.append style={left=2cm},
+		bar/.append style={draw=none, fill=black!63},
+		bar incomplete/.append style={fill=barblue},
+		bar progress label font=\mdseries\footnotesize\color{black!70},
+		group incomplete/.append style={fill=groupblue},
+		x unit=0.55cm,
+		y unit title=0.6cm,
+		y unit chart=0.75cm,
+		group left shift=0,
+		group right shift=0,
+		group height=.5,
+		group peaks tip position=0,
+		progress label text={#1\% completo},
+		group label node/.append style={left=.6cm},
+		group progress label font=\bfseries\small,
+		link/.style={-latex, line width=1.5pt, linkred},
+		link label font=\scriptsize\bfseries,
+		link label node/.append style={below left=-2pt and 0pt}
+		]{1}{20}
+		
+		% Meses
+		\gantttitle{Fev.}{1} \gantttitle{Mar.}{4}   \gantttitle{Abr.}{5} \gantttitle{Mai.}{4}   \gantttitle{Jun.}{4}   \gantttitle{Jul.}{2}\\
+		% Semanas
+		\gantttitlelist{1,...,20}{1} \\
+		
+		% Estudo do Problema 
+		\ganttgroup[progress=63.33]{Estudo do problema}{1}{2} \\
+		\ganttbar[progress=100]{Comparação das Tecnologias (\textit{NFC} vs \textit{RFID})}{1}{1} \\
+		\ganttbar[progress=90]{Definição do Formato de Dados das \textit{Tags}}{1}{1} \\
+		\ganttbar[progress=0]{Pesquisa sobre os dispositivos de HW}{1}{1} \\
+		
+		% Modelo de Dados
+		\ganttgroup[progress=96.25]{Modelo de Dados}{2}{3}\\ 
+		\ganttbar[progress=100]{Descrição do Problema}{2}{2} \\ 
+		\ganttbar[progress=95]{Modelo EA}{2}{2} \\
+		\ganttbar[progress=95]{Modelo Relacional}{2}{2} \\
+		\ganttbar[progress=95]{Domínio dos Atributos}{2}{2}  \ganttnewline[grid]
+		
+		% MILESTONE: Proposta de Projeto
+		\ganttmilestone[ name=M1]{\textbf{Entrega da Proposta de Projeto}}{3}  \ganttnewline[grid]
+		
+		% Base de Dados
+		\ganttgroup[progress=25]{Base de Dados}{4}{5}\\  
+		\ganttbar[progress=50]{Desenvolvimento}{4}{5}\\
+		\ganttbar[progress=0]{Documentação}{5}{5} \\
+		
+		% Camada de Acesso a Dados
+		\ganttgroup[progress=0]{Camada de Acesso a Dados}{5}{7}\\  
+		\ganttbar[progress=0]{Desenvolvimento}{5}{7}\\
+		\ganttbar[progress=0]{Documentação}{7}{7} \\
+		\ganttbar[progress=0]{Testes}{5}{7} \\
+		
+		% Camada da Lógica de Negócio
+		\ganttgroup[progress=0]{Camada da Lógica de Negócio}{7}{10}\\  
+		\ganttbar[progress=0]{Desenvolvimento}{7}{10}\\
+		\ganttbar[progress=0]{Documentação}{10}{10} \\
+		\ganttbar[progress=0]{Testes}{7}{10}  \ganttnewline[grid]
+		
+		% MILESTONE: Relatório de Progresso
+		\ganttmilestone[ name=M2]{\textbf{Entrega do Relatório de Progresso}}{9} \ganttnewline[grid]
+		
+		% WEB API
+		\ganttgroup[progress=0]{WEB API}{9}{12}\\  
+		\ganttbar[progress=0]{Desenvolvimento}{9}{12}\\
+		\ganttbar[progress=0]{Documentação}{11}{12} \\
+		\ganttbar[progress=0]{Testes}{10}{12}  \\
+		
+		% Aplicações (Android e Website)
+		\ganttgroup[progress=14]{Aplicações (Android e Website)}{3}{13} \\
+		\ganttbar[progress=70]{Desenho das User Interfaces}{3}{4}\\
+		\ganttbar[progress=0]{Simulação - Leitor de Tags NFC}{8}{10}\\
+		\ganttbar[progress=0]{Desenvolvimento}{6}{13}\\
+		\ganttbar[progress=0]{Documentação}{12}{13} \\
+		\ganttbar[progress=0]{Testes}{7}{13}  \ganttnewline[grid]
+		
+		% MILESTONE: Cartaz e Versão Beta
+		\ganttmilestone[ name=M3]{\textbf{Entrega do Cartaz e Versão Beta}}{13} \ganttnewline[grid]
+		
+		% Escrita
+		\ganttgroup[progress=20]{Escrita}{1}{20} \\
+		\ganttbar[progress=100,name=S1A]{Proposta de Projeto}{1}{3} \\
+		\ganttbar[progress=5,name=S1B]{Relatório de progresso}{4}{9} \\
+		\ganttbar[progress=0,name=S5C]{Relatório Beta}{10}{13} \\
+		\ganttbar[progress=0,name=S5D]{Relatório Final}{14}{20}\\
+		\ganttbar[progress=0,name=S5E]{Desenvolvimento do cartaz}{11}{13} \ganttnewline[grid]
+		
+		% MILESTONE: Relatório de Progresso
+		\ganttmilestone[ name=M4]{\textbf{Entrega do Projecto}}{20}  \ganttnewline[grid]
+		
+\end{ganttchart}
+\end{document}

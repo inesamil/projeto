@@ -1,0 +1,23 @@
+ 
+ -- Procedure to insert a new city
+ -- DROP FUNCTION add_house
+CREATE OR REPLACE FUNCTION add_house(name character varying(35))--, characteristics json--) 
+RETURNS bigint AS $$
+DECLARE
+   id bigint;
+BEGIN
+	INSERT INTO public."House" (house_name, house_babiesNumber, house_childrenNumber, house_adultsNumber, house_seniorsNumber) 
+		VALUES (name, 0, 1, 1, 2);
+	SELECT id = house_id FROM public."House" ORDER BY house_id DESC LIMIT 1;
+	PRINT id;
+	RETURN id;
+END;
+$$ LANGUAGE plpgsql;
+
+
+SELECT add_house('Croft') AS house_id
+
+
+
+--INSERT INTO public."House" (house_name, house_babiesNumber, house_childrenNumber, house_adultsNumber, house_seniorsNumber) VALUES ('Jones', 0, 1, 1, 2), ('Gordon', 0,0,1,0)
+--SELECT house_id FROM public."House" ORDER BY house_id DESC LIMIT 1 
