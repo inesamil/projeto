@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.DAL.bdModel;
 
+import org.hibernate.annotations.Type;
+import pt.isel.ps.gis.DAL.bdModel.JsonType.Json;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,25 +13,31 @@ public class House {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "house_id")
     private Long id;
+
     @Column(name = "house_name")
     private String name;
-    @Column(name = "house_babiesNumber")
-    private short babiesNumber;
-    @Column(name = "house_childrenNumber")
-    private short childrenNumber;
-    @Column(name = "house_adultsNumber")
-    private short adultsNumber;
-    @Column(name = "house_seniorsNumber")
-    private short seniorsNumber;
 
-    protected House() { }
+    @Column(name = "characteristics")
+    @Type(type = "JsonType")
+    private Json characteristics;
+
+    protected House() {
+    }
 
     public House(String name, short babiesNumber, short childrenNumber, short adultsNumber, short seniorsNumber) {
         this.name = name;
-        this.babiesNumber = babiesNumber;
-        this.childrenNumber = childrenNumber;
-        this.adultsNumber = adultsNumber;
-        this.seniorsNumber = seniorsNumber;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof House)) {
+            return false;
+        }
+        House other = (House) obj;
+        return id == null || id.equals(other.id);
     }
 
     @Override
