@@ -357,8 +357,8 @@
 	\caption{Domínio dos Atributos da Entidade Product.} \vspace{2mm}
 	\label{tab-dominio-atributos-product}
 	\resizebox{!}{!}{%
-		\hspace{-2cm}
-		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
+		\hspace{-2.5cm}
+		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.8cm}|C{2cm}|}
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
 			\multirow{6}{*}{Product} & category\_id & Número inteiro & integer & category\_id \textgreater{} 0 & não\\ \cline{2-6}
@@ -377,8 +377,8 @@
 	\caption{Domínio dos Atributos da Entidade StockItem.} \vspace{2mm}
 	\label{tab-dominio-atributos-stockItem}
 	\resizebox{!}{!}{%
-		\hspace{-2cm}
-		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
+		\hspace{-2.5cm}
+		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2cm}|}
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
 			\multirow{11}{*}{StockItem} & house\_id & Número inteiro & bigint & house\_id \textgreater{} 0 & não\\ \cline{2-6}
@@ -456,8 +456,8 @@
 	\caption{Domínio dos Atributos da Entidade StockItemStorage.} \vspace{2mm}
 	\label{tab-dominio-atributos-stockItemStorage}
 	\resizebox{!}{!}{%
-		\hspace{-2cm}
-		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
+		\hspace{-2.7cm}
+		\begin{tabular}{|c|c|C{2.3cm}|C{2.7cm}|C{3.6cm}|C{2cm}|}
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
 			\multirow{4}{*}{StockItemStorage} & house\_id & Número inteiro & bigint & house\_id \textgreater{} 0 & não\\ \cline{2-6}
@@ -474,8 +474,8 @@
 	\caption{Domínio dos Atributos da Entidade StockItemMovement.} \vspace{2mm}
 	\label{tab-dominio-atributos-stockItemMovement}
 	\resizebox{!}{!}{%
-		\hspace{-3cm}
-		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
+		\hspace{-1.5cm}
+		\begin{tabular}{|c|C{3cm}|C{2.5cm}|C{2.7cm}|C{3cm}|C{1.7cm}|}
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
 			\multirow{6}{*}{StockItemMovement} & house\_id & Número inteiro & bigint & house\_id \textgreater{} 0 & não\\ \cline{2-6}
@@ -494,8 +494,8 @@
 	\caption{Domínio dos Atributos da Entidade HouseAllergy.} \vspace{2mm}
 	\label{tab-dominio-atributos-houseAllergy}
 	\resizebox{!}{!}{%
-		\hspace{-2cm}
-		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
+		\hspace{-2.4cm}
+		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2cm}|}
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
 			\multirow{3}{*}{HouseAllergy} & house\_id & Número inteiro & bigint & house\_id \textgreater{} 0 & não\\ \cline{2-6}
@@ -548,8 +548,8 @@
 	\caption{Domínio dos Atributos da Entidade Date.} \vspace{2mm}
 	\label{tab-dominio-atributos-date}
 	\resizebox{!}{!}{%
-		\hspace{-2cm}
-		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
+		\hspace{-1cm}
+		\begin{tabular}{|c|c|C{3cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
 			{Date} & date\_date & Data (AAAA/MM/DD) & timestamp & - & não\\ \hline
@@ -564,7 +564,7 @@
 	\label{tab-dominio-atributos-expirationDate}
 	\resizebox{!}{!}{%
 		\hspace{-2cm}
-		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
+		\begin{tabular}{|c|c|C{3cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
 			\multirow{4}{*}{ExpirationDate} & house\_id & Número inteiro & bigint & house\_id \textgreater{} 0 & não\\ \cline{2-6}
