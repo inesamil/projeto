@@ -207,7 +207,7 @@ $$ LANGUAGE SQL;
 
 -------------------------------------------------------------------------------------------
 
--- Function to return Lists filtered by desire
+-- Function to return Lists filtered
 -- DROP FUNCTION get_lists_filtered
 CREATE OR REPLACE FUNCTION get_lists_filtered (houseID bigint, system boolean, username character varying(30), shared boolean)
 RETURNS TABLE(
@@ -221,12 +221,67 @@ AS $$
 		WHERE list_type = CASE WHEN system = true THEN 'system' ELSE null END
 	UNION
 	SELECT public."List".house_id, public."List".list_id, public."List".list_name, public."List".list_type
-		FROM public."List" JOIN public."UserList" ON public."List".house_id = public."UserList".house_id AND public."List".list_id = public."UserList".list_id
+		FROM public."List" JOIN public."UserList" ON (public."List".house_id = public."UserList".house_id AND public."List".list_id = public."UserList".list_id)
 		WHERE list_type = 'user' AND user_username = username
 	UNION
 	SELECT public."List".house_id, public."List".list_id, public."List".list_name, public."List".list_type
-		FROM public."List" JOIN public."UserList" ON public."List".house_id = public."UserList".house_id AND public."List".list_id = public."UserList".list_id
+		FROM public."List" JOIN public."UserList" ON (public."List".house_id = public."UserList".house_id AND public."List".list_id = public."UserList".list_id)
 		WHERE list_type = 'user' AND list_shareable = shared;
+$$ LANGUAGE SQL;
+
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------
+
+-- Function to return Stock Items filtered
+-- DROP FUNCTION get_stock_items_filtered
+CREATE OR REPLACE FUNCTION get_stock_items_filtered (houseID bigint, productName character varying(35), brand character varying(35), variety character varying(35), 
+													segment character varying(35), storageID smallint)
+RETURNS TABLE(
+	house_id bigint,
+	stockItem_sku character varying(128),
+	category_id integer,
+	product_id integer,
+	stockItem_brand character varying(35),
+	stockItem_segment character varying(35),
+	stockItem_variety character varying(35),
+	stockItem_quantity smallint,
+	stockItem_segmentUnit character varying(5),
+	stockItem_description text,
+	stockItem_conservationStorage character varying(128))
+AS $$
+    SELECT public."StockItem".house_id, public."StockItem".stockItem_sku, public."StockItem".category_id, public."StockItem".product_id, public."StockItem".stockItem_brand, 
+			public."StockItem".stockItem_segment, public."StockItem".stockItem_variety, public."StockItem".stockItem_quantity, public."StockItem".stockItem_segmentUnit, 
+			public."StockItem".stockItem_description, public."StockItem".stockItem_conservationStorage
+		FROM public."StockItem" JOIN public."Product" ON (public."StockItem".category_id = public."Product".category_id AND public."StockItem".product_id = public."Product".product_id)
+			JOIN public."StockItemStorage" ON (public."StockItem".house_id = public."StockItemStorage".house_id AND public."StockItem".stockItem_sku = public."StockItemStorage".stockItem_sku)
+		WHERE public."StockItem".house_id = houseID AND (public."Product".product_name = productName OR public."StockItem".stockItem_brand = brand OR public."StockItem".stockItem_variety = variety
+			OR public."StockItem".stockItem_segment = segment OR public."StockItemStorage".storage_id = storageID)
+$$ LANGUAGE SQL;
+
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------
+
+-- Function to return Movements filtered
+-- DROP FUNCTION get_movements_filtered
+CREATE OR REPLACE FUNCTION get_movements_filtered (houseID bigint, item_sku character varying(128), type boolean, date date, storageID smallint)
+RETURNS TABLE(
+	house_id bigint,
+	stockItem_sku character varying(128),
+	storage_id smallint,
+	stockItemMovement_type boolean,
+	stockItemMovement_dateTime timestamp,
+	stockItemMovement_quantity smallint)
+AS $$
+    SELECT public."StockItemMovement".house_id, public."StockItemMovement".stockItem_sku, public."StockItemMovement".storage_id, public."StockItemMovement".stockItemMovement_type, 
+		public."StockItemMovement".stockItemMovement_dateTime, public."StockItemMovement".stockItemMovement_quantity
+		FROM public."StockItemMovement"
+		WHERE public."StockItemMovement".house_id = houseID 
+			AND (public."StockItemMovement".stockItem_sku = item_sku 
+			OR (type IS NOT NULL AND public."StockItemMovement".stockItemMovement_type = type)
+			OR DATE(public."StockItemMovement".stockItemMovement_dateTime) = date
+			OR public."StockItemMovement".storage_id = storageID)
 $$ LANGUAGE SQL;
 
 -------------------------------------------------------------------------------------------
@@ -274,3 +329,7 @@ SELECT insert_user_list(2, 'USER LIST C', 'ze', false);
 SELECT insert_user_list(2, 'USER LIST D', 'maria', true); 
 SELECT insert_user_list(2, 'USER LIST E', 'maria', true); 
 SELECT insert_user_list(2, 'USER LIST F', 'maria', false); 
+
+
+SELECT * FROM public."List" WHERE public."List".list_id % 2 = 0 AND (public."List".list_type = null OR public."List".list_id > 7);
+
