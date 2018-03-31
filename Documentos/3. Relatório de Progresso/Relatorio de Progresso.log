@@ -1,12 +1,12 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.28)  27 MAR 2018 00:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  31 MAR 2018 22:35
 entering extended mode
 **"./Relatorio de Progresso.tex"
 ("Relatorio de Progresso.tex"
 LaTeX2e <2017-04-15>
 Babel <3.17> and hyphenation patterns for 75 language(s) loaded.
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\report.cls"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\report.cls"
 Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\size11.clo"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\size11.clo"
 File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -23,23 +23,21 @@ File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \bibindent=\dimen102
 )
 LaTeX Font Info:    Try loading font information for T1+ptm on input line 7.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1ptm.fd"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1ptm.fd"
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\inputenc.sty"
 Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\utf8.def"
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
 File: t1enc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
    defining Unicode char U+00A0 (decimal 160)
    defining Unicode char U+00A1 (decimal 161)
@@ -280,7 +278,7 @@ File: t1enc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
 File: ot1enc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
    defining Unicode char U+00A0 (decimal 160)
    defining Unicode char U+00A1 (decimal 161)
@@ -321,7 +319,7 @@ File: ot1enc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encoding OMS
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
 File: omsenc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -344,70 +342,79 @@ Now handling font encoding U ...
    defining Unicode char U+2026 (decimal 8230)
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
-))
-("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.sty"
+)) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\babel.s
+ty"
 Package: babel 2018/01/24 3.17 The Babel package
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\babel\switch.def"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\switch.def
+"
 File: switch.def 2018/01/24 3.17 Babel switching mechanism
 )
 *************************************
 * Local config file bblopts.cfg used
 *
-("C:\Program Files\MiKTeX 2.9\tex\latex\arabi\bblopts.cfg"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\arabi\bblopts.cfg"
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
  babel
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\babel-portuges\portuges.ldf"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\babel-portuges\por
+tuges.ldf"
 Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.def"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\babel.def"
 File: babel.def 2018/01/24 3.17 Babel common definitions
-
-("C:\Program Files\MiKTeX 2.9\tex\generic\babel\switch.def"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\switch.def
+"
 File: switch.def 2018/01/24 3.17 Babel switching mechanism
 )
 \babel@savecnt=\count88
 \U@D=\dimen103
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\babel\txtbabel.def")
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\txtbabel.d
+ef")
 \bbl@dirlevel=\count89
 )
 Package babel Info: Making " an active character on input line 145.
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\graphicx.
+sty"
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\keyval.st
+y"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\graphics.
+sty"
 Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\trig.sty"
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\graphics.cfg"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics-cfg\graph
+ics.cfg"
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-def\pdftex.def"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics-def\pdfte
+x.def"
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\url\url.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\url\url.sty"
 \Urlmuskip=\muskip10
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\algorithms\algorithm.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algorithms\algorit
+hm.sty"
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
 nment
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\float\float.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\float\float.sty"
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count90
 \float@exts=\toks17
@@ -415,13 +422,14 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks18
 \@floatcapt=\box27
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ifthen.sty"
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \@float@every@algorithm=\toks19
 \c@algorithm=\count91
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\algorithmicx\algorithmicx.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algorithmicx\algor
+ithmicx.sty"
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
@@ -435,64 +443,81 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 \c@ALG@storecount=\count97
 \c@ALG@tmpcounter=\count98
 \ALG@tmplength=\skip45
-) ("C:\Program Files\MiKTeX 2.9\tex\latex\algorithmicx\algpseudocode.sty"
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algorithmicx\algps
+eudocode.sty"
 Package: algpseudocode 
 
 Document Style - pseudocode environments for use with the `algorithmicx' style
-) ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\indentfirst.sty"
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\indentfirst.
+sty"
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\base\glossaries.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\base\gl
+ossaries.sty"
 Package: glossaries 2018/03/07 v4.36 (NLCT)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\xkeyval\xkeyval.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\xkeyval\xkeyval.st
+y"
 Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\xkeyval\xkeyval.tex"
-("C:\Program Files\MiKTeX 2.9\tex\generic\xkeyval\xkvutils.tex"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\xkeyval\xkeyval.
+tex"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\xkeyval\xkvutils
+.tex"
 \XKV@toks=\toks20
 \XKV@tempa@toks=\toks21
 )
 \XKV@depth=\count99
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\mfirstuc\mfirstuc.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\mfirstuc\mfirstuc.
+sty"
 Package: mfirstuc 2017/11/14 v2.06 (NLCT)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\etoolbox\etoolbox.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\etoolbox\etoolbox.
+sty"
 Package: etoolbox 2018/02/11 v2.5e e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count100
 )
 \@glsmfirst=\toks22
 \@glsmrest=\toks23
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\textcase\textcase.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\textcase\textcase.
+sty"
 Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\xfor\xfor.sty"
+) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\xfor\xfor.sty"
 Package: xfor 2009/02/05 v1.05 (NLCT)
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\datatool\datatool-base.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\datatool\datatool-
+base.sty"
 Package: datatool-base 2017/11/12 v2.29 (NLCT)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsmath.st
+y"
 Package: amsmath 2017/09/02 v2.17a AMS math features
 \@mathmargin=\skip46
 
 For additional information on amsmath, use the `?' option.
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amstext.st
+y"
 Package: amstext 2000/06/29 v2.01 AMS text
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty
+"
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks24
 \ex@=\dimen106
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty
+"
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen107
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty
+"
 Package: amsopn 2016/03/08 v2.02 operator names
 )
 \inf@bad=\count101
@@ -533,22 +558,20 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\substr\substr.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\substr\substr.sty"
 Package: substr 2009/10/20 v1.2 Handle substrings
 \c@su@anzahl=\count113
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\datatool\datatool-fp.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\datatool\datatool-
+fp.sty"
 Package: datatool-fp 2017/11/12 v2.29 (NLCT)
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp.sty"
+ ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp.sty"
 Package: fp 1995/04/02
-
 `Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich
-("C:\Program Files\MiKTeX 2.9\tex\latex\fp\defpattern.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\defpattern.sty"
 Package: defpattern 1994/10/12
 \actioncount=\count114
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-basic.sty"
+) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-basic.sty"
 Package: fp-basic 1996/05/13
 \FP@xs=\count115
 \FP@xia=\count116
@@ -559,33 +582,30 @@ Package: fp-basic 1996/05/13
 \FP@regb=\count121
 \FP@regs=\count122
 \FP@times=\count123
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-addons.sty"
+) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-addons.sty
+"
 Package: fp-addons 1995/03/15
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-snap.sty"
+) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-snap.sty"
 Package: fp-snap 1995/04/05
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-exp.sty"
+) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-exp.sty"
 Package: fp-exp 1995/04/03
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-trigo.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-trigo.sty"
 Package: fp-trigo 1995/04/14
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-pas.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-pas.sty"
 Package: fp-pas 1994/08/29
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-random.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-random.sty"
 Package: fp-random 1995/02/23
 \FPseed=\count124
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-eqn.sty"
+) ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-eqn.sty"
 Package: fp-eqn 1995/04/03
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-upn.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-upn.sty"
 Package: fp-upn 1996/10/21
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-eval.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fp\fp-eval.sty"
 Package: fp-eval 1995/04/03
 )))
 \@dtl@toks=\toks29
@@ -598,22 +618,26 @@ Package: fp-eval 1995/04/03
 \dtl@codeB=\count130
 \@dtl@foreach@level=\count131
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\base\glossaries-compatible-3
-07.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\base\gl
+ossaries-compatible-307.sty"
 Package: glossaries-compatible-307 2018/03/07 v4.36 (NLCT)
-) ("C:\Program Files\MiKTeX 2.9\tex\latex\tracklang\tracklang.sty"
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tracklang\tracklan
+g.sty"
 Package: tracklang 2018/02/21 v1.3.5 (NLCT) Track Languages
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\tracklang\tracklang.tex"))
-("C:\Program Files\MiKTeX 2.9\tex\latex\translator\translator.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\tracklang\trackl
+ang.tex"))
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\translator\transla
+tor.sty"
 Package: translator 2018/01/04 v1.12 Easy translation of strings in LaTeX
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries-portuges\glossaries-portuges
-.ldf"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries-portuge
+s\glossaries-portuges.ldf"
 File: glossaries-portuges.ldf 2014/11/23 v1.0
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries-portuges\glossaries-portuges
--utf8.ldf"))
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries-portuge
+s\glossaries-portuges-utf8.ldf"))
 \gls@level=\count132
 \@gls@tmpb=\toks30
 \gls@tmplen=\skip50
@@ -622,16 +646,21 @@ File: glossaries-portuges.ldf 2014/11/23 v1.0
 \glsshorttok=\toks33
 \glslongtok=\toks34
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-hypernav.sty
-"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\styles\
+glossary-hypernav.sty"
 Package: glossary-hypernav 2018/03/07 v4.36 (NLCT)
-) ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-list.sty"
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\styles\
+glossary-list.sty"
 Package: glossary-list 2018/03/07 v4.36 (NLCT)
 \glslistdottedwidth=\skip51
-) ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-long.sty"
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\styles\
+glossary-long.sty"
 Package: glossary-long 2018/03/07 v4.36 (NLCT)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\tools\longtable.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\longtable.st
+y"
 Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
 \LTleft=\skip52
 \LTright=\skip53
@@ -652,10 +681,12 @@ Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
 \glsdescwidth=\skip56
 \glspagelistwidth=\skip57
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-super.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\styles\
+glossary-super.sty"
 Package: glossary-super 2018/03/07 v4.36 (NLCT)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\supertabular\supertabular.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\supertabular\super
+tabular.sty"
 Package: supertabular 2004/02/20 v4.1e the supertabular environment
 \c@tracingst=\count138
 \ST@wd=\dimen116
@@ -674,14 +705,15 @@ Package: supertabular 2004/02/20 v4.1e the supertabular environment
 \ST@dimen=\dimen126
 \ST@pbox=\box34
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-tree.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\glossaries\styles\
+glossary-tree.sty"
 Package: glossary-tree 2018/03/07 v4.36 (NLCT)
 \glstreeindent=\skip61
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\pdfpages\pdfpages.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\pdfpages\pdfpages.
+sty"
 Package: pdfpages 2017/10/31 v0.5l Insert pages of external PDF documents (AM)
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\tools\calc.sty"
+ ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\calc.sty"
 Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count139
 \calc@Bcount=\count140
@@ -694,25 +726,31 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count141
 \calc@Cskip=\skip64
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\eso-pic\eso-pic.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\eso-pic\eso-pic.st
+y"
 Package: eso-pic 2015/07/21 v2.0g eso-pic (RN)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\atbegshi.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\atbegsh
+i.sty"
 Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\infware
+rr.sty"
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
 )
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds
+.sty"
 Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 )
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.s
+ty"
 Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\color.cfg"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics-cfg\color
+.cfg"
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
@@ -729,7 +767,8 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 \AM@pagewidth=\dimen129
 \AM@pageheight=\dimen130
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\pdfpages\pppdftex.def"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\pdfpages\pppdftex.
+def"
 File: pppdftex.def 2017/10/31 v0.5l Pdfpages driver for pdfTeX (AM)
 )
 \AM@pagebox=\box35
@@ -738,18 +777,21 @@ File: pppdftex.def 2017/10/31 v0.5l Pdfpages driver for pdfTeX (AM)
 \c@AM@survey=\count142
 \AM@templatesizebox=\box36
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\pdflscape.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\pdflscape
+.sty"
 Package: pdflscape 2016/05/14 v0.11 Display of landscape pages in PDF (HO)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\lscape.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\lscape.st
+y"
 Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.
+sty"
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\ulem\ulem.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ulem\ulem.sty"
 \UL@box=\box37
 \UL@hyphenbox=\box38
 \UL@skip=\skip65
@@ -761,14 +803,15 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 Package: ulem 2012/05/18
 \ULdepth=\dimen133
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\multirow\multirow.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\multirow\multirow.
+sty"
 Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
 \multirow@colwidth=\skip66
 \multirow@cntb=\count144
 \multirow@dima=\skip67
 \bigstrutjot=\dimen134
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\tools\array.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\array.sty"
 Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
 \col@sep=\dimen135
 \extrarowheight=\dimen136
@@ -813,7 +856,8 @@ LaTeX Font Info:    ... okay on input line 114.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 114.
 LaTeX Font Info:    ... okay on input line 114.
 
-("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.mk
+ii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count146
 \scratchdimen=\dimen137
@@ -826,25 +870,33 @@ LaTeX Font Info:    ... okay on input line 114.
 \MPnumerator=\count150
 \makeMPintoPDFobject=\count151
 \everyMPtoPDFconversion=\toks41
-) ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
+)
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-
+base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\grfext.st
+y"
 Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\kvdefin
+ekeys.sty"
 Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\kvoptions
+.sty"
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\kvsetke
+ys.sty"
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\etexcmd
+s.sty"
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ifluate
+x.sty"
 Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 )
@@ -853,7 +905,8 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )))
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\pdftexc
+mds.sty"
 Package: pdftexcmds 2018/01/21 v0.26 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: LuaTeX not detected.
@@ -867,15 +920,14 @@ Package grfext Info: Graphics extension search list:
 (grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
-)
-("Relatorio de Progresso.glsdefs")
+) ("Relatorio de Progresso.glsdefs")
 \AtBeginShipoutBox=\box41
 Package epstopdf Info: Source file: <./figures/logo_ISEL_principal.eps>
-(epstopdf)                    date: 2018-03-25 14:13:37
+(epstopdf)                    date: 2018-03-24 10:41:46
 (epstopdf)                    size: 823386 bytes
 (epstopdf)             Output file: <./figures/logo_ISEL_principal-eps-converte
 d-to.pdf>
-(epstopdf)                    date: 2018-03-25 14:13:37
+(epstopdf)                    date: 2018-03-24 10:44:06
 (epstopdf)                    size: 25524 bytes
 (epstopdf)             Command: <epstopdf --outfile=./figures/logo_ISEL_princip
 al-eps-converted-to.pdf ./figures/logo_ISEL_principal.eps>
@@ -910,8 +962,8 @@ Overfull \hbox (14.22636pt too wide) in paragraph at lines 118--118
 
 \newlabel{terminologia}{{}{i}}
 
-{C:/Users/Nuno Veloso/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./fig
-ures/logo_ISEL_principal-eps-converted-to.pdf>] [2] [1
+{C:/Users/inesa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./figures/l
+ogo_ISEL_principal-eps-converted-to.pdf>] [2] [1
 
 ]
 \openout2 = `resumo.aux'.
@@ -919,13 +971,13 @@ ures/logo_ISEL_principal-eps-converted-to.pdf>] [2] [1
  (resumo.tex [2
 
 
-])
-[3
+]) [3
 
 ]
 \openout2 = `abstract.aux'.
 
- (abstract.tex [4
+
+(abstract.tex [4
 
 
 
@@ -970,17 +1022,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--171
 
 ] [12
 
-] ("Relatorio de Progresso.lot" [13
-
-])
+] ("Relatorio de Progresso.lot")
 \tf@lot=\write8
 \openout8 = `"Relatorio de Progresso.lot"'.
 
- [14]
-No file "Relatorio de Progresso".acr.
-[15
+ [13
 
-] [16
+] [14
+
+]
+No file "Relatorio de Progresso".acr.
+[15] [16
 
 ]
 No file "Relatorio de Progresso".gls.
@@ -992,12 +1044,13 @@ No file "Relatorio de Progresso".gls.
  (capitulo1.tex
 Cap\'{\i }tulo 1.
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 19.
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 19.
- [1
+
+[1
 
 
 ]
@@ -1075,17 +1128,12 @@ Overfull \hbox (13.51743pt too wide) in paragraph at lines 99--102
  []
 
 [12] [13]
-Overfull \hbox (5.05035pt too wide) in paragraph at lines 176--176
- \OT1/cmr/m/n/10.95 house[]childrenNumber 
- []
-
-
-Overfull \hbox (56.68152pt too wide) in paragraph at lines 164--177
+Overfull \hbox (47.98235pt too wide) in paragraph at lines 165--179
  [][] 
  []
 
 
-Overfull \hbox (17.80899pt too wide) in paragraph at lines 185--197
+Overfull \hbox (17.80899pt too wide) in paragraph at lines 186--198
  [][] 
  []
 
@@ -1094,115 +1142,115 @@ Overfull \hbox (22.24985pt too wide) in paragraph at lines 205--213
  [][] 
  []
 
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 237.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 236.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
+("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 237.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 236.
 
-Overfull \hbox (37.57986pt too wide) in paragraph at lines 222--238
+Overfull \hbox (37.57986pt too wide) in paragraph at lines 221--237
  [][] 
  []
 
 
-Overfull \hbox (18.11015pt too wide) in paragraph at lines 246--254
+Overfull \hbox (18.11015pt too wide) in paragraph at lines 244--252
  [][] 
  []
 
 
-Overfull \hbox (26.03708pt too wide) in paragraph at lines 262--271
+Overfull \hbox (26.03708pt too wide) in paragraph at lines 259--268
  [][] 
  []
 
 
-Overfull \hbox (37.23044pt too wide) in paragraph at lines 279--288
+Overfull \hbox (37.23044pt too wide) in paragraph at lines 275--284
  [][] 
  []
 
 
-Overfull \hbox (4.48349pt too wide) in paragraph at lines 315--324
+Overfull \hbox (4.48349pt too wide) in paragraph at lines 309--318
  [][] 
  []
 
 
-Overfull \hbox (17.80899pt too wide) in paragraph at lines 332--343
+Overfull \hbox (17.80899pt too wide) in paragraph at lines 325--336
  [][] 
  []
 
 
-Overfull \hbox (19.17776pt too wide) in paragraph at lines 351--360
+Overfull \hbox (19.17776pt too wide) in paragraph at lines 343--352
  [][] 
  []
 
 
-Overfull \hbox (9.09583pt too wide) in paragraph at lines 380--380
+Overfull \hbox (9.09583pt too wide) in paragraph at lines 371--371
  \OT1/cmr/m/n/10.95 duct[]shelfLifeTimeUnit 
  []
 
 
-Overfull \hbox (76.87827pt too wide) in paragraph at lines 368--381
+Overfull \hbox (76.87827pt too wide) in paragraph at lines 359--372
  [][] 
  []
 
 
-Overfull \hbox (95.37161pt too wide) in paragraph at lines 389--407
+Overfull \hbox (95.37161pt too wide) in paragraph at lines 379--397
  [][] 
  []
 
 
-Overfull \hbox (62.67363pt too wide) in paragraph at lines 415--427
+Overfull \hbox (62.67363pt too wide) in paragraph at lines 404--416
  [][] 
  []
 
 
-Overfull \hbox (46.06613pt too wide) in paragraph at lines 435--446
+Overfull \hbox (46.06613pt too wide) in paragraph at lines 423--434
  [][] 
  []
 
 
-Overfull \hbox (68.31633pt too wide) in paragraph at lines 454--464
+Overfull \hbox (68.31633pt too wide) in paragraph at lines 441--451
  [][] 
  []
 
 
-Overfull \hbox (111.50806pt too wide) in paragraph at lines 472--483
+Overfull \hbox (111.50806pt too wide) in paragraph at lines 458--469
  [][] 
  []
 
 
-Overfull \hbox (115.84447pt too wide) in paragraph at lines 491--504
+Overfull \hbox (115.84447pt too wide) in paragraph at lines 476--489
  [][] 
  []
 
 
-Overfull \hbox (87.93512pt too wide) in paragraph at lines 512--522
+Overfull \hbox (87.93512pt too wide) in paragraph at lines 496--506
  [][] 
  []
 
 
-Overfull \hbox (54.84175pt too wide) in paragraph at lines 530--543
+Overfull \hbox (54.84175pt too wide) in paragraph at lines 513--526
  [][] 
  []
 
 
-Overfull \hbox (56.42343pt too wide) in paragraph at lines 551--561
+Overfull \hbox (56.42343pt too wide) in paragraph at lines 533--543
  [][] 
  []
 
 
-Overfull \hbox (17.98909pt too wide) in paragraph at lines 576--576
+Overfull \hbox (17.98909pt too wide) in paragraph at lines 557--557
  \OT1/cmr/m/n/10.95 (AAAA/MM/DD)| 
  []
 
 
-Overfull \hbox (17.98909pt too wide) in paragraph at lines 595--595
+Overfull \hbox (17.98909pt too wide) in paragraph at lines 575--575
  \OT1/cmr/m/n/10.95 (AAAA/MM/DD)| 
  []
 
 
-Overfull \hbox (40.97176pt too wide) in paragraph at lines 585--596
+Overfull \hbox (40.97176pt too wide) in paragraph at lines 565--576
  [][] 
  []
 
@@ -1221,22 +1269,24 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 11673 strings out of 493303
- 191599 string characters out of 3138836
- 413021 words of memory out of 3000000
- 14885 multiletter control sequences out of 15000+200000
+ 11703 strings out of 493303
+ 196547 string characters out of 3129784
+ 409348 words of memory out of 3000000
+ 14915 multiletter control sequences out of 15000+200000
  14462 words of font info for 47 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 45i,13n,39p,2020b,361s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmti10.pfb>
-Output written on "Relatorio de Progresso.pdf" (45 pages, 397801 bytes).
+ 45i,13n,39p,2020b,373s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmbx10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmbx12.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/inesa/AppData/Local/Programs
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/inesa/AppData/Lo
+cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/ines
+a/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:
+/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+msy10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmti10.pfb>
+Output written on "Relatorio de Progresso.pdf" (45 pages, 396876 bytes).
 PDF statistics:
  195 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

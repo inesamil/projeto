@@ -1,10 +1,11 @@
 CREATE TABLE IF NOT EXISTS public."House" (
 	house_id bigserial NOT NULL PRIMARY KEY,
 	house_name character varying(35) NOT NULL,
-	house_babiesNumber smallint NOT NULL CHECK (house_babiesNumber BETWEEN 0 AND 100),
-	house_childrenNumber smallint NOT NULL CHECK (house_childrenNumber BETWEEN 0 AND 100),
-	house_adultsNumber smallint NOT NULL CHECK (house_adultsNumber BETWEEN 0 AND 100),
-	house_seniorsNumber smallint NOT NULL CHECK (house_seniorsNumber BETWEEN 0 AND 100)
+	house_characteristics json NOT NULL,
+	--house_babiesNumber smallint NOT NULL CHECK (house_babiesNumber BETWEEN 0 AND 100),
+	--house_childrenNumber smallint NOT NULL CHECK (house_childrenNumber BETWEEN 0 AND 100),
+	--house_adultsNumber smallint NOT NULL CHECK (house_adultsNumber BETWEEN 0 AND 100),
+	--house_seniorsNumber smallint NOT NULL CHECK (house_seniorsNumber BETWEEN 0 AND 100)
 );
 
 CREATE TABLE IF NOT EXISTS public."User" (
