@@ -8,8 +8,8 @@ public class UserList extends List {
 
     private static final String USER_LIST_TYPE = "user";
 
-    @Column(name = "user_username", length = 30, nullable = false)
-    @ManyToOne
+    // @Column(name = "user_username", length = 30, nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_username")
     private User user;
 

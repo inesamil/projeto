@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 import pt.isel.ps.gis.DAL.bdModel.JsonType.Json;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "House")
@@ -37,7 +38,7 @@ public class House {
             return false;
         }
         House other = (House) obj;
-        return id == null || id.equals(other.id);
+        return Objects.equals(id, other.id);
     }
 
     @Override
