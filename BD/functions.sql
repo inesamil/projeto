@@ -36,6 +36,8 @@ $$ LANGUAGE plpgsql;
 
 -------------------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------------------
+
  -- Procedure to delete a House
  -- DROP FUNCTION delete_house
 CREATE OR REPLACE FUNCTION delete_house(id bigint) 
@@ -84,6 +86,8 @@ $$ LANGUAGE plpgsql;
 
 -------------------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------------------
+
 -- Procedure to delete a UserList
  -- DROP FUNCTION delete_user_list
 CREATE OR REPLACE FUNCTION delete_user_list(houseID bigint, listID smallint) 
@@ -99,6 +103,8 @@ BEGIN
 	DELETE FROM public."List" WHERE house_id = houseID AND list_id = listID;
 END;
 $$ LANGUAGE plpgsql;
+
+-------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------
 
@@ -126,6 +132,8 @@ $$ LANGUAGE plpgsql;
 
 -------------------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------------------
+
  -- Procedure to delete a Storage
  -- DROP FUNCTION delete_storage
 CREATE OR REPLACE FUNCTION delete_storage(houseID bigint, storageID smallint) 
@@ -144,6 +152,8 @@ $$ LANGUAGE plpgsql;
 
 -------------------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------------------
+
  -- Procedure to insert a UserList
  -- DROP FUNCTION insert_user_list
 CREATE OR REPLACE FUNCTION insert_user_list(houseID bigint, listName character varying(35), username character varying(30), shareable boolean) 
@@ -151,8 +161,16 @@ RETURNS VOID AS $$
 DECLARE
 	listID smallint;
 BEGIN
+	-- Get last id
+	SELECT list_id FROM public."List" WHERE house_id = houseID ORDER BY list_id DESC LIMIT 1 INTO listID;
+	IF listID IS NULL THEN
+		listID := 1; 	-- First list inserted
+	ELSE
+		listID := listID + 1;	-- Increment
+	END IF;
+	
 	-- Add List
-	INSERT INTO public."List" (house_id, list_name, list_type) VALUES (houseId, listName, 'user') RETURNING list_id INTO listID;
+	INSERT INTO public."List" (house_id, list_id, list_name, list_type) VALUES (houseId, listID, listName, 'user');
 
 	-- Add UserList
 	INSERT INTO public."UserList" (house_id, list_id, user_username, list_shareable) VALUES (houseID, listID, username, shareable);
@@ -161,20 +179,82 @@ $$ LANGUAGE plpgsql;
 
 -------------------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------------------
+
  -- Procedure to insert a SystemList
  -- DROP FUNCTION insert_system_list
 CREATE OR REPLACE FUNCTION insert_system_list(houseID bigint, listName character varying(35)) 
 RETURNS VOID AS $$
 DECLARE 
-	listID smallint;
+	listID smallint = 0;
 BEGIN
+	-- Get last id
+	SELECT list_id FROM public."List" WHERE house_id = houseID ORDER BY list_id DESC LIMIT 1 INTO listID;
+	IF listID IS NULL THEN
+		listID := 1; 	-- First list inserted
+	ELSE
+		listID := listID + 1;	-- Increment
+	END IF;
+		
 	-- Add List
-	INSERT INTO public."List" (house_id, list_name, list_type) VALUES (houseId, listName, 'system') RETURNING list_id INTO listId;
+	INSERT INTO public."List" (house_id, list_id, list_name, list_type) VALUES (houseId, listID, listName, 'system');
 
 	-- Add UserList
 	INSERT INTO public."SystemList" (house_id, list_id) VALUES (houseID, listID);
 END;
 $$ LANGUAGE plpgsql;
+
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------
+
+-- Procedure to insert a Product
+-- DROP FUNCTION insert_product
+CREATE OR REPLACE FUNCTION insert_product(categoryID integer, designation character varying(35), edible boolean, shelfLife smallint, shelfLifeTimeUnit character varying(35)) 
+RETURNS VOID AS $$
+DECLARE 
+	productID smallint = 0;
+BEGIN
+	-- Get last id
+	SELECT product_id FROM public."Product" WHERE category_id = categoryID ORDER BY product_id DESC LIMIT 1 INTO productID;
+	IF productID IS NULL THEN
+		productID := 1; 	-- First list inserted
+	ELSE
+		productID := productID + 1;	-- Increment
+	END IF;
+		
+	-- Add Product
+	INSERT INTO public."Product" (category_id, product_id, product_name, product_edible, product_shelfLife, product_shelfLifeTimeUnit) 
+		VALUES (categoryID, productID, designation, edible, shelfLife, shelfLifeTimeUnit);
+END;
+$$ LANGUAGE plpgsql;
+
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------
+
+-- Procedure to insert a Storage
+-- DROP FUNCTION insert_storage
+CREATE OR REPLACE FUNCTION insert_storage(houseID bigint, designation character varying(35), temperature numrange) 
+RETURNS VOID AS $$
+DECLARE 
+	storageID smallint = 0;
+BEGIN
+	-- Get last id
+	SELECT storage_id FROM public."Storage" WHERE house_id = houseID ORDER BY storage_id DESC LIMIT 1 INTO storageID;
+	IF storageID IS NULL THEN
+		storageID := 1; 	-- First list inserted
+	ELSE
+		storageID := storageID + 1;	-- Increment
+	END IF;
+		
+	-- Add Product
+	INSERT INTO public."Storage" (house_id, storage_id, storage_name, storage_temperature) 
+		VALUES (houseID, storageID, designation, temperature);
+END;
+$$ LANGUAGE plpgsql;
+
+-------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------
 
@@ -186,6 +266,8 @@ RETURNS TABLE(id integer, name character varying(35)) AS $$
 		FROM public."Category"
 		WHERE category_name LIKE name || '%'; -- || is the operator for concatenation.
 $$ LANGUAGE SQL;
+
+-------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------
 
@@ -204,6 +286,8 @@ AS $$
 		FROM public."Product"
 		WHERE product_name LIKE name || '%'; -- || is the operator for concatenation.
 $$ LANGUAGE SQL;
+
+-------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------
 
@@ -285,51 +369,3 @@ AS $$
 $$ LANGUAGE SQL;
 
 -------------------------------------------------------------------------------------------
-
-
-
----TESTS---
-SELECT delete_user('ze')
-SELECT delete_house(1) 
-
-
-INSERT INTO public."House" VALUES (1, 'house', 0, 0, 1, 0);
-INSERT INTO public."User" VALUES ('ze', 'email', 20, 'ze', '124');
-INSERT INTO public."User" VALUES ('maria', 'email.maria', 20, 'maria', '124');
-INSERT INTO public."UserHouse" VALUES (1, 'ze', true);
-INSERT INTO public."List" VALUES (1, 1, 'list', 'user');
-INSERT INTO public."UserList" VALUES (1, 1, 'ze', true);
---SELECT * FROM public."House" 
---SELECT * FROM public."User"
---SELECT * FROM public."UserHouse"
---SELECT * FROM public."List"
---SELECT * FROM public."UserList"
---SELECT * FROM public."SystemList"
-
-
-INSERT INTO public."Category" VALUES (1, 'A'), (2, 'B'), (3, 'C'), (4, 'AA'), (5, 'AQWE')
-SELECT * FROM public."Category" WHERE category_name = null
-
-SELECT get_categories('A')
-
-
-SELECT insert_system_list(2, 'LIST A');
-SELECT insert_system_list(2, 'LIST B'); 
-SELECT insert_system_list(2, 'LIST C'); 
-
-SELECT get_lists_filtered (2, true, null, false);
-SELECT get_lists_filtered (2, false, 'ze', false);
-SELECT get_lists_filtered (2, false, null, true);
-
-
-SELECT insert_user_list(2, 'USER LIST A', 'ze', true); 
-SELECT insert_user_list(2, 'USER LIST B', 'ze', false); 
-SELECT insert_user_list(2, 'USER LIST C', 'ze', false); 
-									
-SELECT insert_user_list(2, 'USER LIST D', 'maria', true); 
-SELECT insert_user_list(2, 'USER LIST E', 'maria', true); 
-SELECT insert_user_list(2, 'USER LIST F', 'maria', false); 
-
-
-SELECT * FROM public."List" WHERE public."List".list_id % 2 = 0 AND (public."List".list_type = null OR public."List".list_id > 7);
-

@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS public."House" (
 	house_id bigserial NOT NULL PRIMARY KEY,
 	house_name character varying(35) NOT NULL,
-	house_characteristics json NOT NULL,
+	house_characteristics json NOT NULL
 	--house_babiesNumber smallint NOT NULL CHECK (house_babiesNumber BETWEEN 0 AND 100),
 	--house_childrenNumber smallint NOT NULL CHECK (house_childrenNumber BETWEEN 0 AND 100),
 	--house_adultsNumber smallint NOT NULL CHECK (house_adultsNumber BETWEEN 0 AND 100),
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS public."SharedRecipe" (
 
 CREATE TABLE IF NOT EXISTS public."List" (
 	house_id bigint NOT NULL CHECK (house_id > 0) REFERENCES public."House" (house_id),
-	list_id smallserial NOT NULL,
+	list_id smallint NOT NULL,
 	list_name character varying(35) NOT NULL,
 	list_type character varying(7) NOT NULL CHECK (list_type IN ('system', 'user')),
 	PRIMARY KEY (house_id, list_id)
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS public."Category" (
 
 CREATE TABLE IF NOT EXISTS public."Product" (
 	category_id integer NOT NULL CHECK (category_id > 0) REFERENCES public."Category" (category_id),
-	product_id serial NOT NULL,
+	product_id integer NOT NULL,
 	product_name character varying(35) NOT NULL,
 	product_edible boolean NOT NULL,
 	product_shelfLife smallint NOT NULL CHECK (product_shelfLife > 0),
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS public."Ingredient" (
 
 CREATE TABLE IF NOT EXISTS public."Storage" (
 	house_id bigint NOT NULL CHECK (house_id > 0) REFERENCES public."House" (house_id),
-	storage_id smallserial NOT NULL CHECK (storage_id > 0),
+	storage_id smallint NOT NULL CHECK (storage_id > 0),
 	storage_name character varying(35) NOT NULL,
 	storage_temperature numrange NOT NULL,
 	PRIMARY KEY (house_id, storage_id)
