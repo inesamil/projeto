@@ -233,6 +233,62 @@ $$ LANGUAGE plpgsql;
 
 -------------------------------------------------------------------------------------------
 
+-- Procedure to insert a StockItem
+-- DROP FUNCTION insert_stock_item
+CREATE OR REPLACE FUNCTION insert_stock_item(
+	houseID bigint,
+	categoryID integer,
+	productID smallint,
+	brand character varying(35),
+	variety character varying(35),
+	segment character varying(35),
+	segmentUnit character varying(5),
+	quantity smallint,
+	description text,
+	conservationStorage character varying(128)) 
+RETURNS VOID AS $$
+DECLARE 
+	sku character varying(128) = 0;
+BEGIN
+	-- Generate SKU
+	sku := generate_sku(categoryID, productID, brand, variety, segment, segmentUnit);
+	
+		
+	-- Add StockItem
+	INSERT INTO public."StockItem" (house_id, stockItem_sku, category_id, product_id, stockItem_brand, stockItem_variety, stockItem_segment,
+										stockItem_segmentUnit, stockItem_quantity, stockItem_description, stockItem_conservationStorage) 
+		VALUES (houseID, sku, categoryID, productID, brand, variety, segment, segmentUnit, quantity, description, conservationStorage);
+END;
+$$ LANGUAGE plpgsql;
+
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------
+
+-- Procedure to generate a SKU
+-- DROP FUNCTION generate_sku
+CREATE OR REPLACE FUNCTION generate_sku(
+	categoryID integer,
+	productID smallint,
+	brand character varying(35),
+	variety character varying(35),
+	segment character varying(35),
+	segmentUnit character varying(5)) 
+RETURNS VARCHAR(128) AS $$
+DECLARE 
+	sku character varying(128) = 0;
+BEGIN
+	-- Generate SKU
+	sku := 'C' || categoryID || 'P' || productID || '-' || brand || '-' || variety || '-' || segment || segmentUnit;
+	
+	return sku;
+END;
+$$ LANGUAGE plpgsql;
+
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------
+
 -- Procedure to insert a Storage
 -- DROP FUNCTION insert_storage
 CREATE OR REPLACE FUNCTION insert_storage(houseID bigint, designation character varying(35), temperature numrange) 

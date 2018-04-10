@@ -24,6 +24,20 @@ SELECT * FROM public."Product"
 
 SELECT insert_product(3, varchar 'abc', false, 2::int2, varchar 'month');
 
+SELECT * FROM public."StockItem";
+
+SELECT insert_stock_item(
+	1,
+	1,
+	1::int2,
+	varchar 'Mimosa',
+	varchar 'UHT Magro',
+	varchar '1',
+	varchar 'l',
+	2::int2,
+	text 'Leite Magro da Mimosa é do melhor que há!',
+	varchar 'Conservar em local fresco após abertura.');
+
 SELECT get_categories('A');
 
 
