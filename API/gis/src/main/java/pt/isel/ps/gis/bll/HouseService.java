@@ -38,7 +38,7 @@ public interface HouseService {
 
     /**
      * Remover uma casa
-     * @param house casa a remover
+     * @param houseId identificador da casa
      */
-    void deleteHouse(House house);
+    void deleteHouse(Long houseId);
 }

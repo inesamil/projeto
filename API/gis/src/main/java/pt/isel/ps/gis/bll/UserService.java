@@ -27,7 +27,7 @@ public interface UserService {
 
     /**
      * Remover um utilizador
-     * @param user utilizador a remover
+     * @param username identificador do utilizador
      */
-    void deleteUser(User user);
+    void deleteUser(String username);
 }
