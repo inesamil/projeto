@@ -10,11 +10,11 @@ import java.util.Objects;
 public class HouseAllergyId implements Serializable {
 
     @Id
-    @Column(name = "house_id")
+    @Column(name = "house_id", nullable = false)
     private Long houseId;
 
     @Id
-    @Column(name = "allergy_allergen")
+    @Column(name = "allergy_allergen", length = 75, nullable = false)
     private String allergyAllergen;
 
     public Long getHouseId() {

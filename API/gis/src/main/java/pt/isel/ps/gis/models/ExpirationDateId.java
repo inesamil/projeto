@@ -11,15 +11,15 @@ import java.util.Objects;
 public class ExpirationDateId implements Serializable {
 
     @Id
-    @Column(name = "house_id")
+    @Column(name = "house_id", nullable = false)
     private Long houseId;
 
     @Id
-    @Column(name = "stockitem_sku")
+    @Column(name = "stockitem_sku", length = 128, nullable = false)
     private String stockitemSku;
 
     @Id
-    @Column(name = "date_date")
+    @Column(name = "date_date", nullable = false)
     private Timestamp dateDate;
 
     public Long getHouseId() {

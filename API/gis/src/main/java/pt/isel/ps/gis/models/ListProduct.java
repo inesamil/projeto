@@ -11,11 +11,11 @@ public class ListProduct {
     private ListProductId id;
 
     @Basic
-    @Column(name = "listproduct_brand")
+    @Column(name = "listproduct_brand", length = 35)
     private String listproductBrand;
 
     @Basic
-    @Column(name = "listproduct_quantity")
+    @Column(name = "listproduct_quantity", nullable = false)
     private Short listproductQuantity;
 
     @ManyToOne

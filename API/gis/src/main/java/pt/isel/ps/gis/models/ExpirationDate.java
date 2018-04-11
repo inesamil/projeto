@@ -11,7 +11,7 @@ public class ExpirationDate {
     private ExpirationDateId id;
 
     @Basic
-    @Column(name = "date_quantity")
+    @Column(name = "date_quantity", nullable = false)
     private Short dateQuantity;
 
     @ManyToOne

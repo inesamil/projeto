@@ -44,7 +44,7 @@ public class StockItem {
     private String stockitemDescription;
 
     @Basic
-    @Column(name = "stockitem_conservationstorage")
+    @Column(name = "stockitem_conservationstorage", length = 128, nullable = false)
     private String stockitemConservationstorage;
 
     @OneToMany(mappedBy = "stockitem")

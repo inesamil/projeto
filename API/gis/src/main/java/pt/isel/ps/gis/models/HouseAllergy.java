@@ -11,7 +11,7 @@ public class HouseAllergy {
     private HouseAllergyId id;
 
     @Basic
-    @Column(name = "houseallergy_alergicsnum")
+    @Column(name = "houseallergy_alergicsnum", nullable = false)
     private Short houseallergyAlergicsnum;
 
     @ManyToOne

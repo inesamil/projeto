@@ -11,27 +11,27 @@ import java.util.Objects;
 public class StockItemMovementId implements Serializable {
 
     @Id
-    @Column(name = "house_id")
+    @Column(name = "house_id", nullable = false)
     private Long houseId;
 
     @Id
-    @Column(name = "stockitem_sku")
+    @Column(name = "stockitem_sku", length = 128, nullable = false)
     private String stockitemSku;
 
     @Id
-    @Column(name = "storage_id")
+    @Column(name = "storage_id", nullable = false)
     private Short storageId;
 
     @Id
-    @Column(name = "stockitemmovement_type")
+    @Column(name = "stockitemmovement_type", nullable = false)
     private Boolean stockitemmovementType;
 
     @Id
-    @Column(name = "stockitemmovement_datetime")
+    @Column(name = "stockitemmovement_datetime", nullable = false)
     private Timestamp stockitemmovementDatetime;
 
     @Id
-    @Column(name = "stockitemmovement_quantity")
+    @Column(name = "stockitemmovement_quantity", nullable = false)
     private Short stockitemmovementQuantity;
 
     public Long getHouseId() {

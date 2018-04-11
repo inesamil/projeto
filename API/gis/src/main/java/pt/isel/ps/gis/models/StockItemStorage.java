@@ -11,7 +11,7 @@ public class StockItemStorage {
     private StockItemStorageId id;
 
     @Basic
-    @Column(name = "stockitemstorage_quantity")
+    @Column(name = "stockitemstorage_quantity", nullable = false)
     private Short stockitemstorageQuantity;
 
     @ManyToOne

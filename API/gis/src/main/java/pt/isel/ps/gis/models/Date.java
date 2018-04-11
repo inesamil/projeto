@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Date {
 
     @Id
-    @Column(name = "date_date")
+    @Column(name = "date_date", nullable = false)
     private Timestamp dateDate;
 
     @OneToMany(mappedBy = "dateByDateDate")

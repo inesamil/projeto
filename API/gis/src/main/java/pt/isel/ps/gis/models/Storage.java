@@ -13,11 +13,11 @@ public class Storage {
     private StorageId id;
 
     @Basic
-    @Column(name = "storage_name")
+    @Column(name = "storage_name", length = 35, nullable = false)
     private String storageName;
 
     @Basic
-    @Column(name = "storage_temperature")
+    @Column(name = "storage_temperature", nullable = false)
     private Serializable storageTemperature;
 
     @OneToMany(mappedBy = "storage")

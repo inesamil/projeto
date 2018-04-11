@@ -10,19 +10,19 @@ import java.util.Objects;
 public class ListProductId implements Serializable {
 
     @Id
-    @Column(name = "house_id")
+    @Column(name = "house_id", nullable = false)
     private Long houseId;
 
     @Id
-    @Column(name = "list_id")
+    @Column(name = "list_id", nullable = false)
     private Short listId;
 
     @Id
-    @Column(name = "category_id")
+    @Column(name = "category_id", nullable = false)
     private Integer categoryId;
 
     @Id
-    @Column(name = "product_id")
+    @Column(name = "product_id", nullable = false)
     private Integer productId;
 
     public Long getHouseId() {
