@@ -8,6 +8,7 @@ public interface HouseMemberService {
 
     /**
      * Listar os membros de uma casa através do ID da casa
+     *
      * @param houseId identificador da casa
      * @return List<Member>
      */
@@ -15,6 +16,7 @@ public interface HouseMemberService {
 
     /**
      * Adicionar um membro à casa
+     *
      * @param member membro a adicionar
      * @return Member
      */
@@ -22,6 +24,7 @@ public interface HouseMemberService {
 
     /**
      * Atualizar os atributos de um membro
+     *
      * @param member membro a atualizar
      * @return Member
      */
@@ -29,6 +32,7 @@ public interface HouseMemberService {
 
     /**
      * Remover um membro da casa
+     *
      * @param member membro a remover
      */
     void deleteMember(Member member);

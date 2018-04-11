@@ -1,32 +1,36 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.dal.bdModel.User;
+import pt.isel.ps.gis.models.Users;
 
 public interface UserService {
 
     /**
      * Obter um utilizador através do ser nome de utilizador
+     *
      * @param username identificador do utilizador
      * @return User
      */
-    User getUserByUserId(String username);
+    Users getUserByUserId(String username);
 
     /**
      * Adicionar um utilizador
+     *
      * @param user utilizador a adicionar
      * @return User
      */
-    User addUser(User user);
+    Users addUser(Users user);
 
     /**
      * Atualizar um utilizador
+     *
      * @param user utilizador a atualizar
      * @return User
      */
-    User updateUser(User user);
+    Users updateUser(Users user);
 
     /**
      * Remover um utilizador
+     *
      * @param username identificador do utilizador
      */
     void deleteUser(String username);

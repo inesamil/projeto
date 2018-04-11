@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.dal.bdModel.HouseAllergy;
+import pt.isel.ps.gis.models.HouseAllergy;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ public interface HouseAllergyService {
 
     /**
      * Listar as alergias de uma casa através do ID da casa
+     *
      * @param houseId
      * @return
      */
@@ -15,6 +16,7 @@ public interface HouseAllergyService {
 
     /**
      * Adicionar uma alergia a uma casa
+     *
      * @param houseAllergy alergia a adicionar
      * @return HouseAllergy
      */
@@ -22,6 +24,7 @@ public interface HouseAllergyService {
 
     /**
      * Atualizar uma alergia duma casa
+     *
      * @param houseAllergy alergia atualizada
      * @return HouseAllergy
      */
@@ -29,6 +32,7 @@ public interface HouseAllergyService {
 
     /**
      * Desassociar uma alergia de uma casa
+     *
      * @param houseAllergy alergia a remover
      */
     void deleteHouseAllergy(HouseAllergy houseAllergy);

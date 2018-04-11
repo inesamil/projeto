@@ -1,8 +1,6 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.dal.bdModel.House;
-import pt.isel.ps.gis.dal.bdModel.HouseAllergy;
-import pt.isel.ps.gis.dal.bdModel.Member;
+import pt.isel.ps.gis.models.House;
 
 import java.util.List;
 
@@ -10,6 +8,7 @@ public interface HouseService {
 
     /**
      * Obter uma casa através do seu ID
+     *
      * @param houseId identificador da casa
      * @return House
      */
@@ -17,6 +16,7 @@ public interface HouseService {
 
     /**
      * Listar as casas de um utilizador através do seu nome do utilizador
+     *
      * @param username identificador do utilizador
      * @return List<House>
      */
@@ -24,6 +24,7 @@ public interface HouseService {
 
     /**
      * Adicionar uma casa
+     *
      * @param house casa a adicionar
      * @return House
      */
@@ -31,6 +32,7 @@ public interface HouseService {
 
     /**
      * Atualizar uma casa
+     *
      * @param house casa atualizada
      * @return House
      */
@@ -38,6 +40,7 @@ public interface HouseService {
 
     /**
      * Remover uma casa
+     *
      * @param houseId identificador da casa
      */
     void deleteHouse(Long houseId);
