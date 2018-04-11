@@ -6,8 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import pt.isel.ps.gis.DAL.Repositories.IHouseRepository;
-import pt.isel.ps.gis.DAL.bdModel.House;
+import pt.isel.ps.gis.dal.Repositories.IHouseRepository;
+import pt.isel.ps.gis.dal.bdModel.House;
 
 import java.util.List;
 
