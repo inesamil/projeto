@@ -39,8 +39,9 @@ public class StockItem {
     @Column(name = "stockitem_segmentunit", length = 5, nullable = false)
     private String stockitemSegmentunit;
 
+    // The length = 1073741824 is equivalent to 1GB of characters. In postgreSql documentation, they said that field text is 1GB of characteres.
     @Basic
-    @Column(name = "stockitem_description")
+    @Column(name = "stockitem_description", length = 1073741824)
     private String stockitemDescription;
 
     @Basic
