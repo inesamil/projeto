@@ -10,11 +10,11 @@ import java.util.Objects;
 public class StockItemId implements Serializable {
 
     @Id
-    @Column(name = "house_id")
+    @Column(name = "house_id", nullable = false)
     private Long houseId;
 
     @Id
-    @Column(name = "stockitem_sku")
+    @Column(name = "stockitem_sku", length = 128, nullable = false)
     private String stockitemSku;
 
     public Long getHouseId() {

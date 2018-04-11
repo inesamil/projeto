@@ -12,19 +12,19 @@ public class Product {
     private ProductId id;
 
     @Basic
-    @Column(name = "product_name")
+    @Column(name = "product_name", length = 35, nullable = false)
     private String productName;
 
     @Basic
-    @Column(name = "product_edible")
+    @Column(name = "product_edible", nullable = false)
     private Boolean productEdible;
 
     @Basic
-    @Column(name = "product_shelflife")
+    @Column(name = "product_shelflife", nullable = false)
     private Short productShelflife;
 
     @Basic
-    @Column(name = "product_shelflifetimeunit")
+    @Column(name = "product_shelflifetimeunit", length = 35, nullable = false)
     private String productShelflifetimeunit;
 
     @OneToMany(mappedBy = "product")

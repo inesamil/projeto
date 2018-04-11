@@ -12,31 +12,31 @@ public class StockItem {
     private StockItemId id;
 
     @Basic
-    @Column(name = "category_id")
+    @Column(name = "category_id", nullable = false)
     private Integer categoryId;
 
     @Basic
-    @Column(name = "product_id")
+    @Column(name = "product_id", nullable = false)
     private Integer productId;
 
     @Basic
-    @Column(name = "stockitem_brand")
+    @Column(name = "stockitem_brand", length = 35, nullable = false)
     private String stockitemBrand;
 
     @Basic
-    @Column(name = "stockitem_segment")
+    @Column(name = "stockitem_segment", length = 35, nullable = false)
     private String stockitemSegment;
 
     @Basic
-    @Column(name = "stockitem_variety")
+    @Column(name = "stockitem_variety", length = 35, nullable = false)
     private String stockitemVariety;
 
     @Basic
-    @Column(name = "stockitem_quantity")
+    @Column(name = "stockitem_quantity", nullable = false)
     private Short stockitemQuantity;
 
     @Basic
-    @Column(name = "stockitem_segmentunit")
+    @Column(name = "stockitem_segmentunit", length = 5, nullable = false)
     private String stockitemSegmentunit;
 
     @Basic

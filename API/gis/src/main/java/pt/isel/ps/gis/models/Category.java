@@ -9,11 +9,12 @@ import java.util.Objects;
 public class Category {
 
     @Id
-    @Column(name = "category_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_id", nullable = false)
     private Integer categoryId;
 
     @Basic
-    @Column(name = "category_name")
+    @Column(name = "category_name", length = 35, nullable = false)
     private String categoryName;
 
     @OneToMany(mappedBy = "categoryByCategoryId")

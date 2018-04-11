@@ -11,7 +11,7 @@ public class UserList {
     private UserListId id;
 
     @Basic
-    @Column(name = "users_username")
+    @Column(name = "users_username", length = 30, nullable = false)
     private String usersUsername;
 
     @Basic

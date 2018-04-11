@@ -10,15 +10,16 @@ import java.util.Objects;
 public class House {
 
     @Id
-    @Column(name = "house_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "house_id", nullable = false)
     private Long houseId;
 
     @Basic
-    @Column(name = "house_name")
+    @Column(name = "house_name", length = 35, nullable = false)
     private String houseName;
 
     @Basic
-    @Column(name = "house_characteristics")
+    @Column(name = "house_characteristics", nullable = false)
     private Serializable houseCharacteristics;
 
     @OneToMany(mappedBy = "houseByHouseId")

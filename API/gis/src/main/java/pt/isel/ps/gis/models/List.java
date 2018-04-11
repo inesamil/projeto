@@ -12,11 +12,11 @@ public class List {
     private ListId id;
 
     @Basic
-    @Column(name = "list_name")
+    @Column(name = "list_name", length = 35, nullable = false)
     private String listName;
 
     @Basic
-    @Column(name = "list_type")
+    @Column(name = "list_type", length = 7, nullable = false)
     private String listType;
 
     @ManyToOne

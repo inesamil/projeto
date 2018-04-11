@@ -9,23 +9,23 @@ import java.util.Objects;
 public class Users {
 
     @Id
-    @Column(name = "users_username")
+    @Column(name = "users_username", length = 30, nullable = false)
     private String usersUsername;
 
     @Basic
-    @Column(name = "users_email")
+    @Column(name = "users_email", length = 254, nullable = false)
     private String usersEmail;
 
     @Basic
-    @Column(name = "users_age")
+    @Column(name = "users_age", nullable = false)
     private Short usersAge;
 
     @Basic
-    @Column(name = "users_name")
+    @Column(name = "users_name", length = 70, nullable = false)
     private String usersName;
 
     @Basic
-    @Column(name = "users_password")
+    @Column(name = "users_password", length = 50, nullable = false)
     private String usersPassword;
 
     @OneToMany(mappedBy = "usersByUsersUsername")

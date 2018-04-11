@@ -1,7 +1,5 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.dal.bdModel.Member;
-
 import java.util.List;
 
 public interface HouseMemberService {

@@ -10,11 +10,11 @@ import java.util.Objects;
 public class ProductId implements Serializable {
 
     @Id
-    @Column(name = "category_id")
+    @Column(name = "category_id", nullable = false)
     private Integer categoryId;
 
     @Id
-    @Column(name = "product_id")
+    @Column(name = "product_id", nullable = false)
     private Integer productId;
 
     public Integer getCategoryId() {

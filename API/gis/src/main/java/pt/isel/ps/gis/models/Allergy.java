@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Allergy {
 
     @Id
-    @Column(name = "allergy_allergen")
+    @Column(name = "allergy_allergen", length = 75, nullable = false)
     private String allergyAllergen;
 
     @OneToMany(mappedBy = "allergyByAllergyAllergen")
