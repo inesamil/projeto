@@ -21,11 +21,10 @@ public class ValidationsUtils {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     *
      * @param allergyAllergen
      * @throws IllegalArgumentException
      */
-    public static void validateAllergyAllergen(String allergyAllergen) throws IllegalArgumentException{
+    public static void validateAllergyAllergen(String allergyAllergen) throws IllegalArgumentException {
         if (allergyAllergen == null || allergyAllergen.length() > RestrictionsUtils.ALLERGY_ALLERGEN_MAX_LENGTH)
             throw new IllegalArgumentException("Invalid allergen.");
     }
@@ -64,7 +63,7 @@ public class ValidationsUtils {
             throw new IllegalArgumentException("Invalid category ID.");
     }
 
-    public static void validateCategoryName(String categoryName) throws IllegalArgumentException{
+    public static void validateCategoryName(String categoryName) throws IllegalArgumentException {
         if (categoryName == null || categoryName.length() > RestrictionsUtils.CATEGORY_NAME_MAX_LENGTH)
             throw new IllegalArgumentException("Invalid category name.");
     }
@@ -82,7 +81,7 @@ public class ValidationsUtils {
     ////                                            Date                                                            ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void validateDate(String date) throws IllegalArgumentException{
+    public static void validateDate(String date) throws IllegalArgumentException {
         if (date == null || !DateUtils.isStringIsValidDate(date))
             throw new IllegalArgumentException("Invalid date.");
     }

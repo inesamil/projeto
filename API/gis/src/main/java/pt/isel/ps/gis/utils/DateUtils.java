@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 public class DateUtils {
     /**
      * Verifica se uma string é ou não uma data válida
+     *
      * @param date data a validar
      * @return true se @param date é uma data válida, false caso contrário
      */
@@ -26,6 +27,7 @@ public class DateUtils {
 
     /**
      * Converte um objeto Timestamp numa string
+     *
      * @param date timestamp a converter
      * @return String correspondente à data no formato yyyy-MM-dd
      */

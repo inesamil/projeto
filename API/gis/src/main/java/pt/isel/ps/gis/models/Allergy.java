@@ -1,6 +1,5 @@
 package pt.isel.ps.gis.models;
 
-import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -30,7 +29,8 @@ public class Allergy {
     /**
      * CONSTRUTORES
      */
-    protected Allergy() {}
+    protected Allergy() {
+    }
 
     public Allergy(String allergyAllergen) throws IllegalArgumentException {
         setAllergyAllergen(allergyAllergen);

@@ -5,8 +5,6 @@ import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -30,7 +28,8 @@ public class Date {
     /**
      * CONSTRUTORES
      */
-    protected Date(){}
+    protected Date() {
+    }
 
     public Date(String date) throws IllegalArgumentException {
         setDateDate(date);

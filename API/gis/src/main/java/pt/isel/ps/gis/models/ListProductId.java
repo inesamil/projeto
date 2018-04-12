@@ -33,7 +33,8 @@ public class ListProductId implements Serializable {
     /**
      * CONSTRUTORES
      */
-    protected ListProductId() {}
+    protected ListProductId() {
+    }
 
     public ListProductId(Long houseId, Short listId, Integer categoryId, Integer productId) throws IllegalArgumentException {
         setHouseId(houseId);

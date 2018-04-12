@@ -8,6 +8,7 @@ public interface HouseService {
 
     /**
      * Verifica se uma dada casa existe através do seu ID
+     *
      * @param houseId identiicador da casa
      * @return true se a casa existir, false caso contrário
      */

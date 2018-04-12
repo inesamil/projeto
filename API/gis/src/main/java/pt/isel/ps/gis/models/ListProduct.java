@@ -1,6 +1,5 @@
 package pt.isel.ps.gis.models;
 
-import org.hibernate.annotations.Check;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -44,7 +43,8 @@ public class ListProduct {
     /**
      * CONSTRUTORES
      */
-    protected ListProduct() {}
+    protected ListProduct() {
+    }
 
     public ListProduct(Long houseId, Short listId, Integer categoryId, Integer productId, String productBrand, Short productQuantity) throws IllegalArgumentException {
         setId(houseId, listId, categoryId, productId);

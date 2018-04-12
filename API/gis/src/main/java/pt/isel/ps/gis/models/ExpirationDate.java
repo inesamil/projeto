@@ -1,6 +1,5 @@
 package pt.isel.ps.gis.models;
 
-import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -37,7 +36,8 @@ public class ExpirationDate {
     /**
      * CONSTRUTORES
      */
-    protected ExpirationDate() {}
+    protected ExpirationDate() {
+    }
 
     public ExpirationDate(Long houseId, String stockItemSku, String expirationDate) throws IllegalArgumentException {
         setId(houseId, stockItemSku, expirationDate);

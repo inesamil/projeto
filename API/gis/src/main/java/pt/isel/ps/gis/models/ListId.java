@@ -25,7 +25,8 @@ public class ListId implements Serializable {
     /**
      * CONSTRUTORES
      */
-    protected ListId() {}
+    protected ListId() {
+    }
 
     public ListId(Long houseId, Short listId) throws IllegalArgumentException {
         setHouseId(houseId);
@@ -39,7 +40,7 @@ public class ListId implements Serializable {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws IllegalArgumentException{
+    public void setHouseId(Long houseId) throws IllegalArgumentException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }

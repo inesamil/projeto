@@ -9,7 +9,7 @@ public interface ListService {
     /**
      * Obter uma lista através do seu ID
      *
-     * @param listId  identificador da lista
+     * @param listId identificador da lista
      * @return List
      */
     pt.isel.ps.gis.models.List getListByListId(ListId listId);
@@ -50,7 +50,7 @@ public interface ListService {
     /**
      * Remover uma lista duma casa
      *
-     * @param listId  identificador da lista
+     * @param listId identificador da lista
      */
     void deleteList(ListId listId);
 

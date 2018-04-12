@@ -43,7 +43,8 @@ public class List {
     /**
      * CONSTRUTORES
      */
-    protected List() {}
+    protected List() {
+    }
 
     public List(String listName, String listType) {
         setListName(listName);

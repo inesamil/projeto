@@ -1,6 +1,5 @@
 package pt.isel.ps.gis.models;
 
-import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -49,7 +48,8 @@ public class House {
     /**
      * CONSTRUTORES
      */
-    protected House() {}
+    protected House() {
+    }
 
     public House(String houseName, Serializable houseCharacteristics) {
         setHouseName(houseName);

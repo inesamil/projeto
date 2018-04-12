@@ -1,6 +1,5 @@
 package pt.isel.ps.gis.models;
 
-import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.Column;
@@ -26,7 +25,8 @@ public class HouseAllergyId implements Serializable {
     /**
      * CONSTRUTORES
      */
-    protected HouseAllergyId() {}
+    protected HouseAllergyId() {
+    }
 
     public HouseAllergyId(Long houseId, String allergy) throws IllegalArgumentException {
         setHouseId(houseId);

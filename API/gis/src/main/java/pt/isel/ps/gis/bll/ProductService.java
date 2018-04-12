@@ -10,7 +10,7 @@ public interface ProductService {
     /**
      * Obter um produto através do seu ID
      *
-     * @param productId  identificador do produto
+     * @param productId identificador do produto
      * @return Product
      */
     Product getProductByProductId(ProductId productId);

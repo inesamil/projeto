@@ -1,6 +1,5 @@
 package pt.isel.ps.gis.models;
 
-import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -34,7 +33,8 @@ public class HouseAllergy {
     /**
      * CONSTRUTORES
      */
-    protected HouseAllergy() {}
+    protected HouseAllergy() {
+    }
 
     public HouseAllergy(Long houseId, String allergy, Short alergicsNum) throws IllegalArgumentException {
         setId(houseId, allergy);
@@ -52,7 +52,7 @@ public class HouseAllergy {
         this.id = id;
     }
 
-    public void setId(Long houseId, String allergy) throws IllegalArgumentException{
+    public void setId(Long houseId, String allergy) throws IllegalArgumentException {
         setId(new HouseAllergyId(houseId, allergy));
     }
 
@@ -60,7 +60,7 @@ public class HouseAllergy {
         return houseallergyAlergicsnum;
     }
 
-    public void setHouseallergyAlergicsnum(Short alergicsNum) throws IllegalArgumentException{
+    public void setHouseallergyAlergicsnum(Short alergicsNum) throws IllegalArgumentException {
         ValidationsUtils.validateHouseAllergyAllergicsNum(alergicsNum);
         this.houseallergyAlergicsnum = alergicsNum;
     }

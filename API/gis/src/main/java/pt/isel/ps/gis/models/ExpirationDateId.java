@@ -1,7 +1,6 @@
 package pt.isel.ps.gis.models;
 
 import pt.isel.ps.gis.utils.DateUtils;
-import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.Column;
@@ -32,7 +31,8 @@ public class ExpirationDateId implements Serializable {
     /**
      * CONSTRUTOR
      */
-    protected ExpirationDateId() {}
+    protected ExpirationDateId() {
+    }
 
     public ExpirationDateId(Long houseId, String stockitemSku, String expirationDate) throws IllegalArgumentException {
         setHouseId(houseId);
