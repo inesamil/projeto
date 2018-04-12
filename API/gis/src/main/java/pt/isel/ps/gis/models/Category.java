@@ -1,6 +1,5 @@
 package pt.isel.ps.gis.models;
 
-import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -20,7 +19,7 @@ public class Category {
     private Integer categoryId;
 
     @Basic
-    @Column(name = "category_name", length = 35, nullable = false)
+    @Column(name = "category_name", length = 35, nullable = false, unique = true)
     private String categoryName;
 
     /**
@@ -32,7 +31,8 @@ public class Category {
     /**
      * CONSTRUTORES
      */
-    protected Category() {}
+    protected Category() {
+    }
 
     public Category(Integer categoryId) throws IllegalArgumentException {
         setCategoryId(categoryId);

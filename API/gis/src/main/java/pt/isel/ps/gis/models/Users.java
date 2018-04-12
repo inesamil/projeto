@@ -13,7 +13,7 @@ public class Users {
     private String usersUsername;
 
     @Basic
-    @Column(name = "users_email", length = 254, nullable = false)
+    @Column(name = "users_email", length = 254, nullable = false, unique = true)
     private String usersEmail;
 
     @Basic
