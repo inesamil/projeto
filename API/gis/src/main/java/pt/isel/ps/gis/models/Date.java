@@ -1,7 +1,12 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.utils.DateUtils;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -9,19 +14,39 @@ import java.util.Objects;
 @Table(name = "date")
 public class Date {
 
+    /**
+     * COLUNAS
+     */
     @Id
     @Column(name = "date_date", nullable = false)
     private Timestamp dateDate;
 
+    /**
+     * COLEÇÕES
+     */
     @OneToMany(mappedBy = "dateByDateDate")
     private Collection<ExpirationDate> expirationdatesByDateDate;
 
-    public Timestamp getDateDate() {
-        return dateDate;
+    /**
+     * CONSTRUTORES
+     */
+    protected Date(){}
+
+    public Date(String date) throws IllegalArgumentException {
+        setDateDate(date);
     }
 
-    public void setDateDate(Timestamp dateDate) {
-        this.dateDate = dateDate;
+    /**
+     * GETTERS E SETTERS
+     */
+    public String getDateDate() {
+        return DateUtils.convertDateFormat(this.dateDate);
+    }
+
+    public void setDateDate(String date) throws IllegalArgumentException {
+        ValidationsUtils.validateDate(date);
+        date += " 00:00:00";    // JDBC timestamp escape format: yyyy-[m]m-[d]d hh:mm:ss[.f...].
+        this.dateDate = Timestamp.valueOf(date);
     }
 
     public Collection<ExpirationDate> getExpirationdatesByDateDate() {

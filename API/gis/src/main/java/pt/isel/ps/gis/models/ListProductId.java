@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Id;
@@ -9,6 +11,9 @@ import java.util.Objects;
 @Embeddable
 public class ListProductId implements Serializable {
 
+    /**
+     * COLUNAS
+     */
     @Id
     @Column(name = "house_id", nullable = false)
     private Long houseId;
@@ -25,11 +30,27 @@ public class ListProductId implements Serializable {
     @Column(name = "product_id", nullable = false)
     private Integer productId;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected ListProductId() {}
+
+    public ListProductId(Long houseId, Short listId, Integer categoryId, Integer productId) throws IllegalArgumentException {
+        setHouseId(houseId);
+        this.listId = listId;
+        this.categoryId = categoryId;
+        this.productId = productId;
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public Long getHouseId() {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) {
+    public void setHouseId(Long houseId) throws IllegalArgumentException {
+        ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
 
@@ -37,7 +58,8 @@ public class ListProductId implements Serializable {
         return listId;
     }
 
-    public void setListId(Short listId) {
+    public void setListId(Short listId) throws IllegalArgumentException {
+        ValidationsUtils.validateListId(listId);
         this.listId = listId;
     }
 
@@ -45,7 +67,8 @@ public class ListProductId implements Serializable {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Integer categoryId) throws IllegalArgumentException {
+        ValidationsUtils.validateCategoryId(categoryId);
         this.categoryId = categoryId;
     }
 
@@ -53,7 +76,8 @@ public class ListProductId implements Serializable {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(Integer productId) throws IllegalArgumentException {
+        ValidationsUtils.validateProductId(productId);
         this.productId = productId;
     }
 

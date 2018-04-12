@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Id;
@@ -9,6 +11,9 @@ import java.util.Objects;
 @Embeddable
 public class ListId implements Serializable {
 
+    /**
+     * COLUNAS
+     */
     @Id
     @Column(name = "house_id", nullable = false)
     private Long houseId;
@@ -17,11 +22,25 @@ public class ListId implements Serializable {
     @Column(name = "list_id", nullable = false)
     private Short listId;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected ListId() {}
+
+    public ListId(Long houseId, Short listId) throws IllegalArgumentException {
+        setHouseId(houseId);
+        setListId(listId);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public Long getHouseId() {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) {
+    public void setHouseId(Long houseId) throws IllegalArgumentException{
+        ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
 
@@ -29,7 +48,8 @@ public class ListId implements Serializable {
         return listId;
     }
 
-    public void setListId(Short listId) {
+    public void setListId(Short listId) throws IllegalArgumentException {
+        ValidationsUtils.validateListId(listId);
         this.listId = listId;
     }
 

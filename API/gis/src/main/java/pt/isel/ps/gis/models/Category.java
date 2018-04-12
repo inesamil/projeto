@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.utils.RestrictionsUtils;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -8,6 +11,9 @@ import java.util.Objects;
 @Table(name = "category")
 public class Category {
 
+    /**
+     * COLUNAS
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id", nullable = false)
@@ -17,14 +23,35 @@ public class Category {
     @Column(name = "category_name", length = 35, nullable = false)
     private String categoryName;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @OneToMany(mappedBy = "categoryByCategoryId")
     private Collection<Product> productsByCategoryId;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected Category() {}
+
+    public Category(Integer categoryId) throws IllegalArgumentException {
+        setCategoryId(categoryId);
+    }
+
+    public Category(Integer categoryId, String categoryName) throws IllegalArgumentException {
+        setCategoryId(categoryId);
+        setCategoryName(categoryName);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Integer categoryId) throws IllegalArgumentException {
+        ValidationsUtils.validateCategoryId(categoryId);
         this.categoryId = categoryId;
     }
 
@@ -32,7 +59,8 @@ public class Category {
         return categoryName;
     }
 
-    public void setCategoryName(String categoryName) {
+    public void setCategoryName(String categoryName) throws IllegalArgumentException {
+        ValidationsUtils.validateCategoryName(categoryName);
         this.categoryName = categoryName;
     }
 

@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.utils.RestrictionsUtils;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -7,6 +10,9 @@ import java.util.Objects;
 @Table(name = "expirationdate")
 public class ExpirationDate {
 
+    /**
+     * COLUNAS
+     */
     @EmbeddedId
     private ExpirationDateId id;
 
@@ -14,6 +20,9 @@ public class ExpirationDate {
     @Column(name = "date_quantity", nullable = false)
     private Short dateQuantity;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false),
@@ -25,6 +34,23 @@ public class ExpirationDate {
     @JoinColumn(name = "date_date", referencedColumnName = "date_date", nullable = false)
     private Date dateByDateDate;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected ExpirationDate() {}
+
+    public ExpirationDate(Long houseId, String stockItemSku, String expirationDate) throws IllegalArgumentException {
+        setId(houseId, stockItemSku, expirationDate);
+    }
+
+    public ExpirationDate(Long houseId, String stockItemSku, String expirationDate, Short quantity) throws IllegalArgumentException {
+        setId(houseId, stockItemSku, expirationDate);
+        setDateQuantity(quantity);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public ExpirationDateId getId() {
         return id;
     }
@@ -33,12 +59,17 @@ public class ExpirationDate {
         this.id = id;
     }
 
+    public void setId(Long houseId, String stockItemSku, String expirationDate) {
+        setId(new ExpirationDateId(houseId, stockItemSku, expirationDate));
+    }
+
     public Short getDateQuantity() {
         return dateQuantity;
     }
 
-    public void setDateQuantity(Short dateQuantity) {
-        this.dateQuantity = dateQuantity;
+    public void setDateQuantity(Short quantity) throws IllegalArgumentException {
+        ValidationsUtils.validateExpirationDateQuantity(quantity);
+        this.dateQuantity = quantity;
     }
 
     public StockItem getStockitem() {

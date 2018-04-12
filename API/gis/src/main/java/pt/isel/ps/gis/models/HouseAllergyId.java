@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.utils.RestrictionsUtils;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Id;
@@ -9,6 +12,9 @@ import java.util.Objects;
 @Embeddable
 public class HouseAllergyId implements Serializable {
 
+    /**
+     * COLUNAS
+     */
     @Id
     @Column(name = "house_id", nullable = false)
     private Long houseId;
@@ -17,11 +23,25 @@ public class HouseAllergyId implements Serializable {
     @Column(name = "allergy_allergen", length = 75, nullable = false)
     private String allergyAllergen;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected HouseAllergyId() {}
+
+    public HouseAllergyId(Long houseId, String allergy) throws IllegalArgumentException {
+        setHouseId(houseId);
+        setAllergyAllergen(allergy);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public Long getHouseId() {
         return houseId;
     }
 
     public void setHouseId(Long houseId) {
+        ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
 
@@ -30,6 +50,7 @@ public class HouseAllergyId implements Serializable {
     }
 
     public void setAllergyAllergen(String allergyAllergen) {
+        ValidationsUtils.validateAllergyAllergen(allergyAllergen);
         this.allergyAllergen = allergyAllergen;
     }
 

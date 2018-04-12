@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -8,6 +10,9 @@ import java.util.Objects;
 @Table(name = "list")
 public class List {
 
+    /**
+     * COLUNAS
+     */
     @EmbeddedId
     private ListId id;
 
@@ -19,6 +24,9 @@ public class List {
     @Column(name = "list_type", length = 7, nullable = false)
     private String listType;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @ManyToOne
     @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false)
     private House houseByHouseId;
@@ -32,6 +40,25 @@ public class List {
     @OneToOne(mappedBy = "list")
     private UserList userlist;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected List() {}
+
+    public List(String listName, String listType) {
+        setListName(listName);
+        setListType(listType);
+    }
+
+    public List(Long houseId, Short listId, String listName, String listType) {
+        setId(houseId, listId);
+        setListName(listName);
+        setListType(listType);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public ListId getId() {
         return id;
     }
@@ -40,11 +67,16 @@ public class List {
         this.id = id;
     }
 
+    public void setId(Long houseId, Short listId) throws IllegalArgumentException {
+        setId(new ListId(houseId, listId));
+    }
+
     public String getListName() {
         return listName;
     }
 
-    public void setListName(String listName) {
+    public void setListName(String listName) throws IllegalArgumentException {
+        ValidationsUtils.validateListName(listName);
         this.listName = listName;
     }
 
@@ -52,7 +84,8 @@ public class List {
         return listType;
     }
 
-    public void setListType(String listType) {
+    public void setListType(String listType) throws IllegalArgumentException {
+        ValidationsUtils.validateListType(listType);
         this.listType = listType;
     }
 

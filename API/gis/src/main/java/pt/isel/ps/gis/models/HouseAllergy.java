@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.utils.RestrictionsUtils;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -7,6 +10,9 @@ import java.util.Objects;
 @Table(name = "houseallergy")
 public class HouseAllergy {
 
+    /**
+     * COLUNAS
+     */
     @EmbeddedId
     private HouseAllergyId id;
 
@@ -14,6 +20,9 @@ public class HouseAllergy {
     @Column(name = "houseallergy_alergicsnum", nullable = false)
     private Short houseallergyAlergicsnum;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @ManyToOne
     @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false)
     private House houseByHouseId;
@@ -22,6 +31,19 @@ public class HouseAllergy {
     @JoinColumn(name = "allergy_allergen", referencedColumnName = "allergy_allergen", nullable = false)
     private Allergy allergyByAllergyAllergen;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected HouseAllergy() {}
+
+    public HouseAllergy(Long houseId, String allergy, Short alergicsNum) throws IllegalArgumentException {
+        setId(houseId, allergy);
+        setHouseallergyAlergicsnum(alergicsNum);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public HouseAllergyId getId() {
         return id;
     }
@@ -30,12 +52,17 @@ public class HouseAllergy {
         this.id = id;
     }
 
+    public void setId(Long houseId, String allergy) throws IllegalArgumentException{
+        setId(new HouseAllergyId(houseId, allergy));
+    }
+
     public Short getHouseallergyAlergicsnum() {
         return houseallergyAlergicsnum;
     }
 
-    public void setHouseallergyAlergicsnum(Short houseallergyAlergicsnum) {
-        this.houseallergyAlergicsnum = houseallergyAlergicsnum;
+    public void setHouseallergyAlergicsnum(Short alergicsNum) throws IllegalArgumentException{
+        ValidationsUtils.validateHouseAllergyAllergicsNum(alergicsNum);
+        this.houseallergyAlergicsnum = alergicsNum;
     }
 
     public House getHouseByHouseId() {

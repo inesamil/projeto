@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.utils.RestrictionsUtils;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -8,21 +11,40 @@ import java.util.Objects;
 @Table(name = "allergy")
 public class Allergy {
 
+    /**
+     * COLUNAS
+     */
     @Id
     @Column(name = "allergy_allergen", length = 75, nullable = false)
     private String allergyAllergen;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @OneToMany(mappedBy = "allergyByAllergyAllergen")
     private Collection<HouseAllergy> houseallergiesByAllergyAllergen;
 
     @OneToMany(mappedBy = "allergyByAllergyAllergen")
     private Collection<StockItemAllergy> stockitemallergiesByAllergyAllergen;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected Allergy() {}
+
+    public Allergy(String allergyAllergen) throws IllegalArgumentException {
+        setAllergyAllergen(allergyAllergen);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public String getAllergyAllergen() {
         return allergyAllergen;
     }
 
-    public void setAllergyAllergen(String allergyAllergen) {
+    public void setAllergyAllergen(String allergyAllergen) throws IllegalArgumentException {
+        ValidationsUtils.validateAllergyAllergen(allergyAllergen);
         this.allergyAllergen = allergyAllergen;
     }
 

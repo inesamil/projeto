@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.utils.RestrictionsUtils;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -9,6 +12,9 @@ import java.util.Objects;
 @Table(name = "house")
 public class House {
 
+    /**
+     * COLUNAS
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "house_id", nullable = false)
@@ -22,6 +28,9 @@ public class House {
     @Column(name = "house_characteristics", nullable = false)
     private Serializable houseCharacteristics;
 
+    /**
+     * COLEÇÕES
+     */
     @OneToMany(mappedBy = "houseByHouseId")
     private Collection<HouseAllergy> houseallergiesByHouseId;
 
@@ -37,11 +46,31 @@ public class House {
     @OneToMany(mappedBy = "houseByHouseId")
     private Collection<UserHouse> userhousesByHouseId;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected House() {}
+
+    public House(String houseName, Serializable houseCharacteristics) {
+        setHouseName(houseName);
+        setHouseCharacteristics(houseCharacteristics);
+    }
+
+    public House(Long houseId, String houseName, Serializable houseCharacteristics) {
+        setHouseId(houseId);
+        setHouseName(houseName);
+        setHouseCharacteristics(houseCharacteristics);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public Long getHouseId() {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) {
+    public void setHouseId(Long houseId) throws IllegalArgumentException {
+        ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
 
@@ -49,7 +78,8 @@ public class House {
         return houseName;
     }
 
-    public void setHouseName(String houseName) {
+    public void setHouseName(String houseName) throws IllegalArgumentException {
+        ValidationsUtils.validateHouseName(houseName);
         this.houseName = houseName;
     }
 
@@ -58,6 +88,7 @@ public class House {
     }
 
     public void setHouseCharacteristics(Serializable houseCharacteristics) {
+        //TODO: validar Serializable
         this.houseCharacteristics = houseCharacteristics;
     }
 

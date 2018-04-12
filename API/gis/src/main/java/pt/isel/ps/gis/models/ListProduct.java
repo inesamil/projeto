@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import org.hibernate.annotations.Check;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -7,6 +10,9 @@ import java.util.Objects;
 @Table(name = "listproduct")
 public class ListProduct {
 
+    /**
+     * COLUNAS
+     */
     @EmbeddedId
     private ListProductId id;
 
@@ -18,6 +24,9 @@ public class ListProduct {
     @Column(name = "listproduct_quantity", nullable = false)
     private Short listproductQuantity;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false),
@@ -32,6 +41,20 @@ public class ListProduct {
     })
     private Product product;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected ListProduct() {}
+
+    public ListProduct(Long houseId, Short listId, Integer categoryId, Integer productId, String productBrand, Short productQuantity) throws IllegalArgumentException {
+        setId(houseId, listId, categoryId, productId);
+        setListproductBrand(productBrand);
+        setListproductQuantity(productQuantity);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public ListProductId getId() {
         return id;
     }
@@ -40,11 +63,16 @@ public class ListProduct {
         this.id = id;
     }
 
+    private void setId(Long houseId, Short listId, Integer categoryId, Integer productId) throws IllegalArgumentException {
+        setId(new ListProductId(houseId, listId, categoryId, productId));
+    }
+
     public String getListproductBrand() {
         return listproductBrand;
     }
 
-    public void setListproductBrand(String listproductBrand) {
+    public void setListproductBrand(String listproductBrand) throws IllegalArgumentException {
+        ValidationsUtils.validateListProductBrand(listproductBrand);
         this.listproductBrand = listproductBrand;
     }
 
@@ -52,7 +80,8 @@ public class ListProduct {
         return listproductQuantity;
     }
 
-    public void setListproductQuantity(Short listproductQuantity) {
+    public void setListproductQuantity(Short listproductQuantity) throws IllegalArgumentException {
+        ValidationsUtils.validateListProductQuantity(listproductQuantity);
         this.listproductQuantity = listproductQuantity;
     }
 
