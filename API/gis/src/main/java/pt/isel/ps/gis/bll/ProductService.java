@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.models.Product;
+import pt.isel.ps.gis.models.ProductId;
 
 import java.util.List;
 
@@ -9,11 +10,10 @@ public interface ProductService {
     /**
      * Obter um produto através do seu ID
      *
-     * @param categoryId identificador da categoria
      * @param productId  identificador do produto
      * @return Product
      */
-    Product getProductByProductId(Integer categoryId, Integer productId);
+    Product getProductByProductId(ProductId productId);
 
     /**
      * Listar os produtos de uma categoria através do ID da categoria

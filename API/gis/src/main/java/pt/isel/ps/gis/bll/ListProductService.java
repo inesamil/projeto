@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.models.ListProduct;
+import pt.isel.ps.gis.models.ListProductId;
 
 import java.util.List;
 
@@ -34,8 +35,8 @@ public interface ListProductService {
     /**
      * Remover um produto duma lista
      *
-     * @param listProduct produto a remover
+     * @param listProductId identificador do produto a remover
      */
-    void deleteListProduct(ListProduct listProduct);
+    void deleteListProduct(ListProductId listProductId);
 
 }

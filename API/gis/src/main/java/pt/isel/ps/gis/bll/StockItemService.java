@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.models.StockItem;
+import pt.isel.ps.gis.models.StockItemId;
 
 import java.util.List;
 
@@ -9,11 +10,10 @@ public interface StockItemService {
     /**
      * Obter um item em stock através do seu ID
      *
-     * @param houseId identificador da casa
-     * @param sku     identificador do item em stock
+     * @param stockItemId identificador do item em stock
      * @return StockItem
      */
-    StockItem getStockItemByStockItemId(Long houseId, String sku);
+    StockItem getStockItemByStockItemId(StockItemId stockItemId);
 
     /**
      * Listar todos os itens em stock duma casa através do ID da casa

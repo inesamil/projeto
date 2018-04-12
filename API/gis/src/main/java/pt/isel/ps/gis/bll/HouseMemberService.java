@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.bll;
 
+import pt.isel.ps.gis.models.UserHouse;
+import pt.isel.ps.gis.models.UserHouseId;
+
 import java.util.List;
 
 public interface HouseMemberService {
@@ -10,7 +13,7 @@ public interface HouseMemberService {
      * @param houseId identificador da casa
      * @return List<Member>
      */
-    List<Member> getMembersByHouseId(Long houseId);
+    List<UserHouse> getMembersByHouseId(Long houseId);
 
     /**
      * Adicionar um membro à casa
@@ -18,7 +21,7 @@ public interface HouseMemberService {
      * @param member membro a adicionar
      * @return Member
      */
-    Member addMember(Member member);
+    UserHouse addMember(UserHouse member);
 
     /**
      * Atualizar os atributos de um membro
@@ -26,12 +29,12 @@ public interface HouseMemberService {
      * @param member membro a atualizar
      * @return Member
      */
-    Member updateMember(Member member);
+    UserHouse updateMember(UserHouse member);
 
     /**
      * Remover um membro da casa
      *
-     * @param member membro a remover
+     * @param memberId identificador do membro a remover
      */
-    void deleteMember(Member member);
+    void deleteMember(UserHouseId memberId);
 }

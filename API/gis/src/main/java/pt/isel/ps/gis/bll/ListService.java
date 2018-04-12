@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.bll;
 
+import pt.isel.ps.gis.models.ListId;
+
 import java.util.List;
 
 public interface ListService {
@@ -7,11 +9,10 @@ public interface ListService {
     /**
      * Obter uma lista através do seu ID
      *
-     * @param houseId identificador da casa
      * @param listId  identificador da lista
      * @return List
      */
-    pt.isel.ps.gis.models.List getListByListId(Long houseId, Short listId);
+    pt.isel.ps.gis.models.List getListByListId(ListId listId);
 
     /**
      * Listar as listas de uma casa através do ID da casa
@@ -49,10 +50,9 @@ public interface ListService {
     /**
      * Remover uma lista duma casa
      *
-     * @param houseId identificador da casa
      * @param listId  identificador da lista
      */
-    void deleteList(Long houseId, Short listId);
+    void deleteList(ListId listId);
 
     /**
      * Filtros - filtragem das listas

@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.models.Storage;
+import pt.isel.ps.gis.models.StorageId;
 
 import java.util.List;
 
@@ -9,11 +10,10 @@ public interface StorageService {
     /**
      * Obter um local de armazenamento através do seu ID
      *
-     * @param houseId   identificador da casa
      * @param storageId identificador do local de armazenamento
      * @return Storage
      */
-    Storage getStorageByStorageId(Long houseId, Short storageId);
+    Storage getStorageByStorageId(StorageId storageId);
 
     /**
      * Listar todos os locais de armazenamento duma casa através do ID da casa
@@ -42,8 +42,7 @@ public interface StorageService {
     /**
      * Remover um local de armazenamento duma casa
      *
-     * @param houseId   identificador da casa
      * @param storageId identifcador do local de armazenamento
      */
-    void deleteStorage(Long houseId, Short storageId);
+    void deleteStorage(StorageId storageId);
 }
