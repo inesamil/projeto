@@ -1,7 +1,7 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.models.ListProduct;
-import pt.isel.ps.gis.models.ListProductId;
+import pt.isel.ps.gis.model.ListProduct;
+import pt.isel.ps.gis.model.ListProductId;
 
 import java.util.List;
 

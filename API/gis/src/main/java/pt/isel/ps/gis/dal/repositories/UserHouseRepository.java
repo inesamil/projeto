@@ -2,8 +2,8 @@ package pt.isel.ps.gis.dal.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.scheduling.annotation.Async;
-import pt.isel.ps.gis.models.UserHouse;
-import pt.isel.ps.gis.models.UserHouseId;
+import pt.isel.ps.gis.model.UserHouse;
+import pt.isel.ps.gis.model.UserHouseId;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;

@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.models.ListId;
+import pt.isel.ps.gis.model.ListId;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface ListService {
      * @param listId identificador da lista
      * @return List
      */
-    pt.isel.ps.gis.models.List getListByListId(ListId listId);
+    pt.isel.ps.gis.model.List getListByListId(ListId listId);
 
     /**
      * Listar as listas de uma casa através do ID da casa
@@ -20,7 +20,7 @@ public interface ListService {
      * @param houseId identificador da casa
      * @return List<List>
      */
-    List<pt.isel.ps.gis.models.List> getListsByHouseId(Long houseId);
+    List<pt.isel.ps.gis.model.List> getListsByHouseId(Long houseId);
 
     /**
      * Listar as listas filtradas de uma casa através do ID da casa
@@ -29,7 +29,7 @@ public interface ListService {
      * @param filters filtros para aplicar na filtragem dos resultados
      * @return List<List>
      */
-    List<pt.isel.ps.gis.models.List> getListsByHouseIdFiltered(Long houseId, ListFilters filters);
+    List<pt.isel.ps.gis.model.List> getListsByHouseIdFiltered(Long houseId, ListFilters filters);
 
     /**
      * Adicionar uma lista a uma casa
@@ -37,7 +37,7 @@ public interface ListService {
      * @param list lista a adicionar
      * @return List
      */
-    pt.isel.ps.gis.models.List addList(pt.isel.ps.gis.models.List list);
+    pt.isel.ps.gis.model.List addList(pt.isel.ps.gis.model.List list);
 
     /**
      * Atualizar uma lista duma casa
@@ -45,7 +45,7 @@ public interface ListService {
      * @param list lista atualizada
      * @return List
      */
-    pt.isel.ps.gis.models.List updateList(pt.isel.ps.gis.models.List list);
+    pt.isel.ps.gis.model.List updateList(pt.isel.ps.gis.model.List list);
 
     /**
      * Remover uma lista duma casa

@@ -1,8 +1,8 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.models.Allergy;
-import pt.isel.ps.gis.models.StockItem;
-import pt.isel.ps.gis.models.StockItemId;
+import pt.isel.ps.gis.model.Allergy;
+import pt.isel.ps.gis.model.StockItem;
+import pt.isel.ps.gis.model.StockItemId;
 
 import java.util.List;
 

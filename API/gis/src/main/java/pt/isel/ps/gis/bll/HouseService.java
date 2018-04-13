@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.models.House;
+import pt.isel.ps.gis.model.House;
 
 import java.util.List;
 

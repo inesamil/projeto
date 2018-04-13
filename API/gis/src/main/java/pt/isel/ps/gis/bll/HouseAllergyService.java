@@ -1,7 +1,7 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.models.HouseAllergy;
-import pt.isel.ps.gis.models.HouseAllergyId;
+import pt.isel.ps.gis.model.HouseAllergy;
+import pt.isel.ps.gis.model.HouseAllergyId;
 
 import java.util.List;
 

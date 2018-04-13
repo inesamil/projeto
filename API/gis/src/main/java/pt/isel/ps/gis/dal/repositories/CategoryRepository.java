@@ -3,7 +3,7 @@ package pt.isel.ps.gis.dal.repositories;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import pt.isel.ps.gis.models.Category;
+import pt.isel.ps.gis.model.Category;
 
 public interface CategoryRepository extends CrudRepository<Category, Integer> {
 

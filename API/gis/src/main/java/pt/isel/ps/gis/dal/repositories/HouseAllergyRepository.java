@@ -2,8 +2,8 @@ package pt.isel.ps.gis.dal.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.scheduling.annotation.Async;
-import pt.isel.ps.gis.models.HouseAllergy;
-import pt.isel.ps.gis.models.HouseAllergyId;
+import pt.isel.ps.gis.model.HouseAllergy;
+import pt.isel.ps.gis.model.HouseAllergyId;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;

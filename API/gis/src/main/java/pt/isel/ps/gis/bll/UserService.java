@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.models.Users;
+import pt.isel.ps.gis.model.Users;
 
 public interface UserService {
 

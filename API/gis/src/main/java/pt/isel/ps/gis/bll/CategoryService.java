@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.models.Category;
+import pt.isel.ps.gis.model.Category;
 
 import java.util.List;
 

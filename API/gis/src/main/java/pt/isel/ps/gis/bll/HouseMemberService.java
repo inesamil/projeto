@@ -1,7 +1,7 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.models.UserHouse;
-import pt.isel.ps.gis.models.UserHouseId;
+import pt.isel.ps.gis.model.UserHouse;
+import pt.isel.ps.gis.model.UserHouseId;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.models.Storage;
-import pt.isel.ps.gis.models.StorageId;
+import pt.isel.ps.gis.model.Storage;
+import pt.isel.ps.gis.model.StorageId;
 
 import java.util.List;
 
