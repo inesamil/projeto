@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.models;
 
 import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ public class ListProduct {
     private ListProductId id;
 
     @Basic
-    @Column(name = "listproduct_brand", length = 35)
+    @Column(name = "listproduct_brand", length = RestrictionsUtils.LISTPRODUCT_BRAND_MAX_LENGTH)
     private String listproductBrand;
 
     @Basic

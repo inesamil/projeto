@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.models;
 
 import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -30,7 +31,7 @@ public class Category implements Serializable {
     private Integer categoryId;
 
     @Basic
-    @Column(name = "category_name", length = 35, nullable = false, unique = true)
+    @Column(name = "category_name", length = RestrictionsUtils.CATEGORY_NAME_MAX_LENGTH, nullable = false, unique = true)
     private String categoryName;
 
     /**

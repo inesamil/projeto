@@ -27,7 +27,7 @@ public class StockItem {
     private Integer productId;
 
     @Basic
-    @Column(name = "stockitem_brand", length = 35, nullable = false)
+    @Column(name = "stockitem_brand", length = RestrictionsUtils.STOCKITEM_BRAND_MAX_LENGTH, nullable = false)
     private String stockitemBrand;
 
     @Basic
@@ -35,7 +35,7 @@ public class StockItem {
     private Float stockitemSegment;
 
     @Basic
-    @Column(name = "stockitem_variety", length = 35, nullable = false)
+    @Column(name = "stockitem_variety", length = RestrictionsUtils.STOCKITEM_VARIETY_MAX_LENGTH, nullable = false)
     private String stockitemVariety;
 
     @Basic
@@ -43,7 +43,7 @@ public class StockItem {
     private Short stockitemQuantity;
 
     @Basic
-    @Column(name = "stockitem_segmentunit", length = 5, nullable = false)
+    @Column(name = "stockitem_segmentunit", length = RestrictionsUtils.STOCKITEM_SEGMENTUNIT_MAX_LENGTH, nullable = false)
     private String stockitemSegmentunit;
 
     // The length = 10485760 is the maximum permited in postgreSql jdbc

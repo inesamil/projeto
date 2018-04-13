@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.utils;
 
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import pt.isel.ps.gis.exceptions.ModelException;
 
@@ -36,6 +37,8 @@ public class ValidationsUtils {
     public static void validateUserEmail(String email) throws ModelException {
         if (email == null)
             throw new ModelException("Email is required.");
+        if (email.length() > RestrictionsUtils.USER_EMAIL_MAX_LENGTH)
+            throw new ModelException("Invalid email.");
         if (!EmailUtils.isStringValidEmail(email))
             throw new ModelException("Invalid email.");
     }
@@ -58,6 +61,9 @@ public class ValidationsUtils {
     public static void validateUserPassword(String password) throws ModelException {
         if (password == null)
             throw new ModelException("Password is required.");
+        if (password.length() > RestrictionsUtils.USER_PASSWORD)
+            throw new ModelException(String.format("Password too long. Password must contain a maximum of %d characters.",
+                    RestrictionsUtils.USER_PASSWORD));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -104,6 +110,8 @@ public class ValidationsUtils {
     public static void validateListType(String listType) throws ModelException {
         if (listType == null)
             throw new ModelException("Must specify a list type.");
+        if (listType.length() > RestrictionsUtils.LIST_TYPE_MAX_LENGTH)
+            throw new ModelException("Invalid list type.");
         for (RestrictionsUtils.LIST_TYPE type : RestrictionsUtils.LIST_TYPE.values()) {
             if (listType.compareToIgnoreCase(type.name()) == 0)
                 return;
@@ -149,11 +157,13 @@ public class ValidationsUtils {
             throw new ModelException("Invalid product shelflife.");
     }
 
-    public static void validateProductShelflifeTimeunit(String productShelflifetimeunit) throws ModelException {
-        if (productShelflifetimeunit == null)
+    public static void validateProductShelflifeTimeunit(String shelflifeTimeUnit) throws ModelException {
+        if (shelflifeTimeUnit == null)
             throw new ModelException("Must specify a time unit for the product shelflife.");
+        if (shelflifeTimeUnit.length() > RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT_MAX_LENGTH)
+            throw new ModelException("Invalid product shelflife time unit.");
         for (RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT shelflifetimeunit : RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT.values()) {
-            if (productShelflifetimeunit.compareToIgnoreCase(shelflifetimeunit.name()) == 0)
+            if (shelflifeTimeUnit.compareToIgnoreCase(shelflifetimeunit.name()) == 0)
                 return;
         }
         throw new ModelException("Invalid product shelflife time unit.");
@@ -212,11 +222,13 @@ public class ValidationsUtils {
             throw new ModelException("Invalid stock item segment.");
     }
 
-    public static void validateStockItemSegmentUnit(String stockitemSegmentUnit) throws ModelException {
-        if (stockitemSegmentUnit == null)
+    public static void validateStockItemSegmentUnit(String segmentUnit) throws ModelException {
+        if (segmentUnit == null)
             throw new ModelException("Stock item segment unit is mandatory.");
+        if (segmentUnit.length() > RestrictionsUtils.STOCKITEM_SEGMENTUNIT_MAX_LENGTH)
+            throw new ModelException("Invalid stock item segment unit.");
         for (RestrictionsUtils.STOCKITEM_SEGMENTUNIT unit : RestrictionsUtils.STOCKITEM_SEGMENTUNIT.values()) {
-            if (stockitemSegmentUnit.compareToIgnoreCase(unit.toString()) == 0)
+            if (segmentUnit.compareToIgnoreCase(unit.toString()) == 0)
                 return;
         }
         throw new ModelException("Invalid stock item segment unit.");

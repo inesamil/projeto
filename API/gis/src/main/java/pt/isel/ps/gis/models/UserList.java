@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.models;
 
 import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ public class UserList {
     private UserListId id;
 
     @Basic
-    @Column(name = "users_username", length = 30, nullable = false)
+    @Column(name = "users_username", length = RestrictionsUtils.USER_USERNAME_MAX_LENGTH, nullable = false)
     private String usersUsername;
 
     @Basic

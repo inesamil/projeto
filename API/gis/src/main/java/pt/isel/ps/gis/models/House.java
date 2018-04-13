@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.models;
 
 import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ public class House {
     private Long houseId;
 
     @Basic
-    @Column(name = "house_name", length = 35, nullable = false)
+    @Column(name = "house_name", length = RestrictionsUtils.HOUSE_NAME_MAX_LENGTH, nullable = false)
     private String houseName;
 
     @Basic

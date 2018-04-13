@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.models;
 
 import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -15,11 +16,11 @@ public class Users {
      * COLUNAS
      */
     @Id
-    @Column(name = "users_username", length = 30, nullable = false)
+    @Column(name = "users_username", length = RestrictionsUtils.USER_USERNAME_MAX_LENGTH, nullable = false)
     private String usersUsername;
 
     @Basic
-    @Column(name = "users_email", length = 254, nullable = false, unique = true)
+    @Column(name = "users_email", length = RestrictionsUtils.USER_EMAIL_MAX_LENGTH, nullable = false, unique = true)
     private String usersEmail;
 
     @Basic
@@ -27,11 +28,11 @@ public class Users {
     private Short usersAge;
 
     @Basic
-    @Column(name = "users_name", length = 70, nullable = false)
+    @Column(name = "users_name", length = RestrictionsUtils.USER_NAME_MAX_LENGTH, nullable = false)
     private String usersName;
 
     @Basic
-    @Column(name = "users_password", length = 50, nullable = false)
+    @Column(name = "users_password", length = RestrictionsUtils.USER_PASSWORD, nullable = false)
     private String usersPassword;
 
     /**

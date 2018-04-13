@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.models;
 
 import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ public class HouseAllergyId implements Serializable {
     @Column(name = "house_id", nullable = false)
     private Long houseId;
 
-    @Column(name = "allergy_allergen", length = 75, nullable = false)
+    @Column(name = "allergy_allergen", length = RestrictionsUtils.ALLERGY_ALLERGEN_MAX_LENGTH, nullable = false)
     private String allergyAllergen;
 
     /**

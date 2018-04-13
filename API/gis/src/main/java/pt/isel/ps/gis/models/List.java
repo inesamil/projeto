@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.models;
 
 import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ public class List {
     private String listName;
 
     @Basic
-    @Column(name = "list_type", length = 7, nullable = false)
+    @Column(name = "list_type", length = RestrictionsUtils.LIST_TYPE_MAX_LENGTH, nullable = false)
     private String listType;
 
     /**

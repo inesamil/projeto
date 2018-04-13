@@ -11,9 +11,11 @@ public class RestrictionsUtils {
 
     /// User
     public static final int USER_USERNAME_MAX_LENGTH = 30;
+    public static final int USER_EMAIL_MAX_LENGTH = 254;
     public static final short USER_AGE_MIN = 0;
     public static final short USER_AGE_MAX = 150;
     public static final int USER_NAME_MAX_LENGTH = 70;
+    public static final int USER_PASSWORD = 50;
 
     /// Allergy
     public static final int ALLERGY_ALLERGEN_MAX_LENGTH = 75;
@@ -24,6 +26,7 @@ public class RestrictionsUtils {
     /// List
     public static final short LIST_ID_MIN = 1;
     public static final int LIST_NAME_MAX_LENGTH = 35;
+    public static final int LIST_TYPE_MAX_LENGTH = 7;
 
     public enum LIST_TYPE {
         system, user
@@ -45,7 +48,8 @@ public class RestrictionsUtils {
     public static final short STOCKITEM_QUANTITY_MIN = 1;
     public static final int STOCKITEM_DESCRIPTION_MAX_LENGTH = 10485760;
     public static final int STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH = 128;
-    
+    public static final int STOCKITEM_SEGMENTUNIT_MAX_LENGTH = 5;
+
     public enum STOCKITEM_SEGMENTUNIT {
         kg("kg"), dag("dag"), hg("hg"), g("g"), dg("dg"), cg("cg"), mg("mg"),
         kl("kl"), hl("hl"), dal("dal"), l("l"), dl("dl"), cl("cl"), ml("ml"),
@@ -75,6 +79,7 @@ public class RestrictionsUtils {
     public static final int PRODUCT_ID_MIN = 1;
     public static final int PRODUCT_NAME_MAX_LENGTH = 35;
     public static final short PRODUCT_SHELFLIFE_MIN = 1;
+    public static final int PRODUCT_SHELFLIFETIMEUNIT_MAX_LENGTH = 5;
 
     public enum PRODUCT_SHELFLIFETIMEUNIT {
         day, week, month, year

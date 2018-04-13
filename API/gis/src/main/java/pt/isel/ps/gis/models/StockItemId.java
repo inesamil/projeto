@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.models;
 
 import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 @Embeddable
 public class StockItemId implements Serializable {
@@ -18,7 +20,7 @@ public class StockItemId implements Serializable {
     @Column(name = "house_id", nullable = false)
     private Long houseId;
 
-    @Column(name = "stockitem_sku", length = 128, nullable = false)
+    @Column(name = "stockitem_sku", length = RestrictionsUtils.STOCKITEM_SKU_MAX_LENGTH, nullable = false)
     private String stockitemSku;
 
     /**
