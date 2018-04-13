@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -8,6 +10,9 @@ import java.util.Objects;
 @Table(name = "product")
 public class Product {
 
+    /**
+     * COLUNAS
+     */
     @EmbeddedId
     private ProductId id;
 
@@ -27,6 +32,9 @@ public class Product {
     @Column(name = "product_shelflifetimeunit", length = 35, nullable = false)
     private String productShelflifetimeunit;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @OneToMany(mappedBy = "product")
     private Collection<ListProduct> listproducts;
 
@@ -37,19 +45,46 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Collection<StockItem> stockitems;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected Product() {}
+
+    public Product(String productName, Boolean productEdible, Short productShelflife, String productShelflifeTimeunit) throws IllegalArgumentException {
+        setProductName(productName);
+        setProductEdible(productEdible);
+        setProductShelflife(productShelflife);
+        setProductShelflifetimeunit(productShelflifeTimeunit);
+    }
+
+    public Product(Integer categoryId, Integer productId , String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws IllegalArgumentException {
+        this(productName, productEdible, productShelflife, productShelflifetimeunit);
+        setId(categoryId, productId);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
+
     public ProductId getId() {
         return id;
     }
 
-    public void setId(ProductId id) {
+    private void setId(ProductId id) {
         this.id = id;
+    }
+
+
+    public void setId(Integer categoryId, Integer productId) throws IllegalArgumentException {
+        setId(new ProductId(categoryId, productId));
     }
 
     public String getProductName() {
         return productName;
     }
 
-    public void setProductName(String productName) {
+    public void setProductName(String productName) throws IllegalArgumentException{
+        ValidationsUtils.validateProductName(productName);
         this.productName = productName;
     }
 
@@ -57,7 +92,8 @@ public class Product {
         return productEdible;
     }
 
-    public void setProductEdible(Boolean productEdible) {
+    public void setProductEdible(Boolean productEdible) throws IllegalArgumentException {
+        ValidationsUtils.validateProductEdible(productEdible);
         this.productEdible = productEdible;
     }
 
@@ -65,7 +101,8 @@ public class Product {
         return productShelflife;
     }
 
-    public void setProductShelflife(Short productShelflife) {
+    public void setProductShelflife(Short productShelflife) throws IllegalArgumentException {
+        ValidationsUtils.validateProductShelflife(productShelflife);
         this.productShelflife = productShelflife;
     }
 
@@ -73,7 +110,8 @@ public class Product {
         return productShelflifetimeunit;
     }
 
-    public void setProductShelflifetimeunit(String productShelflifetimeunit) {
+    public void setProductShelflifetimeunit(String productShelflifetimeunit) throws IllegalArgumentException {
+        ValidationsUtils.validateProductShelflifeTimeunit(productShelflifetimeunit);
         this.productShelflifetimeunit = productShelflifetimeunit;
     }
 

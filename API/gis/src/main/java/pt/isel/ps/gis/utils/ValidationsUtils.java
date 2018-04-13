@@ -49,9 +49,13 @@ public class ValidationsUtils {
     }
 
     public static void validateListType(String listType) throws IllegalArgumentException {
-        if (listType == null || !listType.equals(RestrictionsUtils.LIST_TYPE.system)
-                || !listType.equals(RestrictionsUtils.LIST_TYPE.user))
-            throw new IllegalArgumentException("Invalid list type.");
+        if (listType == null)
+            throw new IllegalArgumentException("Must specify a list type.");
+        for (RestrictionsUtils.LIST_TYPE type : RestrictionsUtils.LIST_TYPE.values()) {
+            if (listType.compareToIgnoreCase(type.name()) == 0)
+                return;
+        }
+        throw new IllegalArgumentException("Invalid list type.");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,6 +79,31 @@ public class ValidationsUtils {
     public static void validateProductId(Integer productId) throws IllegalArgumentException {
         if (productId == null || productId < RestrictionsUtils.PRODUCT_ID_MIN)
             throw new IllegalArgumentException("Invalid product ID.");
+    }
+
+    public static void validateProductName(String productName) throws IllegalArgumentException {
+        if (productName == null || productName.length() > RestrictionsUtils.PRODUCT_NAME_MAX_LENGTH)
+            throw new IllegalArgumentException("Invalid product name.");
+    }
+
+    public static void validateProductEdible(Boolean productEdible) throws IllegalArgumentException {
+        if (productEdible == null)
+            throw new IllegalArgumentException("Must specify the product edibility.");
+    }
+
+    public static void validateProductShelflife(Short productShelflife) throws IllegalArgumentException {
+        if (productShelflife == null || productShelflife < RestrictionsUtils.PRODUCT_SHELFLIFE_MIN)
+            throw new IllegalArgumentException("Invalid product shelflife.");
+    }
+
+    public static void validateProductShelflifeTimeunit(String productShelflifetimeunit) {
+        if (productShelflifetimeunit == null)
+            throw new IllegalArgumentException("Must specify a time unit for the product shelflife.");
+        for (RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT shelflifetimeunit : RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT.values()) {
+            if (productShelflifetimeunit.compareToIgnoreCase(shelflifetimeunit.name()) == 0)
+                return;
+        }
+        throw new IllegalArgumentException("Invalid product shelflife time unit.");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

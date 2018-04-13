@@ -18,22 +18,31 @@ public class RestrictionsUtils {
     /// List
     public static final Short LIST_ID_MIN = 1;
     public static final int LIST_NAME_MAX_LENGTH = 35;
-    /// ListProduct
-    public static final int LISTPRODUCT_BRAND_MAX_LENGTH = 35;
-
-    ;
-    public static final int LISTPRODUCT_QUANTITY_MIN = 1;
-    /// StockItem
-    public static final int STOCKITEM_SKU_MAX_LENGTH = 128;
-    /// Category
-    public static final int CATEGORY_ID_MIN = 1;
-    public static final int CATEGORY_NAME_MAX_LENGTH = 35;
-    /// Product
-    public static final int PRODUCT_ID_MIN = 1;
-    /// ExpirationDate
-    public static final short EXPIRATIONDATE_QUANTITY_MIN = 1;
 
     public enum LIST_TYPE {
         system, user
     }
+
+    /// ListProduct
+    public static final int LISTPRODUCT_BRAND_MAX_LENGTH = 35;
+    public static final int LISTPRODUCT_QUANTITY_MIN = 1;
+
+    /// StockItem
+    public static final int STOCKITEM_SKU_MAX_LENGTH = 128;
+
+    /// Category
+    public static final int CATEGORY_ID_MIN = 1;
+    public static final int CATEGORY_NAME_MAX_LENGTH = 35;
+
+    /// Product
+    public static final int PRODUCT_ID_MIN = 1;
+    public static final int PRODUCT_NAME_MAX_LENGTH = 35;
+    public static final Short PRODUCT_SHELFLIFE_MIN = 1;
+
+    public enum PRODUCT_SHELFLIFETIMEUNIT {
+        day, week, month, year
+    }
+
+    /// ExpirationDate
+    public static final short EXPIRATIONDATE_QUANTITY_MIN = 1;
 }

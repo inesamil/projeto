@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Id;
@@ -9,6 +11,9 @@ import java.util.Objects;
 @Embeddable
 public class ProductId implements Serializable {
 
+    /**
+     * COLUNAS
+     */
     @Id
     @Column(name = "category_id", nullable = false)
     private Integer categoryId;
@@ -17,11 +22,25 @@ public class ProductId implements Serializable {
     @Column(name = "product_id", nullable = false)
     private Integer productId;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected ProductId() {}
+
+    public ProductId(Integer categoryId, Integer productId) throws IllegalArgumentException {
+        this.categoryId = categoryId;
+        this.productId = productId;
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Integer categoryId) throws IllegalArgumentException {
+        ValidationsUtils.validateCategoryId(categoryId);
         this.categoryId = categoryId;
     }
 
@@ -29,7 +48,8 @@ public class ProductId implements Serializable {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(Integer productId) throws IllegalArgumentException {
+        ValidationsUtils.validateProductId(productId);
         this.productId = productId;
     }
 
