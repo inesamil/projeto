@@ -27,9 +27,23 @@ public class RestrictionsUtils {
     public static final short LIST_ID_MIN = 1;
     public static final int LIST_NAME_MAX_LENGTH = 35;
     public static final int LIST_TYPE_MAX_LENGTH = 7;
+    public static final short MOVEMENT_QUANTITY_MIN = 1;
 
     public enum LIST_TYPE {
-        system, user
+        system, user;
+
+        public static String getAllTypes(){
+            StringBuilder s = new StringBuilder();
+            LIST_TYPE[] types = LIST_TYPE.values();
+
+            s.append("\"").append(types[0].name()).append("\", ");
+            for (int i = 1; i < types.length - 1; i++) {
+                s.append("\"").append(types[i].name()).append("\", ");
+            }
+            s.append("\"").append(types[types.length - 1].name()).append("\", ");
+            return s.toString();
+        }
+
     }
 
     /// ListProduct
@@ -62,6 +76,18 @@ public class RestrictionsUtils {
             this.unit = unit;
         }
 
+        public static String getAllUnits(){
+            StringBuilder s = new StringBuilder();
+            STOCKITEM_SEGMENTUNIT[] units = STOCKITEM_SEGMENTUNIT.values();
+
+            s.append("\"").append(units[0].name()).append("\", ");
+            for (int i = 1; i < units.length - 1; i++) {
+                s.append("\"").append(units[i].name()).append("\", ");
+            }
+            s.append("\"").append(units[units.length - 1].name()).append("\", ");
+            return s.toString();
+        }
+
         @Override
         public String toString() {
             return unit;
@@ -82,7 +108,19 @@ public class RestrictionsUtils {
     public static final int PRODUCT_SHELFLIFETIMEUNIT_MAX_LENGTH = 5;
 
     public enum PRODUCT_SHELFLIFETIMEUNIT {
-        day, week, month, year
+        day, week, month, year;
+
+        public static String getAllUnits(){
+            StringBuilder s = new StringBuilder();
+            PRODUCT_SHELFLIFETIMEUNIT[] units = PRODUCT_SHELFLIFETIMEUNIT.values();
+
+            s.append("\"").append(units[0].name()).append("\", ");
+            for (int i = 1; i < units.length - 1; i++) {
+                s.append("\"").append(units[i].name()).append("\", ");
+            }
+            s.append("\"").append(units[units.length - 1].name()).append("\", ");
+            return s.toString();
+        }
     }
 
     /// ExpirationDate

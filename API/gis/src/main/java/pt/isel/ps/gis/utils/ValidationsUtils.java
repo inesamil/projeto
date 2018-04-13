@@ -11,13 +11,17 @@ public class ValidationsUtils {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void validateHouseId(Long houseId) throws ModelException {
-        if (houseId == null || houseId < RestrictionsUtils.HOUSE_ID_MIN)
-            throw new ModelException("Invalid house ID.");
+        if (houseId == null)
+            throw new ModelException("House ID is required.");
+        if (houseId < RestrictionsUtils.HOUSE_ID_MIN)
+            throw new ModelException("Invalid House ID.");
     }
 
     public static void validateHouseName(String houseName) throws ModelException {
-        if (houseName == null || houseName.length() > RestrictionsUtils.HOUSE_NAME_MAX_LENGTH)
-            throw new ModelException("Invalid house name.");
+        if (houseName == null)
+            throw new ModelException("House name is required.");
+        if (houseName.length() > RestrictionsUtils.HOUSE_NAME_MAX_LENGTH)
+            throw new ModelException("Invalid House name.");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +32,7 @@ public class ValidationsUtils {
         if (username == null)
             throw new ModelException("Username is required.");
         if (username.length() > RestrictionsUtils.USER_USERNAME_MAX_LENGTH)
-            throw new ModelException(String.format("Invalid username. Username must contain a maximum of %d characters.",
+            throw new ModelException(String.format("Invalid Username. Username must contain a maximum of %d characters.",
                     RestrictionsUtils.USER_USERNAME_MAX_LENGTH));
     }
 
@@ -50,7 +54,7 @@ public class ValidationsUtils {
 
     public static void validateUserName(String name) throws ModelException {
         if (name == null)
-            throw new ModelException("Name is required.");
+            throw new ModelException("User's name is required.");
         if (name.length() > RestrictionsUtils.USER_NAME_MAX_LENGTH)
             throw new ModelException(String.format("Invalid name. Name must contain a maximum of %d characters.",
                     RestrictionsUtils.USER_NAME_MAX_LENGTH));
@@ -60,7 +64,7 @@ public class ValidationsUtils {
         if (password == null)
             throw new ModelException("Password is required.");
         if (password.length() > RestrictionsUtils.USER_PASSWORD)
-            throw new ModelException(String.format("Password too long. Password must contain a maximum of %d characters.",
+            throw new ModelException(String.format("Password is too long. Password must contain a maximum of %d characters.",
                     RestrictionsUtils.USER_PASSWORD));
     }
 
@@ -78,17 +82,24 @@ public class ValidationsUtils {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
+     *
      * @param allergyAllergen
      * @throws ModelException
      */
     public static void validateAllergyAllergen(String allergyAllergen) throws ModelException {
-        if (allergyAllergen == null || allergyAllergen.length() > RestrictionsUtils.ALLERGY_ALLERGEN_MAX_LENGTH)
-            throw new ModelException("Invalid allergen.");
+        if (allergyAllergen == null)
+            throw new ModelException("Allergen is required.");
+        if (allergyAllergen.length() > RestrictionsUtils.ALLERGY_ALLERGEN_MAX_LENGTH)
+            throw new ModelException(String.format("Invalid allergen. Allergen must contain a maximum of %d characters.",
+                    RestrictionsUtils.ALLERGY_ALLERGEN_MAX_LENGTH));
     }
 
     public static void validateHouseAllergyAllergicsNum(Short alergicsNum) throws ModelException {
-        if (alergicsNum == null || alergicsNum < RestrictionsUtils.HOUSEALLERGY_ALERGICSNUM_MIN)
-            throw new ModelException("Invalid allergics number.");
+        if (alergicsNum == null)
+            throw new ModelException("Allergics number is required.");
+        if (alergicsNum < RestrictionsUtils.HOUSEALLERGY_ALERGICSNUM_MIN)
+            throw new ModelException(String.format("Invalid allergen. The number of allergic members must be greater or equal to %d.",
+                    RestrictionsUtils.HOUSEALLERGY_ALERGICSNUM_MIN));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -96,25 +107,31 @@ public class ValidationsUtils {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void validateListId(Short listId) throws ModelException {
-        if (listId == null || listId < RestrictionsUtils.LIST_ID_MIN)
-            throw new ModelException("Invalid list ID.");
+        if (listId == null)
+            throw new ModelException("List ID is required.");
+        if (listId < RestrictionsUtils.LIST_ID_MIN)
+            throw new ModelException(String.format("Invalid List ID. List ID must be greater or equal to %d.",
+                    RestrictionsUtils.HOUSEALLERGY_ALERGICSNUM_MIN));
     }
 
     public static void validateListName(String listName) throws ModelException {
-        if (listName == null || listName.length() > RestrictionsUtils.LIST_NAME_MAX_LENGTH)
-            throw new ModelException("Invalid list name.");
+        if (listName == null)
+            throw new ModelException("List name is required.");
+        if (listName.length() > RestrictionsUtils.LIST_NAME_MAX_LENGTH)
+            throw new ModelException(String.format("Invalid List name. Name must contain a maximum of %d characters.",
+                    RestrictionsUtils.LIST_NAME_MAX_LENGTH));
     }
 
     public static void validateListType(String listType) throws ModelException {
         if (listType == null)
-            throw new ModelException("Must specify a list type.");
+            throw new ModelException("List type is required.");
         if (listType.length() > RestrictionsUtils.LIST_TYPE_MAX_LENGTH)
-            throw new ModelException("Invalid list type.");
+            throw new ModelException(String.format("Invalid list type. Type must be in [%s].", RestrictionsUtils.LIST_TYPE.getAllTypes()));
         for (RestrictionsUtils.LIST_TYPE type : RestrictionsUtils.LIST_TYPE.values()) {
             if (listType.compareToIgnoreCase(type.name()) == 0)
                 return;
         }
-        throw new ModelException("Invalid list type.");
+        throw new ModelException(String.format("Invalid list type. Type must be in [%s].", RestrictionsUtils.LIST_TYPE.getAllTypes()));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,13 +139,19 @@ public class ValidationsUtils {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void validateCategoryId(Integer categoryId) throws ModelException {
-        if (categoryId == null || categoryId < RestrictionsUtils.CATEGORY_ID_MIN)
-            throw new ModelException("Invalid category ID.");
+        if (categoryId == null)
+            throw new ModelException("Category ID is required.");
+        if (categoryId < RestrictionsUtils.CATEGORY_ID_MIN)
+            throw new ModelException(String.format("Invalid Category ID. Category ID must be greater or equal to %d.",
+                    RestrictionsUtils.CATEGORY_ID_MIN));
     }
 
     public static void validateCategoryName(String categoryName) throws ModelException {
-        if (categoryName == null || categoryName.length() > RestrictionsUtils.CATEGORY_NAME_MAX_LENGTH)
-            throw new ModelException("Invalid category name.");
+        if (categoryName == null)
+            throw new ModelException("Category name is required.");
+        if (categoryName.length() > RestrictionsUtils.CATEGORY_NAME_MAX_LENGTH)
+            throw new ModelException(String.format("Invalid Category name. Name must contain a maximum of %d characters.",
+                    RestrictionsUtils.CATEGORY_NAME_MAX_LENGTH));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -136,35 +159,44 @@ public class ValidationsUtils {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void validateProductId(Integer productId) throws ModelException {
-        if (productId == null || productId < RestrictionsUtils.PRODUCT_ID_MIN)
-            throw new ModelException("Invalid product ID.");
+        if (productId == null)
+            throw new ModelException("Product ID is required.");
+        if (productId < RestrictionsUtils.PRODUCT_ID_MIN)
+            throw new ModelException(String.format("Invalid Product ID. Product ID must be greater or equal to %d.",
+                    RestrictionsUtils.PRODUCT_ID_MIN));
     }
 
     public static void validateProductName(String productName) throws ModelException {
-        if (productName == null || productName.length() > RestrictionsUtils.PRODUCT_NAME_MAX_LENGTH)
-            throw new ModelException("Invalid product name.");
+        if (productName == null)
+            throw new ModelException("Product name is required.");
+        if (productName.length() > RestrictionsUtils.PRODUCT_NAME_MAX_LENGTH)
+            throw new ModelException(String.format("Invalid Product name. Name must contain a maximum of %d characters.",
+                    RestrictionsUtils.PRODUCT_NAME_MAX_LENGTH));
     }
 
     public static void validateProductEdible(Boolean productEdible) throws ModelException {
         if (productEdible == null)
-            throw new ModelException("Product edibility is mandatory.");
+            throw new ModelException("Product edibility is required.");
     }
 
     public static void validateProductShelflife(Short productShelflife) throws ModelException {
-        if (productShelflife == null || productShelflife < RestrictionsUtils.PRODUCT_SHELFLIFE_MIN)
-            throw new ModelException("Invalid product shelflife.");
+        if (productShelflife == null)
+            throw new ModelException("Product shelflife is required.");
+        if (productShelflife < RestrictionsUtils.PRODUCT_SHELFLIFE_MIN)
+            throw new ModelException(String.format("Invalid Product shelflife. Shelflife must be greater or equal to %d.",
+                    RestrictionsUtils.PRODUCT_SHELFLIFE_MIN));
     }
 
     public static void validateProductShelflifeTimeunit(String shelflifeTimeUnit) throws ModelException {
         if (shelflifeTimeUnit == null)
-            throw new ModelException("Must specify a time unit for the product shelflife.");
+            throw new ModelException("Product shelflife timeunit is required.");
         if (shelflifeTimeUnit.length() > RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT_MAX_LENGTH)
-            throw new ModelException("Invalid product shelflife time unit.");
+            throw new ModelException(String.format("Invalid product shelflife. Type must be in [%s].", RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT.getAllUnits()));
         for (RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT shelflifetimeunit : RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT.values()) {
             if (shelflifeTimeUnit.compareToIgnoreCase(shelflifetimeunit.name()) == 0)
                 return;
         }
-        throw new ModelException("Invalid product shelflife time unit.");
+        throw new ModelException(String.format("Invalid product shelflife. Type must be in [%s].", RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT.getAllUnits()));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -182,16 +214,17 @@ public class ValidationsUtils {
 
     public static void validateStorageId(Short storageId) throws ModelException {
         if (storageId == null)
-            throw new ModelException("Storage ID is mandatory.");
+            throw new ModelException("Storage ID is required.");
         if (storageId < RestrictionsUtils.STORAGE_ID_MIN)
-            throw new ModelException(String.format("Storage ID must not be less than %d", RestrictionsUtils.STORAGE_ID_MIN));
+            throw new ModelException(String.format("Invalid Storage ID. Storage ID must be greater or equal to %d.",
+                    RestrictionsUtils.STORAGE_ID_MIN));
     }
 
     public static void validateStorageName(String storageName) throws ModelException {
         if (storageName == null)
-            throw new ModelException("Name is required.");
+            throw new ModelException("Storage name is required.");
         if (storageName.length() > RestrictionsUtils.STORAGE_NAME_MAX_LENGTH)
-            throw new ModelException(String.format("Invalid name. Name must contain a maximum of %d characters.",
+            throw new ModelException(String.format("Invalid Storage name. Name must contain a maximum of %d characters.",
                     RestrictionsUtils.STORAGE_NAME_MAX_LENGTH));
     }
 
@@ -206,35 +239,44 @@ public class ValidationsUtils {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void validateStockItemSku(String sku) throws ModelException {
-        if (sku == null || sku.length() > RestrictionsUtils.STOCKITEM_SKU_MAX_LENGTH)
-            throw new ModelException("Invalid stock item SKU.");
+        if (sku == null)
+            throw new ModelException("Stock item SKU is required.");
+        if (sku.length() > RestrictionsUtils.STOCKITEM_SKU_MAX_LENGTH)
+            throw new ModelException(String.format("Invalid stock item SKU. SKU must contain a maximum of %d characters.",
+                    RestrictionsUtils.STOCKITEM_SKU_MAX_LENGTH));
     }
 
     public static void validateStockItemBrand(String stockitemBrand) throws ModelException {
-        if (stockitemBrand == null || stockitemBrand.length() > RestrictionsUtils.STOCKITEM_BRAND_MAX_LENGTH)
-            throw new ModelException("Invalid stock item brand.");
+        if (stockitemBrand == null)
+            throw new ModelException("Stock item brand is required.");
+        if (stockitemBrand.length() > RestrictionsUtils.STOCKITEM_BRAND_MAX_LENGTH)
+            throw new ModelException(String.format("Invalid stock item brand. Brand must contain a maximum of %d characters.",
+                    RestrictionsUtils.STOCKITEM_BRAND_MAX_LENGTH));
     }
 
     public static void validateStockItemSegment(Float stockitemSegment) throws ModelException {
-        if (stockitemSegment == null || stockitemSegment < RestrictionsUtils.STOCKITEM_SEGMENT_MIN)
-            throw new ModelException("Invalid stock item segment.");
+        if (stockitemSegment == null)
+            throw new ModelException("Stock item segment is required.");
+        if (stockitemSegment < RestrictionsUtils.STOCKITEM_SEGMENT_MIN)
+            throw new ModelException(String.format("Invalid stock item segment. Segment must be greater or equal to %f.",
+                    RestrictionsUtils.STOCKITEM_SEGMENT_MIN));
     }
 
     public static void validateStockItemSegmentUnit(String segmentUnit) throws ModelException {
         if (segmentUnit == null)
-            throw new ModelException("Stock item segment unit is mandatory.");
+            throw new ModelException("Stock item segment unit is required.");
         if (segmentUnit.length() > RestrictionsUtils.STOCKITEM_SEGMENTUNIT_MAX_LENGTH)
-            throw new ModelException("Invalid stock item segment unit.");
+            throw new ModelException(String.format("Invalid segment unit. Type must be in [%s].", RestrictionsUtils.STOCKITEM_SEGMENTUNIT.getAllUnits()));
         for (RestrictionsUtils.STOCKITEM_SEGMENTUNIT unit : RestrictionsUtils.STOCKITEM_SEGMENTUNIT.values()) {
             if (segmentUnit.compareToIgnoreCase(unit.toString()) == 0)
                 return;
         }
-        throw new ModelException("Invalid stock item segment unit.");
+        throw new ModelException(String.format("Invalid segment unit. Type must be in [%s].", RestrictionsUtils.STOCKITEM_SEGMENTUNIT.getAllUnits()));
     }
 
     public static void validateStockItemVariety(String stockitemVariety) throws ModelException {
         if (stockitemVariety == null)
-            throw new ModelException("Stock item variety is mandatory.");
+            throw new ModelException("Stock item variety is required.");
         if (stockitemVariety.length() > RestrictionsUtils.STOCKITEM_VARIETY_MAX_LENGTH)
             throw new ModelException(String.format("Invalid stock item variety. Variety must contain a maximum of %d characters.",
                     RestrictionsUtils.STOCKITEM_VARIETY_MAX_LENGTH));
@@ -242,21 +284,21 @@ public class ValidationsUtils {
 
     public static void validateStockItemQuantity(Short stockitemQuantity) throws ModelException {
         if (stockitemQuantity == null)
-            throw new ModelException("Stock item quantity is mandatory.");
+            throw new ModelException("Stock item quantity is required.");
         if (stockitemQuantity < RestrictionsUtils.STOCKITEM_QUANTITY_MIN)
-            throw new ModelException(String.format("Invalid stock item quantity. Quantity must not be less than %d",
+            throw new ModelException(String.format("Invalid stock item quantity. Quantity must be greater or equal to %d.",
                     RestrictionsUtils.STOCKITEM_QUANTITY_MIN));
     }
 
     public static void validateStockItemDescription(String stockitemDescription) throws ModelException {
-        if (stockitemDescription != null || stockitemDescription.length() > RestrictionsUtils.STOCKITEM_DESCRIPTION_MAX_LENGTH)
-            throw new ModelException("Invalid description. Too much characters.");
+        if (stockitemDescription != null && stockitemDescription.length() > RestrictionsUtils.STOCKITEM_DESCRIPTION_MAX_LENGTH)
+            throw new ModelException("Description is too long.");
 
     }
 
     public static void validateStockItemConservationStorage(String stockitemConservationstorage) throws ModelException {
         if (stockitemConservationstorage == null)
-            throw new ModelException("Stock item conservation storage is mandatory.");
+            throw new ModelException("Stock item conservation storage is required.");
         if (stockitemConservationstorage.length() < RestrictionsUtils.STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH)
             throw new ModelException(String.format("Invalid stock item conservation storage. Conservation storage must contain a maximum of %d characters.",
                     RestrictionsUtils.STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH));
@@ -268,19 +310,22 @@ public class ValidationsUtils {
 
     public static void validateStockItemMovementDateTime(String datetime) throws ModelException {
         if (datetime == null)
-            throw new ModelException("Stock item movement DateTime is mandatory.");
+            throw new ModelException("Stock item movement DateTime is required.");
         if (!DateUtils.isStringValidDateTime(datetime))
             throw new ModelException("Invalid stock item movement DateTime. The format is: \"yyyy-MM-dd HH:mm:ss\".");
     }
 
     public static void validateStockItemMovementType(Boolean type) throws ModelException {
         if (type == null)
-            throw new ModelException("Movement type is mandatory.");
+            throw new ModelException("Movement type is required.");
     }
 
     public static void validateStockItemMovementQuantity(Short quantity) throws ModelException {
         if (quantity == null)
-            throw new ModelException("Movement quantity is mandatory.");
+            throw new ModelException("Movement quantity is required.");
+        if (quantity < RestrictionsUtils.MOVEMENT_QUANTITY_MIN)
+            throw new ModelException(String.format("Invalid Movement quantity. Quantity must be greater or equal to %d.",
+                    RestrictionsUtils.MOVEMENT_QUANTITY_MIN));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -288,8 +333,11 @@ public class ValidationsUtils {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void validateExpirationDateQuantity(Short quantity) throws ModelException {
-        if (quantity == null || quantity < RestrictionsUtils.EXPIRATIONDATE_QUANTITY_MIN)
-            throw new ModelException("Invalid quantity.");
+        if (quantity == null)
+            throw new ModelException("Expiration Date quantity is required.");
+        if (quantity < RestrictionsUtils.EXPIRATIONDATE_QUANTITY_MIN)
+            throw new ModelException(String.format("Invalid Expiration Date quantity. Quantity must be greater or equal to %d.",
+                    RestrictionsUtils.EXPIRATIONDATE_QUANTITY_MIN));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -302,15 +350,23 @@ public class ValidationsUtils {
     }
 
     public static void validateListProductQuantity(Short quantity) throws ModelException {
-        if (quantity == null || quantity < RestrictionsUtils.LISTPRODUCT_QUANTITY_MIN)
-            throw new ModelException("Invalid quantity.");
+        if (quantity == null)
+            throw new ModelException("Quantity is required.");
+        if (quantity < RestrictionsUtils.LISTPRODUCT_QUANTITY_MIN)
+            throw new ModelException(String.format("Invalid quantity. Quantity must be greater or equal to %d.",
+                    RestrictionsUtils.LISTPRODUCT_QUANTITY_MIN));
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////                                            StockItemStorage                                                ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void validateStockItemStorageQuantity(Short quantity) throws ModelException {
         if (quantity == null)
             throw new ModelException("Quantity is required.");
         if (quantity < RestrictionsUtils.STOCKITEMSTORAGE_QUANTITY_MIN)
-            throw new ModelException("Invalid quantity.");
+            throw new ModelException(String.format("Invalid quantity. Quantity must be greater or equal to %d.",
+                    RestrictionsUtils.STOCKITEMSTORAGE_QUANTITY_MIN));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
