@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.Column;
@@ -25,7 +26,7 @@ public class ProductId implements Serializable {
      */
     protected ProductId() {}
 
-    public ProductId(Integer categoryId, Integer productId) throws IllegalArgumentException {
+    public ProductId(Integer categoryId, Integer productId) throws ModelException {
         this.categoryId = categoryId;
         this.productId = productId;
     }
@@ -37,7 +38,7 @@ public class ProductId implements Serializable {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) throws IllegalArgumentException {
+    public void setCategoryId(Integer categoryId) throws ModelException {
         ValidationsUtils.validateCategoryId(categoryId);
         this.categoryId = categoryId;
     }
@@ -46,7 +47,7 @@ public class ProductId implements Serializable {
         return productId;
     }
 
-    public void setProductId(Integer productId) throws IllegalArgumentException {
+    public void setProductId(Integer productId) throws ModelException {
         ValidationsUtils.validateProductId(productId);
         this.productId = productId;
     }

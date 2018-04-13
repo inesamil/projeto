@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.Column;
@@ -26,7 +27,7 @@ public class ListId implements Serializable {
     protected ListId() {
     }
 
-    public ListId(Long houseId, Short listId) throws IllegalArgumentException {
+    public ListId(Long houseId, Short listId) throws ModelException {
         setHouseId(houseId);
         setListId(listId);
     }
@@ -38,7 +39,7 @@ public class ListId implements Serializable {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws IllegalArgumentException {
+    public void setHouseId(Long houseId) throws ModelException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
@@ -47,7 +48,7 @@ public class ListId implements Serializable {
         return listId;
     }
 
-    public void setListId(Short listId) throws IllegalArgumentException {
+    public void setListId(Short listId) throws ModelException {
         ValidationsUtils.validateListId(listId);
         this.listId = listId;
     }

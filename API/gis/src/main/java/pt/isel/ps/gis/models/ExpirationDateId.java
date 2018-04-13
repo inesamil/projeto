@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
 import pt.isel.ps.gis.utils.DateUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -31,7 +32,7 @@ public class ExpirationDateId implements Serializable {
     protected ExpirationDateId() {
     }
 
-    public ExpirationDateId(Long houseId, String stockitemSku, String expirationDate) throws IllegalArgumentException {
+    public ExpirationDateId(Long houseId, String stockitemSku, String expirationDate) throws ModelException {
         setHouseId(houseId);
         setStockitemSku(stockitemSku);
         setDateDate(expirationDate);
@@ -44,7 +45,7 @@ public class ExpirationDateId implements Serializable {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws IllegalArgumentException {
+    public void setHouseId(Long houseId) throws ModelException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
@@ -53,7 +54,7 @@ public class ExpirationDateId implements Serializable {
         return stockitemSku;
     }
 
-    public void setStockitemSku(String stockitemSku) throws IllegalArgumentException {
+    public void setStockitemSku(String stockitemSku) throws ModelException {
         ValidationsUtils.validateStockItemSku(stockitemSku);
         this.stockitemSku = stockitemSku;
     }
@@ -62,7 +63,7 @@ public class ExpirationDateId implements Serializable {
         return DateUtils.convertDateFormat(this.dateDate);
     }
 
-    public void setDateDate(String date) throws IllegalArgumentException {
+    public void setDateDate(String date) throws ModelException {
         ValidationsUtils.validateDate(date);
         date += " 00:00:00";    // JDBC timestamp escape format: yyyy-[m]m-[d]d hh:mm:ss[.f...].
         this.dateDate = Timestamp.valueOf(date);

@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -51,12 +52,12 @@ public class House {
     protected House() {
     }
 
-    public House(String houseName, Serializable houseCharacteristics) {
+    public House(String houseName, Serializable houseCharacteristics) throws ModelException {
         setHouseName(houseName);
         setHouseCharacteristics(houseCharacteristics);
     }
 
-    public House(Long houseId, String houseName, Serializable houseCharacteristics) {
+    public House(Long houseId, String houseName, Serializable houseCharacteristics) throws ModelException {
         setHouseId(houseId);
         setHouseName(houseName);
         setHouseCharacteristics(houseCharacteristics);
@@ -69,7 +70,7 @@ public class House {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws IllegalArgumentException {
+    public void setHouseId(Long houseId) throws ModelException, ModelException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
@@ -78,7 +79,7 @@ public class House {
         return houseName;
     }
 
-    public void setHouseName(String houseName) throws IllegalArgumentException {
+    public void setHouseName(String houseName) throws ModelException {
         ValidationsUtils.validateHouseName(houseName);
         this.houseName = houseName;
     }

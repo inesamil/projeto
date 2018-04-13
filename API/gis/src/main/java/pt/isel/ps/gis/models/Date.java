@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
 import pt.isel.ps.gis.utils.DateUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -31,7 +32,7 @@ public class Date {
     protected Date() {
     }
 
-    public Date(String date) throws IllegalArgumentException {
+    public Date(String date) throws ModelException {
         setDateDate(date);
     }
 
@@ -42,7 +43,7 @@ public class Date {
         return DateUtils.convertDateFormat(this.dateDate);
     }
 
-    public void setDateDate(String date) throws IllegalArgumentException {
+    public void setDateDate(String date) throws ModelException {
         ValidationsUtils.validateDate(date);
         date += " 00:00:00";    // JDBC timestamp escape format: yyyy-[m]m-[d]d hh:mm:ss[.f...].
         this.dateDate = Timestamp.valueOf(date);

@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -46,7 +47,7 @@ public class ListProduct {
     protected ListProduct() {
     }
 
-    public ListProduct(Long houseId, Short listId, Integer categoryId, Integer productId, String productBrand, Short productQuantity) throws IllegalArgumentException {
+    public ListProduct(Long houseId, Short listId, Integer categoryId, Integer productId, String productBrand, Short productQuantity) throws ModelException {
         setId(houseId, listId, categoryId, productId);
         setListproductBrand(productBrand);
         setListproductQuantity(productQuantity);
@@ -63,7 +64,7 @@ public class ListProduct {
         this.id = id;
     }
 
-    private void setId(Long houseId, Short listId, Integer categoryId, Integer productId) throws IllegalArgumentException {
+    private void setId(Long houseId, Short listId, Integer categoryId, Integer productId) throws ModelException {
         setId(new ListProductId(houseId, listId, categoryId, productId));
     }
 
@@ -71,7 +72,7 @@ public class ListProduct {
         return listproductBrand;
     }
 
-    public void setListproductBrand(String listproductBrand) throws IllegalArgumentException {
+    public void setListproductBrand(String listproductBrand) throws ModelException {
         ValidationsUtils.validateListProductBrand(listproductBrand);
         this.listproductBrand = listproductBrand;
     }
@@ -80,7 +81,7 @@ public class ListProduct {
         return listproductQuantity;
     }
 
-    public void setListproductQuantity(Short listproductQuantity) throws IllegalArgumentException {
+    public void setListproductQuantity(Short listproductQuantity) throws ModelException {
         ValidationsUtils.validateListProductQuantity(listproductQuantity);
         this.listproductQuantity = listproductQuantity;
     }

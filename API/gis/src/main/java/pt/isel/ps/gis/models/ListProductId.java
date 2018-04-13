@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.Column;
@@ -32,7 +33,7 @@ public class ListProductId implements Serializable {
     protected ListProductId() {
     }
 
-    public ListProductId(Long houseId, Short listId, Integer categoryId, Integer productId) throws IllegalArgumentException {
+    public ListProductId(Long houseId, Short listId, Integer categoryId, Integer productId) throws ModelException {
         setHouseId(houseId);
         this.listId = listId;
         this.categoryId = categoryId;
@@ -46,7 +47,7 @@ public class ListProductId implements Serializable {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws IllegalArgumentException {
+    public void setHouseId(Long houseId) throws ModelException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
@@ -55,7 +56,7 @@ public class ListProductId implements Serializable {
         return listId;
     }
 
-    public void setListId(Short listId) throws IllegalArgumentException {
+    public void setListId(Short listId) throws ModelException {
         ValidationsUtils.validateListId(listId);
         this.listId = listId;
     }
@@ -64,7 +65,7 @@ public class ListProductId implements Serializable {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) throws IllegalArgumentException {
+    public void setCategoryId(Integer categoryId) throws ModelException {
         ValidationsUtils.validateCategoryId(categoryId);
         this.categoryId = categoryId;
     }
@@ -73,7 +74,7 @@ public class ListProductId implements Serializable {
         return productId;
     }
 
-    public void setProductId(Integer productId) throws IllegalArgumentException {
+    public void setProductId(Integer productId) throws ModelException {
         ValidationsUtils.validateProductId(productId);
         this.productId = productId;
     }

@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -32,7 +33,7 @@ public class Allergy {
     protected Allergy() {
     }
 
-    public Allergy(String allergyAllergen) throws IllegalArgumentException {
+    public Allergy(String allergyAllergen) throws ModelException {
         setAllergyAllergen(allergyAllergen);
     }
 
@@ -43,7 +44,7 @@ public class Allergy {
         return allergyAllergen;
     }
 
-    public void setAllergyAllergen(String allergyAllergen) throws IllegalArgumentException {
+    public void setAllergyAllergen(String allergyAllergen) throws ModelException {
         ValidationsUtils.validateAllergyAllergen(allergyAllergen);
         this.allergyAllergen = allergyAllergen;
     }

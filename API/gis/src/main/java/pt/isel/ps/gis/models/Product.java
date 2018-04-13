@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -50,14 +51,14 @@ public class Product {
      */
     protected Product() {}
 
-    public Product(String productName, Boolean productEdible, Short productShelflife, String productShelflifeTimeunit) throws IllegalArgumentException {
+    public Product(String productName, Boolean productEdible, Short productShelflife, String productShelflifeTimeunit) throws ModelException {
         setProductName(productName);
         setProductEdible(productEdible);
         setProductShelflife(productShelflife);
         setProductShelflifetimeunit(productShelflifeTimeunit);
     }
 
-    public Product(Integer categoryId, Integer productId , String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws IllegalArgumentException {
+    public Product(Integer categoryId, Integer productId , String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws ModelException {
         this(productName, productEdible, productShelflife, productShelflifetimeunit);
         setId(categoryId, productId);
     }
@@ -75,7 +76,7 @@ public class Product {
     }
 
 
-    public void setId(Integer categoryId, Integer productId) throws IllegalArgumentException {
+    public void setId(Integer categoryId, Integer productId) throws ModelException {
         setId(new ProductId(categoryId, productId));
     }
 
@@ -83,7 +84,7 @@ public class Product {
         return productName;
     }
 
-    public void setProductName(String productName) throws IllegalArgumentException{
+    public void setProductName(String productName) throws ModelException{
         ValidationsUtils.validateProductName(productName);
         this.productName = productName;
     }
@@ -92,7 +93,7 @@ public class Product {
         return productEdible;
     }
 
-    public void setProductEdible(Boolean productEdible) throws IllegalArgumentException {
+    public void setProductEdible(Boolean productEdible) throws ModelException {
         ValidationsUtils.validateProductEdible(productEdible);
         this.productEdible = productEdible;
     }
@@ -101,7 +102,7 @@ public class Product {
         return productShelflife;
     }
 
-    public void setProductShelflife(Short productShelflife) throws IllegalArgumentException {
+    public void setProductShelflife(Short productShelflife) throws ModelException {
         ValidationsUtils.validateProductShelflife(productShelflife);
         this.productShelflife = productShelflife;
     }
@@ -110,7 +111,7 @@ public class Product {
         return productShelflifetimeunit;
     }
 
-    public void setProductShelflifetimeunit(String productShelflifetimeunit) throws IllegalArgumentException {
+    public void setProductShelflifetimeunit(String productShelflifetimeunit) throws ModelException {
         ValidationsUtils.validateProductShelflifeTimeunit(productShelflifetimeunit);
         this.productShelflifetimeunit = productShelflifetimeunit;
     }

@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -46,12 +47,12 @@ public class List {
     protected List() {
     }
 
-    public List(String listName, String listType) {
+    public List(String listName, String listType) throws ModelException {
         setListName(listName);
         setListType(listType);
     }
 
-    public List(Long houseId, Short listId, String listName, String listType) {
+    public List(Long houseId, Short listId, String listName, String listType) throws ModelException {
         setId(houseId, listId);
         setListName(listName);
         setListType(listType);
@@ -68,7 +69,7 @@ public class List {
         this.id = id;
     }
 
-    public void setId(Long houseId, Short listId) throws IllegalArgumentException {
+    public void setId(Long houseId, Short listId) throws ModelException {
         setId(new ListId(houseId, listId));
     }
 
@@ -76,7 +77,7 @@ public class List {
         return listName;
     }
 
-    public void setListName(String listName) throws IllegalArgumentException {
+    public void setListName(String listName) throws ModelException {
         ValidationsUtils.validateListName(listName);
         this.listName = listName;
     }
@@ -85,7 +86,7 @@ public class List {
         return listType;
     }
 
-    public void setListType(String listType) throws IllegalArgumentException {
+    public void setListType(String listType) throws ModelException {
         ValidationsUtils.validateListType(listType);
         this.listType = listType;
     }

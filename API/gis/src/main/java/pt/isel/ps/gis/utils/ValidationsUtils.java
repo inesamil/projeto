@@ -8,14 +8,14 @@ public class ValidationsUtils {
     ////                                            House                                                           ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void validateHouseId(Long houseId) throws IllegalArgumentException {
+    public static void validateHouseId(Long houseId) throws ModelException {
         if (houseId == null || houseId < RestrictionsUtils.HOUSE_ID_MIN)
-            throw new IllegalArgumentException("Invalid house ID.");
+            throw new ModelException("Invalid house ID.");
     }
 
-    public static void validateHouseName(String houseName) throws IllegalArgumentException {
+    public static void validateHouseName(String houseName) throws ModelException {
         if (houseName == null || houseName.length() > RestrictionsUtils.HOUSE_NAME_MAX_LENGTH)
-            throw new IllegalArgumentException("Invalid house name.");
+            throw new ModelException("Invalid house name.");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,106 +24,106 @@ public class ValidationsUtils {
 
     /**
      * @param allergyAllergen
-     * @throws IllegalArgumentException
+     * @throws ModelException
      */
-    public static void validateAllergyAllergen(String allergyAllergen) throws IllegalArgumentException {
+    public static void validateAllergyAllergen(String allergyAllergen) throws ModelException {
         if (allergyAllergen == null || allergyAllergen.length() > RestrictionsUtils.ALLERGY_ALLERGEN_MAX_LENGTH)
-            throw new IllegalArgumentException("Invalid allergen.");
+            throw new ModelException("Invalid allergen.");
     }
 
-    public static void validateHouseAllergyAllergicsNum(Short alergicsNum) throws IllegalArgumentException {
+    public static void validateHouseAllergyAllergicsNum(Short alergicsNum) throws ModelException {
         if (alergicsNum == null || alergicsNum < RestrictionsUtils.HOUSEALLERGY_ALERGICSNUM_MIN)
-            throw new IllegalArgumentException("Invalid allergics number.");
+            throw new ModelException("Invalid allergics number.");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////                                            List                                                            ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void validateListId(Short listId) throws IllegalArgumentException {
+    public static void validateListId(Short listId) throws ModelException {
         if (listId == null || listId < RestrictionsUtils.LIST_ID_MIN)
-            throw new IllegalArgumentException("Invalid list ID.");
+            throw new ModelException("Invalid list ID.");
     }
 
-    public static void validateListName(String listName) throws IllegalArgumentException {
+    public static void validateListName(String listName) throws ModelException {
         if (listName == null || listName.length() > RestrictionsUtils.LIST_NAME_MAX_LENGTH)
-            throw new IllegalArgumentException("Invalid list name.");
+            throw new ModelException("Invalid list name.");
     }
 
-    public static void validateListType(String listType) throws IllegalArgumentException {
+    public static void validateListType(String listType) throws ModelException {
         if (listType == null)
-            throw new IllegalArgumentException("Must specify a list type.");
+            throw new ModelException("Must specify a list type.");
         for (RestrictionsUtils.LIST_TYPE type : RestrictionsUtils.LIST_TYPE.values()) {
             if (listType.compareToIgnoreCase(type.name()) == 0)
                 return;
         }
-        throw new IllegalArgumentException("Invalid list type.");
+        throw new ModelException("Invalid list type.");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////                                            Category                                                        ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void validateCategoryId(Integer categoryId) throws IllegalArgumentException {
+    public static void validateCategoryId(Integer categoryId) throws ModelException {
         if (categoryId == null || categoryId < RestrictionsUtils.CATEGORY_ID_MIN)
-            throw new IllegalArgumentException("Invalid category ID.");
+            throw new ModelException("Invalid category ID.");
     }
 
-    public static void validateCategoryName(String categoryName) throws IllegalArgumentException {
+    public static void validateCategoryName(String categoryName) throws ModelException {
         if (categoryName == null || categoryName.length() > RestrictionsUtils.CATEGORY_NAME_MAX_LENGTH)
-            throw new IllegalArgumentException("Invalid category name.");
+            throw new ModelException("Invalid category name.");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////                                            Product                                                         ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void validateProductId(Integer productId) throws IllegalArgumentException {
+    public static void validateProductId(Integer productId) throws ModelException {
         if (productId == null || productId < RestrictionsUtils.PRODUCT_ID_MIN)
-            throw new IllegalArgumentException("Invalid product ID.");
+            throw new ModelException("Invalid product ID.");
     }
 
-    public static void validateProductName(String productName) throws IllegalArgumentException {
+    public static void validateProductName(String productName) throws ModelException {
         if (productName == null || productName.length() > RestrictionsUtils.PRODUCT_NAME_MAX_LENGTH)
-            throw new IllegalArgumentException("Invalid product name.");
+            throw new ModelException("Invalid product name.");
     }
 
-    public static void validateProductEdible(Boolean productEdible) throws IllegalArgumentException {
+    public static void validateProductEdible(Boolean productEdible) throws ModelException {
         if (productEdible == null)
-            throw new IllegalArgumentException("Must specify the product edibility.");
+            throw new ModelException("Must specify the product edibility.");
     }
 
-    public static void validateProductShelflife(Short productShelflife) throws IllegalArgumentException {
+    public static void validateProductShelflife(Short productShelflife) throws ModelException {
         if (productShelflife == null || productShelflife < RestrictionsUtils.PRODUCT_SHELFLIFE_MIN)
-            throw new IllegalArgumentException("Invalid product shelflife.");
+            throw new ModelException("Invalid product shelflife.");
     }
 
-    public static void validateProductShelflifeTimeunit(String productShelflifetimeunit) {
+    public static void validateProductShelflifeTimeunit(String productShelflifetimeunit) throws ModelException {
         if (productShelflifetimeunit == null)
-            throw new IllegalArgumentException("Must specify a time unit for the product shelflife.");
+            throw new ModelException("Must specify a time unit for the product shelflife.");
         for (RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT shelflifetimeunit : RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT.values()) {
             if (productShelflifetimeunit.compareToIgnoreCase(shelflifetimeunit.name()) == 0)
                 return;
         }
-        throw new IllegalArgumentException("Invalid product shelflife time unit.");
+        throw new ModelException("Invalid product shelflife time unit.");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////                                            Date                                                            ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void validateDate(String date) throws IllegalArgumentException {
+    public static void validateDate(String date) throws ModelException {
         if (date == null || !DateUtils.isStringIsValidDate(date))
-            throw new IllegalArgumentException("Invalid date.");
+            throw new ModelException("Invalid date.");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////                                            StockItem                                                       ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void validateStockItemSku(String sku) throws IllegalArgumentException {
+    public static void validateStockItemSku(String sku) throws ModelException {
         if (sku == null || sku.length() > RestrictionsUtils.STOCKITEM_SKU_MAX_LENGTH)
-            throw new IllegalArgumentException("Invalid stock item SKU.");
+            throw new ModelException("Invalid stock item SKU.");
     }
 
     public static void validateStockItemBrand(String stockitemBrand) throws ModelException {
@@ -180,22 +180,22 @@ public class ValidationsUtils {
     ////                                            ExpirationDate                                                  ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void validateExpirationDateQuantity(Short quantity) throws IllegalArgumentException {
+    public static void validateExpirationDateQuantity(Short quantity) throws ModelException {
         if (quantity == null || quantity < RestrictionsUtils.EXPIRATIONDATE_QUANTITY_MIN)
-            throw new IllegalArgumentException("Invalid quantity.");
+            throw new ModelException("Invalid quantity.");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////                                            ListProduct                                                     ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void validateListProductBrand(String listproductBrand) throws IllegalArgumentException {
+    public static void validateListProductBrand(String listproductBrand) throws ModelException {
         if (listproductBrand != null && listproductBrand.length() > RestrictionsUtils.LISTPRODUCT_BRAND_MAX_LENGTH)
-            throw new IllegalArgumentException("Invalid brand.");
+            throw new ModelException("Invalid brand.");
     }
 
-    public static void validateListProductQuantity(Short quantity) throws IllegalArgumentException {
+    public static void validateListProductQuantity(Short quantity) throws ModelException {
         if (quantity == null || quantity < RestrictionsUtils.LISTPRODUCT_QUANTITY_MIN)
-            throw new IllegalArgumentException("Invalid quantity.");
+            throw new ModelException("Invalid quantity.");
     }
 }

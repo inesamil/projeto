@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -34,11 +35,11 @@ public class Category {
     protected Category() {
     }
 
-    public Category(Integer categoryId) throws IllegalArgumentException {
+    public Category(Integer categoryId) throws ModelException {
         setCategoryId(categoryId);
     }
 
-    public Category(Integer categoryId, String categoryName) throws IllegalArgumentException {
+    public Category(Integer categoryId, String categoryName) throws ModelException {
         setCategoryId(categoryId);
         setCategoryName(categoryName);
     }
@@ -50,7 +51,7 @@ public class Category {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) throws IllegalArgumentException {
+    public void setCategoryId(Integer categoryId) throws ModelException {
         ValidationsUtils.validateCategoryId(categoryId);
         this.categoryId = categoryId;
     }
@@ -59,7 +60,7 @@ public class Category {
         return categoryName;
     }
 
-    public void setCategoryName(String categoryName) throws IllegalArgumentException {
+    public void setCategoryName(String categoryName) throws ModelException {
         ValidationsUtils.validateCategoryName(categoryName);
         this.categoryName = categoryName;
     }

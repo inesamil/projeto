@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -39,11 +40,11 @@ public class ExpirationDate {
     protected ExpirationDate() {
     }
 
-    public ExpirationDate(Long houseId, String stockItemSku, String expirationDate) throws IllegalArgumentException {
+    public ExpirationDate(Long houseId, String stockItemSku, String expirationDate) throws ModelException {
         setId(houseId, stockItemSku, expirationDate);
     }
 
-    public ExpirationDate(Long houseId, String stockItemSku, String expirationDate, Short quantity) throws IllegalArgumentException {
+    public ExpirationDate(Long houseId, String stockItemSku, String expirationDate, Short quantity) throws ModelException {
         setId(houseId, stockItemSku, expirationDate);
         setDateQuantity(quantity);
     }
@@ -59,7 +60,7 @@ public class ExpirationDate {
         this.id = id;
     }
 
-    public void setId(Long houseId, String stockItemSku, String expirationDate) {
+    public void setId(Long houseId, String stockItemSku, String expirationDate) throws ModelException {
         setId(new ExpirationDateId(houseId, stockItemSku, expirationDate));
     }
 
@@ -67,7 +68,7 @@ public class ExpirationDate {
         return dateQuantity;
     }
 
-    public void setDateQuantity(Short quantity) throws IllegalArgumentException {
+    public void setDateQuantity(Short quantity) throws ModelException {
         ValidationsUtils.validateExpirationDateQuantity(quantity);
         this.dateQuantity = quantity;
     }
