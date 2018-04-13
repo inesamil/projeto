@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -7,6 +10,9 @@ import java.util.Objects;
 @Table(name = "userlist")
 public class UserList {
 
+    /**
+     * COLUNAS
+     */
     @EmbeddedId
     private UserListId id;
 
@@ -18,6 +24,9 @@ public class UserList {
     @Column(name = "list_shareable")
     private Boolean listShareable;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @OneToOne
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
@@ -29,19 +38,38 @@ public class UserList {
     @JoinColumn(name = "users_username", referencedColumnName = "users_username", nullable = false, insertable = false, updatable = false)
     private Users usersByUsersUsername;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected UserList() {}
+
+    public UserList(Long houseId, Short listId, String usersUsername, Boolean listShareable) throws ModelException {
+        setId(houseId, listId);
+        setUsersUsername(usersUsername);
+        setListShareable(listShareable);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public UserListId getId() {
         return id;
     }
 
-    public void setId(UserListId id) {
+    private void setId(UserListId id) {
         this.id = id;
+    }
+
+    public void setId(Long houseId, Short listId) {
+        setId(new UserListId(houseId, listId));
     }
 
     public String getUsersUsername() {
         return usersUsername;
     }
 
-    public void setUsersUsername(String usersUsername) {
+    public void setUsersUsername(String usersUsername) throws ModelException {
+        ValidationsUtils.validateUserUsername(usersUsername);
         this.usersUsername = usersUsername;
     }
 
@@ -49,7 +77,8 @@ public class UserList {
         return listShareable;
     }
 
-    public void setListShareable(Boolean listShareable) {
+    public void setListShareable(Boolean listShareable) throws ModelException {
+        ValidationsUtils.validateListShareable(listShareable);
         this.listShareable = listShareable;
     }
 

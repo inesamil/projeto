@@ -7,15 +7,30 @@ import java.util.Objects;
 @Table(name = "systemlist")
 public class SystemList {
 
+    /**
+     * COLUNAS
+     */
     @EmbeddedId
     private SystemListId id;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @OneToOne
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false),
             @JoinColumn(name = "list_id", referencedColumnName = "list_id", nullable = false)
     })
     private List list;
+
+    /**
+     * CONSTRUTORES
+     */
+    protected SystemList() {}
+
+    public SystemList(SystemListId id) {
+        this.id = id;
+    }
 
     public SystemListId getId() {
         return id;

@@ -9,6 +9,12 @@ public class RestrictionsUtils {
     public static final long HOUSE_ID_MIN = 1;
     public static final int HOUSE_NAME_MAX_LENGTH = 35;
 
+    /// User
+    public static final int USER_USERNAME_MAX_LENGTH = 30;
+    public static final Short USER_AGE_MIN = 0;
+    public static final Short USER_AGE_MAX = 150;
+    public static final int USER_NAME_MAX_LENGTH = 70;
+
     /// Allergy
     public static final int ALLERGY_ALLERGEN_MAX_LENGTH = 75;
 
@@ -29,6 +35,7 @@ public class RestrictionsUtils {
 
     /// Storage
     public static final short STORAGE_ID_MIN = 1;
+    public static final int STORAGE_NAME_MAX_LENGTH = 35;
 
     /// StockItem
     public static final int STOCKITEM_SKU_MAX_LENGTH = 128;

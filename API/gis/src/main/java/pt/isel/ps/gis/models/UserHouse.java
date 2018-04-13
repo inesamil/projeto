@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -7,6 +10,9 @@ import java.util.Objects;
 @Table(name = "userhouse")
 public class UserHouse {
 
+    /**
+     * COLUNAS
+     */
     @EmbeddedId
     private UserHouseId id;
 
@@ -14,6 +20,9 @@ public class UserHouse {
     @Column(name = "userhouse_administrator")
     private Boolean userhouseAdministrator;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @ManyToOne
     @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false)
     private House houseByHouseId;
@@ -22,6 +31,19 @@ public class UserHouse {
     @JoinColumn(name = "users_username", referencedColumnName = "users_username", nullable = false, insertable = false, updatable = false)
     private Users usersByUsersUsername;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected UserHouse() {}
+
+    public UserHouse(Long houseId, String username, Boolean userhouseAdministrator) throws ModelException {
+        setId(houseId, username);
+        setUserhouseAdministrator(userhouseAdministrator);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public UserHouseId getId() {
         return id;
     }
@@ -30,11 +52,16 @@ public class UserHouse {
         this.id = id;
     }
 
+    public void setId(Long houseId, String username) throws ModelException {
+        setId(new UserHouseId(houseId, username));
+    }
+
     public Boolean getUserhouseAdministrator() {
         return userhouseAdministrator;
     }
 
-    public void setUserhouseAdministrator(Boolean userhouseAdministrator) {
+    public void setUserhouseAdministrator(Boolean userhouseAdministrator) throws ModelException {
+        ValidationsUtils.validateUserHouseAdministrator(userhouseAdministrator);
         this.userhouseAdministrator = userhouseAdministrator;
     }
 

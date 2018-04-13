@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Id;
@@ -9,17 +12,34 @@ import java.util.Objects;
 @Embeddable
 public class UserHouseId implements Serializable {
 
+    /**
+     * COLUNAS
+     */
     @Column(name = "house_id", nullable = false)
     private Long houseId;
 
     @Column(name = "users_username", length = 30, nullable = false)
     private String usersUsername;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected UserHouseId() {}
+
+    public UserHouseId(Long houseId, String username) throws ModelException {
+        setHouseId(houseId);
+        setUsersUsername(username);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public Long getHouseId() {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) {
+    public void setHouseId(Long houseId) throws ModelException {
+        ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
 
@@ -27,7 +47,8 @@ public class UserHouseId implements Serializable {
         return usersUsername;
     }
 
-    public void setUsersUsername(String usersUsername) {
+    public void setUsersUsername(String usersUsername) throws ModelException {
+        ValidationsUtils.validateHouseId(houseId);
         this.usersUsername = usersUsername;
     }
 

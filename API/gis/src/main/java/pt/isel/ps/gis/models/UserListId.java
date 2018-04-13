@@ -15,6 +15,11 @@ public class UserListId implements Serializable {
     @Column(name = "list_id", nullable = false)
     private Short listId;
 
+    public UserListId(Long houseId, Short listId) {
+        setHouseId(houseId);
+        setListId(listId);
+    }
+
     public Long getHouseId() {
         return houseId;
     }

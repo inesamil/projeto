@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -9,6 +12,9 @@ import java.util.Objects;
 @Table(name = "storage")
 public class Storage {
 
+    /**
+     * COLUNAS
+     */
     @EmbeddedId
     private StorageId id;
 
@@ -20,6 +26,9 @@ public class Storage {
     @Column(name = "storage_temperature", nullable = false)
     private Serializable storageTemperature;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @OneToMany(mappedBy = "storage")
     private Collection<StockItemMovement> stockitemmovements;
 
@@ -30,6 +39,24 @@ public class Storage {
     @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false)
     private House houseByHouseId;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected Storage() {}
+
+    public Storage(String storageName, Serializable storageTemperature) throws ModelException {
+        setStorageName(storageName);
+        setStorageTemperature(storageTemperature);
+    }
+
+    public Storage(Long houseId, Short storageId, String storageName, Serializable storageTemperature) throws ModelException {
+        this(storageName, storageTemperature);
+        setId(houseId, storageId);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public StorageId getId() {
         return id;
     }
@@ -38,11 +65,16 @@ public class Storage {
         this.id = id;
     }
 
+    private void setId(Long houseId, Short storageId) throws ModelException {
+        setId(new StorageId(houseId, storageId));
+    }
+
     public String getStorageName() {
         return storageName;
     }
 
-    public void setStorageName(String storageName) {
+    public void setStorageName(String storageName) throws ModelException {
+        ValidationsUtils.validateStorageName(storageName);
         this.storageName = storageName;
     }
 
@@ -50,7 +82,8 @@ public class Storage {
         return storageTemperature;
     }
 
-    public void setStorageTemperature(Serializable storageTemperature) {
+    public void setStorageTemperature(Serializable storageTemperature) throws ModelException {
+        ValidationsUtils.validateStorageTemperature(storageTemperature);
         this.storageTemperature = storageTemperature;
     }
 

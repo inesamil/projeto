@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -8,6 +11,9 @@ import java.util.Objects;
 @Table(name = "users")
 public class Users {
 
+    /**
+     * COLUNAS
+     */
     @Id
     @Column(name = "users_username", length = 30, nullable = false)
     private String usersUsername;
@@ -28,17 +34,37 @@ public class Users {
     @Column(name = "users_password", length = 50, nullable = false)
     private String usersPassword;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @OneToMany(mappedBy = "usersByUsersUsername")
     private Collection<UserHouse> userhousesByUsersUsername;
 
     @OneToMany(mappedBy = "usersByUsersUsername")
     private Collection<UserList> userlistsByUsersUsername;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected Users() {}
+
+    public Users(String username, String email, Short age, String name, String password) throws ModelException {
+        setUsersUsername(username);
+        setUsersEmail(email);
+        setUsersAge(age);
+        setUsersName(name);
+        setUsersPassword(password);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public String getUsersUsername() {
         return usersUsername;
     }
 
-    public void setUsersUsername(String usersUsername) {
+    public void setUsersUsername(String usersUsername) throws ModelException {
+        ValidationsUtils.validateUserUsername(usersUsername);
         this.usersUsername = usersUsername;
     }
 
@@ -46,7 +72,8 @@ public class Users {
         return usersEmail;
     }
 
-    public void setUsersEmail(String usersEmail) {
+    public void setUsersEmail(String usersEmail) throws ModelException {
+        ValidationsUtils.validateUserEmail(usersEmail);
         this.usersEmail = usersEmail;
     }
 
@@ -54,7 +81,8 @@ public class Users {
         return usersAge;
     }
 
-    public void setUsersAge(Short usersAge) {
+    public void setUsersAge(Short usersAge) throws ModelException {
+        ValidationsUtils.validateUserAge(usersAge);
         this.usersAge = usersAge;
     }
 
@@ -62,7 +90,8 @@ public class Users {
         return usersName;
     }
 
-    public void setUsersName(String usersName) {
+    public void setUsersName(String usersName) throws ModelException{
+        ValidationsUtils.validateUserName(usersName);
         this.usersName = usersName;
     }
 
@@ -70,7 +99,8 @@ public class Users {
         return usersPassword;
     }
 
-    public void setUsersPassword(String usersPassword) {
+    public void setUsersPassword(String usersPassword) throws ModelException {
+        ValidationsUtils.validateUserPassword(usersPassword);
         this.usersPassword = usersPassword;
     }
 

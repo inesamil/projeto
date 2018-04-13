@@ -3,7 +3,7 @@ package pt.isel.ps.gis.utils;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import pt.isel.ps.gis.exceptions.ModelException;
 
-import javax.jws.WebParam;
+import java.io.Serializable;
 
 public class ValidationsUtils {
 
@@ -19,6 +19,54 @@ public class ValidationsUtils {
     public static void validateHouseName(String houseName) throws ModelException {
         if (houseName == null || houseName.length() > RestrictionsUtils.HOUSE_NAME_MAX_LENGTH)
             throw new ModelException("Invalid house name.");
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////                                            User                                                       ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static void validateUserUsername(String username) throws ModelException {
+        if (username == null)
+            throw new ModelException("Username is required.");
+        if (username.length() > RestrictionsUtils.USER_USERNAME_MAX_LENGTH)
+            throw new ModelException(String.format("Invalid username. Username must contain a maximum of %d characters.",
+                    RestrictionsUtils.USER_USERNAME_MAX_LENGTH));
+    }
+
+    public static void validateUserEmail(String email) throws ModelException {
+        if (email == null)
+            throw new ModelException("Email is required.");
+        if (!EmailUtils.isStringValidEmail(email))
+            throw new ModelException("Invalid email.");
+    }
+
+    public static void validateUserAge(Short age) throws ModelException{
+        if (age == null)
+            throw new ModelException("Age is required.");
+        if (age < RestrictionsUtils.USER_AGE_MIN || age > RestrictionsUtils.USER_AGE_MAX)
+            throw new ModelException("Invalid age.");
+    }
+
+    public static void validateUserName(String name) throws ModelException {
+        if (name == null)
+            throw new ModelException("Name is required.");
+        if (name.length() > RestrictionsUtils.USER_NAME_MAX_LENGTH)
+            throw new ModelException(String.format("Invalid name. Name must contain a maximum of %d characters.",
+                    RestrictionsUtils.USER_NAME_MAX_LENGTH));
+    }
+
+    public static void validateUserPassword(String password) throws ModelException {
+        if (password == null)
+            throw new ModelException("Password is required.");
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////                                            UserHouse                                                       ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static void validateUserHouseAdministrator(Boolean userhouseAdministrator) throws ModelException {
+        if (userhouseAdministrator == null)
+            throw new ModelException("Administrator is required.");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -131,6 +179,20 @@ public class ValidationsUtils {
             throw new ModelException(String.format("Storage ID must not be less than %d", RestrictionsUtils.STORAGE_ID_MIN));
     }
 
+    public static void validateStorageName(String storageName) throws ModelException {
+        if (storageName == null)
+            throw new ModelException("Name is required.");
+        if (storageName.length() > RestrictionsUtils.STORAGE_NAME_MAX_LENGTH)
+            throw new ModelException(String.format("Invalid name. Name must contain a maximum of %d characters.",
+                    RestrictionsUtils.STORAGE_NAME_MAX_LENGTH));
+    }
+
+    public static void validateStorageTemperature(Serializable storageTemperature) throws ModelException {
+        if (storageTemperature == null)
+            throw new ModelException("Temperature is required.");
+        //TODO: validations
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////                                            StockItem                                                       ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -239,5 +301,14 @@ public class ValidationsUtils {
             throw new ModelException("Quantity is required.");
         if (quantity < RestrictionsUtils.STOCKITEMSTORAGE_QUANTITY_MIN)
             throw new ModelException("Invalid quantity.");
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////                                            UserList                                                        ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static void validateListShareable(Boolean shareable) throws ModelException {
+        if (shareable == null)
+            throw new ModelException("Shareable is required.");
     }
 }
