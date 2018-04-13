@@ -31,8 +31,8 @@ public class StockItem {
     private String stockitemBrand;
 
     @Basic
-    @Column(name = "stockitem_segment", length = 35, nullable = false)
-    private String stockitemSegment;
+    @Column(name = "stockitem_segment", nullable = false)
+    private Float stockitemSegment;
 
     @Basic
     @Column(name = "stockitem_variety", length = 35, nullable = false)
@@ -86,7 +86,7 @@ public class StockItem {
      */
     protected StockItem() {}
 
-    public StockItem(Integer categoryId, Integer productId, String stockitemBrand, String stockitemSegment,
+    public StockItem(Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
                      String stockitemSegmentUnit, String stockitemVariety, Short stockitemQuantity,
                      String stockitemDescription, String stockitemConservationStorage) throws ModelException {
         setCategoryId(categoryId);
@@ -100,10 +100,10 @@ public class StockItem {
         setStockitemConservationstorage(stockitemConservationStorage);
     }
 
-    public StockItem(Long houseId, String stockitemSku, Integer categoryId, Integer productId, String stockitemBrand, String stockitemSegment,
-                     String stockitemSegmentunit, String stockitemVariety, Short stockitemQuantity, String stockitemDescription,
+    public StockItem(Long houseId, String stockitemSku, Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
+                     String stockitemSegmentUnit, String stockitemVariety, Short stockitemQuantity, String stockitemDescription,
                      String stockitemConservationStorage) throws ModelException {
-        this(categoryId, productId, stockitemBrand, stockitemSegment, stockitemSegmentunit, stockitemVariety,
+        this(categoryId, productId, stockitemBrand, stockitemSegment, stockitemSegmentUnit, stockitemVariety,
                 stockitemQuantity, stockitemDescription, stockitemConservationStorage);
         setId(houseId, stockitemSku);
     }
@@ -150,11 +150,11 @@ public class StockItem {
         this.stockitemBrand = stockitemBrand;
     }
 
-    public String getStockitemSegment() {
+    public Float getStockitemSegment() {
         return stockitemSegment;
     }
 
-    public void setStockitemSegment(String stockitemSegment) throws ModelException {
+    public void setStockitemSegment(Float stockitemSegment) throws ModelException {
         ValidationsUtils.validateStockItemSegment(stockitemSegment);
         this.stockitemSegment = stockitemSegment;
     }

@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS public."stockitem" (
 	category_id integer NOT NULL CHECK (category_id > 0),
 	product_id integer NOT NULL CHECK (product_id > 0),
 	stockitem_brand character varying(35) NOT NULL,
-	stockitem_segment character varying(35) NOT NULL,
+	stockitem_segment real NOT NULL,
 	stockitem_variety character varying(35) NOT NULL,
 	stockitem_quantity smallint NOT NULL CHECK (stockitem_quantity > 0),
 	stockitem_segmentUnit character varying(5) NOT NULL CHECK (stockitem_segmentUnit IN ('kg', 'dag', 'hg', 'g', 'dg', 'cg', 'mg', 'kl', 'hl', 'dal', 'l', 'dl', 'cl', 'ml', 'oz', 'lb', 'pt', 'fl oz', 'units')),

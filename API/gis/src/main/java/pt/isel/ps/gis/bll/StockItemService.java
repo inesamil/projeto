@@ -47,10 +47,10 @@ public interface StockItemService {
         public final String product;
         public final String brand;
         public final String variety;
-        public final String segment;    //TODO: update this to integer
+        public final Float segment;
         public final Short storage;
 
-        public StockItemFilters(String product, String brand, String variety, String segment, Short storage) {
+        public StockItemFilters(String product, String brand, String variety, Float segment, Short storage) {
             this.product = product;
             this.brand = brand;
             this.variety = variety;

@@ -1,8 +1,6 @@
 package pt.isel.ps.gis.utils;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import pt.isel.ps.gis.exceptions.ModelException;
-import sun.awt.ModalExclude;
 
 public class ValidationsUtils {
 
@@ -133,8 +131,8 @@ public class ValidationsUtils {
             throw new ModelException("Invalid stock item brand.");
     }
 
-    public static void validateStockItemSegment(String stockitemSegment) throws ModelException {
-        if (stockitemSegment == null || stockitemSegment.length() > RestrictionsUtils.STOCKITEM_SEGMENT_MAX_LENGTH)
+    public static void validateStockItemSegment(Float stockitemSegment) throws ModelException {
+        if (stockitemSegment == null || stockitemSegment < RestrictionsUtils.STOCKITEM_SEGMENT_MIN)
             throw new ModelException("Invalid stock item segment.");
     }
 
