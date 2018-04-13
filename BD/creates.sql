@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS public."product" (
 	product_name character varying(35) NOT NULL,
 	product_edible boolean NOT NULL,
 	product_shelflife smallint NOT NULL CHECK (product_shelfLife > 0),
-	product_shelflifetimeunit character varying(35) NOT NULL CHECK (product_shelflifetimeunit IN ('day', 'week', 'month', 'year')),
+	product_shelflifetimeunit character varying(5) NOT NULL CHECK (product_shelflifetimeunit IN ('day', 'week', 'month', 'year')),
 	PRIMARY KEY (category_id, product_id)
 );
 

@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.models;
 
 import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ public class Product {
     private ProductId id;
 
     @Basic
-    @Column(name = "product_name", length = 35, nullable = false)
+    @Column(name = "product_name", length = RestrictionsUtils.PRODUCT_NAME_MAX_LENGTH, nullable = false)
     private String productName;
 
     @Basic
@@ -30,7 +31,7 @@ public class Product {
     private Short productShelflife;
 
     @Basic
-    @Column(name = "product_shelflifetimeunit", length = 35, nullable = false)
+    @Column(name = "product_shelflifetimeunit", length = RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT_MAX_LENGTH, nullable = false)
     private String productShelflifetimeunit;
 
     /**
