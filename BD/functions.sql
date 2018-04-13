@@ -241,7 +241,7 @@ CREATE OR REPLACE FUNCTION insert_stock_item(
 	productID smallint,
 	brand character varying(35),
 	variety character varying(35),
-	segment character varying(35),
+	segment real,
 	segmentUnit character varying(5),
 	quantity smallint,
 	description text,
@@ -272,7 +272,7 @@ CREATE OR REPLACE FUNCTION generate_sku(
 	productID smallint,
 	brand character varying(35),
 	variety character varying(35),
-	segment character varying(35),
+	segment real,
 	segmentUnit character varying(5)) 
 RETURNS VARCHAR(128) AS $$
 DECLARE 
@@ -376,14 +376,14 @@ $$ LANGUAGE SQL;
 -- Function to return Stock Items filtered
 -- DROP FUNCTION get_stock_items_filtered
 CREATE OR REPLACE FUNCTION get_stock_items_filtered (houseID bigint, productName character varying(35), brand character varying(35), variety character varying(35), 
-													segment character varying(35), storageID smallint)
+													segment real, storageID smallint)
 RETURNS TABLE(
 	house_id bigint,
 	stockItem_sku character varying(128),
 	category_id integer,
 	product_id integer,
 	stockItem_brand character varying(35),
-	stockItem_segment character varying(35),
+	stockItem_segment real,
 	stockItem_variety character varying(35),
 	stockItem_quantity smallint,
 	stockItem_segmentUnit character varying(5),
