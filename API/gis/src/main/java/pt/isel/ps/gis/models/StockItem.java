@@ -1,5 +1,9 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.RestrictionsUtils;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -8,6 +12,9 @@ import java.util.Objects;
 @Table(name = "stockitem")
 public class StockItem {
 
+    /**
+     * COLUNAS
+     */
     @EmbeddedId
     private StockItemId id;
 
@@ -41,13 +48,16 @@ public class StockItem {
 
     // The length = 10485760 is the maximum permited in postgreSql jdbc
     @Basic
-    @Column(name = "stockitem_description", length = 10485760)
+    @Column(name = "stockitem_description", length = RestrictionsUtils.STOCKITEM_DESCRIPTION_MAX_LENGTH)
     private String stockitemDescription;
 
     @Basic
     @Column(name = "stockitem_conservationstorage", length = 128, nullable = false)
     private String stockitemConservationstorage;
 
+    /**
+     * ASSOCIAÇÕES
+      */
     @OneToMany(mappedBy = "stockitem")
     private Collection<ExpirationDate> expirationdates;
 
@@ -71,19 +81,54 @@ public class StockItem {
     @OneToMany(mappedBy = "stockitem")
     private Collection<StockItemStorage> stockitemstorages;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected StockItem() {}
+
+    public StockItem(Integer categoryId, Integer productId, String stockitemBrand, String stockitemSegment,
+                     String stockitemSegmentUnit, String stockitemVariety, Short stockitemQuantity,
+                     String stockitemDescription, String stockitemConservationStorage) throws ModelException {
+        setCategoryId(categoryId);
+        setProductId(productId);
+        setStockitemBrand(stockitemBrand);
+        setStockitemSegment(stockitemSegment);
+        setStockitemSegmentunit(stockitemSegmentUnit);
+        setStockitemVariety(stockitemVariety);
+        setStockitemQuantity(stockitemQuantity);
+        setStockitemDescription(stockitemDescription);
+        setStockitemConservationstorage(stockitemConservationStorage);
+    }
+
+    public StockItem(Long houseId, String stockitemSku, Integer categoryId, Integer productId, String stockitemBrand, String stockitemSegment,
+                     String stockitemSegmentunit, String stockitemVariety, Short stockitemQuantity, String stockitemDescription,
+                     String stockitemConservationStorage) throws ModelException {
+        this(categoryId, productId, stockitemBrand, stockitemSegment, stockitemSegmentunit, stockitemVariety,
+                stockitemQuantity, stockitemDescription, stockitemConservationStorage);
+        setId(houseId, stockitemSku);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public StockItemId getId() {
         return id;
     }
 
-    public void setId(StockItemId id) {
+    private void setId(StockItemId id) {
         this.id = id;
+    }
+
+    public void setId(Long houseId, String stockitemSku) throws ModelException {
+        setId(new StockItemId(houseId, stockitemSku));
     }
 
     public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Integer categoryId) throws ModelException {
+        ValidationsUtils.validateCategoryId(categoryId);
         this.categoryId = categoryId;
     }
 
@@ -91,7 +136,8 @@ public class StockItem {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(Integer productId) throws ModelException{
+        ValidationsUtils.validateProductId(productId);
         this.productId = productId;
     }
 
@@ -99,7 +145,8 @@ public class StockItem {
         return stockitemBrand;
     }
 
-    public void setStockitemBrand(String stockitemBrand) {
+    public void setStockitemBrand(String stockitemBrand) throws ModelException {
+        ValidationsUtils.validateStockItemBrand(stockitemBrand);
         this.stockitemBrand = stockitemBrand;
     }
 
@@ -107,7 +154,8 @@ public class StockItem {
         return stockitemSegment;
     }
 
-    public void setStockitemSegment(String stockitemSegment) {
+    public void setStockitemSegment(String stockitemSegment) throws ModelException {
+        ValidationsUtils.validateStockItemSegment(stockitemSegment);
         this.stockitemSegment = stockitemSegment;
     }
 
@@ -115,7 +163,8 @@ public class StockItem {
         return stockitemVariety;
     }
 
-    public void setStockitemVariety(String stockitemVariety) {
+    public void setStockitemVariety(String stockitemVariety) throws ModelException {
+        ValidationsUtils.validateStockItemVariety(stockitemVariety);
         this.stockitemVariety = stockitemVariety;
     }
 
@@ -123,7 +172,8 @@ public class StockItem {
         return stockitemQuantity;
     }
 
-    public void setStockitemQuantity(Short stockitemQuantity) {
+    public void setStockitemQuantity(Short stockitemQuantity) throws ModelException {
+        ValidationsUtils.validateStockItemQuantity(stockitemQuantity);
         this.stockitemQuantity = stockitemQuantity;
     }
 
@@ -131,7 +181,8 @@ public class StockItem {
         return stockitemSegmentunit;
     }
 
-    public void setStockitemSegmentunit(String stockitemSegmentunit) {
+    public void setStockitemSegmentunit(String stockitemSegmentunit) throws ModelException{
+        ValidationsUtils.validateStockItemSegmentUnit(stockitemSegmentunit);
         this.stockitemSegmentunit = stockitemSegmentunit;
     }
 
@@ -139,7 +190,8 @@ public class StockItem {
         return stockitemDescription;
     }
 
-    public void setStockitemDescription(String stockitemDescription) {
+    public void setStockitemDescription(String stockitemDescription) throws ModelException{
+        ValidationsUtils.validateStockItemDescription(stockitemDescription);
         this.stockitemDescription = stockitemDescription;
     }
 
@@ -147,7 +199,8 @@ public class StockItem {
         return stockitemConservationstorage;
     }
 
-    public void setStockitemConservationstorage(String stockitemConservationstorage) {
+    public void setStockitemConservationstorage(String stockitemConservationstorage) throws ModelException {
+        ValidationsUtils.validateStockItemConservationStorage(stockitemConservationstorage);
         this.stockitemConservationstorage = stockitemConservationstorage;
     }
 

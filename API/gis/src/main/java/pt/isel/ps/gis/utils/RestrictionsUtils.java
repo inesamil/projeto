@@ -16,7 +16,7 @@ public class RestrictionsUtils {
     public static final int HOUSEALLERGY_ALERGICSNUM_MIN = 1;
 
     /// List
-    public static final Short LIST_ID_MIN = 1;
+    public static final int LIST_ID_MIN = 1;
     public static final int LIST_NAME_MAX_LENGTH = 35;
 
     public enum LIST_TYPE {
@@ -29,6 +29,30 @@ public class RestrictionsUtils {
 
     /// StockItem
     public static final int STOCKITEM_SKU_MAX_LENGTH = 128;
+    public static final int STOCKITEM_BRAND_MAX_LENGTH = 35;
+    public static final int STOCKITEM_SEGMENT_MAX_LENGTH = 35;
+    public static final int STOCKITEM_VARIETY_MAX_LENGTH = 35;
+    public static final int STOCKITEM_QUANTITY_MIN = 1;
+    public static final int STOCKITEM_DESCRIPTION_MAX_LENGTH = 10485760;
+    public static final int STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH = 128;
+    
+    public enum STOCKITEM_SEGMENTUNIT {
+        kg("kg"), dag("dag"), hg("hg"), g("g"), dg("dg"), cg("cg"), mg("mg"),
+        kl("kl"), hl("hl"), dal("dal"), l("l"), dl("dl"), cl("cl"), ml("ml"),
+        oz("oz"), lb("lb"), pt("pt"), fl_oz("fl oz"), 
+        units("units");
+
+        private final String unit;
+        
+        STOCKITEM_SEGMENTUNIT(String unit) {
+            this.unit = unit;
+        }
+
+        @Override
+        public String toString() {
+            return unit;
+        }
+    }
 
     /// Category
     public static final int CATEGORY_ID_MIN = 1;

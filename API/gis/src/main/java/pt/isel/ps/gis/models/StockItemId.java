@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Id;
@@ -9,17 +12,34 @@ import java.util.Objects;
 @Embeddable
 public class StockItemId implements Serializable {
 
+    /**
+     * COLUNAS
+     */
     @Column(name = "house_id", nullable = false)
     private Long houseId;
 
     @Column(name = "stockitem_sku", length = 128, nullable = false)
     private String stockitemSku;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected StockItemId() {}
+
+    public StockItemId(Long houseId, String stockitemSku) {
+        this.houseId = houseId;
+        this.stockitemSku = stockitemSku;
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public Long getHouseId() {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) {
+    public void setHouseId(Long houseId) throws ModelException{
+        ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
 
@@ -27,7 +47,8 @@ public class StockItemId implements Serializable {
         return stockitemSku;
     }
 
-    public void setStockitemSku(String stockitemSku) {
+    public void setStockitemSku(String stockitemSku) throws ModelException {
+        ValidationsUtils.validateStockItemSku(stockitemSku);
         this.stockitemSku = stockitemSku;
     }
 
