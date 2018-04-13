@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Id;
@@ -9,6 +12,9 @@ import java.util.Objects;
 @Embeddable
 public class StockItemAllergyId implements Serializable {
 
+    /**
+     * COLUNAS
+     */
     @Column(name = "house_id", nullable = false)
     private Long houseId;
 
@@ -18,11 +24,26 @@ public class StockItemAllergyId implements Serializable {
     @Column(name = "allergy_allergen", length = 75, nullable = false)
     private String allergyAllergen;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected StockItemAllergyId() {}
+
+    public StockItemAllergyId(Long houseId, String stockitemSku, String allergen) throws ModelException {
+        setHouseId(houseId);
+        setStockitemSku(stockitemSku);
+        setAllergyAllergen(allergen);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public Long getHouseId() {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) {
+    public void setHouseId(Long houseId) throws ModelException {
+        ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
 
@@ -30,7 +51,8 @@ public class StockItemAllergyId implements Serializable {
         return stockitemSku;
     }
 
-    public void setStockitemSku(String stockitemSku) {
+    public void setStockitemSku(String stockitemSku) throws ModelException {
+        ValidationsUtils.validateStockItemSku(stockitemSku);
         this.stockitemSku = stockitemSku;
     }
 
@@ -38,7 +60,8 @@ public class StockItemAllergyId implements Serializable {
         return allergyAllergen;
     }
 
-    public void setAllergyAllergen(String allergyAllergen) {
+    public void setAllergyAllergen(String allergyAllergen) throws ModelException {
+        ValidationsUtils.validateAllergyAllergen(allergyAllergen);
         this.allergyAllergen = allergyAllergen;
     }
 

@@ -7,9 +7,15 @@ import java.util.Objects;
 @Table(name = "stockitemmovement")
 public class StockItemMovement {
 
+    /**
+     * COLUNAS
+     */
     @EmbeddedId
     private StockItemMovementId id;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
@@ -24,12 +30,29 @@ public class StockItemMovement {
     })
     private Storage storage;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected StockItemMovement() {}
+
+    public StockItemMovement(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
+                             String stockitemmovementDatetime, Short stockitemmovementQuantity) {
+        setId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public StockItemMovementId getId() {
         return id;
     }
 
-    public void setId(StockItemMovementId id) {
+    private void setId(StockItemMovementId id) {
         this.id = id;
+    }
+
+    public void setId(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType, String stockitemmovementDatetime, Short stockitemmovementQuantity) {
+        setId(new StockItemMovementId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity));
     }
 
     public StockItem getStockitem() {

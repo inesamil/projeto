@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -7,6 +10,9 @@ import java.util.Objects;
 @Table(name = "stockitemstorage")
 public class StockItemStorage {
 
+    /**
+     * COLUNAS
+     */
     @EmbeddedId
     private StockItemStorageId id;
 
@@ -14,6 +20,9 @@ public class StockItemStorage {
     @Column(name = "stockitemstorage_quantity", nullable = false)
     private Short stockitemstorageQuantity;
 
+    /**
+     * ASSOCIAÇÕES
+     */
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
@@ -28,19 +37,37 @@ public class StockItemStorage {
     })
     private Storage storage;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected StockItemStorage() {}
+
+    public StockItemStorage(Long houseId, String stockitemSku, Short storageId, Short stockitemstorageQuantity) throws ModelException {
+        setId(houseId, stockitemSku, storageId);
+        setStockitemstorageQuantity(stockitemstorageQuantity);
+    }
+
+    /**
+     * GETTERS E SETTERS
+     */
     public StockItemStorageId getId() {
         return id;
     }
 
-    public void setId(StockItemStorageId id) {
+    private void setId(StockItemStorageId id) {
         this.id = id;
+    }
+
+    public void setId(Long houseId, String stockitemSku, Short storageId) throws ModelException {
+        setId(new StockItemStorageId(houseId, stockitemSku, storageId));
     }
 
     public Short getStockitemstorageQuantity() {
         return stockitemstorageQuantity;
     }
 
-    public void setStockitemstorageQuantity(Short stockitemstorageQuantity) {
+    public void setStockitemstorageQuantity(Short stockitemstorageQuantity) throws ModelException {
+        ValidationsUtils.validateStockItemStorageQuantity(stockitemstorageQuantity);
         this.stockitemstorageQuantity = stockitemstorageQuantity;
     }
 

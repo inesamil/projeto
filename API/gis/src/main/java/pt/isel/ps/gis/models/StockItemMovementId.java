@@ -1,5 +1,9 @@
 package pt.isel.ps.gis.models;
 
+import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.utils.DateUtils;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Id;
@@ -28,11 +32,30 @@ public class StockItemMovementId implements Serializable {
     @Column(name = "stockitemmovement_quantity", nullable = false)
     private Short stockitemmovementQuantity;
 
+    /**
+     * CONSTRUTORES
+     */
+    protected StockItemMovementId() {}
+
+    public StockItemMovementId(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
+                               String stockitemmovementDatetime, Short stockitemmovementQuantity) throws ModelException {
+        setHouseId(houseId);
+        setStockitemSku(stockitemSku);
+        setStorageId(storageId);
+        setStockitemmovementType(stockitemmovementType);
+        setStockitemmovementDatetime(stockitemmovementDatetime);
+        setStockitemmovementQuantity(stockitemmovementQuantity);
+    }
+
+    /**
+     * GETTERS E SETETRS
+     */
     public Long getHouseId() {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) {
+    public void setHouseId(Long houseId) throws ModelException {
+        ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
 
@@ -40,7 +63,8 @@ public class StockItemMovementId implements Serializable {
         return stockitemSku;
     }
 
-    public void setStockitemSku(String stockitemSku) {
+    public void setStockitemSku(String stockitemSku) throws ModelException {
+        ValidationsUtils.validateStockItemSku(stockitemSku);
         this.stockitemSku = stockitemSku;
     }
 
@@ -48,7 +72,8 @@ public class StockItemMovementId implements Serializable {
         return storageId;
     }
 
-    public void setStorageId(Short storageId) {
+    public void setStorageId(Short storageId) throws ModelException {
+        ValidationsUtils.validateStorageId(storageId);
         this.storageId = storageId;
     }
 
@@ -56,7 +81,8 @@ public class StockItemMovementId implements Serializable {
         return stockitemmovementType;
     }
 
-    public void setStockitemmovementType(Boolean stockitemmovementType) {
+    public void setStockitemmovementType(Boolean stockitemmovementType) throws ModelException {
+        ValidationsUtils.validateStockItemMovementType(stockitemmovementType);
         this.stockitemmovementType = stockitemmovementType;
     }
 
@@ -64,15 +90,17 @@ public class StockItemMovementId implements Serializable {
         return stockitemmovementDatetime;
     }
 
-    public void setStockitemmovementDatetime(Timestamp stockitemmovementDatetime) {
-        this.stockitemmovementDatetime = stockitemmovementDatetime;
+    public void setStockitemmovementDatetime(String stockitemmovementDatetime) throws ModelException {
+        ValidationsUtils.validateStockItemMovementDateTime(stockitemmovementDatetime);
+        this.stockitemmovementDatetime = Timestamp.valueOf(stockitemmovementDatetime);
     }
 
     public Short getStockitemmovementQuantity() {
         return stockitemmovementQuantity;
     }
 
-    public void setStockitemmovementQuantity(Short stockitemmovementQuantity) {
+    public void setStockitemmovementQuantity(Short stockitemmovementQuantity) throws ModelException {
+        ValidationsUtils.validateStockItemMovementQuantity(stockitemmovementQuantity);
         this.stockitemmovementQuantity = stockitemmovementQuantity;
     }
 

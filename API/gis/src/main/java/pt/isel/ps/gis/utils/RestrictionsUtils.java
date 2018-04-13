@@ -27,6 +27,9 @@ public class RestrictionsUtils {
     public static final int LISTPRODUCT_BRAND_MAX_LENGTH = 35;
     public static final int LISTPRODUCT_QUANTITY_MIN = 1;
 
+    /// Storage
+    public static final short STORAGE_ID_MIN = 1;
+
     /// StockItem
     public static final int STOCKITEM_SKU_MAX_LENGTH = 128;
     public static final int STOCKITEM_BRAND_MAX_LENGTH = 35;
@@ -53,6 +56,10 @@ public class RestrictionsUtils {
             return unit;
         }
     }
+
+
+    /// StockItemStorage
+    public static final short STOCKITEMSTORAGE_QUANTITY_MIN = 1;
 
     /// Category
     public static final int CATEGORY_ID_MIN = 1;

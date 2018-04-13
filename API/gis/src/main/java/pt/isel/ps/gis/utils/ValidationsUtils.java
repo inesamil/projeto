@@ -1,6 +1,9 @@
 package pt.isel.ps.gis.utils;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import pt.isel.ps.gis.exceptions.ModelException;
+
+import javax.jws.WebParam;
 
 public class ValidationsUtils {
 
@@ -90,7 +93,7 @@ public class ValidationsUtils {
 
     public static void validateProductEdible(Boolean productEdible) throws ModelException {
         if (productEdible == null)
-            throw new ModelException("Must specify the product edibility.");
+            throw new ModelException("Product edibility is mandatory.");
     }
 
     public static void validateProductShelflife(Short productShelflife) throws ModelException {
@@ -113,8 +116,19 @@ public class ValidationsUtils {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void validateDate(String date) throws ModelException {
-        if (date == null || !DateUtils.isStringIsValidDate(date))
+        if (date == null || !DateUtils.isStringValidDate(date))
             throw new ModelException("Invalid date.");
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////                                            Storage                                                         ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static void validateStorageId(Short storageId) throws ModelException {
+        if (storageId == null)
+            throw new ModelException("Storage ID is mandatory.");
+        if (storageId < RestrictionsUtils.STORAGE_ID_MIN)
+            throw new ModelException(String.format("Storage ID must not be less than %d", RestrictionsUtils.STORAGE_ID_MIN));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -177,6 +191,27 @@ public class ValidationsUtils {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////                                            StockItemMovement                                               ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static void validateStockItemMovementDateTime(String datetime) throws ModelException {
+        if (datetime == null)
+            throw new ModelException("Stock item movement DateTime is mandatory.");
+        if (!DateUtils.isStringValidDateTime(datetime))
+            throw new ModelException("Invalid stock item movement DateTime. The format is: \"yyyy-MM-dd HH:mm:ss\".");
+    }
+
+    public static void validateStockItemMovementType(Boolean type) throws ModelException {
+        if (type == null)
+            throw new ModelException("Movement type is mandatory.");
+    }
+
+    public static void validateStockItemMovementQuantity(Short quantity) throws ModelException {
+        if (quantity == null)
+            throw new ModelException("Movement quantity is mandatory.");
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////                                            ExpirationDate                                                  ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -189,13 +224,20 @@ public class ValidationsUtils {
     ////                                            ListProduct                                                     ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void validateListProductBrand(String listproductBrand) throws ModelException {
-        if (listproductBrand != null && listproductBrand.length() > RestrictionsUtils.LISTPRODUCT_BRAND_MAX_LENGTH)
+    public static void validateListProductBrand(String brand) throws ModelException {
+        if (brand != null && brand.length() > RestrictionsUtils.LISTPRODUCT_BRAND_MAX_LENGTH)
             throw new ModelException("Invalid brand.");
     }
 
     public static void validateListProductQuantity(Short quantity) throws ModelException {
         if (quantity == null || quantity < RestrictionsUtils.LISTPRODUCT_QUANTITY_MIN)
+            throw new ModelException("Invalid quantity.");
+    }
+
+    public static void validateStockItemStorageQuantity(Short quantity) throws ModelException {
+        if (quantity == null)
+            throw new ModelException("Quantity is required.");
+        if (quantity < RestrictionsUtils.STOCKITEMSTORAGE_QUANTITY_MIN)
             throw new ModelException("Invalid quantity.");
     }
 }

@@ -14,11 +14,28 @@ public class DateUtils {
      * @param date data a validar
      * @return true se @param date é uma data válida, false caso contrário
      */
-    public static boolean isStringIsValidDate(String date) {
+    public static boolean isStringValidDate(String date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         try {
             dateFormat.parse(date.trim());
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Verifica se uma string é ou não uma data válida
+     *
+     * @param datetime data a validar
+     * @return true se @param date é uma data válida, false caso contrário
+     */
+    public static boolean isStringValidDateTime(String datetime) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(datetime.trim());
         } catch (ParseException pe) {
             return false;
         }
