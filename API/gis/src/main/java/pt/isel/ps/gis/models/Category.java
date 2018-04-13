@@ -4,12 +4,22 @@ import pt.isel.ps.gis.exceptions.ModelException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "category")
-public class Category {
+@NamedStoredProcedureQuery(
+        name = "func",
+        procedureName = "get_categories_by_name",
+        parameters = {
+                @StoredProcedureParameter(name = "name", mode = ParameterMode.IN, type = String.class)
+        },
+        resultClasses = {List.class}
+)
+public class Category implements Serializable {
 
     /**
      * COLUNAS
