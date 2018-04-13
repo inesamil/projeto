@@ -53,9 +53,8 @@ public class List {
     }
 
     public List(Long houseId, Short listId, String listName, String listType) throws ModelException {
+        this(listName, listType);
         setId(houseId, listId);
-        setListName(listName);
-        setListType(listType);
     }
 
     /**
