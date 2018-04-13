@@ -1,7 +1,5 @@
 package pt.isel.ps.gis.utils;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import pt.isel.ps.gis.exceptions.ModelException;
 
 import java.io.Serializable;
