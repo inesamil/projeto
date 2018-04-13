@@ -39,7 +39,7 @@ public class Product {
     private Collection<ListProduct> listproducts;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false, insertable = false, updatable = false)
     private Category categoryByCategoryId;
 
     @OneToMany(mappedBy = "product")

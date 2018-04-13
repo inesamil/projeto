@@ -28,15 +28,15 @@ public class ListProduct {
      */
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false),
-            @JoinColumn(name = "list_id", referencedColumnName = "list_id", nullable = false)
+            @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
+            @JoinColumn(name = "list_id", referencedColumnName = "list_id", nullable = false, insertable = false, updatable = false)
     })
     private List list;
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false),
-            @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+            @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false, insertable = false, updatable = false),
+            @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     })
     private Product product;
 

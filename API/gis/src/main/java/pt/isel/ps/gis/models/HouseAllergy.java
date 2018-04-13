@@ -23,11 +23,11 @@ public class HouseAllergy {
      * ASSOCIAÇÕES
      */
     @ManyToOne
-    @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false)
+    @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false)
     private House houseByHouseId;
 
     @ManyToOne
-    @JoinColumn(name = "allergy_allergen", referencedColumnName = "allergy_allergen", nullable = false)
+    @JoinColumn(name = "allergy_allergen", referencedColumnName = "allergy_allergen", nullable = false, insertable = false, updatable = false)
     private Allergy allergyByAllergyAllergen;
 
     /**

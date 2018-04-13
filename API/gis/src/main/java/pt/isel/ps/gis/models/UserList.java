@@ -20,13 +20,13 @@ public class UserList {
 
     @OneToOne
     @JoinColumns({
-            @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false),
-            @JoinColumn(name = "list_id", referencedColumnName = "list_id", nullable = false)
+            @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
+            @JoinColumn(name = "list_id", referencedColumnName = "list_id", nullable = false, insertable = false, updatable = false)
     })
     private List list;
 
     @ManyToOne
-    @JoinColumn(name = "users_username", referencedColumnName = "users_username", nullable = false)
+    @JoinColumn(name = "users_username", referencedColumnName = "users_username", nullable = false, insertable = false, updatable = false)
     private Users usersByUsersUsername;
 
     public UserListId getId() {

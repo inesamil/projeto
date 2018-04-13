@@ -15,11 +15,11 @@ public class UserHouse {
     private Boolean userhouseAdministrator;
 
     @ManyToOne
-    @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false)
+    @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false)
     private House houseByHouseId;
 
     @ManyToOne
-    @JoinColumn(name = "users_username", referencedColumnName = "users_username", nullable = false)
+    @JoinColumn(name = "users_username", referencedColumnName = "users_username", nullable = false, insertable = false, updatable = false)
     private Users usersByUsersUsername;
 
     public UserHouseId getId() {

@@ -12,15 +12,15 @@ public class StockItemMovement {
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false),
-            @JoinColumn(name = "stockitem_sku", referencedColumnName = "stockitem_sku", nullable = false)
+            @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
+            @JoinColumn(name = "stockitem_sku", referencedColumnName = "stockitem_sku", nullable = false, insertable = false, updatable = false)
     })
     private StockItem stockitem;
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false),
-            @JoinColumn(name = "storage_id", referencedColumnName = "storage_id", nullable = false)
+            @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
+            @JoinColumn(name = "storage_id", referencedColumnName = "storage_id", nullable = false, insertable = false, updatable = false)
     })
     private Storage storage;
 

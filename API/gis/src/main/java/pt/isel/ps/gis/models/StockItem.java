@@ -52,13 +52,13 @@ public class StockItem {
     private Collection<ExpirationDate> expirationdates;
 
     @ManyToOne
-    @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false)
+    @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false)
     private House houseByHouseId;
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false),
-            @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+            @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false, insertable = false, updatable = false),
+            @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     })
     private Product product;
 

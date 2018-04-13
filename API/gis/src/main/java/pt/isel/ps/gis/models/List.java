@@ -28,7 +28,7 @@ public class List {
      * ASSOCIAÇÕES
      */
     @ManyToOne
-    @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false)
+    @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false)
     private House houseByHouseId;
 
     @OneToMany(mappedBy = "list")
