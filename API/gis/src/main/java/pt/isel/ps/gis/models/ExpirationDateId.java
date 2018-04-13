@@ -16,15 +16,12 @@ public class ExpirationDateId implements Serializable {
     /**
      * COLUNAS
      */
-    @Id
     @Column(name = "house_id", nullable = false)
     private Long houseId;
 
-    @Id
     @Column(name = "stockitem_sku", length = 128, nullable = false)
     private String stockitemSku;
 
-    @Id
     @Column(name = "date_date", nullable = false)
     private Timestamp dateDate;
 

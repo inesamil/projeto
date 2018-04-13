@@ -14,11 +14,9 @@ public class ListId implements Serializable {
     /**
      * COLUNAS
      */
-    @Id
     @Column(name = "house_id", nullable = false)
     private Long houseId;
 
-    @Id
     @Column(name = "list_id", nullable = false)
     private Short listId;
 

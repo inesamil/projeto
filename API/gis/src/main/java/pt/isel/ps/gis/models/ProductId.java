@@ -14,11 +14,9 @@ public class ProductId implements Serializable {
     /**
      * COLUNAS
      */
-    @Id
     @Column(name = "category_id", nullable = false)
     private Integer categoryId;
 
-    @Id
     @Column(name = "product_id", nullable = false)
     private Integer productId;
 
