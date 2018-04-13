@@ -11,18 +11,18 @@ public class RestrictionsUtils {
 
     /// User
     public static final int USER_USERNAME_MAX_LENGTH = 30;
-    public static final Short USER_AGE_MIN = 0;
-    public static final Short USER_AGE_MAX = 150;
+    public static final short USER_AGE_MIN = 0;
+    public static final short USER_AGE_MAX = 150;
     public static final int USER_NAME_MAX_LENGTH = 70;
 
     /// Allergy
     public static final int ALLERGY_ALLERGEN_MAX_LENGTH = 75;
 
     /// HouseAllergy
-    public static final int HOUSEALLERGY_ALERGICSNUM_MIN = 1;
+    public static final short HOUSEALLERGY_ALERGICSNUM_MIN = 1;
 
     /// List
-    public static final int LIST_ID_MIN = 1;
+    public static final short LIST_ID_MIN = 1;
     public static final int LIST_NAME_MAX_LENGTH = 35;
 
     public enum LIST_TYPE {
@@ -31,7 +31,7 @@ public class RestrictionsUtils {
 
     /// ListProduct
     public static final int LISTPRODUCT_BRAND_MAX_LENGTH = 35;
-    public static final int LISTPRODUCT_QUANTITY_MIN = 1;
+    public static final short LISTPRODUCT_QUANTITY_MIN = 1;
 
     /// Storage
     public static final short STORAGE_ID_MIN = 1;
@@ -42,7 +42,7 @@ public class RestrictionsUtils {
     public static final int STOCKITEM_BRAND_MAX_LENGTH = 35;
     public static final float STOCKITEM_SEGMENT_MIN = 0.1f;
     public static final int STOCKITEM_VARIETY_MAX_LENGTH = 35;
-    public static final int STOCKITEM_QUANTITY_MIN = 1;
+    public static final short STOCKITEM_QUANTITY_MIN = 1;
     public static final int STOCKITEM_DESCRIPTION_MAX_LENGTH = 10485760;
     public static final int STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH = 128;
     
@@ -64,7 +64,6 @@ public class RestrictionsUtils {
         }
     }
 
-
     /// StockItemStorage
     public static final short STOCKITEMSTORAGE_QUANTITY_MIN = 1;
 
@@ -75,7 +74,7 @@ public class RestrictionsUtils {
     /// Product
     public static final int PRODUCT_ID_MIN = 1;
     public static final int PRODUCT_NAME_MAX_LENGTH = 35;
-    public static final Short PRODUCT_SHELFLIFE_MIN = 1;
+    public static final short PRODUCT_SHELFLIFE_MIN = 1;
 
     public enum PRODUCT_SHELFLIFETIMEUNIT {
         day, week, month, year
