@@ -23,7 +23,8 @@ public class ProductId implements Serializable {
     /**
      * CONSTRUTORES
      */
-    protected ProductId() {}
+    protected ProductId() {
+    }
 
     public ProductId(Integer categoryId, Integer productId) throws ModelException {
         this.categoryId = categoryId;

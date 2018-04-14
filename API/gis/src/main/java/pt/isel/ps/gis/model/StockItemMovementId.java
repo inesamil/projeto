@@ -34,7 +34,8 @@ public class StockItemMovementId implements Serializable {
     /**
      * CONSTRUTORES
      */
-    protected StockItemMovementId() {}
+    protected StockItemMovementId() {
+    }
 
     public StockItemMovementId(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
                                String stockitemmovementDatetime, Short stockitemmovementQuantity) throws ModelException {

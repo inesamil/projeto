@@ -42,7 +42,8 @@ public class UserList {
     /**
      * CONSTRUTORES
      */
-    protected UserList() {}
+    protected UserList() {
+    }
 
     public UserList(Long houseId, Short listId, String usersUsername, Boolean listShareable) throws ModelException {
         setId(houseId, listId);

@@ -12,6 +12,7 @@ public class ValidationsUtils {
 
     /**
      * Valida o ID
+     *
      * @param houseId ID a validar
      * @throws ModelException se o ID não for válido
      */
@@ -24,6 +25,7 @@ public class ValidationsUtils {
 
     /**
      * Valida nome
+     *
      * @param houseName nome a validar
      * @throws ModelException se o nome não for válido
      */
@@ -40,6 +42,7 @@ public class ValidationsUtils {
 
     /**
      * Valida username
+     *
      * @param username username a validar
      * @throws ModelException se o username não for válido
      */
@@ -53,6 +56,7 @@ public class ValidationsUtils {
 
     /**
      * Valida email
+     *
      * @param email email a validar
      * @throws ModelException se o email não for válido
      */
@@ -67,10 +71,11 @@ public class ValidationsUtils {
 
     /**
      * Valida idade
+     *
      * @param age idade a validar
      * @throws ModelException se a idade não for válida
      */
-    public static void validateUserAge(Short age) throws ModelException{
+    public static void validateUserAge(Short age) throws ModelException {
         if (age == null)
             throw new ModelException("Age is required.");
         if (age < RestrictionsUtils.USER_AGE_MIN || age > RestrictionsUtils.USER_AGE_MAX)
@@ -79,6 +84,7 @@ public class ValidationsUtils {
 
     /**
      * Valida nome
+     *
      * @param name nome a validar
      * @throws ModelException se o nome não for válido
      */
@@ -92,6 +98,7 @@ public class ValidationsUtils {
 
     /**
      * Valida a password
+     *
      * @param password password a validar
      * @throws ModelException se a password não for válida
      */
@@ -109,6 +116,7 @@ public class ValidationsUtils {
 
     /**
      * Valida o administrador
+     *
      * @param userhouseAdministrator booleano a validar
      * @throws ModelException se o administrador não for válido
      */
@@ -123,6 +131,7 @@ public class ValidationsUtils {
 
     /**
      * Valida o alergénio
+     *
      * @param allergyAllergen alergénio a validar
      * @throws ModelException se o alergénio não for válido
      */
@@ -136,6 +145,7 @@ public class ValidationsUtils {
 
     /**
      * Valida o número de alérgicos
+     *
      * @param alergicsNum número a validar
      * @throws ModelException se o número de alérgicos não for válido
      */
@@ -153,6 +163,7 @@ public class ValidationsUtils {
 
     /**
      * Valida o ID
+     *
      * @param listId ID a validar
      * @throws ModelException se o ID não for válido
      */
@@ -166,6 +177,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se o nome é uma string dentro dos limites aceites
+     *
      * @param listName nome a validar
      * @throws ModelException se o nome não for válido
      */
@@ -179,6 +191,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se o tipo da lista é um dos valores possíveis
+     *
      * @param listType tipo a validar
      * @throws ModelException se o tipo não for válido
      */
@@ -200,6 +213,7 @@ public class ValidationsUtils {
 
     /**
      * Valida o ID
+     *
      * @param categoryId ID a validar
      * @throws ModelException se o ID não for válido
      */
@@ -213,6 +227,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se o nome da categoria é uma string dentro dos limites aceites
+     *
      * @param categoryName nome a validar
      * @throws ModelException se o nome não for válido
      */
@@ -230,6 +245,7 @@ public class ValidationsUtils {
 
     /**
      * Valida o ID
+     *
      * @param productId ID a validar
      * @throws ModelException se o ID não for válido
      */
@@ -243,6 +259,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se o nome do produto é uma string dentro dos limites aceites
+     *
      * @param productName nome a validar
      * @throws ModelException se o nome não for válido
      */
@@ -256,6 +273,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se foi atrbuido valor ao booleano
+     *
      * @param productEdible booleano a validar
      * @throws ModelException se o booleano for NULL
      */
@@ -266,6 +284,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se o tempo de vida está dentro dos limites aceites
+     *
      * @param productShelflife tempo de vida a validar
      * @throws ModelException se o tempo de vida não for válido
      */
@@ -279,6 +298,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se as unidades do tempo de vida tem um dos valores possíveis
+     *
      * @param shelflifeTimeUnit unidade de tempo a validar
      * @throws ModelException se as unidades de tempo não forem válidas
      */
@@ -300,6 +320,7 @@ public class ValidationsUtils {
 
     /**
      * Valida a data
+     *
      * @param date data a validar
      * @throws ModelException se a data não for válida
      */
@@ -314,6 +335,7 @@ public class ValidationsUtils {
 
     /**
      * Valida o ID
+     *
      * @param storageId ID a validar
      * @throws ModelException se o ID não for válido
      */
@@ -327,6 +349,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se o nome do local de armazenamento é uma string dentro dos limites aceites
+     *
      * @param storageName nome a validar
      * @throws ModelException se o nome não for válido
      */
@@ -340,6 +363,7 @@ public class ValidationsUtils {
 
     /**
      * Valida a temperatura
+     *
      * @param storageTemperature temperatura a validar
      * @throws ModelException se a temperatura não for válida
      */
@@ -355,6 +379,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se o SKU é uma string dentro dos limites aceites
+     *
      * @param sku sku a validar
      * @throws ModelException se o SKU não for válido
      */
@@ -368,6 +393,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se a marca do Item é uma string dentro dos limites aceites
+     *
      * @param stockitemBrand marca a validar
      * @throws ModelException se a marca não for válida
      */
@@ -381,6 +407,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se o segmento tem um valor dentro dos limites aceites
+     *
      * @param stockitemSegment valor a validar
      * @throws ModelException se o segmento não for válido
      */
@@ -394,6 +421,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se a unidade do segemento é um dos valores aceites
+     *
      * @param segmentUnit valor a validar
      * @throws ModelException se a unidade do segmento não for válida
      */
@@ -411,6 +439,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se a variedade é uma string dentro dos limites aceites
+     *
      * @param stockitemVariety string a validar
      * @throws ModelException se a variedade não for válida
      */
@@ -424,6 +453,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se a quantidade está dentro dos limites aceites
+     *
      * @param stockitemQuantity quantidade a validar
      * @throws ModelException se a quantidade não for válida
      */
@@ -443,6 +473,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se o local de conservação é uma string dentro dos limites
+     *
      * @param stockitemConservationstorage string a validar
      * @throws ModelException se o local de armazenamento não for válido
      */
@@ -460,6 +491,7 @@ public class ValidationsUtils {
 
     /**
      * Valida o datetime
+     *
      * @param datetime datetime a validar
      * @throws ModelException se o datetime não for válido
      */
@@ -472,6 +504,7 @@ public class ValidationsUtils {
 
     /**
      * Valida o tipo do movimento
+     *
      * @param type tipo a validar
      * @throws ModelException se o tipo do movimento não for válido
      */
@@ -482,6 +515,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se a quantidade está dentro dos limites aceites
+     *
      * @param quantity quantidade a validar
      * @throws ModelException se a quantidade não for válida
      */
@@ -499,6 +533,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se a quantidade está dentro dos limites aceites
+     *
      * @param quantity quantidade a validar
      * @throws ModelException se a quantidade não for válida
      */
@@ -516,6 +551,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se a marca no caso de existir está dentro dos limites aceites
+     *
      * @param brand marca a validar
      * @throws ModelException se a marca não for válida
      */
@@ -526,6 +562,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se a quantidade está dentro dos limites aceites
+     *
      * @param quantity quantidade a validar
      * @throws ModelException se a quantidade não for válida
      */
@@ -543,6 +580,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se a quantidade está dentro dos limites aceites
+     *
      * @param quantity quantidade a validar
      * @throws ModelException se a quantidade não for válida
      */
@@ -560,6 +598,7 @@ public class ValidationsUtils {
 
     /**
      * Valida se o booleano não é NULL
+     *
      * @param shareable booleno a validar
      * @throws ModelException se o booleano não for válido
      */

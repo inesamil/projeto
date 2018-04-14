@@ -28,11 +28,37 @@ public class RestrictionsUtils {
     public static final int LIST_NAME_MAX_LENGTH = 35;
     public static final int LIST_TYPE_MAX_LENGTH = 7;
     public static final short MOVEMENT_QUANTITY_MIN = 1;
-
+    /// ListProduct
+    public static final int LISTPRODUCT_BRAND_MAX_LENGTH = 35;
+    public static final short LISTPRODUCT_QUANTITY_MIN = 1;
+    /// Storage
+    public static final short STORAGE_ID_MIN = 1;
+    public static final int STORAGE_NAME_MAX_LENGTH = 35;
+    /// StockItem
+    public static final int STOCKITEM_SKU_MAX_LENGTH = 128;
+    public static final int STOCKITEM_BRAND_MAX_LENGTH = 35;
+    public static final float STOCKITEM_SEGMENT_MIN = 0.1f;
+    public static final int STOCKITEM_VARIETY_MAX_LENGTH = 35;
+    public static final short STOCKITEM_QUANTITY_MIN = 1;
+    public static final int STOCKITEM_DESCRIPTION_MAX_LENGTH = 10485760;
+    public static final int STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH = 128;
+    public static final int STOCKITEM_SEGMENTUNIT_MAX_LENGTH = 5;
+    /// StockItemStorage
+    public static final short STOCKITEMSTORAGE_QUANTITY_MIN = 1;
+    /// Category
+    public static final int CATEGORY_ID_MIN = 1;
+    public static final int CATEGORY_NAME_MAX_LENGTH = 35;
+    /// Product
+    public static final int PRODUCT_ID_MIN = 1;
+    public static final int PRODUCT_NAME_MAX_LENGTH = 35;
+    public static final short PRODUCT_SHELFLIFE_MIN = 1;
+    public static final int PRODUCT_SHELFLIFETIMEUNIT_MAX_LENGTH = 5;
+    /// ExpirationDate
+    public static final short EXPIRATIONDATE_QUANTITY_MIN = 1;
     public enum LIST_TYPE {
         system, user;
 
-        public static String getAllTypes(){
+        public static String getAllTypes() {
             StringBuilder s = new StringBuilder();
             LIST_TYPE[] types = LIST_TYPE.values();
 
@@ -46,37 +72,19 @@ public class RestrictionsUtils {
 
     }
 
-    /// ListProduct
-    public static final int LISTPRODUCT_BRAND_MAX_LENGTH = 35;
-    public static final short LISTPRODUCT_QUANTITY_MIN = 1;
-
-    /// Storage
-    public static final short STORAGE_ID_MIN = 1;
-    public static final int STORAGE_NAME_MAX_LENGTH = 35;
-
-    /// StockItem
-    public static final int STOCKITEM_SKU_MAX_LENGTH = 128;
-    public static final int STOCKITEM_BRAND_MAX_LENGTH = 35;
-    public static final float STOCKITEM_SEGMENT_MIN = 0.1f;
-    public static final int STOCKITEM_VARIETY_MAX_LENGTH = 35;
-    public static final short STOCKITEM_QUANTITY_MIN = 1;
-    public static final int STOCKITEM_DESCRIPTION_MAX_LENGTH = 10485760;
-    public static final int STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH = 128;
-    public static final int STOCKITEM_SEGMENTUNIT_MAX_LENGTH = 5;
-
     public enum STOCKITEM_SEGMENTUNIT {
         kg("kg"), dag("dag"), hg("hg"), g("g"), dg("dg"), cg("cg"), mg("mg"),
         kl("kl"), hl("hl"), dal("dal"), l("l"), dl("dl"), cl("cl"), ml("ml"),
-        oz("oz"), lb("lb"), pt("pt"), fl_oz("fl oz"), 
+        oz("oz"), lb("lb"), pt("pt"), fl_oz("fl oz"),
         units("units");
 
         private final String unit;
-        
+
         STOCKITEM_SEGMENTUNIT(String unit) {
             this.unit = unit;
         }
 
-        public static String getAllUnits(){
+        public static String getAllUnits() {
             StringBuilder s = new StringBuilder();
             STOCKITEM_SEGMENTUNIT[] units = STOCKITEM_SEGMENTUNIT.values();
 
@@ -94,23 +102,10 @@ public class RestrictionsUtils {
         }
     }
 
-    /// StockItemStorage
-    public static final short STOCKITEMSTORAGE_QUANTITY_MIN = 1;
-
-    /// Category
-    public static final int CATEGORY_ID_MIN = 1;
-    public static final int CATEGORY_NAME_MAX_LENGTH = 35;
-
-    /// Product
-    public static final int PRODUCT_ID_MIN = 1;
-    public static final int PRODUCT_NAME_MAX_LENGTH = 35;
-    public static final short PRODUCT_SHELFLIFE_MIN = 1;
-    public static final int PRODUCT_SHELFLIFETIMEUNIT_MAX_LENGTH = 5;
-
     public enum PRODUCT_SHELFLIFETIMEUNIT {
         day, week, month, year;
 
-        public static String getAllUnits(){
+        public static String getAllUnits() {
             StringBuilder s = new StringBuilder();
             PRODUCT_SHELFLIFETIMEUNIT[] units = PRODUCT_SHELFLIFETIMEUNIT.values();
 
@@ -122,7 +117,4 @@ public class RestrictionsUtils {
             return s.toString();
         }
     }
-
-    /// ExpirationDate
-    public static final short EXPIRATIONDATE_QUANTITY_MIN = 1;
 }

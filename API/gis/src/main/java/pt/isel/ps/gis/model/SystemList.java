@@ -26,7 +26,8 @@ public class SystemList {
     /**
      * CONSTRUTORES
      */
-    protected SystemList() {}
+    protected SystemList() {
+    }
 
     public SystemList(SystemListId id) {
         this.id = id;

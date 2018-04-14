@@ -40,7 +40,8 @@ public class StockItemStorage {
     /**
      * CONSTRUTORES
      */
-    protected StockItemStorage() {}
+    protected StockItemStorage() {
+    }
 
     public StockItemStorage(Long houseId, String stockitemSku, Short storageId, Short stockitemstorageQuantity) throws ModelException {
         setId(houseId, stockitemSku, storageId);

@@ -57,7 +57,7 @@ public class StockItem {
 
     /**
      * ASSOCIAÇÕES
-      */
+     */
     @OneToMany(mappedBy = "stockitem")
     private Collection<ExpirationDate> expirationdates;
 
@@ -84,7 +84,8 @@ public class StockItem {
     /**
      * CONSTRUTORES
      */
-    protected StockItem() {}
+    protected StockItem() {
+    }
 
     public StockItem(Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
                      String stockitemSegmentUnit, String stockitemVariety, Short stockitemQuantity,
@@ -136,7 +137,7 @@ public class StockItem {
         return productId;
     }
 
-    public void setProductId(Integer productId) throws ModelException{
+    public void setProductId(Integer productId) throws ModelException {
         ValidationsUtils.validateProductId(productId);
         this.productId = productId;
     }
@@ -181,7 +182,7 @@ public class StockItem {
         return stockitemSegmentunit;
     }
 
-    public void setStockitemSegmentunit(String stockitemSegmentunit) throws ModelException{
+    public void setStockitemSegmentunit(String stockitemSegmentunit) throws ModelException {
         ValidationsUtils.validateStockItemSegmentUnit(stockitemSegmentunit);
         this.stockitemSegmentunit = stockitemSegmentunit;
     }
@@ -190,7 +191,7 @@ public class StockItem {
         return stockitemDescription;
     }
 
-    public void setStockitemDescription(String stockitemDescription) throws ModelException{
+    public void setStockitemDescription(String stockitemDescription) throws ModelException {
         ValidationsUtils.validateStockItemDescription(stockitemDescription);
         this.stockitemDescription = stockitemDescription;
     }

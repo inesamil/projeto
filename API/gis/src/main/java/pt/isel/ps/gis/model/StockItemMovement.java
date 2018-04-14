@@ -35,7 +35,8 @@ public class StockItemMovement {
     /**
      * CONSTRUTORES
      */
-    protected StockItemMovement() {}
+    protected StockItemMovement() {
+    }
 
     public StockItemMovement(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
                              String stockitemmovementDatetime, Short stockitemmovementQuantity) throws ModelException {

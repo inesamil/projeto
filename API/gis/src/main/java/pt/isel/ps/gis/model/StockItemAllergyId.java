@@ -27,7 +27,8 @@ public class StockItemAllergyId implements Serializable {
     /**
      * CONSTRUTORES
      */
-    protected StockItemAllergyId() {}
+    protected StockItemAllergyId() {
+    }
 
     public StockItemAllergyId(Long houseId, String stockitemSku, String allergen) throws ModelException {
         setHouseId(houseId);

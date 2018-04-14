@@ -47,7 +47,8 @@ public class Users {
     /**
      * CONSTRUTORES
      */
-    protected Users() {}
+    protected Users() {
+    }
 
     public Users(String username, String email, Short age, String name, String password) throws ModelException {
         setUsersUsername(username);
@@ -91,7 +92,7 @@ public class Users {
         return usersName;
     }
 
-    public void setUsersName(String usersName) throws ModelException{
+    public void setUsersName(String usersName) throws ModelException {
         ValidationsUtils.validateUserName(usersName);
         this.usersName = usersName;
     }

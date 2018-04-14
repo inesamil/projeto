@@ -23,7 +23,8 @@ public class StorageId implements Serializable {
     /**
      * CONSTRUTORES
      */
-    protected StorageId() {}
+    protected StorageId() {
+    }
 
     public StorageId(Long houseId, Short storageId) throws ModelException {
         setHouseId(houseId);

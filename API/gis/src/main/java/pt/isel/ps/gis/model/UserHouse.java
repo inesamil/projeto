@@ -34,7 +34,8 @@ public class UserHouse {
     /**
      * CONSTRUTORES
      */
-    protected UserHouse() {}
+    protected UserHouse() {
+    }
 
     public UserHouse(Long houseId, String username, Boolean userhouseAdministrator) throws ModelException {
         setId(houseId, username);

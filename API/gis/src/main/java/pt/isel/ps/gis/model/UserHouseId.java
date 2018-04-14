@@ -24,7 +24,8 @@ public class UserHouseId implements Serializable {
     /**
      * CONSTRUTORES
      */
-    protected UserHouseId() {}
+    protected UserHouseId() {
+    }
 
     public UserHouseId(Long houseId, String username) throws ModelException {
         setHouseId(houseId);

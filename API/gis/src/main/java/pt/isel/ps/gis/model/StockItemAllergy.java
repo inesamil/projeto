@@ -32,7 +32,8 @@ public class StockItemAllergy {
     /**
      * CONSTRUTORES
      */
-    protected StockItemAllergy() {}
+    protected StockItemAllergy() {
+    }
 
     public StockItemAllergy(Long houseId, String stockitemSku, String allergen) throws ModelException {
         setId(houseId, stockitemSku, allergen);

@@ -24,7 +24,8 @@ public class StockItemId implements Serializable {
     /**
      * CONSTRUTORES
      */
-    protected StockItemId() {}
+    protected StockItemId() {
+    }
 
     public StockItemId(Long houseId, String stockitemSku) {
         this.houseId = houseId;
@@ -38,7 +39,7 @@ public class StockItemId implements Serializable {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws ModelException{
+    public void setHouseId(Long houseId) throws ModelException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }

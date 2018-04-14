@@ -43,7 +43,8 @@ public class Storage {
     /**
      * CONSTRUTORES
      */
-    protected Storage() {}
+    protected Storage() {
+    }
 
     public Storage(String storageName, Serializable storageTemperature) throws ModelException {
         setStorageName(storageName);

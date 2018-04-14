@@ -50,7 +50,8 @@ public class Product {
     /**
      * CONSTRUTORES
      */
-    protected Product() {}
+    protected Product() {
+    }
 
     public Product(String productName, Boolean productEdible, Short productShelflife, String productShelflifeTimeunit) throws ModelException {
         setProductName(productName);
@@ -59,7 +60,7 @@ public class Product {
         setProductShelflifetimeunit(productShelflifeTimeunit);
     }
 
-    public Product(Integer categoryId, Integer productId , String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws ModelException {
+    public Product(Integer categoryId, Integer productId, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws ModelException {
         this(productName, productEdible, productShelflife, productShelflifetimeunit);
         setId(categoryId, productId);
     }
@@ -85,7 +86,7 @@ public class Product {
         return productName;
     }
 
-    public void setProductName(String productName) throws ModelException{
+    public void setProductName(String productName) throws ModelException {
         ValidationsUtils.validateProductName(productName);
         this.productName = productName;
     }

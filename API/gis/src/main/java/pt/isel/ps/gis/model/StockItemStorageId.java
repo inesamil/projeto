@@ -27,7 +27,8 @@ public class StockItemStorageId implements Serializable {
     /**
      * CONSTRUTORES
      */
-    protected StockItemStorageId() {}
+    protected StockItemStorageId() {
+    }
 
     public StockItemStorageId(Long houseId, String stockitemSku, Short storageId) throws ModelException {
         setHouseId(houseId);
