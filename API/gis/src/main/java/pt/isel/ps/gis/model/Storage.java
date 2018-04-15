@@ -1,6 +1,10 @@
 package pt.isel.ps.gis.model;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.model.jsonType.CharacteristicsJsonUserType;
+import pt.isel.ps.gis.model.numrangeType.NumrangeUserType;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -11,6 +15,16 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "storage")
+@NamedStoredProcedureQuery(
+        name = "insertStorage",
+        procedureName = "insert_storage",
+        parameters = {
+                @StoredProcedureParameter(name = "houseID", mode = ParameterMode.IN, type = Long.class),
+                @StoredProcedureParameter(name = "designation", mode = ParameterMode.IN, type = String.class),
+                @StoredProcedureParameter(name = "temperature", mode = ParameterMode.IN, type = Serializable.class)
+        }
+)
+@TypeDef(name = "NumrangeUserType", typeClass = NumrangeUserType.class)
 public class Storage {
 
     /**
@@ -25,7 +39,8 @@ public class Storage {
 
     @Basic
     @Column(name = "storage_temperature", nullable = false)
-    private Serializable storageTemperature;
+    @Type(type = "NumrangeUserType")
+    private Numrange storageTemperature;
 
     /**
      * ASSOCIAÇÕES
@@ -46,12 +61,17 @@ public class Storage {
     protected Storage() {
     }
 
-    public Storage(String storageName, Serializable storageTemperature) throws ModelException {
+    public Storage(String storageName, Numrange storageTemperature) throws ModelException {
         setStorageName(storageName);
         setStorageTemperature(storageTemperature);
     }
 
-    public Storage(Long houseId, Short storageId, String storageName, Serializable storageTemperature) throws ModelException {
+    public Storage(Long houseId, String storageName, Numrange storageTemperature) throws ModelException {
+        this(storageName, storageTemperature);
+        setId(houseId);
+    }
+
+    public Storage(Long houseId, Short storageId, String storageName, Numrange storageTemperature) throws ModelException {
         this(storageName, storageTemperature);
         setId(houseId, storageId);
     }
@@ -67,6 +87,10 @@ public class Storage {
         this.id = id;
     }
 
+    private void setId(Long houseId) throws ModelException {
+        setId(new StorageId(houseId));
+    }
+
     private void setId(Long houseId, Short storageId) throws ModelException {
         setId(new StorageId(houseId, storageId));
     }
@@ -80,11 +104,11 @@ public class Storage {
         this.storageName = storageName;
     }
 
-    public Serializable getStorageTemperature() {
+    public Numrange getStorageTemperature() {
         return storageTemperature;
     }
 
-    public void setStorageTemperature(Serializable storageTemperature) throws ModelException {
+    public void setStorageTemperature(Numrange storageTemperature) throws ModelException {
         ValidationsUtils.validateStorageTemperature(storageTemperature);
         this.storageTemperature = storageTemperature;
     }
