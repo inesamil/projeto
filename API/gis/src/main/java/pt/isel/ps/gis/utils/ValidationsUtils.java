@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.utils;
 
 import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.model.Numrange;
 
 import java.io.Serializable;
 
@@ -367,7 +368,7 @@ public class ValidationsUtils {
      * @param storageTemperature temperatura a validar
      * @throws ModelException se a temperatura não for válida
      */
-    public static void validateStorageTemperature(Serializable storageTemperature) throws ModelException {
+    public static void validateStorageTemperature(Numrange storageTemperature) throws ModelException {
         if (storageTemperature == null)
             throw new ModelException("Temperature is required.");
         //TODO: validations
