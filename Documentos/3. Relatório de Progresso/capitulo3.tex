@@ -1,22 +1,20 @@
 %
 % Capítulo 3
 %
-\chapter{Solução do Problema} \label{cap3}
-
-\section{Modelo de Dados}\label{sec31}
-
+\chapter{Modelo de Dados} \label{cap3}
 % Modelo EA
-\subsection{Modelo Entidade-Associação}
-
+\section{Modelo Entidade-Associação}\label{sec31}
 \begin{figure}
 	\centering
 	\includegraphics[width=20cm,height=16cm,scale=0.5]{./files/EA.pdf}
 	\caption{Modelo Entidade-Associação}
 	\label{modelo-ea}
+	
 \end{figure}
 
 % Modelo Relacional
-\subsection{Modelo Relacional}
+\section{Modelo Relacional}\label{sec32}
+
 {\parindent 0pt
 	\begin{description}
 		\item House(house\_id, house\_name, house\_babiesNumber, house\_childrenNumber, house\_adultsNumber, house\_seniorsNumber) \newline
@@ -116,46 +114,48 @@
 
 \noindent\textbf{Restrições de Integridade}
 \begin{description}
-	\item RI1: house\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, pode incluir letras, números, pontos finais e underscores;
-	\item RI2: house\_characteristics é um objeto \acrshort{json} obrigatório;
-	%\item RI2: house\_babiesNumber é um número inteiro pertencente ao intervalo [0, 100];
-	%\item RI3: house\_childrenNumber é um número inteiro pertencente ao intervalo [0, 100];
-	%\item RI4: house\_adultsNumber é um número inteiro pertencente ao intervalo [0, 100];
-	%\item RI5: house\_seniorsNumber é um número inteiro pertencente ao intervalo [0, 100];
-	\item RI3: user\_username é uma cadeia de caracteres obrigatória de comprimento máximo 30, pode incluir letras, números, pontos finais e underscores;
-	\item RI4: user\_email é uma cadeia de caracteres obrigatória de comprimento máximo 254, pode incluir letras, números, pontos finais, underscores e um arroba;
-	\item RI5: user\_age é um número inteiro obrigatório contido no intervalo [0, 150];
-	\item RI6: user\_name é uma cadeia de caracteres obrigatória de comprimento máximo 70, sendo apenas composta por letras;
-	\item RI7: user\_password é uma cadeia de caracteres obrigatória de comprimento máximo 50, pode incluir letras, números e caracteres especiais;
-	\item RI8: allergy\_allergen é uma cadeia de caracteres obrigatória de comprimento máximo 75;
-	\item RI9: recipe\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, pode incluir letras, números, pontos finais e underscores;
-	\item RI10: recipe\_difficulty é opcional e pode tomar um dos valores [‘easy’, ‘average’, ‘difficult’];
-	\item RI11: recipe\_time é um número inteiro opcional superior a 0;
-	\item RI12: recipe\_servings é um número inteiro opcional superior a 0;
-	\item RI13: recipe\_cuisine é uma cadeia de caracteres opcional de comprimento máximo 35;
-	\item RI14: recipe\_dishType é uma cadeia de caracteres opcional de comprimento máximo 35;
-	\item RI15: recipe\_type é obrigatório e tem de tomar um dos valores [‘system, ‘user];
-	\item RI16: list\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, pode incluir letras, números, pontos e underscores;
-	\item RI17: list\_type é obrigatório e tem de tomar um dos valores [‘system, ‘user];
-	\item RI18: category\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, sendo apenas composta por letras;
-	\item RI19: product\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, sendo apenas composta por letras;
-	\item RI20: product\_edible é obrigatório e tem de tomar um dos valores ['true', 'false'];
-	\item RI21: product\_shelfLife é um número inteiro obrigatório superior a 0;
-	\item RI22: product\_shelfLifeTimeUnit é obrigatório e tem de tomar um dos valores [‘day’, ‘week’, ‘month’, ‘year’];
-	\item RI23: stockItem\_sku é uma cadeia de caracteres obrigatória de comprimento máximo 128, gerada pela composição de category\_id, product\_id, stockItem\_brand, stockItem\_segment e stockItem\_variety;
-	\item RI24: stockItem\_brand é uma cadeia de caracteres obrigatória de comprimento máximo 35;
-	\item RI25: stockItem\_segment é uma cadeia de caracteres obrigatória de comprimento máximo 35;
-	\item RI26: stockItem\_variety é uma cadeia de caracteres obrigatória de comprimento máximo 35;
-	\item RI27: stockItem\_quantity é um número inteiro obrigatório superior a 0;
-	\item RI28: stockItem\_segmentUnit é obrigatório e tem de tomar um dos valores [‘kg’, ‘dag’, ‘hg’, ‘g’, ‘dg’, ‘cg’, ‘mg’, ‘kl’, ‘hl’, ‘dal’, ‘l’, ‘dl’, ‘cl’, ‘ml’, ‘oz’, ‘lb’, ‘pt’, ‘fl oz’, ‘units’];
-	\item RI29: stockItem\_conservationStorage é uma cadeia de caracteres obrigatório de comprimento máximo 128;
-	\item RI30: ingredient\_quantity é um número inteiro obrigatório superior a 0;
-	\item RI31: ingredient\_quantityUnit é obrigatório e tem de tomar um dos valores [‘kg’, ‘dag’, ‘hg’, ‘g’, ‘dg’, ‘cg’, ‘mg’, ‘kl’, ‘hl’, ‘dal’, ‘l’, ‘dl’, ‘cl’, ‘ml’, ‘oz’, ‘lb’, ‘pt’, ‘fl oz’, ‘units’];
-	\item RI32: storage\_name é uma cadeia de caracteres de comprimento máximo 35;
+	\item RI1: house\_id é auto-incrementado;
+	\item RI2: house\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, pode incluir letras, números, pontos finais e underscores;
+	\item RI3: house\_characteristics é um objeto \acrshort{json} obrigatório;
+	\item RI4: user\_username é uma cadeia de caracteres obrigatória de comprimento máximo 30, pode incluir letras, números, pontos finais e underscores;
+	\item RI5: user\_email é uma cadeia de caracteres obrigatória de comprimento máximo 254, pode incluir letras, números, pontos finais, underscores e um arroba;
+	\item RI6: user\_age é um número inteiro obrigatório contido no intervalo [0, 150];
+	\item RI7: user\_name é uma cadeia de caracteres obrigatória de comprimento máximo 70, sendo apenas composta por letras;
+	\item RI8: user\_password é uma cadeia de caracteres obrigatória de comprimento máximo 50, pode incluir letras, números e caracteres especiais;
+	\item RI9: allergy\_allergen é uma cadeia de caracteres obrigatória de comprimento máximo 75;
+	\item RI10: recipe\_id é auto-incrementado;
+	\item RI11: recipe\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, pode incluir letras, números, pontos finais e underscores;
+	\item RI12: recipe\_difficulty é opcional e pode tomar um dos valores [‘easy’, ‘average’, ‘difficult’];
+	\item RI13: recipe\_time é um número inteiro opcional superior a 0;
+	\item RI14: recipe\_servings é um número inteiro opcional superior a 0;
+	\item RI15: recipe\_cuisine é uma cadeia de caracteres opcional de comprimento máximo 35;
+	\item RI16: recipe\_dishType é uma cadeia de caracteres opcional de comprimento máximo 35;
+	\item RI17: recipe\_type é obrigatório e tem de tomar um dos valores [‘system, ‘user];
+	\item RI18: list\_id é único dentro da casa;
+	\item RI19: list\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, pode incluir letras, números, pontos e underscores;
+	\item RI20: list\_type é obrigatório e tem de tomar um dos valores [‘system, ‘user];
+	\item RI21: category\_id é auto-incrementado;
+	\item RI22: category\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, sendo apenas composta por letras;
+	\item RI23: product\_id é único dentro da categoria;
+	\item RI24: product\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, sendo apenas composta por letras;
+	\item RI25: product\_edible é obrigatório e tem de tomar um dos valores ['true', 'false'];
+	\item RI26: product\_shelfLife é um número inteiro obrigatório superior a 0;
+	\item RI27: product\_shelfLifeTimeUnit é obrigatório e tem de tomar um dos valores [‘day’, ‘week’, ‘month’, ‘year’];
+	\item RI28: stockItem\_sku é uma cadeia de caracteres obrigatória de comprimento máximo 128, gerada pela composição de category\_id, product\_id, stockItem\_brand, stockItem\_segment e stockItem\_variety;
+	\item RI29: stockItem\_brand é uma cadeia de caracteres obrigatória de comprimento máximo 35;
+	\item RI30: stockItem\_segment é uma cadeia de caracteres obrigatória de comprimento máximo 35;
+	\item RI31: stockItem\_variety é uma cadeia de caracteres obrigatória de comprimento máximo 35;
+	\item RI32: stockItem\_quantity é um número inteiro obrigatório superior a 0;
+	\item RI33: stockItem\_segmentUnit é obrigatório e tem de tomar um dos valores [‘kg’, ‘dag’, ‘hg’, ‘g’, ‘dg’, ‘cg’, ‘mg’, ‘kl’, ‘hl’, ‘dal’, ‘l’, ‘dl’, ‘cl’, ‘ml’, ‘oz’, ‘lb’, ‘pt’, ‘fl oz’, ‘units’];
+	\item RI34: stockItem\_conservationStorage é uma cadeia de caracteres obrigatório de comprimento máximo 128;
+	\item RI35: ingredient\_quantity é um número inteiro obrigatório superior a 0;
+	\item RI36: ingredient\_quantityUnit é obrigatório e tem de tomar um dos valores [‘kg’, ‘dag’, ‘hg’, ‘g’, ‘dg’, ‘cg’, ‘mg’, ‘kl’, ‘hl’, ‘dal’, ‘l’, ‘dl’, ‘cl’, ‘ml’, ‘oz’, ‘lb’, ‘pt’, ‘fl oz’, ‘units’];
+	\item RI37: storage\_id é único dentro da casa;
+	\item RI38: storage\_name é uma cadeia de caracteres de comprimento máximo 35;
 \end{description}
 
 % Domínio dos Atributos
-\subsection{Domínio dos Atributos}
+\section{Domínio dos Atributos}\label{sec33}
 
 % House
 \begin{table} [ht!]
@@ -170,10 +170,6 @@
 			\multirow{6}{*}{House} & house\_id & Número inteiro auto-incrementado & bigserial & - & não\\ \cline{2-6}
 			& house\_name & Cadeia de caracteres de comprimento variável & character varying(35) & até 35 caracteres & não\\ \cline{2-6}
 			& house\_characteristics & Objeto \acrshort{json} & json & - & não\\ \hline
-			%& house\_babiesNumber & Número inteiro & smallint & house\_babiesNumber in [0, 100] & não\\ \cline{2-6}
-			%& house\_childrenNumber & Número inteiro & smallint & house\_childrenNumber in [0, 100] & não\\ \cline{2-6}
-			%& house\_adultsNumber & Número inteiro & smallint & house\_adultsNumber in [0, 100] & não\\ \cline{2-6}
-			%& house\_seniorsNumber & Número inteiro & smallint & house\_seniorsNumber in [0, 100] & não\\ \hline
 		\end{tabular}
 	}
 \end{table}
@@ -294,7 +290,7 @@
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
 			\multirow{4}{*}{List} & house\_id & Número inteiro & bigint & house\_id \textgreater{} 0 & não\\ \cline{2-6}
-			& list\_id & Número inteiro auto-incrementado & smallserial & - & não\\ \cline{2-6}
+			& list\_id & Número inteiro auto-incrementado & smallint & - & não\\ \cline{2-6}
 			& list\_name & Cadeia de caracteres de comprimento variável & character varying(35) & até 35 caracteres & não\\ \cline{2-6}
 			& list\_type & Cadeia de caracteres de comprimento variável & character varying(7) & list\_type  in ['system', 'user'] & não\\ \hline
 		\end{tabular}
@@ -362,7 +358,7 @@
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
 			\multirow{6}{*}{Product} & category\_id & Número inteiro & integer & category\_id \textgreater{} 0 & não\\ \cline{2-6}
-			& product\_id & Número inteiro auto-incrementado & serial & - & não\\ \cline{2-6}
+			& product\_id & Número inteiro auto-incrementado & integer & - & não\\ \cline{2-6}
 			& product\_name & Cadeia de caracteres de comprimento variável & character varying(35) & até 35 caracteres & não\\ \cline{2-6}
 			& product\_edible & Booleano & boolean & - & não\\ \cline{2-6}
 			& product\_shelfLife & Número inteiro & smallint & product\_shelfLife \textgreater{} 0 & não\\ \cline{2-6}
@@ -386,7 +382,7 @@
 			& category\_id & Número inteiro & integer & category\_id \textgreater{} 0 & não\\ \cline{2-6}
 			& product\_id & Número inteiro & integer & product\_id \textgreater{} 0 & não\\ \cline{2-6}
 			& stockItem\_brand & Cadeia de caracteres de comprimento variável & character varying(35) & até 35 caracteres & não\\ \cline{2-6}
-			& stockItem\_segment & Cadeia de caracteres de comprimento variável & character varying(35) & até 35 caracteres & não\\ \cline{2-6}
+			& stockItem\_segment & Número décimal & real & stockItem\_segment \textgreater{} 0 & não\\ \cline{2-6}
 			& stockItem\_variety & Cadeia de caracteres de comprimento variável & character varying(35) & até 35 caracteres & não\\ \cline{2-6}
 			& stockItem\_quantity & Número inteiro & smallint & stockItem\_quantity \textgreater{} 0 & não\\ \cline{2-6}
 			& stockItem\_segmentUnit & Cadeia de caracteres de comprimento variável & character varying(5) & stockItem\_segmentUnit in ['kg', 'dag', 'hg', 'g', 'dg', 'cg', 'mg', 'kl', 'hl', 'dal', 'l', 'dl', 'cl', 'ml', 'oz', 'lb', 'pt', 'fl oz', 'units'] & não\\ \cline{2-6}
@@ -426,7 +422,7 @@
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
 			\multirow{4}{*}{Storage} & house\_id & Número inteiro & bigint & house\_id \textgreater{} 0 & não\\ \cline{2-6}
-			& storage\_id & Número inteiro auto-incrementado & smallserial & - & não\\ \cline{2-6}
+			& storage\_id & Número inteiro auto-incrementado & smallint & - & não\\ \cline{2-6}
 			& storage\_name & Cadeia de caracteres de comprimento variável & character varying(35) & até 35 caracteres & não\\ \cline{2-6}
 			& storage\_temperature & Intervalo de números decimais & numrange & - & não\\ \hline
 		\end{tabular}
@@ -574,3 +570,4 @@
 		\end{tabular}
 	}
 \end{table}
+

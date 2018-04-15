@@ -13,8 +13,7 @@
 \contentsline {subsection}{\numberline {2.3.1}R\IeC {\'o}tulos em Formato N\IeC {\~a}o Digital}{7}
 \contentsline {subsection}{\numberline {2.3.2}Aus\IeC {\^e}ncia de Identificador \IeC {\'U}nico nos Itens}{7}
 \contentsline {section}{\numberline {2.4}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{7}
-\contentsline {chapter}{\numberline {3}Solu\IeC {\c c}\IeC {\~a}o do Problema}{9}
-\contentsline {section}{\numberline {3.1}Modelo de Dados}{9}
-\contentsline {subsection}{\numberline {3.1.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{9}
-\contentsline {subsection}{\numberline {3.1.2}Modelo Relacional}{9}
-\contentsline {subsection}{\numberline {3.1.3}Dom\IeC {\'\i }nio dos Atributos}{14}
+\contentsline {chapter}{\numberline {3}Modelo de Dados}{9}
+\contentsline {section}{\numberline {3.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{9}
+\contentsline {section}{\numberline {3.2}Modelo Relacional}{11}
+\contentsline {section}{\numberline {3.3}Dom\IeC {\'\i }nio dos Atributos}{15}
