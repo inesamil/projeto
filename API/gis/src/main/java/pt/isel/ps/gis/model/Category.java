@@ -12,14 +12,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "category")
-@NamedStoredProcedureQuery(
-        name = "func",
-        procedureName = "get_categories_by_name",
-        parameters = {
-                @StoredProcedureParameter(name = "name", mode = ParameterMode.IN, type = String.class)
-        },
-        resultClasses = {List.class}
-)
 public class Category implements Serializable {
 
     /**
