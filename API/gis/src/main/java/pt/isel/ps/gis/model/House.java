@@ -1,6 +1,9 @@
 package pt.isel.ps.gis.model;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.model.jsonType.CharacteristicsJsonUserType;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -11,6 +14,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "house")
+@TypeDef(name = "CharacteristicsJsonUserType", typeClass = CharacteristicsJsonUserType.class)
 public class House {
 
     /**
@@ -26,8 +30,9 @@ public class House {
     private String houseName;
 
     @Basic
-    @Column(name = "house_characteristics", nullable = false)
-    private Serializable houseCharacteristics;
+    @Column(name = "house_characteristics", nullable = false, columnDefinition = "json")
+    @Type(type = "CharacteristicsJsonUserType")
+    private Characteristics houseCharacteristics;
 
     /**
      * COLEÇÕES
@@ -53,12 +58,12 @@ public class House {
     protected House() {
     }
 
-    public House(String houseName, Serializable houseCharacteristics) throws ModelException {
+    public House(String houseName, Characteristics houseCharacteristics) throws ModelException {
         setHouseName(houseName);
         setHouseCharacteristics(houseCharacteristics);
     }
 
-    public House(Long houseId, String houseName, Serializable houseCharacteristics) throws ModelException {
+    public House(Long houseId, String houseName, Characteristics houseCharacteristics) throws ModelException {
         setHouseId(houseId);
         setHouseName(houseName);
         setHouseCharacteristics(houseCharacteristics);
@@ -85,11 +90,11 @@ public class House {
         this.houseName = houseName;
     }
 
-    public Serializable getHouseCharacteristics() {
+    public Characteristics getHouseCharacteristics() {
         return houseCharacteristics;
     }
 
-    public void setHouseCharacteristics(Serializable houseCharacteristics) {
+    public void setHouseCharacteristics(Characteristics houseCharacteristics) {
         //TODO: validar Serializable
         this.houseCharacteristics = houseCharacteristics;
     }

@@ -1,4 +1,8 @@
 package pt.isel.ps.gis.model;
 
-public class Characteristics {
+import java.io.Serializable;
+
+public class Characteristics implements Serializable {
+
+    // TODO
 }
