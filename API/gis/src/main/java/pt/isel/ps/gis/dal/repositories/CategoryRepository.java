@@ -13,5 +13,5 @@ public interface CategoryRepository extends CrudRepository<Category, Integer> {
 
     @Async
     @Query(value = "SELECT * FROM public.\"category\" WHERE category_name LIKE :name || '%';", nativeQuery = true)
-    CompletableFuture<Stream<Category>> getCategoriesByName(@Param("name") String name);
+    CompletableFuture<Stream<Category>> getCategoriesByName(@Param("name") String name);    //TODO: rename to findCategoriesByName(..)
 }
