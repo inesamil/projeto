@@ -51,21 +51,27 @@ public class NumrangeUserType implements UserType {
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session) throws HibernateException, SQLException {
-        // TODO
+    public void nullSafeSet(PreparedStatement ps, Object value, int idx, SharedSessionContractImplementor session) throws HibernateException, SQLException {
+        if (value == null) {
+            ps.setNull(idx, Types.OTHER);
+            return;
+        }
+        ps.setObject(idx, value.toString(), Types.OTHER);
     }
 
     @Override
     public Object deepCopy(Object value) throws HibernateException {
         // use serialization to create a deep copy
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
-             ObjectOutputStream oos = new ObjectOutputStream(bos);
-             ByteArrayInputStream bais = new ByteArrayInputStream(bos.toByteArray());
-             ObjectInputStream ois = new ObjectInputStream(bais)) {
+             ObjectOutputStream oos = new ObjectOutputStream(bos)) {
 
             oos.writeObject(value);
             oos.flush();
-            return ois.readObject();
+            try (ByteArrayInputStream bais = new ByteArrayInputStream(bos.toByteArray());
+                 ObjectInputStream ois = new ObjectInputStream(bais)) {
+
+                return ois.readObject();
+            }
         } catch (ClassNotFoundException | IOException ex) {
             throw new HibernateException(ex);
         }

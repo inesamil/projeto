@@ -70,13 +70,15 @@ public class CharacteristicsJsonUserType implements UserType {
     public Object deepCopy(Object value) throws HibernateException {
         // use serialization to create a deep copy
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
-             ObjectOutputStream oos = new ObjectOutputStream(bos);
-             ByteArrayInputStream bais = new ByteArrayInputStream(bos.toByteArray());
-             ObjectInputStream ois = new ObjectInputStream(bais)) {
+             ObjectOutputStream oos = new ObjectOutputStream(bos)) {
 
             oos.writeObject(value);
             oos.flush();
-            return ois.readObject();
+            try (ByteArrayInputStream bais = new ByteArrayInputStream(bos.toByteArray());
+                 ObjectInputStream ois = new ObjectInputStream(bais)) {
+
+                return ois.readObject();
+            }
         } catch (ClassNotFoundException | IOException ex) {
             throw new HibernateException(ex);
         }
