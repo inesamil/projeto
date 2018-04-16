@@ -255,8 +255,8 @@ BEGIN
 	
 		
 	-- Add StockItem
-	INSERT INTO public."StockItem" (house_id, stockItem_sku, category_id, product_id, stockItem_brand, stockItem_variety, stockItem_segment,
-										stockItem_segmentUnit, stockItem_quantity, stockItem_description, stockItem_conservationStorage) 
+	INSERT INTO public."stockitem" (house_id, stockitem_sku, category_id, product_id, stockitem_brand, stockitem_variety, stockitem_segment,
+										stockitem_segmentUnit, stockitem_quantity, stockitem_description, stockitem_conservationStorage) 
 		VALUES (houseID, sku, categoryID, productID, brand, variety, segment, segmentUnit, quantity, description, conservationStorage);
 END;
 $$ LANGUAGE plpgsql;
@@ -291,13 +291,14 @@ $$ LANGUAGE plpgsql;
 
 -- Procedure to insert a Storage
 -- DROP FUNCTION insert_storage
+------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_storage(houseID bigint, designation character varying(35), temperature numrange) 
 RETURNS VOID AS $$
 DECLARE 
 	storageID smallint = 0;
 BEGIN
 	-- Get last id
-	SELECT storage_id FROM public."Storage" WHERE house_id = houseID ORDER BY storage_id DESC LIMIT 1 INTO storageID;
+	SELECT storage_id FROM public."storage" WHERE house_id = houseID ORDER BY storage_id DESC LIMIT 1 INTO storageID;
 	IF storageID IS NULL THEN
 		storageID := 1; 	-- First list inserted
 	ELSE
@@ -305,43 +306,10 @@ BEGIN
 	END IF;
 		
 	-- Add Product
-	INSERT INTO public."Storage" (house_id, storage_id, storage_name, storage_temperature) 
+	INSERT INTO public."storage" (house_id, storage_id, storage_name, storage_temperature) 
 		VALUES (houseID, storageID, designation, temperature);
 END;
 $$ LANGUAGE plpgsql;
-
--------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------------------
-
--- Function to return Categories whose name matches the received one
--- DROP FUNCTION get_categories
-CREATE OR REPLACE FUNCTION get_categories_by_name (name character varying(35))
-RETURNS TABLE(id integer, name character varying(35)) AS $$
-    SELECT * 
-		FROM public."Category"
-		WHERE category_name LIKE name || '%'; -- || is the operator for concatenation.
-$$ LANGUAGE SQL;
-
--------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------------------
-
--- Function to return Products whose name matches the received one
--- DROP FUNCTION get_products_by_name
-CREATE OR REPLACE FUNCTION get_products_by_name (name character varying(35))
-RETURNS TABLE(
-	category_id integer, 
-	product_id integer,
-	product_name character varying(35),
-	product_edible boolean,
-	product_shelfLife smallint,
-	product_shelfLifeTimeUnit character varying(35))
-AS $$
-    SELECT * 
-		FROM public."Product"
-		WHERE product_name LIKE name || '%'; -- || is the operator for concatenation.
-$$ LANGUAGE SQL;
 
 -------------------------------------------------------------------------------------------
 
