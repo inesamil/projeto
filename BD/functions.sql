@@ -238,7 +238,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION insert_stock_item(
 	houseID bigint,
 	categoryID integer,
-	productID smallint,
+	productID integer,
 	brand character varying(35),
 	variety character varying(35),
 	segment real,
@@ -269,7 +269,7 @@ $$ LANGUAGE plpgsql;
 -- DROP FUNCTION generate_sku
 CREATE OR REPLACE FUNCTION generate_sku(
 	categoryID integer,
-	productID smallint,
+	productID integer,
 	brand character varying(35),
 	variety character varying(35),
 	segment real,

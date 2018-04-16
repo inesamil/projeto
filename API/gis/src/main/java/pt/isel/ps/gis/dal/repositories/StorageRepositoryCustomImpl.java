@@ -15,7 +15,6 @@ public class StorageRepositoryCustomImpl implements StorageRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public void insertStorage(Storage storage) {
         Session session = entityManager.unwrap(Session.class);
         session.doWork(connection -> {
