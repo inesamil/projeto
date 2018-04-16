@@ -1,49 +1,64 @@
 package pt.isel.ps.gis.bll;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pt.isel.ps.gis.dal.repositories.HouseRepository;
+import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.House;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class HouseServiceImpl implements HouseService {
 
-    //TODO: campo para repo; ctor
+    private final HouseRepository houseRepository;
 
-    @Override
-    public boolean existsHouseByHouseId(Long houseId) {
-        //TODO: verificar se a casa existe e retornar
-        throw new NotImplementedException();
+    @Autowired
+    public HouseServiceImpl(HouseRepository houseRepository) {
+        this.houseRepository = houseRepository;
     }
 
     @Override
-    public House getHouseByHouseId(Long houseId) {
-        //TODO: obter a casa com houseId e retornar
-        throw new NotImplementedException();
+    public boolean existsHouseByHouseId(Long houseId) {
+        return houseRepository.existsById(houseId);
+    }
+
+    @Override
+    public Optional<House> getHouseByHouseId(Long houseId) {
+        return houseRepository.findById(houseId);
     }
 
     @Override
     public List<House> getHousesByUserId(String username) {
-        return null;
-    }
-
-    @Override
-    public House addHouse(House house) {
-        //TODO: verificar que houseId vai a null
-        return null;
-    }
-
-    @Override
-    public House updateHouse(House house) {
-        if (!existsHouseByHouseId(house.getHouseId()))
-            throw new IllegalArgumentException(String.format("House with id %d does not exist.", house.getHouseId()));
-        //TODO: atualizar a casa
+        //TODO: listar casas do utilizador com @username
         throw new NotImplementedException();
     }
 
     @Override
-    public void deleteHouse(Long houseId) {
+    public House addHouse(House house) throws EntityException {
+        House newHouse = house;
+        if (house.getHouseId() != null) {
+            // É preciso garantir que houseId está a NULL, para ser feita inserção da nova casa.
+            // Caso contrário, seria atualizada uma casa já existente.
+            newHouse = new House(house.getHouseName(), house.getHouseCharacteristics());
+        }
+        return houseRepository.save(newHouse);
+    }
+
+    @Override
+    public House updateHouse(House house) throws EntityNotFoundException {
+        if (!existsHouseByHouseId(house.getHouseId()))
+            throw new EntityNotFoundException(String.format("House with ID %d does not exist.", house.getHouseId()));
+        return houseRepository.save(house);
+    }
+
+    @Override
+    public void deleteHouse(Long houseId) throws EntityNotFoundException {
         if (!existsHouseByHouseId(houseId))
-            throw new IllegalArgumentException(String.format("House with id %d does not exist.", houseId));
-        //TODO: apagar casa através do procedimento
+            throw new EntityNotFoundException(String.format("House with ID %d does not exist.", houseId));
+        houseRepository.deleteById(houseId);    //TODO: delete
     }
 }
