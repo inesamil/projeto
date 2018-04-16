@@ -1,4 +1,4 @@
-package pt.isel.ps.gis.model.jsonType;
+package pt.isel.ps.gis.model.types;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.HibernateException;
@@ -39,9 +39,8 @@ public class CharacteristicsJsonUserType implements UserType {
     @Override
     public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException {
         final String cellContent = rs.getString(names[0]);
-        if (cellContent == null) {
+        if (cellContent == null)
             return null;
-        }
         try {
             final ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(cellContent.getBytes("UTF-8"), returnedClass());
@@ -69,17 +68,15 @@ public class CharacteristicsJsonUserType implements UserType {
 
     @Override
     public Object deepCopy(Object value) throws HibernateException {
-        try {
-            // use serialization to create a deep copy
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
+        // use serialization to create a deep copy
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+             ObjectOutputStream oos = new ObjectOutputStream(bos);
+             ByteArrayInputStream bais = new ByteArrayInputStream(bos.toByteArray());
+             ObjectInputStream ois = new ObjectInputStream(bais)) {
+
             oos.writeObject(value);
             oos.flush();
-            oos.close();
-            bos.close();
-
-            ByteArrayInputStream bais = new ByteArrayInputStream(bos.toByteArray());
-            return new ObjectInputStream(bais).readObject();
+            return ois.readObject();
         } catch (ClassNotFoundException | IOException ex) {
             throw new HibernateException(ex);
         }

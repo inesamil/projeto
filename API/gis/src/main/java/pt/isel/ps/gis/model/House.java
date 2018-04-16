@@ -3,7 +3,7 @@ package pt.isel.ps.gis.model;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.model.jsonType.CharacteristicsJsonUserType;
+import pt.isel.ps.gis.model.types.CharacteristicsJsonUserType;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -34,7 +34,7 @@ public class House {
     private Characteristics houseCharacteristics;
 
     /**
-     * ASSOCIAÇÕES
+     * COLEÇÕES
      */
     @OneToMany(mappedBy = "houseByHouseId")
     private Collection<HouseAllergy> houseallergiesByHouseId;

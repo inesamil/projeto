@@ -3,7 +3,7 @@ package pt.isel.ps.gis.model;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.model.numrangeType.NumrangeUserType;
+import pt.isel.ps.gis.model.types.NumrangeUserType;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 

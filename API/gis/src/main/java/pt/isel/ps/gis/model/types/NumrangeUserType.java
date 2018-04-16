@@ -1,4 +1,4 @@
-package pt.isel.ps.gis.model.numrangeType;
+package pt.isel.ps.gis.model.types;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
@@ -38,9 +38,8 @@ public class NumrangeUserType implements UserType {
     @Override
     public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException {
         final String cellContent = rs.getString(names[0]);
-        if (cellContent == null) {
+        if (cellContent == null)
             return null;
-        }
         String[] split = cellContent.split("[\\[,\\]]");
         try {
             float minimum = Float.parseFloat(split[1]);
@@ -58,17 +57,15 @@ public class NumrangeUserType implements UserType {
 
     @Override
     public Object deepCopy(Object value) throws HibernateException {
-        try {
-            // use serialization to create a deep copy
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
+        // use serialization to create a deep copy
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+             ObjectOutputStream oos = new ObjectOutputStream(bos);
+             ByteArrayInputStream bais = new ByteArrayInputStream(bos.toByteArray());
+             ObjectInputStream ois = new ObjectInputStream(bais)) {
+
             oos.writeObject(value);
             oos.flush();
-            oos.close();
-            bos.close();
-
-            ByteArrayInputStream bais = new ByteArrayInputStream(bos.toByteArray());
-            return new ObjectInputStream(bais).readObject();
+            return ois.readObject();
         } catch (ClassNotFoundException | IOException ex) {
             throw new HibernateException(ex);
         }
