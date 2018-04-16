@@ -8,21 +8,11 @@ import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "storage")
-@NamedStoredProcedureQuery(
-        name = "insertStorage",
-        procedureName = "insert_storage",
-        parameters = {
-                @StoredProcedureParameter(name = "houseID", mode = ParameterMode.IN, type = Long.class),
-                @StoredProcedureParameter(name = "designation", mode = ParameterMode.IN, type = String.class),
-                @StoredProcedureParameter(name = "temperature", mode = ParameterMode.IN, type = Serializable.class)
-        }
-)
 @TypeDef(name = "NumrangeUserType", typeClass = NumrangeUserType.class)
 public class Storage {
 
