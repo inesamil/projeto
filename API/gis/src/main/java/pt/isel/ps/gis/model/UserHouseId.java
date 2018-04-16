@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -27,7 +27,7 @@ public class UserHouseId implements Serializable {
     protected UserHouseId() {
     }
 
-    public UserHouseId(Long houseId, String username) throws ModelException {
+    public UserHouseId(Long houseId, String username) throws EntityException {
         setHouseId(houseId);
         setUsersUsername(username);
     }
@@ -39,7 +39,7 @@ public class UserHouseId implements Serializable {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws ModelException {
+    public void setHouseId(Long houseId) throws EntityException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
@@ -48,7 +48,7 @@ public class UserHouseId implements Serializable {
         return usersUsername;
     }
 
-    public void setUsersUsername(String usersUsername) throws ModelException {
+    public void setUsersUsername(String usersUsername) throws EntityException {
         ValidationsUtils.validateHouseId(houseId);
         this.usersUsername = usersUsername;
     }

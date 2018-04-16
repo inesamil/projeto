@@ -1,8 +1,8 @@
 package pt.isel.ps.gis.exceptions;
 
-public class ModelException extends Exception {
+public class EntityException extends Exception {
 
-    public ModelException(String message) {
+    public EntityException(String message) {
         super(message);
     }
 }

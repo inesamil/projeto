@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -45,7 +45,7 @@ public class UserList {
     protected UserList() {
     }
 
-    public UserList(Long houseId, Short listId, String usersUsername, Boolean listShareable) throws ModelException {
+    public UserList(Long houseId, Short listId, String usersUsername, Boolean listShareable) throws EntityException {
         setId(houseId, listId);
         setUsersUsername(usersUsername);
         setListShareable(listShareable);
@@ -70,7 +70,7 @@ public class UserList {
         return usersUsername;
     }
 
-    public void setUsersUsername(String usersUsername) throws ModelException {
+    public void setUsersUsername(String usersUsername) throws EntityException {
         ValidationsUtils.validateUserUsername(usersUsername);
         this.usersUsername = usersUsername;
     }
@@ -79,7 +79,7 @@ public class UserList {
         return listShareable;
     }
 
-    public void setListShareable(Boolean listShareable) throws ModelException {
+    public void setListShareable(Boolean listShareable) throws EntityException {
         ValidationsUtils.validateListShareable(listShareable);
         this.listShareable = listShareable;
     }

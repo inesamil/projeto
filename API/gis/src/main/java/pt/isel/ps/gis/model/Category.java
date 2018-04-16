@@ -1,13 +1,12 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -38,11 +37,11 @@ public class Category implements Serializable {
     protected Category() {
     }
 
-    public Category(Integer categoryId) throws ModelException {
+    public Category(Integer categoryId) throws EntityException {
         setCategoryId(categoryId);
     }
 
-    public Category(Integer categoryId, String categoryName) throws ModelException {
+    public Category(Integer categoryId, String categoryName) throws EntityException {
         setCategoryId(categoryId);
         setCategoryName(categoryName);
     }
@@ -54,7 +53,7 @@ public class Category implements Serializable {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) throws ModelException {
+    public void setCategoryId(Integer categoryId) throws EntityException {
         ValidationsUtils.validateCategoryId(categoryId);
         this.categoryId = categoryId;
     }
@@ -63,7 +62,7 @@ public class Category implements Serializable {
         return categoryName;
     }
 
-    public void setCategoryName(String categoryName) throws ModelException {
+    public void setCategoryName(String categoryName) throws EntityException {
         ValidationsUtils.validateCategoryName(categoryName);
         this.categoryName = categoryName;
     }

@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -30,7 +30,7 @@ public class StockItemStorageId implements Serializable {
     protected StockItemStorageId() {
     }
 
-    public StockItemStorageId(Long houseId, String stockitemSku, Short storageId) throws ModelException {
+    public StockItemStorageId(Long houseId, String stockitemSku, Short storageId) throws EntityException {
         setHouseId(houseId);
         setStockitemSku(stockitemSku);
         setStorageId(storageId);
@@ -43,7 +43,7 @@ public class StockItemStorageId implements Serializable {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws ModelException {
+    public void setHouseId(Long houseId) throws EntityException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
@@ -52,7 +52,7 @@ public class StockItemStorageId implements Serializable {
         return stockitemSku;
     }
 
-    public void setStockitemSku(String stockitemSku) throws ModelException {
+    public void setStockitemSku(String stockitemSku) throws EntityException {
         ValidationsUtils.validateStockItemSku(stockitemSku);
         this.stockitemSku = stockitemSku;
     }
@@ -61,7 +61,7 @@ public class StockItemStorageId implements Serializable {
         return storageId;
     }
 
-    public void setStorageId(Short storageId) throws ModelException {
+    public void setStorageId(Short storageId) throws EntityException {
         ValidationsUtils.validateStorageId(storageId);
         this.storageId = storageId;
     }

@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -48,12 +48,12 @@ public class List {
     protected List() {
     }
 
-    public List(String listName, String listType) throws ModelException {
+    public List(String listName, String listType) throws EntityException {
         setListName(listName);
         setListType(listType);
     }
 
-    public List(Long houseId, Short listId, String listName, String listType) throws ModelException {
+    public List(Long houseId, Short listId, String listName, String listType) throws EntityException {
         this(listName, listType);
         setId(houseId, listId);
     }
@@ -69,7 +69,7 @@ public class List {
         this.id = id;
     }
 
-    public void setId(Long houseId, Short listId) throws ModelException {
+    public void setId(Long houseId, Short listId) throws EntityException {
         setId(new ListId(houseId, listId));
     }
 
@@ -77,7 +77,7 @@ public class List {
         return listName;
     }
 
-    public void setListName(String listName) throws ModelException {
+    public void setListName(String listName) throws EntityException {
         ValidationsUtils.validateListName(listName);
         this.listName = listName;
     }
@@ -86,7 +86,7 @@ public class List {
         return listType;
     }
 
-    public void setListType(String listType) throws ModelException {
+    public void setListType(String listType) throws EntityException {
         ValidationsUtils.validateListType(listType);
         this.listType = listType;
     }

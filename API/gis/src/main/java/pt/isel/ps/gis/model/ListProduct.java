@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -48,7 +48,7 @@ public class ListProduct {
     protected ListProduct() {
     }
 
-    public ListProduct(Long houseId, Short listId, Integer categoryId, Integer productId, String productBrand, Short productQuantity) throws ModelException {
+    public ListProduct(Long houseId, Short listId, Integer categoryId, Integer productId, String productBrand, Short productQuantity) throws EntityException {
         setId(houseId, listId, categoryId, productId);
         setListproductBrand(productBrand);
         setListproductQuantity(productQuantity);
@@ -65,7 +65,7 @@ public class ListProduct {
         this.id = id;
     }
 
-    private void setId(Long houseId, Short listId, Integer categoryId, Integer productId) throws ModelException {
+    private void setId(Long houseId, Short listId, Integer categoryId, Integer productId) throws EntityException {
         setId(new ListProductId(houseId, listId, categoryId, productId));
     }
 
@@ -73,7 +73,7 @@ public class ListProduct {
         return listproductBrand;
     }
 
-    public void setListproductBrand(String listproductBrand) throws ModelException {
+    public void setListproductBrand(String listproductBrand) throws EntityException {
         ValidationsUtils.validateListProductBrand(listproductBrand);
         this.listproductBrand = listproductBrand;
     }
@@ -82,7 +82,7 @@ public class ListProduct {
         return listproductQuantity;
     }
 
-    public void setListproductQuantity(Short listproductQuantity) throws ModelException {
+    public void setListproductQuantity(Short listproductQuantity) throws EntityException {
         ValidationsUtils.validateListProductQuantity(listproductQuantity);
         this.listproductQuantity = listproductQuantity;
     }

@@ -2,13 +2,12 @@ package pt.isel.ps.gis.model;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.jsonType.CharacteristicsJsonUserType;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -35,7 +34,7 @@ public class House {
     private Characteristics houseCharacteristics;
 
     /**
-     * COLEÇÕES
+     * ASSOCIAÇÕES
      */
     @OneToMany(mappedBy = "houseByHouseId")
     private Collection<HouseAllergy> houseallergiesByHouseId;
@@ -58,12 +57,12 @@ public class House {
     protected House() {
     }
 
-    public House(String houseName, Characteristics houseCharacteristics) throws ModelException {
+    public House(String houseName, Characteristics houseCharacteristics) throws EntityException {
         setHouseName(houseName);
         setHouseCharacteristics(houseCharacteristics);
     }
 
-    public House(Long houseId, String houseName, Characteristics houseCharacteristics) throws ModelException {
+    public House(Long houseId, String houseName, Characteristics houseCharacteristics) throws EntityException {
         setHouseId(houseId);
         setHouseName(houseName);
         setHouseCharacteristics(houseCharacteristics);
@@ -76,7 +75,7 @@ public class House {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws ModelException, ModelException {
+    public void setHouseId(Long houseId) throws EntityException, EntityException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
@@ -85,7 +84,7 @@ public class House {
         return houseName;
     }
 
-    public void setHouseName(String houseName) throws ModelException {
+    public void setHouseName(String houseName) throws EntityException {
         ValidationsUtils.validateHouseName(houseName);
         this.houseName = houseName;
     }

@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -35,7 +35,7 @@ public class StockItemAllergy {
     protected StockItemAllergy() {
     }
 
-    public StockItemAllergy(Long houseId, String stockitemSku, String allergen) throws ModelException {
+    public StockItemAllergy(Long houseId, String stockitemSku, String allergen) throws EntityException {
         setId(houseId, stockitemSku, allergen);
     }
 
@@ -50,7 +50,7 @@ public class StockItemAllergy {
         this.id = id;
     }
 
-    public void setId(Long houseId, String stockitemSku, String allergen) throws ModelException {
+    public void setId(Long houseId, String stockitemSku, String allergen) throws EntityException {
         setId(new StockItemAllergyId(houseId, stockitemSku, allergen));
     }
 

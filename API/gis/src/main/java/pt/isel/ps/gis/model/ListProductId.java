@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.Column;
@@ -32,7 +32,7 @@ public class ListProductId implements Serializable {
     protected ListProductId() {
     }
 
-    public ListProductId(Long houseId, Short listId, Integer categoryId, Integer productId) throws ModelException {
+    public ListProductId(Long houseId, Short listId, Integer categoryId, Integer productId) throws EntityException {
         setHouseId(houseId);
         this.listId = listId;
         this.categoryId = categoryId;
@@ -46,7 +46,7 @@ public class ListProductId implements Serializable {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws ModelException {
+    public void setHouseId(Long houseId) throws EntityException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
@@ -55,7 +55,7 @@ public class ListProductId implements Serializable {
         return listId;
     }
 
-    public void setListId(Short listId) throws ModelException {
+    public void setListId(Short listId) throws EntityException {
         ValidationsUtils.validateListId(listId);
         this.listId = listId;
     }
@@ -64,7 +64,7 @@ public class ListProductId implements Serializable {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) throws ModelException {
+    public void setCategoryId(Integer categoryId) throws EntityException {
         ValidationsUtils.validateCategoryId(categoryId);
         this.categoryId = categoryId;
     }
@@ -73,7 +73,7 @@ public class ListProductId implements Serializable {
         return productId;
     }
 
-    public void setProductId(Integer productId) throws ModelException {
+    public void setProductId(Integer productId) throws EntityException {
         ValidationsUtils.validateProductId(productId);
         this.productId = productId;
     }

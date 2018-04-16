@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -43,7 +43,7 @@ public class StockItemStorage {
     protected StockItemStorage() {
     }
 
-    public StockItemStorage(Long houseId, String stockitemSku, Short storageId, Short stockitemstorageQuantity) throws ModelException {
+    public StockItemStorage(Long houseId, String stockitemSku, Short storageId, Short stockitemstorageQuantity) throws EntityException {
         setId(houseId, stockitemSku, storageId);
         setStockitemstorageQuantity(stockitemstorageQuantity);
     }
@@ -59,7 +59,7 @@ public class StockItemStorage {
         this.id = id;
     }
 
-    public void setId(Long houseId, String stockitemSku, Short storageId) throws ModelException {
+    public void setId(Long houseId, String stockitemSku, Short storageId) throws EntityException {
         setId(new StockItemStorageId(houseId, stockitemSku, storageId));
     }
 
@@ -67,7 +67,7 @@ public class StockItemStorage {
         return stockitemstorageQuantity;
     }
 
-    public void setStockitemstorageQuantity(Short stockitemstorageQuantity) throws ModelException {
+    public void setStockitemstorageQuantity(Short stockitemstorageQuantity) throws EntityException {
         ValidationsUtils.validateStockItemStorageQuantity(stockitemstorageQuantity);
         this.stockitemstorageQuantity = stockitemstorageQuantity;
     }

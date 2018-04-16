@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -40,11 +40,11 @@ public class ExpirationDate {
     protected ExpirationDate() {
     }
 
-    public ExpirationDate(Long houseId, String stockItemSku, String expirationDate) throws ModelException {
+    public ExpirationDate(Long houseId, String stockItemSku, String expirationDate) throws EntityException {
         setId(houseId, stockItemSku, expirationDate);
     }
 
-    public ExpirationDate(Long houseId, String stockItemSku, String expirationDate, Short quantity) throws ModelException {
+    public ExpirationDate(Long houseId, String stockItemSku, String expirationDate, Short quantity) throws EntityException {
         setId(houseId, stockItemSku, expirationDate);
         setDateQuantity(quantity);
     }
@@ -60,7 +60,7 @@ public class ExpirationDate {
         this.id = id;
     }
 
-    public void setId(Long houseId, String stockItemSku, String expirationDate) throws ModelException {
+    public void setId(Long houseId, String stockItemSku, String expirationDate) throws EntityException {
         setId(new ExpirationDateId(houseId, stockItemSku, expirationDate));
     }
 
@@ -68,7 +68,7 @@ public class ExpirationDate {
         return dateQuantity;
     }
 
-    public void setDateQuantity(Short quantity) throws ModelException {
+    public void setDateQuantity(Short quantity) throws EntityException {
         ValidationsUtils.validateExpirationDateQuantity(quantity);
         this.dateQuantity = quantity;
     }

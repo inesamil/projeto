@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -34,7 +34,7 @@ public class Allergy {
     protected Allergy() {
     }
 
-    public Allergy(String allergyAllergen) throws ModelException {
+    public Allergy(String allergyAllergen) throws EntityException {
         setAllergyAllergen(allergyAllergen);
     }
 
@@ -45,7 +45,7 @@ public class Allergy {
         return allergyAllergen;
     }
 
-    public void setAllergyAllergen(String allergyAllergen) throws ModelException {
+    public void setAllergyAllergen(String allergyAllergen) throws EntityException {
         ValidationsUtils.validateAllergyAllergen(allergyAllergen);
         this.allergyAllergen = allergyAllergen;
     }

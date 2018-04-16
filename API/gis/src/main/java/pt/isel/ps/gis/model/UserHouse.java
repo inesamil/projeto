@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -37,7 +37,7 @@ public class UserHouse {
     protected UserHouse() {
     }
 
-    public UserHouse(Long houseId, String username, Boolean userhouseAdministrator) throws ModelException {
+    public UserHouse(Long houseId, String username, Boolean userhouseAdministrator) throws EntityException {
         setId(houseId, username);
         setUserhouseAdministrator(userhouseAdministrator);
     }
@@ -53,7 +53,7 @@ public class UserHouse {
         this.id = id;
     }
 
-    public void setId(Long houseId, String username) throws ModelException {
+    public void setId(Long houseId, String username) throws EntityException {
         setId(new UserHouseId(houseId, username));
     }
 
@@ -61,7 +61,7 @@ public class UserHouse {
         return userhouseAdministrator;
     }
 
-    public void setUserhouseAdministrator(Boolean userhouseAdministrator) throws ModelException {
+    public void setUserhouseAdministrator(Boolean userhouseAdministrator) throws EntityException {
         ValidationsUtils.validateUserHouseAdministrator(userhouseAdministrator);
         this.userhouseAdministrator = userhouseAdministrator;
     }

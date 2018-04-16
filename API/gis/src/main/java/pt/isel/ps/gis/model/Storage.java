@@ -2,8 +2,7 @@ package pt.isel.ps.gis.model;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import pt.isel.ps.gis.exceptions.ModelException;
-import pt.isel.ps.gis.model.jsonType.CharacteristicsJsonUserType;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.numrangeType.NumrangeUserType;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
@@ -61,17 +60,17 @@ public class Storage {
     protected Storage() {
     }
 
-    public Storage(String storageName, Numrange storageTemperature) throws ModelException {
+    public Storage(String storageName, Numrange storageTemperature) throws EntityException {
         setStorageName(storageName);
         setStorageTemperature(storageTemperature);
     }
 
-    public Storage(Long houseId, String storageName, Numrange storageTemperature) throws ModelException {
+    public Storage(Long houseId, String storageName, Numrange storageTemperature) throws EntityException {
         this(storageName, storageTemperature);
         setId(houseId);
     }
 
-    public Storage(Long houseId, Short storageId, String storageName, Numrange storageTemperature) throws ModelException {
+    public Storage(Long houseId, Short storageId, String storageName, Numrange storageTemperature) throws EntityException {
         this(storageName, storageTemperature);
         setId(houseId, storageId);
     }
@@ -87,11 +86,11 @@ public class Storage {
         this.id = id;
     }
 
-    private void setId(Long houseId) throws ModelException {
+    private void setId(Long houseId) throws EntityException {
         setId(new StorageId(houseId));
     }
 
-    private void setId(Long houseId, Short storageId) throws ModelException {
+    private void setId(Long houseId, Short storageId) throws EntityException {
         setId(new StorageId(houseId, storageId));
     }
 
@@ -99,7 +98,7 @@ public class Storage {
         return storageName;
     }
 
-    public void setStorageName(String storageName) throws ModelException {
+    public void setStorageName(String storageName) throws EntityException {
         ValidationsUtils.validateStorageName(storageName);
         this.storageName = storageName;
     }
@@ -108,7 +107,7 @@ public class Storage {
         return storageTemperature;
     }
 
-    public void setStorageTemperature(Numrange storageTemperature) throws ModelException {
+    public void setStorageTemperature(Numrange storageTemperature) throws EntityException {
         ValidationsUtils.validateStorageTemperature(storageTemperature);
         this.storageTemperature = storageTemperature;
     }

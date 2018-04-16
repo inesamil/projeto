@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -50,7 +50,7 @@ public class Users {
     protected Users() {
     }
 
-    public Users(String username, String email, Short age, String name, String password) throws ModelException {
+    public Users(String username, String email, Short age, String name, String password) throws EntityException {
         setUsersUsername(username);
         setUsersEmail(email);
         setUsersAge(age);
@@ -65,7 +65,7 @@ public class Users {
         return usersUsername;
     }
 
-    public void setUsersUsername(String usersUsername) throws ModelException {
+    public void setUsersUsername(String usersUsername) throws EntityException {
         ValidationsUtils.validateUserUsername(usersUsername);
         this.usersUsername = usersUsername;
     }
@@ -74,7 +74,7 @@ public class Users {
         return usersEmail;
     }
 
-    public void setUsersEmail(String usersEmail) throws ModelException {
+    public void setUsersEmail(String usersEmail) throws EntityException {
         ValidationsUtils.validateUserEmail(usersEmail);
         this.usersEmail = usersEmail;
     }
@@ -83,7 +83,7 @@ public class Users {
         return usersAge;
     }
 
-    public void setUsersAge(Short usersAge) throws ModelException {
+    public void setUsersAge(Short usersAge) throws EntityException {
         ValidationsUtils.validateUserAge(usersAge);
         this.usersAge = usersAge;
     }
@@ -92,7 +92,7 @@ public class Users {
         return usersName;
     }
 
-    public void setUsersName(String usersName) throws ModelException {
+    public void setUsersName(String usersName) throws EntityException {
         ValidationsUtils.validateUserName(usersName);
         this.usersName = usersName;
     }
@@ -101,7 +101,7 @@ public class Users {
         return usersPassword;
     }
 
-    public void setUsersPassword(String usersPassword) throws ModelException {
+    public void setUsersPassword(String usersPassword) throws EntityException {
         ValidationsUtils.validateUserPassword(usersPassword);
         this.usersPassword = usersPassword;
     }

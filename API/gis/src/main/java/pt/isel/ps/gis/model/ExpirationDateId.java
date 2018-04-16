@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.DateUtils;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
@@ -32,7 +32,7 @@ public class ExpirationDateId implements Serializable {
     protected ExpirationDateId() {
     }
 
-    public ExpirationDateId(Long houseId, String stockitemSku, String expirationDate) throws ModelException {
+    public ExpirationDateId(Long houseId, String stockitemSku, String expirationDate) throws EntityException {
         setHouseId(houseId);
         setStockitemSku(stockitemSku);
         setDateDate(expirationDate);
@@ -45,7 +45,7 @@ public class ExpirationDateId implements Serializable {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws ModelException {
+    public void setHouseId(Long houseId) throws EntityException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
@@ -54,7 +54,7 @@ public class ExpirationDateId implements Serializable {
         return stockitemSku;
     }
 
-    public void setStockitemSku(String stockitemSku) throws ModelException {
+    public void setStockitemSku(String stockitemSku) throws EntityException {
         ValidationsUtils.validateStockItemSku(stockitemSku);
         this.stockitemSku = stockitemSku;
     }
@@ -63,7 +63,7 @@ public class ExpirationDateId implements Serializable {
         return DateUtils.convertDateFormat(this.dateDate);
     }
 
-    public void setDateDate(String date) throws ModelException {
+    public void setDateDate(String date) throws EntityException {
         ValidationsUtils.validateDate(date);
         date += " 00:00:00";    // JDBC timestamp escape format: yyyy-[m]m-[d]d hh:mm:ss[.f...].
         this.dateDate = Timestamp.valueOf(date);

@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -53,14 +53,14 @@ public class Product {
     protected Product() {
     }
 
-    public Product(String productName, Boolean productEdible, Short productShelflife, String productShelflifeTimeunit) throws ModelException {
+    public Product(String productName, Boolean productEdible, Short productShelflife, String productShelflifeTimeunit) throws EntityException {
         setProductName(productName);
         setProductEdible(productEdible);
         setProductShelflife(productShelflife);
         setProductShelflifetimeunit(productShelflifeTimeunit);
     }
 
-    public Product(Integer categoryId, Integer productId, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws ModelException {
+    public Product(Integer categoryId, Integer productId, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws EntityException {
         this(productName, productEdible, productShelflife, productShelflifetimeunit);
         setId(categoryId, productId);
     }
@@ -78,7 +78,7 @@ public class Product {
     }
 
 
-    public void setId(Integer categoryId, Integer productId) throws ModelException {
+    public void setId(Integer categoryId, Integer productId) throws EntityException {
         setId(new ProductId(categoryId, productId));
     }
 
@@ -86,7 +86,7 @@ public class Product {
         return productName;
     }
 
-    public void setProductName(String productName) throws ModelException {
+    public void setProductName(String productName) throws EntityException {
         ValidationsUtils.validateProductName(productName);
         this.productName = productName;
     }
@@ -95,7 +95,7 @@ public class Product {
         return productEdible;
     }
 
-    public void setProductEdible(Boolean productEdible) throws ModelException {
+    public void setProductEdible(Boolean productEdible) throws EntityException {
         ValidationsUtils.validateProductEdible(productEdible);
         this.productEdible = productEdible;
     }
@@ -104,7 +104,7 @@ public class Product {
         return productShelflife;
     }
 
-    public void setProductShelflife(Short productShelflife) throws ModelException {
+    public void setProductShelflife(Short productShelflife) throws EntityException {
         ValidationsUtils.validateProductShelflife(productShelflife);
         this.productShelflife = productShelflife;
     }
@@ -113,7 +113,7 @@ public class Product {
         return productShelflifetimeunit;
     }
 
-    public void setProductShelflifetimeunit(String productShelflifetimeunit) throws ModelException {
+    public void setProductShelflifetimeunit(String productShelflifetimeunit) throws EntityException {
         ValidationsUtils.validateProductShelflifeTimeunit(productShelflifetimeunit);
         this.productShelflifetimeunit = productShelflifetimeunit;
     }

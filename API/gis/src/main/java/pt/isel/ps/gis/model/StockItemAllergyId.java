@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -30,7 +30,7 @@ public class StockItemAllergyId implements Serializable {
     protected StockItemAllergyId() {
     }
 
-    public StockItemAllergyId(Long houseId, String stockitemSku, String allergen) throws ModelException {
+    public StockItemAllergyId(Long houseId, String stockitemSku, String allergen) throws EntityException {
         setHouseId(houseId);
         setStockitemSku(stockitemSku);
         setAllergyAllergen(allergen);
@@ -43,7 +43,7 @@ public class StockItemAllergyId implements Serializable {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws ModelException {
+    public void setHouseId(Long houseId) throws EntityException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
@@ -52,7 +52,7 @@ public class StockItemAllergyId implements Serializable {
         return stockitemSku;
     }
 
-    public void setStockitemSku(String stockitemSku) throws ModelException {
+    public void setStockitemSku(String stockitemSku) throws EntityException {
         ValidationsUtils.validateStockItemSku(stockitemSku);
         this.stockitemSku = stockitemSku;
     }
@@ -61,7 +61,7 @@ public class StockItemAllergyId implements Serializable {
         return allergyAllergen;
     }
 
-    public void setAllergyAllergen(String allergyAllergen) throws ModelException {
+    public void setAllergyAllergen(String allergyAllergen) throws EntityException {
         ValidationsUtils.validateAllergyAllergen(allergyAllergen);
         this.allergyAllergen = allergyAllergen;
     }

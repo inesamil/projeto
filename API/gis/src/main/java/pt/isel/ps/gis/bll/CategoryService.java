@@ -3,6 +3,7 @@ package pt.isel.ps.gis.bll;
 import pt.isel.ps.gis.model.Category;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CategoryService {
 
@@ -27,7 +28,7 @@ public interface CategoryService {
      * @param categoryId identificador da categoria
      * @return Cateory
      */
-    Category getCategoryByCategoryId(Integer categoryId);
+    Optional<Category> getCategoryByCategoryId(Integer categoryId);
 
     /**
      * Filtros - filtragem das categorias

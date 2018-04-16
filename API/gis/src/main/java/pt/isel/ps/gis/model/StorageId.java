@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.Column;
@@ -26,11 +26,11 @@ public class StorageId implements Serializable {
     protected StorageId() {
     }
 
-    public StorageId(Long houseId) throws ModelException {
+    public StorageId(Long houseId) throws EntityException {
         setHouseId(houseId);
     }
 
-    public StorageId(Long houseId, Short storageId) throws ModelException {
+    public StorageId(Long houseId, Short storageId) throws EntityException {
         setHouseId(houseId);
         setStorageId(storageId);
     }
@@ -42,7 +42,7 @@ public class StorageId implements Serializable {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws ModelException {
+    public void setHouseId(Long houseId) throws EntityException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
@@ -51,7 +51,7 @@ public class StorageId implements Serializable {
         return storageId;
     }
 
-    public void setStorageId(Short storageId) throws ModelException {
+    public void setStorageId(Short storageId) throws EntityException {
         ValidationsUtils.validateStorageId(storageId);
         this.storageId = storageId;
     }

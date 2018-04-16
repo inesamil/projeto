@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model;
 
-import pt.isel.ps.gis.exceptions.ModelException;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -89,7 +89,7 @@ public class StockItem {
 
     public StockItem(Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
                      String stockitemSegmentUnit, String stockitemVariety, Short stockitemQuantity,
-                     String stockitemDescription, String stockitemConservationStorage) throws ModelException {
+                     String stockitemDescription, String stockitemConservationStorage) throws EntityException {
         setCategoryId(categoryId);
         setProductId(productId);
         setStockitemBrand(stockitemBrand);
@@ -103,7 +103,7 @@ public class StockItem {
 
     public StockItem(Long houseId, String stockitemSku, Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
                      String stockitemSegmentUnit, String stockitemVariety, Short stockitemQuantity, String stockitemDescription,
-                     String stockitemConservationStorage) throws ModelException {
+                     String stockitemConservationStorage) throws EntityException {
         this(categoryId, productId, stockitemBrand, stockitemSegment, stockitemSegmentUnit, stockitemVariety,
                 stockitemQuantity, stockitemDescription, stockitemConservationStorage);
         setId(houseId, stockitemSku);
@@ -120,7 +120,7 @@ public class StockItem {
         this.id = id;
     }
 
-    public void setId(Long houseId, String stockitemSku) throws ModelException {
+    public void setId(Long houseId, String stockitemSku) throws EntityException {
         setId(new StockItemId(houseId, stockitemSku));
     }
 
@@ -128,7 +128,7 @@ public class StockItem {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) throws ModelException {
+    public void setCategoryId(Integer categoryId) throws EntityException {
         ValidationsUtils.validateCategoryId(categoryId);
         this.categoryId = categoryId;
     }
@@ -137,7 +137,7 @@ public class StockItem {
         return productId;
     }
 
-    public void setProductId(Integer productId) throws ModelException {
+    public void setProductId(Integer productId) throws EntityException {
         ValidationsUtils.validateProductId(productId);
         this.productId = productId;
     }
@@ -146,7 +146,7 @@ public class StockItem {
         return stockitemBrand;
     }
 
-    public void setStockitemBrand(String stockitemBrand) throws ModelException {
+    public void setStockitemBrand(String stockitemBrand) throws EntityException {
         ValidationsUtils.validateStockItemBrand(stockitemBrand);
         this.stockitemBrand = stockitemBrand;
     }
@@ -155,7 +155,7 @@ public class StockItem {
         return stockitemSegment;
     }
 
-    public void setStockitemSegment(Float stockitemSegment) throws ModelException {
+    public void setStockitemSegment(Float stockitemSegment) throws EntityException {
         ValidationsUtils.validateStockItemSegment(stockitemSegment);
         this.stockitemSegment = stockitemSegment;
     }
@@ -164,7 +164,7 @@ public class StockItem {
         return stockitemVariety;
     }
 
-    public void setStockitemVariety(String stockitemVariety) throws ModelException {
+    public void setStockitemVariety(String stockitemVariety) throws EntityException {
         ValidationsUtils.validateStockItemVariety(stockitemVariety);
         this.stockitemVariety = stockitemVariety;
     }
@@ -173,7 +173,7 @@ public class StockItem {
         return stockitemQuantity;
     }
 
-    public void setStockitemQuantity(Short stockitemQuantity) throws ModelException {
+    public void setStockitemQuantity(Short stockitemQuantity) throws EntityException {
         ValidationsUtils.validateStockItemQuantity(stockitemQuantity);
         this.stockitemQuantity = stockitemQuantity;
     }
@@ -182,7 +182,7 @@ public class StockItem {
         return stockitemSegmentunit;
     }
 
-    public void setStockitemSegmentunit(String stockitemSegmentunit) throws ModelException {
+    public void setStockitemSegmentunit(String stockitemSegmentunit) throws EntityException {
         ValidationsUtils.validateStockItemSegmentUnit(stockitemSegmentunit);
         this.stockitemSegmentunit = stockitemSegmentunit;
     }
@@ -191,7 +191,7 @@ public class StockItem {
         return stockitemDescription;
     }
 
-    public void setStockitemDescription(String stockitemDescription) throws ModelException {
+    public void setStockitemDescription(String stockitemDescription) throws EntityException {
         ValidationsUtils.validateStockItemDescription(stockitemDescription);
         this.stockitemDescription = stockitemDescription;
     }
@@ -200,7 +200,7 @@ public class StockItem {
         return stockitemConservationstorage;
     }
 
-    public void setStockitemConservationstorage(String stockitemConservationstorage) throws ModelException {
+    public void setStockitemConservationstorage(String stockitemConservationstorage) throws EntityException {
         ValidationsUtils.validateStockItemConservationStorage(stockitemConservationstorage);
         this.stockitemConservationstorage = stockitemConservationstorage;
     }
