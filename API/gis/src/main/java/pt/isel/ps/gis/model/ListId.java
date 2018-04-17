@@ -30,6 +30,11 @@ public class ListId implements Serializable {
         setHouseId(houseId);
     }
 
+    public ListId(Long houseId, Short listId) throws EntityException {
+        this(houseId);
+        setListId(listId);
+    }
+
     /**
      * GETTERS E SETTERS
      */
