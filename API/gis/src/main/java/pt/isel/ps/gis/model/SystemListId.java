@@ -14,6 +14,10 @@ public class SystemListId implements Serializable {
     @Column(name = "list_id", nullable = false)
     private Short listId;
 
+    public SystemListId(Long houseId) {
+        this.houseId = houseId;
+    }
+
     public Long getHouseId() {
         return houseId;
     }

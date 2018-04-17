@@ -27,9 +27,8 @@ public class StockItemId implements Serializable {
     protected StockItemId() {
     }
 
-    public StockItemId(Long houseId, String stockitemSku) {
+    public StockItemId(Long houseId) {
         this.houseId = houseId;
-        this.stockitemSku = stockitemSku;
     }
 
     /**

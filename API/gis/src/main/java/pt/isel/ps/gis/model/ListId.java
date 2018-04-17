@@ -26,9 +26,8 @@ public class ListId implements Serializable {
     protected ListId() {
     }
 
-    public ListId(Long houseId, Short listId) throws EntityException {
+    public ListId(Long houseId) throws EntityException {
         setHouseId(houseId);
-        setListId(listId);
     }
 
     /**

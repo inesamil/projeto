@@ -26,9 +26,8 @@ public class ProductId implements Serializable {
     protected ProductId() {
     }
 
-    public ProductId(Integer categoryId, Integer productId) throws EntityException {
+    public ProductId(Integer categoryId) throws EntityException {
         this.categoryId = categoryId;
-        this.productId = productId;
     }
 
     /**

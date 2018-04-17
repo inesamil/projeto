@@ -48,14 +48,14 @@ public class List {
     protected List() {
     }
 
-    public List(String listName, String listType) throws EntityException {
+    private List(String listName, String listType) throws EntityException {
         setListName(listName);
         setListType(listType);
     }
 
-    public List(Long houseId, Short listId, String listName, String listType) throws EntityException {
+    public List(Long houseId, String listName, String listType) throws EntityException {
         this(listName, listType);
-        setId(houseId, listId);
+        setId(houseId);
     }
 
     /**
@@ -65,12 +65,8 @@ public class List {
         return id;
     }
 
-    public void setId(ListId id) {
-        this.id = id;
-    }
-
-    public void setId(Long houseId, Short listId) throws EntityException {
-        setId(new ListId(houseId, listId));
+    public void setId(Long houseId) throws EntityException {
+        this.id = new ListId(houseId);
     }
 
     public String getListName() {

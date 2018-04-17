@@ -45,8 +45,9 @@ public class UserList {
     protected UserList() {
     }
 
-    public UserList(Long houseId, Short listId, String usersUsername, Boolean listShareable) throws EntityException {
-        setId(houseId, listId);
+    public UserList(Long houseId, String listName, String usersUsername, Boolean listShareable) throws EntityException {
+        setId(houseId);
+        this.list = new List(houseId, listName, "user");
         setUsersUsername(usersUsername);
         setListShareable(listShareable);
     }
@@ -58,12 +59,8 @@ public class UserList {
         return id;
     }
 
-    private void setId(UserListId id) {
-        this.id = id;
-    }
-
-    public void setId(Long houseId, Short listId) {
-        setId(new UserListId(houseId, listId));
+    public void setId(Long houseId) {
+        this.id = new UserListId(houseId);
     }
 
     public String getUsersUsername() {

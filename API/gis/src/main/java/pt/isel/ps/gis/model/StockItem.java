@@ -101,12 +101,12 @@ public class StockItem {
         setStockitemConservationstorage(stockitemConservationStorage);
     }
 
-    public StockItem(Long houseId, String stockitemSku, Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
+    public StockItem(Long houseId, Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
                      String stockitemSegmentUnit, String stockitemVariety, Short stockitemQuantity, String stockitemDescription,
                      String stockitemConservationStorage) throws EntityException {
         this(categoryId, productId, stockitemBrand, stockitemSegment, stockitemSegmentUnit, stockitemVariety,
                 stockitemQuantity, stockitemDescription, stockitemConservationStorage);
-        setId(houseId, stockitemSku);
+        setId(houseId);
     }
 
     /**
@@ -120,8 +120,8 @@ public class StockItem {
         this.id = id;
     }
 
-    public void setId(Long houseId, String stockitemSku) throws EntityException {
-        setId(new StockItemId(houseId, stockitemSku));
+    public void setId(Long houseId) throws EntityException {
+        setId(new StockItemId(houseId));
     }
 
     public Integer getCategoryId() {

@@ -60,9 +60,9 @@ public class Product {
         setProductShelflifetimeunit(productShelflifeTimeunit);
     }
 
-    public Product(Integer categoryId, Integer productId, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws EntityException {
+    public Product(Integer categoryId, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws EntityException {
         this(productName, productEdible, productShelflife, productShelflifetimeunit);
-        setId(categoryId, productId);
+        setId(categoryId);
     }
 
     /**
@@ -78,8 +78,8 @@ public class Product {
     }
 
 
-    public void setId(Integer categoryId, Integer productId) throws EntityException {
-        setId(new ProductId(categoryId, productId));
+    public void setId(Integer categoryId) throws EntityException {
+        setId(new ProductId(categoryId));
     }
 
     public String getProductName() {

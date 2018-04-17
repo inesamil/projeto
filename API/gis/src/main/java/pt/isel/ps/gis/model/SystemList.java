@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.model;
 
+import pt.isel.ps.gis.exceptions.EntityException;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -29,8 +31,9 @@ public class SystemList {
     protected SystemList() {
     }
 
-    public SystemList(SystemListId id) {
-        this.id = id;
+    public SystemList(Long houseId, String listName) throws EntityException {
+        this.list = new List(houseId, listName, "system");
+        this.id = new SystemListId(houseId);
     }
 
     public SystemListId getId() {
