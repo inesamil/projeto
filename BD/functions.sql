@@ -2,7 +2,7 @@
  -- DROP FUNCTION insert_user_list
  ------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_user_list(houseID bigint, listName character varying(35), username character varying(30), shareable boolean) 
-RETURNS integer AS $$
+RETURNS smallint AS $$
 DECLARE
 	listID smallint;
 BEGIN
@@ -32,9 +32,9 @@ $$ LANGUAGE plpgsql;
  -- DROP FUNCTION insert_system_list
  ------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_system_list(houseID bigint, listName character varying(35)) 
-RETURNS VOID AS $$
+RETURNS smallint AS $$
 DECLARE 
-	listID smallint = 0;
+	listID smallint;
 BEGIN
 	-- Get last id
 	SELECT list_id FROM public."list" WHERE house_id = houseID ORDER BY list_id DESC LIMIT 1 INTO listID;
@@ -49,6 +49,8 @@ BEGIN
 
 	-- Add UserList
 	INSERT INTO public."systemlist" (house_id, list_id) VALUES (houseID, listID);
+	
+	RETURN listID;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -60,9 +62,9 @@ $$ LANGUAGE plpgsql;
 -- DROP FUNCTION insert_product
 ------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_product(categoryID integer, designation character varying(35), edible boolean, shelfLife smallint, shelfLifeTimeUnit character varying(35)) 
-RETURNS VOID AS $$
+RETURNS smallint AS $$
 DECLARE 
-	productID smallint = 0;
+	productID smallint;
 BEGIN
 	-- Get last id
 	SELECT product_id FROM public."product" WHERE category_id = categoryID ORDER BY product_id DESC LIMIT 1 INTO productID;
@@ -75,6 +77,8 @@ BEGIN
 	-- Add Product
 	INSERT INTO public."product" (category_id, product_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
 		VALUES (categoryID, productID, designation, edible, shelfLife, shelfLifeTimeUnit);
+		
+	RETURN productID;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -96,7 +100,7 @@ CREATE OR REPLACE FUNCTION insert_stock_item(
 	quantity smallint,
 	description text,
 	conservationStorage character varying(128)) 
-RETURNS VOID AS $$
+RETURNS character varying(128) AS $$
 DECLARE 
 	sku character varying(128) = 0;
 BEGIN
@@ -108,6 +112,8 @@ BEGIN
 	INSERT INTO public."stockitem" (house_id, stockitem_sku, category_id, product_id, stockitem_brand, stockitem_variety, stockitem_segment,
 										stockitem_segmentUnit, stockitem_quantity, stockitem_description, stockitem_conservationStorage) 
 		VALUES (houseID, sku, categoryID, productID, brand, variety, segment, segmentUnit, quantity, description, conservationStorage);
+		
+	RETURN sku;
 END;
 $$ LANGUAGE plpgsql;
 
