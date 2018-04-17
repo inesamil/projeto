@@ -8,7 +8,7 @@ import pt.isel.ps.gis.model.UserListId;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
-public interface UserListRepository extends CrudRepository<UserList, UserListId> {
+public interface UserListRepository extends CrudRepository<UserList, UserListId>, UserListRepositoryCustom {
 
     @Async
     CompletableFuture<Stream<UserList>> findAllById_HouseIdAndListShareable(Long houseId, Boolean shareable);
