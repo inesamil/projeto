@@ -1,154 +1,14 @@
  
--------------------------------------------------------------------------------------------
 
- -- Procedure to delete a User
- -- DROP FUNCTION delete_user
-CREATE OR REPLACE FUNCTION delete_user(username character varying(35)) 
-RETURNS VOID AS $$
-DECLARE
-    cursor_userLists CURSOR FOR SELECT * FROM public."UserList" WHERE user_username = username;
-	rec_userList   RECORD;
-BEGIN
-	-- Remove UserLists and Lists
-	OPEN cursor_userLists;
-	LOOP
-		-- Fetch row into the rec_userList
-		FETCH cursor_userLists INTO rec_userList;
-		-- exit when no more row to fetch
-		EXIT WHEN NOT FOUND;
 
-		-- Delete from UserList (child)
-		DELETE FROM public."UserList" WHERE house_id = rec_userList.house_id AND list_id = rec_userList.list_id;
-		-- Delete from List (parent)
-		DELETE FROM public."List" WHERE house_id = rec_userList.house_id AND list_id = rec_userList.list_id;
-	END LOOP;
 
-	-- Close the cursor
-	CLOSE cursor_userLists;
 
-	-- Remove User From Houses	
-	DELETE FROM public."UserHouse" WHERE user_username = username;
 
-	-- Remove User
-	DELETE FROM public."User" WHERE user_username = username;
-END;
-$$ LANGUAGE plpgsql;
 
--------------------------------------------------------------------------------------------
 
--------------------------------------------------------------------------------------------
 
- -- Procedure to delete a House
- -- DROP FUNCTION delete_house
-CREATE OR REPLACE FUNCTION delete_house(id bigint) 
-RETURNS VOID AS $$
-BEGIN
-	-- Remove StockItemMovement
-	DELETE FROM public."StockItemMovement" WHERE house_id = id;
 
-	-- Remove ExpirationDate of House Items	
-	DELETE FROM public."ExpirationDate" WHERE house_id = id;
 
-	-- Remove StockItemAllergy
-	DELETE FROM public."StockItemAllergy" WHERE house_id = id;
-
-	-- Remove StockItemStorage
-	DELETE FROM public."StockItemStorage" WHERE house_id = id;
-
-	-- Remove StockItem
-	DELETE FROM public."StockItem" WHERE house_id = id;
-
-	-- Remove Storage
-	DELETE FROM public."Storage" WHERE house_id = id;
-
-	-- Remove UserHouse
-	DELETE FROM public."UserHouse" WHERE house_id = id;
-
-	-- Remove SystemList
-	DELETE FROM public."SystemList" WHERE house_id = id;
-
-	-- Remove UserList
-	DELETE FROM public."UserList" WHERE house_id = id;
-
-	-- Remove ListProduct 
-	DELETE FROM public."ListProduct" WHERE house_id = id;
-
-	-- Remove List
-	DELETE FROM public."List" WHERE house_id = id;
-
-	-- Remove HouseAllergie
-	DELETE FROM public."HouseAllergy" WHERE house_id = id;
-
-	-- Remove House
-	DELETE FROM public."House" WHERE house_id = id;
-END;
-$$ LANGUAGE plpgsql;
-
--------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------------------
-
--- Procedure to delete a UserList
- -- DROP FUNCTION delete_user_list
-CREATE OR REPLACE FUNCTION delete_user_list(houseID bigint, listID smallint) 
-RETURNS VOID AS $$
-BEGIN
-	-- Remove UserList
-	DELETE FROM public."UserList" WHERE house_id = houseID AND list_id = listID;
-
-	-- Remove ListProduct 
-	DELETE FROM public."ListProduct" WHERE house_id = houseID AND list_id = listID;
-
-	-- Remove List
-	DELETE FROM public."List" WHERE house_id = houseID AND list_id = listID;
-END;
-$$ LANGUAGE plpgsql;
-
--------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------------------
-
- -- Procedure to delete a StockItem
- -- DROP FUNCTION delete_stock_item
-CREATE OR REPLACE FUNCTION delete_stock_item(houseID bigint, sku character varying(128)) 
-RETURNS VOID AS $$
-BEGIN
-	-- Remove StockItemAllergy
-	DELETE FROM public."StockItemAllergy" WHERE house_id = houseID AND stockItem_sku = sku;
-
-	-- Remove ExpirationDate
-	DELETE FROM public."ExpirationDate" WHERE house_id = houseID AND stockItem_sku = sku;
-
-	-- Remove StockItemMovement
-	DELETE FROM public."StockItemMovement" WHERE house_id = houseID AND stockItem_sku = sku;
-	
-	-- Remove StockItemStorage
-	DELETE FROM public."StockItemStorage" WHERE house_id = houseID AND stockItem_sku = sku;
-	
-	-- Remove StockItem
-	DELETE FROM public."StockItem" WHERE house_id = houseID AND stockItem_sku = sku;
-END;
-$$ LANGUAGE plpgsql;
-
--------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------------------
-
- -- Procedure to delete a Storage
- -- DROP FUNCTION delete_storage
-CREATE OR REPLACE FUNCTION delete_storage(houseID bigint, storageID smallint) 
-RETURNS VOID AS $$
-BEGIN
-	-- Remove StockItemMovement
-	DELETE FROM public."StockItemMovement" WHERE house_id = houseID AND storage_id = storageID;
-	
-	-- Remove StockItemStorage
-	DELETE FROM public."StockItemStorage" WHERE house_id = houseID AND storage_id = storageID;
-	
-	-- Remove Storage
-	DELETE FROM public."StockItem" WHERE house_id = houseID AND storage_id = storageID;
-END;
-$$ LANGUAGE plpgsql;
 
 -------------------------------------------------------------------------------------------
 
@@ -189,7 +49,7 @@ DECLARE
 	listID smallint = 0;
 BEGIN
 	-- Get last id
-	SELECT list_id FROM public."List" WHERE house_id = houseID ORDER BY list_id DESC LIMIT 1 INTO listID;
+	SELECT list_id FROM public."list" WHERE house_id = houseID ORDER BY list_id DESC LIMIT 1 INTO listID;
 	IF listID IS NULL THEN
 		listID := 1; 	-- First list inserted
 	ELSE
@@ -197,10 +57,10 @@ BEGIN
 	END IF;
 		
 	-- Add List
-	INSERT INTO public."List" (house_id, list_id, list_name, list_type) VALUES (houseId, listID, listName, 'system');
+	INSERT INTO public."list" (house_id, list_id, list_name, list_type) VALUES (houseId, listID, listName, 'system');
 
 	-- Add UserList
-	INSERT INTO public."SystemList" (house_id, list_id) VALUES (houseID, listID);
+	INSERT INTO public."systemlist" (house_id, list_id) VALUES (houseID, listID);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -210,13 +70,14 @@ $$ LANGUAGE plpgsql;
 
 -- Procedure to insert a Product
 -- DROP FUNCTION insert_product
+------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_product(categoryID integer, designation character varying(35), edible boolean, shelfLife smallint, shelfLifeTimeUnit character varying(35)) 
 RETURNS VOID AS $$
 DECLARE 
 	productID smallint = 0;
 BEGIN
 	-- Get last id
-	SELECT product_id FROM public."Product" WHERE category_id = categoryID ORDER BY product_id DESC LIMIT 1 INTO productID;
+	SELECT product_id FROM public."product" WHERE category_id = categoryID ORDER BY product_id DESC LIMIT 1 INTO productID;
 	IF productID IS NULL THEN
 		productID := 1; 	-- First list inserted
 	ELSE
@@ -224,7 +85,7 @@ BEGIN
 	END IF;
 		
 	-- Add Product
-	INSERT INTO public."Product" (category_id, product_id, product_name, product_edible, product_shelfLife, product_shelfLifeTimeUnit) 
+	INSERT INTO public."product" (category_id, product_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
 		VALUES (categoryID, productID, designation, edible, shelfLife, shelfLifeTimeUnit);
 END;
 $$ LANGUAGE plpgsql;
@@ -235,6 +96,7 @@ $$ LANGUAGE plpgsql;
 
 -- Procedure to insert a StockItem
 -- DROP FUNCTION insert_stock_item
+------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_stock_item(
 	houseID bigint,
 	categoryID integer,
@@ -267,6 +129,7 @@ $$ LANGUAGE plpgsql;
 
 -- Procedure to generate a SKU
 -- DROP FUNCTION generate_sku
+------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION generate_sku(
 	categoryID integer,
 	productID integer,
