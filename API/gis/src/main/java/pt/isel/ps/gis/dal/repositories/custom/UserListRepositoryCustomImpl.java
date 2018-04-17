@@ -2,11 +2,14 @@ package pt.isel.ps.gis.dal.repositories.custom;
 
 import org.hibernate.Session;
 import pt.isel.ps.gis.dal.repositories.UserListRepositoryCustom;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.UserList;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserListRepositoryCustomImpl implements UserListRepositoryCustom {
 
@@ -14,9 +17,9 @@ public class UserListRepositoryCustomImpl implements UserListRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public void insertUserList(UserList userList) {
+    public UserList insertUserList(UserList userList) {
         Session session = entityManager.unwrap(Session.class);
-        session.doWork(connection -> {
+        return session.doReturningWork(connection -> {
             try (CallableStatement function = connection.prepareCall(
                     "{call insert_user_list(?,?,?,?)}"
             )) {
@@ -24,7 +27,19 @@ public class UserListRepositoryCustomImpl implements UserListRepositoryCustom {
                 function.setString(2, userList.getList().getListName());
                 function.setString(3, userList.getUsersUsername());
                 function.setBoolean(4, userList.getListShareable());
-                function.execute();
+                ResultSet resultSet = function.executeQuery();
+                if (!resultSet.next()) throw new SQLException("Result set is empty.");
+                long house_id = resultSet.getLong(1);
+                short list_id = resultSet.getShort(2);
+                String list_name = resultSet.getString(3);
+                String users_username = resultSet.getString(4);
+                boolean list_shareable = resultSet.getBoolean(5);
+                resultSet.close();
+                try {
+                    return new UserList(house_id, list_id, list_name, users_username, list_shareable);
+                } catch (EntityException e) {
+                    throw new SQLException(e.getMessage());
+                }
             }
         });
     }

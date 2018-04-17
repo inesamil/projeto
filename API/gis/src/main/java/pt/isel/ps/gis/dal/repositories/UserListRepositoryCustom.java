@@ -4,5 +4,5 @@ import pt.isel.ps.gis.model.UserList;
 
 public interface UserListRepositoryCustom {
 
-    void insertUserList(UserList userList);
+    UserList insertUserList(UserList userList);
 }

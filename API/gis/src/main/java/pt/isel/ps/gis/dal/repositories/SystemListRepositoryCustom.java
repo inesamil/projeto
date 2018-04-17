@@ -4,5 +4,5 @@ import pt.isel.ps.gis.model.SystemList;
 
 public interface SystemListRepositoryCustom {
 
-    void insertSystemList(SystemList systemList);
+    SystemList insertSystemList(SystemList systemList);
 }
