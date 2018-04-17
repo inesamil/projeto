@@ -31,7 +31,7 @@ public interface HouseService {
      * @param username identificador do utilizador
      * @return List<House>
      */
-    List<House> getHousesByUserId(String username);
+    Iterable<House> getHousesByUserId(String username);
 
     /**
      * Adicionar uma casa

@@ -13,7 +13,7 @@ public interface HouseAllergyService {
      * @param houseId identificador da casa
      * @return List<HouseAllergy>
      */
-    List<HouseAllergy> getAllergiesByHouseId(Long houseId);
+    Iterable<HouseAllergy> getAllergiesByHouseId(Long houseId);
 
     /**
      * Adicionar uma alergia a uma casa

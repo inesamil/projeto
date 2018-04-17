@@ -13,7 +13,7 @@ public interface HouseMemberService {
      * @param houseId identificador da casa
      * @return List<Member>
      */
-    List<UserHouse> getMembersByHouseId(Long houseId);
+    Iterable<UserHouse> getMembersByHouseId(Long houseId);
 
     /**
      * Adicionar um membro à casa

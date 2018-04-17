@@ -21,7 +21,7 @@ public interface StockItemService {
      * @param houseId identificador da casa
      * @return List<StockItem>
      */
-    List<StockItem> getStockItemsByHouseId(Long houseId);
+    Iterable<StockItem> getStockItemsByHouseId(Long houseId);
 
     /**
      * Listar todos os itens em stock filtrados duma casa através do ID da casa
@@ -30,7 +30,7 @@ public interface StockItemService {
      * @param filters filtros para aplicar na filtragem dos resultados
      * @return List<StockItem>
      */
-    List<StockItem> getStockItemsByHouseIdFiltered(Long houseId, StockItemFilters filters);
+    Iterable<StockItem> getStockItemsByHouseIdFiltered(Long houseId, StockItemFilters filters);
 
     /**
      * Adicionar um item ao stock duma casa

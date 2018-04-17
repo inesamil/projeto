@@ -17,12 +17,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getCategories() {
+    public Iterable<Category> getCategories() {
         return categoryRepository.findAll();
     }
 
     @Override
-    public List<Category> getCategoriesFiltered(CategoryFilters categoryFilters) {
+    public Iterable<Category> getCategoriesFiltered(CategoryFilters categoryFilters) {
         return categoryRepository.getCategoriesByName(categoryFilters.name);
     }
 

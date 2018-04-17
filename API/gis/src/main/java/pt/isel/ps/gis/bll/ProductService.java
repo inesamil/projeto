@@ -21,7 +21,7 @@ public interface ProductService {
      * @param categoryId identificador da categoria
      * @return List<ProductService>
      */
-    List<ProductService> getProductsByCategoryId(Integer categoryId);
+    Iterable<ProductService> getProductsByCategoryId(Integer categoryId);
 
     /**
      * Listar os produtos filtrados de uma categoria através do ID da categoria
@@ -30,7 +30,7 @@ public interface ProductService {
      * @param filters    filtros para aplicar na filtragem dos resultados
      * @return List<ProductService>
      */
-    List<ProductService> getProductsByCategoryIdFiltered(Integer categoryId, ProductFilters filters);
+    Iterable<ProductService> getProductsByCategoryIdFiltered(Integer categoryId, ProductFilters filters);
 
     /**
      * Filtros - filtragem das categorias

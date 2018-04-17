@@ -11,7 +11,7 @@ public interface StockItemMovement {
      * @param houseId identificador da casa
      * @return List<StockItemMovement>
      */
-    List<StockItemMovement> getStockItemMovementsByHouseId(Long houseId);
+    Iterable<StockItemMovement> getStockItemMovementsByHouseId(Long houseId);
 
     /**
      * Listar os movimentos filtrados dos itens de uma casa
@@ -20,7 +20,7 @@ public interface StockItemMovement {
      * @param filters filtros para aplicar na filtragem dos resultados
      * @return List<StockItemMovement>
      */
-    List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(Long houseId, MovementFilters filters);
+    Iterable<StockItemMovement> getStockItemMovementsByHouseIdFiltered(Long houseId, MovementFilters filters);
 
     /**
      * Adicionar um movimento à casa

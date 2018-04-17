@@ -14,7 +14,7 @@ public interface StockItemAllergenService {
      * @param stockItemId identificador do item em stock
      * @return List<Allergy>
      */
-    List<Allergy> getAllergiesByStockItemId(StockItemId stockItemId);
+    Iterable<Allergy> getAllergiesByStockItemId(StockItemId stockItemId);
 
     /**
      * Listar os itens com um determinado alergénio
@@ -23,5 +23,5 @@ public interface StockItemAllergenService {
      * @param allergen identificador do alergénio
      * @return List<StockItem>
      */
-    List<StockItem> getStockItemsByHouseIdAndAllergyId(Long houseId, String allergen);
+    Iterable<StockItem> getStockItemsByHouseIdAndAllergyId(Long houseId, String allergen);
 }

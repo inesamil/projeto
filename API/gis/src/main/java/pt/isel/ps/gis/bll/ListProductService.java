@@ -14,7 +14,7 @@ public interface ListProductService {
      * @param listId  identificador da lista
      * @return List<ListProduct>
      */
-    List<ListProduct> getListProductsByListId(Long houseId, Short listId);
+    Iterable<ListProduct> getListProductsByListId(Long houseId, Short listId);
 
     /**
      * Adicionar um produto a uma lista

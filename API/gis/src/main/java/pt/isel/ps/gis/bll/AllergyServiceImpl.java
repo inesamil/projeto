@@ -16,7 +16,7 @@ public class AllergyServiceImpl implements AllergyService {
     }
 
     @Override
-    public List<Allergy> getAllergies() {
+    public Iterable<Allergy> getAllergies() {
         return allergyRepository.findAll();
     }
 }

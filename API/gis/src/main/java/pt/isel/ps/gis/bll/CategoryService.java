@@ -12,7 +12,7 @@ public interface CategoryService {
      *
      * @return List<Category>
      */
-    List<Category> getCategories();
+    Iterable<Category> getCategories();
 
     /**
      * Listar as categorias filtradas
@@ -20,7 +20,7 @@ public interface CategoryService {
      * @param categoryFilters filtros para aplicar na filtragem dos resultados
      * @return List<Category>
      */
-    List<Category> getCategoriesFiltered(CategoryFilters categoryFilters);
+    Iterable<Category> getCategoriesFiltered(CategoryFilters categoryFilters);
 
     /**
      * Obter uma categoria através do seu ID

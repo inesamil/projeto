@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface AllergyService {
 
-    List<Allergy> getAllergies();
+    Iterable<Allergy> getAllergies();
 }
