@@ -1,7 +1,8 @@
-package pt.isel.ps.gis.dal.repositories;
+package pt.isel.ps.gis.dal.repositories.custom;
 
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
+import pt.isel.ps.gis.dal.repositories.StorageRepositoryCustom;
 import pt.isel.ps.gis.model.Storage;
 
 import javax.persistence.EntityManager;
