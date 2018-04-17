@@ -173,16 +173,16 @@ RETURNS TABLE(
 	list_name character varying(35),
 	list_type character varying(7))
 AS $$
-    SELECT public."List".house_id, public."List".list_id, public."List".list_name, public."List".list_type
-		FROM public."List"
+    SELECT public."list".house_id, public."list".list_id, public."list".list_name, public."list".list_type
+		FROM public."list"
 		WHERE list_type = CASE WHEN system = true THEN 'system' ELSE null END
 	UNION
-	SELECT public."List".house_id, public."List".list_id, public."List".list_name, public."List".list_type
-		FROM public."List" JOIN public."UserList" ON (public."List".house_id = public."UserList".house_id AND public."List".list_id = public."UserList".list_id)
-		WHERE list_type = 'user' AND user_username = username
+	SELECT public."list".house_id, public."list".list_id, public."list".list_name, public."list".list_type
+		FROM public."list" JOIN public."userlist" ON (public."list".house_id = public."userlist".house_id AND public."list".list_id = public."userlist".list_id)
+		WHERE list_type = 'user' AND users_username = username
 	UNION
-	SELECT public."List".house_id, public."List".list_id, public."List".list_name, public."List".list_type
-		FROM public."List" JOIN public."UserList" ON (public."List".house_id = public."UserList".house_id AND public."List".list_id = public."UserList".list_id)
+	SELECT public."list".house_id, public."list".list_id, public."list".list_name, public."list".list_type
+		FROM public."list" JOIN public."userlist" ON (public."list".house_id = public."userlist".house_id AND public."list".list_id = public."userlist".list_id)
 		WHERE list_type = 'user' AND list_shareable = shared;
 $$ LANGUAGE SQL;
 
@@ -207,13 +207,13 @@ RETURNS TABLE(
 	stockItem_description text,
 	stockItem_conservationStorage character varying(128))
 AS $$
-    SELECT public."StockItem".house_id, public."StockItem".stockItem_sku, public."StockItem".category_id, public."StockItem".product_id, public."StockItem".stockItem_brand, 
-			public."StockItem".stockItem_segment, public."StockItem".stockItem_variety, public."StockItem".stockItem_quantity, public."StockItem".stockItem_segmentUnit, 
-			public."StockItem".stockItem_description, public."StockItem".stockItem_conservationStorage
-		FROM public."StockItem" JOIN public."Product" ON (public."StockItem".category_id = public."Product".category_id AND public."StockItem".product_id = public."Product".product_id)
-			JOIN public."StockItemStorage" ON (public."StockItem".house_id = public."StockItemStorage".house_id AND public."StockItem".stockItem_sku = public."StockItemStorage".stockItem_sku)
-		WHERE public."StockItem".house_id = houseID AND (public."Product".product_name = productName OR public."StockItem".stockItem_brand = brand OR public."StockItem".stockItem_variety = variety
-			OR public."StockItem".stockItem_segment = segment OR public."StockItemStorage".storage_id = storageID)
+    SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand, 
+			public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
+			public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
+		FROM public."stockitem" JOIN public."product" ON (public."stockitem".category_id = public."product".category_id AND public."stockitem".product_id = public."product".product_id)
+			JOIN public."stockitemstorage" ON (public."stockitem".house_id = public."stockitemstorage".house_id AND public."stockitem".stockitem_sku = public."stockitemstorage".stockitem_sku)
+		WHERE public."stockitem".house_id = houseID AND (public."product".product_name = productName OR public."stockitem".stockitem_brand = brand OR public."stockitem".stockitem_variety = variety
+			OR public."stockitem".stockitem_segment = segment OR public."stockitemstorage".storage_id = storageID)
 $$ LANGUAGE SQL;
 
 -------------------------------------------------------------------------------------------
@@ -231,14 +231,14 @@ RETURNS TABLE(
 	stockItemMovement_dateTime timestamp,
 	stockItemMovement_quantity smallint)
 AS $$
-    SELECT public."StockItemMovement".house_id, public."StockItemMovement".stockItem_sku, public."StockItemMovement".storage_id, public."StockItemMovement".stockItemMovement_type, 
-		public."StockItemMovement".stockItemMovement_dateTime, public."StockItemMovement".stockItemMovement_quantity
-		FROM public."StockItemMovement"
-		WHERE public."StockItemMovement".house_id = houseID 
-			AND (public."StockItemMovement".stockItem_sku = item_sku 
-			OR (type IS NOT NULL AND public."StockItemMovement".stockItemMovement_type = type)
-			OR DATE(public."StockItemMovement".stockItemMovement_dateTime) = date
-			OR public."StockItemMovement".storage_id = storageID)
+    SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, public."stockitemmovement".storage_id, public."stockitemmovement".stockitemmovement_type, 
+		public."stockitemmovement".stockitemmovement_datetime, public."stockitemmovement".stockitemmovement_quantity
+		FROM public."stockitemmovement"
+		WHERE public."stockitemmovement".house_id = houseID 
+			AND (public."stockitemmovement".stockitem_sku = item_sku 
+			OR (type IS NOT NULL AND public."stockitemmovement".stockitemmovement_type = type)
+			OR DATE(public."stockitemmovement".stockitemmovement_datetime) = date
+			OR public."stockitemmovement".storage_id = storageID)
 $$ LANGUAGE SQL;
 
 -------------------------------------------------------------------------------------------
