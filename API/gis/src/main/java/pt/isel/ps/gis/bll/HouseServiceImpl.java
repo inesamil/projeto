@@ -42,7 +42,7 @@ public class HouseServiceImpl implements HouseService {
         House newHouse = house;
         if (house.getHouseId() != null) {
             // É preciso garantir que houseId está a NULL, para ser feita inserção da nova casa.
-            // Caso contrário, seria atualizada uma casa já existente.
+            // Caso contrário, poderia ser atualizada uma casa já existente.
             newHouse = new House(house.getHouseName(), house.getHouseCharacteristics());
         }
         return houseRepository.save(newHouse);
