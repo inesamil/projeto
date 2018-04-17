@@ -16,7 +16,6 @@ public class SystemListRepositoryCustomImpl implements SystemListRepositoryCusto
     @Override
     public void insertSystemList(SystemList systemList) {
         Session session = entityManager.unwrap(Session.class);
-        systemList.getId()
         session.doWork(connection -> {
             try (CallableStatement function = connection.prepareCall(
                     "{call insert_system_list(?,?)}"
