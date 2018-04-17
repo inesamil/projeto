@@ -42,10 +42,10 @@ public class ListServiceImpl implements ListService {
     @Override
     public List addList(List list) throws EntityException {
         List newList = list;
-        if (list.getId() != null){
+        if (list.getId().getListId() != null){
             // É preciso garantir que listId está a NULL, para ser feita inserção da nova lista.
             // Caso contrário, poderia ser atualizada uma lista já existente.
-            newList = new List(list.getListName(), list.getListType());
+            newList = new List(list.getId().getHouseId(), list.getListName(), list.getListType());
         }
         return listRepository.save(newList);
     }
