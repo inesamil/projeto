@@ -4,6 +4,7 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.List;
 import pt.isel.ps.gis.model.ListId;
+import pt.isel.ps.gis.model.UserList;
 
 import java.util.Optional;
 
@@ -48,7 +49,7 @@ public interface ListService {
      * @param list lista a adicionar
      * @return List
      */
-    List addList(List list) throws EntityException;
+    UserList addUserList(UserList list) throws EntityException;
 
     /**
      * Atualizar uma lista duma casa

@@ -2,10 +2,13 @@ package pt.isel.ps.gis.bll.implementations;
 
 import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.dal.repositories.ListRepository;
+import pt.isel.ps.gis.dal.repositories.SystemListRepository;
+import pt.isel.ps.gis.dal.repositories.UserListRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.List;
 import pt.isel.ps.gis.model.ListId;
+import pt.isel.ps.gis.model.UserList;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Optional;
@@ -13,9 +16,13 @@ import java.util.Optional;
 public class ListServiceImpl implements ListService {
 
     private final ListRepository listRepository;
+    private final UserListRepository userListRepository;
+    private final SystemListRepository systemListRepository;
 
-    public ListServiceImpl(ListRepository listRepository) {
+    public ListServiceImpl(ListRepository listRepository, UserListRepository userListRepository, SystemListRepository systemListRepository) {
         this.listRepository = listRepository;
+        this.userListRepository = userListRepository;
+        this.systemListRepository = systemListRepository;
     }
 
     @Override
@@ -41,15 +48,11 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public List addList(List list) throws EntityException {
-        List newList = list;
-        if (list.getId().getListId() != null){
-            // É preciso garantir que listId está a NULL, para ser feita inserção da nova lista.
-            // Caso contrário, poderia ser atualizada uma lista já existente.
-            newList = new List(list.getId().getHouseId(), list.getListName(), list.getListType());
-        }
-        return listRepository.save(newList);
+    public UserList addUserList(UserList list) throws EntityException {
+        userListRepository.insertUserList(list);
+        return null;    //TODO
     }
+
 
     @Override
     public List updateList(List list) throws EntityNotFoundException {
