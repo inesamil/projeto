@@ -1,7 +1,8 @@
-package pt.isel.ps.gis.bll;
+package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.EntityException;

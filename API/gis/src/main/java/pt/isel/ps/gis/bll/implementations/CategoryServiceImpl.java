@@ -1,6 +1,7 @@
-package pt.isel.ps.gis.bll;
+package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
+import pt.isel.ps.gis.bll.CategoryService;
 import pt.isel.ps.gis.dal.repositories.CategoryRepository;
 import pt.isel.ps.gis.model.Category;
 

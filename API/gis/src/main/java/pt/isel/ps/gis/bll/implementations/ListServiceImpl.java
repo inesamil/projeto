@@ -1,5 +1,6 @@
-package pt.isel.ps.gis.bll;
+package pt.isel.ps.gis.bll.implementations;
 
+import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.dal.repositories.ListRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;

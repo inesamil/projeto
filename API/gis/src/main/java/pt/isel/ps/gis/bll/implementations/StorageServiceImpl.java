@@ -1,5 +1,6 @@
-package pt.isel.ps.gis.bll;
+package pt.isel.ps.gis.bll.implementations;
 
+import pt.isel.ps.gis.bll.StorageService;
 import pt.isel.ps.gis.dal.repositories.StorageRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
@@ -8,7 +9,7 @@ import pt.isel.ps.gis.model.StorageId;
 
 import java.util.Optional;
 
-public class StorageServiceImpl implements StorageService{
+public class StorageServiceImpl implements StorageService {
 
     private final StorageRepository storageRepository;
 

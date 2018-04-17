@@ -1,6 +1,7 @@
-package pt.isel.ps.gis.bll;
+package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
+import pt.isel.ps.gis.bll.UserService;
 import pt.isel.ps.gis.dal.repositories.UsersRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
@@ -9,7 +10,7 @@ import pt.isel.ps.gis.model.Users;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UsersRepository usersRepository;
 
