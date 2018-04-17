@@ -1,28 +1,13 @@
- 
-
-
-
-
-
-
-
-
-
-
-
--------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------------------
-
  -- Procedure to insert a UserList
  -- DROP FUNCTION insert_user_list
+ ------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_user_list(houseID bigint, listName character varying(35), username character varying(30), shareable boolean) 
 RETURNS VOID AS $$
 DECLARE
 	listID smallint;
 BEGIN
 	-- Get last id
-	SELECT list_id FROM public."List" WHERE house_id = houseID ORDER BY list_id DESC LIMIT 1 INTO listID;
+	SELECT list_id FROM public."list" WHERE house_id = houseID ORDER BY list_id DESC LIMIT 1 INTO listID;
 	IF listID IS NULL THEN
 		listID := 1; 	-- First list inserted
 	ELSE
@@ -30,10 +15,10 @@ BEGIN
 	END IF;
 	
 	-- Add List
-	INSERT INTO public."List" (house_id, list_id, list_name, list_type) VALUES (houseId, listID, listName, 'user');
+	INSERT INTO public."list" (house_id, list_id, list_name, list_type) VALUES (houseId, listID, listName, 'user');
 
 	-- Add UserList
-	INSERT INTO public."UserList" (house_id, list_id, user_username, list_shareable) VALUES (houseID, listID, username, shareable);
+	INSERT INTO public."userlist" (house_id, list_id, users_username, list_shareable) VALUES (houseID, listID, username, shareable);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -43,6 +28,7 @@ $$ LANGUAGE plpgsql;
 
  -- Procedure to insert a SystemList
  -- DROP FUNCTION insert_system_list
+ ------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_system_list(houseID bigint, listName character varying(35)) 
 RETURNS VOID AS $$
 DECLARE 
