@@ -1,13 +1,18 @@
  -- Procedure to insert a UserList
  -- DROP FUNCTION insert_user_list
- ------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_user_list(houseID bigint, listName character varying(35), username character varying(30), shareable boolean) 
-RETURNS smallint AS $$
+RETURNS TABLE(
+	house_id bigint,
+	list_id smallint,
+	list_name character varying(35),
+	users_username character varying(30),
+	list_shareable boolean
+) AS $$
 DECLARE
 	listID smallint;
 BEGIN
 	-- Get last id
-	SELECT list_id FROM public."list" WHERE house_id = houseID ORDER BY list_id DESC LIMIT 1 INTO listID;
+	SELECT public."list".list_id FROM public."list" WHERE public."list".house_id = houseID ORDER BY public."list".list_id DESC LIMIT 1 INTO listID;
 	IF listID IS NULL THEN
 		listID := 1; 	-- First list inserted
 	ELSE
@@ -20,24 +25,29 @@ BEGIN
 	-- Add UserList
 	INSERT INTO public."userlist" (house_id, list_id, users_username, list_shareable) VALUES (houseID, listID, username, shareable);
 	
-	RETURN listID;
+	RETURN query
+	SELECT public."userlist".house_id, public."userlist".list_id, public."list".list_name, public."userlist".users_username, public."userlist".list_shareable FROM public."list"
+	JOIN public."userlist" ON public."list".house_id = public."userlist".house_id AND public."list".list_id = public."userlist".list_id
+	WHERE public."list".house_id = houseID AND public."list".list_id = listID;
 END;
 $$ LANGUAGE plpgsql;
 
 -------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------
-
  -- Procedure to insert a SystemList
  -- DROP FUNCTION insert_system_list
- ------------------------------------------------------------feito-------------------------------------------------------------
-CREATE OR REPLACE FUNCTION insert_system_list(houseID bigint, listName character varying(35)) 
-RETURNS smallint AS $$
+CREATE OR REPLACE FUNCTION insert_system_list(houseID bigint, listName character varying(35))
+RETURNS TABLE(
+	house_id bigint,
+	list_id smallint,
+	list_name character varying(35)
+) AS $$
 DECLARE 
 	listID smallint;
 BEGIN
 	-- Get last id
-	SELECT list_id FROM public."list" WHERE house_id = houseID ORDER BY list_id DESC LIMIT 1 INTO listID;
+	SELECT public."list".list_id FROM public."list" WHERE public."list".house_id = houseID ORDER BY public."list".list_id DESC LIMIT 1 INTO listID;
 	IF listID IS NULL THEN
 		listID := 1; 	-- First list inserted
 	ELSE
@@ -50,7 +60,10 @@ BEGIN
 	-- Add UserList
 	INSERT INTO public."systemlist" (house_id, list_id) VALUES (houseID, listID);
 	
-	RETURN listID;
+	RETURN query
+	SELECT public."list".house_id, public."list".list_id, public."list".list_name FROM public."list"
+	JOIN public."systemlist" ON public."list".house_id = public."systemlist".house_id AND public."list".list_id = public."systemlist".list_id
+	WHERE public."list".house_id = houseID AND public."list".list_id = listID;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -61,13 +74,20 @@ $$ LANGUAGE plpgsql;
 -- Procedure to insert a Product
 -- DROP FUNCTION insert_product
 ------------------------------------------------------------feito-------------------------------------------------------------
-CREATE OR REPLACE FUNCTION insert_product(categoryID integer, designation character varying(35), edible boolean, shelfLife smallint, shelfLifeTimeUnit character varying(35)) 
-RETURNS smallint AS $$
+CREATE OR REPLACE FUNCTION insert_product(categoryID integer, designation character varying(35), edible boolean, shelfLife smallint, shelfLifeTimeUnit character varying(5))
+RETURNS TABLE(
+	category_id integer,
+	product_id integer,
+	product_name character varying(35),
+	product_edible boolean,
+	product_shelflife smallint,
+	product_shelflifetimeunit character varying(5)
+) AS $$
 DECLARE 
 	productID smallint;
 BEGIN
 	-- Get last id
-	SELECT product_id FROM public."product" WHERE category_id = categoryID ORDER BY product_id DESC LIMIT 1 INTO productID;
+	SELECT public."product".product_id FROM public."product" WHERE public."product".category_id = categoryID ORDER BY public."product".product_id DESC LIMIT 1 INTO productID;
 	IF productID IS NULL THEN
 		productID := 1; 	-- First list inserted
 	ELSE
@@ -76,9 +96,9 @@ BEGIN
 		
 	-- Add Product
 	INSERT INTO public."product" (category_id, product_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
-		VALUES (categoryID, productID, designation, edible, shelfLife, shelfLifeTimeUnit);
-		
-	RETURN productID;
+		VALUES (categoryID, productID, designation, edible, shelfLife, shelfLifeTimeUnit)
+			RETURNING public."product".category_id, public."product".product_id, public."product".product_name, public."product".product_edible,
+		   			  public."product".product_shelflife, public."product".product_shelflifetimeunit;
 END;
 $$ LANGUAGE plpgsql;
 
