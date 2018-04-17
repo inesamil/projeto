@@ -2,7 +2,7 @@
  -- DROP FUNCTION insert_user_list
  ------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_user_list(houseID bigint, listName character varying(35), username character varying(30), shareable boolean) 
-RETURNS VOID AS $$
+RETURNS integer AS $$
 DECLARE
 	listID smallint;
 BEGIN
@@ -19,6 +19,8 @@ BEGIN
 
 	-- Add UserList
 	INSERT INTO public."userlist" (house_id, list_id, users_username, list_shareable) VALUES (houseID, listID, username, shareable);
+	
+	RETURN listID;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -175,15 +177,15 @@ RETURNS TABLE(
 AS $$
     SELECT public."list".house_id, public."list".list_id, public."list".list_name, public."list".list_type
 		FROM public."list"
-		WHERE list_type = CASE WHEN system = true THEN 'system' ELSE null END
+		WHERE house_id = houseID AND list_type = CASE WHEN system = true THEN 'system' ELSE null END
 	UNION
 	SELECT public."list".house_id, public."list".list_id, public."list".list_name, public."list".list_type
 		FROM public."list" JOIN public."userlist" ON (public."list".house_id = public."userlist".house_id AND public."list".list_id = public."userlist".list_id)
-		WHERE list_type = 'user' AND users_username = username
+		WHERE house_id = houseID AND list_type = 'user' AND users_username = username
 	UNION
 	SELECT public."list".house_id, public."list".list_id, public."list".list_name, public."list".list_type
 		FROM public."list" JOIN public."userlist" ON (public."list".house_id = public."userlist".house_id AND public."list".list_id = public."userlist".list_id)
-		WHERE list_type = 'user' AND list_shareable = shared;
+		WHERE house_id = houseID AND list_type = 'user' AND list_shareable = shared;
 $$ LANGUAGE SQL;
 
 -------------------------------------------------------------------------------------------
