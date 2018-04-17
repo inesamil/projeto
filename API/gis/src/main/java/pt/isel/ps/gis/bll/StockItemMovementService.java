@@ -1,9 +1,10 @@
 package pt.isel.ps.gis.bll;
 
-import java.util.Date;
-import java.util.List;
+import pt.isel.ps.gis.model.StockItemMovement;
 
-public interface StockItemMovement {
+import java.util.Date;
+
+public interface StockItemMovementService {
 
     /**
      * Listar os movimentos dos itens de uma casa
@@ -30,6 +31,9 @@ public interface StockItemMovement {
      */
     StockItemMovement addStockItemMovement(StockItemMovement stockItemMovement);
 
+    /**
+     * Filtros - filtragem dos movimentos
+     */
     class MovementFilters {
         public final String type;
         public final Date dateTime;
