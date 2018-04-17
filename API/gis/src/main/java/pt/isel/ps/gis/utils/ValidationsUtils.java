@@ -479,7 +479,7 @@ public class ValidationsUtils {
     public static void validateStockItemConservationStorage(String stockitemConservationstorage) throws EntityException {
         if (stockitemConservationstorage == null)
             throw new EntityException("Stock item conservation storage is required.");
-        if (stockitemConservationstorage.length() < RestrictionsUtils.STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH)
+        if (stockitemConservationstorage.length() > RestrictionsUtils.STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH)
             throw new EntityException(String.format("Invalid stock item conservation storage. Conservation storage must contain a maximum of %d characters.",
                     RestrictionsUtils.STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH));
     }
