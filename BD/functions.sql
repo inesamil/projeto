@@ -75,14 +75,7 @@ $$ LANGUAGE plpgsql;
 -- DROP FUNCTION insert_product
 ------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_product(categoryID integer, designation character varying(35), edible boolean, shelfLife smallint, shelfLifeTimeUnit character varying(5))
-RETURNS TABLE(
-	category_id integer,
-	product_id integer,
-	product_name character varying(35),
-	product_edible boolean,
-	product_shelflife smallint,
-	product_shelflifetimeunit character varying(5)
-) AS $$
+RETURNS public."product" AS $$
 DECLARE 
 	productID smallint;
 BEGIN
@@ -96,9 +89,7 @@ BEGIN
 		
 	-- Add Product
 	INSERT INTO public."product" (category_id, product_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
-		VALUES (categoryID, productID, designation, edible, shelfLife, shelfLifeTimeUnit)
-			RETURNING public."product".category_id, public."product".product_id, public."product".product_name, public."product".product_edible,
-		   			  public."product".product_shelflife, public."product".product_shelflifetimeunit;
+		VALUES (categoryID, productID, designation, edible, shelfLife, shelfLifeTimeUnit) RETURNING *;
 END;
 $$ LANGUAGE plpgsql;
 
