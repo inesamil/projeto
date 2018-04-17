@@ -1,3 +1,5 @@
+CREATE SCHEMA IF NOT EXISTS public AUTHORIZATION postgres;
+
 CREATE TABLE IF NOT EXISTS public."house" (
 	house_id bigserial NOT NULL PRIMARY KEY,
 	house_name character varying(35) NOT NULL,
