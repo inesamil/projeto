@@ -36,6 +36,11 @@ public class SystemList {
         this.id = new SystemListId(houseId);
     }
 
+    public SystemList(Long houseId, Short listId, String listName) throws EntityException {
+        this.id = new SystemListId(houseId, listId);
+        this.list = new List(houseId, listId, listName, "system");
+    }
+
     public SystemListId getId() {
         return id;
     }

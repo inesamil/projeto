@@ -18,6 +18,11 @@ public class UserListId implements Serializable {
         setHouseId(houseId);
     }
 
+    public UserListId(Long houseId, Short listId) {
+        this.houseId = houseId;
+        this.listId = listId;
+    }
+
     public Long getHouseId() {
         return houseId;
     }

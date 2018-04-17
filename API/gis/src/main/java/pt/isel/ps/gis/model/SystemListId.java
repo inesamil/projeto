@@ -18,6 +18,11 @@ public class SystemListId implements Serializable {
         this.houseId = houseId;
     }
 
+    public SystemListId(Long houseId, Short listId) {
+        this.houseId = houseId;
+        this.listId = listId;
+    }
+
     public Long getHouseId() {
         return houseId;
     }

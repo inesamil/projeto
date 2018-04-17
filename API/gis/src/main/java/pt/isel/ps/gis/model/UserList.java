@@ -52,6 +52,13 @@ public class UserList {
         setListShareable(listShareable);
     }
 
+    public UserList(Long houseId, Short listId, String listName, String usersUsername, Boolean listShareable) throws EntityException {
+        this.id = new UserListId(houseId, listId);
+        this.list = new List(houseId, listName, "user");
+        setUsersUsername(usersUsername);
+        setListShareable(listShareable);
+    }
+
     /**
      * GETTERS E SETTERS
      */
