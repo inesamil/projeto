@@ -28,19 +28,19 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 function.setBoolean(3, product.getProductEdible());
                 function.setShort(4, product.getProductShelflife());
                 function.setString(5, product.getProductShelflifetimeunit());
-                ResultSet resultSet = function.executeQuery();
-                if (!resultSet.next()) throw new SQLException("Result set is empty.");
-                int category_id = resultSet.getInt(1);
-                int product_id = resultSet.getInt(2);
-                String product_name = resultSet.getString(3);
-                boolean product_edible = resultSet.getBoolean(4);
-                short product_shelflife = resultSet.getShort(5);
-                String product_shelflifetimeunit = resultSet.getString(6);
-                resultSet.close();
-                try {
-                    return new Product(category_id, product_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit);
-                } catch (EntityException e) {
-                    throw new SQLException(e.getMessage());
+                try (ResultSet resultSet = function.executeQuery()) {
+                    if (!resultSet.next()) throw new SQLException("Result set is empty.");
+                    int category_id = resultSet.getInt(1);
+                    int product_id = resultSet.getInt(2);
+                    String product_name = resultSet.getString(3);
+                    boolean product_edible = resultSet.getBoolean(4);
+                    short product_shelflife = resultSet.getShort(5);
+                    String product_shelflifetimeunit = resultSet.getString(6);
+                    try {
+                        return new Product(category_id, product_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit);
+                    } catch (EntityException e) {
+                        throw new SQLException(e.getMessage());
+                    }
                 }
             }
         });

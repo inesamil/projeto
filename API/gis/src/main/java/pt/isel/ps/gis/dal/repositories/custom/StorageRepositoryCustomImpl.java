@@ -29,20 +29,20 @@ public class StorageRepositoryCustomImpl implements StorageRepositoryCustom {
                 function.setLong(1, storage.getId().getHouseId());
                 function.setString(2, storage.getStorageName());
                 function.setObject(3, storage.getStorageTemperature(), Types.OTHER);
-                ResultSet resultSet = function.executeQuery();
-                if (!resultSet.next()) throw new SQLException("Result set is empty.");
-                long house_id = resultSet.getLong(1);
-                short storage_id = resultSet.getShort(2);
-                String storage_name = resultSet.getString(3);
-                PGobject temperaturePGobj = (PGobject) resultSet.getObject(4);
-                if (!temperaturePGobj.getType().equals("numrange"))
-                    throw new SQLException(String.format("Not allow conversation of this type: %s", temperaturePGobj.getType()));
-                Numrange storage_temperature = Numrange.parseNumrange(temperaturePGobj.getValue());
-                resultSet.close();
-                try {
-                    return new Storage(house_id, storage_id, storage_name, storage_temperature);
-                } catch (EntityException e) {
-                    throw new SQLException(e.getMessage());
+                try (ResultSet resultSet = function.executeQuery()) {
+                    if (!resultSet.next()) throw new SQLException("Result set is empty.");
+                    long house_id = resultSet.getLong(1);
+                    short storage_id = resultSet.getShort(2);
+                    String storage_name = resultSet.getString(3);
+                    PGobject temperaturePGobj = (PGobject) resultSet.getObject(4);
+                    if (!temperaturePGobj.getType().equals("numrange"))
+                        throw new SQLException(String.format("Not allow conversation of this type: %s", temperaturePGobj.getType()));
+                    Numrange storage_temperature = Numrange.parseNumrange(temperaturePGobj.getValue());
+                    try {
+                        return new Storage(house_id, storage_id, storage_name, storage_temperature);
+                    } catch (EntityException e) {
+                        throw new SQLException(e.getMessage());
+                    }
                 }
             }
         });

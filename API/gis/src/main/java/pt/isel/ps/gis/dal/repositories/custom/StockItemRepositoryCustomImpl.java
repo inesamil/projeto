@@ -13,7 +13,6 @@ import java.util.List;
 
 public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom {
 
-
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -31,7 +30,7 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 if (isNotNull(ps, 1, houseId))
                     ps.setLong(1, houseId);
-                if(isNotNull(ps, 2, productName))
+                if (isNotNull(ps, 2, productName))
                     ps.setString(2, productName);
                 if (isNotNull(ps, 3, brand))
                     ps.setString(3, brand);
@@ -43,7 +42,7 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
                     ps.setShort(6, storageId);
                 try (ResultSet resultSet = ps.executeQuery()) {
                     List<StockItem> stockItems = new ArrayList<>();
-                    while(resultSet.next()) {
+                    while (resultSet.next()) {
                         long house_id = resultSet.getLong(1);
                         String sku = resultSet.getString(2);
                         int category_id = resultSet.getInt(3);
@@ -71,7 +70,7 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
     }
 
     private <T> boolean isNotNull(PreparedStatement ps, int idx, T t) throws SQLException {
-        if(t == null) {
+        if (t == null) {
             ps.setNull(idx, Types.OTHER);
             return false;
         }
@@ -95,25 +94,25 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
                 function.setShort(8, stockItem.getStockitemQuantity());
                 function.setString(9, stockItem.getStockitemDescription());
                 function.setString(10, stockItem.getStockitemConservationstorage());
-                ResultSet resultSet = function.executeQuery();
-                if (!resultSet.next()) throw new SQLException("Result set is empty.");
-                long house_id = resultSet.getLong(1);
-                String stockitem_sku = resultSet.getString(2);
-                int category_id = resultSet.getInt(3);
-                int product_id = resultSet.getInt(4);
-                String stockitem_brand = resultSet.getString(5);
-                float stockitem_segment = resultSet.getFloat(6);
-                String stockitem_variety = resultSet.getString(7);
-                short stockitem_quantity = resultSet.getShort(8);
-                String stockitem_segmentunit = resultSet.getString(9);
-                String stockitem_description = resultSet.getString(10);
-                String stockitem_conservationstorage = resultSet.getString(11);
-                resultSet.close();
-                try {
-                    return new StockItem(house_id, stockitem_sku, category_id, product_id, stockitem_brand, stockitem_segment,
-                            stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage);
-                } catch (EntityException e) {
-                    throw new SQLException(e.getMessage());
+                try (ResultSet resultSet = function.executeQuery()) {
+                    if (!resultSet.next()) throw new SQLException("Result set is empty.");
+                    long house_id = resultSet.getLong(1);
+                    String stockitem_sku = resultSet.getString(2);
+                    int category_id = resultSet.getInt(3);
+                    int product_id = resultSet.getInt(4);
+                    String stockitem_brand = resultSet.getString(5);
+                    float stockitem_segment = resultSet.getFloat(6);
+                    String stockitem_variety = resultSet.getString(7);
+                    short stockitem_quantity = resultSet.getShort(8);
+                    String stockitem_segmentunit = resultSet.getString(9);
+                    String stockitem_description = resultSet.getString(10);
+                    String stockitem_conservationstorage = resultSet.getString(11);
+                    try {
+                        return new StockItem(house_id, stockitem_sku, category_id, product_id, stockitem_brand, stockitem_segment,
+                                stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage);
+                    } catch (EntityException e) {
+                        throw new SQLException(e.getMessage());
+                    }
                 }
             }
         });

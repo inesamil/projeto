@@ -25,16 +25,16 @@ public class SystemListRepositoryCustomImpl implements SystemListRepositoryCusto
             )) {
                 function.setLong(1, systemList.getId().getHouseId());
                 function.setString(2, systemList.getList().getListName());
-                ResultSet resultSet = function.executeQuery();
-                if (!resultSet.next()) throw new SQLException("Result set is empty.");
-                long house_id = resultSet.getLong(1);
-                short list_id = resultSet.getShort(2);
-                String list_name = resultSet.getString(3);
-                resultSet.close();
-                try {
-                    return new SystemList(house_id, list_id, list_name);
-                } catch (EntityException e) {
-                    throw new SQLException(e.getMessage());
+                try (ResultSet resultSet = function.executeQuery()) {
+                    if (!resultSet.next()) throw new SQLException("Result set is empty.");
+                    long house_id = resultSet.getLong(1);
+                    short list_id = resultSet.getShort(2);
+                    String list_name = resultSet.getString(3);
+                    try {
+                        return new SystemList(house_id, list_id, list_name);
+                    } catch (EntityException e) {
+                        throw new SQLException(e.getMessage());
+                    }
                 }
             }
         });

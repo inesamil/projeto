@@ -27,18 +27,18 @@ public class UserListRepositoryCustomImpl implements UserListRepositoryCustom {
                 function.setString(2, userList.getList().getListName());
                 function.setString(3, userList.getUsersUsername());
                 function.setBoolean(4, userList.getListShareable());
-                ResultSet resultSet = function.executeQuery();
-                if (!resultSet.next()) throw new SQLException("Result set is empty.");
-                long house_id = resultSet.getLong(1);
-                short list_id = resultSet.getShort(2);
-                String list_name = resultSet.getString(3);
-                String users_username = resultSet.getString(4);
-                boolean list_shareable = resultSet.getBoolean(5);
-                resultSet.close();
-                try {
-                    return new UserList(house_id, list_id, list_name, users_username, list_shareable);
-                } catch (EntityException e) {
-                    throw new SQLException(e.getMessage());
+                try (ResultSet resultSet = function.executeQuery()) {
+                    if (!resultSet.next()) throw new SQLException("Result set is empty.");
+                    long house_id = resultSet.getLong(1);
+                    short list_id = resultSet.getShort(2);
+                    String list_name = resultSet.getString(3);
+                    String users_username = resultSet.getString(4);
+                    boolean list_shareable = resultSet.getBoolean(5);
+                    try {
+                        return new UserList(house_id, list_id, list_name, users_username, list_shareable);
+                    } catch (EntityException e) {
+                        throw new SQLException(e.getMessage());
+                    }
                 }
             }
         });
