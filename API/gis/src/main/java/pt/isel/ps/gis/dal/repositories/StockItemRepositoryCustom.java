@@ -4,5 +4,5 @@ import pt.isel.ps.gis.model.StockItem;
 
 public interface StockItemRepositoryCustom {
 
-    void insertStockItem(StockItem stockItem);
+    StockItem insertStockItem(StockItem stockItem);
 }
