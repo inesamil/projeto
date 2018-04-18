@@ -31,6 +31,11 @@ public class StockItemId implements Serializable {
         this.houseId = houseId;
     }
 
+    public StockItemId(Long houseId, String stockitemSku) {
+        this.houseId = houseId;
+        this.stockitemSku = stockitemSku;
+    }
+
     /**
      * GETTERS E SETTERS
      */

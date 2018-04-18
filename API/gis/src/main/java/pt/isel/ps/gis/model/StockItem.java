@@ -87,26 +87,34 @@ public class StockItem {
     protected StockItem() {
     }
 
-    public StockItem(Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
-                     String stockitemSegmentUnit, String stockitemVariety, Short stockitemQuantity,
-                     String stockitemDescription, String stockitemConservationStorage) throws EntityException {
+    private StockItem(Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
+                      String stockitemVariety, Short stockitemQuantity, String stockitemSegmentUnit, String stockitemDescription,
+                      String stockitemConservationStorage) throws EntityException {
         setCategoryId(categoryId);
         setProductId(productId);
         setStockitemBrand(stockitemBrand);
         setStockitemSegment(stockitemSegment);
-        setStockitemSegmentunit(stockitemSegmentUnit);
         setStockitemVariety(stockitemVariety);
         setStockitemQuantity(stockitemQuantity);
+        setStockitemSegmentunit(stockitemSegmentUnit);
         setStockitemDescription(stockitemDescription);
         setStockitemConservationstorage(stockitemConservationStorage);
     }
 
     public StockItem(Long houseId, Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
-                     String stockitemSegmentUnit, String stockitemVariety, Short stockitemQuantity, String stockitemDescription,
+                     String stockitemVariety, Short stockitemQuantity, String stockitemSegmentUnit, String stockitemDescription,
                      String stockitemConservationStorage) throws EntityException {
-        this(categoryId, productId, stockitemBrand, stockitemSegment, stockitemSegmentUnit, stockitemVariety,
-                stockitemQuantity, stockitemDescription, stockitemConservationStorage);
+        this(categoryId, productId, stockitemBrand, stockitemSegment, stockitemVariety,
+                stockitemQuantity, stockitemSegmentUnit, stockitemDescription, stockitemConservationStorage);
         setId(houseId);
+    }
+
+    public StockItem(Long houseId, String stockitemSku, Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
+                     String stockitemVariety, Short stockitemQuantity, String stockitemSegmentUnit, String stockitemDescription,
+                     String stockitemConservationStorage) throws EntityException {
+        this(categoryId, productId, stockitemBrand, stockitemSegment, stockitemVariety, stockitemQuantity,
+                stockitemSegmentUnit, stockitemDescription, stockitemConservationStorage);
+        this.id = new StockItemId(houseId, stockitemSku);
     }
 
     /**
