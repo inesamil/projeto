@@ -47,6 +47,17 @@ public class StockItemMovementId implements Serializable {
         setStockitemmovementQuantity(stockitemmovementQuantity);
     }
 
+    public StockItemMovementId(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
+                               Timestamp stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
+        setHouseId(houseId);
+        setStockitemSku(stockitemSku);
+        setStorageId(storageId);
+        setStockitemmovementType(stockitemmovementType);
+        // TODO check this constraint if necessary
+        this.stockitemmovementDatetime = stockitemmovementDatetime;
+        setStockitemmovementQuantity(stockitemmovementQuantity);
+    }
+
     /**
      * GETTERS E SETETRS
      */

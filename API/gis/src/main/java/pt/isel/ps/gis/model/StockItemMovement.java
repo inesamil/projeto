@@ -3,6 +3,7 @@ package pt.isel.ps.gis.model;
 import pt.isel.ps.gis.exceptions.EntityException;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -43,6 +44,11 @@ public class StockItemMovement {
         setId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity);
     }
 
+    public StockItemMovement(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
+                             Timestamp stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
+        this.id = new StockItemMovementId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity);
+    }
+
     /**
      * GETTERS E SETTERS
      */
@@ -50,6 +56,7 @@ public class StockItemMovement {
         return id;
     }
 
+    // TODO this setter is necessary??
     private void setId(StockItemMovementId id) {
         this.id = id;
     }
