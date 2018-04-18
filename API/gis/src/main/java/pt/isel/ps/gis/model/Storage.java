@@ -50,7 +50,7 @@ public class Storage {
     protected Storage() {
     }
 
-    public Storage(String storageName, Numrange storageTemperature) throws EntityException {
+    private Storage(String storageName, Numrange storageTemperature) throws EntityException {
         setStorageName(storageName);
         setStorageTemperature(storageTemperature);
     }
