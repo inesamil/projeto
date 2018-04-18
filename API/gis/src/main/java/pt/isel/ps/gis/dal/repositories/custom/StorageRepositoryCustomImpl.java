@@ -6,6 +6,7 @@ import pt.isel.ps.gis.dal.repositories.StorageRepositoryCustom;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.Numrange;
 import pt.isel.ps.gis.model.Storage;
+import pt.isel.ps.gis.model.StorageId;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -44,6 +45,21 @@ public class StorageRepositoryCustomImpl implements StorageRepositoryCustom {
                         throw new SQLException(e.getMessage());
                     }
                 }
+            }
+        });
+    }
+
+    @Override
+    public void deleteStorage(StorageId id) {
+        // TODO testar
+        Session session = entityManager.unwrap(Session.class);
+        session.doWork(connection -> {
+            try (CallableStatement function = connection.prepareCall(
+                    "{call delete_storage(?,?)}"
+            )) {
+                function.setLong(1, id.getHouseId());
+                function.setShort(2, id.getStorageId());
+                function.execute();
             }
         });
     }
