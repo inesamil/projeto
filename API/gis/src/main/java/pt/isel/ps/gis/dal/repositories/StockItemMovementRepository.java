@@ -1,15 +1,13 @@
 package pt.isel.ps.gis.dal.repositories;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.scheduling.annotation.Async;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.StockItemMovementId;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
+import java.util.List;
 
-public interface StockItemMovementRepository extends CrudRepository<StockItemMovement, StockItemMovementId> {
+public interface StockItemMovementRepository extends CrudRepository<StockItemMovement, StockItemMovementId>,
+        StockItemMovementRepositoryCustom {
 
-    @Async
-    CompletableFuture<Stream<StockItemMovement>> findAllById_HouseId(Long houseId);
+    List<StockItemMovement> findAllById_HouseId(Long houseId);
 }
