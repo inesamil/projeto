@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import pt.isel.ps.gis.dal.repositories.UserListRepositoryCustom;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.UserList;
+import pt.isel.ps.gis.model.UserListId;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,6 +41,21 @@ public class UserListRepositoryCustomImpl implements UserListRepositoryCustom {
                         throw new SQLException(e.getMessage());
                     }
                 }
+            }
+        });
+    }
+
+    @Override
+    public void deleteUserList(UserListId id) {
+        // TODO testar
+        Session session = entityManager.unwrap(Session.class);
+        session.doWork(connection -> {
+            try (CallableStatement function = connection.prepareCall(
+                    "{call delete_user_list(?,?)}"
+            )) {
+                function.setLong(1, id.getHouseId());
+                function.setShort(2, id.getListId());
+                function.execute();
             }
         });
     }
