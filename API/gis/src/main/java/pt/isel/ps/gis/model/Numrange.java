@@ -12,6 +12,13 @@ public class Numrange implements Serializable {
         this.maximum = maximum;
     }
 
+    public static Numrange parseNumrange(String s) throws NumberFormatException {
+        String[] split = s.split("[\\[,\\]]");
+        float minimum = Float.parseFloat(split[1]);
+        float maximum = Float.parseFloat(split[2]);
+        return new Numrange(minimum, maximum);
+    }
+
     public Float getMinimum() {
         return minimum;
     }

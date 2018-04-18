@@ -40,11 +40,8 @@ public class NumrangeUserType implements UserType {
         final String cellContent = rs.getString(names[0]);
         if (cellContent == null)
             return null;
-        String[] split = cellContent.split("[\\[,\\]]");
         try {
-            float minimum = Float.parseFloat(split[1]);
-            float maximum = Float.parseFloat(split[2]);
-            return new Numrange(minimum, maximum);
+            return Numrange.parseNumrange(cellContent);
         } catch (NumberFormatException ex) {
             throw new RuntimeException("Failed to parse String to Number: " + ex.getMessage(), ex);
         }
