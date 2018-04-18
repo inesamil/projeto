@@ -1,3 +1,119 @@
+ -- Procedure to delete a House
+ -- DROP FUNCTION delete_house
+CREATE OR REPLACE FUNCTION delete_house(id bigint) 
+RETURNS VOID AS $$
+BEGIN
+	-- Remove StockItemMovement
+	DELETE FROM public."stockitemmovement" WHERE house_id = id;
+
+	-- Remove ExpirationDate of House Items	
+	DELETE FROM public."expirationdate" WHERE house_id = id;
+
+	-- Remove StockItemAllergy
+	DELETE FROM public."stockitemallergy" WHERE house_id = id;
+
+	-- Remove StockItemStorage
+	DELETE FROM public."stockitemstorage" WHERE house_id = id;
+
+	-- Remove StockItem
+	DELETE FROM public."stockitem" WHERE house_id = id;
+
+	-- Remove Storage
+	DELETE FROM public."storage" WHERE house_id = id;
+
+	-- Remove UserHouse
+	DELETE FROM public."userhouse" WHERE house_id = id;
+
+	-- Remove SystemList
+	DELETE FROM public."systemlist" WHERE house_id = id;
+
+	-- Remove UserList
+	DELETE FROM public."userlist" WHERE house_id = id;
+
+	-- Remove ListProduct 
+	DELETE FROM public."listproduct" WHERE house_id = id;
+
+	-- Remove List
+	DELETE FROM public."list" WHERE house_id = id;
+
+	-- Remove HouseAllergie
+	DELETE FROM public."houseallergy" WHERE house_id = id;
+
+	-- Remove House
+	DELETE FROM public."house" WHERE house_id = id;
+END;
+$$ LANGUAGE plpgsql;
+
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------
+
+-- Procedure to delete a UserList
+-- DROP FUNCTION delete_user_list
+CREATE OR REPLACE FUNCTION delete_user_list(houseID bigint, listID smallint) 
+RETURNS VOID AS $$
+BEGIN
+	-- Remove UserList
+	DELETE FROM public."userlist" WHERE house_id = houseID AND list_id = listID;
+
+	-- Remove ListProduct 
+	DELETE FROM public."listproduct" WHERE house_id = houseID AND list_id = listID;
+
+	-- Remove List
+	DELETE FROM public."list" WHERE house_id = houseID AND list_id = listID;
+END;
+$$ LANGUAGE plpgsql;
+
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------
+
+-- Procedure to delete a StockItem
+-- DROP FUNCTION delete_stock_item
+CREATE OR REPLACE FUNCTION delete_stock_item(houseID bigint, sku character varying(128)) 
+RETURNS VOID AS $$
+BEGIN
+	-- Remove StockItemAllergy
+	DELETE FROM public."stockitemallergy" WHERE house_id = houseID AND stockitem_sku = sku;
+
+	-- Remove ExpirationDate
+	DELETE FROM public."expirationdate" WHERE house_id = houseID AND stockitem_sku = sku;
+
+	-- Remove StockItemMovement
+	DELETE FROM public."stockitemmovement" WHERE house_id = houseID AND stockitem_sku = sku;
+	
+	-- Remove StockItemStorage
+	DELETE FROM public."stockitemstorage" WHERE house_id = houseID AND stockitem_sku = sku;
+	
+	-- Remove StockItem
+	DELETE FROM public."stockitem" WHERE house_id = houseID AND stockitem_sku = sku;
+END;
+$$ LANGUAGE plpgsql;
+
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------
+
+-- Procedure to delete a Storage
+ -- DROP FUNCTION delete_storage
+CREATE OR REPLACE FUNCTION delete_storage(houseID bigint, storageID smallint) 
+RETURNS VOID AS $$
+BEGIN
+	-- Remove StockItemMovement
+	DELETE FROM public."stockitemmovement" WHERE house_id = houseID AND storage_id = storageID;
+	
+	-- Remove StockItemStorage
+	DELETE FROM public."stockitemstorage" WHERE house_id = houseID AND storage_id = storageID;
+	
+	-- Remove Storage
+	DELETE FROM public."stockitem" WHERE house_id = houseID AND storage_id = storageID;
+END;
+$$ LANGUAGE plpgsql;
+
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------
+
  -- Procedure to insert a UserList
  -- DROP FUNCTION insert_user_list
 CREATE OR REPLACE FUNCTION insert_user_list(houseID bigint, listName character varying(35), username character varying(30), shareable boolean) 
