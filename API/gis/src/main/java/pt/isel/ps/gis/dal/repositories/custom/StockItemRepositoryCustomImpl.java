@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import pt.isel.ps.gis.dal.repositories.StockItemRepositoryCustom;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.StockItem;
+import pt.isel.ps.gis.model.StockItemId;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -114,6 +115,21 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
                         throw new SQLException(e.getMessage());
                     }
                 }
+            }
+        });
+    }
+
+    @Override
+    public void deleteStockItem(StockItemId id) {
+        // TODO testar
+        Session session = entityManager.unwrap(Session.class);
+        session.doWork(connection -> {
+            try (CallableStatement function = connection.prepareCall(
+                    "{call delete_stock_item(?,?)}"
+            )) {
+                function.setLong(1, id.getHouseId());
+                function.setString(2, id.getStockitemSku());
+                function.execute();
             }
         });
     }
