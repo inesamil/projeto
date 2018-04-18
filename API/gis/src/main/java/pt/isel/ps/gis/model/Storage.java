@@ -72,12 +72,12 @@ public class Storage {
         return id;
     }
 
-    public void setId(StorageId id) {
-        this.id = id;
-    }
-
     private void setId(Long houseId) throws EntityException {
         setId(new StorageId(houseId));
+    }
+
+    public void setId(StorageId id) {
+        this.id = id;
     }
 
     private void setId(Long houseId, Short storageId) throws EntityException {

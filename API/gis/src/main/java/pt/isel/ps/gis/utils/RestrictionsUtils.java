@@ -55,6 +55,7 @@ public class RestrictionsUtils {
     public static final int PRODUCT_SHELFLIFETIMEUNIT_MAX_LENGTH = 5;
     /// ExpirationDate
     public static final short EXPIRATIONDATE_QUANTITY_MIN = 1;
+
     public enum LIST_TYPE {
         system, user;
 

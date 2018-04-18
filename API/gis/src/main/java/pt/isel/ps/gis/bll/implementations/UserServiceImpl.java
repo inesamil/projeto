@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users addUser(Users user) throws EntityException {
-        if (existsUserByUserId(user.getUsersUsername())){
+        if (existsUserByUserId(user.getUsersUsername())) {
             throw new EntityException(String.format("Username %s is already in use.", user.getUsersUsername()));
         }
         return usersRepository.save(user);

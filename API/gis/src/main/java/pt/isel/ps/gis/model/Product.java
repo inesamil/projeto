@@ -78,12 +78,12 @@ public class Product {
         return id;
     }
 
-    private void setId(ProductId id) {
-        this.id = id;
-    }
-
     public void setId(Integer categoryId) throws EntityException {
         setId(new ProductId(categoryId));
+    }
+
+    private void setId(ProductId id) {
+        this.id = id;
     }
 
     public String getProductName() {

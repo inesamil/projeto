@@ -4,8 +4,6 @@ import pt.isel.ps.gis.model.Allergy;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemId;
 
-import java.util.List;
-
 public interface StockItemAllergenService {
 
     /**

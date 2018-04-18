@@ -2,7 +2,6 @@ package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.model.Category;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface CategoryService {

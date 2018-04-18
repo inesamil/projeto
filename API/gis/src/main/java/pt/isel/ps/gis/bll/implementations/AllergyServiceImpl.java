@@ -5,8 +5,6 @@ import pt.isel.ps.gis.bll.AllergyService;
 import pt.isel.ps.gis.dal.repositories.AllergyRepository;
 import pt.isel.ps.gis.model.Allergy;
 
-import java.util.List;
-
 @Service
 public class AllergyServiceImpl implements AllergyService {
 

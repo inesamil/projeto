@@ -1,10 +1,9 @@
 package pt.isel.ps.gis.bll;
 
-import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.House;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface HouseService {

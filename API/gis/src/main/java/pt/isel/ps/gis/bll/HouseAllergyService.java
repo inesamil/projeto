@@ -3,8 +3,6 @@ package pt.isel.ps.gis.bll;
 import pt.isel.ps.gis.model.HouseAllergy;
 import pt.isel.ps.gis.model.HouseAllergyId;
 
-import java.util.List;
-
 public interface HouseAllergyService {
 
     /**

@@ -124,12 +124,12 @@ public class StockItem {
         return id;
     }
 
-    private void setId(StockItemId id) {
-        this.id = id;
-    }
-
     public void setId(Long houseId) throws EntityException {
         setId(new StockItemId(houseId));
+    }
+
+    private void setId(StockItemId id) {
+        this.id = id;
     }
 
     public Integer getCategoryId() {

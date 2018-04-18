@@ -67,7 +67,7 @@ public class List {
         return id;
     }
 
-    private void setId(ListId  id) {
+    private void setId(ListId id) {
         this.id = id;
     }
 

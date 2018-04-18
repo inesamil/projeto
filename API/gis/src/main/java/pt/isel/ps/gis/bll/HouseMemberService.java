@@ -3,8 +3,6 @@ package pt.isel.ps.gis.bll;
 import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.model.UserHouseId;
 
-import java.util.List;
-
 public interface HouseMemberService {
 
     /**

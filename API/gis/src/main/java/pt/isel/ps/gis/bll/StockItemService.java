@@ -3,8 +3,6 @@ package pt.isel.ps.gis.bll;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemId;
 
-import java.util.List;
-
 public interface StockItemService {
 
     /**
