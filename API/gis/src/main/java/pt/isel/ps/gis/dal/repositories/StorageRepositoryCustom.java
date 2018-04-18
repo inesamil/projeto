@@ -4,5 +4,5 @@ import pt.isel.ps.gis.model.Storage;
 
 public interface StorageRepositoryCustom {
 
-    void insertStorage(Storage storage);
+    Storage insertStorage(Storage storage);
 }
