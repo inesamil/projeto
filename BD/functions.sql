@@ -35,6 +35,7 @@ $$ LANGUAGE plpgsql;
 -------------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------------
+
  -- Procedure to insert a SystemList
  -- DROP FUNCTION insert_system_list
 CREATE OR REPLACE FUNCTION insert_system_list(houseID bigint, listName character varying(35))
@@ -73,9 +74,15 @@ $$ LANGUAGE plpgsql;
 
 -- Procedure to insert a Product
 -- DROP FUNCTION insert_product
-------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_product(categoryID integer, designation character varying(35), edible boolean, shelfLife smallint, shelfLifeTimeUnit character varying(5))
-RETURNS public."product" AS $$
+RETURNS TABLE(
+	category_id integer,
+	product_id integer,
+	product_name character varying(35),
+	product_edible boolean,
+	product_shelflife smallint,
+	product_shelflifetimeunit character varying(5)
+) AS $$
 DECLARE 
 	productID smallint;
 BEGIN
@@ -89,7 +96,11 @@ BEGIN
 		
 	-- Add Product
 	INSERT INTO public."product" (category_id, product_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
-		VALUES (categoryID, productID, designation, edible, shelfLife, shelfLifeTimeUnit) RETURNING *;
+		VALUES (categoryID, productID, designation, edible, shelfLife, shelfLifeTimeUnit);
+		
+	RETURN query SELECT public."product".category_id, public."product".product_id, public."product".product_name, public."product".product_edible, public."product".product_shelflife,
+			public."product".product_shelflifetimeunit
+	FROM public."product" WHERE public."product".category_id = categoryID AND public."product".product_id = productID;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -99,7 +110,6 @@ $$ LANGUAGE plpgsql;
 
 -- Procedure to insert a StockItem
 -- DROP FUNCTION insert_stock_item
-------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_stock_item(
 	houseID bigint,
 	categoryID integer,
@@ -111,7 +121,19 @@ CREATE OR REPLACE FUNCTION insert_stock_item(
 	quantity smallint,
 	description text,
 	conservationStorage character varying(128)) 
-RETURNS character varying(128) AS $$
+RETURNS TABLE(
+	house_id bigint,
+	stockitem_sku character varying(128),
+	category_id integer,
+	product_id integer,
+	stockitem_brand character varying(35),
+	stockitem_segment real,
+	stockitem_variety character varying(35),
+	stockitem_quantity smallint,
+	stockitem_segmentunit character varying(5),
+	stockitem_description text,
+	stockitem_conservationstorage character varying(128)
+) AS $$
 DECLARE 
 	sku character varying(128) = 0;
 BEGIN
@@ -124,7 +146,12 @@ BEGIN
 										stockitem_segmentUnit, stockitem_quantity, stockitem_description, stockitem_conservationStorage) 
 		VALUES (houseID, sku, categoryID, productID, brand, variety, segment, segmentUnit, quantity, description, conservationStorage);
 		
-	RETURN sku;
+	RETURN query
+	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand,
+			public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit,
+			public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
+	FROM public."stockitem"
+	WHERE public."stockitem".house_id = houseID AND public."stockitem".stockitem_sku = sku;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -134,7 +161,6 @@ $$ LANGUAGE plpgsql;
 
 -- Procedure to generate a SKU
 -- DROP FUNCTION generate_sku
-------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION generate_sku(
 	categoryID integer,
 	productID integer,
@@ -149,7 +175,7 @@ BEGIN
 	-- Generate SKU
 	sku := 'C' || categoryID || 'P' || productID || '-' || brand || '-' || variety || '-' || segment || segmentUnit;
 	
-	return sku;
+	RETURN sku;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -159,14 +185,18 @@ $$ LANGUAGE plpgsql;
 
 -- Procedure to insert a Storage
 -- DROP FUNCTION insert_storage
-------------------------------------------------------------feito-------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insert_storage(houseID bigint, designation character varying(35), temperature numrange) 
-RETURNS VOID AS $$
+RETURNS TABLE(
+	house_id bigint,
+	storage_id smallint,
+	storage_name character varying(35),
+	storage_temperature numrange
+) AS $$
 DECLARE 
 	storageID smallint = 0;
 BEGIN
 	-- Get last id
-	SELECT storage_id FROM public."storage" WHERE house_id = houseID ORDER BY storage_id DESC LIMIT 1 INTO storageID;
+	SELECT public."storage".storage_id FROM public."storage" WHERE public."storage".house_id = houseID ORDER BY public."storage".storage_id DESC LIMIT 1 INTO storageID;
 	IF storageID IS NULL THEN
 		storageID := 1; 	-- First list inserted
 	ELSE
@@ -176,6 +206,10 @@ BEGIN
 	-- Add Product
 	INSERT INTO public."storage" (house_id, storage_id, storage_name, storage_temperature) 
 		VALUES (houseID, storageID, designation, temperature);
+		
+	RETURN query
+	SELECT public."storage".house_id, public."storage".storage_id, public."storage".storage_name, public."storage".storage_temperature FROM public."storage"
+	WHERE public."storage".house_id = houseID AND public."storage".storage_id = storageID;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -185,6 +219,7 @@ $$ LANGUAGE plpgsql;
 
 -- Function to return Lists filtered
 -- DROP FUNCTION get_lists_filtered
+--------------------------------------------------------verificar-------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION get_lists_filtered (houseID bigint, system boolean, username character varying(30), shared boolean)
 RETURNS TABLE(
 	house_id bigint,
@@ -194,15 +229,15 @@ RETURNS TABLE(
 AS $$
     SELECT public."list".house_id, public."list".list_id, public."list".list_name, public."list".list_type
 		FROM public."list"
-		WHERE house_id = houseID AND list_type = CASE WHEN system = true THEN 'system' ELSE null END
+		WHERE public."list".house_id = houseID AND list_type = CASE WHEN system = true THEN 'system' ELSE null END
 	UNION
 	SELECT public."list".house_id, public."list".list_id, public."list".list_name, public."list".list_type
 		FROM public."list" JOIN public."userlist" ON (public."list".house_id = public."userlist".house_id AND public."list".list_id = public."userlist".list_id)
-		WHERE house_id = houseID AND list_type = 'user' AND users_username = username
+		WHERE public."list".house_id = houseID AND list_type = 'user' AND users_username = username
 	UNION
 	SELECT public."list".house_id, public."list".list_id, public."list".list_name, public."list".list_type
 		FROM public."list" JOIN public."userlist" ON (public."list".house_id = public."userlist".house_id AND public."list".list_id = public."userlist".list_id)
-		WHERE house_id = houseID AND list_type = 'user' AND list_shareable = shared;
+		WHERE public."list".house_id = houseID AND list_type = 'user' AND list_shareable = shared;
 $$ LANGUAGE SQL;
 
 -------------------------------------------------------------------------------------------
@@ -211,6 +246,7 @@ $$ LANGUAGE SQL;
 
 -- Function to return Stock Items filtered
 -- DROP FUNCTION get_stock_items_filtered
+--------------------------------------------------------verificar-------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION get_stock_items_filtered (houseID bigint, productName character varying(35), brand character varying(35), variety character varying(35), 
 													segment real, storageID smallint)
 RETURNS TABLE(
@@ -241,6 +277,7 @@ $$ LANGUAGE SQL;
 
 -- Function to return Movements filtered
 -- DROP FUNCTION get_movements_filtered
+--------------------------------------------------------verificar-------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION get_movements_filtered (houseID bigint, item_sku character varying(128), type boolean, date date, storageID smallint)
 RETURNS TABLE(
 	house_id bigint,
