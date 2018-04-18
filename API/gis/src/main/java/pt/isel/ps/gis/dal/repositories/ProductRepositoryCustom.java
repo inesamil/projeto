@@ -4,5 +4,5 @@ import pt.isel.ps.gis.model.Product;
 
 public interface ProductRepositoryCustom {
 
-    void insertProduct(Product product);
+    Product insertProduct(Product product);
 }
