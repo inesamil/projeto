@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.UserService;
 import pt.isel.ps.gis.dal.repositories.UsersRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -43,10 +44,12 @@ public class UserServiceImpl implements UserService {
         return usersRepository.save(user);
     }
 
+    @Transactional
     @Override
     public void deleteUser(String username) throws EntityNotFoundException {
         if (!existsUserByUserId(username))
             throw new EntityNotFoundException(String.format("User with username %s does not exist.", username));
-        usersRepository.deleteById(username);   //TODO: delete
+        //TODO: deleteUserCascade
+        usersRepository.deleteById(username);   // Remover o utilizador
     }
 }
