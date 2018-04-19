@@ -32,7 +32,7 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
                     "UNION " +
                     "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, public.\"list\".list_type " +
                     "FROM public.\"list\" JOIN public.\"userlist\" ON (public.\"list\".house_id = public.\"userlist\".house_id AND public.\"list\".list_id = public.\"userlist\".list_id) " +
-                    "WHERE public.\"list\".house_id = ? AND list_type = 'user' AND list_shareable = ?;";
+                    "WHERE public.\"list\".house_id = ? AND list_type = 'user' AND list_shareable = (CASE WHEN ? = true THEN true ELSE null END);";
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 if (isNotNull(ps, 1, houseId))
                     ps.setLong(1, houseId);
