@@ -364,7 +364,6 @@ $$ LANGUAGE SQL;
 
 -- Function to return Stock Items filtered
 -- DROP FUNCTION get_stock_items_filtered
---------------------------------------------------------verificar-------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION get_stock_items_filtered (houseID bigint, productName character varying(35), brand character varying(35), variety character varying(35), 
 													segment real, storageID smallint)
 RETURNS TABLE(
@@ -380,31 +379,46 @@ RETURNS TABLE(
 	stockItem_description text,
 	stockItem_conservationStorage character varying(128))
 AS $$
-	-- Join with Product
 	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand, 
-		public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
-		public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
-	FROM public."stockitem" JOIN public."product" ON (public."stockitem".category_id = public."product".category_id AND public."stockitem".product_id = public."product".product_id)
-	WHERE public."stockitem".house_id = houseID AND public."product".product_name = productName
-	UNION
-	-- Join with StockItemStorage
+			public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
+			public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
+ 		FROM public."stockitem"
+		WHERE public."stockitem".house_id = houseID
+	EXCEPT
+	-- Except items whose product name is not @productName
 	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand, 
-		public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
-		public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
-	FROM public."stockitem" JOIN public."stockitemstorage" ON (public."stockitem".house_id = public."stockitemstorage".house_id AND public."stockitem".stockitem_sku = public."stockitemstorage".stockitem_sku)
-	WHERE public."stockitem".house_id = houseID AND public."stockitemstorage".storage_id = storageID
-	UNION 
+			public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
+			public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
+		FROM public."stockitem" JOIN public."product" ON (public."stockitem".category_id = public."product".category_id AND public."stockitem".product_id = public."product".product_id)
+		WHERE public."stockitem".house_id = houseID AND public."product".product_name != productName
+	EXCEPT
+	-- Except items whose brand is not @brand
 	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand, 
-		public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
-		public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
-	FROM public."stockitem"
-	WHERE public."stockitem".house_id = houseID AND (public."stockitem".stockitem_brand = brand OR public."stockitem".stockitem_variety = variety
-			OR public."stockitem".stockitem_segment = segment)
-	UNION 
+			public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
+			public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
+		FROM public."stockitem"
+		WHERE public."stockitem".house_id = houseID AND public."stockitem".stockitem_brand != brand
+	EXCEPT
+	-- Except whose items variety is not @variety
 	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand, 
-		public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
-		public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
-	FROM public."stockitem";
+			public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
+			public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
+		FROM public."stockitem"
+		WHERE public."stockitem".house_id = houseID AND public."stockitem".stockitem_variety != variety
+	EXCEPT
+	-- Except items whose segment is not @segment
+	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand, 
+			public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
+			public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
+		FROM public."stockitem"
+		WHERE public."stockitem".house_id = houseID AND public."stockitem".stockitem_segment != segment
+	EXCEPT
+	--  Except items whose storage is not identified by @storageID
+	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand, 
+			public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
+			public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
+		FROM public."stockitem" JOIN public."stockitemstorage" ON (public."stockitem".house_id = public."stockitemstorage".house_id AND public."stockitem".stockitem_sku = public."stockitemstorage".stockitem_sku)
+		WHERE public."stockitem".house_id = houseID AND public."stockitemstorage".storage_id != storageID;
 $$ LANGUAGE SQL;
 
 -------------------------------------------------------------------------------------------
@@ -413,7 +427,6 @@ $$ LANGUAGE SQL;
 
 -- Function to return Movements filtered
 -- DROP FUNCTION get_movements_filtered
---------------------------------------------------------verificar-------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION get_movements_filtered (houseID bigint, item_sku character varying(128), type boolean, date date, storageID smallint)
 RETURNS TABLE(
 	house_id bigint,
@@ -426,11 +439,31 @@ AS $$
     SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, public."stockitemmovement".storage_id, public."stockitemmovement".stockitemmovement_type, 
 		public."stockitemmovement".stockitemmovement_datetime, public."stockitemmovement".stockitemmovement_quantity
 		FROM public."stockitemmovement"
-		WHERE public."stockitemmovement".house_id = houseID 
-			AND (public."stockitemmovement".stockitem_sku = item_sku 
-			OR (type IS NOT NULL AND public."stockitemmovement".stockitemmovement_type = type)
-			OR DATE(public."stockitemmovement".stockitemmovement_datetime) = date
-			OR public."stockitemmovement".storage_id = storageID)
+		WHERE public."stockitemmovement".house_id = houseID
+	EXCEPT 
+	-- Except movements whose item has not sku = @item_sku
+	SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, public."stockitemmovement".storage_id, public."stockitemmovement".stockitemmovement_type, 
+		public."stockitemmovement".stockitemmovement_datetime, public."stockitemmovement".stockitemmovement_quantity
+		FROM public."stockitemmovement"
+		WHERE public."stockitemmovement".house_id = houseID AND public."stockitemmovement".stockitem_sku != item_sku 
+	EXCEPT
+	-- Except movements whose type is not @type
+	SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, public."stockitemmovement".storage_id, public."stockitemmovement".stockitemmovement_type, 
+		public."stockitemmovement".stockitemmovement_datetime, public."stockitemmovement".stockitemmovement_quantity
+		FROM public."stockitemmovement"
+		WHERE public."stockitemmovement".house_id = houseID AND public."stockitemmovement".stockitemmovement_type != type
+	EXCEPT
+	-- Except movements whose date was not @date
+	SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, public."stockitemmovement".storage_id, public."stockitemmovement".stockitemmovement_type, 
+		public."stockitemmovement".stockitemmovement_datetime, public."stockitemmovement".stockitemmovement_quantity
+		FROM public."stockitemmovement"
+		WHERE public."stockitemmovement".house_id = houseID AND DATE(public."stockitemmovement".stockitemmovement_datetime) != date
+	EXCEPT
+	-- Except movements not related with the storage with ID = @storageID 
+	SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, public."stockitemmovement".storage_id, public."stockitemmovement".stockitemmovement_type, 
+		public."stockitemmovement".stockitemmovement_datetime, public."stockitemmovement".stockitemmovement_quantity
+		FROM public."stockitemmovement"
+		WHERE public."stockitemmovement".house_id = houseID AND public."stockitemmovement".storage_id != storageID;
 $$ LANGUAGE SQL;
 
 -------------------------------------------------------------------------------------------
