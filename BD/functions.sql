@@ -343,17 +343,20 @@ RETURNS TABLE(
 	list_name character varying(35),
 	list_type character varying(7))
 AS $$
+	-- System Lists
     SELECT public."list".house_id, public."list".list_id, public."list".list_name, public."list".list_type
 		FROM public."list"
 		WHERE public."list".house_id = houseID AND list_type = CASE WHEN system = true THEN 'system' ELSE null END
 	UNION
+	-- My Lists
 	SELECT public."list".house_id, public."list".list_id, public."list".list_name, public."list".list_type
 		FROM public."list" JOIN public."userlist" ON (public."list".house_id = public."userlist".house_id AND public."list".list_id = public."userlist".list_id)
 		WHERE public."list".house_id = houseID AND list_type = 'user' AND users_username = username
 	UNION
+	-- Shared lists in the house
 	SELECT public."list".house_id, public."list".list_id, public."list".list_name, public."list".list_type
 		FROM public."list" JOIN public."userlist" ON (public."list".house_id = public."userlist".house_id AND public."list".list_id = public."userlist".list_id)
-		WHERE public."list".house_id = houseID AND list_type = 'user' AND list_shareable = shared;
+		WHERE public."list".house_id = houseID AND list_type = 'user' AND list_shareable = (CASE WHEN shared = true THEN true ELSE null END);
 $$ LANGUAGE SQL;
 
 -------------------------------------------------------------------------------------------
