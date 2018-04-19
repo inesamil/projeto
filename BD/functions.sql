@@ -335,7 +335,6 @@ $$ LANGUAGE plpgsql;
 
 -- Function to return Lists filtered
 -- DROP FUNCTION get_lists_filtered
---------------------------------------------------------verificar-------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION get_lists_filtered (houseID bigint, system boolean, username character varying(30), shared boolean)
 RETURNS TABLE(
 	house_id bigint,
@@ -381,13 +380,31 @@ RETURNS TABLE(
 	stockItem_description text,
 	stockItem_conservationStorage character varying(128))
 AS $$
-    SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand, 
-			public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
-			public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
-		FROM public."stockitem" JOIN public."product" ON (public."stockitem".category_id = public."product".category_id AND public."stockitem".product_id = public."product".product_id)
-			JOIN public."stockitemstorage" ON (public."stockitem".house_id = public."stockitemstorage".house_id AND public."stockitem".stockitem_sku = public."stockitemstorage".stockitem_sku)
-		WHERE public."stockitem".house_id = houseID AND (public."product".product_name = productName OR public."stockitem".stockitem_brand = brand OR public."stockitem".stockitem_variety = variety
-			OR public."stockitem".stockitem_segment = segment OR public."stockitemstorage".storage_id = storageID)
+	-- Join with Product
+	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand, 
+		public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
+		public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
+	FROM public."stockitem" JOIN public."product" ON (public."stockitem".category_id = public."product".category_id AND public."stockitem".product_id = public."product".product_id)
+	WHERE public."stockitem".house_id = houseID AND public."product".product_name = productName
+	UNION
+	-- Join with StockItemStorage
+	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand, 
+		public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
+		public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
+	FROM public."stockitem" JOIN public."stockitemstorage" ON (public."stockitem".house_id = public."stockitemstorage".house_id AND public."stockitem".stockitem_sku = public."stockitemstorage".stockitem_sku)
+	WHERE public."stockitem".house_id = houseID AND public."stockitemstorage".storage_id = storageID
+	UNION 
+	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand, 
+		public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
+		public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
+	FROM public."stockitem"
+	WHERE public."stockitem".house_id = houseID AND (public."stockitem".stockitem_brand = brand OR public."stockitem".stockitem_variety = variety
+			OR public."stockitem".stockitem_segment = segment)
+	UNION 
+	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand, 
+		public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit, 
+		public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
+	FROM public."stockitem";
 $$ LANGUAGE SQL;
 
 -------------------------------------------------------------------------------------------
