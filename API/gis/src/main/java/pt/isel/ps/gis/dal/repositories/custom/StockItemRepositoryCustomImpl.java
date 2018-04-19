@@ -24,23 +24,61 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
             String sql = "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
                     "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
                     "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage " +
+                    "FROM public.\"stockitem\" " +
+                    "WHERE public.\"stockitem\".house_id = ? " +
+                    "EXCEPT " +
+                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
+                    "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
+                    "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage " +
                     "FROM public.\"stockitem\" JOIN public.\"product\" ON (public.\"stockitem\".category_id = public.\"product\".category_id AND public.\"stockitem\".product_id = public.\"product\".product_id) " +
-                    "JOIN public.\"stockitemstorage\" ON (public.\"stockitem\".house_id = public.\"stockitemstorage\".house_id AND public.\"stockitem\".stockitem_sku = public.\"stockitemstorage\".stockitem_sku) " +
-                    "WHERE public.\"stockitem\".house_id = ? AND (public.\"product\".product_name = ? OR public.\"stockitem\".stockitem_brand = ? OR public.\"stockitem\".stockitem_variety = ? " +
-                    "OR public.\"stockitem\".stockitem_segment = ? OR public.\"stockitemstorage\".storage_id = ?);";
+                    "WHERE public.\"stockitem\".house_id = ? AND public.\"product\".product_name != ? " +
+                    "EXCEPT " +
+                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
+                    "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
+                    "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage " +
+                    "FROM public.\"stockitem\" " +
+                    "WHERE public.\"stockitem\".house_id = ? AND public.\"stockitem\".stockitem_brand != ? " +
+                    "EXCEPT " +
+                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
+                    "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
+                    "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage " +
+                    "FROM public.\"stockitem\" " +
+                    "WHERE public.\"stockitem\".house_id = ? AND public.\"stockitem\".stockitem_variety != ? " +
+                    "EXCEPT " +
+                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
+                    "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
+                    "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage " +
+                    "FROM public.\"stockitem\" " +
+                    "WHERE public.\"stockitem\".house_id = ? AND public.\"stockitem\".stockitem_segment != ? " +
+                    "EXCEPT " +
+                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
+                    "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
+                    "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage " +
+                    "FROM public.\"stockitem\" JOIN public.\"stockitemstorage\" ON (public.\"stockitem\".house_id = public.\"stockitemstorage\".house_id AND public.\"stockitem\".stockitem_sku = public.\"stockitemstorage\".stockitem_sku) " +
+                    "WHERE public.\"stockitem\".house_id = ? AND public.\"stockitemstorage\".storage_id != ?;";
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 if (isNotNull(ps, 1, houseId))
                     ps.setLong(1, houseId);
-                if (isNotNull(ps, 2, productName))
-                    ps.setString(2, productName);
-                if (isNotNull(ps, 3, brand))
-                    ps.setString(3, brand);
-                if (isNotNull(ps, 4, variety))
-                    ps.setString(4, variety);
-                if (isNotNull(ps, 5, segment))
-                    ps.setFloat(5, segment);
-                if (isNotNull(ps, 6, storageId))
-                    ps.setShort(6, storageId);
+                if (isNotNull(ps, 2, houseId))
+                    ps.setLong(2, houseId);
+                if (isNotNull(ps, 3, productName))
+                    ps.setString(3, productName);
+                if (isNotNull(ps, 4, houseId))
+                    ps.setLong(4, houseId);
+                if (isNotNull(ps, 5, brand))
+                    ps.setString(5, brand);
+                if (isNotNull(ps, 6, houseId))
+                    ps.setLong(6, houseId);
+                if (isNotNull(ps, 7, variety))
+                    ps.setString(7, variety);
+                if (isNotNull(ps, 8, houseId))
+                    ps.setLong(8, houseId);
+                if (isNotNull(ps, 9, segment))
+                    ps.setFloat(9, segment);
+                if (isNotNull(ps, 10, houseId))
+                    ps.setLong(10, houseId);
+                if (isNotNull(ps, 11, storageId))
+                    ps.setShort(11, storageId);
                 try (ResultSet resultSet = ps.executeQuery()) {
                     List<StockItem> stockItems = new ArrayList<>();
                     while (resultSet.next()) {
