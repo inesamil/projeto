@@ -19,7 +19,7 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public java.util.List<List> getListsFiltered(final Long houseId, final Boolean system, final String username, final Boolean shared) {
+    public java.util.List<List> findListsFiltered(final Long houseId, final Boolean system, final String username, final Boolean shared) {
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
             String sql = "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, public.\"list\".list_type " +

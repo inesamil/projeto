@@ -4,5 +4,5 @@ import pt.isel.ps.gis.model.List;
 
 public interface ListRepositoryCustom {
 
-    java.util.List<List> getListsFiltered(Long houseId, Boolean system, String username, Boolean shared);
+    java.util.List<List> findListsFiltered(Long houseId, Boolean system, String username, Boolean shared);
 }
