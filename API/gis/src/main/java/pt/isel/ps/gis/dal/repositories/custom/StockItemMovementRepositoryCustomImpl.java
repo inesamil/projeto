@@ -20,27 +20,49 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
     public List<StockItemMovement> getMovementsFiltered(Long houseId, String sku, Boolean type, Timestamp date, Short storageId) {
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
-            String sql = "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, " +
-                    "public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
+            String sql = "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
                     "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
-                    "FROM public.\"stockitemmovement\" WHERE public.\"stockitemmovement\".house_id = ? AND " +
-                    "(public.\"stockitemmovement\".stockitem_sku = ? OR (? IS NOT NULL AND " +
-                    "public.\"stockitemmovement\".stockitemmovement_type = ?) OR " +
-                    "DATE(public.\"stockitemmovement\".stockitemmovement_datetime) = ? " +
-                    "OR public.\"stockitemmovement\".storage_id = ?)";
+                    "FROM public.\"stockitemmovement\" " +
+                    "WHERE public.\"stockitemmovement\".house_id = ? " +
+                    "EXCEPT " +
+                    "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
+                    "FROM public.\"stockitemmovement\" " +
+                    "WHERE public.\"stockitemmovement\".house_id = ? AND public.\"stockitemmovement\".stockitem_sku != ? " +
+                    "EXCEPT " +
+                    "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
+                    "FROM public.\"stockitemmovement\" " +
+                    "WHERE public.\"stockitemmovement\".house_id = ? AND public.\"stockitemmovement\".stockitemmovement_type != ? " +
+                    "EXCEPT " +
+                    "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
+                    "FROM public.\"stockitemmovement\" " +
+                    "WHERE public.\"stockitemmovement\".house_id = ? AND DATE(public.\"stockitemmovement\".stockitemmovement_datetime) != ? " +
+                    "EXCEPT " +
+                    "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
+                    "FROM public.\"stockitemmovement\" " +
+                    "WHERE public.\"stockitemmovement\".house_id = ? AND public.\"stockitemmovement\".storage_id != ?;";
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 if (isNotNull(ps, 1, houseId))
                     ps.setLong(1, houseId);
-                if (isNotNull(ps, 2, sku))
-                    ps.setString(2, sku);
-                if (isNotNull(ps, 3, type))
-                    ps.setBoolean(3, type);
-                if (isNotNull(ps, 4, type))
-                    ps.setBoolean(4, type);
-                if (isNotNull(ps, 5, date))
-                    ps.setTimestamp(5, date);
-                if (isNotNull(ps, 6, storageId))
-                    ps.setShort(6, storageId);
+                if (isNotNull(ps, 2, houseId))
+                    ps.setLong(2, houseId);
+                if (isNotNull(ps, 3, sku))
+                    ps.setString(3, sku);
+                if (isNotNull(ps, 4, houseId))
+                    ps.setLong(4, houseId);
+                if (isNotNull(ps, 5, type))
+                    ps.setBoolean(5, type);
+                if (isNotNull(ps, 6, houseId))
+                    ps.setLong(6, houseId);
+                if (isNotNull(ps, 7, date))
+                    ps.setTimestamp(7, date);
+                if (isNotNull(ps, 8, houseId))
+                    ps.setLong(8, houseId);
+                if (isNotNull(ps, 9, storageId))
+                    ps.setShort(9, storageId);
                 try (ResultSet resultSet = ps.executeQuery()) {
                     List<StockItemMovement> stockItemMovements = new ArrayList<>();
                     while (resultSet.next()) {
