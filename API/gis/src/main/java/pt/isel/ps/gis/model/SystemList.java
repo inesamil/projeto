@@ -1,7 +1,6 @@
 package pt.isel.ps.gis.model;
 
 import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -25,7 +24,6 @@ public class SystemList {
             @JoinColumn(name = "list_id", referencedColumnName = "list_id", nullable = false)
     })
     private List list;
-    private Long houseId;
 
     /**
      * CONSTRUTORES
@@ -35,7 +33,7 @@ public class SystemList {
 
     public SystemList(Long houseId, String listName) throws EntityException {
         setList(houseId, listName, "system");
-        setPartialId(houseId);
+        this.id = new SystemListId(houseId);
     }
 
     public SystemList(Long houseId, Short listId, String listName) throws EntityException {
@@ -52,11 +50,6 @@ public class SystemList {
 
     private void setId(SystemListId id) {
         this.id = id;
-    }
-
-    public void setPartialId(Long houseId) throws EntityException {
-        ValidationsUtils.validateHouseId(houseId);
-        this.houseId = houseId;
     }
 
     public void setId(Long houseId, Short listId) throws EntityException {
