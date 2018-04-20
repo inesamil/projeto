@@ -1,5 +1,42 @@
- -- Procedure to delete a House
- -- DROP FUNCTION delete_house
+-- Procedure to delete a User
+-- DROP FUNCTION delete_user
+CREATE OR REPLACE FUNCTION delete_user(username character varying(35)) 
+RETURNS VOID AS $$
+DECLARE
+    cursor_userLists CURSOR FOR SELECT * FROM public."UserList" WHERE user_username = username;
+	rec_userList   RECORD;
+BEGIN
+	-- Remove UserLists and Lists
+	OPEN cursor_userLists;
+	LOOP
+		-- Fetch row into the rec_userList
+		FETCH cursor_userLists INTO rec_userList;
+		-- exit when no more row to fetch
+		EXIT WHEN NOT FOUND;
+
+		-- Delete from UserList (child)
+		DELETE FROM public."UserList" WHERE house_id = rec_userList.house_id AND list_id = rec_userList.list_id;
+		-- Delete from List (parent)
+		DELETE FROM public."List" WHERE house_id = rec_userList.house_id AND list_id = rec_userList.list_id;
+	END LOOP;
+
+	-- Close the cursor
+	CLOSE cursor_userLists;
+
+	-- Remove User From Houses	
+	DELETE FROM public."UserHouse" WHERE user_username = username;
+
+	-- Remove User
+	DELETE FROM public."User" WHERE user_username = username;
+END;
+$$ LANGUAGE plpgsql;
+
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------
+
+-- Procedure to delete a House
+-- DROP FUNCTION delete_house
 CREATE OR REPLACE FUNCTION delete_house(id bigint) 
 RETURNS VOID AS $$
 BEGIN
