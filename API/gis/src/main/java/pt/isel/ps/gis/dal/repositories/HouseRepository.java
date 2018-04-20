@@ -15,6 +15,4 @@ public interface HouseRepository extends CrudRepository<House, Long>, HouseRepos
             "FROM public.\"house\" JOIN public.\"userhouse\" ON public.\"house\".house_id = public.\"userhouse\".house_id " +
             "WHERE public.\"userhouse\".users_username = :username", nativeQuery = true)
     List<House> findAllByUsersUsername(@Param("username") String username);
-
-    //TODO: deleteHouseById(Long houseId) // Apaga a casa com ID = @houseId e todo o conteúdo associado à casa
 }

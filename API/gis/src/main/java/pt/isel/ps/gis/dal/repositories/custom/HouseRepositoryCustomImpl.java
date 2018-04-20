@@ -13,7 +13,7 @@ public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public void deleteHouse(Long houseId) {
+    public void deleteHouseById(Long houseId) {
         Session session = entityManager.unwrap(Session.class);
         session.doWork(connection -> {
             try (CallableStatement function = connection.prepareCall(
