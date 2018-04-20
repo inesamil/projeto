@@ -159,7 +159,6 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
 
     @Override
     public void deleteStockItem(StockItemId id) {
-        // TODO testar
         Session session = entityManager.unwrap(Session.class);
         session.doWork(connection -> {
             try (CallableStatement function = connection.prepareCall(
