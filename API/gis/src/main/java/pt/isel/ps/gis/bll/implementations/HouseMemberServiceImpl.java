@@ -8,6 +8,7 @@ import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.model.UserHouseId;
 
 import java.util.List;
+import java.util.Optional;
 
 public class HouseMemberServiceImpl implements HouseMemberService {
 
@@ -20,6 +21,11 @@ public class HouseMemberServiceImpl implements HouseMemberService {
     @Override
     public boolean existsMemberByMemberId(long houseId, String username) throws EntityException {
         return userHouseRepository.existsById(new UserHouseId(houseId, username));
+    }
+
+    @Override
+    public Optional<UserHouse> getMemberByMemberId(long houseId, String username) throws EntityException {
+        return userHouseRepository.findById(new UserHouseId(houseId, username));
     }
 
     @Override
@@ -42,7 +48,7 @@ public class HouseMemberServiceImpl implements HouseMemberService {
     }
 
     @Override
-    public void deleteMember(long houseId, String username) throws EntityException, EntityNotFoundException {
+    public void deleteMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException {
         UserHouseId id = new UserHouseId(houseId, username);
         if (!userHouseRepository.existsById(id))
             throw new EntityNotFoundException(String.format("Member with username %s does not exist in the house with ID %d",

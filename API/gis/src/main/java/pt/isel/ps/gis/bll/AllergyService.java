@@ -6,5 +6,9 @@ import java.util.List;
 
 public interface AllergyService {
 
+    /**
+     * Listar todas as alergias
+     * @return List<Allergy>
+     */
     List<Allergy> getAllergies();
 }

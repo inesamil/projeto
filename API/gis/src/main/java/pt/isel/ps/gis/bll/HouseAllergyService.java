@@ -14,6 +14,7 @@ public interface HouseAllergyService {
      * @param houseId identificador da casa
      * @param allergy identificador da alergia
      * @return true se a alergia existir na casa, false caso contrário
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
     boolean existsHouseAllergyByHouseAllergyId(long houseId, String allergy) throws EntityException;
 
@@ -38,14 +39,17 @@ public interface HouseAllergyService {
      *
      * @param houseAllergy alergia atualizada
      * @return HouseAllergy
+     * @throws EntityNotFoundException se não encontrar a alergia especificada na casa particularizada
      */
-    HouseAllergy updateHouseAllergy(HouseAllergy houseAllergy) throws EntityException, EntityNotFoundException;
+    HouseAllergy updateHouseAllergy(HouseAllergy houseAllergy) throws EntityNotFoundException;
 
     /**
      * Desassociar uma alergia de uma casa
      *
      * @param houseId identificador da casa
      * @param allergen identificador da alergia
+     * @throws EntityException se os parâmetros recebidos forem inválidos
+     * @throws EntityNotFoundException se não encontrar a alergia especificada na casa particularizada
      */
     void deleteHouseAllergyByHouseAllergyId(long houseId, String allergen) throws EntityException, EntityNotFoundException;
 }

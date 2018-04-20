@@ -26,7 +26,7 @@ public interface CategoryService {
      * Obter uma categoria através do seu ID
      *
      * @param categoryId identificador da categoria
-     * @return Cateory
+     * @return Optional<Category>
      */
     Optional<Category> getCategoryByCategoryId(int categoryId);
 

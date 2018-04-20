@@ -13,18 +13,22 @@ public interface ListService {
     /**
      * Verifica se uma dada lista existe através do seu ID
      *
+     * @param houseId  identificador da lista
      * @param listId identificador da lista
      * @return true se a lista existir, false caso contrário
+     * @throws EntityException se os parâmetros recebidos não forem válidos
      */
-    boolean existsListByListId(ListId listId);
+    boolean existsListByListId(long houseId, short listId) throws EntityException;
 
     /**
      * Obter uma lista através do seu ID
      *
+     * @param houseId identificador da casa
      * @param listId identificador da lista
-     * @return List
+     * @return Optional<List>
+     * @throws EntityException se os parâmetros recebidos não forem válidos
      */
-    Optional<List> getListByListId(ListId listId);
+    Optional<List> getListByListId(long houseId, short listId) throws EntityException;
 
     /**
      * Listar as listas de uma casa através do ID da casa
@@ -47,7 +51,7 @@ public interface ListService {
      * Adicionar uma lista a uma casa
      *
      * @param list lista a adicionar
-     * @return List
+     * @return UserList
      */
     UserList addUserList(UserList list);
 
@@ -56,15 +60,19 @@ public interface ListService {
      *
      * @param list lista atualizada
      * @return List
+     * @throws EntityNotFoundException se a lista especificada não existir na casa particularizada
      */
     List updateList(List list) throws EntityNotFoundException;
 
     /**
      * Remover uma lista duma casa
      *
+     * @param houseId identificador da casa
      * @param listId identificador da lista
+     * @throws EntityException se os parâmetros recebidos forem inválidos
+     * @throws EntityNotFoundException se a lista especificada não existir na casa particularizada
      */
-    void deleteList(long houseId, short listId) throws EntityException, EntityNotFoundException;
+    void deleteListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException;
 
     /**
      * Filtros - filtragem das listas

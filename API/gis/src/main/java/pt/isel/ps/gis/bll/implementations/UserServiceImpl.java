@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void deleteUser(String username) throws EntityNotFoundException {
+    public void deleteUserByUserId(String username) throws EntityNotFoundException {
         if (!existsUserByUserId(username))
             throw new EntityNotFoundException(String.format("User with username %s does not exist.", username));
         //TODO: deleteUserCascade

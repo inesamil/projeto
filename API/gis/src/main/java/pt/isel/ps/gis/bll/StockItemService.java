@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll;
 
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.StockItem;
 
 import java.util.List;
@@ -13,17 +14,19 @@ public interface StockItemService {
      * @param houseId identificador da casa
      * @param stockItemSku identificador do item
      * @return true se o item em stock existir na casa, false caso contrário
+     * @throws EntityException se os parâmetros forem inválidos
      */
-    boolean existsStockItemByStockItemId(long houseId, String stockItemSku);
+    boolean existsStockItemByStockItemId(long houseId, String stockItemSku) throws EntityException;
 
     /**
      * Obter um item em stock através do seu ID
      *
      * @param houseId identificador da casa
      * @param stockItemSku identificador do item
-     * @return StockItem
+     * @return Optional<StockItem>
+     * @throws EntityException se os parâmetros forem inválidos
      */
-    Optional<StockItem> getStockItemByStockItemId(long houseId, String stockItemSku);
+    Optional<StockItem> getStockItemByStockItemId(long houseId, String stockItemSku) throws EntityException;
 
     /**
      * Listar todos os itens em stock duma casa através do ID da casa

@@ -21,7 +21,7 @@ public interface HouseService {
      * Obter uma casa através do seu ID
      *
      * @param houseId identificador da casa
-     * @return House
+     * @return Optional<House>
      */
     Optional<House> getHouseByHouseId(long houseId);
 
@@ -38,6 +38,7 @@ public interface HouseService {
      *
      * @param house casa a adicionar
      * @return House
+     * @throws EntityException se os atributos especificados no parâmetro house forem inválidos
      */
     House addHouse(House house) throws EntityException;
 
@@ -46,6 +47,7 @@ public interface HouseService {
      *
      * @param house casa atualizada
      * @return House
+     * @throws EntityNotFoundException se a casa especificada não existir
      */
     House updateHouse(House house) throws EntityNotFoundException;
 
@@ -53,7 +55,7 @@ public interface HouseService {
      * Remover uma casa
      *
      * @param houseId identificador da casa a remover
-     * @throws EntityNotFoundException
+     * @throws EntityNotFoundException  se a casa especificada não existir
      */
     void deleteHouseByHouseId(long houseId) throws EntityNotFoundException;
 }

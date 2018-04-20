@@ -2,6 +2,7 @@ package pt.isel.ps.gis.bll.implementations;
 
 import pt.isel.ps.gis.bll.StockItemMovementService;
 import pt.isel.ps.gis.dal.repositories.StockItemMovementRepository;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.StockItemMovementId;
 
@@ -17,7 +18,7 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
     }
 
     @Override
-    public boolean existsStockItemMovementByStockItemMovementId(long houseId, String stockItemSku, short storageId, boolean type, Timestamp dateTime) {
+    public boolean existsStockItemMovementByStockItemMovementId(long houseId, String stockItemSku, short storageId, boolean type, Timestamp dateTime) throws EntityException {
         return stockItemMovementRepository.existsById(new StockItemMovementId(houseId, stockItemSku, storageId, type, dateTime));
     }
 

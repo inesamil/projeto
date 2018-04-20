@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll;
 
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.StockItemMovement;
 
 import java.sql.Timestamp;
@@ -16,8 +17,9 @@ public interface StockItemMovementService {
      * @param type tipo do movimento
      * @param dateTime data do movimento
      * @return true se o movimento existir, false caso contrário
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    boolean existsStockItemMovementByStockItemMovementId(long houseId, String stockItemSku, short storageId, boolean type, Timestamp dateTime);
+    boolean existsStockItemMovementByStockItemMovementId(long houseId, String stockItemSku, short storageId, boolean type, Timestamp dateTime) throws EntityException;
 
     /**
      * Listar os movimentos dos itens de uma casa

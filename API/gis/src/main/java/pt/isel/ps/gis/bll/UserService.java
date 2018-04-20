@@ -29,6 +29,7 @@ public interface UserService {
      *
      * @param user utilizador a adicionar
      * @return User
+     * @throws EntityException se os atributos especificados no parâmetro user forem inválidos
      */
     Users addUser(Users user) throws EntityException;
 
@@ -37,6 +38,7 @@ public interface UserService {
      *
      * @param user utilizador a atualizar
      * @return User
+     * @throws EntityNotFoundException se o utilizador especificado não existir
      */
     Users updateUser(Users user) throws EntityNotFoundException;
 
@@ -44,6 +46,7 @@ public interface UserService {
      * Remover um utilizador
      *
      * @param username identificador do utilizador
+     * @throws EntityNotFoundException se o utilizador especificado não existir
      */
-    void deleteUser(String username) throws EntityNotFoundException;
+    void deleteUserByUserId(String username) throws EntityNotFoundException;
 }

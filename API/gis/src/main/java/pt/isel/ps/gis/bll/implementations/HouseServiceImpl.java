@@ -32,8 +32,7 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public List<House> getHousesByUserId(String username) {
-        //TODO: listar casas do utilizador com @username
-        throw new NotImplementedException();
+        return houseRepository.findAllByUsersUsername(username);
     }
 
     @Override

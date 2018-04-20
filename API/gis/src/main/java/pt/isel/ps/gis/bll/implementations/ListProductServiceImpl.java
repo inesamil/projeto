@@ -8,6 +8,7 @@ import pt.isel.ps.gis.model.ListProduct;
 import pt.isel.ps.gis.model.ListProductId;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ListProductServiceImpl implements ListProductService {
 
@@ -20,6 +21,11 @@ public class ListProductServiceImpl implements ListProductService {
     @Override
     public boolean existsListProductByListProductId(long houseId, short listId, int categoryId, int productId) throws EntityException {
         return listProductRepository.existsById(new ListProductId(houseId, listId, categoryId, productId));
+    }
+
+    @Override
+    public Optional<ListProduct> getListProductByListProductId(long houseId, short listId, int categoryId, int productId) throws EntityException {
+        return listProductRepository.findById(new ListProductId(houseId, listId, categoryId, productId));
     }
 
     @Override
@@ -42,7 +48,7 @@ public class ListProductServiceImpl implements ListProductService {
     }
 
     @Override
-    public void deleteListProduct(long houseId, short listId, int categoryId, int productId) throws EntityException, EntityNotFoundException {
+    public void deleteListProductByListProductId(long houseId, short listId, int categoryId, int productId) throws EntityException, EntityNotFoundException {
         ListProductId id = new ListProductId(houseId, listId, categoryId, productId);
         if (!listProductRepository.existsById(id))
             throw new EntityNotFoundException(String.format("Product with ID %d from the category with ID %d does not exist in the list with ID %d in the house with ID %d.",

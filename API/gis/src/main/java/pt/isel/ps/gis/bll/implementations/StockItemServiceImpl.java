@@ -2,6 +2,7 @@ package pt.isel.ps.gis.bll.implementations;
 
 import pt.isel.ps.gis.bll.StockItemService;
 import pt.isel.ps.gis.dal.repositories.StockItemRepository;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemId;
 
@@ -17,12 +18,12 @@ public class StockItemServiceImpl implements StockItemService {
     }
 
     @Override
-    public boolean existsStockItemByStockItemId(long houseId, String stockItemSku) {
+    public boolean existsStockItemByStockItemId(long houseId, String stockItemSku) throws EntityException {
         return stockItemRepository.existsById(new StockItemId(houseId, stockItemSku));
     }
 
     @Override
-    public Optional<StockItem> getStockItemByStockItemId(long houseId, String stockItemSku) {
+    public Optional<StockItem> getStockItemByStockItemId(long houseId, String stockItemSku) throws EntityException {
         return stockItemRepository.findById(new StockItemId(houseId, stockItemSku));
     }
 

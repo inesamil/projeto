@@ -27,13 +27,13 @@ public class StockItemId implements Serializable {
     protected StockItemId() {
     }
 
-    public StockItemId(Long houseId) {
-        this.houseId = houseId;
+    public StockItemId(Long houseId) throws EntityException {
+        setHouseId(houseId);
     }
 
-    public StockItemId(Long houseId, String stockitemSku) {
-        this.houseId = houseId;
-        this.stockitemSku = stockitemSku;
+    public StockItemId(Long houseId, String stockitemSku) throws EntityException {
+        this(houseId);
+        setStockitemSku(stockitemSku);
     }
 
     /**

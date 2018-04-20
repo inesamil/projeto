@@ -33,7 +33,7 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
     }
 
     @Override
-    public HouseAllergy updateHouseAllergy(HouseAllergy houseAllergy) throws EntityException, EntityNotFoundException {
+    public HouseAllergy updateHouseAllergy(HouseAllergy houseAllergy) throws EntityNotFoundException {
         HouseAllergyId id = houseAllergy.getId();
         if (houseAllergyRepository.existsById(id))
             throw new EntityNotFoundException(String.format("The allergy with name %s does not exist in the house with ID %d.",

@@ -25,13 +25,13 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public boolean existsListByListId(ListId listId) {
-        return listRepository.existsById(listId);
+    public boolean existsListByListId(long houseId, short listId) throws EntityException {
+        return listRepository.existsById(new ListId(houseId, listId));
     }
 
     @Override
-    public Optional<List> getListByListId(ListId listId) {
-        return listRepository.findById(listId);
+    public Optional<List> getListByListId(long houseId, short listId) throws EntityException {
+        return listRepository.findById(new ListId(houseId, listId));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public void deleteList(long houseId, short listId) throws EntityException, EntityNotFoundException {
+    public void deleteListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
         ListId id = new ListId(houseId, listId);
         if (!listRepository.existsById(id))
             throw new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",

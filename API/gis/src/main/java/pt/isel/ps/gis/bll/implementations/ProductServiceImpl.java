@@ -2,6 +2,7 @@ package pt.isel.ps.gis.bll.implementations;
 
 import pt.isel.ps.gis.bll.ProductService;
 import pt.isel.ps.gis.dal.repositories.ProductRepository;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.Product;
 import pt.isel.ps.gis.model.ProductId;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -18,12 +19,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean existsProductByProductId(int categoryId, int productId) {
+    public boolean existsProductByProductId(int categoryId, int productId) throws EntityException {
         return productRepository.existsById(new ProductId(categoryId, productId));
     }
 
     @Override
-    public Optional<Product> getProductByProductId(int categoryId, int productId) {
+    public Optional<Product> getProductByProductId(int categoryId, int productId) throws EntityException {
         return productRepository.findById(new ProductId(categoryId, productId));
     }
 

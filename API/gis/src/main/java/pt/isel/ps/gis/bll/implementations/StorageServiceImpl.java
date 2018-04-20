@@ -25,8 +25,8 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public Optional<Storage> getStorageByStorageId(StorageId storageId) {
-        return storageRepository.findById(storageId);
+    public Optional<Storage> getStorageByStorageId(long houseId, short storageId) throws EntityException {
+        return storageRepository.findById(new StorageId(houseId, storageId));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public void deleteStorage(long houseId, short storageId) throws EntityException, EntityNotFoundException {
+    public void deleteStorageByStorageId(long houseId, short storageId) throws EntityException, EntityNotFoundException {
         StorageId id = new StorageId(houseId, storageId);
         if (!storageRepository.existsById(id))
             throw new EntityNotFoundException(String.format("Storage with ID %d does not exist in the house with ID %d.",

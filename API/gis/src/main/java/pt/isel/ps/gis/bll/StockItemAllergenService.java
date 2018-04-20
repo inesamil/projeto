@@ -15,6 +15,7 @@ public interface StockItemAllergenService {
      * @param stockItemSku identificador do item
      * @param allergen identificador do alergénio
      * @return true se o alergénio estiver presente no item em stock da casa, false caso contrário
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
     boolean existsAllergenByStockItemAllergenId(long houseId, String stockItemSku, String allergen) throws EntityException;
 

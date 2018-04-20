@@ -5,6 +5,7 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.ListProduct;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ListProductService {
 
@@ -16,8 +17,21 @@ public interface ListProductService {
      * @param categoryId identificador da categoria
      * @param productId identificador do produto
      * @return true se o produto existir na lista, false caso contrário
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
     boolean existsListProductByListProductId(long houseId, short listId, int categoryId, int productId) throws EntityException;
+
+    /**
+     * Obter um dado produto de uma lista através dos seus IDs
+     *
+     * @param houseId identificador da casa
+     * @param listId identificador da lista
+     * @param categoryId identificador da categoria
+     * @param productId identificador do produto
+     * @return Optional<ListProduct>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
+     */
+    Optional<ListProduct> getListProductByListProductId(long houseId, short listId, int categoryId, int productId) throws EntityException;
 
     /**
      * Listar os produtos de uma lista
@@ -41,6 +55,7 @@ public interface ListProductService {
      *
      * @param listProduct produto atualizado
      * @return ListProduct
+     * @throws EntityNotFoundException se o produto especificado não existir na lista particularizada
      */
     ListProduct updateListProduct(ListProduct listProduct) throws EntityNotFoundException;
 
@@ -48,7 +63,9 @@ public interface ListProductService {
      * Remover um produto duma lista
      *
      * @param productId identificador do produto
+     * @throws EntityException se os parâmetros recebidos forem inválidos
+     * @throws EntityNotFoundException se o produto especificado não existir na lista particularizada
      */
-    void deleteListProduct(long houseId, short listId, int categoryId, int productId) throws EntityException, EntityNotFoundException;
+    void deleteListProductByListProductId(long houseId, short listId, int categoryId, int productId) throws EntityException, EntityNotFoundException;
 
 }

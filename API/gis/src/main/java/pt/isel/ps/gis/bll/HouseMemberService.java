@@ -5,6 +5,7 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.UserHouse;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface HouseMemberService {
 
@@ -14,14 +15,25 @@ public interface HouseMemberService {
      * @param houseId identificador da casa
      * @param username identificador do utilizador
      * @return true se o membro existir na casa, false caso contrário
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
     boolean existsMemberByMemberId(long houseId, String username) throws EntityException;
+
+    /**
+     * Obter um membro da casa através dos seus IDs
+     *
+     * @param houseId identificador da casa
+     * @param username identificador do utilizador
+     * @return Optional<UserHouse>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
+     */
+    Optional<UserHouse> getMemberByMemberId(long houseId, String username) throws EntityException;
 
     /**
      * Listar os membros de uma casa através do ID da casa
      *
      * @param houseId identificador da casa
-     * @return List<Member>
+     * @return List<UserHouse>
      */
     List<UserHouse> getMembersByHouseId(long houseId);
 
@@ -29,7 +41,7 @@ public interface HouseMemberService {
      * Adicionar um membro à casa
      *
      * @param member membro a adicionar
-     * @return Member
+     * @return UserHouse
      */
     UserHouse addMember(UserHouse member);
 
@@ -37,15 +49,18 @@ public interface HouseMemberService {
      * Atualizar os atributos de um membro
      *
      * @param member membro a atualizar
-     * @return Member
+     * @return UserHouse
+     * @throws EntityNotFoundException se o membro especificado não existir na casa particularizada
      */
-    UserHouse updateMember(UserHouse member) throws EntityException, EntityNotFoundException;
+    UserHouse updateMember(UserHouse member) throws EntityNotFoundException;
 
     /**
      * Remover um membro da casa
      *
      * @param houseId identificador da casa
      * @param username identificador do utilizador
+     * @throws EntityException se os parâmetros recebidos forem inválidos
+     * @throws EntityNotFoundException se o membro especificado não existir na casa particularizada
      */
-    void deleteMember(long houseId, String username) throws EntityException, EntityNotFoundException;
+    void deleteMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException;
 }

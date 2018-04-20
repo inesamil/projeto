@@ -26,13 +26,13 @@ public class ProductId implements Serializable {
     protected ProductId() {
     }
 
-    public ProductId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public ProductId(Integer categoryId) throws EntityException {
+        setCategoryId(categoryId);
     }
 
-    public ProductId(Integer categoryId, Integer productId) {
-        this.categoryId = categoryId;
-        this.productId = productId;
+    public ProductId(Integer categoryId, Integer productId) throws EntityException {
+       this(categoryId);
+        setProductId(productId);
     }
 
     /**
