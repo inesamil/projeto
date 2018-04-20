@@ -106,7 +106,7 @@ BEGIN
 	DELETE FROM public."stockitemstorage" WHERE house_id = houseID AND storage_id = storageID;
 	
 	-- Remove Storage
-	DELETE FROM public."stockitem" WHERE house_id = houseID AND storage_id = storageID;
+	DELETE FROM public."storage" WHERE house_id = houseID AND storage_id = storageID;
 END;
 $$ LANGUAGE plpgsql;
 
