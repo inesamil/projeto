@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface StockItemRepositoryCustom {
 
-    List<StockItem> getStockItemsFiltered(Long houseId, String productName, String brand, String variety, Float segment, Short storageId);
+    List<StockItem> findStockItemsFiltered(Long houseId, String productName, String brand, String variety, Float segment, Short storageId);
 
     StockItem insertStockItem(StockItem stockItem);
 
-    void deleteStockItem(StockItemId id);
+    void deleteStockItemById(StockItemId id);
 }

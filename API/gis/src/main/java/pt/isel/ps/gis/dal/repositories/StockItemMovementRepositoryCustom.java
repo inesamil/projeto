@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface StockItemMovementRepositoryCustom {
 
-    List<StockItemMovement> getMovementsFiltered(Long houseId, String sku, Boolean type, Timestamp date, Short storageId);
+    List<StockItemMovement> findMovementsFiltered(Long houseId, String sku, Boolean type, Timestamp date, Short storageId);
 }

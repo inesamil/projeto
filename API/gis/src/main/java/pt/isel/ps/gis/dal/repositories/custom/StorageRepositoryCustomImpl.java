@@ -50,7 +50,7 @@ public class StorageRepositoryCustomImpl implements StorageRepositoryCustom {
     }
 
     @Override
-    public void deleteStorage(StorageId id) {
+    public void deleteStorageById(StorageId id) {
         Session session = entityManager.unwrap(Session.class);
         session.doWork(connection -> {
             try (CallableStatement function = connection.prepareCall(

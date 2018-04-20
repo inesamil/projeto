@@ -18,7 +18,7 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
     private EntityManager entityManager;
 
     @Override
-    public List<StockItem> getStockItemsFiltered(Long houseId, String productName, String brand, String variety, Float segment, Short storageId) {
+    public List<StockItem> findStockItemsFiltered(Long houseId, String productName, String brand, String variety, Float segment, Short storageId) {
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
             String sql = "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
@@ -158,7 +158,7 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
     }
 
     @Override
-    public void deleteStockItem(StockItemId id) {
+    public void deleteStockItemById(StockItemId id) {
         Session session = entityManager.unwrap(Session.class);
         session.doWork(connection -> {
             try (CallableStatement function = connection.prepareCall(

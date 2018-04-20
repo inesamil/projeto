@@ -7,5 +7,5 @@ public interface UserListRepositoryCustom {
 
     UserList insertUserList(UserList userList);
 
-    void deleteUserList(UserListId id);
+    void deleteUserListById(UserListId id);
 }

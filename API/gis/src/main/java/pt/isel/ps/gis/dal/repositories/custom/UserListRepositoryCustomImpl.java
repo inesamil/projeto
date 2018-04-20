@@ -46,7 +46,7 @@ public class UserListRepositoryCustomImpl implements UserListRepositoryCustom {
     }
 
     @Override
-    public void deleteUserList(UserListId id) {
+    public void deleteUserListById(UserListId id) {
         Session session = entityManager.unwrap(Session.class);
         session.doWork(connection -> {
             try (CallableStatement function = connection.prepareCall(

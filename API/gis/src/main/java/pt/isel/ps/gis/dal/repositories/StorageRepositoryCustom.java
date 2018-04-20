@@ -7,5 +7,5 @@ public interface StorageRepositoryCustom {
 
     Storage insertStorage(Storage storage);
 
-    void deleteStorage(StorageId id);
+    void deleteStorageById(StorageId id);
 }

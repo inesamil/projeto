@@ -17,7 +17,7 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
     private EntityManager entityManager;
 
     @Override
-    public List<StockItemMovement> getMovementsFiltered(Long houseId, String sku, Boolean type, Timestamp date, Short storageId) {
+    public List<StockItemMovement> findMovementsFiltered(Long houseId, String sku, Boolean type, Timestamp date, Short storageId) {
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
             String sql = "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
