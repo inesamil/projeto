@@ -5,7 +5,6 @@ import pt.isel.ps.gis.dal.repositories.ProductRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.Product;
 import pt.isel.ps.gis.model.ProductId;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,14 +28,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductService> getProductsByCategoryId(int categoryId) {
-        throw new NotImplementedException();
-        //TODO
+    public List<Product> getProductsByCategoryId(int categoryId) {
+        return productRepository.findAllById_CategoryId(categoryId);
     }
 
     @Override
-    public List<ProductService> getProductsByCategoryIdFiltered(int categoryId, ProductFilters filters) {
-        throw new NotImplementedException();
-        //TODO
+    public List<Product> getProductsByCategoryIdFiltered(int categoryId, ProductFilters filters) {
+        return productRepository.findProductsByNameAndCategoryId(categoryId, filters.name);
     }
 }

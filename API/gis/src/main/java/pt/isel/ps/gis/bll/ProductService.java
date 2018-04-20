@@ -32,9 +32,9 @@ public interface ProductService {
      * Listar os produtos de uma categoria através do ID da categoria
      *
      * @param categoryId identificador da categoria
-     * @return List<ProductService>
+     * @return List<Product>
      */
-    List<ProductService> getProductsByCategoryId(int categoryId);
+    List<Product> getProductsByCategoryId(int categoryId);
 
     /**
      * Listar os produtos filtrados de uma categoria através do ID da categoria
@@ -43,7 +43,7 @@ public interface ProductService {
      * @param filters    filtros para aplicar na filtragem dos resultados
      * @return List<ProductService>
      */
-    List<ProductService> getProductsByCategoryIdFiltered(int categoryId, ProductFilters filters);
+    List<Product> getProductsByCategoryIdFiltered(int categoryId, ProductFilters filters);
 
     /**
      * Filtros - filtragem das categorias
