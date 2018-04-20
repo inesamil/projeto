@@ -79,8 +79,8 @@ INSERT INTO public."stockitemmovement" VALUES (1, 'SKU 1', 1, true, '2018-04-18 
 INSERT INTO public."allergy" VALUES ('lactose');
 INSERT INTO public."stockitemallergy" VALUES (1, 'SKU 1', 'lactose');
 
-INSERT INTO public."date" VALUES ('2018-05-28 00:00:00');
-INSERT INTO public."expirationdate" VALUES (1, 'SKU 1', '2018-05-28 00:00:00', 1);
+INSERT INTO public."date" VALUES ('2018-05-28');
+INSERT INTO public."expirationdate" VALUES (1, 'SKU 1', '2018-05-28', 1);
 
 SELECT * FROM public."stockitem";
 
