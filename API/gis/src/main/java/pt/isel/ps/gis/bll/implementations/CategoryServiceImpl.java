@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.CategoryService;
 import pt.isel.ps.gis.dal.repositories.CategoryRepository;
 import pt.isel.ps.gis.model.Category;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,6 @@ package pt.isel.ps.gis.bll;
 import pt.isel.ps.gis.model.StockItemMovement;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 public interface StockItemMovementService {

@@ -6,7 +6,6 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.HouseAllergy;
 import pt.isel.ps.gis.model.HouseAllergyId;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 

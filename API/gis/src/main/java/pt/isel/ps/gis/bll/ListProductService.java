@@ -3,7 +3,6 @@ package pt.isel.ps.gis.bll;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.ListProduct;
-import pt.isel.ps.gis.model.ListProductId;
 
 import java.util.List;
 

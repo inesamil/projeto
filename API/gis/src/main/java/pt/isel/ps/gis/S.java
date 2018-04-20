@@ -15,7 +15,7 @@ public class S {
 
     @GetMapping("")
     public void g() throws EntityException {
-        java.util.List<List> listsFiltered = repository.getListsFiltered(1L, false, "nuno", false);
+        java.util.List<List> listsFiltered = repository.findListsFiltered(1L, false, "nuno", false);
         for (List l : listsFiltered) {
             System.out.println(l);
         }

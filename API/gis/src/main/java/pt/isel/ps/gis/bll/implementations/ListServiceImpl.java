@@ -9,7 +9,6 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.List;
 import pt.isel.ps.gis.model.ListId;
 import pt.isel.ps.gis.model.UserList;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Optional;
 
@@ -37,12 +36,12 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public java.util.List<List> getListsByHouseId(long houseId, String username) {
-       return listRepository.getListsFiltered(houseId, true, username, true);
+       return listRepository.findListsFiltered(houseId, true, username, true);
     }
 
     @Override
     public java.util.List<List> getListsByHouseIdFiltered(long houseId, ListFilters filters) {
-        return listRepository.getListsFiltered(houseId, filters.systemLists, filters.listsFromUser, filters.sharedLists);
+        return listRepository.findListsFiltered(houseId, filters.systemLists, filters.listsFromUser, filters.sharedLists);
     }
 
     @Override
