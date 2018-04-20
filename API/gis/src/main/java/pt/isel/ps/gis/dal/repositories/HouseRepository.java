@@ -9,8 +9,8 @@ import pt.isel.ps.gis.model.House;
 import java.util.List;
 
 @Repository
-public interface HouseRepository extends CrudRepository<House, Long> {
-    
+public interface HouseRepository extends CrudRepository<House, Long>, HouseRepositoryCustom {
+
     @Query(value = "SELECT public.\"house\".house_id, public.\"house\".house_name, public.\"house\".house_characteristics " +
             "FROM public.\"house\" JOIN public.\"userhouse\" ON public.\"house\".house_id = public.\"userhouse\".house_id " +
             "WHERE public.\"userhouse\".users_username = :username", nativeQuery = true)

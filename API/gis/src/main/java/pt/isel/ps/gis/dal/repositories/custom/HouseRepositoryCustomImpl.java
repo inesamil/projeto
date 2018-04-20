@@ -14,7 +14,6 @@ public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
 
     @Override
     public void deleteHouse(Long houseId) {
-        // TODO testar
         Session session = entityManager.unwrap(Session.class);
         session.doWork(connection -> {
             try (CallableStatement function = connection.prepareCall(
