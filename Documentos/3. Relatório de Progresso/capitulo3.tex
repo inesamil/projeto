@@ -548,7 +548,7 @@
 		\begin{tabular}{|c|c|C{3cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
-			{Date} & date\_date & Data (AAAA/MM/DD) & timestamp & - & não\\ \hline
+			{Date} & date\_date & Data (AAAA/MM/DD) & date & - & não\\ \hline
 		\end{tabular}
 	}
 \end{table}
@@ -565,7 +565,7 @@
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
 			\multirow{4}{*}{ExpirationDate} & house\_id & Número inteiro & bigint & house\_id \textgreater{} 0 & não\\ \cline{2-6}
 			& stockItem\_sku &  Cadeia de caracteres de comprimento variável & character varying(128) & até 128 caracteres & não\\ \cline{2-6}
-			& date\_date & Data (AAAA/MM/DD) & timestamp & - & não\\ \cline{2-6}
+			& date\_date & Data (AAAA/MM/DD) & date & - & não\\ \cline{2-6}
 			& date\_quantity & Número inteiro & smallint & date\_quantity \textgreater{} 0 & não\\ \hline
 		\end{tabular}
 	}
