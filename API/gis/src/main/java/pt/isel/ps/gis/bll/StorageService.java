@@ -13,10 +13,11 @@ public interface StorageService {
     /**
      * Verifica se um dado local de armazenamento existe através do seu ID
      *
+     * @param houseId identificador da casa
      * @param storageId identificador do local de armazenamento
      * @return true se o local de armazenamento existir, false caso contrário
      */
-    boolean existsStorageByStorageId(StorageId storageId);
+    boolean existsStorageByStorageId(long houseId, short storageId) throws EntityException;
 
     /**
      * Obter um local de armazenamento através do seu ID
@@ -40,7 +41,7 @@ public interface StorageService {
      * @param storage local de armazenamento a adicionar
      * @return Storage
      */
-    Storage addStorage(Storage storage) throws EntityException;
+    Storage addStorage(Storage storage);
 
     /**
      * Atualizar um local de armazenamento duma casa

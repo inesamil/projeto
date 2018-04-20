@@ -52,7 +52,7 @@ public class ListServiceImpl implements ListService {
     @Override
     public List updateList(List list) throws EntityNotFoundException {
         ListId id = list.getId();
-        if (!existsListByListId(id))
+        if (!listRepository.existsById(id))
             throw new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
                     id.getListId(), id.getHouseId()));
         return listRepository.save(list);
@@ -61,7 +61,7 @@ public class ListServiceImpl implements ListService {
     @Override
     public void deleteList(long houseId, short listId) throws EntityException, EntityNotFoundException {
         ListId id = new ListId(houseId, listId);
-        if (!existsListByListId(id))
+        if (!listRepository.existsById(id))
             throw new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
                     id.getListId(), id.getHouseId()));
         listRepository.deleteById(id);

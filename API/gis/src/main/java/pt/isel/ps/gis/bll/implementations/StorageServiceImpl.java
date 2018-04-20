@@ -20,8 +20,8 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public boolean existsStorageByStorageId(StorageId storageId) {
-        return storageRepository.existsById(storageId);
+    public boolean existsStorageByStorageId(long houseId, short storageId) throws EntityException {
+        return storageRepository.existsById(new StorageId(houseId, storageId));
     }
 
     @Override
@@ -36,22 +36,23 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public Storage addStorage(Storage storage) throws EntityException {
+    public Storage addStorage(Storage storage){
         return storageRepository.insertStorage(storage);
     }
 
     @Override
     public Storage updateStorage(Storage storage) throws EntityNotFoundException {
-        if (!existsStorageByStorageId(storage.getId()))
+        StorageId id = storage.getId();
+        if (!storageRepository.existsById(id))
             throw new EntityNotFoundException(String.format("Storage with ID %d does not exist in the house with ID %d.",
-                    storage.getId().getStorageId(), storage.getId().getHouseId()));
+                    id.getStorageId(),id.getHouseId()));
         return storageRepository.save(storage);
     }
 
     @Override
     public void deleteStorage(long houseId, short storageId) throws EntityException, EntityNotFoundException {
         StorageId id = new StorageId(houseId, storageId);
-        if (!existsStorageByStorageId(id))
+        if (!storageRepository.existsById(id))
             throw new EntityNotFoundException(String.format("Storage with ID %d does not exist in the house with ID %d.",
                     storageId, houseId));
         storageRepository.deleteById(id);
