@@ -57,7 +57,6 @@ public class HouseServiceImpl implements HouseService {
     public void deleteHouseByHouseId(long houseId) throws EntityNotFoundException {
         if (!houseRepository.existsById(houseId))
             throw new EntityNotFoundException(String.format("House with ID %d does not exist.", houseId));
-        //TODO: deleteHouseCascade
-        houseRepository.deleteById(houseId);    // Remover a casa
+        houseRepository.deleteHouseById(houseId);   // Remover a casa e tudo o que está associado
     }
 }

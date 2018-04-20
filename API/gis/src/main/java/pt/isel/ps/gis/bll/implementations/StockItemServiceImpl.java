@@ -34,7 +34,7 @@ public class StockItemServiceImpl implements StockItemService {
 
     @Override
     public List<StockItem> getStockItemsByHouseIdFiltered(long houseId, StockItemFilters filters) {
-        return stockItemRepository.getStockItemsFiltered(houseId, filters.product, filters.brand, filters.variety, filters.segment, filters.storage);
+        return stockItemRepository.findStockItemsFiltered(houseId, filters.product, filters.brand, filters.variety, filters.segment, filters.storage);
     }
 
     @Override

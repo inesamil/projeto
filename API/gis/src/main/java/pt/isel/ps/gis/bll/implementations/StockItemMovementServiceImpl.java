@@ -5,6 +5,7 @@ import pt.isel.ps.gis.dal.repositories.StockItemMovementRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.StockItemMovementId;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -19,7 +20,8 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     @Override
     public boolean existsStockItemMovementByStockItemMovementId(long houseId, String stockItemSku, short storageId, boolean type, Timestamp dateTime) throws EntityException {
-        return stockItemMovementRepository.existsById(new StockItemMovementId(houseId, stockItemSku, storageId, type, dateTime));
+        //TODO: return stockItemMovementRepository.existsById(new StockItemMovementId(houseId, stockItemSku, storageId, type, dateTime));
+        throw new NotImplementedException();
     }
 
     @Override
@@ -29,7 +31,7 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     @Override
     public List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters) {
-        return stockItemMovementRepository.getMovementsFiltered(houseId, filters.item, filters.type, filters.dateTime, filters.storage);
+        return stockItemMovementRepository.findMovementsFiltered(houseId, filters.item, filters.type, filters.dateTime, filters.storage);
     }
 
     @Override
