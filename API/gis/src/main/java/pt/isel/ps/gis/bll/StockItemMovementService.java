@@ -2,9 +2,23 @@ package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.model.StockItemMovement;
 
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 public interface StockItemMovementService {
+
+    /**
+     * Verifica se um dado movimento existe através do seu ID
+     *
+     * @param houseId identificador da casa
+     * @param stockItemSku identificador do item
+     * @param storageId identificador do local de armazenamento
+     * @param type tipo do movimento
+     * @param dateTime data do movimento
+     * @return true se o movimento existir, false caso contrário
+     */
+    boolean existsStockItemMovementByStockItemMovementId(long houseId, String stockItemSku, short storageId, boolean type, Timestamp dateTime);
 
     /**
      * Listar os movimentos dos itens de uma casa
@@ -12,7 +26,7 @@ public interface StockItemMovementService {
      * @param houseId identificador da casa
      * @return List<StockItemMovement>
      */
-    Iterable<StockItemMovement> getStockItemMovementsByHouseId(Long houseId);
+    List<StockItemMovement> getStockItemMovementsByHouseId(long houseId);
 
     /**
      * Listar os movimentos filtrados dos itens de uma casa
@@ -21,7 +35,7 @@ public interface StockItemMovementService {
      * @param filters filtros para aplicar na filtragem dos resultados
      * @return List<StockItemMovement>
      */
-    Iterable<StockItemMovement> getStockItemMovementsByHouseIdFiltered(Long houseId, MovementFilters filters);
+    List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters);
 
     /**
      * Adicionar um movimento à casa
@@ -35,12 +49,12 @@ public interface StockItemMovementService {
      * Filtros - filtragem dos movimentos
      */
     class MovementFilters {
-        public final String type;
-        public final Date dateTime;
-        public final Short storage;
+        public final boolean type;
+        public final Timestamp dateTime;
+        public final short storage;
         public final String item;   // SKU
 
-        public MovementFilters(String type, Date dateTime, Short storage, String item) {
+        public MovementFilters(boolean type, Timestamp dateTime, Short storage, String item) {
             this.type = type;
             this.dateTime = dateTime;
             this.storage = storage;

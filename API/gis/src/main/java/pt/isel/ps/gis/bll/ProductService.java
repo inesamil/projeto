@@ -1,17 +1,29 @@
 package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.model.Product;
-import pt.isel.ps.gis.model.ProductId;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 
     /**
+     * Verifica se um dado produto existe numa dada categoria através dos seus IDs
+     *
+     * @param categoryId identificador da categoria
+     * @param productId identificador do produto
+     * @return true se o produto existir na categoria, false caso contrário
+     */
+    boolean existsProductByProductId(int categoryId, int productId);
+
+    /**
      * Obter um produto através do seu ID
      *
+     * @param categoryId  identificador da categoria
      * @param productId identificador do produto
      * @return Product
      */
-    Product getProductByProductId(ProductId productId);
+    Optional<Product> getProductByProductId(int categoryId, int productId);
 
     /**
      * Listar os produtos de uma categoria através do ID da categoria
@@ -19,7 +31,7 @@ public interface ProductService {
      * @param categoryId identificador da categoria
      * @return List<ProductService>
      */
-    Iterable<ProductService> getProductsByCategoryId(Integer categoryId);
+    List<ProductService> getProductsByCategoryId(int categoryId);
 
     /**
      * Listar os produtos filtrados de uma categoria através do ID da categoria
@@ -28,7 +40,7 @@ public interface ProductService {
      * @param filters    filtros para aplicar na filtragem dos resultados
      * @return List<ProductService>
      */
-    Iterable<ProductService> getProductsByCategoryIdFiltered(Integer categoryId, ProductFilters filters);
+    List<ProductService> getProductsByCategoryIdFiltered(int categoryId, ProductFilters filters);
 
     /**
      * Filtros - filtragem das categorias

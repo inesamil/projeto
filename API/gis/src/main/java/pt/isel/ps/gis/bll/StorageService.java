@@ -5,6 +5,7 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Storage;
 import pt.isel.ps.gis.model.StorageId;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface StorageService {
@@ -31,7 +32,7 @@ public interface StorageService {
      * @param houseId identificador da casa
      * @return List<Storage>
      */
-    Iterable<Storage> getStorageByHouseId(Long houseId);
+    List<Storage> getStorageByHouseId(long houseId);
 
     /**
      * Adicionar um local de armazenamento numa casa
@@ -52,7 +53,8 @@ public interface StorageService {
     /**
      * Remover um local de armazenamento duma casa
      *
+     * @param houseId identificador da casa
      * @param storageId identifcador do local de armazenamento
      */
-    void deleteStorage(StorageId storageId) throws EntityNotFoundException;
+    void deleteStorage(long houseId, short storageId) throws EntityException, EntityNotFoundException;
 }

@@ -6,7 +6,9 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Storage;
 import pt.isel.ps.gis.model.StorageId;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.List;
 import java.util.Optional;
 
 public class StorageServiceImpl implements StorageService {
@@ -28,34 +30,30 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public Iterable<Storage> getStorageByHouseId(Long houseId) {
-        return storageRepository.findAllById_HouseId(houseId);
+    public List<Storage> getStorageByHouseId(long houseId) {
+        //TODO return storageRepository.findAllById_HouseId(houseId);
+        throw new NotImplementedException();
     }
 
     @Override
     public Storage addStorage(Storage storage) throws EntityException {
-        Storage newStorage = storage;
-        if (storage.getId() != null) {
-            // É preciso garantir que storageId está a NULL, para ser feita inserção do novo local de armazenamento.
-            // Caso contrário, poderia ser atualizado um local de armazenamento já existente.
-            newStorage = new Storage(storage.getStorageName(), storage.getStorageTemperature());
-        }
-        return storageRepository.save(newStorage);
+        return storageRepository.insertStorage(storage);
     }
 
     @Override
     public Storage updateStorage(Storage storage) throws EntityNotFoundException {
         if (!existsStorageByStorageId(storage.getId()))
-            throw new EntityNotFoundException(String.format("Storage with ID {%d, %d} does not exist.",
-                    storage.getId().getHouseId(), storage.getId().getStorageId()));
+            throw new EntityNotFoundException(String.format("Storage with ID %d does not exist in the house with ID %d.",
+                    storage.getId().getStorageId(), storage.getId().getHouseId()));
         return storageRepository.save(storage);
     }
 
     @Override
-    public void deleteStorage(StorageId storageId) throws EntityNotFoundException {
-        if (!existsStorageByStorageId(storageId))
-            throw new EntityNotFoundException(String.format("Storage with ID {%d, %d} does not exist.",
-                    storageId.getHouseId(), storageId.getStorageId()));
-        storageRepository.deleteById(storageId);
+    public void deleteStorage(long houseId, short storageId) throws EntityException, EntityNotFoundException {
+        StorageId id = new StorageId(houseId, storageId);
+        if (!existsStorageByStorageId(id))
+            throw new EntityNotFoundException(String.format("Storage with ID %d does not exist in the house with ID %d.",
+                    storageId, houseId));
+        storageRepository.deleteById(id);
     }
 }

@@ -5,6 +5,9 @@ import pt.isel.ps.gis.bll.AllergyService;
 import pt.isel.ps.gis.dal.repositories.AllergyRepository;
 import pt.isel.ps.gis.model.Allergy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class AllergyServiceImpl implements AllergyService {
 
@@ -15,7 +18,9 @@ public class AllergyServiceImpl implements AllergyService {
     }
 
     @Override
-    public Iterable<Allergy> getAllergies() {
-        return allergyRepository.findAll();
+    public List<Allergy> getAllergies() {
+        ArrayList<Allergy> allergies = new ArrayList<>();
+        allergyRepository.findAll().forEach(allergies::add);
+        return allergies;
     }
 }

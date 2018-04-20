@@ -4,7 +4,9 @@ import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.CategoryService;
 import pt.isel.ps.gis.dal.repositories.CategoryRepository;
 import pt.isel.ps.gis.model.Category;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,17 +20,21 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Iterable<Category> getCategories() {
-        return categoryRepository.findAll();
+    public List<Category> getCategories() {
+        ArrayList<Category> categories = new ArrayList<>();
+        categoryRepository.findAll().forEach(categories::add);
+        return categories;
     }
 
     @Override
-    public Iterable<Category> getCategoriesFiltered(CategoryFilters categoryFilters) {
-        return categoryRepository.getCategoriesByName(categoryFilters.name);
+    public List<Category> getCategoriesFiltered(CategoryFilters categoryFilters) {
+        ArrayList<Category> categories = new ArrayList<>();
+        categoryRepository.findCategoriesByName(categoryFilters.name).forEach(categories::add);
+        return categories;
     }
 
     @Override
-    public Optional<Category> getCategoryByCategoryId(Integer categoryId) {
+    public Optional<Category> getCategoryByCategoryId(int categoryId) {
         return categoryRepository.findById(categoryId);
     }
 }

@@ -1,9 +1,21 @@
 package pt.isel.ps.gis.bll;
 
+import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.UserHouse;
-import pt.isel.ps.gis.model.UserHouseId;
+
+import java.util.List;
 
 public interface HouseMemberService {
+
+    /**
+     * Verifica se um dado membro existe na casa através dos seus IDs
+     *
+     * @param houseId identificador da casa
+     * @param username identificador do utilizador
+     * @return true se o membro existir na casa, false caso contrário
+     */
+    boolean existsMemberByMemberId(long houseId, String username) throws EntityException;
 
     /**
      * Listar os membros de uma casa através do ID da casa
@@ -11,7 +23,7 @@ public interface HouseMemberService {
      * @param houseId identificador da casa
      * @return List<Member>
      */
-    Iterable<UserHouse> getMembersByHouseId(Long houseId);
+    List<UserHouse> getMembersByHouseId(long houseId);
 
     /**
      * Adicionar um membro à casa
@@ -27,12 +39,13 @@ public interface HouseMemberService {
      * @param member membro a atualizar
      * @return Member
      */
-    UserHouse updateMember(UserHouse member);
+    UserHouse updateMember(UserHouse member) throws EntityException, EntityNotFoundException;
 
     /**
      * Remover um membro da casa
      *
-     * @param memberId identificador do membro a remover
+     * @param houseId identificador da casa
+     * @param username identificador do utilizador
      */
-    void deleteMember(UserHouseId memberId);
+    void deleteMember(long houseId, String username) throws EntityException, EntityNotFoundException;
 }

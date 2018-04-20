@@ -4,6 +4,7 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.House;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface HouseService {
@@ -14,7 +15,7 @@ public interface HouseService {
      * @param houseId identificador da casa
      * @return true se a casa existir, false caso contrário
      */
-    boolean existsHouseByHouseId(Long houseId);
+    boolean existsHouseByHouseId(long houseId);
 
     /**
      * Obter uma casa através do seu ID
@@ -22,7 +23,7 @@ public interface HouseService {
      * @param houseId identificador da casa
      * @return House
      */
-    Optional<House> getHouseByHouseId(Long houseId);
+    Optional<House> getHouseByHouseId(long houseId);
 
     /**
      * Listar as casas de um utilizador através do seu nome do utilizador
@@ -30,7 +31,7 @@ public interface HouseService {
      * @param username identificador do utilizador
      * @return List<House>
      */
-    Iterable<House> getHousesByUserId(String username);
+    List<House> getHousesByUserId(String username);
 
     /**
      * Adicionar uma casa
@@ -52,6 +53,7 @@ public interface HouseService {
      * Remover uma casa
      *
      * @param houseId identificador da casa a remover
+     * @throws EntityNotFoundException
      */
-    void deleteHouse(Long houseId) throws EntityNotFoundException;
+    void deleteHouseByHouseId(long houseId) throws EntityNotFoundException;
 }

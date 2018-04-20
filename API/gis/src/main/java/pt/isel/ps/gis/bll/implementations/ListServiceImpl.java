@@ -36,37 +36,35 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public Iterable<List> getListsByHouseId(Long houseId) {
-        throw new NotImplementedException();
-        //TODO
+    public java.util.List<List> getListsByHouseId(long houseId, String username) {
+       return listRepository.getListsFiltered(houseId, true, username, true);
     }
 
     @Override
-    public Iterable<List> getListsByHouseIdFiltered(Long houseId, ListFilters filters) {
-        throw new NotImplementedException();
-        //TODO
+    public java.util.List<List> getListsByHouseIdFiltered(long houseId, ListFilters filters) {
+        return listRepository.getListsFiltered(houseId, filters.systemLists, filters.listsFromUser, filters.sharedLists);
     }
 
     @Override
-    public UserList addUserList(UserList list) throws EntityException {
-        userListRepository.insertUserList(list);
-        return null;    //TODO
+    public UserList addUserList(UserList list) {
+        return userListRepository.insertUserList(list);
     }
-
 
     @Override
     public List updateList(List list) throws EntityNotFoundException {
-        if (!existsListByListId(list.getId()))
-            throw new EntityNotFoundException(String.format("List with ID {%d, %d} does not exist.",
-                    list.getId().getHouseId(), list.getId().getListId()));
+        ListId id = list.getId();
+        if (!existsListByListId(id))
+            throw new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
+                    id.getListId(), id.getHouseId()));
         return listRepository.save(list);
     }
 
     @Override
-    public void deleteList(ListId listId) throws EntityNotFoundException {
-        if (!existsListByListId(listId))
-            throw new EntityNotFoundException(String.format("List with ID {%d, %d} does not exist.",
-                    listId.getHouseId(), listId.getListId()));
-        listRepository.deleteById(listId);
+    public void deleteList(long houseId, short listId) throws EntityException, EntityNotFoundException {
+        ListId id = new ListId(houseId, listId);
+        if (!existsListByListId(id))
+            throw new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
+                    id.getListId(), id.getHouseId()));
+        listRepository.deleteById(id);
     }
 }

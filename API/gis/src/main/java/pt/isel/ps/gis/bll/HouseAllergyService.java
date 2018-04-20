@@ -1,9 +1,22 @@
 package pt.isel.ps.gis.bll;
 
+import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.HouseAllergy;
 import pt.isel.ps.gis.model.HouseAllergyId;
 
+import java.util.List;
+
 public interface HouseAllergyService {
+
+    /**
+     * Verifica se uma dada alergia de uma casa existe através do seu ID
+     *
+     * @param houseId identificador da casa
+     * @param allergy identificador da alergia
+     * @return true se a alergia existir na casa, false caso contrário
+     */
+    boolean existsHouseAllergyByHouseAllergyId(long houseId, String allergy) throws EntityException;
 
     /**
      * Listar as alergias de uma casa através do ID da casa
@@ -11,7 +24,7 @@ public interface HouseAllergyService {
      * @param houseId identificador da casa
      * @return List<HouseAllergy>
      */
-    Iterable<HouseAllergy> getAllergiesByHouseId(Long houseId);
+    List<HouseAllergy> getAllergiesByHouseId(long houseId);
 
     /**
      * Adicionar uma alergia a uma casa
@@ -27,12 +40,13 @@ public interface HouseAllergyService {
      * @param houseAllergy alergia atualizada
      * @return HouseAllergy
      */
-    HouseAllergy updateHouseAllergy(HouseAllergy houseAllergy);
+    HouseAllergy updateHouseAllergy(HouseAllergy houseAllergy) throws EntityException, EntityNotFoundException;
 
     /**
      * Desassociar uma alergia de uma casa
      *
-     * @param houseAllergyId identificador da alergia a remover
+     * @param houseId identificador da casa
+     * @param allergen identificador da alergia
      */
-    void deleteHouseAllergy(HouseAllergyId houseAllergyId);
+    void deleteHouseAllergyByHouseAllergyId(long houseId, String allergen) throws EntityException, EntityNotFoundException;
 }

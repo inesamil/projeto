@@ -32,7 +32,7 @@ public interface ListService {
      * @param houseId identificador da casa
      * @return List<List>
      */
-    Iterable<List> getListsByHouseId(Long houseId);
+    java.util.List<List> getListsByHouseId(long houseId, String username);
 
     /**
      * Listar as listas filtradas de uma casa através do ID da casa
@@ -41,7 +41,7 @@ public interface ListService {
      * @param filters filtros para aplicar na filtragem dos resultados
      * @return List<List>
      */
-    Iterable<List> getListsByHouseIdFiltered(Long houseId, ListFilters filters);
+    java.util.List<List> getListsByHouseIdFiltered(long houseId, ListFilters filters);
 
     /**
      * Adicionar uma lista a uma casa
@@ -49,7 +49,7 @@ public interface ListService {
      * @param list lista a adicionar
      * @return List
      */
-    UserList addUserList(UserList list) throws EntityException;
+    UserList addUserList(UserList list);
 
     /**
      * Atualizar uma lista duma casa
@@ -64,7 +64,7 @@ public interface ListService {
      *
      * @param listId identificador da lista
      */
-    void deleteList(ListId listId) throws EntityNotFoundException;
+    void deleteList(long houseId, short listId) throws EntityException, EntityNotFoundException;
 
     /**
      * Filtros - filtragem das listas
