@@ -5,6 +5,7 @@ import pt.isel.ps.gis.dal.repositories.StockItemMovementRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.StockItemMovementId;
+import pt.isel.ps.gis.utils.ValidationsUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Timestamp;
@@ -25,12 +26,14 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
     }
 
     @Override
-    public List<StockItemMovement> getStockItemMovementsByHouseId(long houseId) {
+    public List<StockItemMovement> getStockItemMovementsByHouseId(long houseId) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
         return stockItemMovementRepository.findAllById_HouseId(houseId);
     }
 
     @Override
-    public List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters) {
+    public List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
         return stockItemMovementRepository.findMovementsFiltered(houseId, filters.item, filters.type, filters.dateTime, filters.storage);
     }
 

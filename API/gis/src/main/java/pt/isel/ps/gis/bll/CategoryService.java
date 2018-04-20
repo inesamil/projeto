@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll;
 
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.Category;
 
 import java.util.List;
@@ -27,8 +28,9 @@ public interface CategoryService {
      *
      * @param categoryId identificador da categoria
      * @return Optional<Category>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Optional<Category> getCategoryByCategoryId(int categoryId);
+    Optional<Category> getCategoryByCategoryId(int categoryId) throws EntityException;
 
     /**
      * Filtros - filtragem das categorias

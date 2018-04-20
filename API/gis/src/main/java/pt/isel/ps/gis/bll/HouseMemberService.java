@@ -34,8 +34,9 @@ public interface HouseMemberService {
      *
      * @param houseId identificador da casa
      * @return List<UserHouse>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<UserHouse> getMembersByHouseId(long houseId);
+    List<UserHouse> getMembersByHouseId(long houseId) throws EntityException;
 
     /**
      * Adicionar um membro à casa

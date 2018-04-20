@@ -13,16 +13,18 @@ public interface UserService {
      *
      * @param username identificador do utilizador
      * @return true se a casa existir, false caso contrário
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    boolean existsUserByUserId(String username);
+    boolean existsUserByUserId(String username) throws EntityException;
 
     /**
      * Obter um utilizador através do ser nome de utilizador
      *
      * @param username identificador do utilizador
      * @return User
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Optional<Users> getUserByUserId(String username);
+    Optional<Users> getUserByUserId(String username) throws EntityException;
 
     /**
      * Adicionar um utilizador
@@ -38,15 +40,17 @@ public interface UserService {
      *
      * @param user utilizador a atualizar
      * @return User
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador especificado não existir
      */
-    Users updateUser(Users user) throws EntityNotFoundException;
+    Users updateUser(Users user) throws EntityException, EntityNotFoundException;
 
     /**
      * Remover um utilizador
      *
      * @param username identificador do utilizador
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador especificado não existir
      */
-    void deleteUserByUserId(String username) throws EntityNotFoundException;
+    void deleteUserByUserId(String username) throws EntityException, EntityNotFoundException;
 }

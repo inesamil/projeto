@@ -9,6 +9,7 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.List;
 import pt.isel.ps.gis.model.ListId;
 import pt.isel.ps.gis.model.UserList;
+import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.Optional;
 
@@ -35,12 +36,14 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public java.util.List<List> getListsByHouseId(long houseId, String username) {
-       return listRepository.findListsFiltered(houseId, true, username, true);
+    public java.util.List<List> getListsByHouseId(long houseId, String username) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
+        return listRepository.findListsFiltered(houseId, true, username, true);
     }
 
     @Override
-    public java.util.List<List> getListsByHouseIdFiltered(long houseId, ListFilters filters) {
+    public java.util.List<List> getListsByHouseIdFiltered(long houseId, ListFilters filters) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
         return listRepository.findListsFiltered(houseId, filters.systemLists, filters.listsFromUser, filters.sharedLists);
     }
 

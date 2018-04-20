@@ -7,6 +7,7 @@ import pt.isel.ps.gis.dal.repositories.UsersRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Users;
+import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.Optional;
 
@@ -20,12 +21,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean existsUserByUserId(String username) {
+    public boolean existsUserByUserId(String username) throws EntityException {
+        ValidationsUtils.validateUserUsername(username);
         return usersRepository.existsById(username);
     }
 
     @Override
-    public Optional<Users> getUserByUserId(String username) {
+    public Optional<Users> getUserByUserId(String username) throws EntityException {
+        ValidationsUtils.validateUserUsername(username);
         return usersRepository.findById(username);
     }
 
@@ -38,16 +41,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users updateUser(Users user) throws EntityNotFoundException {
-        if (!existsUserByUserId(user.getUsersUsername()))
-            throw new EntityNotFoundException(String.format("User with username %s does not exist.", user.getUsersUsername()));
+    public Users updateUser(Users user) throws EntityNotFoundException, EntityException {
+        String username = user.getUsersUsername();
+        ValidationsUtils.validateUserUsername(username);
+        if (!usersRepository.existsById(username))
+            throw new EntityNotFoundException(String.format("User with username %s does not exist.", username));
         return usersRepository.save(user);
     }
 
     @Transactional
     @Override
-    public void deleteUserByUserId(String username) throws EntityNotFoundException {
-        if (!existsUserByUserId(username))
+    public void deleteUserByUserId(String username) throws EntityException, EntityNotFoundException {
+        ValidationsUtils.validateUserUsername(username);
+        if (!usersRepository.existsById(username))
             throw new EntityNotFoundException(String.format("User with username %s does not exist.", username));
         //TODO: deleteUserCascade
         usersRepository.deleteById(username);   // Remover o utilizador

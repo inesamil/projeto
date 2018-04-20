@@ -6,6 +6,7 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Storage;
 import pt.isel.ps.gis.model.StorageId;
+import pt.isel.ps.gis.utils.ValidationsUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
@@ -30,7 +31,8 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public List<Storage> getStorageByHouseId(long houseId) {
+    public List<Storage> getStorageByHouseId(long houseId) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
         //TODO return storageRepository.findAllById_HouseId(houseId);
         throw new NotImplementedException();
     }

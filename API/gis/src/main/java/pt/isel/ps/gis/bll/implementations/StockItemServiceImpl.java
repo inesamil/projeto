@@ -5,6 +5,7 @@ import pt.isel.ps.gis.dal.repositories.StockItemRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemId;
+import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +34,8 @@ public class StockItemServiceImpl implements StockItemService {
     }
 
     @Override
-    public List<StockItem> getStockItemsByHouseIdFiltered(long houseId, StockItemFilters filters) {
+    public List<StockItem> getStockItemsByHouseIdFiltered(long houseId, StockItemFilters filters) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
         return stockItemRepository.findStockItemsFiltered(houseId, filters.product, filters.brand, filters.variety, filters.segment, filters.storage);
     }
 

@@ -6,6 +6,7 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.HouseAllergy;
 import pt.isel.ps.gis.model.HouseAllergyId;
+import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
 
@@ -23,7 +24,8 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
     }
 
     @Override
-    public List<HouseAllergy> getAllergiesByHouseId(long houseId) {
+    public List<HouseAllergy> getAllergiesByHouseId(long houseId) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
         return houseAllergyRepository.findAllById_HouseId(houseId);
     }
 

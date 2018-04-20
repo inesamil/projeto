@@ -6,6 +6,7 @@ import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.House;
+import pt.isel.ps.gis.utils.ValidationsUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
@@ -21,17 +22,20 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public boolean existsHouseByHouseId(long houseId) {
+    public boolean existsHouseByHouseId(long houseId) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
         return houseRepository.existsById(houseId);
     }
 
     @Override
-    public Optional<House> getHouseByHouseId(long houseId) {
+    public Optional<House> getHouseByHouseId(long houseId) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
         return houseRepository.findById(houseId);
     }
 
     @Override
-    public List<House> getHousesByUserId(String username) {
+    public List<House> getHousesByUserId(String username) throws EntityException {
+        ValidationsUtils.validateUserUsername(username);
         return houseRepository.findAllByUsersUsername(username);
     }
 

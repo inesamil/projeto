@@ -6,6 +6,7 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.model.UserHouseId;
+import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +30,8 @@ public class HouseMemberServiceImpl implements HouseMemberService {
     }
 
     @Override
-    public List<UserHouse> getMembersByHouseId(long houseId) {
+    public List<UserHouse> getMembersByHouseId(long houseId) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
         return userHouseRepository.findAllById_HouseId(houseId);
     }
 

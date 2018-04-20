@@ -42,8 +42,9 @@ public interface StockItemService {
      * @param houseId identificador da casa
      * @param filters filtros para aplicar na filtragem dos resultados
      * @return List<StockItem>
+     * @throws EntityException se os parâmetros forem inválidos
      */
-    List<StockItem> getStockItemsByHouseIdFiltered(long houseId, StockItemFilters filters);
+    List<StockItem> getStockItemsByHouseIdFiltered(long houseId, StockItemFilters filters) throws EntityException;
 
     /**
      * Adicionar um item ao stock duma casa

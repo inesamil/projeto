@@ -35,8 +35,9 @@ public interface StorageService {
      *
      * @param houseId identificador da casa
      * @return List<Storage>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<Storage> getStorageByHouseId(long houseId);
+    List<Storage> getStorageByHouseId(long houseId) throws EntityException;
 
     /**
      * Adicionar um local de armazenamento numa casa

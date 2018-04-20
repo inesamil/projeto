@@ -39,8 +39,9 @@ public interface ListProductService {
      * @param houseId identificador da casa
      * @param listId  identificador da lista
      * @return List<ListProduct>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<ListProduct> getListProductsByListId(long houseId, short listId);
+    List<ListProduct> getListProductsByListId(long houseId, short listId) throws EntityException;
 
     /**
      * Adicionar um produto a uma lista

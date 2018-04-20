@@ -16,7 +16,7 @@ public interface ListService {
      * @param houseId  identificador da lista
      * @param listId identificador da lista
      * @return true se a lista existir, false caso contrário
-     * @throws EntityException se os parâmetros recebidos não forem válidos
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
     boolean existsListByListId(long houseId, short listId) throws EntityException;
 
@@ -26,7 +26,7 @@ public interface ListService {
      * @param houseId identificador da casa
      * @param listId identificador da lista
      * @return Optional<List>
-     * @throws EntityException se os parâmetros recebidos não forem válidos
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
     Optional<List> getListByListId(long houseId, short listId) throws EntityException;
 
@@ -35,8 +35,9 @@ public interface ListService {
      *
      * @param houseId identificador da casa
      * @return List<List>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    java.util.List<List> getListsByHouseId(long houseId, String username);
+    java.util.List<List> getListsByHouseId(long houseId, String username) throws EntityException;
 
     /**
      * Listar as listas filtradas de uma casa através do ID da casa
@@ -44,8 +45,9 @@ public interface ListService {
      * @param houseId identificador da casa
      * @param filters filtros para aplicar na filtragem dos resultados
      * @return List<List>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    java.util.List<List> getListsByHouseIdFiltered(long houseId, ListFilters filters);
+    java.util.List<List> getListsByHouseIdFiltered(long houseId, ListFilters filters) throws EntityException;
 
     /**
      * Adicionar uma lista a uma casa

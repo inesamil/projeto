@@ -3,7 +3,9 @@ package pt.isel.ps.gis.bll.implementations;
 import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.CategoryService;
 import pt.isel.ps.gis.dal.repositories.CategoryRepository;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.Category;
+import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Optional<Category> getCategoryByCategoryId(int categoryId) {
+    public Optional<Category> getCategoryByCategoryId(int categoryId) throws EntityException {
+        ValidationsUtils.validateCategoryId(categoryId);
         return categoryRepository.findById(categoryId);
     }
 }

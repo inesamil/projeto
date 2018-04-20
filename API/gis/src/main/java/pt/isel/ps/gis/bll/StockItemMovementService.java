@@ -26,8 +26,9 @@ public interface StockItemMovementService {
      *
      * @param houseId identificador da casa
      * @return List<StockItemMovement>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<StockItemMovement> getStockItemMovementsByHouseId(long houseId);
+    List<StockItemMovement> getStockItemMovementsByHouseId(long houseId) throws EntityException;
 
     /**
      * Listar os movimentos filtrados dos itens de uma casa
@@ -35,8 +36,9 @@ public interface StockItemMovementService {
      * @param houseId identificador da casa
      * @param filters filtros para aplicar na filtragem dos resultados
      * @return List<StockItemMovement>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters);
+    List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters) throws EntityException;
 
     /**
      * Adicionar um movimento à casa

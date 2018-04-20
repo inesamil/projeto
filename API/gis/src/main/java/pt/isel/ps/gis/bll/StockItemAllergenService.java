@@ -25,8 +25,9 @@ public interface StockItemAllergenService {
      * @param houseId identificador da casa
      * @param stockItemSku identificador do item em stock
      * @return List<Allergy>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<Allergy> getAllergensByStockItemId(long houseId, String stockItemSku);
+    List<Allergy> getAllergensByStockItemId(long houseId, String stockItemSku) throws EntityException;
 
     /**
      * Listar os itens com um determinado alergénio
@@ -34,6 +35,7 @@ public interface StockItemAllergenService {
      * @param houseId  identificador da casa
      * @param allergen identificador do alergénio
      * @return List<StockItem>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<StockItem> getStockItemsByHouseIdAndAllergenId(long houseId, String allergen);
+    List<StockItem> getStockItemsByHouseIdAndAllergenId(long houseId, String allergen) throws EntityException;
 }

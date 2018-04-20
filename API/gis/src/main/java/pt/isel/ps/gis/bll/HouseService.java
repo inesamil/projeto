@@ -14,24 +14,27 @@ public interface HouseService {
      *
      * @param houseId identificador da casa
      * @return true se a casa existir, false caso contrário
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    boolean existsHouseByHouseId(long houseId);
+    boolean existsHouseByHouseId(long houseId) throws EntityException;
 
     /**
      * Obter uma casa através do seu ID
      *
      * @param houseId identificador da casa
      * @return Optional<House>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Optional<House> getHouseByHouseId(long houseId);
+    Optional<House> getHouseByHouseId(long houseId) throws EntityException;
 
     /**
      * Listar as casas de um utilizador através do seu nome do utilizador
      *
      * @param username identificador do utilizador
      * @return List<House>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<House> getHousesByUserId(String username);
+    List<House> getHousesByUserId(String username) throws EntityException;
 
     /**
      * Adicionar uma casa

@@ -23,8 +23,9 @@ public interface HouseAllergyService {
      *
      * @param houseId identificador da casa
      * @return List<HouseAllergy>
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<HouseAllergy> getAllergiesByHouseId(long houseId);
+    List<HouseAllergy> getAllergiesByHouseId(long houseId) throws EntityException;
 
     /**
      * Adicionar uma alergia a uma casa

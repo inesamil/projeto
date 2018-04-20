@@ -6,6 +6,7 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.ListProduct;
 import pt.isel.ps.gis.model.ListProductId;
+import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +30,9 @@ public class ListProductServiceImpl implements ListProductService {
     }
 
     @Override
-    public List<ListProduct> getListProductsByListId(long houseId, short listId){
+    public List<ListProduct> getListProductsByListId(long houseId, short listId) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
+        ValidationsUtils.validateListId(listId);
         return listProductRepository.findAllById_HouseIdAndId_ListId(houseId, listId);
     }
 
