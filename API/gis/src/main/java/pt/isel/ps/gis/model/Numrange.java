@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Numrange implements Serializable {
 
@@ -33,6 +34,20 @@ public class Numrange implements Serializable {
 
     public void setMaximum(Float maximum) {
         this.maximum = maximum;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Numrange that = (Numrange) obj;
+        return Objects.equals(minimum, that.minimum) &&
+                Objects.equals(maximum, that.maximum);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(minimum, maximum);
     }
 
     public String toString() {
