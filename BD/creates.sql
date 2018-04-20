@@ -182,13 +182,13 @@ CREATE TABLE IF NOT EXISTS public."stockitemallergy" (
 );
 
 CREATE TABLE IF NOT EXISTS public."date" (
-	date_date timestamp NOT NULL PRIMARY KEY -- Date (YYYY/MM/DD)
+	date_date date NOT NULL PRIMARY KEY -- Date (YYYY/MM/DD)
 );
 
 CREATE TABLE IF NOT EXISTS public."expirationdate" (
 	house_id bigint NOT NULL CHECK (house_id > 0),
 	stockitem_sku character varying(128) NOT NULL,
-	date_date timestamp NOT NULL REFERENCES public."date" (date_date),
+	date_date date NOT NULL REFERENCES public."date" (date_date),
 	date_quantity smallint NOT NULL CHECK (date_quantity > 0),
 	PRIMARY KEY (house_id, stockitem_sku, date_date),
 	FOREIGN KEY (house_id, stockitem_sku) REFERENCES public."stockitem" (house_id, stockitem_sku)
