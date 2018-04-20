@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.utils;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,12 +44,12 @@ public class DateUtils {
     }
 
     /**
-     * Converte um objeto Timestamp numa string
+     * Converte um objeto Date numa string
      *
-     * @param date timestamp a converter
+     * @param date data a converter
      * @return String correspondente à data no formato yyyy-MM-dd
      */
-    public static String convertDateFormat(Timestamp date) {
+    public static String convertDateFormat(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.format(date);
     }
