@@ -2,32 +2,23 @@
 -- DROP FUNCTION delete_user
 CREATE OR REPLACE FUNCTION delete_user(username character varying(35)) 
 RETURNS VOID AS $$
-DECLARE
-    cursor_userLists CURSOR FOR SELECT * FROM public."UserList" WHERE user_username = username;
-	rec_userList   RECORD;
+DECLARE 
+	ids_array integer[];
 BEGIN
-	-- Remove UserLists and Lists
-	OPEN cursor_userLists;
-	LOOP
-		-- Fetch row into the rec_userList
-		FETCH cursor_userLists INTO rec_userList;
-		-- exit when no more row to fetch
-		EXIT WHEN NOT FOUND;
-
-		-- Delete from UserList (child)
-		DELETE FROM public."UserList" WHERE house_id = rec_userList.house_id AND list_id = rec_userList.list_id;
-		-- Delete from List (parent)
-		DELETE FROM public."List" WHERE house_id = rec_userList.house_id AND list_id = rec_userList.list_id;
-	END LOOP;
-
-	-- Close the cursor
-	CLOSE cursor_userLists;
-
+	-- Save list IDs to remove
+	ids_array := ARRAY(SELECT public."userlist".list_id FROM public."userlist" WHERE public."userlist".users_username = username);
+	
+	-- Remove UserLists
+	DELETE FROM public."userlist" WHERE users_username = username;
+	
+	-- Remove Lists
+	DELETE FROM public."list" WHERE list_id IN (select(unnest(ids_array)));
+	
 	-- Remove User From Houses	
-	DELETE FROM public."UserHouse" WHERE user_username = username;
+	DELETE FROM public."userhouse" WHERE users_username = username;
 
 	-- Remove User
-	DELETE FROM public."User" WHERE user_username = username;
+	DELETE FROM public."users" WHERE users_username = username;
 END;
 $$ LANGUAGE plpgsql;
 
