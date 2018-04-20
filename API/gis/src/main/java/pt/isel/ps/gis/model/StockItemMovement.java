@@ -46,7 +46,7 @@ public class StockItemMovement {
 
     public StockItemMovement(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
                              Timestamp stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
-        this.id = new StockItemMovementId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity);
+        setId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity);
     }
 
     /**
@@ -56,12 +56,15 @@ public class StockItemMovement {
         return id;
     }
 
-    // TODO this setter is necessary??
     private void setId(StockItemMovementId id) {
         this.id = id;
     }
 
     public void setId(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType, String stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
+        setId(new StockItemMovementId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity));
+    }
+
+    public void setId(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType, Timestamp stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
         setId(new StockItemMovementId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity));
     }
 

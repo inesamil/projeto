@@ -45,7 +45,7 @@ public class ExpirationDate {
     }
 
     public ExpirationDate(Long houseId, String stockItemSku, String expirationDate, Short quantity) throws EntityException {
-        setId(houseId, stockItemSku, expirationDate);
+        this(houseId, stockItemSku, expirationDate);
         setDateQuantity(quantity);
     }
 

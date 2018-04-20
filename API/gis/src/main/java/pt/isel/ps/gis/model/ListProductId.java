@@ -34,9 +34,9 @@ public class ListProductId implements Serializable {
 
     public ListProductId(Long houseId, Short listId, Integer categoryId, Integer productId) throws EntityException {
         setHouseId(houseId);
-        this.listId = listId;
-        this.categoryId = categoryId;
-        this.productId = productId;
+        setListId(listId);
+        setCategoryId(categoryId);
+        setProductId(productId);
     }
 
     /**

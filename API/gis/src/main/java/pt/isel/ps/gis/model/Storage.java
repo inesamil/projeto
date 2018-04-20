@@ -57,7 +57,7 @@ public class Storage {
 
     public Storage(Long houseId, String storageName, Numrange storageTemperature) throws EntityException {
         this(storageName, storageTemperature);
-        setId(houseId);
+        setPartialId(houseId);
     }
 
     public Storage(Long houseId, Short storageId, String storageName, Numrange storageTemperature) throws EntityException {
@@ -72,7 +72,7 @@ public class Storage {
         return id;
     }
 
-    private void setId(Long houseId) throws EntityException {
+    private void setPartialId(Long houseId) throws EntityException {
         setId(new StorageId(houseId));
     }
 

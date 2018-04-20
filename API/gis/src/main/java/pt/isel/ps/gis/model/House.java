@@ -63,9 +63,8 @@ public class House {
     }
 
     public House(Long houseId, String houseName, Characteristics houseCharacteristics) throws EntityException {
+        this(houseName, houseCharacteristics);
         setHouseId(houseId);
-        setHouseName(houseName);
-        setHouseCharacteristics(houseCharacteristics);
     }
 
     /**

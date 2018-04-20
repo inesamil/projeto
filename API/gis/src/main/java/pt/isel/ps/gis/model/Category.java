@@ -42,7 +42,7 @@ public class Category implements Serializable {
     }
 
     public Category(Integer categoryId, String categoryName) throws EntityException {
-        setCategoryId(categoryId);
+        this(categoryId);
         setCategoryName(categoryName);
     }
 

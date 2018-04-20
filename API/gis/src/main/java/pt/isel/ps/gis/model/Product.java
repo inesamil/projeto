@@ -62,12 +62,12 @@ public class Product {
 
     public Product(Integer categoryId, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws EntityException {
         this(productName, productEdible, productShelflife, productShelflifetimeunit);
-        setId(categoryId);
+        setPartialId(categoryId);
     }
 
     public Product(Integer categoryId, Integer product_id, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws EntityException {
         this(productName, productEdible, productShelflife, productShelflifetimeunit);
-        this.id = new ProductId(categoryId, product_id);
+        setId(categoryId, product_id);
     }
 
     /**
@@ -78,13 +78,18 @@ public class Product {
         return id;
     }
 
-    public void setId(Integer categoryId) throws EntityException {
-        setId(new ProductId(categoryId));
-    }
-
     private void setId(ProductId id) {
         this.id = id;
     }
+
+    public void setPartialId(Integer categoryId) throws EntityException {
+        setId(new ProductId(categoryId));
+    }
+
+    public void setId(Integer categoryId, Integer productId) throws EntityException {
+        setId(new ProductId(categoryId, productId));
+    }
+
 
     public String getProductName() {
         return productName;

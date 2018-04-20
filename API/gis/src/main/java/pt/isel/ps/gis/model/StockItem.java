@@ -114,7 +114,7 @@ public class StockItem {
                      String stockitemConservationStorage) throws EntityException {
         this(categoryId, productId, stockitemBrand, stockitemSegment, stockitemVariety, stockitemQuantity,
                 stockitemSegmentUnit, stockitemDescription, stockitemConservationStorage);
-        this.id = new StockItemId(houseId, stockitemSku);
+        setId(houseId, stockitemSku);
     }
 
     /**
@@ -132,6 +132,9 @@ public class StockItem {
         this.id = id;
     }
 
+    public void setId(Long houseId, String stockitemSku) throws EntityException {
+        setId(new StockItemId(houseId, stockitemSku));
+    }
     public Integer getCategoryId() {
         return categoryId;
     }

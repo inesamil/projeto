@@ -53,8 +53,7 @@ public class StockItemMovementId implements Serializable {
         setStockitemSku(stockitemSku);
         setStorageId(storageId);
         setStockitemmovementType(stockitemmovementType);
-        // TODO check this constraint if necessary
-        this.stockitemmovementDatetime = stockitemmovementDatetime;
+        setStockitemmovementDatetime(stockitemmovementDatetime);
         setStockitemmovementQuantity(stockitemmovementQuantity);
     }
 
@@ -104,6 +103,11 @@ public class StockItemMovementId implements Serializable {
     public void setStockitemmovementDatetime(String stockitemmovementDatetime) throws EntityException {
         ValidationsUtils.validateStockItemMovementDateTime(stockitemmovementDatetime);
         this.stockitemmovementDatetime = Timestamp.valueOf(stockitemmovementDatetime);
+    }
+
+    public void setStockitemmovementDatetime(Timestamp stockitemmovementDatetime) {
+        //TODO: validate
+        this.stockitemmovementDatetime = stockitemmovementDatetime;
     }
 
     public Short getStockitemmovementQuantity() {

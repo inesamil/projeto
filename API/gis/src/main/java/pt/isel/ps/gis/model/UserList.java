@@ -46,15 +46,15 @@ public class UserList {
     }
 
     public UserList(Long houseId, String listName, String usersUsername, Boolean listShareable) throws EntityException {
-        setId(houseId);
-        this.list = new List(houseId, listName, "user");
+        setPartialId(houseId);
+        setList(houseId, listName, "user");
         setUsersUsername(usersUsername);
         setListShareable(listShareable);
     }
 
     public UserList(Long houseId, Short listId, String listName, String usersUsername, Boolean listShareable) throws EntityException {
-        this.id = new UserListId(houseId, listId);
-        this.list = new List(houseId, listName, "user");
+        setId(houseId, listId);
+        setList(houseId, listName, "user");
         setUsersUsername(usersUsername);
         setListShareable(listShareable);
     }
@@ -66,8 +66,16 @@ public class UserList {
         return id;
     }
 
-    public void setId(Long houseId) {
+    private void setId(UserListId listId) {
+        this.id = listId;
+    }
+
+    public void setPartialId(Long houseId) throws EntityException {
         this.id = new UserListId(houseId);
+    }
+
+    public void setId(Long houseId, Short listId) throws EntityException {
+        setId(new UserListId(houseId, listId));
     }
 
     public String getUsersUsername() {
@@ -94,6 +102,10 @@ public class UserList {
 
     public void setList(List list) {
         this.list = list;
+    }
+
+    public void setList(Long houseId, String listName, String type) throws EntityException {
+        setList(new List(houseId, listName, type));
     }
 
     public Users getUsersByUsersUsername() {

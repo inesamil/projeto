@@ -31,7 +31,7 @@ public class StorageId implements Serializable {
     }
 
     public StorageId(Long houseId, Short storageId) throws EntityException {
-        setHouseId(houseId);
+        this(houseId);
         setStorageId(storageId);
     }
 
