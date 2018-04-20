@@ -23,14 +23,14 @@ public class ExpirationDate {
     /**
      * ASSOCIAÇÕES
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
             @JoinColumn(name = "stockitem_sku", referencedColumnName = "stockitem_sku", nullable = false, insertable = false, updatable = false)
     })
     private StockItem stockitem;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "date_date", referencedColumnName = "date_date", nullable = false, insertable = false, updatable = false)
     private Date dateByDateDate;
 
@@ -40,12 +40,13 @@ public class ExpirationDate {
     protected ExpirationDate() {
     }
 
-    public ExpirationDate(Long houseId, String stockItemSku, String expirationDate) throws EntityException {
-        setId(houseId, stockItemSku, expirationDate);
+    public ExpirationDate(ExpirationDateId id, Short dateQuantity) throws EntityException {
+        this.id = id;
+        setDateQuantity(dateQuantity);
     }
 
     public ExpirationDate(Long houseId, String stockItemSku, String expirationDate, Short quantity) throws EntityException {
-        this(houseId, stockItemSku, expirationDate);
+        setId(houseId, stockItemSku, expirationDate);
         setDateQuantity(quantity);
     }
 

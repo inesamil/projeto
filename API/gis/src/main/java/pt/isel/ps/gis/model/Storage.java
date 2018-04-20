@@ -34,13 +34,13 @@ public class Storage {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(mappedBy = "storage")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "storage")
     private Collection<StockItemMovement> stockitemmovements;
 
-    @OneToMany(mappedBy = "storage")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "storage")
     private Collection<StockItemStorage> stockitemstorages;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false)
     private House houseByHouseId;
 
@@ -55,9 +55,14 @@ public class Storage {
         setStorageTemperature(storageTemperature);
     }
 
+    public Storage(StorageId id, String storageName, Numrange storageTemperature) throws EntityException {
+        this(storageName, storageTemperature);
+        this.id = id;
+    }
+
     public Storage(Long houseId, String storageName, Numrange storageTemperature) throws EntityException {
         this(storageName, storageTemperature);
-        setPartialId(houseId);
+        setId(houseId);
     }
 
     public Storage(Long houseId, Short storageId, String storageName, Numrange storageTemperature) throws EntityException {
@@ -72,12 +77,12 @@ public class Storage {
         return id;
     }
 
-    private void setPartialId(Long houseId) throws EntityException {
-        setId(new StorageId(houseId));
-    }
-
     public void setId(StorageId id) {
         this.id = id;
+    }
+
+    public void setId(Long houseId) throws EntityException {
+        setId(new StorageId(houseId));
     }
 
     private void setId(Long houseId, Short storageId) throws EntityException {

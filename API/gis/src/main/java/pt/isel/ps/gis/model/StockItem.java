@@ -58,27 +58,27 @@ public class StockItem {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(mappedBy = "stockitem")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockitem")
     private Collection<ExpirationDate> expirationdates;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false)
     private House houseByHouseId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false, insertable = false, updatable = false),
             @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     })
     private Product product;
 
-    @OneToMany(mappedBy = "stockitem")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockitem")
     private Collection<StockItemAllergy> stockitemallergies;
 
-    @OneToMany(mappedBy = "stockitem")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockitem")
     private Collection<StockItemMovement> stockitemmovements;
 
-    @OneToMany(mappedBy = "stockitem")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockitem")
     private Collection<StockItemStorage> stockitemstorages;
 
     /**
@@ -99,6 +99,14 @@ public class StockItem {
         setStockitemSegmentunit(stockitemSegmentUnit);
         setStockitemDescription(stockitemDescription);
         setStockitemConservationstorage(stockitemConservationStorage);
+    }
+
+    public StockItem(StockItemId id, Integer categoryId, Integer productId, String stockitemBrand,
+                     Float stockitemSegment, String stockitemVariety, Short stockitemQuantity, String stockitemSegmentUnit,
+                     String stockitemDescription, String stockitemConservationStorage) throws EntityException {
+        this(categoryId, productId, stockitemBrand, stockitemSegment, stockitemVariety,
+                stockitemQuantity, stockitemSegmentUnit, stockitemDescription, stockitemConservationStorage);
+        this.id = id;
     }
 
     public StockItem(Long houseId, Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
@@ -124,17 +132,18 @@ public class StockItem {
         return id;
     }
 
-    public void setId(Long houseId) throws EntityException {
-        setId(new StockItemId(houseId));
+    public void setId(StockItemId id) {
+        this.id = id;
     }
 
-    private void setId(StockItemId id) {
-        this.id = id;
+    public void setId(Long houseId) throws EntityException {
+        setId(new StockItemId(houseId));
     }
 
     public void setId(Long houseId, String stockitemSku) throws EntityException {
         setId(new StockItemId(houseId, stockitemSku));
     }
+
     public Integer getCategoryId() {
         return categoryId;
     }

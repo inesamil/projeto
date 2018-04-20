@@ -38,10 +38,10 @@ public class Users {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(mappedBy = "usersByUsersUsername")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUsersUsername")
     private Collection<UserHouse> userhousesByUsersUsername;
 
-    @OneToMany(mappedBy = "usersByUsersUsername")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUsersUsername")
     private Collection<UserList> userlistsByUsersUsername;
 
     /**

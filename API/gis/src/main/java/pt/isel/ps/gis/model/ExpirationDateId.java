@@ -8,7 +8,7 @@ import pt.isel.ps.gis.utils.ValidationsUtils;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.Objects;
 
 @Embeddable
@@ -24,7 +24,7 @@ public class ExpirationDateId implements Serializable {
     private String stockitemSku;
 
     @Column(name = "date_date", nullable = false)
-    private Timestamp dateDate;
+    private Date dateDate;
 
     /**
      * CONSTRUTOR
@@ -59,14 +59,13 @@ public class ExpirationDateId implements Serializable {
         this.stockitemSku = stockitemSku;
     }
 
-    public String getDateDate() {
-        return DateUtils.convertDateFormat(this.dateDate);
+    public String getDateString() {
+        return DateUtils.convertDateFormat(dateDate);
     }
 
     public void setDateDate(String date) throws EntityException {
         ValidationsUtils.validateDate(date);
-        date += " 00:00:00";    // JDBC timestamp escape format: yyyy-[m]m-[d]d hh:mm:ss[.f...].
-        this.dateDate = Timestamp.valueOf(date);
+        this.dateDate = Date.valueOf(date);
     }
 
     @Override

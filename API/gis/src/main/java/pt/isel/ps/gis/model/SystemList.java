@@ -9,6 +9,8 @@ import java.util.Objects;
 @Table(name = "systemlist")
 public class SystemList {
 
+    private final static String TYPE = "system";
+
     /**
      * COLUNAS
      */
@@ -32,13 +34,13 @@ public class SystemList {
     }
 
     public SystemList(Long houseId, String listName) throws EntityException {
-        setList(houseId, listName, "system");
-        this.id = new SystemListId(houseId);
+        setId(houseId);
+        this.list = new List(houseId, listName, TYPE);
     }
 
     public SystemList(Long houseId, Short listId, String listName) throws EntityException {
-        this.id = new SystemListId(houseId, listId);
-        this.list = new List(houseId, listId, listName, "system");
+        setId(houseId, listId);
+        this.list = new List(houseId, listId, listName, TYPE);
     }
 
     /**
@@ -48,8 +50,12 @@ public class SystemList {
         return id;
     }
 
-    private void setId(SystemListId id) {
+    public void setId(SystemListId id) {
         this.id = id;
+    }
+
+    public void setId(Long houseId) throws EntityException {
+        setId(new SystemListId(houseId));
     }
 
     public void setId(Long houseId, Short listId) throws EntityException {
@@ -60,12 +66,8 @@ public class SystemList {
         return list;
     }
 
-    private void setList(List list) {
+    public void setList(List list) {
         this.list = list;
-    }
-
-    public void setList(Long houseId, String listName, String type) throws EntityException {
-        setList(new List(houseId, listName, type));
     }
 
     @Override

@@ -4,5 +4,5 @@ import java.io.Serializable;
 
 public class Characteristics implements Serializable {
 
-    // TODO
+    // TODO: Preencher esta classe e implementar o equals e o hashCode
 }

@@ -28,14 +28,14 @@ public class ListProduct {
     /**
      * ASSOCIAÇÕES
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
             @JoinColumn(name = "list_id", referencedColumnName = "list_id", nullable = false, insertable = false, updatable = false)
     })
     private List list;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false, insertable = false, updatable = false),
             @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
@@ -46,6 +46,12 @@ public class ListProduct {
      * CONSTRUTORES
      */
     protected ListProduct() {
+    }
+
+    public ListProduct(ListProductId id, String productBrand, Short productQuantity) throws EntityException {
+        this.id = id;
+        setListproductBrand(productBrand);
+        setListproductQuantity(productQuantity);
     }
 
     public ListProduct(Long houseId, Short listId, Integer categoryId, Integer productId, String productBrand, Short productQuantity) throws EntityException {
@@ -65,7 +71,7 @@ public class ListProduct {
         this.id = id;
     }
 
-    private void setId(Long houseId, Short listId, Integer categoryId, Integer productId) throws EntityException {
+    public void setId(Long houseId, Short listId, Integer categoryId, Integer productId) throws EntityException {
         setId(new ListProductId(houseId, listId, categoryId, productId));
     }
 

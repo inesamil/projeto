@@ -47,16 +47,6 @@ public class StockItemMovementId implements Serializable {
         setStockitemmovementQuantity(stockitemmovementQuantity);
     }
 
-    public StockItemMovementId(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
-                               Timestamp stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
-        setHouseId(houseId);
-        setStockitemSku(stockitemSku);
-        setStorageId(storageId);
-        setStockitemmovementType(stockitemmovementType);
-        setStockitemmovementDatetime(stockitemmovementDatetime);
-        setStockitemmovementQuantity(stockitemmovementQuantity);
-    }
-
     /**
      * GETTERS E SETETRS
      */
@@ -97,17 +87,13 @@ public class StockItemMovementId implements Serializable {
     }
 
     public Timestamp getStockitemmovementDatetime() {
+        // TODO: tem de retornar string, não pode retornar Timestamp
         return stockitemmovementDatetime;
     }
 
     public void setStockitemmovementDatetime(String stockitemmovementDatetime) throws EntityException {
         ValidationsUtils.validateStockItemMovementDateTime(stockitemmovementDatetime);
         this.stockitemmovementDatetime = Timestamp.valueOf(stockitemmovementDatetime);
-    }
-
-    public void setStockitemmovementDatetime(Timestamp stockitemmovementDatetime) {
-        //TODO: validate
-        this.stockitemmovementDatetime = stockitemmovementDatetime;
     }
 
     public Short getStockitemmovementQuantity() {

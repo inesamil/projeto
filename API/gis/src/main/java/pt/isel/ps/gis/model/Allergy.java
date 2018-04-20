@@ -22,10 +22,10 @@ public class Allergy {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(mappedBy = "allergyByAllergyAllergen")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "allergyByAllergyAllergen")
     private Collection<HouseAllergy> houseallergiesByAllergyAllergen;
 
-    @OneToMany(mappedBy = "allergyByAllergyAllergen")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "allergyByAllergyAllergen")
     private Collection<StockItemAllergy> stockitemallergiesByAllergyAllergen;
 
     /**

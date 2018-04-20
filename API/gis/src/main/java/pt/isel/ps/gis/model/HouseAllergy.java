@@ -23,11 +23,11 @@ public class HouseAllergy {
     /**
      * ASSOCIAÇÕES
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false)
     private House houseByHouseId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "allergy_allergen", referencedColumnName = "allergy_allergen", nullable = false, insertable = false, updatable = false)
     private Allergy allergyByAllergyAllergen;
 
@@ -35,6 +35,11 @@ public class HouseAllergy {
      * CONSTRUTORES
      */
     protected HouseAllergy() {
+    }
+
+    public HouseAllergy(HouseAllergyId id, Short alergicsNum) throws EntityException {
+        this.id = id;
+        setHouseallergyAlergicsnum(alergicsNum);
     }
 
     public HouseAllergy(Long houseId, String allergy, Short alergicsNum) throws EntityException {

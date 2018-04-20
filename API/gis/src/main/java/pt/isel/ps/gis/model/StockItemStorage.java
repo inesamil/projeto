@@ -23,14 +23,14 @@ public class StockItemStorage {
     /**
      * ASSOCIAÇÕES
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
             @JoinColumn(name = "stockitem_sku", referencedColumnName = "stockitem_sku", nullable = false, insertable = false, updatable = false)
     })
     private StockItem stockitem;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
             @JoinColumn(name = "storage_id", referencedColumnName = "storage_id", nullable = false, insertable = false, updatable = false)
@@ -41,6 +41,11 @@ public class StockItemStorage {
      * CONSTRUTORES
      */
     protected StockItemStorage() {
+    }
+
+    public StockItemStorage(StockItemStorageId id, Short stockitemstorageQuantity) throws EntityException {
+        this.id = id;
+        setStockitemstorageQuantity(stockitemstorageQuantity);
     }
 
     public StockItemStorage(Long houseId, String stockitemSku, Short storageId, Short stockitemstorageQuantity) throws EntityException {
@@ -55,7 +60,7 @@ public class StockItemStorage {
         return id;
     }
 
-    private void setId(StockItemStorageId id) {
+    public void setId(StockItemStorageId id) {
         this.id = id;
     }
 

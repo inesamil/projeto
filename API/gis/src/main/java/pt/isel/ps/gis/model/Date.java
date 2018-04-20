@@ -5,7 +5,6 @@ import pt.isel.ps.gis.utils.DateUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -18,12 +17,12 @@ public class Date {
      */
     @Id
     @Column(name = "date_date", nullable = false)
-    private Timestamp dateDate;
+    private java.sql.Date dateDate;
 
     /**
      * COLEÇÕES
      */
-    @OneToMany(mappedBy = "dateByDateDate")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "dateByDateDate")
     private Collection<ExpirationDate> expirationdatesByDateDate;
 
     /**
@@ -40,13 +39,12 @@ public class Date {
      * GETTERS E SETTERS
      */
     public String getDateDate() {
-        return DateUtils.convertDateFormat(this.dateDate);
+        return DateUtils.convertDateFormat(dateDate);
     }
 
     public void setDateDate(String date) throws EntityException {
         ValidationsUtils.validateDate(date);
-        date += " 00:00:00";    // JDBC timestamp escape format: yyyy-[m]m-[d]d hh:mm:ss[.f...].
-        this.dateDate = Timestamp.valueOf(date);
+        this.dateDate = java.sql.Date.valueOf(date);
     }
 
     public Collection<ExpirationDate> getExpirationdatesByDateDate() {

@@ -3,7 +3,6 @@ package pt.isel.ps.gis.model;
 import pt.isel.ps.gis.exceptions.EntityException;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -19,14 +18,14 @@ public class StockItemMovement {
     /**
      * ASSOCIAÇÕES
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
             @JoinColumn(name = "stockitem_sku", referencedColumnName = "stockitem_sku", nullable = false, insertable = false, updatable = false)
     })
     private StockItem stockitem;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
             @JoinColumn(name = "storage_id", referencedColumnName = "storage_id", nullable = false, insertable = false, updatable = false)
@@ -39,13 +38,12 @@ public class StockItemMovement {
     protected StockItemMovement() {
     }
 
-    public StockItemMovement(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
-                             String stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
-        setId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity);
+    public StockItemMovement(StockItemMovementId id) {
+        this.id = id;
     }
 
     public StockItemMovement(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
-                             Timestamp stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
+                             String stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
         setId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity);
     }
 
@@ -56,15 +54,11 @@ public class StockItemMovement {
         return id;
     }
 
-    private void setId(StockItemMovementId id) {
+    public void setId(StockItemMovementId id) {
         this.id = id;
     }
 
     public void setId(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType, String stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
-        setId(new StockItemMovementId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity));
-    }
-
-    public void setId(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType, Timestamp stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
         setId(new StockItemMovementId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity));
     }
 

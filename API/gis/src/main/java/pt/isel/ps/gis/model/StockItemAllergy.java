@@ -18,14 +18,14 @@ public class StockItemAllergy {
     /**
      * ASSOCIAÇÕES
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false),
             @JoinColumn(name = "stockitem_sku", referencedColumnName = "stockitem_sku", nullable = false, insertable = false, updatable = false)
     })
     private StockItem stockitem;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "allergy_allergen", referencedColumnName = "allergy_allergen", nullable = false, insertable = false, updatable = false)
     private Allergy allergyByAllergyAllergen;
 
@@ -33,6 +33,10 @@ public class StockItemAllergy {
      * CONSTRUTORES
      */
     protected StockItemAllergy() {
+    }
+
+    public StockItemAllergy(StockItemAllergyId id) {
+        this.id = id;
     }
 
     public StockItemAllergy(Long houseId, String stockitemSku, String allergen) throws EntityException {
@@ -46,7 +50,7 @@ public class StockItemAllergy {
         return id;
     }
 
-    private void setId(StockItemAllergyId id) {
+    public void setId(StockItemAllergyId id) {
         this.id = id;
     }
 

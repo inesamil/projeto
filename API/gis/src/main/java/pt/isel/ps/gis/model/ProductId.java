@@ -31,7 +31,7 @@ public class ProductId implements Serializable {
     }
 
     public ProductId(Integer categoryId, Integer productId) throws EntityException {
-       this(categoryId);
+        this(categoryId);
         setProductId(productId);
     }
 

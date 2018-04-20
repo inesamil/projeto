@@ -28,7 +28,7 @@ public class Category implements Serializable {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(mappedBy = "categoryByCategoryId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "categoryByCategoryId")
     private Collection<Product> productsByCategoryId;
 
     /**
@@ -37,12 +37,7 @@ public class Category implements Serializable {
     protected Category() {
     }
 
-    public Category(Integer categoryId) throws EntityException {
-        setCategoryId(categoryId);
-    }
-
-    public Category(Integer categoryId, String categoryName) throws EntityException {
-        this(categoryId);
+    public Category(String categoryName) throws EntityException {
         setCategoryName(categoryName);
     }
 

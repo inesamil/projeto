@@ -29,17 +29,17 @@ public class List {
     /**
      * ASSOCIAÇÕES
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false)
     private House houseByHouseId;
 
-    @OneToMany(mappedBy = "list")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "list")
     private Collection<ListProduct> listproducts;
 
-    @OneToOne(mappedBy = "list")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "list")
     private SystemList systemlist;
 
-    @OneToOne(mappedBy = "list")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "list")
     private UserList userlist;
 
     /**
@@ -48,8 +48,14 @@ public class List {
     protected List() {
     }
 
+    public List(ListId id, String listName, String listType) throws EntityException {
+        this.id = id;
+        setListName(listName);
+        setListType(listType);
+    }
+
     public List(Long houseId, String listName, String listType) throws EntityException {
-        setPartialId(houseId);
+        setId(houseId);
         setListName(listName);
         setListType(listType);
     }
@@ -67,7 +73,7 @@ public class List {
         return id;
     }
 
-    private void setId(ListId id) {
+    public void setId(ListId id) {
         this.id = id;
     }
 
@@ -75,7 +81,7 @@ public class List {
         setId(new ListId(houseId, listId));
     }
 
-    public void setPartialId(Long houseId) throws EntityException {
+    public void setId(Long houseId) throws EntityException {
         setId(new ListId(houseId));
     }
 

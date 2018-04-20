@@ -36,19 +36,19 @@ public class House {
     /**
      * COLEÇÕES
      */
-    @OneToMany(mappedBy = "houseByHouseId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
     private Collection<HouseAllergy> houseallergiesByHouseId;
 
-    @OneToMany(mappedBy = "houseByHouseId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
     private Collection<List> listsByHouseId;
 
-    @OneToMany(mappedBy = "houseByHouseId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
     private Collection<StockItem> stockitemsByHouseId;
 
-    @OneToMany(mappedBy = "houseByHouseId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
     private Collection<Storage> storagesByHouseId;
 
-    @OneToMany(mappedBy = "houseByHouseId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
     private Collection<UserHouse> userhousesByHouseId;
 
     /**
@@ -74,7 +74,7 @@ public class House {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) throws EntityException, EntityException {
+    public void setHouseId(Long houseId) throws EntityException {
         ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
@@ -93,7 +93,7 @@ public class House {
     }
 
     public void setHouseCharacteristics(Characteristics houseCharacteristics) {
-        //TODO: validar Serializable
+        //TODO: validar Characteristics
         this.houseCharacteristics = houseCharacteristics;
     }
 

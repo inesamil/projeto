@@ -37,14 +37,14 @@ public class Product {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(mappedBy = "product")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private Collection<ListProduct> listproducts;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false, insertable = false, updatable = false)
     private Category categoryByCategoryId;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private Collection<StockItem> stockitems;
 
     /**
@@ -60,9 +60,14 @@ public class Product {
         setProductShelflifetimeunit(productShelflifeTimeunit);
     }
 
+    public Product(ProductId id, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws EntityException {
+        this(productName, productEdible, productShelflife, productShelflifetimeunit);
+        this.id = id;
+    }
+
     public Product(Integer categoryId, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws EntityException {
         this(productName, productEdible, productShelflife, productShelflifetimeunit);
-        setPartialId(categoryId);
+        setId(categoryId);
     }
 
     public Product(Integer categoryId, Integer product_id, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws EntityException {
@@ -78,18 +83,17 @@ public class Product {
         return id;
     }
 
-    private void setId(ProductId id) {
+    public void setId(ProductId id) {
         this.id = id;
     }
 
-    public void setPartialId(Integer categoryId) throws EntityException {
+    public void setId(Integer categoryId) throws EntityException {
         setId(new ProductId(categoryId));
     }
 
     public void setId(Integer categoryId, Integer productId) throws EntityException {
         setId(new ProductId(categoryId, productId));
     }
-
 
     public String getProductName() {
         return productName;
