@@ -57,7 +57,6 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".ListsActivity" />
         <activity android:name=".InitialSetup2Activity" />
-        <activity android:name=".NFCWriterActivity"></activity>
     </application>
 
 </manifest>
