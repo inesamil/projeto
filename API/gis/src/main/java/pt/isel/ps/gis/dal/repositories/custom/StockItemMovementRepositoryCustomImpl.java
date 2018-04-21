@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import pt.isel.ps.gis.dal.repositories.StockItemMovementRepositoryCustom;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.StockItemMovement;
+import pt.isel.ps.gis.utils.DateUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -70,7 +71,7 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
                         String stockitem_sku = resultSet.getString(2);
                         short storage_id = resultSet.getShort(3);
                         boolean stockitemmovement_type = resultSet.getBoolean(4);
-                        String stockitemmovement_datetime = resultSet.getTimestamp(5).toString();
+                        String stockitemmovement_datetime = DateUtils.convertTimestampFormat(resultSet.getTimestamp(5));
                         short stockitemmovement_quantity = resultSet.getShort(6);
                         try {
                             StockItemMovement stockItemMovement = new StockItemMovement(house_id, stockitem_sku, storage_id, stockitemmovement_type,

@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.model;
 
 import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.utils.DateUtils;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -86,9 +87,8 @@ public class StockItemMovementId implements Serializable {
         this.stockitemmovementType = stockitemmovementType;
     }
 
-    public Timestamp getStockitemmovementDatetime() {
-        // TODO: tem de retornar string, não pode retornar Timestamp
-        return stockitemmovementDatetime;
+    public String getStockitemmovementDatetime() {
+        return DateUtils.convertTimestampFormat(stockitemmovementDatetime);
     }
 
     public void setStockitemmovementDatetime(String stockitemmovementDatetime) throws EntityException {

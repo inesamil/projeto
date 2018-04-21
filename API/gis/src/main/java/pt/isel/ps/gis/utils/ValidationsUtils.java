@@ -498,7 +498,7 @@ public class ValidationsUtils {
         if (datetime == null)
             throw new EntityException("Stock item movement DateTime is required.");
         if (!DateUtils.isStringValidDateTime(datetime))
-            throw new EntityException("Invalid stock item movement DateTime. The format is: \"yyyy-MM-dd HH:mm:ss\".");
+            throw new EntityException("Invalid stock item movement DateTime. The format is: \"yyyy-MM-dd HH:mm:ss.fffff\".");
     }
 
     /**
