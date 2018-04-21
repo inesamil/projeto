@@ -70,7 +70,7 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
                         String stockitem_sku = resultSet.getString(2);
                         short storage_id = resultSet.getShort(3);
                         boolean stockitemmovement_type = resultSet.getBoolean(4);
-                        Timestamp stockitemmovement_datetime = resultSet.getTimestamp(5);
+                        String stockitemmovement_datetime = resultSet.getTimestamp(5).toString();
                         short stockitemmovement_quantity = resultSet.getShort(6);
                         try {
                             StockItemMovement stockItemMovement = new StockItemMovement(house_id, stockitem_sku, storage_id, stockitemmovement_type,
