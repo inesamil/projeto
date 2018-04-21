@@ -8,7 +8,5 @@ import java.util.List;
 
 public interface UserHouseRepository extends CrudRepository<UserHouse, UserHouseId> {
 
-    List<UserHouse> findAllById_UsersUsername(String username);
-
     List<UserHouse> findAllById_HouseId(Long houseId);
 }
