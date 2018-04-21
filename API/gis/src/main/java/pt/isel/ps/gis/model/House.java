@@ -93,7 +93,6 @@ public class House {
     }
 
     public void setHouseCharacteristics(Characteristics houseCharacteristics) {
-        //TODO: validar Characteristics
         this.houseCharacteristics = houseCharacteristics;
     }
 
