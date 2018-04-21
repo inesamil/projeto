@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".NFCWriterActivity">
 
-    <intent-filter>
-
-        <action android:name="android.nfc.action.NDEF_DISCOVERED" />
-
-        <category android:name="android.intent.category.DEFAULT" />
-
-        <data android:mimeType="text/plain" />
-    </intent-filter>
-
     <Button
         android:id="@+id/save_btn"
         android:layout_width="wrap_content"

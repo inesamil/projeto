@@ -1,4 +1,4 @@
-package com.example.nunoveloso.myapplication
+package ps.leic.isel.pt.simulator
 
 import android.content.Intent
 import android.nfc.NfcAdapter
@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
-import com.example.nunoveloso.myapplication.utils.NFCUtils
+import ps.leic.isel.pt.simulator.utils.NFCUtils
 
 class NFCWriterActivity : AppCompatActivity() {
 
@@ -72,6 +72,6 @@ class NFCWriterActivity : AppCompatActivity() {
     }
 
     fun createNFCMessage() : String {
-        return ""
+        return "Hello World!!!"
     }
 }

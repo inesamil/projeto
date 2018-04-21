@@ -1,4 +1,4 @@
-package com.example.nunoveloso.myapplication.utils
+package ps.leic.isel.pt.simulator.utils
 
 import android.app.Activity
 import android.app.PendingIntent
@@ -15,7 +15,7 @@ import java.nio.charset.Charset
 
 object NFCUtils {
 
-     fun enableNFCInForeground(nfcAdapter: NfcAdapter, activity: Activity){
+    fun enableNFCInForeground(nfcAdapter: NfcAdapter, activity: Activity) {
         val pendingIntent = PendingIntent.getActivity(activity, 0,
                 Intent(activity, activity.javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0)
 
@@ -27,11 +27,11 @@ object NFCUtils {
         nfcAdapter.enableForegroundDispatch(activity, pendingIntent, filters, techLists)
     }
 
-    fun disableNFCInForeground(nfcAdapter: NfcAdapter, activity: Activity){
+    fun disableNFCInForeground(nfcAdapter: NfcAdapter, activity: Activity) {
         nfcAdapter.disableForegroundDispatch(activity)
     }
 
-    fun writeToNFC(tag: Tag?, nfcMessage: String) : Boolean {
+    fun writeToNFC(tag: Tag?, nfcMessage: String): Boolean {
         try {
             val payload = nfcMessage.toByteArray(Charset.forName("US-ASCII"))
             val ndefRecord = NdefRecord(NdefRecord.TNF_MIME_MEDIA, NdefRecord.RTD_TEXT, null, payload)
@@ -44,12 +44,12 @@ object NFCUtils {
                     //Message to large to write to NFC tag
                     return false
                 }
-                if (it.isWritable){
+                if (it.isWritable) {
                     it.writeNdefMessage(ndefMessage)
                     it.close()
                     //Message was written to tag
                     return true
-                } else{
+                } else {
                     //NFC tag is read-only
                     return false
                 }
@@ -63,14 +63,14 @@ object NFCUtils {
                     it.close()
                     //Message was written to tag
                     return true
-                } catch (e: IOException){
+                } catch (e: IOException) {
                     //fail to format tag
                     return false
                 }
             }
             //NDEF is not supported
             return false
-        } catch (e: Exception){
+        } catch (e: Exception) {
             //Write operation was failed
         }
         return false
