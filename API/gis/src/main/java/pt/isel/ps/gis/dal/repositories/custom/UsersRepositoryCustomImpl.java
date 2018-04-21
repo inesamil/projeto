@@ -14,7 +14,6 @@ public class UsersRepositoryCustomImpl implements UsersRepositoryCustom {
 
     @Override
     public void deleteUserById(String username) {
-        // TODO: testar
         Session session = entityManager.unwrap(Session.class);
         session.doWork(connection -> {
             try (CallableStatement function = connection.prepareCall(
