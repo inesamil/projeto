@@ -55,7 +55,7 @@ public interface ListService {
      * @param list lista a adicionar
      * @return UserList
      */
-    UserList addUserList(UserList list);
+    UserList addUserList(UserList list) throws EntityException;
 
     /**
      * Atualizar uma lista duma casa
@@ -67,14 +67,24 @@ public interface ListService {
     List updateList(List list) throws EntityNotFoundException;
 
     /**
-     * Remover uma lista duma casa
+     * Remover uma dada lista do sistema da casa
      *
      * @param houseId identificador da casa
      * @param listId identificador da lista
      * @throws EntityException se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se a lista especificada não existir na casa particularizada
      */
-    void deleteListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException;
+    void deleteSystemListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException;
+
+    /**
+     * Remover uma dada lista de um utilizador
+     *
+     * @param houseId identificador da casa
+     * @param listId identificador da lista
+     * @throws EntityException se os parâmetros recebidos forem inválidos
+     * @throws EntityNotFoundException se a lista especificada não existir na casa particularizada
+     */
+    void deleteUserListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException;
 
     /**
      * Filtros - filtragem das listas

@@ -33,12 +33,15 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public List<Storage> getStorageByHouseId(long houseId) throws EntityException {
         ValidationsUtils.validateHouseId(houseId);
-        //TODO return storageRepository.findAllById_HouseId(houseId);
-        throw new NotImplementedException();
+        return storageRepository.findAllById_HouseId(houseId);
     }
 
     @Override
-    public Storage addStorage(Storage storage){
+    public Storage addStorage(Storage storage) throws EntityException {
+        //TODO: devemos ver se já existe ?
+        if (storageRepository.existsById(storage.getId()))
+            throw new EntityException(String.format("Storage with ID %d in the house with ID %d already exists.",
+                    storage.getId().getStorageId(),storage.getId().getHouseId()));
         return storageRepository.insertStorage(storage);
     }
 
@@ -57,6 +60,6 @@ public class StorageServiceImpl implements StorageService {
         if (!storageRepository.existsById(id))
             throw new EntityNotFoundException(String.format("Storage with ID %d does not exist in the house with ID %d.",
                     storageId, houseId));
-        storageRepository.deleteById(id);
+        storageRepository.deleteStorageById(id);
     }
 }

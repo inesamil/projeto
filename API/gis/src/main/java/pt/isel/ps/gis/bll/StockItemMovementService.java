@@ -16,10 +16,11 @@ public interface StockItemMovementService {
      * @param storageId identificador do local de armazenamento
      * @param type tipo do movimento
      * @param dateTime data do movimento
+     * @param quantity quantidade
      * @return true se o movimento existir, false caso contrário
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    boolean existsStockItemMovementByStockItemMovementId(long houseId, String stockItemSku, short storageId, boolean type, Timestamp dateTime) throws EntityException;
+    boolean existsStockItemMovementByStockItemMovementId(long houseId, String stockItemSku, short storageId, boolean type, String dateTime, short quantity) throws EntityException;
 
     /**
      * Listar os movimentos dos itens de uma casa

@@ -7,5 +7,5 @@ public interface StorageRepositoryCustom {
 
     Storage insertStorage(Storage storage);
 
-    void deleteStorageById(StorageId id);
+    void deleteStorageById(StorageId id);   //TODO: rename cascade etc
 }

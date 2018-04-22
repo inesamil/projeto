@@ -22,4 +22,8 @@ public interface StockItemRepository extends CrudRepository<StockItem, StockItem
             "public.\"stockitemallergy\".house_id = :houseId AND public.\"stockitemallergy\".allergy_allergen = :allergen;",
             nativeQuery = true)
     List<StockItem> findAllByHouseIdAndAllergyAllergen(@Param("houseId") Long houseId, @Param("allergen") String allergen);
+
+    //TODO UPDATE public.stockitem.quantity -= quantityDecreasing FROM public.stockitem WHERE public.stockitem.house_id = houseId AND public.stockitem.stockitem_sku = sku
+
+    //TODO UPDATE public.stockitem.quantity += quantityIncreasing FROM public.stockitem WHERE public.stockitem.house_id = houseId AND public.stockitem.stockitem_sku = sku
 }

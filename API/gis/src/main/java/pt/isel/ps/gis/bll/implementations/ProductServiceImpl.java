@@ -39,4 +39,15 @@ public class ProductServiceImpl implements ProductService {
         ValidationsUtils.validateCategoryId(categoryId);
         return productRepository.findProductsByNameAndCategoryId(categoryId, filters.name);
     }
+
+    @Override
+    public Product addProduct(Product product) throws EntityException {
+        //TODO: devemos ver se já existe ?
+        if (productRepository.existsById(product.getId()))
+            throw new EntityException(String.format("Product with ID %d in the category with ID %d already exists.",
+                    product.getId().getProductId(), product.getId().getCategoryId()));
+        return productRepository.insertProduct(product);
+    }
+
+
 }

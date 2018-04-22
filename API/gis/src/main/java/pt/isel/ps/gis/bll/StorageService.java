@@ -45,7 +45,7 @@ public interface StorageService {
      * @param storage local de armazenamento a adicionar
      * @return Storage
      */
-    Storage addStorage(Storage storage);
+    Storage addStorage(Storage storage) throws EntityException;
 
     /**
      * Atualizar um local de armazenamento duma casa

@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.StockItem;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public interface StockItemService {
      * @param houseId identificador da casa
      * @return List<StockItem>
      */
-    List<StockItem> getStockItemsByHouseId(long houseId);
+    List<StockItem> getStockItemsByHouseId(long houseId) throws EntityException;
 
     /**
      * Listar todos os itens em stock filtrados duma casa através do ID da casa
@@ -51,8 +52,42 @@ public interface StockItemService {
      *
      * @param stockItem item a adicionar ao stock
      * @return StockItem
+     * @throws EntityException se o item em stock já existir na casa
      */
-    StockItem addStockItem(StockItem stockItem);
+    StockItem addStockItem(StockItem stockItem) throws EntityException;
+
+    /**
+     * Remover um item duma casa
+     *
+     * @param houseId identificador da casa
+     * @param stockItemSku identificador do item em stock
+     * @throws EntityException se os parâmetros forem inválidos
+     * @throws EntityNotFoundException se item especificado não existir
+     */
+    void deleteStockItem(long houseId, String stockItemSku) throws EntityException, EntityNotFoundException;
+
+    /**
+     * Reduzir a quantidade em stock de um item em stock
+     *
+     * @param houseId identificador da casa
+     * @param stockItemSku identificador do item em stock
+     * @param quantityDecreasing quantidade a reduzir
+     * @throws EntityException se os parâmetros forem inválidos
+     * @throws EntityNotFoundException se item especificado não existir
+     */
+    void decreaseStockItemQuantity(long houseId, String stockItemSku, short quantityDecreasing) throws EntityException, EntityNotFoundException;
+
+    /**
+     * Reduzir a quantidade em stock de um item em stock
+     *
+     * @param houseId identificador da casa
+     * @param stockItemSku identificador do item em stock
+     * @param quantityIncreasing quantidade a incrementar
+     * @throws EntityException se os parâmetros forem inválidos
+     * @throws EntityNotFoundException se item especificado não existir
+     */
+    void increaseStockItemQuantity(long houseId, String stockItemSku, short quantityIncreasing) throws EntityException, EntityNotFoundException;
+
 
     /**
      * Filtros - filtragem dos itens em stock

@@ -49,13 +49,12 @@ public class UserServiceImpl implements UserService {
         return usersRepository.save(user);
     }
 
-    @Transactional
     @Override
     public void deleteUserByUserId(String username) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateUserUsername(username);
         if (!usersRepository.existsById(username))
             throw new EntityNotFoundException(String.format("User with username %s does not exist.", username));
-        //TODO: deleteUserCascade
-        usersRepository.deleteById(username);   // Remover o utilizador
+        // Remover o utilizador bem como todas as relações das quais o utilizador seja parte integrante
+        usersRepository.deleteUserById(username);
     }
 }

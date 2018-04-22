@@ -20,9 +20,8 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
     }
 
     @Override
-    public boolean existsStockItemMovementByStockItemMovementId(long houseId, String stockItemSku, short storageId, boolean type, Timestamp dateTime) throws EntityException {
-        //TODO: return stockItemMovementRepository.existsById(new StockItemMovementId(houseId, stockItemSku, storageId, type, dateTime));
-        throw new NotImplementedException();
+    public boolean existsStockItemMovementByStockItemMovementId(long houseId, String stockItemSku, short storageId, boolean type, String dateTime, short quantity) throws EntityException {
+        return stockItemMovementRepository.existsById(new StockItemMovementId(houseId, stockItemSku, storageId, type, dateTime, quantity));
     }
 
     @Override

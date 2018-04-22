@@ -48,6 +48,15 @@ public interface ProductService {
     List<Product> getProductsByCategoryIdFiltered(int categoryId, ProductFilters filters) throws EntityException;
 
     /**
+     * Adicionar um produto
+     *
+     * @param product producto a inseir
+     * @return Product
+     * @throws EntityException se um produto com o ID incluído já existir
+     */
+    Product addProduct(Product product) throws EntityException;
+
+    /**
      * Filtros - filtragem das categorias
      */
     class ProductFilters {

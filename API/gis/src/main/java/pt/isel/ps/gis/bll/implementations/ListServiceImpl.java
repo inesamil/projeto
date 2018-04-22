@@ -6,9 +6,7 @@ import pt.isel.ps.gis.dal.repositories.SystemListRepository;
 import pt.isel.ps.gis.dal.repositories.UserListRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
-import pt.isel.ps.gis.model.List;
-import pt.isel.ps.gis.model.ListId;
-import pt.isel.ps.gis.model.UserList;
+import pt.isel.ps.gis.model.*;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.Optional;
@@ -48,7 +46,11 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public UserList addUserList(UserList list) {
+    public UserList addUserList(UserList list) throws EntityException {
+        //TODO: devemos ver se já existe ?
+        if (userListRepository.existsById(list.getId()))
+            throw new EntityException(String.format("List with ID %d in the house with ID %d already exists.",
+                    list.getId().getListId(), list.getId().getHouseId()));
         return userListRepository.insertUserList(list);
     }
 
@@ -62,11 +64,22 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public void deleteListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
+    public void deleteSystemListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
         ListId id = new ListId(houseId, listId);
         if (!listRepository.existsById(id))
             throw new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
                     id.getListId(), id.getHouseId()));
+        systemListRepository.deleteById(new SystemListId(houseId, listId));
         listRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteUserListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
+        ListId id = new ListId(houseId, listId);
+        if (!listRepository.existsById(id))
+            throw new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
+                    id.getListId(), id.getHouseId()));
+        userListRepository.deleteUserListById(new UserListId(houseId, listId));
+    }
+
 }
