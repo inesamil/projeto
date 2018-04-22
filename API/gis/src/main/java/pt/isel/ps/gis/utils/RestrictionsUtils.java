@@ -9,6 +9,10 @@ public class RestrictionsUtils {
     public static final long HOUSE_ID_MIN = 1;
     public static final int HOUSE_NAME_MAX_LENGTH = 35;
 
+    /// Characteristics
+    public static final short CHARACTERISTICS_AGE_GROUP_MIN = 0;
+    public static final short CHARACTERISTICS_AGE_GROUP_MAX = 100;
+
     /// User
     public static final int USER_USERNAME_MAX_LENGTH = 30;
     public static final int USER_EMAIL_MAX_LENGTH = 254;
@@ -28,12 +32,15 @@ public class RestrictionsUtils {
     public static final int LIST_NAME_MAX_LENGTH = 35;
     public static final int LIST_TYPE_MAX_LENGTH = 7;
     public static final short MOVEMENT_QUANTITY_MIN = 1;
+
     /// ListProduct
     public static final int LISTPRODUCT_BRAND_MAX_LENGTH = 35;
     public static final short LISTPRODUCT_QUANTITY_MIN = 1;
+
     /// Storage
     public static final short STORAGE_ID_MIN = 1;
     public static final int STORAGE_NAME_MAX_LENGTH = 35;
+
     /// StockItem
     public static final int STOCKITEM_SKU_MAX_LENGTH = 128;
     public static final int STOCKITEM_BRAND_MAX_LENGTH = 35;
@@ -43,16 +50,20 @@ public class RestrictionsUtils {
     public static final int STOCKITEM_DESCRIPTION_MAX_LENGTH = 10485760;
     public static final int STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH = 128;
     public static final int STOCKITEM_SEGMENTUNIT_MAX_LENGTH = 5;
+
     /// StockItemStorage
     public static final short STOCKITEMSTORAGE_QUANTITY_MIN = 1;
+
     /// Category
     public static final int CATEGORY_ID_MIN = 1;
     public static final int CATEGORY_NAME_MAX_LENGTH = 35;
+
     /// Product
     public static final int PRODUCT_ID_MIN = 1;
     public static final int PRODUCT_NAME_MAX_LENGTH = 35;
     public static final short PRODUCT_SHELFLIFE_MIN = 1;
     public static final int PRODUCT_SHELFLIFETIMEUNIT_MAX_LENGTH = 5;
+
     /// ExpirationDate
     public static final short EXPIRATIONDATE_QUANTITY_MIN = 1;
 

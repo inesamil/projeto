@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.utils;
 
 import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.model.Characteristics;
 import pt.isel.ps.gis.model.Numrange;
 
 public class ValidationsUtils {
@@ -33,6 +34,63 @@ public class ValidationsUtils {
             throw new EntityException("House name is required.");
         if (houseName.length() > RestrictionsUtils.HOUSE_NAME_MAX_LENGTH)
             throw new EntityException("Invalid House name.");
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////                                            Characteristics                                                 ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static void validateCharacteristics(Characteristics characteristics) throws EntityException {
+        if (characteristics == null)
+            throw new EntityException("House characteristics is required.");
+
+        short babiesNumber = characteristics.getHouse_babiesNumber();
+        short childrenNumber = characteristics.getHouse_childrenNumber();
+        short adultsNumber = characteristics.getHouse_adultsNumber();
+        short seniorsNumber = characteristics.getHouse_seniorsNumber();
+
+        validateCharacteristicsBabiesNumber(babiesNumber);
+        validateCharacteristicsChildrenNumber(childrenNumber);
+        validateCharacteristicsAdultsNumber(adultsNumber);
+        validateCharacteristicsSeniorsNumber(seniorsNumber);
+
+        if (babiesNumber == RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN && childrenNumber == RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN
+                && adultsNumber == RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN && seniorsNumber == RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN)
+            throw new EntityException("Must exist at least one person in the house.");
+
+        //TODO: pode existir uma casa só com bebés e/ou crianças sem pelo menos um adulto ?
+    }
+
+    public static void validateCharacteristicsBabiesNumber(Short babiesNumber) throws EntityException {
+        if (babiesNumber == null)
+            throw new EntityException("Babies number is required.");
+        if (babiesNumber < RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN || babiesNumber > RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MAX)
+            throw new EntityException(String.format("Invalid number of babies. The numbers supported are between [%d, %d].",
+                    RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN, RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MAX));
+    }
+
+    public static void validateCharacteristicsChildrenNumber(Short childrenNumber) throws EntityException {
+        if (childrenNumber == null)
+            throw new EntityException("Children number is required.");
+        if (childrenNumber < RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN || childrenNumber > RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MAX)
+            throw new EntityException(String.format("Invalid number of children. The numbers supported are between [%d, %d].",
+                    RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN, RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MAX));
+    }
+
+    public static void validateCharacteristicsAdultsNumber(Short adultsNumber) throws EntityException {
+        if (adultsNumber == null)
+            throw new EntityException("Babies number is required.");
+        if (adultsNumber < RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN || adultsNumber > RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MAX)
+            throw new EntityException(String.format("Invalid number of adults. The numbers supported are between [%d, %d].",
+                    RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN, RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MAX));
+    }
+
+    public static void validateCharacteristicsSeniorsNumber(Short seniorsNumber) throws EntityException {
+        if (seniorsNumber == null)
+            throw new EntityException("Babies number is required.");
+        if (seniorsNumber < RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN || seniorsNumber > RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MAX)
+            throw new EntityException(String.format("Invalid number of seniors. The numbers supported are between [%d, %d].",
+                    RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN, RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MAX));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -498,7 +556,7 @@ public class ValidationsUtils {
         if (datetime == null)
             throw new EntityException("Stock item movement DateTime is required.");
         if (!DateUtils.isStringValidDateTime(datetime))
-            throw new EntityException("Invalid stock item movement DateTime. The format is: \"yyyy-MM-dd HH:mm:ss.fffff\".");
+            throw new EntityException("Invalid stock item movement DateTime. The format is: \"yyyy-MM-dd HH:mm:ss\".");
     }
 
     /**
