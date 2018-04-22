@@ -28,7 +28,7 @@
 		hgrid style/.style={draw=black!5, line width=.75pt},
 		vgrid={*1{draw=black!5, line width=.75pt}},
 		vgrid={*3{draw=none}, dotted},
-		today=7,
+		today=8,
 		today rule/.style={
 			draw=black!64,
 			dash pattern=on 3.5pt off 4.5pt,
@@ -88,14 +88,14 @@
 		\ganttbar[progress=0]{Documentação}{5}{5} \\
 		
 		% Camada de Acesso a Dados
-		\ganttgroup[progress=25]{Camada de Acesso a Dados}{5}{7}\\  
-		\ganttbar[progress=75]{Desenvolvimento}{5}{7}\\
+		\ganttgroup[progress=30]{Camada de Acesso a Dados}{5}{7}\\  
+		\ganttbar[progress=90]{Desenvolvimento}{5}{7}\\
 		\ganttbar[progress=0]{Documentação}{7}{7} \\
 		\ganttbar[progress=0]{Testes}{5}{7} \\
 		
 		% Camada da Lógica de Negócio
-		\ganttgroup[progress=6.67]{Camada da Lógica de Negócio}{7}{10}\\  
-		\ganttbar[progress=20]{Desenvolvimento}{7}{10}\\
+		\ganttgroup[progress=26.67]{Camada da Lógica de Negócio}{7}{10}\\  
+		\ganttbar[progress=80]{Desenvolvimento}{7}{10}\\
 		\ganttbar[progress=0]{Documentação}{10}{10} \\
 		\ganttbar[progress=0]{Testes}{7}{10}  \ganttnewline[grid]
 		
@@ -112,7 +112,7 @@
 		\ganttgroup[progress=14]{Aplicações (Android e Website)}{3}{13} \\
 		\ganttbar[progress=70]{Desenho das User Interfaces}{3}{4}\\
 		\ganttbar[progress=0]{Simulação - Leitor de Tags NFC}{8}{10}\\
-		\ganttbar[progress=0]{Desenvolvimento}{6}{13}\\
+		\ganttbar[progress=2]{Desenvolvimento}{6}{13}\\
 		\ganttbar[progress=0]{Documentação}{12}{13} \\
 		\ganttbar[progress=0]{Testes}{7}{13}  \ganttnewline[grid]
 		
@@ -127,8 +127,8 @@
 		\ganttbar[progress=0,name=S5D]{Relatório Final}{14}{20}\\
 		\ganttbar[progress=0,name=S5E]{Desenvolvimento do cartaz}{11}{13} \ganttnewline[grid]
 		
-		% MILESTONE: Relatório de Progresso
-		\ganttmilestone[ name=M4]{\textbf{Entrega do Projecto}}{20}  \ganttnewline[grid]
+		% MILESTONE: Entrega do Projeto
+		\ganttmilestone[ name=M4]{\textbf{Entrega do Projeto}}{20}  \ganttnewline[grid]
 		
 \end{ganttchart}
 \end{document}
