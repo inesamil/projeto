@@ -33,7 +33,7 @@ public class DateUtils {
      * @return true se @param date é uma data válida, false caso contrário
      */
     public static boolean isStringValidDateTime(String datetime) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.fffff");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dateFormat.setLenient(false);
         try {
             dateFormat.parse(datetime.trim());
@@ -58,10 +58,10 @@ public class DateUtils {
      * Converte um objeto Timestamp numa String
      *
      * @param timestamp data a converter
-     * @return String correspondente à data no formato yyyy-MM-dd HH:mm:ss.fffff
+     * @return String correspondente à data no formato yyyy-MM-dd HH:mm:ss
      */
     public static String convertTimestampFormat(Timestamp timestamp) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.fffff");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return simpleDateFormat.format(timestamp);
     }
 }
