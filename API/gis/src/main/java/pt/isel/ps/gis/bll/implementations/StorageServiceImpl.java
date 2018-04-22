@@ -7,7 +7,6 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Storage;
 import pt.isel.ps.gis.model.StorageId;
 import pt.isel.ps.gis.utils.ValidationsUtils;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 import java.util.Optional;
@@ -60,6 +59,6 @@ public class StorageServiceImpl implements StorageService {
         if (!storageRepository.existsById(id))
             throw new EntityNotFoundException(String.format("Storage with ID %d does not exist in the house with ID %d.",
                     storageId, houseId));
-        storageRepository.deleteStorageById(id);
+        storageRepository.deleteCascadeStorageById(id);
     }
 }

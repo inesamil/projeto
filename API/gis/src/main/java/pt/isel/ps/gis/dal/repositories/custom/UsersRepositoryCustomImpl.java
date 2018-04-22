@@ -13,7 +13,7 @@ public class UsersRepositoryCustomImpl implements UsersRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public void deleteUserById(String username) {
+    public void deleteCascadeUserById(String username) {
         Session session = entityManager.unwrap(Session.class);
         session.doWork(connection -> {
             try (CallableStatement function = connection.prepareCall(
