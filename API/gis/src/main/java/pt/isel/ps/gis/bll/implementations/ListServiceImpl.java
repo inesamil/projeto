@@ -79,7 +79,7 @@ public class ListServiceImpl implements ListService {
         if (!listRepository.existsById(id))
             throw new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
                     id.getListId(), id.getHouseId()));
-        userListRepository.deleteUserListById(new UserListId(houseId, listId));
+        userListRepository.deleteCascadeUserListById(new UserListId(houseId, listId));
     }
 
 }
