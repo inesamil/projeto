@@ -158,6 +158,43 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
     }
 
     @Override
+    public StockItem decrementStockitemQuantity(StockItemId stockItemId) {
+        Session session = entityManager.unwrap(Session.class);
+        return session.doReturningWork(connection -> {
+            String sql = "UPDATE public.\"stockitem\" SET public.\"stockitem\".stockitem_quantity = " +
+                    "public.\"stockitem\".stockitem_quantity - 1 WHERE public.\"stockitem\".house_id = ? AND " +
+                    "public.\"stockitem\".stockitem_sku = ?;";
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                setParametersForUpdate(ps, stockItemId);
+                ps.execute();
+                return null;
+            }
+        });
+    }
+
+    @Override
+    public StockItem incrementStockitemQuantity(StockItemId stockItemId) {
+        Session session = entityManager.unwrap(Session.class);
+        return session.doReturningWork(connection -> {
+            String sql = "UPDATE public.\"stockitem\" SET public.\"stockitem\".stockitem_quantity = " +
+                    "public.\"stockitem\".stockitem_quantity + 1 WHERE public.\"stockitem\".house_id = ? AND " +
+                    "public.\"stockitem\".stockitem_sku = ?;";
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                setParametersForUpdate(ps, stockItemId);
+                ps.execute();
+                return null;
+            }
+        });
+    }
+
+    private void setParametersForUpdate(PreparedStatement ps, StockItemId stockItemId) throws SQLException {
+        if (isNotNull(ps, 1, stockItemId.getHouseId()))
+            ps.setLong(1, stockItemId.getHouseId());
+        if (isNotNull(ps, 2, stockItemId.getStockitemSku()))
+            ps.setString(2, stockItemId.getStockitemSku());
+    }
+
+    @Override
     public void deleteStockItemById(StockItemId id) {
         Session session = entityManager.unwrap(Session.class);
         session.doWork(connection -> {
