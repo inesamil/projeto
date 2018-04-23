@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ps.leic.isel.pt.gis">
+
+    <!-- Add permission for NFC -->
+    <uses-permission android:name="android.permission.NFC" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/RedTheme">
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".InitialSetup1Activity" />
+        <activity
+            android:name=".ProductCategoryActivity"
+            android:label="@string/products_label"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ProductDiaryActivity"
+            android:label="@string/products_label"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ListActivity"
+            android:label="@string/listLabel"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/settingsLabel"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/aboutLabel"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StockItemListActivity"
+            android:label="@string/stockItemListLabel"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RecipesActivity"
+            android:label="@string/recipesLabel"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StockItemDetailsActivity"
+            android:label="@string/stockItemDetailsLabel"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AllergiesActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".ListsActivity" />
+        <activity android:name=".InitialSetup2Activity" />
+    </application>
+
+</manifest>
