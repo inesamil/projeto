@@ -112,4 +112,14 @@
     <string name="no">Não</string>
     <string name="allergics">Alérgicos</string>
     <string name="save">Gravar</string>
+    <!--NFC activity and fragment-->
+    <string name="write_button">Escrever</string>
+    <string name="message_write_error">Erro durante a escrita!</string>
+    <string name="message_write_success">Escrita efetuada com sucesso na Tag!</string>
+    <string name="message_write_progress">A escrever na Tag…</string>
+    <string name="message_tag_detected">Detetada Tag NFC!</string>
+    <string name="message_read_tag">Ler a Tag NFC</string>
+    <string name="message_write_tag">Escrever na Tag NFC</string>
+    <string name="message_tap_tag">Aproxime a Tag NFC do seu telemóvel!</string>
+    <string name="hint_message">Mensagem</string>
 </resources>
