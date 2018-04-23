@@ -38,6 +38,10 @@ public class ListProductServiceImpl implements ListProductService {
 
     @Override
     public ListProduct addListProduct(ListProduct listProduct) {
+        //TODO
+        /*if (listProduct.getId() != null && listProductRepository.existsById(listProduct.getId()))
+            throw new EntityException(String.format("Product with ID %d in the house with ID %d already exists.",
+                    list.getId().getListId(), list.getId().getHouseId()))*/
         return listProductRepository.save(listProduct);
     }
 

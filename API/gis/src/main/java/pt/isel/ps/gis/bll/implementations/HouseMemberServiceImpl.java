@@ -36,7 +36,10 @@ public class HouseMemberServiceImpl implements HouseMemberService {
     }
 
     @Override
-    public UserHouse addMember(UserHouse member) {
+    public UserHouse addMember(UserHouse member) throws EntityException {
+        if (member.getId() != null && userHouseRepository.existsById(member.getId()))
+            throw new EntityException(String.format("Member with username %s in the house with ID %d already exists.",
+                    member.getId().getUsersUsername(), member.getId().getHouseId()));
         return userHouseRepository.save(member);
     }
 

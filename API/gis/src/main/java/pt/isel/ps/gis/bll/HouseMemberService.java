@@ -43,8 +43,9 @@ public interface HouseMemberService {
      *
      * @param member membro a adicionar
      * @return UserHouse
+     * @throws EntityException se o membro especificado já estiver presente na casa particularizada
      */
-    UserHouse addMember(UserHouse member);
+    UserHouse addMember(UserHouse member) throws EntityException;
 
     /**
      * Atualizar os atributos de um membro

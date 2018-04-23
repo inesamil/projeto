@@ -38,6 +38,7 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     @Override
     public StockItemMovement addStockItemMovement(StockItemMovement stockItemMovement) {
+        //TODO
         return stockItemMovementRepository.save(stockItemMovement);
     }
 }

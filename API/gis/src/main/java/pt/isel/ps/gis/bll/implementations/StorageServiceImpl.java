@@ -37,8 +37,7 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public Storage addStorage(Storage storage) throws EntityException {
-        //TODO: devemos ver se já existe ?
-        if (storageRepository.existsById(storage.getId()))
+        if (storage.getId() != null && storageRepository.existsById(storage.getId()))
             throw new EntityException(String.format("Storage with ID %d in the house with ID %d already exists.",
                     storage.getId().getStorageId(),storage.getId().getHouseId()));
         return storageRepository.insertStorage(storage);

@@ -42,8 +42,9 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public House addHouse(House house) throws EntityException {
         House newHouse = house;
-        //TODO: devemos ver se já existe ?
         if (house.getHouseId() != null) {
+            if (houseRepository.existsById(house.getHouseId()))
+                throw new EntityException(String.format("House with ID %d already exists.", house.getHouseId()));
             // É preciso garantir que houseId está a NULL, para ser feita inserção da nova casa.
             // Caso contrário, poderia ser atualizada uma casa já existente.
             newHouse = new House(house.getHouseName(), house.getHouseCharacteristics());
@@ -53,7 +54,7 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public House updateHouse(House house) throws EntityNotFoundException {
-        if (!houseRepository.existsById(house.getHouseId()))
+        if (house.getHouseId() != null && !houseRepository.existsById(house.getHouseId()))
             throw new EntityNotFoundException(String.format("House with ID %d does not exist.", house.getHouseId()));
         return houseRepository.save(house);
     }
@@ -63,6 +64,6 @@ public class HouseServiceImpl implements HouseService {
         if (!houseRepository.existsById(houseId))
             throw new EntityNotFoundException(String.format("House with ID %d does not exist.", houseId));
         // Remover a casa bem como todas as relações das quais a casa seja parte integrante
-        houseRepository.deleteHouseById(houseId);
+        houseRepository.deleteCascadeHouseById(houseId);
     }
 }

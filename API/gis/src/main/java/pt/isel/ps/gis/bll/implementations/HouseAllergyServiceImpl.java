@@ -30,7 +30,10 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
     }
 
     @Override
-    public HouseAllergy addHouseAllergy(HouseAllergy houseAllergy) {
+    public HouseAllergy addHouseAllergy(HouseAllergy houseAllergy) throws EntityException {
+        if (houseAllergy.getId() != null && houseAllergyRepository.existsById(houseAllergy.getId()))
+            throw new EntityException(String.format("Allergy with name %s in the house with ID %d already exists.",
+                    houseAllergy.getId().getAllergyAllergen(), houseAllergy.getId().getHouseId()));
         return houseAllergyRepository.save(houseAllergy);
     }
 

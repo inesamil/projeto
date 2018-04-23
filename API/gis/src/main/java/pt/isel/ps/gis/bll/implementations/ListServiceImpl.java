@@ -47,7 +47,6 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public UserList addUserList(UserList list) throws EntityException {
-        //TODO: devemos ver se já existe ?
         if (userListRepository.existsById(list.getId()))
             throw new EntityException(String.format("List with ID %d in the house with ID %d already exists.",
                     list.getId().getListId(), list.getId().getHouseId()));

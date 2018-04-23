@@ -32,8 +32,9 @@ public interface HouseAllergyService {
      *
      * @param houseAllergy alergia a adicionar
      * @return HouseAllergy
+     * @throws EntityException se a alergia especificada já existir na casa particularizada
      */
-    HouseAllergy addHouseAllergy(HouseAllergy houseAllergy);
+    HouseAllergy addHouseAllergy(HouseAllergy houseAllergy) throws EntityException;
 
     /**
      * Atualizar uma alergia duma casa
