@@ -11,9 +11,9 @@ public interface StockItemRepositoryCustom {
 
     StockItem insertStockItem(StockItem stockItem);
 
-    StockItem decrementStockitemQuantity(StockItemId stockItemId);
+    StockItem decrementStockitemQuantity(StockItemId stockItemId, Short quantityToDecrement);
 
-    StockItem incrementStockitemQuantity(StockItemId stockItemId);
+    StockItem incrementStockitemQuantity(StockItemId stockItemId, Short quantityToIncrement);
 
     void deleteStockItemById(StockItemId id);
 }
