@@ -71,22 +71,22 @@ public interface StockItemService {
      *
      * @param houseId identificador da casa
      * @param stockItemSku identificador do item em stock
-     * @param quantityDecreasing quantidade a reduzir
+     * @param decreasingQuantity quantidade a reduzir
      * @throws EntityException se os parâmetros forem inválidos
      * @throws EntityNotFoundException se item especificado não existir
      */
-    void decreaseStockItemQuantity(long houseId, String stockItemSku, short quantityDecreasing) throws EntityException, EntityNotFoundException;
+    void decreaseStockItemQuantity(long houseId, String stockItemSku, short decreasingQuantity) throws EntityException, EntityNotFoundException;
 
     /**
      * Reduzir a quantidade em stock de um item em stock
      *
      * @param houseId identificador da casa
      * @param stockItemSku identificador do item em stock
-     * @param quantityIncreasing quantidade a incrementar
+     * @param increasingQuantity quantidade a incrementar
      * @throws EntityException se os parâmetros forem inválidos
      * @throws EntityNotFoundException se item especificado não existir
      */
-    void increaseStockItemQuantity(long houseId, String stockItemSku, short quantityIncreasing) throws EntityException, EntityNotFoundException;
+    void increaseStockItemQuantity(long houseId, String stockItemSku, short increasingQuantity) throws EntityException, EntityNotFoundException;
 
 
     /**

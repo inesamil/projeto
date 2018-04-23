@@ -61,21 +61,21 @@ public class StockItemServiceImpl implements StockItemService {
     }
 
     @Override
-    public void decreaseStockItemQuantity(long houseId, String stockItemSku, short quantityDecreasing) throws EntityException, EntityNotFoundException {
+    public void decreaseStockItemQuantity(long houseId, String stockItemSku, short decreasingQuantity) throws EntityException, EntityNotFoundException {
         StockItemId id = new StockItemId(houseId, stockItemSku);
         if (!stockItemRepository.existsById(id))
             throw new EntityNotFoundException(String.format("Stock item with ID %s does not exist in the house with ID %d.",
                     stockItemSku, houseId));
-        stockItemRepository.decrementStockitemQuantity(id); //TODO: quantity
+        stockItemRepository.decrementStockitemQuantity(id, decreasingQuantity);
     }
 
     @Override
-    public void increaseStockItemQuantity(long houseId, String stockItemSku, short quantityIncreasing) throws EntityException, EntityNotFoundException {
+    public void increaseStockItemQuantity(long houseId, String stockItemSku, short increasingQuantity) throws EntityException, EntityNotFoundException {
         StockItemId id = new StockItemId(houseId, stockItemSku);
         if (!stockItemRepository.existsById(id))
             throw new EntityNotFoundException(String.format("Stock item with ID %s does not exist in the house with ID %d.",
                     stockItemSku, houseId));
-        stockItemRepository.incrementStockitemQuantity(id); //TODO: quantity
+        stockItemRepository.incrementStockitemQuantity(id, increasingQuantity);
     }
 
 
