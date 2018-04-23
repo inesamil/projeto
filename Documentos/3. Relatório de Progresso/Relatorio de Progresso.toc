@@ -13,7 +13,18 @@
 \contentsline {subsection}{\numberline {2.3.1}R\IeC {\'o}tulos em Formato N\IeC {\~a}o Digital}{7}
 \contentsline {subsection}{\numberline {2.3.2}Aus\IeC {\^e}ncia de Identificador \IeC {\'U}nico nos Itens}{7}
 \contentsline {section}{\numberline {2.4}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{7}
-\contentsline {chapter}{\numberline {3}Modelo de Dados}{9}
-\contentsline {section}{\numberline {3.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{9}
-\contentsline {section}{\numberline {3.2}Modelo Relacional}{11}
-\contentsline {section}{\numberline {3.3}Dom\IeC {\'\i }nio dos Atributos}{15}
+\contentsline {chapter}{\numberline {3}Solu\IeC {\c c}\IeC {\~a}o Proposta}{9}
+\contentsline {section}{\numberline {3.1}Modelo de Dados}{10}
+\contentsline {subsection}{\numberline {3.1.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{10}
+\contentsline {subsection}{\numberline {3.1.2}Modelo Relacional}{11}
+\contentsline {subsubsection}{Restri\IeC {\c c}\IeC {\~o}es de Integridade}{13}
+\contentsline {subsection}{\numberline {3.1.3}Dom\IeC {\'\i }nio dos Atributos}{15}
+\contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{23}
+\contentsline {section}{\numberline {4.1}Planeamento}{23}
+\contentsline {section}{\numberline {4.2}Modelo de Dados}{23}
+\contentsline {section}{\numberline {4.3}Base de Dados}{23}
+\contentsline {section}{\numberline {4.4}Camada de Acesso a Dados}{23}
+\contentsline {section}{\numberline {4.5}Camada da L\IeC {\'o}gica de Neg\IeC {\'o}cio}{23}
+\contentsline {section}{\numberline {4.6}Web API}{23}
+\contentsline {section}{\numberline {4.7}Aplica\IeC {\c c}\IeC {\~a}o M\IeC {\'o}vel}{23}
+\contentsline {section}{\numberline {4.8}Aplica\IeC {\c c}\IeC {\~a}o Web}{23}
