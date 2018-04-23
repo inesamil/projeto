@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">HardwareSimulator</string>
+
+    <string name="message_read_tag">Read from NFC Tag</string>
+    <string name="message_tag_detected">NFC Tag Detected !</string>
+    <string name="message_read_progress">Reading NFC Tag…</string>
+    <string name="message_read_error">Error reading NFC Tag</string>
+</resources>
