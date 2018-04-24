@@ -14,6 +14,21 @@ No contexto do projeto assume-se a existência de duas formas de apresentação 
 
 Após a aquisição, os artigos são armazenados em locais que devem dispor de dispositivos de hardware equipados com leitores de \textit{tags}. É recolhida a informação presente na \textit{tag}, identificado o tipo de movimento (entrada ou saída) e enviado para a \gls{api-web}. 
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=13cm, scale=1]{./figures/project_structures.png}
+	\caption{Estrutura do Projeto}
+	\label{project-structure}
+\end{figure}
+
+\begin{center}
+	\includegraphics[width=12cm, scale=1]{./figures/project_structures_caption.png}
+\end{center}
+
+
+
+Com a Figura \ref{project-structure} pretende-se não só apresentar os principais componentes do projeto, bem como demonstrar de forma breve a relação dos mesmos. É de destacar que uma \textit{tag} tanto pode ser lida por um dispositivo de hardware munido de um leitor de \textit{tags}, como por um smartphone equipado com tecnologia \acrshort{nfc}. O mesmo smartphone pode ainda escrever na \textit{tag} \acrshort{nfc}, necessário para identificar produtos avulsos presentes num sistema de arrumação. Tanto o dispositivo de \textit{hardware} como as aplicações, móvel e \textit{web}, comunicam com a \gls{api-web}.
+
 Através da aplicação disponibilizada, o utilizador poderá consultar:
 \begin{itemize} \itemsep 0pt
 	\item os produtos em stock,
@@ -51,13 +66,18 @@ Têm-se como objetivos, os seguintes pontos:
 %
 \section{Especificações do Projecto e Resumo da Solução} \label{sec13}
 
-O projeto é composto por 2 blocos principais, que se relacionam. A Figura \ref{esquema_geral} representa esses blocos. 
+O projeto é composto por 2 blocos principais, que se relacionam. A Figura \ref{project-architecture} representa esses blocos. 
 
-\textit(Figura Aqui)
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=10cm, scale=1]{./figures/project_architecture.png}
+	\caption{Arquitetura do Projeto}
+	\label{project-architecture}
+\end{figure}
 
 Um dos blocos é a interação com o utilizador, através de duas aplicações, uma móvel e uma Web. A aplicação móvel desenvolvida apenas para a plataforma \textit{Android}, e utilizando a linguagem \textit{Kotlin}. Para a aplicação Web, implementada recorrendo à linguagem \textit{JavaScript}, com o auxilio da \textit{framework Express}. 
 
-O outro bloco é a \gls{api-web} desenvolvida com a \textit{framework} da \textit{Spring}, chamada de \textit{Spring Boot}. Subjacente a este último bloco estão as camadas: \acrfull{db}, \acrfull{dal}, \acrfull{bll}.  A camada da base de dados (\acrshort{db}), realizada com o \acrfull{sgdb} \textit{PostgreSQL}. Para a camada de acesso a dados (\acrshort{dal}), responsável pelas leituras e escritas, a ferramenta utilizada é a linguagem de programação \textit{Java}, com a \gls{api} \acrfull{jdbc}. A camada da lógica de negócio (\acrshort{bll}), também se serve da ferramenta mencionada anterior para a sua implementação, esta camada é responsável pela gestão dos dados obtidos da \acrshort{db} ou da \gls{api-web}.
+O outro bloco incluí a \gls{api-web} desenvolvida com a \textit{framework} da \textit{Spring}, chamada de \textit{Spring Boot}. Subjacente a este última estão as camadas: \acrfull{db}, \acrfull{dal}, \acrfull{bll}.  A camada da base de dados (\acrshort{db}), realizada com o \acrfull{sgbd} \textit{PostgreSQL}. Para a camada de acesso a dados (\acrshort{dal}), responsável pelas leituras e escritas, a ferramenta utilizada é a linguagem de programação \textit{Java}, com a \gls{api} \acrfull{jdbc}. A camada da lógica de negócio (\acrshort{bll}), também se serve da ferramenta mencionada anterior para a sua implementação, esta camada é responsável pela gestão dos dados obtidos da \acrshort{db} ou da \gls{api-web}.
 
 
 %

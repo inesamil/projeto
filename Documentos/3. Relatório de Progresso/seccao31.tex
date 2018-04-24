@@ -1,6 +1,9 @@
-
+%%
 % Modelo de Dados
+%%
 \section{Modelo de Dados}\label{sec31}
+
+
 
 % Modelo EA
 \subsection{Modelo Entidade-Associação}\label{subsec311}
@@ -78,7 +81,7 @@
 		\item Storage(house\_id, storage\_id, storage\_name, storage\_temperature)  \newline
 		\acrshort{cp}:(house\_id, storage\_id) \newline
 		\acrshort{ce}: \{(house\_id) ref House\}
-	
+		
 		\item UserHouse(house\_id, user\_username, userHouse\_administrator) \newline
 		\acrshort{cp}: (house\_id, user\_username) \newline
 		\acrshort{ce}: \{(house\_id) ref House, (user\_username) ref User\}
@@ -88,30 +91,30 @@
 		\acrshort{ce}: \{(house\_id, stockItem\_sku) ref StockItem, (house\_id, storage\_id) ref Storage\}
 		
 		\item StockItemMovement(house\_id, stockItem\_sku, storage\_id, stockItemMovement\_type, \newline stockItemMovement\_dateTime) \newline
-		\acrshort{cp}: (house\_id, stockItem\_sku, storage\_id, stockItemMovement\_type, \newline stockItemMovement\_dateTime, StockItemMovement\_quantity) \newline
+		\acrshort{cp}: (house\_id, stockItem\_sku, storage\_id, stockItemMovement\_type, \newline stockItemMovement\_dateTime) \newline
 		\acrshort{ce}: \{(house\_id, stockItem\_sku) ref StockItem, (house\_id, storage\_id) ref Storage\}
 		
 		\item HouseAllergy(house\_id, allergy\_allergen, houseAllergy\_alergicsNum) \newline
 		\acrshort{cp}: (house\_id, allergy\_allergen) \newline
 		\acrshort{ce}: \{(house\_id) ref House, (allergy\_allergen) ref Allergy\}
-	
+		
 		\item ListProduct(house\_id, list\_id, category\_id, product\_id, listProduct\_brand, listProduct\_quantity) \newline
 		\acrshort{cp}: (house\_id, list\_id, category\_id, product\_id) \newline
 		\acrshort{ce}: \{(house\_id, list\_id) ref List, (category\_id, product\_id) ref Product\}
-	
+		
 		\item StockItemAllergy(house\_id, stockItem\_sku, allergy\_allergen) \newline
 		\acrshort{cp}: (house\_id, stockItem\_sku, allergy\_allergen) \newline
 		\acrshort{ce}: \{(house\_id, stockItem\_sku) ref StockItem, (allergy\_allergen) ref Allergy\}
-	
+		
 		\item Date(date\_date) \newline
 		\acrshort{cp}: (date\_date)
-	
+		
 		\item ExpirationDate(house\_id, stockItem\_sku, date\_date) \newline
 		\acrshort{cp}: (house\_id, stockItem\_sku, date\_date) \newline
 		\acrshort{ce}: \{(house\_id, stockItem\_sku) ref StockItem, (date\_date) ref Date\}
-
 	\end{description}	
 }
+
 
 \subsubsection{Restrições de Integridade}
 \begin{description}
