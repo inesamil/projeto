@@ -44,7 +44,7 @@ object NFCUtils {
     private fun writeMessageToTag(nfcMessage: NdefMessage, tag: Tag?): Boolean {
         try {
             val ndefTag = Ndef.get(tag)
-            ndefTag?.let {
+            ndefTag?.use {
                 it.connect()
                 if (it.maxSize < nfcMessage.toByteArray().size) {
                     //Message to large to write to NFC tag
@@ -52,7 +52,6 @@ object NFCUtils {
                 }
                 if (it.isWritable) {
                     it.writeNdefMessage(nfcMessage)
-                    it.close()
                     //Message was written to tag
                     return true
                 } else {
@@ -61,23 +60,22 @@ object NFCUtils {
                 }
             }
             val ndefFormatableTag = NdefFormatable.get(tag)
-            ndefFormatableTag?.let {
-                try {
+            try {
+                ndefFormatableTag?.use {
                     it.connect()
                     it.format(nfcMessage)
-                    it.close()
                     //Message was written to tag
                     return true
-                } catch (e: IOException) {
-                    //fail to format tag
-                    return false
                 }
+            } catch (e: IOException) {
+                //fail to format tag
+                return false
             }
             //NDEF is not supported
             return false
         } catch (e: Exception) {
             //Write operation was failed
+            return false
         }
-        return false
     }
 }

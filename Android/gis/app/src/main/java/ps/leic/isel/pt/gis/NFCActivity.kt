@@ -15,7 +15,6 @@ class NFCActivity : AppCompatActivity(), Listener {
     private var nfcAdapter: NfcAdapter? = null
     private var writeFragment: WriteFragment? = null
     private var isDialogDisplayed = false
-    private var isWrite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +22,6 @@ class NFCActivity : AppCompatActivity(), Listener {
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 
         write_btn.setOnClickListener {
-            isWrite = true
             writeFragment = supportFragmentManager.findFragmentByTag(WriteFragment.TAG) as? WriteFragment
             if (writeFragment == null)
                 writeFragment = WriteFragment.newInstance()
@@ -51,24 +49,17 @@ class NFCActivity : AppCompatActivity(), Listener {
 
     override fun onDialogDismissed() {
         isDialogDisplayed = false
-        isWrite = false
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         val tag = intent?.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
-        Log.d("nfcTAG", "onNewIntent: " + intent?.action)
         if (tag != null) {
             Toast.makeText(this, getString(R.string.message_tag_detected), Toast.LENGTH_SHORT).show()
             if (isDialogDisplayed) {
-                if (isWrite) {
-                    val messageToWrite = msgTxt.text.toString()
-                    writeFragment = supportFragmentManager.findFragmentByTag(WriteFragment.TAG) as? WriteFragment
-                    writeFragment?.onNfcDetected(messageToWrite, intent)
-                } /*else {
-                    mNfcReadFragment = fragmentManager.findFragmentByTag(NFCReadFragment.TAG) as NFCReadFragment
-                    mNfcReadFragment.onNfcDetected(ndef)
-                }*/
+                val messageToWrite = msgTxt.text.toString()
+                writeFragment = supportFragmentManager.findFragmentByTag(WriteFragment.TAG) as? WriteFragment
+                writeFragment?.onNfcDetected(messageToWrite, intent)
             }
         }
     }

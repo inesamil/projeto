@@ -20,7 +20,7 @@ class WriteFragment : DialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        listener = context as NFCActivity
+        listener = context as? NFCActivity
         listener?.onDialogDisplayed()
     }
 
@@ -29,7 +29,7 @@ class WriteFragment : DialogFragment() {
         listener?.onDialogDismissed()
     }
 
-    fun onNfcDetected(messageToWrite: String, intent: Intent) {
+    fun onNfcDetected(messageToWrite: String, intent: Intent?) {
         progress.visibility = View.VISIBLE
         tv_message.text = getString(R.string.message_write_progress)
         val messageWrittenSuccessfully = NFCUtils.createNFCMessage(messageToWrite, intent)
