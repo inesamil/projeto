@@ -1,0 +1,4 @@
+#Sun Apr 15 17:14:14 BST 2018
+base.0=C\:\\Users\\Rita\\Desktop\\ISEL\\6Semestre\\PS\\projeto\\Android\\uis\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex
