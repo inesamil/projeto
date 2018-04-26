@@ -37,20 +37,6 @@
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
-% Exemplos
-\newcounter{CountExamples}
-\newcommand{\exampleblock}[2]{
-	\noindent\fbox{
-		\parbox{\textwidth}{
-			\stepcounter{CountExamples}
-			\textbf{Exemplo \arabic{CountExamples}}
-			
-			#1
-		}
-		%\label{ex:#2}
-	}
-}
-
 % Definições das dimensões das páginas
 \setlength{\textheight}{24.00cm}
 \setlength{\textwidth}{15.50cm}
@@ -71,7 +57,6 @@
 
 % Abreviaturas
 \include{abreviaturas}
-\glsaddall
 
 % Terminologia
 \include{terminologia}
@@ -187,14 +172,6 @@ Março de 2018\\
 \listoftables
 \cleardoublepage
 
-% Geração do índice de abreviaturas
-\printglossary[type=\acronymtype, title=Lista de Acrónimos e Abreviaturas, toctitle=Lista de Acrónimos e Abreviaturas]
-\cleardoublepage
-
-% Geração do índice de terminologia
-\printglossary[title=Lista de Terminologia, toctitle=Lista de Terminologia]
-\cleardoublepage
-
 % Iniciar a numeração de páginas
 \setcounter{page}{1}
 \pagenumbering{arabic}
@@ -222,7 +199,7 @@ Março de 2018\\
 \appendix
 
 % Anexo 1
-%\include{anexo1}
+\include{anexo1}
 
 % Anexo 2
 %\include{anexo2}

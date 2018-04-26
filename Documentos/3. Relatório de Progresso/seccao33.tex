@@ -1,0 +1,16 @@
+%
+% Acesso a Dados
+%
+\section{Acesso a Dados}\label{sec33}
+
+Uma vez armazenados os dados de forma persistente é indispensável realizar escritas e leituras sobre os mesmos. Para tal, desenvolveu-se a chamada camada de acesso a dados (\gls{dal}). 
+
+Para implementar esta camada, ponderaram-se duas opções, \gls{jpa} e \gls{jdbctemplate}. Apesar de \acrshort{jdbctemplate} permitir um maior controlo ao programador, não se fizeram notar discrepâncias significativas, pelo que se optou então por \acrshort{jpa}, por questões de familiaridade.
+
+ \subsection{Implementação}\label{subsec331}
+ 
+ No acesso a dados, são utilizados dois padrões de desenho: Padrão \textit{Repository} e Padrão \textit{Unit Of Work}. Esta componente é, salvo exceções, gerada automaticamente através da \acrshort{jpa}.
+ 
+ Cada entidade presente na base de dados é mapeada numa classe em Java, que representa o modelo da mesma. Esta classe tem várias anotações da JPA para referir a \acrlong{cp}, \acrlong{ce}, relações entre entidades, etc. Em conjunto estas classes Java formam o modelo utilizado entre as camadas internas do lado do servidor. Mais à frente serão apresentados outro tipos de objeto usados para representar as entidades recebidas e enviadas para o exterior.
+ 
+ 

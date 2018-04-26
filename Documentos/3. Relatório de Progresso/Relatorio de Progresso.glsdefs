@@ -1,16 +1,16 @@
-\ifglsentryexists{gcd}{}%
+\ifglsentryexists{api}{}%
 {%
-\gls@defglossaryentry{gcd}%
+\gls@defglossaryentry{api}%
 {%
-name={GCD},%
-sort={GCD},%
-type={acronym},%
-first={Greatest Common Divisor\glsspace (GCD)},%
-firstplural={Greatest Common Divisors\glsspace (GCDs)},%
-text={GCD},%
-plural={GCDs},%
-description={Greatest Common Divisor},%
-descriptionplural={Greatest Common Divisor\acrpluralsuffix },%
+name={API},%
+sort={API},%
+type={main},%
+first={API},%
+firstplural={APIs},%
+text={API},%
+plural={APIs},%
+description={Web APIs are Application Programming Interfaces. Interfaces to information and functionality provided by systems, used by other applications.},%
+descriptionplural={Web APIs are Application Programming Interfaces. Interfaces to information and functionality provided by systems, used by other applications.},%
 symbol={\relax },%
 symbolplural={\relax },%
 user1={},%
@@ -19,28 +19,28 @@ user3={},%
 user4={},%
 user5={},%
 user6={},%
-long={Greatest Common Divisor},%
-longplural={Greatest Common Divisors},%
-short={GCD},%
-shortplural={GCDs},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
 counter={page},%
 parent={},%
 %
 }%
 }%
-\ifglsentryexists{lcm}{}%
+\ifglsentryexists{open-source}{}%
 {%
-\gls@defglossaryentry{lcm}%
+\gls@defglossaryentry{open-source}%
 {%
-name={LCM},%
-sort={LCM},%
-type={acronym},%
-first={Least Common Multiple\glsspace (LCM)},%
-firstplural={Least Common Multiples\glsspace (LCMs)},%
-text={LCM},%
-plural={LCMs},%
-description={Least Common Multiple},%
-descriptionplural={Least Common Multiple\acrpluralsuffix },%
+name={\textit {open source}},%
+sort={\textit {open source}},%
+type={main},%
+first={\protect \textit  {open source}},%
+firstplural={\protect \textit  {open source}s},%
+text={\protect \textit  {open source}},%
+plural={\protect \textit  {open source}s},%
+description={Modelo de desenvolvimento, no qual o código-fonte é disponibilizado sendo assim possível para qualquer pessoa estudar, alterar e distribuir o software seja com que finalidade for.},%
+descriptionplural={Modelo de desenvolvimento, no qual o código-fonte é disponibilizado sendo assim possível para qualquer pessoa estudar, alterar e distribuir o software seja com que finalidade for.},%
 symbol={\relax },%
 symbolplural={\relax },%
 user1={},%
@@ -49,10 +49,10 @@ user3={},%
 user4={},%
 user5={},%
 user6={},%
-long={Least Common Multiple},%
-longplural={Least Common Multiples},%
-short={LCM},%
-shortplural={LCMs},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
 counter={page},%
 parent={},%
 %
