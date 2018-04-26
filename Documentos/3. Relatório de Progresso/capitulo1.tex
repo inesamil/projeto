@@ -25,9 +25,9 @@ Após a aquisição, os artigos são armazenados em locais que devem dispor de d
 	\includegraphics[width=12cm, scale=1]{./figures/project_structures_caption.png}
 \end{center}
 
-Com a Figura \ref{project-structure} pretende-se não só apresentar os principais componentes do projeto, bem como demonstrar de forma breve a relação dos mesmos. É de destacar que uma \textit{tag} tanto pode ser lida por um dispositivo de hardware munido de um leitor de \textit{tags}, como por um smartphone equipado com tecnologia \acrshort{nfc}. O mesmo smartphone pode ainda escrever na \textit{tag} \acrshort{nfc}, necessário para identificar produtos avulsos presentes num sistema de arrumação. Tanto o dispositivo de \textit{hardware} como as aplicações, móvel e \textit{web}, comunicam com a \gls{api-web}.
+Com a Figura \ref{project-structure} pretende-se não só apresentar os principais componentes do projeto, bem como demonstrar de forma breve a relação dos mesmos. É de destacar que uma \textit{tag} pode ser lida por um dispositivo de hardware munido de um leitor de \textit{tags}. Um smartphone equipado com tecnologia \acrshort{nfc} pode escrever na \textit{tag} \acrshort{nfc}, necessário para identificar produtos avulsos presentes num sistema de arrumação. Tanto o dispositivo de \textit{hardware} como as aplicações - móvel e \textit{web} - comunicam com a \gls{api-web}.
 
-Através da aplicação disponibilizada, o utilizador poderá consultar:
+Através das aplicações disponibilizadas, o utilizador poderá consultar:
 \begin{itemize} \itemsep 0pt
 	\item os produtos em stock,
 	\item as listas do sistema e/ou as por si criadas,
@@ -62,7 +62,7 @@ Têm-se como objetivos, os seguintes pontos:
 %
 % Secção 1.3
 %
-\section{Especificações do Projecto e Resumo da Solução} \label{sec13}
+\section{Especificações do Projeto e Resumo da Solução} \label{sec13}
 
 O projeto é composto por 2 blocos principais, que se relacionam. A Figura \ref{project-architecture} representa esses blocos. 
 
@@ -75,7 +75,7 @@ O projeto é composto por 2 blocos principais, que se relacionam. A Figura \ref{
 
 Um dos blocos é a interação com o utilizador, através de duas aplicações, uma móvel e uma Web. A aplicação móvel desenvolvida apenas para a plataforma \textit{Android}, e utilizando a linguagem \textit{Kotlin}. Para a aplicação Web, implementada recorrendo à linguagem \textit{JavaScript}, com o auxilio da \textit{framework Express}. 
 
-O outro bloco incluí a \gls{api-web} desenvolvida com a \textit{framework} da \textit{Spring}, chamada de \textit{Spring Boot}. Subjacente a este última estão as camadas: \acrfull{db}, \acrfull{dal}, \acrfull{bll}.  A camada da base de dados (\acrshort{db}), realizada com o \acrfull{sgbd} \textit{PostgreSQL}. Para a camada de acesso a dados (\acrshort{dal}), responsável pelas leituras e escritas, a ferramenta utilizada é a linguagem de programação \textit{Java}, com a \gls{api} \acrfull{jdbc}. A camada da lógica de negócio (\acrshort{bll}), também se serve da ferramenta mencionada anterior para a sua implementação, esta camada é responsável pela gestão dos dados obtidos da \acrshort{db} ou da \gls{api-web}.
+O outro bloco incluí a \gls{api-web} desenvolvida com a \textit{framework} da \textit{Spring}, chamada de \textit{Spring Boot}. Subjacente a este última estão as camadas: \acrfull{db}, \acrfull{dal}, \acrfull{bll}.  A camada da base de dados (\acrshort{db}), realizada com o \acrfull{sgbd} \textit{PostgreSQL}. Para a camada de acesso a dados (\acrshort{dal}), responsável pelas leituras e escritas, a ferramenta utilizada é a linguagem de programação \textit{Java}, com a \acrfull{jpa}. A camada da lógica de negócio (\acrshort{bll}), também se serve da ferramenta mencionada anterior para a sua implementação, esta camada é responsável pela gestão dos dados obtidos da \acrshort{db} ou da \gls{api-web}.
 
 
 %
@@ -90,4 +90,4 @@ No capítulo 3 o problema é solucionado, sendo apresentada, com detalhe, a solu
 
 É no capítulo 4 que se retiram conclusões face ao trabalho desenvolvido em relação ao trabalho inicialmente previsto. Este planeamento inicial é revelado na secção \ref{sec41}. Para finalizar, propõe-se o trabalho a realizar futuramente, na secção \ref{sec43}.
 
-No Anexo A define-se terminologia,quer a básica à gestão de stocks, para melhor compreensão de alguns dos termos utilizados no decorrer do projeto, quer de conceitos de programação.
+No Anexo A define-se terminologia, quer a básica à gestão de stocks, para melhor compreensão de alguns dos termos utilizados no decorrer do projeto, quer de conceitos de programação.
