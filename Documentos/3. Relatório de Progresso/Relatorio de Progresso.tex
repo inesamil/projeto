@@ -159,17 +159,21 @@ Março de 2018\\
 % Página de agradecimentos
 \include{agradecimentos}
 
-% Geração do índice de conteúdos
-\cleardoublepage\newpage
-\tableofcontents
-\cleardoublepage
-
 % Geração do índice de figuras
 \listoffigures
 \cleardoublepage
 
 % Geração do índice de tabelas
 \listoftables
+\cleardoublepage
+
+% Geração do índice de Acrónimos e Abreviaturas
+%\printglossary[type=\acronymtype, style=long, toctitle={Acronyms}, title={Acronyms}]
+%\cleardoublepage
+
+% Geração do índice de conteúdos
+\cleardoublepage\newpage
+\tableofcontents
 \cleardoublepage
 
 % Iniciar a numeração de páginas
@@ -203,7 +207,5 @@ Março de 2018\\
 
 % Anexo 2
 %\include{anexo2}
-
-\bibliographystyle{alpha}
 
 \end{document}

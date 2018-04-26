@@ -8,10 +8,4 @@ A level-1 auxiliary file: capitulo3.aux
 A level-1 auxiliary file: capitulo4.aux
 The style file: unsrt.bst
 A level-1 auxiliary file: anexo1.aux
-Illegal, another \bibstyle command---line 21 of file Relatorio de Progresso.aux
- : \bibstyle
- :          {alpha}
-I'm skipping whatever remains of this command
-I found no \citation commands---while reading file Relatorio de Progresso.aux
 Database file #1: referencias.bib
-(There were 2 error messages)

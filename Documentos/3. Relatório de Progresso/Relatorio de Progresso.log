@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  26 APR 2018 01:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  26 APR 2018 12:09
 entering extended mode
 **"./Relatorio de Progresso.tex"
 ("Relatorio de Progresso.tex"
@@ -935,7 +935,7 @@ Package grfext Info: Graphics extension search list:
 (grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
-) ("Relatorio de Progresso.glsdefs")
+)
 \AtBeginShipoutBox=\box41
 <./figures/logo_ISEL_principal_PNG.png, id=1, 426.59375pt x 301.125pt>
 File: ./figures/logo_ISEL_principal_PNG.png Graphic file (type png)
@@ -1007,31 +1007,29 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--160
 ] [8
 
 
-] ("Relatorio de Progresso.toc" [9
+] ("Relatorio de Progresso.lof")
+\tf@lof=\write6
+\openout6 = `"Relatorio de Progresso.lof"'.
 
-])
-\tf@toc=\write6
-\openout6 = `"Relatorio de Progresso.toc"'.
+ [9] [10
 
- [10] ("Relatorio de Progresso.lof")
-\tf@lof=\write7
-\openout7 = `"Relatorio de Progresso.lof"'.
+] ("Relatorio de Progresso.lot")
+\tf@lot=\write7
+\openout7 = `"Relatorio de Progresso.lot"'.
 
 
 [11
 
-
 ] [12
 
-] ("Relatorio de Progresso.lot")
-\tf@lot=\write8
-\openout8 = `"Relatorio de Progresso.lot"'.
+] ("Relatorio de Progresso.toc" [13
 
- [13
 
-] [14
+])
+\tf@toc=\write8
+\openout8 = `"Relatorio de Progresso.toc"'.
 
-]
+ [14]
 \openout2 = `capitulo1.aux'.
 
  (capitulo1.tex
@@ -1043,6 +1041,7 @@ Package pdftex.def Info: ./figures/project_structures.png  used on input line 1
 9.
 (pdftex.def)             Requested size: 376.40532pt x 290.88603pt.
 [1
+
 
 
 ]
@@ -1066,22 +1065,22 @@ File: ./figures/project_architecture.png Graphic file (type png)
 Package pdftex.def Info: ./figures/project_architecture.png  used on input line
  71.
 (pdftex.def)             Requested size: 369.78058pt x 423.98294pt.
- [3]) [4 <./figures/project_architecture.png>]
+ [3] [4 <./figures/project_architecture.png>]) [5]
 \openout2 = `capitulo2.aux'.
 
- (capitulo2.tex
+ (capitulo2.tex [6
+
+
+
+]
 Cap\'{\i }tulo 2.
 
-LaTeX Warning: Reference `sec24' on page 5 undefined on input line 6.
+LaTeX Warning: Reference `sec24' on page 7 undefined on input line 6.
 
-[5
-
-
-
-] [6]) [7]
+[7] [8]) [9]
 \openout2 = `capitulo3.aux'.
 
- (capitulo3.tex [8
+ (capitulo3.tex [10
 
 
 
@@ -1091,7 +1090,7 @@ Cap\'{\i }tulo 3.
 
 pdfTeX warning: pdflatex.exe (file ./files/EA.pdf): PDF inclusion: found PDF ve
 rsion <1.7>, but at most version <1.5> allowed
-<./files/EA.pdf, id=88, 845.07724pt x 597.55246pt>
+<./files/EA.pdf, id=95, 845.07724pt x 597.55246pt>
 File: ./files/EA.pdf Graphic file (type pdf)
 <use ./files/EA.pdf>
 Package pdftex.def Info: ./files/EA.pdf  used on input line 14.
@@ -1101,35 +1100,31 @@ Overfull \hbox (59.3452pt too wide) in paragraph at lines 12--15
  []|  [] 
  []
 
-[9]
-Overfull \vbox (8.62006pt too high) has occurred while \output is active []
-
-
-[10 <./files/EA.pdf>]
+[11]
 Overfull \hbox (25.2703pt too wide) in paragraph at lines 24--26
 []\OT1/cmr/m/n/10.95 House(house[]id, house[]name, house[]babiesNumber, house[]
 childrenNumber, house[]adultsNumber,
  []
 
-
+[12 <./files/EA.pdf>]
 Overfull \hbox (17.31941pt too wide) in paragraph at lines 34--36
 []\OT1/cmr/m/n/10.95 Recipe(recipe[]id, re-cipe[]name, re-cipe[]instructions, r
 e-cipe[]difficulty, re-cipe[]time, re-cipe[]servings,
  []
 
-[11]
+
 Overfull \hbox (28.39114pt too wide) in paragraph at lines 72--76
 []\OT1/cmr/m/n/10.95 StockItem(house[]id, stoc-kI-tem[]sku, ca-te-gory[]id, pro
 -duct[]id, stoc-kI-tem[]brand, stoc-kI-tem[]segment,
  []
 
-
+[13]
 Overfull \hbox (13.51743pt too wide) in paragraph at lines 101--104
 []\OT1/cmr/m/n/10.95 ListProduct(house[]id, list[]id, ca-te-gory[]id, pro-duct[
 ]id, list-Pro-duct[]brand, list-Pro-duct[]quantity) 
  []
 
-[12] [13] [14]
+[14] [15] [16]
 LaTeX Font Info:    Try loading font information for OML+cmr on input line 232.
 
 
@@ -1139,12 +1134,12 @@ File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 232.
 
-[15] [16] [17]
+[17] [18] [19]
 Overfull \hbox (3.40536pt too wide) in paragraph at lines 359--359
  \OT1/cmr/m/n/10.95 duct[]shelfLifeTimeUnit 
  []
 
-[18] [19] [20] [21]
+[20] [21] [22] [23]
 Overfull \hbox (3.76271pt too wide) in paragraph at lines 535--535
  \OT1/cmr/m/n/10.95 (AAAA/MM/DD)| 
  []
@@ -1154,43 +1149,74 @@ Overfull \hbox (3.76271pt too wide) in paragraph at lines 552--552
  \OT1/cmr/m/n/10.95 (AAAA/MM/DD)| 
  []
 
-) (seccao32.tex [22]) (seccao33.tex) (seccao34.tex [23])) [24]
+) (seccao32.tex [24]) (seccao33.tex) (seccao34.tex [25])) [26]
 \openout2 = `capitulo4.aux'.
 
  (capitulo4.tex
 Cap\'{\i }tulo 4.
-) [25
+<./files/Planeamento.pdf, id=156, 582.11276pt x 923.31651pt>
+File: ./files/Planeamento.pdf Graphic file (type pdf)
+<use ./files/Planeamento.pdf>
+Package pdftex.def Info: ./files/Planeamento.pdf  used on input line 20.
+(pdftex.def)             Requested size: 582.11134pt x 923.31425pt.
+
+Overfull \hbox (52.26312pt too wide) in paragraph at lines 19--21
+[]  [] 
+ []
+
+[27
 
 
 
-] ("Relatorio de Progresso.bbl" [26
+] [28 <./files/Planeamento.pdf>]) [29] ("Relatorio de Progresso.bbl"
+[30
 
 
 ]
+Underfull \hbox (badness 4096) in paragraph at lines 17--23
+[]\OT1/cmr/m/n/10.95 Business Dic-ti-o-nary.  What is stan-dard stock item? de-
+fi-ni-tion and me-a-
+ []
 
-LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [27]
+Underfull \hbox (badness 3312) in paragraph at lines 32--38
+[]\OT1/cmr/m/n/10.95 Thad Scheer.  Ca-te-gory, seg-ment, and brand { what's the
+ dif-fe-rence? {
+ []
+
+
+Underfull \hbox (badness 8189) in paragraph at lines 32--38
+\OT1/cmr/m/n/10.95 sphere of in-flu-ence : Analy-tics stu-dio.  $\OT1/cmtt/m/n/
+10.95 https : / / sphereoi . com / studios /
+ []
+
+
+Underfull \hbox (badness 5548) in paragraph at lines 32--38
+\OT1/cmtt/m/n/10.95 category-[]segment-[]and-[]brand-[]whats-[]the-[]difference
+/$\OT1/cmr/m/n/10.95 .  [On-line; Ac-ces-sed on
+ []
+
+) [31]
 \openout2 = `anexo1.aux'.
 
- (anexo1.tex [28
+ (anexo1.tex [32
 
 
 ]
 Anexo A.
 \c@ExampleCounter=\count152
 
-Overfull \hbox (14.09998pt too wide) in paragraph at lines 22--28
+Overfull \hbox (14.09998pt too wide) in paragraph at lines 20--26
 [] 
  []
 
-[29]
-Overfull \hbox (14.09998pt too wide) in paragraph at lines 65--78
+[33]
+Overfull \hbox (14.09998pt too wide) in paragraph at lines 52--65
 [] 
  []
 
 No file "Relatorio de Progresso".acr.
-) [30] ("Relatorio de Progresso.aux" (resumo.aux) (abstract.aux)
+) [34] ("Relatorio de Progresso.aux" (resumo.aux) (abstract.aux)
 (agradecimentos.aux) (capitulo1.aux) (capitulo2.aux) (capitulo3.aux)
 (capitulo4.aux) (anexo1.aux))
 
@@ -1198,13 +1224,13 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 11936 strings out of 493303
- 201722 string characters out of 3129784
- 338446 words of memory out of 3000000
- 15125 multiletter control sequences out of 15000+200000
- 14462 words of font info for 47 fonts, out of 3000000 for 9000
+ 11947 strings out of 493303
+ 201999 string characters out of 3129784
+ 338427 words of memory out of 3000000
+ 15136 multiletter control sequences out of 15000+200000
+ 14630 words of font info for 48 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 45i,13n,39p,2020b,379s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 45i,13n,39p,2020b,371s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/cm/cmbx12.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/f
@@ -1214,10 +1240,15 @@ cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/ines
 a/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:
 /Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
 msy10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmti10.pfb>
-Output written on "Relatorio de Progresso.pdf" (46 pages, 476454 bytes).
+amsfonts/cm/cmti10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKT
+eX 2.9/fonts/type1/urw/helvetic/uhvb8ac.pfb><C:/Users/inesa/AppData/Local/Progr
+ams/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvbo8ac.pfb><C:/Users/inesa/AppData/Lo
+cal/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8ac.pfb><C:/Users/inesa/Ap
+pData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvro8ac.pfb>
+Output written on "Relatorio de Progresso.pdf" (50 pages, 549764 bytes).
 PDF statistics:
- 198 PDF objects out of 1000 (max. 8388607)
+ 241 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

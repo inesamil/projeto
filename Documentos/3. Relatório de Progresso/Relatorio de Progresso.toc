@@ -4,35 +4,30 @@
 \contentsline {section}{\numberline {1.2}Metas e Objetivos}{3}
 \contentsline {section}{\numberline {1.3}Especifica\IeC {\c c}\IeC {\~o}es do Projecto e Resumo da Solu\IeC {\c c}\IeC {\~a}o}{3}
 \contentsline {section}{\numberline {1.4}Estrutura do Relat\IeC {\'o}rio}{4}
-\contentsline {chapter}{\numberline {2}Formula\IeC {\c c}\IeC {\~a}o do Problema }{5}
-\contentsline {section}{\numberline {2.1}Descri\IeC {\c c}\IeC {\~a}o do Problema}{5}
-\contentsline {section}{\numberline {2.2}Requisitos Funcionais e N\IeC {\~a}o Funcionais}{6}
-\contentsline {subsection}{\numberline {2.2.1}Requisitos Funcionais}{6}
-\contentsline {subsection}{\numberline {2.2.2}Requisitos N\IeC {\~a}o Funcionais}{6}
-\contentsline {section}{\numberline {2.3}Dificuldades Encontradas}{7}
-\contentsline {subsection}{\numberline {2.3.1}R\IeC {\'o}tulos em Formato N\IeC {\~a}o Digital}{7}
-\contentsline {subsection}{\numberline {2.3.2}Aus\IeC {\^e}ncia de Identificador \IeC {\'U}nico nos Itens}{7}
-\contentsline {chapter}{\numberline {3}Solu\IeC {\c c}\IeC {\~a}o Proposta}{9}
-\contentsline {section}{\numberline {3.1}Modelo de Dados}{10}
-\contentsline {subsection}{\numberline {3.1.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{10}
-\contentsline {subsection}{\numberline {3.1.2}Modelo Relacional}{11}
-\contentsline {subsubsection}{Restri\IeC {\c c}\IeC {\~o}es de Integridade}{13}
-\contentsline {subsection}{\numberline {3.1.3}Dom\IeC {\'\i }nio dos Atributos}{15}
-\contentsline {section}{\numberline {3.2}Base de Dados}{22}
-\contentsline {subsection}{\numberline {3.2.1}Implementa\IeC {\c c}\IeC {\~a}o}{23}
-\contentsline {section}{\numberline {3.3}Acesso a Dados}{23}
-\contentsline {subsection}{\numberline {3.3.1}Implementa\IeC {\c c}\IeC {\~a}o}{23}
-\contentsline {section}{\numberline {3.4}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{23}
-\contentsline {subsection}{\numberline {3.4.1}Implementa\IeC {\c c}\IeC {\~a}o}{24}
-\contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{25}
-\contentsline {section}{\numberline {4.1}Planeamento}{25}
-\contentsline {section}{\numberline {4.2}Modelo de Dados}{25}
-\contentsline {section}{\numberline {4.3}Base de Dados}{25}
-\contentsline {section}{\numberline {4.4}Camada de Acesso a Dados}{25}
-\contentsline {section}{\numberline {4.5}Camada da L\IeC {\'o}gica de Neg\IeC {\'o}cio}{25}
-\contentsline {section}{\numberline {4.6}Web API}{25}
-\contentsline {section}{\numberline {4.7}Aplica\IeC {\c c}\IeC {\~a}o M\IeC {\'o}vel}{25}
-\contentsline {section}{\numberline {4.8}Aplica\IeC {\c c}\IeC {\~a}o Web}{25}
-\contentsline {chapter}{\numberline {A}Terminologia}{29}
-\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{29}
-\contentsline {section}{\numberline {A.2}Conceitos de ???}{30}
+\contentsline {chapter}{\numberline {2}Formula\IeC {\c c}\IeC {\~a}o do Problema }{7}
+\contentsline {section}{\numberline {2.1}Descri\IeC {\c c}\IeC {\~a}o do Problema}{7}
+\contentsline {section}{\numberline {2.2}Requisitos Funcionais e N\IeC {\~a}o Funcionais}{8}
+\contentsline {subsection}{\numberline {2.2.1}Requisitos Funcionais}{8}
+\contentsline {subsection}{\numberline {2.2.2}Requisitos N\IeC {\~a}o Funcionais}{8}
+\contentsline {section}{\numberline {2.3}Dificuldades Encontradas}{9}
+\contentsline {subsection}{\numberline {2.3.1}R\IeC {\'o}tulos em Formato N\IeC {\~a}o Digital}{9}
+\contentsline {subsection}{\numberline {2.3.2}Aus\IeC {\^e}ncia de Identificador \IeC {\'U}nico nos Itens}{9}
+\contentsline {chapter}{\numberline {3}Solu\IeC {\c c}\IeC {\~a}o Proposta}{11}
+\contentsline {section}{\numberline {3.1}Modelo de Dados}{12}
+\contentsline {subsection}{\numberline {3.1.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{12}
+\contentsline {subsection}{\numberline {3.1.2}Modelo Relacional}{12}
+\contentsline {subsubsection}{Restri\IeC {\c c}\IeC {\~o}es de Integridade}{15}
+\contentsline {subsection}{\numberline {3.1.3}Dom\IeC {\'\i }nio dos Atributos}{17}
+\contentsline {section}{\numberline {3.2}Base de Dados}{24}
+\contentsline {subsection}{\numberline {3.2.1}Implementa\IeC {\c c}\IeC {\~a}o}{25}
+\contentsline {section}{\numberline {3.3}Acesso a Dados}{25}
+\contentsline {subsection}{\numberline {3.3.1}Implementa\IeC {\c c}\IeC {\~a}o}{25}
+\contentsline {section}{\numberline {3.4}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{25}
+\contentsline {subsection}{\numberline {3.4.1}Implementa\IeC {\c c}\IeC {\~a}o}{26}
+\contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{27}
+\contentsline {section}{\numberline {4.1}Planeamento}{27}
+\contentsline {section}{\numberline {4.2}Sum\IeC {\'a}rio}{29}
+\contentsline {section}{\numberline {4.3}Trabalho Futuro}{29}
+\contentsline {chapter}{\numberline {A}Terminologia}{33}
+\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{33}
+\contentsline {section}{\numberline {A.2}Conceitos de ???}{34}
