@@ -32,7 +32,7 @@ public class Users {
     private String usersName;
 
     @Basic
-    @Column(name = "users_password", length = RestrictionsUtils.USER_PASSWORD, nullable = false)
+    @Column(name = "users_password", length = RestrictionsUtils.USER_PASSWORD_MAX_LENGTH, nullable = false)
     private String usersPassword;
 
     /**

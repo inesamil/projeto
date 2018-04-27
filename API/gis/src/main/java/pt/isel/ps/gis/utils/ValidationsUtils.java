@@ -58,7 +58,8 @@ public class ValidationsUtils {
                 && adultsNumber == RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN && seniorsNumber == RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN)
             throw new EntityException("Must exist at least one person in the house.");
 
-        //TODO: pode existir uma casa só com bebés e/ou crianças sem pelo menos um adulto ?
+        if (adultsNumber == RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN || seniorsNumber == RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN)
+            throw new EntityException("Must exist at least one adult or senior in the house.");
     }
 
     public static void validateCharacteristicsBabiesNumber(Short babiesNumber) throws EntityException {
@@ -162,9 +163,9 @@ public class ValidationsUtils {
     public static void validateUserPassword(String password) throws EntityException {
         if (password == null)
             throw new EntityException("Password is required.");
-        if (password.length() > RestrictionsUtils.USER_PASSWORD)
+        if (password.length() > RestrictionsUtils.USER_PASSWORD_MAX_LENGTH)
             throw new EntityException(String.format("Password is too long. Password must contain a maximum of %d characters.",
-                    RestrictionsUtils.USER_PASSWORD));
+                    RestrictionsUtils.USER_PASSWORD_MAX_LENGTH));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -17,7 +17,7 @@ public class EmailUtils {
     public static boolean isStringValidEmail(String email) {
         boolean result = true;
         try {
-            InternetAddress emailAddr = new InternetAddress(email);
+            InternetAddress emailAddr = new InternetAddress(java.net.IDN.toASCII(email));
             emailAddr.validate();
         } catch (AddressException ex) {
             result = false;
