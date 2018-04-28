@@ -46,7 +46,7 @@ public class RestrictionsUtils {
     public static final int STOCKITEM_BRAND_MAX_LENGTH = 35;
     public static final float STOCKITEM_SEGMENT_MIN = 0.1f;
     public static final int STOCKITEM_VARIETY_MAX_LENGTH = 35;
-    public static final short STOCKITEM_QUANTITY_MIN = 1;
+    public static final short STOCKITEM_QUANTITY_MIN = 0;
     public static final int STOCKITEM_DESCRIPTION_MAX_LENGTH = 10485760;
     public static final int STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH = 128;
     public static final int STOCKITEM_SEGMENTUNIT_MAX_LENGTH = 5;

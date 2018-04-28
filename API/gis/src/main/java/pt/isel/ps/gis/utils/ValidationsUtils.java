@@ -40,6 +40,12 @@ public class ValidationsUtils {
     ////                                            Characteristics                                                 ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Valida as caraterísticas
+     *
+     * @param characteristics caraterísticas a validar
+     * @throws EntityException se as caraterísticas forem inválidas
+     */
     public static void validateCharacteristics(Characteristics characteristics) throws EntityException {
         if (characteristics == null)
             throw new EntityException("House characteristics is required.");
@@ -62,6 +68,12 @@ public class ValidationsUtils {
             throw new EntityException("Must exist at least one adult or senior in the house.");
     }
 
+    /**
+     * Validar o número de bebés
+     *
+     * @param babiesNumber número a validar
+     * @throws EntityException se o número for inválido
+     */
     public static void validateCharacteristicsBabiesNumber(Short babiesNumber) throws EntityException {
         if (babiesNumber == null)
             throw new EntityException("Babies number is required.");
@@ -70,6 +82,12 @@ public class ValidationsUtils {
                     RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN, RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MAX));
     }
 
+    /**
+     * Validar o número de crianças
+     *
+     * @param childrenNumber número a validar
+     * @throws EntityException se o número for inválido
+     */
     public static void validateCharacteristicsChildrenNumber(Short childrenNumber) throws EntityException {
         if (childrenNumber == null)
             throw new EntityException("Children number is required.");
@@ -78,6 +96,12 @@ public class ValidationsUtils {
                     RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN, RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MAX));
     }
 
+    /**
+     * Validar o número de adultos
+     *
+     * @param adultsNumber número a validar
+     * @throws EntityException se o número for inválido
+     */
     public static void validateCharacteristicsAdultsNumber(Short adultsNumber) throws EntityException {
         if (adultsNumber == null)
             throw new EntityException("Babies number is required.");
@@ -86,6 +110,12 @@ public class ValidationsUtils {
                     RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MIN, RestrictionsUtils.CHARACTERISTICS_AGE_GROUP_MAX));
     }
 
+    /**
+     * Validar o número de séniores
+     *
+     * @param seniorsNumber número a validar
+     * @throws EntityException se o número for inválido
+     */
     public static void validateCharacteristicsSeniorsNumber(Short seniorsNumber) throws EntityException {
         if (seniorsNumber == null)
             throw new EntityException("Babies number is required.");

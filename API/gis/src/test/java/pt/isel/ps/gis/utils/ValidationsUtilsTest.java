@@ -851,61 +851,440 @@ public class ValidationsUtilsTest {
 
     @Test
     public void validateStockItemBrand() {
+        String nullBrand = null;
+        String invalidBrand = RandomString.make(RestrictionsUtils.STOCKITEM_BRAND_MAX_LENGTH + 1);
+        String validBrand = "Mimosa";
+
+        // Testar marca null
+        try {
+            ValidationsUtils.validateStockItemBrand(nullBrand);
+            fail("No exception thrown when validating null brand. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Stock item brand is required.", e.getMessage());
+        }
+
+        // Testar marca inválida
+        try {
+            ValidationsUtils.validateStockItemBrand(invalidBrand);
+            fail("No eception thrown when validating invalid brand. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals(String.format("Invalid stock item brand. Brand must contain a maximum of %d characters.",
+                    RestrictionsUtils.STOCKITEM_BRAND_MAX_LENGTH), e.getMessage());
+        }
+
+        // Testar marca válida
+        try {
+            ValidationsUtils.validateStockItemBrand(validBrand);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown " + EntityException.class.getName() + ". Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateStockItemSegment() {
+        Float nullSegment = null;
+        Float invalidSegment = RestrictionsUtils.STOCKITEM_SEGMENT_MIN - 1;
+        Float validSegment = RestrictionsUtils.STOCKITEM_SEGMENT_MIN;
+
+        // Testar segmento null
+        try {
+            ValidationsUtils.validateStockItemSegment(nullSegment);
+            fail("No exception thrown when validating null segment. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Stock item segment is required.", e.getMessage());
+        }
+
+        // Testar segmento inválido
+        try {
+            ValidationsUtils.validateStockItemSegment(invalidSegment);
+            fail("No exception thrown when validating invalid segment. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals(String.format("Invalid stock item segment. Segment must be greater or equal to %f.",
+                    RestrictionsUtils.STOCKITEM_SEGMENT_MIN), e.getMessage());
+        }
+
+        // Testar segmento válido
+        try {
+            ValidationsUtils.validateStockItemSegment(validSegment);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown " + EntityException.class.getName() + ". Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateStockItemSegmentUnit() {
+        String nullSegmentUnit = null;
+        String invalidSegmentUnit = "kilogramas";
+        String validSegmentUnit = RestrictionsUtils.STOCKITEM_SEGMENTUNIT.kg.toString();
+
+        // Testar unidade do segmento null
+        try {
+            ValidationsUtils.validateStockItemSegmentUnit(nullSegmentUnit);
+            fail("No exception thrown when validating null segment unit. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Stock item segment unit is required.", e.getMessage());
+        }
+
+        // Testar unidade do segmento inválida
+        try {
+            ValidationsUtils.validateStockItemSegmentUnit(invalidSegmentUnit);
+            fail("No exception thrown when validating invalid segment unit. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals(String.format("Invalid segment unit. Type must be in [%s].", RestrictionsUtils.STOCKITEM_SEGMENTUNIT.getAllUnits()), e.getMessage());
+        }
+
+        // Testar unidade do segmento válida
+        try {
+            ValidationsUtils.validateStockItemSegmentUnit(validSegmentUnit);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown " + EntityException.class.getName() + ". Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateStockItemVariety() {
+        String nullVariety = null;
+        String invalidVariety = RandomString.make(RestrictionsUtils.STOCKITEM_VARIETY_MAX_LENGTH + 1);
+        String validVariety = "UHT Magro";
+
+        // Testar variedade null
+        try {
+            ValidationsUtils.validateStockItemVariety(nullVariety);
+            fail("No exception thrown when validating null variety. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Stock item variety is required.", e.getMessage());
+        }
+
+        // Testar variedade inválida
+        try {
+            ValidationsUtils.validateStockItemVariety(invalidVariety);
+            fail("No exception thrown when validating invalid variety. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals(String.format("Invalid stock item variety. Variety must contain a maximum of %d characters.",
+                    RestrictionsUtils.STOCKITEM_VARIETY_MAX_LENGTH), e.getMessage());
+        }
+        // Testar variedade válida
+        try {
+            ValidationsUtils.validateStockItemVariety(validVariety);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown " + EntityException.class.getName() + ". Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateStockItemQuantity() {
+        Short nullQuantity = null;
+        Short invalidQuantity = RestrictionsUtils.STOCKITEM_QUANTITY_MIN - 1;
+        Short validQuantity = RestrictionsUtils.STOCKITEM_QUANTITY_MIN;
+
+        // Testar quantidade null
+        try {
+            ValidationsUtils.validateStockItemQuantity(nullQuantity);
+            fail("No exception thrown when validating null quantity. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Stock item quantity is required.", e.getMessage());
+        }
+
+        // Testar quantidade inválida
+        try {
+            ValidationsUtils.validateStockItemQuantity(invalidQuantity);
+            fail("No exception thrown when validating invalid qunatity. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals(String.format("Invalid stock item quantity. Quantity must be greater or equal to %d.",
+                    RestrictionsUtils.STOCKITEM_QUANTITY_MIN), e.getMessage());
+        }
+        // Testar quantidade válida
+        try {
+            ValidationsUtils.validateStockItemQuantity(validQuantity);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown " + EntityException.class.getName() + ". Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateStockItemDescription() {
+        String invalidDescription = RandomString.make(RestrictionsUtils.STOCKITEM_DESCRIPTION_MAX_LENGTH + 1);
+        String validDescription = "A ultra pasteurização consiste em aquecer o leite a uma elevada temperatura durante " +
+                "alguns segundos e de seguida arrefece-lo bruscamente, sem alterar o seu sabor e valor nutritivo. O leite" +
+                " Mimosa é recolhido diariamente nos melhores produtores de leite nacionais. ";
+
+        // Testar descrição inválida
+        try {
+            ValidationsUtils.validateStockItemDescription(invalidDescription);
+            fail("No exception thrown when validating invalid description. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Description is too long.", e.getMessage());
+        }
+
+        // Testar descrição válida
+        try {
+            ValidationsUtils.validateStockItemDescription(validDescription);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown " + EntityException.class.getName() + ". Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateStockItemConservationStorage() {
+        String nullConservationStorage = null;
+        String invalidConservationStorage = RandomString.make(RestrictionsUtils.STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH + 1);
+        String validConservationStorage = RandomString.make(RestrictionsUtils.STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH / 2);
+
+        // Testar local de armazenamento indicado null
+        try {
+            ValidationsUtils.validateStockItemConservationStorage(nullConservationStorage);
+            fail("No exception thrown when validating null conservation storage. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Stock item conservation storage is required.", e.getMessage());
+        }
+
+        // Testar local de armazenamento indicado inválido
+        try {
+            ValidationsUtils.validateStockItemConservationStorage(invalidConservationStorage);
+            fail("No exception thrown when validating invalid conservation storage. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals(String.format("Invalid stock item conservation storage. Conservation storage must contain a maximum of %d characters.",
+                    RestrictionsUtils.STOCKITEM_CONSERVATIONSTORAGE_MAX_LENGTH), e.getMessage());
+        }
+
+        // Testar local de armazenamento indicado válido
+        try {
+            ValidationsUtils.validateStockItemConservationStorage(validConservationStorage);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown " + EntityException.class.getName() + ". Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateStockItemMovementDateTime() {
+        String nullDateTime = null;
+        String invalidDateTime = "2018/05/20 14:30:07";
+        String validDateTime = "2018-05-20 14:30:07";
+
+        // Testar data e hora null
+        try {
+            ValidationsUtils.validateStockItemMovementDateTime(nullDateTime);
+            fail("No exception thrown when validating null DateTime. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Stock item movement DateTime is required.", e.getMessage());
+        }
+
+        // Testar data e hora inválida
+        try {
+            ValidationsUtils.validateStockItemMovementDateTime(invalidDateTime);
+            fail("No exception thrown when validating invalid DateTime. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Invalid stock item movement DateTime. The format is: \"yyyy-MM-dd HH:mm:ss\".", e.getMessage());
+        }
+
+        // Testar data e hora válida
+        try {
+            ValidationsUtils.validateStockItemMovementDateTime(validDateTime);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown " + EntityException.class.getName() + ". Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateStockItemMovementType() {
+        Boolean nullMovementType = null;
+        Boolean validMovementTypeFalse = false;
+        Boolean validMovementTypeTrue = false;
+
+        // Testar administrador null
+        try {
+            ValidationsUtils.validateStockItemMovementType(nullMovementType);
+            fail("No exception thrown when validating null movement type. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Movement type is required.", e.getMessage());
+        }
+
+        // Testar administrador válido (false)
+        try {
+            ValidationsUtils.validateStockItemMovementType(validMovementTypeFalse);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown EntityException. Message:" + e.getMessage());
+        }
+
+        // Testar administrador válido (true)
+        try {
+            ValidationsUtils.validateStockItemMovementType(validMovementTypeTrue);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown EntityException. Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateStockItemMovementQuantity() {
+        Short nullQuantity = null;
+        Short invalidQuantity = RestrictionsUtils.MOVEMENT_QUANTITY_MIN - 1;
+        Short validQuantity = RestrictionsUtils.MOVEMENT_QUANTITY_MIN;
+
+        // Testar quantidade null
+        try {
+            ValidationsUtils.validateStockItemMovementQuantity(nullQuantity);
+            fail("No exception thrown when validating null quantity. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Movement quantity is required.", e.getMessage());
+        }
+
+        // Testar quantidade inválida
+        try {
+            ValidationsUtils.validateStockItemMovementQuantity(invalidQuantity);
+            fail("No exception thrown when validating invalid quantity. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals(String.format("Invalid Movement quantity. Quantity must be greater or equal to %d.",
+                    RestrictionsUtils.MOVEMENT_QUANTITY_MIN), e.getMessage());
+        }
+
+        // Testar quantidade válida
+        try {
+            ValidationsUtils.validateStockItemMovementQuantity(validQuantity);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown EntityException. Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateExpirationDateQuantity() {
+        Short nullQuantity = null;
+        Short invalidQuantity = RestrictionsUtils.EXPIRATIONDATE_QUANTITY_MIN - 1;
+        Short validQuantity = RestrictionsUtils.EXPIRATIONDATE_QUANTITY_MIN;
+
+        // Testar quantidade null
+        try {
+            ValidationsUtils.validateExpirationDateQuantity(nullQuantity);
+            fail("No exception thrown when validating null quantity. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Expiration Date quantity is required.", e.getMessage());
+        }
+
+        // Testar quantidade inválida
+        try {
+            ValidationsUtils.validateExpirationDateQuantity(invalidQuantity);
+            fail("No exception thrown when validating invalid quantity. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals(String.format("Invalid Expiration Date quantity. Quantity must be greater or equal to %d.",
+                    RestrictionsUtils.EXPIRATIONDATE_QUANTITY_MIN), e.getMessage());
+        }
+
+        // Testar quantidade válida
+        try {
+            ValidationsUtils.validateExpirationDateQuantity(validQuantity);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown EntityException. Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateListProductBrand() {
+        String invalidBrand = RandomString.make(RestrictionsUtils.LISTPRODUCT_BRAND_MAX_LENGTH + 1);
+        String validBrand = "Mimosa";
+
+        // Testar marca null
+        try {
+            ValidationsUtils.validateListProductBrand(invalidBrand);
+            fail("No exception thrown when validating invalid brand. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Invalid brand.", e.getMessage());
+        }
+
+        // Testar marca válida
+        try {
+            ValidationsUtils.validateListProductBrand(validBrand);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown EntityException. Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateListProductQuantity() {
+        Short nullQuantity = null;
+        Short invalidQuantity = RestrictionsUtils.LISTPRODUCT_QUANTITY_MIN - 1;
+        Short validQuantity = RestrictionsUtils.LISTPRODUCT_QUANTITY_MIN;
+
+        // Testar quantidade null
+        try {
+            ValidationsUtils.validateListProductQuantity(nullQuantity);
+            fail("No exception thrown when validating null quantity. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Quantity is required.", e.getMessage());
+        }
+
+        // Testar quantidade inválida
+        try {
+            ValidationsUtils.validateListProductQuantity(invalidQuantity);
+            fail("No exception thrown when validating invalid quantity. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals(String.format("Invalid quantity. Quantity must be greater or equal to %d.",
+                    RestrictionsUtils.LISTPRODUCT_QUANTITY_MIN), e.getMessage());
+        }
+
+        // Testar quantidade válida
+        try {
+            ValidationsUtils.validateListProductQuantity(validQuantity);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown EntityException. Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateStockItemStorageQuantity() {
+        Short nullQuantity = null;
+        Short invalidQuantity = RestrictionsUtils.STOCKITEMSTORAGE_QUANTITY_MIN - 1;
+        Short validQuantity = RestrictionsUtils.STOCKITEMSTORAGE_QUANTITY_MIN;
+
+        // Testar quantidade null
+        try {
+            ValidationsUtils.validateStockItemStorageQuantity(nullQuantity);
+            fail("No exception thrown when validating null quantity. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Quantity is required.", e.getMessage());
+        }
+
+        // Testar quantidade inválida
+        try {
+            ValidationsUtils.validateStockItemStorageQuantity(invalidQuantity);
+            fail("No exception thrown when validating invalid quantity. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals(String.format("Invalid quantity. Quantity must be greater or equal to %d.",
+                    RestrictionsUtils.STOCKITEMSTORAGE_QUANTITY_MIN), e.getMessage());
+        }
+
+        // Testar quantidade válida
+        try {
+            ValidationsUtils.validateStockItemStorageQuantity(validQuantity);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown EntityException. Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateListShareable() {
+        Boolean nullListShareable = null;
+        Boolean validListShareableFalse = false;
+        Boolean validListShareableTrue = false;
+
+        // Testar lista partilhável null
+        try {
+            ValidationsUtils.validateListShareable(nullListShareable);
+            fail("No exception thrown when validating edible. Expected EntityException.");
+        } catch (EntityException e) {
+            assertEquals("Shareable is required.", e.getMessage());
+        }
+
+        // Testar lista partilhável válido (false)
+        try {
+            ValidationsUtils.validateListShareable(validListShareableFalse);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown EntityException. Message:" + e.getMessage());
+        }
+
+        // Testar lista partilhável válido (true)
+        try {
+            ValidationsUtils.validateListShareable(validListShareableTrue);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown EntityException. Message:" + e.getMessage());
+        }
     }
 }
