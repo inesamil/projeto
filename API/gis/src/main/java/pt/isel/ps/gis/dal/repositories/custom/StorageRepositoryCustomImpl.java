@@ -38,8 +38,8 @@ public class StorageRepositoryCustomImpl implements StorageRepositoryCustom {
                     PGobject temperaturePGobj = (PGobject) resultSet.getObject(4);
                     if (!temperaturePGobj.getType().equals("numrange"))
                         throw new SQLException(String.format("Not allow conversation of this type: %s", temperaturePGobj.getType()));
-                    Numrange storage_temperature = Numrange.parseNumrange(temperaturePGobj.getValue());
                     try {
+                        Numrange storage_temperature = Numrange.parseNumrange(temperaturePGobj.getValue());
                         return new Storage(house_id, storage_id, storage_name, storage_temperature);
                     } catch (EntityException e) {
                         throw new SQLException(e.getMessage());

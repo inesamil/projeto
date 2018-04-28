@@ -3,6 +3,7 @@ package pt.isel.ps.gis.model.types;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.Numrange;
 
 import java.io.*;
@@ -42,7 +43,8 @@ public class NumrangeUserType implements UserType {
             return null;
         try {
             return Numrange.parseNumrange(cellContent);
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException  | EntityException ex) {
+            //TODO: EntityException
             throw new RuntimeException("Failed to parse String to Number: " + ex.getMessage(), ex);
         }
     }

@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.model;
 
+import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -8,23 +11,21 @@ public class Numrange implements Serializable {
     private Float minimum;
     private Float maximum;
 
-    public Numrange(Float minimum, Float maximum) {
-        this.minimum = minimum;
-        this.maximum = maximum;
+    public Numrange(Float minimum, Float maximum) throws EntityException {
+        setRange(minimum, maximum);
     }
 
-    public static Numrange parseNumrange(String s) throws NumberFormatException {
-        String[] split = s.split("[\\[,\\]]");
-        float minimum = Float.parseFloat(split[1]);
-        float maximum = Float.parseFloat(split[2]);
-        return new Numrange(minimum, maximum);
+    private void setRange(Float minimum, Float maximum) throws EntityException {
+        ValidationsUtils.validateRangeTemperature(minimum, maximum);
+        setMinimum(minimum);
+        setMaximum(maximum);
     }
 
     public Float getMinimum() {
         return minimum;
     }
 
-    public void setMinimum(Float minimum) {
+    private void setMinimum(Float minimum) {
         this.minimum = minimum;
     }
 
@@ -32,7 +33,7 @@ public class Numrange implements Serializable {
         return maximum;
     }
 
-    public void setMaximum(Float maximum) {
+    private void setMaximum(Float maximum) {
         this.maximum = maximum;
     }
 
@@ -52,5 +53,12 @@ public class Numrange implements Serializable {
 
     public String toString() {
         return "[" + minimum + ", " + maximum + "]";
+    }
+
+    public static Numrange parseNumrange(String s) throws NumberFormatException, EntityException {
+        String[] split = s.split("[\\[,\\]]");
+        float minimum = Float.parseFloat(split[1]);
+        float maximum = Float.parseFloat(split[2]);
+        return new Numrange(minimum, maximum);
     }
 }
