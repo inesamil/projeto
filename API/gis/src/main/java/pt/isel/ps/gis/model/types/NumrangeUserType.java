@@ -43,9 +43,10 @@ public class NumrangeUserType implements UserType {
             return null;
         try {
             return Numrange.parseNumrange(cellContent);
-        } catch (NumberFormatException  | EntityException ex) {
-            //TODO: EntityException
+        } catch (NumberFormatException ex) {
             throw new RuntimeException("Failed to parse String to Number: " + ex.getMessage(), ex);
+        } catch (EntityException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
