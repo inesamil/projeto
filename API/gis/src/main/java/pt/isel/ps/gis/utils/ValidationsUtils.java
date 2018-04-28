@@ -383,7 +383,9 @@ public class ValidationsUtils {
      * @throws EntityException se a data não for válida
      */
     public static void validateDate(String date) throws EntityException {
-        if (date == null || !DateUtils.isStringValidDate(date))
+        if (date == null)
+            throw new EntityException("Date is required.");
+        if (!DateUtils.isStringValidDate(date))
             throw new EntityException("Invalid date.");
     }
 
@@ -428,7 +430,20 @@ public class ValidationsUtils {
     public static void validateStorageTemperature(Numrange storageTemperature) throws EntityException {
         if (storageTemperature == null)
             throw new EntityException("Temperature is required.");
-        //TODO: validations
+    }
+
+    /**
+     * Valida intervalo de temperaturas
+     *
+     * @param minimum temperatura mínima
+     * @param maximum  temperatura máxima
+     * @throws EntityException se a temperatura não for válida
+     */
+    public static void validateRangeTemperature(Float minimum, Float maximum) throws EntityException {
+        if (minimum == null || maximum == null)
+            throw new EntityException("Both temperature maximum and minimum are required.");
+        if (minimum > maximum)
+            throw new EntityException("Minimum temperature must be smaller than maximum temperature.");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

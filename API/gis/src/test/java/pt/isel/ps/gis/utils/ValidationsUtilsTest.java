@@ -4,6 +4,7 @@ import net.bytebuddy.utility.RandomString;
 import org.junit.Test;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.Characteristics;
+import pt.isel.ps.gis.model.Numrange;
 
 import static org.junit.Assert.*;
 
@@ -676,26 +677,176 @@ public class ValidationsUtilsTest {
         } catch (EntityException e) {
             assertEquals(String.format("Invalid product shelflife. Type must be in [%s].", RestrictionsUtils.PRODUCT_SHELFLIFETIMEUNIT.getAllUnits()), e.getMessage());
         }
+
+        // Testar unidade do tempo médio de vida válida
+        try {
+            ValidationsUtils.validateProductShelflifeTimeunit(validShelfllifeTimeunit);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown EntityException. Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateDate() {
+        String nullDate = null;
+        String invalidDate = "2018/05/20";
+        String validDate = "2018-05-20";
+
+        // Testar data null
+        try {
+            ValidationsUtils.validateDate(nullDate);
+            fail("No exception thrown when  validating null date. Expected " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Date is required.", e.getMessage());
+        }
+
+        // Testar data inválida
+        try {
+            ValidationsUtils.validateDate(invalidDate);
+            fail("No exception thrown when validating invalid date. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Invalid date.", e.getMessage());
+        }
+
+        // Testar data válida
+        try {
+            ValidationsUtils.validateDate(validDate);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown EntityException. Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateStorageId() {
+        Short nullId = null;
+        Short invalidId = RestrictionsUtils.STORAGE_ID_MIN - 1;
+        Short validId = RestrictionsUtils.STORAGE_ID_MIN;
+
+        // Testar ID null
+        try {
+            ValidationsUtils.validateStorageId(nullId);
+            fail("No exception thrown when validating null ID. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Storage ID is required.", e.getMessage());
+        }
+
+        // Testar ID inválido
+        try {
+            ValidationsUtils.validateStorageId(invalidId);
+            fail("No exception thrown when validating invalid ID. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals(String.format("Invalid Storage ID. Storage ID must be greater or equal to %d.",
+                    RestrictionsUtils.STORAGE_ID_MIN), e.getMessage());
+        }
+
+        // Testar ID válido
+        try {
+            ValidationsUtils.validateStorageId(validId);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown EntityException. Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateStorageName() {
+        String nullName = null;
+        String invalidName = RandomString.make(RestrictionsUtils.STORAGE_NAME_MAX_LENGTH + 1);
+        String validName = "Fridge";
+
+        // Testar nome null
+        try {
+            ValidationsUtils.validateStorageName(nullName);
+            fail("No exception thrown when validating null name. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Storage name is required.", e.getMessage());
+        }
+
+        // Testar nome inválido
+        try {
+            ValidationsUtils.validateStorageName(invalidName);
+            fail("No exception thrown when validating invalid name. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals(String.format("Invalid Storage name. Name must contain a maximum of %d characters.",
+                    RestrictionsUtils.STORAGE_NAME_MAX_LENGTH), e.getMessage());
+        }
+
+        // Testar nome válido
+        try {
+            ValidationsUtils.validateStorageName(validName);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown " + EntityException.class.getName() + ". Message:" + e.getMessage());
+        }
     }
 
     @Test
     public void validateStorageTemperature() {
+        Numrange nullNumRange = null;
+        Numrange invalidNumRangeNullValues;
+        Numrange invalidNumRange = null;
+        Numrange validNumRange = null;
+
+        // Testar intervalo null
+        try {
+            ValidationsUtils.validateStorageTemperature(nullNumRange);
+            fail("No exception thrown when validating null NumRange. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Temperature is required.", e.getMessage());
+        }
+
+        // Testar intervalo com valores null
+        try {
+            invalidNumRangeNullValues = new Numrange(null, null);
+            fail("No exception thrown when instanciating an ivalid NumRange (null values).");
+        } catch (EntityException e) {
+            assertEquals("Both temperature maximum and minimum are required.", e.getMessage());
+        }
+
+        // Testar intervalo inválido
+        try {
+            invalidNumRange = new Numrange(5f, 1f);
+            fail("No exception thrown when instanciating an ivalid NumRange (min > max).");
+        } catch (EntityException e) {
+            assertEquals("Minimum temperature must be smaller than maximum temperature.", e.getMessage());
+        }
+
+        // Testar intervalo válido
+        try {
+            validNumRange = new Numrange(1f, 5f);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown " + EntityException.class.getName() + ". Message:" + e.getMessage());
+        }
+
     }
 
     @Test
     public void validateStockItemSku() {
+        String nullSku = null;
+        String invalidSku = RandomString.make(RestrictionsUtils.STOCKITEM_SKU_MAX_LENGTH + 1);
+        String validSku = "C1-P1-Mimosa-UHT Magro-1L";
+
+        // Testar SKU null
+        try {
+            ValidationsUtils.validateStockItemSku(nullSku);
+            fail("No exception thrown when validating null SKU. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals("Stock item SKU is required.", e.getMessage());
+        }
+
+        // Testar SKU inválido
+        try {
+            ValidationsUtils.validateStockItemSku(invalidSku);
+            fail("No exception thrown when validating invalid SKU. Expected: " + EntityException.class.getName());
+        } catch (EntityException e) {
+            assertEquals(String.format("Invalid stock item SKU. SKU must contain a maximum of %d characters.",
+                    RestrictionsUtils.STOCKITEM_SKU_MAX_LENGTH), e.getMessage());
+        }
+
+        // Testar SKU válido
+        try {
+            ValidationsUtils.validateStockItemSku(validSku);
+        } catch (EntityException e) {
+            fail("No exception expected. Thrown " + EntityException.class.getName() + ". Message:" + e.getMessage());
+        }
     }
 
     @Test
