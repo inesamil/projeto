@@ -317,7 +317,7 @@ DECLARE
 	sku character varying(128) = 0;
 BEGIN
 	-- Generate SKU
-	sku := 'C' || categoryID || 'P' || productID || '-' || brand || '-' || variety || '-' || segment || segmentUnit;
+	sku := 'C' || categoryID || '-' || 'P' || productID || '-' || brand || '-' || variety || '-' || segment || segmentUnit;
 	
 	RETURN sku;
 END;
