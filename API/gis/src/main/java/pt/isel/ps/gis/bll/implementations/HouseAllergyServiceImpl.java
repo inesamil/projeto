@@ -2,6 +2,7 @@ package pt.isel.ps.gis.bll.implementations;
 
 import pt.isel.ps.gis.bll.HouseAllergyService;
 import pt.isel.ps.gis.dal.repositories.HouseAllergyRepository;
+import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.HouseAllergy;
@@ -13,9 +14,11 @@ import java.util.List;
 public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     private final HouseAllergyRepository houseAllergyRepository;
+    private final UserHouseRepository membersRepository;
 
-    public HouseAllergyServiceImpl(HouseAllergyRepository houseAllergyRepository) {
+    public HouseAllergyServiceImpl(HouseAllergyRepository houseAllergyRepository, UserHouseRepository membersRepository) {
         this.houseAllergyRepository = houseAllergyRepository;
+        this.membersRepository = membersRepository;
     }
 
     @Override
@@ -34,6 +37,11 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
         if (houseAllergy.getId() != null && houseAllergyRepository.existsById(houseAllergy.getId()))
             throw new EntityException(String.format("Allergy with name %s in the house with ID %d already exists.",
                     houseAllergy.getId().getAllergyAllergen(), houseAllergy.getId().getHouseId()));
+        // Total Membros na casa
+        int totalMembers = membersRepository.findAllById_HouseId(houseAllergy.getId().getHouseId()).size();
+        if (houseAllergy.getHouseallergyAlergicsnum() > totalMembers)
+            throw new EntityException(String.format("Cannot add allergy in the house wih ID %d, there are more allergics than members in the house.",
+                    houseAllergy.getId().getHouseId()));
         return houseAllergyRepository.save(houseAllergy);
     }
 
@@ -54,4 +62,11 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
                     allergy, houseId));
         houseAllergyRepository.deleteById(id);
     }
+
+    @Override
+    public HouseAllergy increaseHouseAllergyAllergicsNumber(long houseId, String allergen, short numberOfAllergics) {
+        return null;
+    }
+
+
 }

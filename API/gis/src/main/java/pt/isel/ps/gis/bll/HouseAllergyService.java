@@ -54,4 +54,13 @@ public interface HouseAllergyService {
      * @throws EntityNotFoundException se não encontrar a alergia especificada na casa particularizada
      */
     void deleteHouseAllergyByHouseAllergyId(long houseId, String allergen) throws EntityException, EntityNotFoundException;
+
+    /**
+     * Aumentar
+     * @param houseId
+     * @param allergen
+     * @param numberOfAllergics
+     * @return
+     */
+    HouseAllergy increaseHouseAllergyAllergicsNumber(long houseId, String allergen, short numberOfAllergics);
 }
