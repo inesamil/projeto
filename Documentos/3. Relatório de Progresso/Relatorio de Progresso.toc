@@ -21,8 +21,8 @@
 \contentsline {section}{\numberline {3.2}Base de Dados}{22}
 \contentsline {subsection}{\numberline {3.2.1}Implementa\IeC {\c c}\IeC {\~a}o}{23}
 \contentsline {section}{\numberline {3.3}Acesso a Dados}{23}
-\contentsline {subsection}{\numberline {3.3.1}Implementa\IeC {\c c}\IeC {\~a}o}{23}
-\contentsline {section}{\numberline {3.4}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{23}
+\contentsline {subsection}{\numberline {3.3.1}Implementa\IeC {\c c}\IeC {\~a}o}{24}
+\contentsline {section}{\numberline {3.4}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{24}
 \contentsline {subsection}{\numberline {3.4.1}Implementa\IeC {\c c}\IeC {\~a}o}{24}
 \contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{25}
 \contentsline {section}{\numberline {4.1}Planeamento}{25}

@@ -3,9 +3,9 @@
 %
 \section{Base de Dados}\label{sec32}
 
-Os dados são armazenados de forma persistente numa base de dados. A base de dados implementada é relacional uma vez que não se preveem alterações durante o uso, ou seja, as tabelas são de certa forma estáticas, não necessitando portanto do dinamismo oferecido por uma base de dados documental, por exemplo. 
+Os dados são armazenados de forma persistente numa \acrfull{bd}. A \acrshort{bd} implementada é relacional uma vez que não se preveem alterações durante o uso, ou seja, as tabelas são de certa forma estáticas, não necessitando portanto do dinamismo oferecido por uma \acrshort{bd} documental, por exemplo. 
 
- A escolha de qual o melhor \acrshort{sgbd} assentava em três possibilidades, \textit{SQL Server}, \textit{PostgreSQL} e \textit{MySQL}. O primeiro apesar de ser uma ferramenta com a qual o grupo estava familiarizado foi automaticamente excluída visto que um dos requisitos exigidos era ser \gls{open-source}, caraterística não presente nesta ferramenta. De seguida, ambas as ferramentas são \gls{open-source} e têm uma elevada compatibilidade com os principais fornecedores de serviços \textit{cloud}. Pelo que a verdadeira distinção se prende com os factos:
+ A escolha de qual o melhor \acrfull{sgbd} assentava em três possibilidades, \textit{SQL Server}, \textit{PostgreSQL} e \textit{MySQL}. O primeiro apesar de ser uma ferramenta com a qual o grupo estava familiarizado foi automaticamente excluída visto que um dos requisitos exigidos era ser \gls{open-source}, caraterística não presente nesta ferramenta. De seguida, ambas as ferramentas são \gls{open-source} e têm uma elevada compatibilidade com os principais fornecedores de serviços \textit{cloud}. Pelo que a verdadeira distinção se prende com os factos:
  	\begin{itemize}
  		\item O \textit{PostgreSQL} é compatível com as propriedades \acrfull{acid}, garantindo assim que todos os requisitos sejam atendidos;
  		\item O \textit{PostgreSQL} aborda a concorrência de uma forma eficiente com a sua implementação de \acrfull{mvcc}, que alcança níveis muito altos de concorrência;
@@ -15,4 +15,6 @@ Os dados são armazenados de forma persistente numa base de dados. A base de dad
  
  \subsection{Implementação}\label{subsec321}
  
-Na base de dados foram desenvolvidas funções que garantem a consistência dos dados, por um lado na inserção de entidades cujos \textit{IDs} sejam incrementais ou gerados consoante o desejado, por outro lado na remoção  de entidades que se relacionam com outras.
+Na \acrshort{bd} foram desenvolvidas funções que garantem a consistência dos dados, por um lado na inserção de entidades cujos \textit{IDs} sejam incrementais ou gerados consoante o desejado, por outro lado na remoção  de entidades que se relacionam com outras.
+
+Decidiu-se usar funções na \acrshort{bd} em vez de criar métodos em \textit{Java}, pois se imaginarmos um cenário onde a aplicação servidora esteja distribuída, existe um problema no controlo da concorrência na geração dos \textit{ID}s. Tendo em conta que a \acrshort{bd} não distribuída não existe o problema descrito.
