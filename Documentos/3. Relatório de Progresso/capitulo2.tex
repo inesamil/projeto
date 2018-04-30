@@ -1,9 +1,9 @@
 %
 % Capítulo 2
 %
-\chapter{Formulação do Problema } \label{cap2}
+\chapter{Formulação do Problema} \label{cap2}
 
-Neste capítulo o problema é descrito de forma detalhada na secção \ref{sec21}, bem como os requisitos funcionais e não funcionais na secção \ref{sec22}. A secção \ref{sec23} apresenta as dificuldades que surgiram no decorrer do projeto. 
+Neste capítulo o problema é descrito de forma detalhada na secção \ref{sec21}, bem como os requisitos funcionais e não funcionais na secção \ref{sec22}. A secção \ref{sec23} apresenta as dificuldades que surgiram no decorrer do projeto.
 
 
 %
@@ -27,22 +27,22 @@ Para cada casa deve ser possível saber que alergias os seus membros têm e para
 %
 % Secção 2.2
 %
-\section{Requisitos Funcionais e Não Funcionais} \label{sec22}
+\section{Requisitos Funcionais e Opcionais} \label{sec22}
 
-\subsection{Requisitos Funcionais}
+\paragraph{Requisitos Funcionais}
 \begin{itemize}
 	\item Informar o utilizador dos produtos existentes, a sua validade e a sua quantidade;
 	\item Alertas sobre os produtos que estão perto da data de validade;
 	\item Geração da lista de compras com os produtos em falta;
 	\item Possibilidade de especificar os produtos a ter sempre em stock bem como as suas quantidades mínimas;	
-	\item Lista de Compras \textit{Offline} (permite rasurar para uso no supermercado);
+	\item Lista de Compras \textit{Offline};
 	\item Listas partilhadas entre utilizadores da mesma casa;
 	\item Criação de Listas (As Minhas Listas);
 	\item Especificação das alergias dos membros da casa.
 \end{itemize}
 
 
-\subsection{Requisitos Não Funcionais}
+\paragraph{Requisitos Opcionais}
 \begin{itemize}
 	\item Lista de produtos quase a expirar;
 	\item Lista de produtos indesejados (Lista Negra);
@@ -63,9 +63,9 @@ Para a realização deste projeto encontrámos dificuldades nos aspetos a seguir
 
 \subsection{Rótulos em Formato Não Digital}
 
-Nos dias de hoje, os produtos não possuem rótulos digitais. Isto é um problema para a concretização do projeto, na medida em que se torna menos eficiente a recolha dos dados presentes nos produtos. Contudo, assumindo que este dilema é resolvido fora do âmbito do projeto, apenas é preciso definir um formato standard de como os dados devem ser armazenados nas \textit{tags}, que podem ser \acrshort{nfc} ou \acrshort{rfid}. Num cenário ideal, este formato deve ser respeitado por todos os embaladores. Assim, os produtos têm um rótulo, código de barras e uma \textit{tag} \acrshort{nfc} ou \acrshort{rfid}, com a informação necessária. Está fora do âmbito do trabalho implementar o suporte hardware para a leitura das \textit{tags} e qual o sentido do movimento (entrada ou saída). Assume-se que essas informações são disponibilizadas num formato conhecido. 
+Nos dias de hoje, os produtos não possuem rótulos digitais. Isto é um problema para a concretização do projeto, na medida em que se torna menos eficiente a recolha dos dados presentes nos produtos. Contudo, assumindo que este problema é resolvido fora do âmbito do projeto, apenas é preciso definir um formato standard de como os dados devem ser armazenados nas \textit{tags}, que podem ser \acrshort{nfc} ou \acrshort{rfid}. Num cenário ideal, este formato deve ser respeitado por todos os embaladores. Assim, os produtos têm um rótulo, código de barras e uma \textit{tag} \acrshort{nfc} ou \acrshort{rfid}, com a informação necessária. Está fora do âmbito do trabalho implementar o suporte hardware para a leitura das \textit{tags} e qual o sentido do movimento (entrada ou saída). Assume-se que essas informações são disponibilizadas num formato conhecido. 
 
 
 \subsection{Ausência de Identificador Único nos Itens}
 
-Os itens não dispõem de um identificador unívoco, alguns deles contêm um lote e um número de série. A ausência deste identificador impede a distinção entre itens iguais, o que impossibilita saber se entrou um novo item no local de armazenamento ou se saiu um dos itens presentes. Tal facto torna a gestão dos stocks dependente do dispositivo de hardware para distinguir o tipo de movimento.
+Os itens não dispõem de um identificador unívoco. Alguns deles contêm um lote e um número de série. A ausência deste identificador impede a distinção entre itens iguais, o que impossibilita saber se entrou um novo item no local de armazenamento ou se saiu um dos itens presentes. Tal facto torna a gestão dos stocks dependente do dispositivo de hardware para distinguir o tipo de movimento.

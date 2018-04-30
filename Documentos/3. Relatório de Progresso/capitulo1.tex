@@ -3,32 +3,16 @@
 %
 \chapter{Introdução} \label{cap1}
 
-A gestão de stocks é um processo estruturado, assim, no âmbito da \acrfull{iot} e de forma a simplificar o quotidiano de cada um, surge este projeto. Atualmente, são várias as aplicações responsáveis por fornecer listas de compras, porém carecem de controlo de stocks e conhecimento dos hábitos dos seus utilizadores. A aplicação desenvolvida neste projeto distingue-se pelo controlo de stocks existentes nos armários, frigoríficos e despensa. Difere-se também, pela presença de um algoritmo de previsão de stocks, com base no histórico de consumo e reposição do utilizador.
+Atualmente, são várias as aplicações responsáveis por fornecer listas de compras, porém carecem de controlo de stocks e conhecimento dos hábitos dos seus utilizadores. Neste projeto pretende-se desenvolver uma aplicação que permite a gestão e controlo de stocks de produtos alimentares na despensa de qualquer casa. Os padrões de consumo dos utilizadores são registados, permitindo prever a data da rotura de stock de produtos.
 
 %
 % Secção 1.1
 %
-\section{Enquadramento} \label{sec11}
+\section{Abordagem} \label{sec11}
 
 No contexto do projeto assume-se a existência de duas formas de apresentação para os produtos: avulsos e embalados. Os primeiros são conservados em sistemas de arrumação marcados com \textit{tags} programáveis por \textit{smartphones}. Os detalhes dos itens são especificados pelo utilizador e carregados para a \textit{tag}. Enquanto que para os produtos embalados, admite-se que os produtores utilizam \textit{tags}, \acrfull{nfc} ou \acrfull{rfid}, para guardar os rótulos de forma digital e em formato standard.
 
-Após a aquisição, os artigos são armazenados em locais que devem dispor de dispositivos de hardware equipados com leitores de \textit{tags}. É recolhida a informação presente na \textit{tag}, identificado o tipo de movimento (entrada ou saída) e enviado para a \gls{api-web}. 
-
-Através das aplicações disponibilizadas, o utilizador poderá consultar:
-\begin{itemize} \itemsep 0pt
-	\item os produtos em stock,
-	\item as listas do sistema e/ou as por si criadas,
-	\item as suas casas e caraterísticas,
-	\item as alergias dos membros de cada casa,
-	\item os locais de armazenamento e dispositivos de hardware.
-\end{itemize}
-
-Será ainda possível:
-\begin{itemize} \itemsep 0pt
-	\item receber alertas de produtos perto do fim da validade,
-	\item especificar stocks mínimos e/ou indesejados,
-	\item partilhar listas entre utilizadores da mesma casa.
-\end{itemize}
+Após a aquisição, os artigos são armazenados em locais que devem dispor de dispositivos de hardware equipados com leitores de \textit{tags}. É recolhida a informação presente na \textit{tag}, identificado o tipo de movimento (entrada ou saída) e enviado para a \gls{api-web}.
 
 %
 % Secção 1.2
@@ -37,12 +21,7 @@ Será ainda possível:
 Têm-se como objetivos, os seguintes pontos:
 \begin{itemize} \itemsep 0pt
 	\item Desenho e Implementação das Aplicações Móvel e Web
-	\item Desenvolvimento da \gls{api-web}
-	\item Desenho da \acrlong{bd}
-	\item Desenvolvimento do acesso à \acrlong{bd}
-	\item Aplicação da Lógica de Negócio
 	\item Elaboração do Algoritmo de Previsão de Stocks
-	\item Realização dos Algoritmos necessários
 \end{itemize}
 
 
@@ -73,11 +52,9 @@ O projeto é composto por 2 blocos principais, que se relacionam. A Figura \ref{
 	\label{project-architecture}
 \end{figure}
 
-Um dos blocos é a interação com o utilizador, através de duas aplicações, uma móvel e uma Web. A aplicação móvel desenvolvida apenas para a plataforma \textit{Android}, e utilizando a linguagem \textit{Kotlin}. Para a aplicação Web, implementada recorrendo à linguagem \textit{JavaScript}, com o auxilio da \textit{framework Express}. 
+O lado do servidor incluí quatro camadas e expõe uma \gls{api-web}. A camada da \acrfull{bd} é realizada com o \acrfull{sgbd} \textit{PostgreSQL}. A \acrfull{dal} é responsável pelas leituras e escritas à \acrshort{bd}. Esta camada é produzida com a linguagem de programação \textit{Java}, com a \acrfull{jpa}. A \acrfull{bll} é responsável pela gestão dos dados obtidos da \acrshort{bd} ou dos \textit{controllers}. A implementação desta camada recorreu à mesma ferramenta que foi usada na \acrshort{dal}. Os \textit{controllers} foram desenvolvidos em \textit{Java} com a \textit{framework} da \textit{Spring}, chamada de \textit{Spring Boot}. A \gls{api-web} disponibiliza recursos em diferentes \textit{hypermedia}.
 
-O outro bloco incluí a \gls{api-web} desenvolvida em \textit{Java} com a \textit{framework} da \textit{Spring}, chamada de \textit{Spring Boot}. Subjacente a este última estão as camadas: \acrfull{bd}, \acrfull{dal}, \acrfull{bll}.
-
-A \acrshort{bd} é realizada com o \acrfull{sgbd} \textit{PostgreSQL}. Para a \acrshort{dal}, responsável pelas leituras e escritas, a ferramenta utilizada é a linguagem de programação \textit{Java}, com a \acrfull{jpa}. A \acrshort{bll}, também se serve da ferramenta mencionada anteriormente para a sua implementação, esta camada é responsável pela gestão dos dados obtidos da \acrshort{bd} ou da \gls{api-web}.
+Do lado do cliente existem dois modos de interação, por uma aplicação móvel e outra por uma aplicação web. A aplicação móvel disponível para a plataforma \textit{Android}, desenvolvida em linguagem \textit{Kotlin}. A aplicação web é disponibilizada para a maioria dos browsers, implementada utilizando a linguagem \textit{JavaScript}, com o auxilio da \textit{framework Express}.
 
 
 %
