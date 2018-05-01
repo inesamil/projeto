@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductCategoryActivity">
+    tools:context=".activities.ProductCategoryActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/OrangeTheme">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -17,7 +17,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:fitsSystemWindows="true"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/OrangeTheme" />
 
     </android.support.design.widget.AppBarLayout>
 

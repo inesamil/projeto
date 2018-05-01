@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context=".WriteFragment">
+    tools:context=".fragments.WriteFragment">
 
     <TextView
         android:id="@+id/title"
@@ -31,7 +31,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:src="@drawable/ic_nfc"
-        android:tint="@color/colorAccent"
+        android:tint="@color/primaryLightColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />

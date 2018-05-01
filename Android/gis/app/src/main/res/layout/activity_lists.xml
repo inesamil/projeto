@@ -30,7 +30,7 @@
         android:paddingStart="1dp"
         android:text="@string/plus"
         android:textAlignment="center"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/primaryLightColor"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +47,7 @@
         android:fontFamily="sans-serif"
         android:text="@string/create_new_list"
         android:textAlignment="center"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/primaryLightColor"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.031"

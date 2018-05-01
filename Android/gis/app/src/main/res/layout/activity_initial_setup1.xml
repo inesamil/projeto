@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InitialSetup1Activity">
+    tools:context=".activities.InitialSetup1Activity">
 
     <TextView
         android:id="@+id/initialSetupText"
@@ -80,13 +80,13 @@
             android:layout_marginRight="8dp"
             android:text="@string/already_have_house"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/alreadyHouseBtn"
+            app:layout_constraintEnd_toStartOf="@+id/signInBtn"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/alreadyHouseBtn"
+            android:id="@+id/signInBtn"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:background="@drawable/round_button"

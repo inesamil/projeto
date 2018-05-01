@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoryToolbar" />
 
-    <ps.leic.isel.pt.gis.AutoFitRecyclerView
+    <ps.leic.isel.pt.gis.recyclerViews.AutoFitRecyclerView
         android:id="@+id/categoryRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
