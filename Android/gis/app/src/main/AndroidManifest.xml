@@ -16,54 +16,57 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/OrangeTheme">
-        <activity android:name=".activities.LoginActivity">
+        <activity android:name=".uis.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.InitialSetup1Activity" />
+        <activity android:name=".uis.activities.LoginActivity"
+            android:theme="@style/OrangeTheme"/>
+        <activity android:name=".uis.activities.RegisterActivity" />
+        <activity android:name=".uis.activities.InitialSetup1Activity" />
         <activity
-            android:name=".activities.ProductCategoryActivity"
+            android:name=".uis.activities.ProductCategoryActivity"
             android:label="@string/products_label"
             android:theme="@style/OrangeTheme" />
         <activity
-            android:name=".activities.ProductDiaryActivity"
+            android:name=".uis.activities.ProductDiaryActivity"
             android:label="@string/products_label"
             android:theme="@style/OrangeTheme" />
         <activity
-            android:name=".activities.ListActivity"
+            android:name=".uis.activities.ListActivity"
             android:label="@string/listLabel"
             android:theme="@style/OrangeTheme" />
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name=".uis.activities.SettingsActivity"
             android:label="@string/settingsLabel"
             android:theme="@style/OrangeTheme" />
         <activity
-            android:name=".activities.AboutActivity"
+            android:name=".uis.activities.AboutActivity"
             android:label="@string/aboutLabel"
             android:theme="@style/OrangeTheme" />
         <activity
-            android:name=".activities.StockItemListActivity"
+            android:name=".uis.activities.StockItemListActivity"
             android:label="@string/stockItemListLabel"
             android:theme="@style/OrangeTheme" />
         <activity
-            android:name=".activities.RecipesActivity"
+            android:name=".uis.activities.RecipesActivity"
             android:label="@string/recipesLabel"
             android:theme="@style/OrangeTheme" />
         <activity
-            android:name=".activities.StockItemDetailsActivity"
+            android:name=".uis.activities.StockItemDetailsActivity"
             android:label="@string/stockItemDetailsLabel"
             android:theme="@style/OrangeTheme" />
-        <activity android:name=".activities.AllergiesActivity" />
-        <activity android:name=".activities.HomeActivity" />
-        <activity android:name=".activities.ListsActivity" />
-        <activity android:name=".activities.InitialSetup2Activity" />
-        <activity android:name=".activities.NFCActivity">
+        <activity android:name=".uis.activities.AllergiesActivity" />
+        <activity android:name=".uis.activities.HomeActivity" />
+        <activity android:name=".uis.activities.ListsActivity" />
+        <activity android:name=".uis.activities.InitialSetup2Activity" />
+        <activity android:name=".uis.activities.NFCActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data

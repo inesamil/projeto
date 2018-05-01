@@ -48,26 +48,24 @@
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/signInBtn"
+        app:layout_constraintBottom_toTopOf="@+id/signinBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameEditText" />
 
     <Button
-        android:id="@+id/signInBtn"
-        style="@style/OrangeButton"
+        android:id="@+id/signinBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="147dp"
         android:layout_marginStart="147dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/round_edges_rectangle"
-        android:elevation="24dp"
+        android:elevation="0dp"
         android:padding="10dp"
         android:text="@string/sing_in"
         android:textColor="@color/primaryTextColor"
         android:textStyle="bold"
-        android:theme="@style/OrangeButton"
+        android:theme="@style/OrangeTheme.Button"
         app:layout_constraintBottom_toTopOf="@+id/divisionLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +95,7 @@
         app:layout_constraintBottom_toTopOf="@+id/registerText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signInBtn">
+        app:layout_constraintTop_toBottomOf="@+id/signinBtn">
 
         <View
             android:id="@+id/leftLine"
@@ -142,11 +140,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@drawable/round_edges_rectangle"
         android:padding="10dp"
         android:text="@string/sing_up"
         android:textColor="@color/primaryTextColor"
         android:textStyle="bold"
+        android:theme="@style/OrangeTheme.Button"
         app:layout_constraintBottom_toTopOf="@+id/aboutTextClickable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

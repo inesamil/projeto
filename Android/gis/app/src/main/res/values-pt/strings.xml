@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My Application</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <!-- Login Activity -->
     <string name="login">Iniciar Sessão</string>
     <string name="sing_in">ENTRAR</string>
-    <string name="username">Nome do Utilizador</string>
+    <string name="username">Nome de Utilizador</string>
     <string name="password">Palavra-Chave</string>
     <string name="register">Não tem conta?</string>
     <string name="or">OU</string>
@@ -122,4 +121,6 @@
     <string name="message_write_tag">Escrever na Tag NFC</string>
     <string name="message_tap_tag">Aproxime a Tag NFC do seu telemóvel!</string>
     <string name="hint_message">Mensagem</string>
+    <string name="initial_setup_1_2">Configuração Inicial - Casa (1/2)</string>
+    <string name="initial_setup_2_2">Configuração Inicial - Membros da Família (2/2)</string>
 </resources>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name" translatable="false">SMART STOCKS</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <!-- Login Activity -->
     <string name="login">LOGIN</string>
     <string name="sing_in">SIGN IN</string>
@@ -12,6 +13,7 @@
     <string name="or">OR</string>
     <string name="sing_up">SIGN UP</string>
     <string name="about">About</string>
+
     <!-- Register Activity -->
     <string name="basic_information">Basic Information</string>
     <string name="fullname">Full Name</string>
@@ -20,80 +22,15 @@
     <string name="private_information">Private Information</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="already_have_an_account">Already have an account?</string>
+
     <!-- Initial Setup 1 Activity -->
-    <string name="initial_setup_1_3">Initial Setup - House (1/x)</string>
+    <string name="initial_setup_1_2">Initial Setup - House (1/2)</string>
     <string name="houses_name">House\'s name</string>
     <string name="next">NEXT</string>
     <string name="already_have_house">Already have house?</string>
-    <!-- Product Category Activity -->
-    <string name="products_label">Products</string>
-    <string name="categories">Categories</string>
-    <!-- right_menu_with_search and right_menu -->
-    <string name="search">Search</string>
-    <string name="invitations">Invitations</string>
-    <string name="preferences">Preferences</string>
-    <!-- content_product_category_item.xml -->
-    <string-array name="products_categories">
-        <item>DIARY</item>
-        <item>DRINKS</item>
-        <item>SAUCES</item>
-        <item>FROZEN</item>
-        <item>FRUITS</item>
-        <item>SPICES</item>
-    </string-array>
-    <!-- Product Diary Activity -->
-    <string name="diary">Diary</string>
-    <!-- content_product_diary_item.xml -->
-    <string-array name="products_diaries">
-        <item>MILK</item>
-        <item>YOGURT</item>
-        <item>CHEESE</item>
-    </string-array>
-    <!-- nav_bar_menu.xml -->
-    <string name="homePage">HOME PAGE</string>
-    <string name="lists">Lists</string>
-    <string name="products">Products</string>
-    <string name="recipes">Recipes</string>
-    <string name="profile">Profile</string>
-    <string name="settings">Settings</string>
-    <!-- content_list.xml -->
-    <string name="download">Transfer to offline</string>
-    <!-- content_list_item.xml -->
-    <string-array name="names">
-        <item>Milk</item>
-        <item>Sugar</item>
-        <item>Eggs</item>
-    </string-array>
-    <string-array name="numbers">
-        <item>2</item>
-        <item>1</item>
-        <item>12</item>
-    </string-array>
-    <!-- List Activity -->
-    <string name="listLabel">Groceries List</string>
-    <!-- Settings Activity -->
-    <string name="settingsLabel">Settings</string>
-    <!-- About Activity -->
-    <string name="aboutLabel">About</string>
-    <!-- content_stock_item_list_item -->
-    <string name="filter">Filter</string>
-    <string name="details">Details</string>
-    <!-- StockItemList Activity -->
-    <string name="stockItemListLabel">List</string>
-    <!-- content_recipes_item.xml -->
-    <string name="tryRecipe">Try</string>
-    <!-- Recipes Activity -->
-    <string name="recipesLabel">Recipes</string>
-    <!-- StockItemDetails Activity -->
-    <string name="stockItemDetailsLabel">Stock Item Details</string>
-    <!-- content_stock_item_details.xml -->
-    <string name="allergens">Allergens</string>
-    <string name="expirationDate">Expiration Date</string>
-    <string name="storage">Storage</string>
-    <string name="description">Description</string>
-    <string name="movements">Movements</string>
-    <!-- Initial Setup - Family Members -->
-    <string name="initial_setup">Initial Setup</string>
+
+    <!-- Initial Setup 2 - Family Members -->
+    <string name="initial_setup_2_2">Initial Setup - Family Members (2/2)</string>
     <string name="family_members">Family Members</string>
     <string name="dash">-</string>
     <string name="babies">Babies (0\-3 years)</string>
@@ -105,14 +42,101 @@
     <string name="plus">+</string>
     <string name="minus">-</string>
     <string name="title_activity_login">Sign in</string>
+
+    <!-- Product Category Activity -->
+    <string name="products_label">Products</string>
+    <string name="categories">Categories</string>
+
+    <!-- right_menu_with_search and right_menu -->
+    <string name="search">Search</string>
+    <string name="invitations">Invitations</string>
+    <string name="preferences">Preferences</string>
+
+    <!-- content_product_category_item.xml -->
+    <string-array name="products_categories">
+        <item>DIARY</item>
+        <item>DRINKS</item>
+        <item>SAUCES</item>
+        <item>FROZEN</item>
+        <item>FRUITS</item>
+        <item>SPICES</item>
+    </string-array>
+
+    <!-- Product Diary Activity -->
+    <string name="diary">Diary</string>
+
+    <!-- content_product_diary_item.xml -->
+    <string-array name="products_diaries">
+        <item>MILK</item>
+        <item>YOGURT</item>
+        <item>CHEESE</item>
+    </string-array>
+
+    <!-- nav_bar_menu.xml -->
+    <string name="homePage">HOME PAGE</string>
+    <string name="lists">Lists</string>
+    <string name="products">Products</string>
+    <string name="recipes">Recipes</string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
+
+    <!-- content_list.xml -->
+    <string name="download">Transfer to offline</string>
+
+    <!-- content_list_item.xml -->
+    <string-array name="names">
+        <item>Milk</item>
+        <item>Sugar</item>
+        <item>Eggs</item>
+    </string-array>
+    <string-array name="numbers">
+        <item>2</item>
+        <item>1</item>
+        <item>12</item>
+    </string-array>
+
+    <!-- List Activity -->
+    <string name="listLabel">Groceries List</string>
+
+    <!-- Settings Activity -->
+    <string name="settingsLabel">Settings</string>
+
+    <!-- About Activity -->
+    <string name="aboutLabel">About</string>
+
+    <!-- content_stock_item_list_item -->
+    <string name="filter">Filter</string>
+    <string name="details">Details</string>
+
+    <!-- StockItemList Activity -->
+    <string name="stockItemListLabel">List</string>
+
+    <!-- content_recipes_item.xml -->
+    <string name="tryRecipe">Try</string>
+
+    <!-- Recipes Activity -->
+    <string name="recipesLabel">Recipes</string>
+
+    <!-- StockItemDetails Activity -->
+    <string name="stockItemDetailsLabel">Stock Item Details</string>
+
+    <!-- content_stock_item_details.xml -->
+    <string name="allergens">Allergens</string>
+    <string name="expirationDate">Expiration Date</string>
+    <string name="storage">Storage</string>
+    <string name="description">Description</string>
+    <string name="movements">Movements</string>
+
     <!-- Activity Lists -->
     <string name="create_new_list">Create new list</string>
+
     <!-- Allergies -->
     <string name="allergics_question">Are there members with allergies in the house ?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="allergics">Allergics</string>
     <string name="save">Save</string>
+
     <!--NFC activity and fragment-->
     <string name="write_button">Write</string>
     <string name="message_write_error">Error Writing Message !</string>

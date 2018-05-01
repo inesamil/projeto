@@ -10,11 +10,13 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/primaryLightColor</item>
+        <item name="android:statusBarColor">@color/primaryColor</item>
     </style>
 
-    <style name="OrangeButton" parent="Theme.AppCompat.Light">
-        <item name="colorControlHighlight">@color/primaryColor</item>
-        <item name="colorButtonNormal">@color/secondaryColor</item>
+    <style name="OrangeTheme.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/primaryColor</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:elevation">2dp</item>
     </style>
 
 </resources>
