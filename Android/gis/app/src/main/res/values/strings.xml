@@ -23,16 +23,12 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="already_have_an_account">Already have an account?</string>
 
-    <!-- Initial Setup 1 Activity -->
+    <!-- Initial Setup Activity -->
     <string name="initial_setup_1_2">Initial Setup</string>
     <string name="houses_name">House\'s name</string>
     <string name="next">NEXT</string>
     <string name="already_have_house">Already have house?</string>
-
-    <!-- Initial Setup 2 - Family Members -->
-    <string name="initial_setup_2_2">Initial Setup - Family Members (2/2)</string>
-    <string name="family_members">Family Members</string>
-    <string name="dash">-</string>
+    <string name="home_icon_description">House Icon</string>
     <string name="babies">Babies (0\-3 years)</string>
     <string name="children">Children (4\-14 years)</string>
     <string name="adults">Adults (15\-64 years)</string>

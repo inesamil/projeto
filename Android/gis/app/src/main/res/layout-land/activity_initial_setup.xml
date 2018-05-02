@@ -6,57 +6,94 @@
     android:layout_height="match_parent"
     tools:context=".activities.InitialSetup2Activity">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/houseLayout"
+    <TextView
+        android:id="@+id/initialSetupText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/characteristicsLayout"
+        android:layout_marginTop="16dp"
+        android:text="@string/initial_setup_1_2"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:theme="@style/OrangeTheme"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/initialSetupText">
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontalTopGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/houseLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:foregroundGravity="center_vertical|center_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalBottomGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/horizontalTopGuideline">
 
         <ImageView
             android:id="@+id/houseIcon"
-            android:layout_width="96dip"
-            android:layout_height="96dip"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/home_icon_description"
             android:src="@mipmap/ic_home_round_inverse_hi_res_512"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/housesnameEditText2"
+            android:theme="@style/OrangeTheme"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/housesnameEditText2"
+        <android.support.constraint.Guideline
+            android:id="@+id/horizontalGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <EditText
+            android:id="@+id/housesnameEditText2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:hint="@string/houses_name"
             android:inputType="textPersonName"
+            android:theme="@style/OrangeTheme"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/houseIcon"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/characteristicsLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/startBtn"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalBottomGuideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/houseLayout">
+        app:layout_constraintStart_toStartOf="@+id/verticalGuideline"
+        app:layout_constraintTop_toTopOf="@+id/horizontalTopGuideline">
 
         <android.support.v7.widget.CardView
             android:id="@+id/babiesCardView"
@@ -64,6 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:theme="@style/OrangeTheme"
             app:layout_constraintBottom_toTopOf="@+id/childrenCardView"
             app:layout_constraintEnd_toStartOf="@+id/babiesButtonsLayout"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,17 +115,11 @@
 
                 <TextView
                     android:id="@+id/babiesText"
-                    android:layout_width="0dp"
+                    android:layout_width="215dp"
                     android:layout_height="35dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
                     android:gravity="center|start"
-                    android:paddingLeft="8dp"
-                    android:text="@string/babies"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/babiesNumEditText"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:padding="8dp"
+                    android:text="@string/babies" />
 
                 <EditText
                     android:id="@+id/babiesNumEditText"
@@ -120,6 +152,7 @@
                 android:layout_width="33dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:padding="10dp"
                 android:text="@string/minus"
                 android:textSize="14sp"
@@ -170,7 +203,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:gravity="center|start"
-                    android:paddingLeft="8dp"
+                    android:padding="8dp"
                     android:text="@string/children"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/childrenNumEditText"
@@ -208,6 +241,7 @@
                 android:layout_width="33dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:text="@string/minus"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -255,7 +289,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:gravity="center|start"
-                    android:paddingLeft="8dp"
+                    android:padding="8dp"
                     android:text="@string/adults"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/adultsNumEditText"
@@ -292,6 +326,7 @@
                 android:layout_width="33dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:text="@string/minus"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -319,6 +354,7 @@
             android:id="@+id/seniorsCardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="16dp"
@@ -335,12 +371,12 @@
                 <TextView
                     android:id="@+id/seniorsText"
                     android:layout_width="0dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"
                     android:gravity="center|start"
-                    android:paddingLeft="8dp"
+                    android:padding="8dp"
                     android:text="@string/seniors"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/seniorNumEditText"
@@ -378,6 +414,7 @@
                 android:layout_width="33dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:text="@string/minus"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -403,33 +440,16 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/initialSetupText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="52dp"
-        android:layout_marginRight="52dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/initial_setup_1_2"
-        android:textColor="@android:color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/houseLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/startBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:text="@string/start"
@@ -438,7 +458,22 @@
         android:theme="@style/OrangeTheme.Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.967"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/characteristicsLayout" />
+        app:layout_constraintTop_toTopOf="@+id/horizontalBottomGuideline" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontalBottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/verticalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.30" />
 
 </android.support.constraint.ConstraintLayout>
