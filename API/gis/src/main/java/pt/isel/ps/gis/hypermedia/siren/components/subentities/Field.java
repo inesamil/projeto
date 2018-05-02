@@ -6,9 +6,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Field {
 
     public enum Type {
-        hidden, text, search, tel, url, email, password, datetime,
-        date, month, week, time, datetimeLocal, number, range, color,
-        checkbox, radio, file
+        hidden("hidden"), text("text"), search("search"), tel("tel"), url("url"), email("email"), password("password"),
+        datetime("datetime"), date("date"), month("month"), week("week"), time("time"), datetimeLocal("datetimeLocal"),
+        number("number"), range("range"), color("color"), checkbox("checkbox"), radio("radio"), file("file"),
+        bool("boolean");
+
+        private final String type;
+
+        Type(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public String toString() {
+            return type;
+        }
     }
 
     private String name;
