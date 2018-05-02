@@ -1,4 +1,4 @@
-package pt.isel.leic.daw.project.utils;
+package pt.isel.ps.gis.utils;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
