@@ -24,7 +24,7 @@
     <string name="already_have_an_account">Already have an account?</string>
 
     <!-- Initial Setup 1 Activity -->
-    <string name="initial_setup_1_2">Initial Setup - House (1/2)</string>
+    <string name="initial_setup_1_2">Initial Setup</string>
     <string name="houses_name">House\'s name</string>
     <string name="next">NEXT</string>
     <string name="already_have_house">Already have house?</string>
