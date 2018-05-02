@@ -8,6 +8,7 @@ data class ListProductDTO(
         val listId: Short,
         val categoryId: Int,
         val productId: Int,
+        val productName: String,
         val brand: String?,
         val quantity: Short
 ) : Parcelable {
@@ -17,6 +18,7 @@ data class ListProductDTO(
             parcel.readInt(),
             parcel.readInt(),
             parcel.readString(),
+            parcel.readString(),
             parcel.readInt().toShort()) {
     }
 
@@ -25,6 +27,7 @@ data class ListProductDTO(
         parcel.writeInt(listId.toInt())
         parcel.writeInt(categoryId)
         parcel.writeInt(productId)
+        parcel.writeString(productName)
         parcel.writeString(brand)
         parcel.writeInt(quantity.toInt())
     }

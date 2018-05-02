@@ -8,7 +8,7 @@ data class SystemListDTO(
         override val listId: Short,
         override val listName: String,
         override val listType: String,
-        val items: List<ListProductDTO>
+        override val items: List<ListProductDTO>
 ) : ListDTO, Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),

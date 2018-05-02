@@ -10,7 +10,7 @@ data class UserListDTO(
         override val listType: String,
         val userUsername: String,
         val shareable: Boolean,
-        val items: List<ListProductDTO>
+        override val items: List<ListProductDTO>
 ) : ListDTO, Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),

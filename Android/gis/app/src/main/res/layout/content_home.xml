@@ -2,171 +2,21 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="4dp"
-    android:paddingLeft="4dp"
-    android:paddingRight="4dp"
-    android:paddingTop="4dp">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
+    <!-- A RecyclerView with some commonly used attributes -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view_home"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/listoverview_listnameText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="8dp"
-                android:text="Groceries List"
-                android:textColorLink="@android:color/black"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/listoverview_columnTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:layout_marginTop="8dp"
-                android:text="Quantity"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listoverview_listnameText" />
-
-            <TextView
-                android:id="@+id/listoverview_item1Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:text="Milk"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listoverview_columnTitleText" />
-
-            <View
-                android:id="@+id/listoverview_line1"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintEnd_toStartOf="@+id/listoverview_cell1"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/listoverview_item1Text"
-                app:layout_constraintTop_toBottomOf="@+id/listoverview_columnTitleText" />
-
-            <TextView
-                android:id="@+id/listoverview_cell1"
-                android:layout_width="8dp"
-                android:layout_height="19dp"
-                android:layout_marginEnd="52dp"
-                android:layout_marginRight="52dp"
-                android:layout_marginTop="8dp"
-                android:text="2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listoverview_columnTitleText" />
-
-            <TextView
-                android:id="@+id/listoverview_item2Text"
-                android:layout_width="wrap_content"
-                android:layout_height="19dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:text="Sugar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listoverview_item1Text" />
-
-            <View
-                android:id="@+id/listoverview_line2"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="28dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintEnd_toStartOf="@+id/listoverview_cell2"
-                app:layout_constraintStart_toEndOf="@+id/listoverview_item2Text"
-                app:layout_constraintTop_toBottomOf="@+id/listoverview_line1" />
-
-            <TextView
-                android:id="@+id/listoverview_cell2"
-                android:layout_width="8dp"
-                android:layout_height="19dp"
-                android:layout_marginEnd="52dp"
-                android:layout_marginRight="52dp"
-                android:layout_marginTop="38dp"
-                android:text="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listoverview_columnTitleText" />
-
-            <TextView
-                android:id="@+id/listoverview_item3Text"
-                android:layout_width="wrap_content"
-                android:layout_height="19dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:text="Eggs"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listoverview_item2Text" />
-
-            <View
-                android:id="@+id/listoverview_line3"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="28dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/listoverview_cell3"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/listoverview_item3Text"
-                app:layout_constraintTop_toBottomOf="@+id/listoverview_line2"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/listoverview_cell3"
-                android:layout_width="16dp"
-                android:layout_height="19dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="52dp"
-                android:layout_marginRight="52dp"
-                android:layout_marginTop="8dp"
-                android:text="12"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listoverview_cell2" />
-
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

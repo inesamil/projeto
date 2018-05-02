@@ -9,31 +9,31 @@ import android.widget.Button
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 
-class ProductDiaryAdapter(context: Context, data: Array<String>)
-    : RecyclerView.Adapter<ProductDiaryAdapter.ViewHolder>() {
+class CategoryProductsAdapter(context: Context, data: Array<String>)
+    : RecyclerView.Adapter<CategoryProductsAdapter.ViewHolder>() {
 
     private val mData = data;
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mOnItemClickListener: OnItemClickListener? = null
 
-    // inflates the cell layout from xml when needed
+    // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = mInflater.inflate(R.layout.content_product_diary_item, parent, false)
         return ViewHolder(view)
     }
 
-    // binds the data to the textview in each cell
+    // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mData[position]
         holder.productDiaryItemText.text = item
     }
 
-    // total number of cells
+    // Total number of cells
     override fun getItemCount(): Int {
         return mData.size
     }
 
-    // stores and recycles views as they are scrolled off screen
+    // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var productDiaryItemText: TextView = itemView.findViewById(R.id.productDiaryItemText)
         internal var productDiaryItemPlusBtn: Button = itemView.findViewById(R.id.productDiaryItemPlusBtn)
@@ -54,11 +54,12 @@ class ProductDiaryAdapter(context: Context, data: Array<String>)
         }
     }
 
+    // Sets listener for items click
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 
-    // parent activity will implement this method to respond to click events
+    // Parent activity will implement this method to respond to click events
     interface OnItemClickListener {
         fun onTextClick(view: View, position: Int)
         fun onPlusClick(view: View, position: Int)

@@ -106,6 +106,6 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun goToInitialSetup() {
         finish()
-        startActivity(Intent(this, InitialSetup1Activity::class.java))
+        startActivity(Intent(this, InitialSetupActivity::class.java))
     }
 }

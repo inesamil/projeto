@@ -6,44 +6,65 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import kotlinx.android.synthetic.main.activity_product_category.*
-import kotlinx.android.synthetic.main.content_product_category.*
+import kotlinx.android.synthetic.main.activity_category_products.*
+import kotlinx.android.synthetic.main.content_product_diary.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.uis.adapters.ProductCategoryAdapter
+import ps.leic.isel.pt.gis.model.ProductDTO
+import ps.leic.isel.pt.gis.uis.adapters.CategoryProductsAdapter
+import ps.leic.isel.pt.gis.utils.ExtraUtils
 
-class ProductCategoryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ProductCategoryAdapter.OnItemClickListener {
+class CategoryProductsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, CategoryProductsAdapter.OnItemClickListener {
+
+    private lateinit var products: Array<ProductDTO>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_product_category)
+        setContentView(R.layout.activity_category_products)
         setSupportActionBar(toolbar)
 
         val toggle = ActionBarDrawerToggle(
-                this, categoryDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        categoryDrawerLayout.addDrawerListener(toggle)
+                this, diaryDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        diaryDrawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        categoryNavView.setNavigationItemSelectedListener(this)
+        diaryNavView.setNavigationItemSelectedListener(this)
 
-        val categories = resources.getStringArray(R.array.products_categories)
-        val adapter = ProductCategoryAdapter(this, categories)
-        categoryRecyclerView.setHasFixedSize(true)
-        categoryRecyclerView.adapter = adapter
+        val diaries = resources.getStringArray(R.array.products_diaries)
+
+        // Set Adapter
+        val adapter = CategoryProductsAdapter(this, diaries)
+        diaryRecyclerView.layoutManager = LinearLayoutManager(this)
+        diaryRecyclerView.setHasFixedSize(true)
+        diaryRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
     }
 
-    override fun onItemClick(view: View, position: Int) {
-        startActivity(Intent(this, ProductDiaryActivity::class.java))
+    override fun onTextClick(view: View, position: Int) {
+        val intent: Intent = Intent(this, ProductActivity::class.java)
+        intent.putExtra(ExtraUtils.PRODUCT, products[position])
+        startActivity(intent)
+    }
+
+    override fun onPlusClick(view: View, position: Int) {
+        //TODO
+        Log.i("uis", "plus click on position: $position")
+    }
+
+    override fun onMinusClick(view: View, position: Int) {
+        //TODO
+        Log.i("uis", "minus click on position: $position")
     }
 
     // If navigation menu is open and user click back, close the navigation bar
     override fun onBackPressed() {
-        if (categoryDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            categoryDrawerLayout.closeDrawer(GravityCompat.START)
+        if (diaryDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            diaryDrawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
@@ -75,23 +96,23 @@ class ProductCategoryActivity : AppCompatActivity(), NavigationView.OnNavigation
                 // Handle the home action
             }
             R.id.nav_lists -> {
-                startActivity(Intent(this, StockItemListActivity::class.java))
+
             }
             R.id.nav_products -> {
-                startActivity(Intent(this, StockItemDetailsActivity::class.java))
+
             }
             R.id.nav_recipes -> {
-                startActivity(Intent(this, RecipesActivity::class.java))
+
             }
             R.id.nav_profile -> {
 
             }
             R.id.nav_settings -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
+
             }
         }
 
-        categoryDrawerLayout.closeDrawer(GravityCompat.START)
+        diaryDrawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 }

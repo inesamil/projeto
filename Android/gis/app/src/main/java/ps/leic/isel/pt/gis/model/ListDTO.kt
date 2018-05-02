@@ -5,4 +5,5 @@ interface ListDTO {
     val listId: Short
     val listName: String
     val listType: String
+    val items: List<ListProductDTO>
 }

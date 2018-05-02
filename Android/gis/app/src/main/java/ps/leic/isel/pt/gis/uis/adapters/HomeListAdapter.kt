@@ -6,59 +6,70 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.*
 
-class HomeListAdapter(private val myDataset: Array<Any>) :
-        RecyclerView.Adapter<HomeListAdapter.MyViewHolder>() {
+class HomeListAdapter(private val data: Array<ListDTO>) :
+        RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
 
-    private val listItemLayout: Int = R.layout.content_home
+    private lateinit var mOnItemClickListener: OnItemClickListener
 
-    // Provide a reference to the views for each data item
-    // Access to all the views for a data item in a view holder.
-    // Each data item is a box composed of 2 strings (listNameText and totalItemsText) in this case that is shown in a TextView.
-    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        // List Name
-        val listNameText: TextView = view.findViewById(R.id.listoverview_listnameText)
-
-        // Column
-        val columnTitleText: TextView = view.findViewById(R.id.listoverview_columnTitleText)
-
-        // Items
-        val item1Text: TextView = view.findViewById(R.id.listoverview_item1Text)
-        val item1ValueText: TextView = view.findViewById(R.id.listoverview_cell1)
-
-        val item2Text: TextView = view.findViewById(R.id.listoverview_item2Text)
-        val item2ValueText: TextView = view.findViewById(R.id.listoverview_cell2)
-
-        val item3Text: TextView = view.findViewById(R.id.listoverview_item3Text)
-        val item3ValueText: TextView = view.findViewById(R.id.listoverview_cell3)
-    }
-
-    // Create new views (invoked by the layout manager)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        // create a new view
+    // Inflates the cell layout from xml when needed
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(listItemLayout, parent, false) as View
-        return MyViewHolder(view)
+                .inflate(R.layout.item_content_home, parent, false) as View
+        return ViewHolder(view)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        val item = myDataset[position]
+    // Binds the data to the components in each cell
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item: ListDTO = data[position]
+
+        val firstProduct: ListProductDTO = item.items[0]
+        val secondProduct: ListProductDTO = item.items[1]
+        val thirdProduct: ListProductDTO = item.items[2]
 
         // Fill ViewHolder
-        //TODO:UPDATE
-        holder.listNameText.text = "Groceries List"
-        holder.columnTitleText.text = "Quantity"
-        holder.item1Text.text = "Milk"
-        holder.item1ValueText.text = "2"
-        holder.item2Text.text = "Sugar"
-        holder.item2ValueText.text = "3"
-        holder.item3Text.text = "Eggs"
-        holder.item3ValueText.text = "12"
+        holder.listNameText.text = item.listName
+        holder.item1Text.text = firstProduct.productName
+        holder.item1ValueText.text = firstProduct.quantity.toString()
+        holder.item2Text.text = secondProduct.productName
+        holder.item2ValueText.text = secondProduct.quantity.toString()
+        holder.item3Text.text = thirdProduct.productName
+        holder.item3ValueText.text = thirdProduct.quantity.toString()
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = myDataset.size
+    override fun getItemCount() = data.size
+
+    // Stores and recycles views as they are scrolled off screen
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        // List Name
+        internal val listNameText: TextView = itemView.findViewById(R.id.listoverview_listnameText)
+
+        // Item 1
+        internal val item1Text: TextView = itemView.findViewById(R.id.listoverview_item1Text)
+        internal val item1ValueText: TextView = itemView.findViewById(R.id.listoverview_cell1)
+        // Item 2
+        internal val item2Text: TextView = itemView.findViewById(R.id.listoverview_item2Text)
+        internal val item2ValueText: TextView = itemView.findViewById(R.id.listoverview_cell2)
+        // Item 3
+        internal val item3Text: TextView = itemView.findViewById(R.id.listoverview_item3Text)
+        internal val item3ValueText: TextView = itemView.findViewById(R.id.listoverview_cell3)
+
+        init {
+            itemView.setOnClickListener {
+                mOnItemClickListener.onItemClick(it, adapterPosition)
+            }
+        }
+    }
+
+    // Sets listener for items click
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
+    // Parent activity will implement this method to respond to click events
+    interface OnItemClickListener {
+        fun onItemClick(view: View, position: Int)
+    }
 }

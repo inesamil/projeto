@@ -2,6 +2,7 @@ package ps.leic.isel.pt.gis.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.support.design.widget.NavigationView
 
 /**
  * Singleton to store information needed by the whole app

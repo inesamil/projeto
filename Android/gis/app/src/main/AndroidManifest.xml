@@ -23,16 +23,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".uis.activities.LoginActivity"
-            android:theme="@style/OrangeTheme"/>
+        <activity
+            android:name=".uis.activities.LoginActivity"
+            android:theme="@style/OrangeTheme" />
         <activity android:name=".uis.activities.RegisterActivity" />
         <activity android:name=".uis.activities.InitialSetup1Activity" />
         <activity
-            android:name=".uis.activities.ProductCategoryActivity"
+            android:name=".uis.activities.CategoriesActivity"
             android:label="@string/products_label"
             android:theme="@style/OrangeTheme" />
         <activity
-            android:name=".uis.activities.ProductDiaryActivity"
+            android:name=".uis.activities.CategoryProductsActivity"
             android:label="@string/products_label"
             android:theme="@style/OrangeTheme" />
         <activity
@@ -76,6 +77,7 @@
                     android:scheme="vnd.android.nfc" />
             </intent-filter>
         </activity>
+        <activity android:name=".uis.activities.ProductActivity"></activity>
     </application>
 
 </manifest>
