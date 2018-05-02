@@ -13,6 +13,9 @@ public class Characteristics implements Serializable {
     private Short house_adultsNumber;
     private Short house_seniorsNumber;
 
+    protected Characteristics() {
+    }
+
     public Characteristics(Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityException {
         setHouse_babiesNumber(babiesNumber);
         setHouse_childrenNumber(childrenNumber);
