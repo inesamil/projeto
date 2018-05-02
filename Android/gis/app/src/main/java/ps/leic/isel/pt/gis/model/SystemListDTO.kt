@@ -4,14 +4,16 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class SystemListDTO(
-        val houseId: Long,
-        val listId: Short,
-        val listName: String,
+        override val houseId: Long,
+        override val listId: Short,
+        override val listName: String,
+        override val listType: String,
         val items: List<ListProductDTO>
-) : Parcelable {
+) : ListDTO, Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
             parcel.readInt().toShort(),
+            parcel.readString(),
             parcel.readString(),
             parcel.createTypedArrayList(ListProductDTO)) {
     }
@@ -20,6 +22,7 @@ data class SystemListDTO(
         parcel.writeLong(houseId)
         parcel.writeInt(listId.toInt())
         parcel.writeString(listName)
+        parcel.writeString(listType)
         parcel.writeTypedList(items)
     }
 
