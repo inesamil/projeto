@@ -47,8 +47,8 @@ public class ProductOutputModel {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("category-id", product.getId().getCategoryId());
         properties.put("product-id", product.getId().getProductId());
-        properties.put("product-edible", product.getProductEdible());
         properties.put("product-name", product.getProductName());
+        properties.put("product-edible", product.getProductEdible());
         properties.put("product-shelflifetime", product.getProductShelflife() + " " + product.getProductShelflifetimeunit());
         return properties;
     }
