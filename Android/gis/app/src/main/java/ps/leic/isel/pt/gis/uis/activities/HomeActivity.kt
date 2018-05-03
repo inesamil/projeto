@@ -9,20 +9,21 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
+import android.view.View
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_stock_item_list.*
 import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.view_home.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.ListDTO
 import ps.leic.isel.pt.gis.uis.adapters.HomeListAdapter
-import ps.leic.isel.pt.gis.utils.ServiceLocator
 
-class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, HomeListAdapter.OnItemClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
-    private lateinit var items: Array<Any>
+    private lateinit var lists: Array<ListDTO>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,23 +37,16 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         homeNavView.setNavigationItemSelectedListener(this)
 
-        items = arrayOf("1", "2", "3", "4", "5", "6")
+        // Set Adapter
+        val adapter: HomeListAdapter = HomeListAdapter(lists)
+        homeListsRecyclerView.layoutManager = LinearLayoutManager(this)
+        homeListsRecyclerView.setHasFixedSize(true)
+        homeListsRecyclerView.adapter = adapter
+        adapter.setOnItemClickListener(this)
+    }
 
-        viewManager = LinearLayoutManager(this)
-        viewAdapter = HomeListAdapter(items)
-
-        recyclerView = findViewById<RecyclerView>(R.id.my_recycler_view_home).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
-
-            // use a linear layout manager
-            layoutManager = viewManager
-
-            // specify an viewAdapter (see also next example)
-            adapter = viewAdapter
-
-        }
+    override fun onItemClick(view: View, position: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

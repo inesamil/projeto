@@ -7,34 +7,50 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.ListProductDTO
 
-class ListAdapter(context: Context, names: Array<String>, numbers: Array<String>)
+class ListAdapter(private val data: Array<ListProductDTO>)
     : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
-    private val mNames = names;
-    private val mNumbers = numbers;
-    private val mInflater: LayoutInflater = LayoutInflater.from(context)
+    private lateinit var mOnItemClickListener: OnItemClickListener
 
-    // inflates the cell layout from xml when needed
+    // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = mInflater.inflate(R.layout.content_list_item, parent, false)
+        val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_list, parent, false)
         return ViewHolder(view)
     }
 
-    // binds the data to the textview in each cell
+    // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.nameItemText.text = mNames[position]
-        holder.numberItemText.text = mNumbers[position]
+        val item: ListProductDTO = data[position]
+        // Fill ViewHolder
+        holder.nameItemText.text = item.productName
+        holder.numberItemText.text = item.quantity.toString()
     }
 
-    // total number of cells
-    override fun getItemCount(): Int {
-        return mNames.size
-    }
+    // Total number of cells
+    override fun getItemCount() = data.size
 
     // stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var nameItemText: TextView = itemView.findViewById<TextView>(R.id.nameText) as TextView
-        internal var numberItemText: TextView = itemView.findViewById<TextView>(R.id.numberText) as TextView
+        internal val nameItemText: TextView = itemView.findViewById<TextView>(R.id.nameText) as TextView
+        internal val numberItemText: TextView = itemView.findViewById<TextView>(R.id.numberText) as TextView
+
+        init {
+            itemView.setOnClickListener {
+                mOnItemClickListener.onItemClick(it, adapterPosition)
+            }
+        }
+    }
+
+    // Sets listener for items click
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
+    // Parent activity will implement this method to respond to click events
+    interface OnItemClickListener {
+        fun onItemClick(view: View, position: Int)
     }
 }

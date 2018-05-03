@@ -12,7 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_category_products.*
-import kotlinx.android.synthetic.main.content_product_diary.*
+import kotlinx.android.synthetic.main.view_categoryproducts.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ProductDTO
@@ -35,13 +35,11 @@ class CategoryProductsActivity : AppCompatActivity(), NavigationView.OnNavigatio
 
         diaryNavView.setNavigationItemSelectedListener(this)
 
-        val diaries = resources.getStringArray(R.array.products_diaries)
-
         // Set Adapter
-        val adapter = CategoryProductsAdapter(this, diaries)
-        diaryRecyclerView.layoutManager = LinearLayoutManager(this)
-        diaryRecyclerView.setHasFixedSize(true)
-        diaryRecyclerView.adapter = adapter
+        val adapter = CategoryProductsAdapter(products)
+        categoryProductsRecyclerView.layoutManager = LinearLayoutManager(this)
+        categoryProductsRecyclerView.setHasFixedSize(true)
+        categoryProductsRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
     }
 

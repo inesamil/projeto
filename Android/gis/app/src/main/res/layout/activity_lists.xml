@@ -6,7 +6,7 @@
 
     <!-- A RecyclerView with some commonly used attributes -->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view_lists"
+        android:id="@+id/listsRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="14dp"

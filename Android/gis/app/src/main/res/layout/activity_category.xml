@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <include layout="@layout/content_product_category" />
+    <include layout="@layout/view_category" />
 
     <android.support.design.widget.NavigationView
         android:id="@+id/categoryNavView"

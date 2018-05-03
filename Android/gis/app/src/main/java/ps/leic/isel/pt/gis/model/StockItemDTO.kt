@@ -8,6 +8,7 @@ data class StockItemDTO(
         val sku: String,
         val categoryId: Int,
         val productId: Int,
+        val productName: String,
         val brand: String,
         val segment: String,
         val variety: String,
@@ -27,6 +28,7 @@ data class StockItemDTO(
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
+            parcel.readString(),
             parcel.readInt().toShort(),
             parcel.readString(),
             parcel.readString(),
@@ -41,6 +43,7 @@ data class StockItemDTO(
         parcel.writeString(sku)
         parcel.writeInt(categoryId)
         parcel.writeInt(productId)
+        parcel.writeString(productName)
         parcel.writeString(brand)
         parcel.writeString(segment)
         parcel.writeString(variety)

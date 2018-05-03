@@ -1,6 +1,5 @@
 package ps.leic.isel.pt.gis.uis.adapters
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -18,22 +17,20 @@ class CategoriesAdapter(private val data: Array<CategoryDTO>)
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_content_category, parent, false) as View
+                .inflate(R.layout.item_category, parent, false) as View
         return ViewHolder(view)
     }
 
     // Binds the data to the components in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
+        val item: CategoryDTO = data[position]
         // Fill ViewHolder
         holder.categoryItemText.text = item.categoryName
         holder.categoryItemImage.setImageResource(R.drawable.ic_house_setup)
     }
 
     // Total number of cells
-    override fun getItemCount(): Int {
-        return data.size;
-    }
+    override fun getItemCount() = data.size
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {

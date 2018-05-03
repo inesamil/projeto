@@ -16,7 +16,7 @@ class HomeListAdapter(private val data: Array<ListDTO>) :
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_content_home, parent, false) as View
+                .inflate(R.layout.item_home, parent, false) as View
         return ViewHolder(view)
     }
 

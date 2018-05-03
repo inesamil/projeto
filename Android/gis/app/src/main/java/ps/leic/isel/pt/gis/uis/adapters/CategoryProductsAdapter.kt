@@ -1,6 +1,5 @@
 package ps.leic.isel.pt.gis.uis.adapters
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,36 +7,35 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.ProductDTO
 
-class CategoryProductsAdapter(context: Context, data: Array<String>)
+class CategoryProductsAdapter(private val data: Array<ProductDTO>)
     : RecyclerView.Adapter<CategoryProductsAdapter.ViewHolder>() {
 
-    private val mData = data;
-    private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mOnItemClickListener: OnItemClickListener? = null
 
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = mInflater.inflate(R.layout.content_product_diary_item, parent, false)
+        val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_categoryproducts, parent, false) as View
         return ViewHolder(view)
     }
 
     // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mData[position]
-        holder.productDiaryItemText.text = item
+        val item: ProductDTO = data[position]
+        // Fill ViewHolder
+        holder.productDiaryItemText.text = item.name
     }
 
     // Total number of cells
-    override fun getItemCount(): Int {
-        return mData.size
-    }
+    override fun getItemCount() = data.size
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var productDiaryItemText: TextView = itemView.findViewById(R.id.productDiaryItemText)
-        internal var productDiaryItemPlusBtn: Button = itemView.findViewById(R.id.productDiaryItemPlusBtn)
-        internal var productDiaryItemMinusBtn: Button = itemView.findViewById(R.id.productDiaryItemMinusBtn)
+        internal val productDiaryItemText: TextView = itemView.findViewById(R.id.productDiaryItemText)
+        internal val productDiaryItemPlusBtn: Button = itemView.findViewById(R.id.productDiaryItemPlusBtn)
+        internal val productDiaryItemMinusBtn: Button = itemView.findViewById(R.id.productDiaryItemMinusBtn)
 
         init {
             productDiaryItemText.setOnClickListener{

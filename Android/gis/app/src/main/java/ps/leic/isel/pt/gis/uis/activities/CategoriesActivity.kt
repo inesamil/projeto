@@ -10,9 +10,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_category.*
-import kotlinx.android.synthetic.main.content_product_category.*
+import kotlinx.android.synthetic.main.view_category.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.R.id.categoryDrawerLayout
 import ps.leic.isel.pt.gis.model.CategoryDTO
 import ps.leic.isel.pt.gis.uis.adapters.CategoriesAdapter
 
@@ -32,10 +33,8 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
 
         categoryNavView.setNavigationItemSelectedListener(this)
 
-        val categories = resources.getStringArray(R.array.products_categories)
-
         // Set Adapter
-        val adapter = CategoriesAdapter(this, categories)
+        val adapter = CategoriesAdapter(categories)
         categoryRecyclerView.setHasFixedSize(true)
         categoryRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)

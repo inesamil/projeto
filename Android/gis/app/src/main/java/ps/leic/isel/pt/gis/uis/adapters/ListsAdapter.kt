@@ -1,7 +1,5 @@
 package ps.leic.isel.pt.gis.uis.adapters
 
-import android.content.Intent
-import android.content.ServiceConnection
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,48 +7,51 @@ import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ListDTO
-import ps.leic.isel.pt.gis.uis.activities.ListActivity
-import ps.leic.isel.pt.gis.utils.ServiceLocator
 
-class ListsAdapter(private val lists: Array<ListDTO>) :
-        RecyclerView.Adapter<ListsAdapter.MyViewHolder>() {
+class ListsAdapter(private val data: Array<ListDTO>) :
+        RecyclerView.Adapter<ListsAdapter.ViewHolder>() {
 
-    private val listItemLayout: Int = R.layout.item_content_lists
-
-    // Provide a reference to the views for each data item
-    // Access to all the views for a data item in a view holder.
-    // Each data item is a box composed of 2 strings (listNameText and totalItemsText) in this case that is shown in a TextView.
-    class MyViewHolder(view: View, val list: ListDTO) : RecyclerView.ViewHolder(view) {
-        var listNameText: TextView = view.findViewById(R.id.listNameText)
-        var itemsText: TextView = view.findViewById(R.id.totalItemsText)
-
-        init {
-            view.setOnClickListener {
-                val intent: Intent = Intent(ServiceLocator.getContext(), ListActivity::class.java)
-
-            }
-        }
-    }
+    private lateinit var mOnItemClickListener: OnItemClickListener
 
     // Create new views (invoked by the layout manager)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        // create a new view
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(listItemLayout, parent, false) as View
-        return MyViewHolder(view, 0)
+                .inflate(R.layout.item_lists, parent, false) as View
+        return ViewHolder(view)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        val item = lists[position]
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item: ListDTO = data[position]
 
         // Fill ViewHolder
         //holder.itemsText.text =
         holder.listNameText.text = item.listName
     }
 
-    // Return the size of lists (invoked by the layout manager)
-    override fun getItemCount() = lists.size
+    // Total number of cells
+    override fun getItemCount() = data.size
+
+    // Stores and recycles views as they are scrolled off screen
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        internal val listNameText: TextView = view.findViewById(R.id.listNameText)
+        internal val itemsText: TextView = view.findViewById(R.id.totalItemsText)
+
+        init {
+            view.setOnClickListener {
+                mOnItemClickListener.onItemClick(it, adapterPosition)
+
+            }
+        }
+    }
+
+    // Sets listener for items click
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
+    // Parent activity will implement this method to respond to click events
+    interface OnItemClickListener {
+        fun onItemClick(view: View, position: Int)
+    }
 }

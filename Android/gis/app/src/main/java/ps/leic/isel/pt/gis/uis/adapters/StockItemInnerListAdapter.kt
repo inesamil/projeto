@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 
-class StockItemListInsideAdapter()
-    : RecyclerView.Adapter<StockItemListInsideAdapter.ViewHolder>() {
+class StockItemInnerListAdapter()
+    : RecyclerView.Adapter<StockItemInnerListAdapter.ViewHolder>() {
 
     private val examplesLocal = arrayOf("Fridge", "Cabinet1")
     private val examplesUnit = arrayOf("2 units", "4 units")
@@ -35,6 +35,10 @@ class StockItemListInsideAdapter()
     // total number of cells
     override fun getItemCount(): Int {
         return examplesLocal.size
+    }
+
+    fun setData(data: Any) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     // stores and recycles views as they are scrolled off screen

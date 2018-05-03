@@ -9,13 +9,17 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_list.*
-import kotlinx.android.synthetic.main.content_list.*
+import kotlinx.android.synthetic.main.view_list.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.ListProductDTO
 import ps.leic.isel.pt.gis.uis.adapters.ListAdapter
 
 class ListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private lateinit var listProducts: Array<ListProductDTO>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +33,7 @@ class ListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         listNavView.setNavigationItemSelectedListener(this)
 
-        val names = resources.getStringArray(R.array.names)
-        val numbers = resources.getStringArray(R.array.numbers)
-        val adapter = ListAdapter(this, names, numbers)
+        val adapter = ListAdapter(listProducts)
         listRecyclerView.layoutManager = LinearLayoutManager(this)
         listRecyclerView.setHasFixedSize(true)
         listRecyclerView.adapter = adapter

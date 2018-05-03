@@ -8,48 +8,62 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.StockItemDTO
 
-class StockItemListAdapter(private val context: Context, private val name: Array<String>)
+class StockItemListAdapter(private val data: Array<StockItemDTO>)
     : RecyclerView.Adapter<StockItemListAdapter.ViewHolder>() {
 
-    private var stockItemListInside: RecyclerView? = null
+    private lateinit var mOnItemClickListener: OnItemClickListener
 
     // inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.content_stock_item_list_item, parent, false)
+        val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_stockitemlist, parent, false) as View
         return ViewHolder(view)
     }
 
-    // binds the data to the textview in each cell
+    // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.stockItemText.text = "Leite UHT Magro" // Just for demonstration
-        holder.brandText.text = name[position]
-        holder.qntItemText.text = "2 units" // Just for demonstration
+        val item: StockItemDTO = data[position]
+        holder.stockItemText.text = item.productName
+        holder.brandText.text = item.brand
+        holder.qntItemText.text = item.quantity.toString()
         // If the inner adapter needs data pass here the data
-        // holder?.innerAdapter.setData(data)
+        holder.innerAdapter.setData(item.storages)
     }
 
-    // total number of cells
-    override fun getItemCount(): Int {
-        return name.size
-    }
+    // Total number of cells
+    override fun getItemCount() = data.size
 
-    // stores and recycles views as they are scrolled off screen
+    // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var stockItemText: TextView
-        internal var brandText: TextView
-        internal var qntItemText: TextView
-        internal var innerAdapter: StockItemListInsideAdapter
+        internal val stockItemText: TextView = itemView.findViewById(R.id.stockItemText)
+        internal val brandText: TextView = itemView.findViewById(R.id.brandText)
+        internal val qntItemText: TextView = itemView.findViewById(R.id.qntText)
+        internal val innerAdapter: StockItemInnerListAdapter
 
         init {
             val context: Context = itemView.context
-            stockItemText = itemView.findViewById(R.id.stockItemText)
-            brandText = itemView.findViewById(R.id.brandText)
-            qntItemText = itemView.findViewById(R.id.qntText)
-            stockItemListInside = itemView.findViewById(R.id.stockItemListInsideRecyclerView)
-            stockItemListInside?.layoutManager = LinearLayoutManager(context)
-            innerAdapter = StockItemListInsideAdapter()
-            stockItemListInside?.adapter = innerAdapter
+            // Set inner list Adapter
+            val stockItemInnerListRecyclerView: RecyclerView = itemView.findViewById(R.id.stockItemInnerListRecyclerView)
+            stockItemInnerListRecyclerView.layoutManager = LinearLayoutManager(context)
+            innerAdapter = StockItemInnerListAdapter()
+            stockItemInnerListRecyclerView.adapter = innerAdapter
+
+            itemView.setOnClickListener{
+                mOnItemClickListener.onItemClick(it, adapterPosition)
+            }
         }
+    }
+
+
+    // Sets listener for items click
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
+    // Parent activity will implement this method to respond to click events
+    interface OnItemClickListener {
+        fun onItemClick(view: View, position: Int)
     }
 }
