@@ -118,6 +118,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun goToContent() {
         finish()
-        startActivity(Intent(this, StockItemListActivity::class.java))
+        startActivity(Intent(this, CategoriesActivity::class.java))
     }
 }

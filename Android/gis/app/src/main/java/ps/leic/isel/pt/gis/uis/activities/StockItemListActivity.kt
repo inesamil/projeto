@@ -13,9 +13,12 @@ import kotlinx.android.synthetic.main.activity_stock_item_list.*
 import kotlinx.android.synthetic.main.content_stock_item_list.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.StockItemDTO
 import ps.leic.isel.pt.gis.uis.adapters.StockItemListAdapter
 
 class StockItemListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private lateinit var stockItems: Array<StockItemDTO>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +35,7 @@ class StockItemListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         // title = "Milk" // Set the activity label here
 
         val dummy = arrayOf("Mimosa", "Terra Nostra")
-        val adapter = StockItemListAdapter(this, dummy)
+        val adapter = StockItemListAdapter(stockItems)
         stockItemListRecyclerView.layoutManager = LinearLayoutManager(this)
         stockItemListRecyclerView.setHasFixedSize(true)
         stockItemListRecyclerView.adapter = adapter

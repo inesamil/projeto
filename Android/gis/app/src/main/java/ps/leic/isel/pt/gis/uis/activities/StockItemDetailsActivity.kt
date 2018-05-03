@@ -12,11 +12,14 @@ import kotlinx.android.synthetic.main.activity_stock_item_details.*
 import kotlinx.android.synthetic.main.content_stock_item_details.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.StockItemDTO
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsExpirationDateAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsMovementsAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsStorageAdapter
 
 class StockItemDetailsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private lateinit var stockItem: StockItemDTO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,19 +39,19 @@ class StockItemDetailsActivity : AppCompatActivity(), NavigationView.OnNavigatio
 
         allergensText.text = "milk, milk protein"
 
-        val expirationDateAdapter = StockItemDetailsExpirationDateAdapter(this)
+        val expirationDateAdapter = StockItemDetailsExpirationDateAdapter(stockItem.expirationDates)
         expirationDateRecyclerView.layoutManager = LinearLayoutManager(this)
         expirationDateRecyclerView.setHasFixedSize(true)
         expirationDateRecyclerView.adapter = expirationDateAdapter
 
-        val storageAdapter = StockItemDetailsStorageAdapter(this)
+        val storageAdapter = StockItemDetailsStorageAdapter(stockItem.storages)
         storageRecyclerView.layoutManager = LinearLayoutManager(this)
         storageRecyclerView.setHasFixedSize(true)
         storageRecyclerView.adapter = storageAdapter
 
         descriptionText.text = "milk é bue bom, têm de experimentar, dá ganda moca!!!"
 
-        val movementsAdapter = StockItemDetailsMovementsAdapter(this)
+        val movementsAdapter = StockItemDetailsMovementsAdapter(stockItem.movements)
         movementsRecyclerView.layoutManager = LinearLayoutManager(this)
         movementsRecyclerView.setHasFixedSize(true)
         movementsRecyclerView.adapter = movementsAdapter

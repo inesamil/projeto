@@ -34,7 +34,7 @@ class CategoriesAdapter(private val data: Array<CategoryDTO>)
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val categoryItemText: TextView = itemView.findViewById(R.id.productCategoryItemText) as TextView
+        internal val categoryItemText: TextView = itemView.findViewById(R.id.categoryItemText) as TextView
         internal val categoryItemImage: ImageView = itemView.findViewById(R.id.categoryItemImage) as ImageView
 
         init {

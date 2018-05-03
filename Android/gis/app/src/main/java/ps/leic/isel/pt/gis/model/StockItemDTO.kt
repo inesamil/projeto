@@ -15,10 +15,10 @@ data class StockItemDTO(
         val quantity: Short,
         val description: String,
         val conservationStorage: String,
-        val allergens: List<StockItemAllergenDTO>,
-        val expirationDates: List<ExpirationDateDTO>,
-        val storages: List<StorageDTO>,
-        val movements: List<MovementDTO>
+        val allergens: Array<StockItemAllergenDTO>,
+        val expirationDates: Array<ExpirationDateDTO>,
+        val storages: Array<StorageDTO>,
+        val movements: Array<MovementDTO>
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
@@ -32,10 +32,10 @@ data class StockItemDTO(
             parcel.readInt().toShort(),
             parcel.readString(),
             parcel.readString(),
-            parcel.createTypedArrayList(StockItemAllergenDTO),
-            parcel.createTypedArrayList(ExpirationDateDTO),
-            parcel.createTypedArrayList(StorageDTO),
-            parcel.createTypedArrayList(MovementDTO)) {
+            parcel.createTypedArray(StockItemAllergenDTO),
+            parcel.createTypedArray(ExpirationDateDTO),
+            parcel.createTypedArray(StorageDTO),
+            parcel.createTypedArray(MovementDTO)) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -50,10 +50,10 @@ data class StockItemDTO(
         parcel.writeInt(quantity.toInt())
         parcel.writeString(description)
         parcel.writeString(conservationStorage)
-        parcel.writeTypedList(allergens)
-        parcel.writeTypedList(expirationDates)
-        parcel.writeTypedList(storages)
-        parcel.writeTypedList(movements)
+        parcel.writeTypedArray(allergens, flags)
+        parcel.writeTypedArray(expirationDates, flags)
+        parcel.writeTypedArray(storages, flags)
+        parcel.writeTypedArray(movements, flags)
     }
 
     override fun describeContents(): Int {

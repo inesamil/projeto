@@ -9,9 +9,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import kotlinx.android.synthetic.main.activity_category.*
-import kotlinx.android.synthetic.main.view_category.*
-import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.R.id.categoryDrawerLayout
 import ps.leic.isel.pt.gis.model.CategoryDTO
@@ -30,8 +27,13 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
                 this, categoryDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         categoryDrawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-
+        //
         categoryNavView.setNavigationItemSelectedListener(this)
+
+        categories = arrayOf(
+                CategoryDTO(1, "Laticínios"),
+                CategoryDTO(2, "Carne"),
+                CategoryDTO(3, "Peixe"))
 
         // Set Adapter
         val adapter = CategoriesAdapter(categories)
@@ -64,13 +66,8 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        when (item.itemId) {
-            R.id.app_bar_search -> return true
-            R.id.invitationsItem -> return true
-            R.id.preferencesItem -> return true
-            R.id.aboutItem -> return true
-            else -> return super.onOptionsItemSelected(item)
-        }
+        val success = ToolbarMenuHelper.handleOnItemSelected(item)
+        return if (success) true else super.onOptionsItemSelected(item)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
