@@ -139,4 +139,9 @@ public class UriBuilderUtils {
         String uriTemplate = "%s/%s/%d/%s/%s/%s/%d";
         return String.format(uriTemplate, VERSION, HOUSES, houseId, USERS, username, LISTS, listId);
     }
+
+    public static String buildAllergiesUri() {
+        String uriTemplate = "%s/%s";
+        return String.format(uriTemplate, VERSION, ALLERGIES);
+    }
 }
