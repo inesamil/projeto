@@ -23,13 +23,16 @@ public class CategoriesOutputModel {
 
     private Collection initCollection(List<Category> categories) {
         //URIs
+        String indexUri = UriBuilderUtils.buildIndexUri();
         String categoriesUri = UriBuilderUtils.buildCategoriesUri();
 
         // Version
         String version = "1.0";
 
         // Link
-        Link[] links = new Link[]{new Link("self", categoriesUri)};
+        Link[] links = new Link[]{
+                new Link("index", indexUri)
+        };
 
         // Items
         Item[] items = mapItems(categories);
