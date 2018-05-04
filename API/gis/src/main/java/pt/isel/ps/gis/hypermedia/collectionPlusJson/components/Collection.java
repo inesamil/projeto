@@ -33,6 +33,10 @@ public class Collection {
         this(version, href, links, items, null, null);
     }
 
+    public Collection(String version, String href, Link[] links, Item[] items, Query[] queries) {
+        this(version, href, links, items, queries, null);
+    }
+
     public String getVersion() {
         return version;
     }
