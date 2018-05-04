@@ -27,15 +27,7 @@
             android:name=".uis.activities.LoginActivity"
             android:theme="@style/OrangeTheme" />
         <activity android:name=".uis.activities.RegisterActivity" />
-        <activity android:name=".uis.activities.InitialSetup1Activity" />
-        <activity
-            android:name=".uis.activities.CategoriesActivity"
-            android:label="@string/products_label"
-            android:theme="@style/OrangeTheme" />
-        <activity
-            android:name=".uis.activities.CategoryProductsActivity"
-            android:label="@string/products_label"
-            android:theme="@style/OrangeTheme" />
+        <activity android:name=".uis.activities.InitialSetupActivity" />
         <activity
             android:name=".uis.activities.ListActivity"
             android:label="@string/listLabel"
@@ -63,7 +55,6 @@
         <activity android:name=".uis.activities.AllergiesActivity" />
         <activity android:name=".uis.activities.HomeActivity" />
         <activity android:name=".uis.activities.ListsActivity" />
-        <activity android:name=".uis.activities.InitialSetupActivity" />
         <activity android:name=".uis.activities.NFCActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />

@@ -4,15 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/categoryToolbar"
-        layout="@layout/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/categoriesText"
         android:layout_width="wrap_content"
@@ -21,16 +12,20 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/categories"
-        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryToolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ps.leic.isel.pt.gis.uis.recyclerViews.AutoFitRecyclerView
         android:id="@+id/categoryRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:clipToPadding="false"
         android:columnWidth="120dp"

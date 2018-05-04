@@ -61,7 +61,6 @@ class StockItemListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.app_bar_search -> return true
             R.id.invitationsItem -> return true
             R.id.preferencesItem -> return true
             R.id.aboutItem -> return true

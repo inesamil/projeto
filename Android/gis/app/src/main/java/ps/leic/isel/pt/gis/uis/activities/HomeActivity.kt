@@ -3,27 +3,26 @@ package ps.leic.isel.pt.gis.uis.activities
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.view.Menu
 import android.view.MenuItem
-import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.*
-import kotlinx.android.synthetic.main.view_home.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.ListDTO
-import ps.leic.isel.pt.gis.uis.adapters.HomeListAdapter
+import ps.leic.isel.pt.gis.model.ids.CategoryID
+import ps.leic.isel.pt.gis.model.ids.ProductID
+import ps.leic.isel.pt.gis.uis.fragments.CategoriesFragment
+import ps.leic.isel.pt.gis.uis.fragments.CategoryProductsFragment
+import ps.leic.isel.pt.gis.utils.ExtraUtils
 
-class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, HomeListAdapter.OnItemClickListener {
-
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
-
-    private lateinit var lists: Array<ListDTO>
+class HomeActivity : AppCompatActivity(),
+        NavigationView.OnNavigationItemSelectedListener,
+        CategoriesFragment.OnCategoriesFragmentInteractionListener,
+        CategoryProductsFragment.OnCategoryProductsFragmentInteractionListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,16 +36,67 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         homeNavView.setNavigationItemSelectedListener(this)
 
-        // Set Adapter
-        val adapter: HomeListAdapter = HomeListAdapter(lists)
-        homeListsRecyclerView.layoutManager = LinearLayoutManager(this)
-        homeListsRecyclerView.setHasFixedSize(true)
-        homeListsRecyclerView.adapter = adapter
-        adapter.setOnItemClickListener(this)
+        // Init
+        supportFragmentManager.beginTransaction()
+                            .replace(R.id.content, CategoriesFragment.newInstance())
+                            .addToBackStack(ExtraUtils.CATEGORIES)
+                            .commit()
     }
 
-    override fun onItemClick(view: View, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private fun replaceCurrentFragmentWith(fragment: Fragment, backStackTag: String) {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.content, fragment)
+                .addToBackStack(backStackTag)
+                .commit()
+    }
+
+    /**
+     * Listeners
+     */
+
+    // Listener for CategoriesFragement interaction
+    override fun onCategoryInteraction(categoryId: CategoryID, categoryName: String) {
+        val fragment = CategoryProductsFragment.newInstance(categoryId, categoryName)
+        replaceCurrentFragmentWith(fragment, ExtraUtils.PRODUCTS)
+    }
+
+    // Listener for CategoryProductsFragement interaction
+    override fun onProductInteraction(productId: ProductID) {
+        Toast.makeText(this, "Specific product fragement", Toast.LENGTH_LONG).show()
+    }
+
+    // If navigation menu is open and user click back, close the navigation bar
+    // Otherwise go back in the fragment stack
+    override fun onBackPressed() {
+        if (homeDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            homeDrawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+           val count: Int = supportFragmentManager.backStackEntryCount
+            if (count == 0){
+                super.onBackPressed()
+            }
+            else {
+                supportFragmentManager.popBackStack()
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.right_menu_with_search, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        when (item.itemId) {
+            R.id.invitationsItem -> return true
+            R.id.preferencesItem -> return true
+            R.id.aboutItem -> return true
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

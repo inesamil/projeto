@@ -1,33 +1,32 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.view_category.*
-
+import kotlinx.android.synthetic.main.fragment_categories.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.CategoryDTO
+import ps.leic.isel.pt.gis.model.ids.CategoryID
 import ps.leic.isel.pt.gis.uis.adapters.CategoriesAdapter
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [CategoryFragment.OnFragmentInteractionListener] interface
+ * [CategoriesFragment.OnCategoriesFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [CategoryFragment.newInstance] factory method to
+ * Use the [CategoriesFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class CategoryFragment : Fragment() {
+class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
 
     private lateinit var categories: Array<CategoryDTO>
 
-    private var listener: OnFragmentInteractionListener? = null
+    private var listener: OnCategoriesFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,28 +44,23 @@ class CategoryFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view: View =  inflater.inflate(R.layout.activity_category, container, false)
+        val view: View =  inflater.inflate(R.layout.fragment_categories, container, false)
 
         // Set Adapter
         val adapter = CategoriesAdapter(categories)
-        categoryRecyclerView.setHasFixedSize(true)
-        categoryRecyclerView.adapter = adapter
+        view.categoryRecyclerView.setHasFixedSize(true)
+        view.categoryRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
 
         return view
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
+        if (context is OnCategoriesFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnCategoriesFragmentInteractionListener")
         }
     }
 
@@ -75,32 +69,39 @@ class CategoryFragment : Fragment() {
         listener = null
     }
 
+    /***
+     * Listeners
+     ***/
+    
+     // Listener for category item clicks (from adapter)
+    override fun onItemClick(view: View, position: Int) {
+        val category: CategoryDTO = categories[position]
+        listener?.onCategoryInteraction(CategoryID(category.categoryId), category.categoryName)
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
      */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+    interface OnCategoriesFragmentInteractionListener {
+        fun onCategoryInteraction(categoryId: CategoryID, categoryName: String)
     }
 
+    /**
+     * CategoriesFragment Factory
+     */
     companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @return A new instance of fragment CategoryFragment.
+         * @return A new instance of fragment CategoriesFragment.
          */
         @JvmStatic
         fun newInstance() =
-                CategoryFragment().apply {
+                CategoriesFragment().apply {
                     arguments = Bundle().apply {
                         //TODO: put smthg if needed
                     }

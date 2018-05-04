@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/app_bar_search"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="@string/search"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/invitationsItem"
         android:title="@string/invitations"
         app:showAsAction="never" />
