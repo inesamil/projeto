@@ -68,7 +68,7 @@ public class MovementsOutputModel {
             String datetime = movement.getId().getStockitemmovementDatetime();
             boolean type = movement.getId().getStockitemmovementType();
             items[i] = new Item(
-                    UriBuilderUtils.buildMovementUri(houseId, storageId, sku, datetime, type),
+                    UriBuilderUtils.buildMovementsUri(houseId),
                     new Data[]{
                             new Data("house-id", houseId, "House ID"),
                             new Data("storage-id", storageId, "Storage ID"),
