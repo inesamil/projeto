@@ -65,9 +65,6 @@ class AboutActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             R.id.nav_products -> {
 
             }
-            R.id.nav_recipes -> {
-
-            }
             R.id.nav_profile -> {
 
             }

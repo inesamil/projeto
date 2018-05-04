@@ -52,7 +52,7 @@
     <string name="lists">Listas</string>
     <string name="products">Produtos</string>
     <string name="recipes">Receitas</string>
-    <string name="profile">O meu perfil</string>
+    <string name="profile">Perfil</string>
     <string name="settings">Definições</string>
     <!-- content_list.xml -->
     <string name="download">Transferir para offline</string>

@@ -80,9 +80,6 @@ class RecipesActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             R.id.nav_products -> {
 
             }
-            R.id.nav_recipes -> {
-
-            }
             R.id.nav_profile -> {
 
             }

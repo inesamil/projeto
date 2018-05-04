@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -18,6 +19,7 @@ import ps.leic.isel.pt.gis.model.ids.ProductID
 import ps.leic.isel.pt.gis.uis.fragments.CategoriesFragment
 import ps.leic.isel.pt.gis.uis.fragments.CategoryProductsFragment
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
 
 class HomeActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
@@ -38,32 +40,29 @@ class HomeActivity : AppCompatActivity(),
 
         // Init
         supportFragmentManager.beginTransaction()
-                            .replace(R.id.content, CategoriesFragment.newInstance())
+                            .replace(R.id.content, CategoriesFragment.newInstance(), ExtraUtils.CATEGORIES)
                             .addToBackStack(ExtraUtils.CATEGORIES)
                             .commit()
     }
 
-    private fun replaceCurrentFragmentWith(fragment: Fragment, backStackTag: String) {
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.content, fragment)
-                .addToBackStack(backStackTag)
-                .commit()
-    }
-
     /**
-     * Listeners
+     * Fragment Listeners
      */
 
     // Listener for CategoriesFragement interaction
     override fun onCategoryInteraction(categoryId: CategoryID, categoryName: String) {
         val fragment = CategoryProductsFragment.newInstance(categoryId, categoryName)
-        replaceCurrentFragmentWith(fragment, ExtraUtils.PRODUCTS)
+        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.PRODUCTS)
     }
 
     // Listener for CategoryProductsFragement interaction
     override fun onProductInteraction(productId: ProductID) {
         Toast.makeText(this, "Specific product fragement", Toast.LENGTH_LONG).show()
     }
+
+    /**
+     * Navigation Listeners
+     */
 
     // If navigation menu is open and user click back, close the navigation bar
     // Otherwise go back in the fragment stack
@@ -72,8 +71,8 @@ class HomeActivity : AppCompatActivity(),
             homeDrawerLayout.closeDrawer(GravityCompat.START)
         } else {
            val count: Int = supportFragmentManager.backStackEntryCount
-            if (count == 0){
-                super.onBackPressed()
+            if (count == 1){
+                finish()
             }
             else {
                 supportFragmentManager.popBackStack()
@@ -107,13 +106,19 @@ class HomeActivity : AppCompatActivity(),
                 // Nothing to do here
             }
             R.id.nav_lists -> {
-                startActivity(Intent(this, ListsActivity::class.java))
+
             }
             R.id.nav_products -> {
-
-            }
-            R.id.nav_recipes -> {
-
+                var fragment = supportFragmentManager.findFragmentByTag(ExtraUtils.CATEGORIES)
+                if (fragment == null){
+                    // Fragment not present in back stack. Instantiates new fragment.
+                    fragment = CategoriesFragment.newInstance()
+                    supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.CATEGORIES)
+                }
+                else {
+                    // Fragment is in the back stack
+                    supportFragmentManager.popBackStack(ExtraUtils.CATEGORIES, 0)
+                }
             }
             R.id.nav_profile -> {
 
@@ -127,3 +132,4 @@ class HomeActivity : AppCompatActivity(),
         return true
     }
 }
+
