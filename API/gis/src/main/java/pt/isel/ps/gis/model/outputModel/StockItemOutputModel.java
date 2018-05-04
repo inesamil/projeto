@@ -64,12 +64,12 @@ public class StockItemOutputModel {
 
         // URIs
         String stockItemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
-        String itemAllergiesUri = UriBuilderUtils.buildAllergiesItemUri(houseId, sku);
+        String itemAllergiesUri = UriBuilderUtils.buildAllergiesStockItemUri(houseId, sku);
 
         // Subentities
         Entity stockItems = new Entity(new String[]{"stock-items", "collection"}, new String[]{"stock-items"},
                 stockItemsUri);
-        Entity allergiesItem = new Entity(new String[]{"allergies-item", "collection"}, new String[]{"allergies-item"},
+        Entity allergiesItem = new Entity(new String[]{"allergies-stock-item", "collection"}, new String[]{"allergies-item"},
                 itemAllergiesUri);
 
         return new Entity[]{stockItems, allergiesItem};

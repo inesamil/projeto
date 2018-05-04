@@ -44,6 +44,7 @@ public class MovementsOutputModel {
                         new Data("house-id", houseId, "House ID"),
                         new Data("storage-id", null, "Storage ID"),
                         new Data("movement-type", null, "Type"),
+                        // TODO quantity and info?
                         new Data("movement-quantity", null, "Quantity"),
                         new Data("movement-info", null, "Info")
                 });

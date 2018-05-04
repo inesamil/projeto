@@ -55,7 +55,7 @@ public class HouseOutputModel {
         // URIs
         String indexUri = UriBuilderUtils.buildIndexUri();
         String movementsUri = UriBuilderUtils.buildMovementsUri(houseId);
-        String itemsUri = UriBuilderUtils.buildItemsUri(houseId);
+        String itemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
         String householdUri = UriBuilderUtils.buildHouseholdUri(houseId);
         String houseAllergiesUri = UriBuilderUtils.buildHouseAllergiesUri(houseId);
         String listsUri = UriBuilderUtils.buildListsUri(houseId);

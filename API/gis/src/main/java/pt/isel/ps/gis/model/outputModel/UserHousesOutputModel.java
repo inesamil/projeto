@@ -54,7 +54,7 @@ public class UserHousesOutputModel {
                     },
                     new Link[]{
                             new Link("movements", UriBuilderUtils.buildMovementsUri(houseId)),
-                            new Link("items", UriBuilderUtils.buildItemsUri(houseId)),
+                            new Link("items", UriBuilderUtils.buildStockItemsUri(houseId)),
                             new Link("household", UriBuilderUtils.buildHouseholdUri(houseId)),
                             new Link("house-allergies", UriBuilderUtils.buildHouseAllergiesUri(houseId)),
                             new Link("lists", UriBuilderUtils.buildListsUri(houseId)),
