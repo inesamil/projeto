@@ -9,27 +9,25 @@ data class UserListDTO(
         override val listName: String,
         override val listType: String,
         val userUsername: String,
-        val shareable: Boolean,
-        override val items: List<ListProductDTO>
-) : ListDTO, Parcelable {
+        val shareable: Boolean
+) : ListDTO(houseId, listId, listName, listType), Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
             parcel.readInt().toShort(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readByte() != 0.toByte(),
-            parcel.createTypedArrayList(ListProductDTO)) {
+            parcel.readByte() != 0.toByte()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        super.writeToParcel(parcel, flags)
         parcel.writeLong(houseId)
         parcel.writeInt(listId.toInt())
         parcel.writeString(listName)
         parcel.writeString(listType)
         parcel.writeString(userUsername)
         parcel.writeByte(if (shareable) 1 else 0)
-        parcel.writeTypedList(items)
     }
 
     override fun describeContents(): Int {

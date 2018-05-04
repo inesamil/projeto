@@ -7,23 +7,21 @@ data class SystemListDTO(
         override val houseId: Long,
         override val listId: Short,
         override val listName: String,
-        override val listType: String,
-        override val items: List<ListProductDTO>
-) : ListDTO, Parcelable {
+        override val listType: String
+) : ListDTO(houseId, listId, listName, listType), Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
             parcel.readInt().toShort(),
             parcel.readString(),
-            parcel.readString(),
-            parcel.createTypedArrayList(ListProductDTO)) {
+            parcel.readString()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        super.writeToParcel(parcel, flags)
         parcel.writeLong(houseId)
         parcel.writeInt(listId.toInt())
         parcel.writeString(listName)
         parcel.writeString(listType)
-        parcel.writeTypedList(items)
     }
 
     override fun describeContents(): Int {

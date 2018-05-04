@@ -54,7 +54,6 @@
             android:theme="@style/OrangeTheme" />
         <activity android:name=".uis.activities.AllergiesActivity" />
         <activity android:name=".uis.activities.HomeActivity" />
-        <activity android:name=".uis.activities.ListsActivity" />
         <activity android:name=".uis.activities.NFCActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />

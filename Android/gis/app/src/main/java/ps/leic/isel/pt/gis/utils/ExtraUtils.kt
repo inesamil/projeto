@@ -9,5 +9,7 @@ object ExtraUtils {
     val CATEGORY_ID: String = "CATEGORY_ID"
     val CATEGORY_NAME: String = "CATEGORY_NAME"
     val PRODUCTS: String = "PRODUCTS"
+    val LISTS: String = "LISTS"
+    val LIST: String = "LIST"
 
 }

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -14,17 +13,20 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.ListDTO
 import ps.leic.isel.pt.gis.model.ids.CategoryID
 import ps.leic.isel.pt.gis.model.ids.ProductID
 import ps.leic.isel.pt.gis.uis.fragments.CategoriesFragment
 import ps.leic.isel.pt.gis.uis.fragments.CategoryProductsFragment
+import ps.leic.isel.pt.gis.uis.fragments.ListsFragment
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
 
 class HomeActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
         CategoriesFragment.OnCategoriesFragmentInteractionListener,
-        CategoryProductsFragment.OnCategoryProductsFragmentInteractionListener{
+        CategoryProductsFragment.OnCategoryProductsFragmentInteractionListener,
+        ListsFragment.OnListsFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +47,12 @@ class HomeActivity : AppCompatActivity(),
                             .commit()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.right_menu_with_search, menu)
+        return true
+    }
+
     /**
      * Fragment Listeners
      */
@@ -57,7 +65,13 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for CategoryProductsFragement interaction
     override fun onProductInteraction(productId: ProductID) {
-        Toast.makeText(this, "Specific product fragement", Toast.LENGTH_LONG).show()
+        //TODO
+        Toast.makeText(this, "Specific product fragement", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onListInteraction(listId: ListDTO) {
+        //TODO
+        Toast.makeText(this, "Specific List", Toast.LENGTH_SHORT).show()
     }
 
     /**
@@ -80,12 +94,6 @@ class HomeActivity : AppCompatActivity(),
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.right_menu_with_search, menu)
-        return true
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -102,34 +110,38 @@ class HomeActivity : AppCompatActivity(),
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_homePage -> {
-                // Handle the home action
-                // Nothing to do here
+                //replaceFragment(ExtraUtils.HOME, )
             }
             R.id.nav_lists -> {
-
+                replaceFragment(ExtraUtils.LISTS, ListsFragment.Companion::newInstance)
             }
             R.id.nav_products -> {
-                var fragment = supportFragmentManager.findFragmentByTag(ExtraUtils.CATEGORIES)
-                if (fragment == null){
-                    // Fragment not present in back stack. Instantiates new fragment.
-                    fragment = CategoriesFragment.newInstance()
-                    supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.CATEGORIES)
-                }
-                else {
-                    // Fragment is in the back stack
-                    supportFragmentManager.popBackStack(ExtraUtils.CATEGORIES, 0)
-                }
+                replaceFragment(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance)
             }
             R.id.nav_profile -> {
-
+                //TODO
             }
             R.id.nav_settings -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
+                //TODO
             }
         }
-
         homeDrawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
+
+    private fun replaceFragment(tag: String, newInstance: () -> Fragment) {
+        var fragment = supportFragmentManager.findFragmentByTag(tag)
+        if (fragment == null){
+            // Fragment not present in back stack. Instantiates new fragment.
+            fragment = newInstance()
+            supportFragmentManager.replaceCurrentFragmentWith(fragment, tag)
+        }
+        else {
+            // Fragment is in the back stack
+            supportFragmentManager.popBackStack(tag, 0)
+        }
+    }
+
 }
 
