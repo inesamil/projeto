@@ -37,7 +37,7 @@ public class HouseholdOutputModel {
         // Items
         Item[] items = mapItems(houseId, users);
 
-        return new Collection(version, householdUri, links, items, null);
+        return new Collection(version, householdUri, links, items);
     }
 
     private Item[] mapItems(long houseId, List<Users> users) {

@@ -37,7 +37,7 @@ public class ProductsListOutputModel {
         // Items
         Item[] items = mapItems(houseId, listId, products);
 
-        return new Collection(version, productsListUri, links, items, null);
+        return new Collection(version, productsListUri, links, items);
     }
 
     // The items does not support HTTP GET method, just HTTP PUT and DELETE.

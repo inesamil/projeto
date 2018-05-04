@@ -37,7 +37,7 @@ public class UserHousesOutputModel {
         // Items
         Item[] items = mapItems(houses);
 
-        return new Collection(version, userHousesUri, links, items, null);
+        return new Collection(version, userHousesUri, links, items);
     }
 
     private Item[] mapItems(List<House> houses) {

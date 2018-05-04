@@ -37,7 +37,7 @@ public class HouseAllergiesOutputModel {
         // Items
         Item[] items = mapItems(houseId, allergies);
 
-        return new Collection(version, houseAllergiesUri, links, items, null);
+        return new Collection(version, houseAllergiesUri, links, items);
     }
 
     private Item[] mapItems(long houseId, List<Allergy> allergies) {
