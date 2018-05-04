@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll.implementations;
 
+import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.StockItemMovementService;
 import pt.isel.ps.gis.dal.repositories.StockItemMovementRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -11,6 +12,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.sql.Timestamp;
 import java.util.List;
 
+@Service
 public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     private final StockItemMovementRepository stockItemMovementRepository;

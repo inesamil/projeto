@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll.implementations;
 
+import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.StockItemService;
 import pt.isel.ps.gis.dal.repositories.StockItemRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -11,6 +12,7 @@ import pt.isel.ps.gis.utils.ValidationsUtils;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class StockItemServiceImpl implements StockItemService {
 
     private final StockItemRepository stockItemRepository;

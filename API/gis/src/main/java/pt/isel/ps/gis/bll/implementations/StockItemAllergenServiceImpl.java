@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll.implementations;
 
+import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.StockItemAllergenService;
 import pt.isel.ps.gis.dal.repositories.AllergyRepository;
 import pt.isel.ps.gis.dal.repositories.StockItemAllergyRepository;
@@ -13,6 +14,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
+@Service
 public class StockItemAllergenServiceImpl implements StockItemAllergenService {
 
     private final StockItemAllergyRepository stockItemAllergyRepository;

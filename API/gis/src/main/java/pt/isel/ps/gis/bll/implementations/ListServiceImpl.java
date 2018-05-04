@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll.implementations;
 
+import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.dal.repositories.ListRepository;
 import pt.isel.ps.gis.dal.repositories.SystemListRepository;
@@ -11,6 +12,7 @@ import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.Optional;
 
+@Service
 public class ListServiceImpl implements ListService {
 
     private final ListRepository listRepository;

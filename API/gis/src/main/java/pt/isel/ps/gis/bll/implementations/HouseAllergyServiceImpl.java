@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll.implementations;
 
+import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.HouseAllergyService;
 import pt.isel.ps.gis.dal.repositories.HouseAllergyRepository;
 import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
@@ -11,6 +12,7 @@ import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
 
+@Service
 public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     private final HouseAllergyRepository houseAllergyRepository;
