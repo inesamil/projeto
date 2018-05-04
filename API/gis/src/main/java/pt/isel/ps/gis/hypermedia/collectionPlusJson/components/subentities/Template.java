@@ -1,7 +1,6 @@
-package pt.isel.ps.gis.hypermedia.collectionPlusJson.components;
+package pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Data;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Template {
