@@ -41,7 +41,6 @@ public class StockItemsOutputModel {
         // Template
         Template template = new Template(
                 new Data[]{
-                        new Data("house-id", houseId, "House ID"),
                         new Data("category-id", null, "Category ID"),
                         new Data("product-id", null, "Product ID"),
                         new Data("stock-item-brand", null, "Brand"),

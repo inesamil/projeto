@@ -41,7 +41,6 @@ public class MovementsOutputModel {
         // Template
         Template template = new Template(
                 new Data[]{
-                        new Data("house-id", houseId, "House ID"),
                         new Data("storage-id", null, "Storage ID"),
                         new Data("movement-type", null, "Type"),
                         // TODO quantity and info?
@@ -62,7 +61,7 @@ public class MovementsOutputModel {
             String datetime = movement.getId().getStockitemmovementDatetime();
             boolean type = movement.getId().getStockitemmovementType();
             items[i] = new Item(
-                    null,
+                    UriBuilderUtils.buildMovementUri(houseId, storageId, sku, datetime, type),
                     new Data[]{
                             new Data("house-id", houseId, "House ID"),
                             new Data("storage-id", storageId, "Storage ID"),

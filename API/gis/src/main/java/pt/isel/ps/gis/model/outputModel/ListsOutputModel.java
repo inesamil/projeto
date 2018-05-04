@@ -39,7 +39,9 @@ public class ListsOutputModel {
         // Template
         Template template = new Template(
                 new Data[]{
-                        // TODO
+                        new Data("user-username", null, "Username"),
+                        new Data("list-name", null, "Name"),
+                        new Data("list-shareable", null, "Shareable")
                 });
 
         return new Collection(version, listsUri, links, items, template);

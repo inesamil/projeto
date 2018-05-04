@@ -41,7 +41,6 @@ public class StoragesOutputModel {
         // Template
         Template template = new Template(
                 new Data[]{
-                        new Data("house-id", houseId, "House ID"),
                         new Data("storage-name", null, "Name"),
                         new Data("storage-minimum-temperature", null, "Minimum Temperature"),
                         new Data("storage-maximum-temperature", null, "Maximum Temperature")
