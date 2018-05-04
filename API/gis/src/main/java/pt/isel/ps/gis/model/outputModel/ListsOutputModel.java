@@ -3,10 +3,7 @@ package pt.isel.ps.gis.model.outputModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Collection;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Template;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Data;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Item;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Link;
+import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.*;
 import pt.isel.ps.gis.model.List;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
@@ -36,6 +33,14 @@ public class ListsOutputModel {
         // Items
         Item[] items = mapItems(houseId, lists);
 
+        Query[] queries = new Query[]{
+                new Query(listsUri, "search", "Search by system or/and user or/and sharebale", new Data[]{
+                        new Data("system", null, "System"),
+                        new Data("user", null, "User"),
+                        new Data("shareable", null, "Shareable")
+                })
+        };
+
         // Template
         Template template = new Template(
                 new Data[]{
@@ -44,7 +49,7 @@ public class ListsOutputModel {
                         new Data("list-shareable", null, "Shareable")
                 });
 
-        return new Collection(version, listsUri, links, items, template);
+        return new Collection(version, listsUri, links, items, queries, template);
     }
 
     private Item[] mapItems(long houseId, java.util.List<List> lists) {

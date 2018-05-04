@@ -6,6 +6,7 @@ import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Collection;
 import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Data;
 import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Item;
 import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Link;
+import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Query;
 import pt.isel.ps.gis.model.Category;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
@@ -37,7 +38,13 @@ public class CategoriesOutputModel {
         // Items
         Item[] items = mapItems(categories);
 
-        return new Collection(version, categoriesUri, links, items, null);
+        Query[] queries = new Query[]{
+                new Query(categoriesUri, "search", "Search by name", new Data[]{
+                        new Data("name", null, "Name")
+                })
+        };
+
+        return new Collection(version, categoriesUri, links, items, queries);
     }
 
     private Item[] mapItems(List<Category> categories) {

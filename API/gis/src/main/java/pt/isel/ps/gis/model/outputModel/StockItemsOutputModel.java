@@ -3,10 +3,7 @@ package pt.isel.ps.gis.model.outputModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Collection;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Template;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Data;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Item;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Link;
+import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.*;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
@@ -38,6 +35,17 @@ public class StockItemsOutputModel {
         // Items
         Item[] items = mapItems(houseId, stockItems);
 
+        Query[] queries = new Query[]{
+                new Query(stockItemsUri, "search", "Search by product and/or brand and/or variety and/or " +
+                        "segment and/or storage", new Data[]{
+                        new Data("product", null, "Product"),
+                        new Data("brand", null, "Brand"),
+                        new Data("variety", null, "Variety"),
+                        new Data("segment", null, "Segment"),
+                        new Data("storage", null, "Storage")
+                })
+        };
+
         // Template
         Template template = new Template(
                 new Data[]{
@@ -51,7 +59,7 @@ public class StockItemsOutputModel {
                         new Data("stock-item-variety", null, "Variety")
                 });
 
-        return new Collection(version, stockItemsUri, links, items, template);
+        return new Collection(version, stockItemsUri, links, items, queries, template);
     }
 
     private Item[] mapItems(long houseId, List<StockItem> stockItems) {

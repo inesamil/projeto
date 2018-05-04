@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
-import pt.isel.ps.gis.utils.UriBuilderUtils;
 import pt.isel.ps.gis.model.House;
+import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.HashMap;
 import java.util.Map;

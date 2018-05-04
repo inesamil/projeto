@@ -3,10 +3,7 @@ package pt.isel.ps.gis.model.outputModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Collection;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Template;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Data;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Item;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Link;
+import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.*;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
@@ -38,6 +35,16 @@ public class MovementsOutputModel {
         // Items
         Item[] items = mapItems(houseId, movements);
 
+        Query[] queries = new Query[]{
+                new Query(movementsUri, "search", "Search by type and/or datetime and/or storage and/or " +
+                        "item", new Data[]{
+                        new Data("type", null, "Type"),
+                        new Data("datetime", null, "Datetime"),
+                        new Data("storage", null, "Storage"),
+                        new Data("stockitem", null, "Stock Item")
+                })
+        };
+
         // Template
         Template template = new Template(
                 new Data[]{
@@ -48,7 +55,7 @@ public class MovementsOutputModel {
                         new Data("movement-info", null, "Info")
                 });
 
-        return new Collection(version, movementsUri, links, items, template);
+        return new Collection(version, movementsUri, links, items, queries, template);
     }
 
     private Item[] mapItems(long houseId, List<StockItemMovement> movements) {
