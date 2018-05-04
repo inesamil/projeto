@@ -40,11 +40,6 @@ public class UriBuilderUtils {
         return VERSION;
     }
 
-    public static String buildItemsUri(long houseId) {
-        String uriTemplate = "%s/%s/%d/%s";
-        return String.format(uriTemplate, VERSION, HOUSES, houseId, ITEMS);
-    }
-
     public static String buildHouseholdUri(long houseId) {
         String uriTemplate = "%s/%s/%d/%s";
         return String.format(uriTemplate, VERSION, HOUSES, houseId, USERS);
@@ -95,7 +90,7 @@ public class UriBuilderUtils {
         return String.format(uriTemplate, VERSION, HOUSES, houseId, ITEMS, sku);
     }
 
-    public static String buildAllergiesItemUri(long houseId, String sku) {
+    public static String buildAllergiesStockItemUri(long houseId, String sku) {
         String uriTemplate = "%s/%s/%d/%s/%s/%s";
         return String.format(uriTemplate, VERSION, HOUSES, houseId, ITEMS, sku, ALLERGIES);
     }
@@ -143,5 +138,20 @@ public class UriBuilderUtils {
     public static String buildAllergiesUri() {
         String uriTemplate = "%s/%s";
         return String.format(uriTemplate, VERSION, ALLERGIES);
+    }
+
+    public static String buildStockItemsAllergen(long houseId, String allergen) {
+        String uriTemplate = "%s/%s/%d/%s/%s/%s";
+        return String.format(uriTemplate, VERSION, HOUSES, houseId, ALLERGIES, allergen, ITEMS);
+    }
+
+    public static String buildHouseAllergyUri(long houseId, String allergen) {
+        String uriTemplate = "%s/%s/%d/%s/%s";
+        return String.format(uriTemplate, VERSION, HOUSES, houseId, ALLERGIES, allergen);
+    }
+
+    public static String buildProductListUri(long houseId, short listId, int productId) {
+        String uriTemplate = "%s/%s/%d/%s/%d/%s/%d";
+        return String.format(uriTemplate, VERSION, HOUSES, houseId, LISTS, listId, PRODUCTS, productId);
     }
 }
