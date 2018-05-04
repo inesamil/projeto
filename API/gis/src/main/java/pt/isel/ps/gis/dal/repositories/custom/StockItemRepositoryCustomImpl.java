@@ -167,7 +167,16 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
         });
     }
 
-    private <T> boolean isNotNull(PreparedStatement ps, int idx, T t) throws SQLException {
+    /**
+     * Verify if t is null and it is true call ps.setNull in position idx and return false. Otherwise return true.
+     *
+     * @param ps  instance of PreparedStatement
+     * @param idx index to use in ps
+     * @param t   object to check if it is null
+     * @return true if t is null and set null in ps. Otherwise return true
+     * @throws SQLException throw by ps.setNull(..)
+     */
+    private boolean isNotNull(PreparedStatement ps, int idx, Object t) throws SQLException {
         if (t == null) {
             ps.setNull(idx, Types.OTHER);
             return false;
@@ -175,6 +184,14 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
         return true;
     }
 
+    /**
+     * set parameters in ps for increment and decrement.
+     *
+     * @param ps          instance of PreparedStatement
+     * @param toUpdate    quantity to increment or decrement
+     * @param stockItemId instance of StockItemId to set parameters in ps
+     * @throws SQLException throw by ps
+     */
     private void setParametersForIncrementAndDecrement(PreparedStatement ps, Short toUpdate, StockItemId stockItemId) throws SQLException {
         if (isNotNull(ps, 1, toUpdate))
             ps.setShort(1, toUpdate);
@@ -184,6 +201,14 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
             ps.setString(3, stockItemId.getStockitemSku());
     }
 
+    /**
+     * Execute the update and return StockItem instance.
+     *
+     * @param ps instance of PreparedStatement
+     * @return StockItem instance
+     * @throws SQLException throw by PreparedStatement or if ResultSet is empty or trying to extract StockItem from
+     *                      ResultSet.
+     */
     private StockItem executeUpdate(PreparedStatement ps) throws SQLException {
         try (ResultSet resultSet = ps.executeQuery()) {
             if (!resultSet.next()) throw new SQLException("Result set is empty.");
@@ -195,6 +220,14 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
         }
     }
 
+    /**
+     * Extract StockItem from ResultSet
+     *
+     * @param resultSet instance of ResultSet
+     * @return instance of StockItem
+     * @throws SQLException    throw by ResultSet
+     * @throws EntityException throw if cannot create instance of StockItem
+     */
     private StockItem extractStockItemFromResultSet(ResultSet resultSet) throws SQLException, EntityException {
         long house_id = resultSet.getLong(1);
         String stockitem_sku = resultSet.getString(2);

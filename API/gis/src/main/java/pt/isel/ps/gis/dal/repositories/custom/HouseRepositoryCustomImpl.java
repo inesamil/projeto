@@ -14,6 +14,7 @@ public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
 
     @Override
     public void deleteCascadeHouseById(Long houseId) {
+        // Get an object of the Session type to allow access to the Session API
         Session session = entityManager.unwrap(Session.class);
         session.doWork(connection -> {
             try (CallableStatement function = connection.prepareCall(

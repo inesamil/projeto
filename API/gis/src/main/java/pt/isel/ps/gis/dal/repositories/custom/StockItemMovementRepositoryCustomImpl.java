@@ -87,7 +87,16 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
         });
     }
 
-    private <T> boolean isNotNull(PreparedStatement ps, int idx, T t) throws SQLException {
+    /**
+     * Verify if t is null and it is true call ps.setNull in position idx and return false. Otherwise return true.
+     *
+     * @param ps  instance of PreparedStatement
+     * @param idx index to use in ps
+     * @param t   object to check if it is null
+     * @return true if t is null and set null in ps. Otherwise return true
+     * @throws SQLException throw by ps.setNull(..)
+     */
+    private boolean isNotNull(PreparedStatement ps, int idx, Object t) throws SQLException {
         if (t == null) {
             ps.setNull(idx, Types.OTHER);
             return false;
