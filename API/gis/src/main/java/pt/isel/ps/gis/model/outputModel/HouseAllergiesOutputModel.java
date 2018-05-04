@@ -6,7 +6,7 @@ import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Collection;
 import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Data;
 import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Item;
 import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Link;
-import pt.isel.ps.gis.model.Allergy;
+import pt.isel.ps.gis.model.HouseAllergy;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.List;
@@ -17,11 +17,11 @@ public class HouseAllergiesOutputModel {
     @JsonProperty
     private final Collection collection;
 
-    public HouseAllergiesOutputModel(long houseId, List<Allergy> allergies) {
-        this.collection = initCollection(houseId, allergies);
+    public HouseAllergiesOutputModel(long houseId, List<HouseAllergy> houseAllergies) {
+        this.collection = initCollection(houseId, houseAllergies);
     }
 
-    private Collection initCollection(long houseId, List<Allergy> allergies) {
+    private Collection initCollection(long houseId, List<HouseAllergy> houseAllergies) {
         //URIs
         String houseUri = UriBuilderUtils.buildHouseUri(houseId);
         String houseAllergiesUri = UriBuilderUtils.buildHouseAllergiesUri(houseId);
@@ -35,22 +35,23 @@ public class HouseAllergiesOutputModel {
         };
 
         // Items
-        Item[] items = mapItems(houseId, allergies);
+        Item[] items = mapItems(houseId, houseAllergies);
 
         return new Collection(version, houseAllergiesUri, links, items);
     }
 
-    private Item[] mapItems(long houseId, List<Allergy> allergies) {
-        int allergiesSize = allergies.size();
-        Item[] items = new Item[allergiesSize];
-        for (int i = 0; i < allergiesSize; i++) {
-            Allergy allergy = allergies.get(i);
-            String allergen = allergy.getAllergyAllergen();
+    private Item[] mapItems(long houseId, List<HouseAllergy> houseAllergies) {
+        int houseAllergiesSize = houseAllergies.size();
+        Item[] items = new Item[houseAllergiesSize];
+        for (int i = 0; i < houseAllergiesSize; i++) {
+            HouseAllergy houseAllergy = houseAllergies.get(i);
+            String allergen = houseAllergy.getId().getAllergyAllergen();
             items[i] = new Item(
                     UriBuilderUtils.buildHouseAllergyUri(houseId, allergen),
                     new Data[]{
                             new Data("house-id", houseId, "House ID"),
-                            new Data("allergy-allergen", allergen, "Allergen")
+                            new Data("allergy-allergen", allergen, "Allergen"),
+                            new Data("house-allergies-num", houseAllergy.getHouseallergyAlergicsnum(), "Number")
                     },
                     new Link[]{
                             new Link("stock-items-allergen", UriBuilderUtils.buildStockItemsAllergen(houseId, allergen))

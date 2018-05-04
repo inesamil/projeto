@@ -6,7 +6,7 @@ import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Collection;
 import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Data;
 import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Item;
 import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Link;
-import pt.isel.ps.gis.model.Users;
+import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.List;
@@ -17,11 +17,11 @@ public class HouseholdOutputModel {
     @JsonProperty
     private final Collection collection;
 
-    public HouseholdOutputModel(long houseId, List<Users> users) {
+    public HouseholdOutputModel(long houseId, List<UserHouse> users) {
         this.collection = initCollection(houseId, users);
     }
 
-    private Collection initCollection(long houseId, List<Users> users) {
+    private Collection initCollection(long houseId, List<UserHouse> users) {
         //URIs
         String houseUri = UriBuilderUtils.buildHouseUri(houseId);
         String householdUri = UriBuilderUtils.buildHouseholdUri(houseId);
@@ -40,20 +40,19 @@ public class HouseholdOutputModel {
         return new Collection(version, householdUri, links, items);
     }
 
-    private Item[] mapItems(long houseId, List<Users> users) {
+    private Item[] mapItems(long houseId, List<UserHouse> users) {
         int usersSize = users.size();
         Item[] items = new Item[usersSize];
         for (int i = 0; i < usersSize; i++) {
-            Users user = users.get(i);
-            String username = user.getUsersUsername();
+            UserHouse userHouse = users.get(i);
+            String username = userHouse.getId().getUsersUsername();
             items[i] = new Item(
                     UriBuilderUtils.buildUserUri(username),
                     new Data[]{
                             new Data("house-id", houseId, "House ID"),
                             new Data("user-username", username, "Username"),
-                            new Data("user-name", user.getUsersName(), "Name"),
-                            new Data("user-email", user.getUsersEmail(), "Email"),
-                            new Data("user-age", user.getUsersAge(), "Age")
+                            new Data("household-administrator", userHouse.getUserhouseAdministrator(),
+                                    "Administrator")
                     },
                     new Link[]{
                             new Link("index", UriBuilderUtils.buildIndexUri()),
