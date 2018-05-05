@@ -24,7 +24,7 @@ public class StockItemsAllergenOutputModel {
     private Collection initCollection(long houseId, String allergen, List<StockItem> stockItems) {
         //URIs
         String houseAllergiesUri = UriBuilderUtils.buildHouseAllergiesUri(houseId);
-        String stockItemsAllergenUri = UriBuilderUtils.buildStockItemsAllergen(houseId, allergen);
+        String stockItemsAllergenUri = UriBuilderUtils.buildStockItemsAllergenUri(houseId, allergen);
 
         // Version
         String version = "1.0";

@@ -118,7 +118,7 @@ public class UriBuilderUtils {
      * @param allergen The id of the allergy
      * @return URI to items with specific allergy of the house
      */
-    public static String buildStockItemsAllergen(long houseId, String allergen) {
+    public static String buildStockItemsAllergenUri(long houseId, String allergen) {
         String uriTemplate = "%s/%s/%d/%s/%s/%s";
         return String.format(uriTemplate, VERSION, HOUSES, houseId, ALLERGIES, allergen, ITEMS);
     }

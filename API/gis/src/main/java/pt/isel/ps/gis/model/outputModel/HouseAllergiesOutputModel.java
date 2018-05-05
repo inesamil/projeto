@@ -54,7 +54,7 @@ public class HouseAllergiesOutputModel {
                             new Data("house-allergies-num", houseAllergy.getHouseallergyAlergicsnum(), "Number")
                     },
                     new Link[]{
-                            new Link("stock-items-allergen", UriBuilderUtils.buildStockItemsAllergen(houseId, allergen))
+                            new Link("stock-items-allergen", UriBuilderUtils.buildStockItemsAllergenUri(houseId, allergen))
                     }
             );
         }
