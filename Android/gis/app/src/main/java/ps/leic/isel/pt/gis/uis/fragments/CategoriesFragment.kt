@@ -49,6 +49,12 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
         return view
     }
 
+    override fun onStart() {
+        super.onStart()
+        // Set title
+        activity?.title = getString(R.string.categories)
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnCategoriesFragmentInteractionListener) {
@@ -67,7 +73,7 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
      * Listeners
      ***/
     
-     // Listener for category item clicks (from adapter)
+     // NfcListener for category item clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
         val category: CategoryDTO = categories[position]
         listener?.onCategoryInteraction(category)

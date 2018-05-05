@@ -50,9 +50,6 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_categoryproducts, container, false)
 
-        // Set Title
-        activity!!.actionBar.title = category.categoryName
-
         // Set Adapter
         val adapter = CategoryProductsAdapter(products)
         view.categoryProductsRecyclerView.layoutManager = LinearLayoutManager(view.context)
@@ -61,6 +58,11 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
         adapter.setOnItemClickListener(this)
 
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.title = category.categoryName
     }
 
     override fun onAttach(context: Context) {

@@ -39,6 +39,11 @@ class ProductDetailFragment : Fragment() {
         return view
     }
 
+    override fun onStart() {
+        super.onStart()
+        activity?.title = product.name
+    }
+
     /**
      * ProductDetailFragment Factory
      */

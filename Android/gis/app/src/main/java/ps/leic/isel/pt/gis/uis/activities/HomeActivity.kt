@@ -1,6 +1,10 @@
 package ps.leic.isel.pt.gis.uis.activities
 
+import android.content.Intent
+import android.nfc.NfcAdapter
+import android.nfc.Tag
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
@@ -10,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.fragment_nfc.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.*
@@ -25,7 +30,8 @@ class HomeActivity : AppCompatActivity(),
         ListsFragment.OnListsFragmentInteractionListener,
         ListDetailFragment.OnListDetailFragmentInteractionListener,
         StockItemListFragment.OnStockItemListFragmentInteractionListener,
-        StockItemDetailFragment.OnStockItemDetailFragmentInteractionListener{
+        StockItemDetailFragment.OnStockItemDetailFragmentInteractionListener,
+        WriteNfcTagFragment.OnWriteNfcTagFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +56,11 @@ class HomeActivity : AppCompatActivity(),
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.right_menu_with_search, menu)
         return true
+    }
+
+    override fun setTitle(title: CharSequence?) {
+        super.setTitle(title)
+        supportActionBar?.title = title
     }
 
     /**
@@ -91,6 +102,27 @@ class HomeActivity : AppCompatActivity(),
         Toast.makeText(this, "Specific Storage", Toast.LENGTH_SHORT).show()
     }
 
+    // Listener for WriteNfcTagFragment
+    override fun onWriteNfcTagInteraction(tagContent: String) {
+        val fragment = WritingNfcTagFragment.newInstance(tagContent)
+        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.NFC_MESSAGE)
+    }
+
+    // Listener for new intents (NFC tag intents)
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        val tag = intent?.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
+        if (tag != null) {
+            Toast.makeText(this, getString(R.string.message_tag_detected), Toast.LENGTH_SHORT).show()
+            val messageToWrite = msgTxt.text.toString()
+            val writingNfcTagFragment = supportFragmentManager.findFragmentByTag(ExtraUtils.WRITING_NFC_TAG) as? WritingNfcTagFragment
+            writingNfcTagFragment?.let {
+                if (it.isVisible)
+                    it.onNfcDetected(intent)
+            }
+        }
+    }
+
     /**
      * Navigation Listeners
      */
@@ -116,7 +148,10 @@ class HomeActivity : AppCompatActivity(),
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.invitationsItem -> return true
+            R.id.invitationsItem -> {
+                replaceFragment(ExtraUtils.WRITE_NFC_TAG, WriteNfcTagFragment.Companion::newInstance)
+                return true
+            }
             R.id.preferencesItem -> return true
             R.id.aboutItem -> {
                 replaceFragment(ExtraUtils.ABOUT, AboutFragment.Companion::newInstance)
@@ -140,7 +175,8 @@ class HomeActivity : AppCompatActivity(),
                 replaceFragment(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance)
             }
             R.id.nav_profile -> {
-                //TODO
+                val fragment = AllergiesFragment.newInstance(1, false)
+                supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.ALLERGIES)
             }
             R.id.nav_settings -> {
                 replaceFragment(ExtraUtils.SETTINGS, SettingsFragment.Companion::newInstance)
@@ -163,6 +199,5 @@ class HomeActivity : AppCompatActivity(),
             supportFragmentManager.popBackStack(tag, 0)
         }
     }
-
 }
 

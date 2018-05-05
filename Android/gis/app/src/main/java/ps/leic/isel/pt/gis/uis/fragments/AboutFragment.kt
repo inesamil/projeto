@@ -27,6 +27,11 @@ class AboutFragment : Fragment() {
         return view
     }
 
+    override fun onStart() {
+        super.onStart()
+        activity?.title = getString(R.string.about)
+    }
+
     /**
      * AboutFragment Factory
      */

@@ -30,6 +30,11 @@ class SettingsFragment : Fragment() {
         return view
     }
 
+    override fun onStart() {
+        super.onStart()
+        activity?.title = getString(R.string.settings)
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnSettingsFragmentInteractionListener) {

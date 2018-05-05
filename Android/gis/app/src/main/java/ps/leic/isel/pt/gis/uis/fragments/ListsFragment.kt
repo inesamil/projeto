@@ -55,6 +55,11 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         return view
     }
 
+    override fun onStart() {
+        super.onStart()
+        activity?.title = getString(R.string.lists)
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnListsFragmentInteractionListener) {
@@ -73,7 +78,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
      * Listeners
      ***/
 
-    // Listener for category item clicks (from adapter)
+    // NfcListener for category item clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
         val list: ListDTO = lists[position]
         listener?.onListInteraction(list)

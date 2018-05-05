@@ -6,28 +6,27 @@ import android.nfc.Tag
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_nfc.*
-import ps.leic.isel.pt.gis.Listener
+import kotlinx.android.synthetic.main.fragment_nfc.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.uis.fragments.WriteFragment
+import ps.leic.isel.pt.gis.uis.fragments.WritingNfcTagFragment
 import ps.leic.isel.pt.gis.utils.NFCUtils
-
-class NFCActivity : AppCompatActivity(), Listener {
+/*
+class NFCActivity : AppCompatActivity(), WritingNfcTagFragment.NfcListener {
 
     private var nfcAdapter: NfcAdapter? = null
-    private var writeFragment: WriteFragment? = null
+    private var writeFragment: WritingNfcTagFragment? = null
     private var isDialogDisplayed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_nfc)
+        setContentView(R.layout.fragment_nfc)
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 
-        write_btn.setOnClickListener {
-            writeFragment = supportFragmentManager.findFragmentByTag(WriteFragment.TAG) as? WriteFragment
+        writeBtn.setOnClickListener {
+            writeFragment = supportFragmentManager.findFragmentByTag(WritingNfcTagFragment.TAG) as? WritingNfcTagFragment
             if (writeFragment == null)
-                writeFragment = WriteFragment.newInstance()
-            writeFragment?.show(supportFragmentManager, WriteFragment.TAG)
+                writeFragment = WritingNfcTagFragment.newInstance()
+            writeFragment?.show(supportFragmentManager, WritingNfcTagFragment.TAG)
         }
     }
 
@@ -60,9 +59,10 @@ class NFCActivity : AppCompatActivity(), Listener {
             Toast.makeText(this, getString(R.string.message_tag_detected), Toast.LENGTH_SHORT).show()
             if (isDialogDisplayed) {
                 val messageToWrite = msgTxt.text.toString()
-                writeFragment = supportFragmentManager.findFragmentByTag(WriteFragment.TAG) as? WriteFragment
+                writeFragment = supportFragmentManager.findFragmentByTag(WritingNfcTagFragment.TAG) as? WritingNfcTagFragment
                 writeFragment?.onNfcDetected(messageToWrite, intent)
             }
         }
     }
 }
+*/

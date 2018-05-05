@@ -32,7 +32,6 @@
             android:name=".uis.activities.RecipesActivity"
             android:label="@string/recipesLabel"
             android:theme="@style/OrangeTheme" />
-        <activity android:name=".uis.activities.AllergiesActivity" />
         <activity android:name=".uis.activities.HomeActivity" />
         <activity android:name=".uis.activities.NFCActivity">
             <intent-filter>

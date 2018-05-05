@@ -77,6 +77,10 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
         return view
     }
 
+    override fun onStart() {
+        super.onStart()
+        activity?.title = stockItem.productName + " " + stockItem.variety
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -96,7 +100,7 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
      * Listeners
      ***/
 
-    // Listener for storage item clicks (from adapter)
+    // NfcListener for storage item clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
         val storage: StorageDTO = storages[position]
         listener?.onStorageInteraction(storage)

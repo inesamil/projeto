@@ -144,6 +144,10 @@
     <string name="message_tap_tag">Tap the NFC Tag to your device !</string>
     <string name="hint_message">Message</string>
 
+    <string name="in_stock">In stock</string>
+    <string name="allergies">Allergies</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="write_nfc_tag">Write to an NFC tag</string>
 </resources>

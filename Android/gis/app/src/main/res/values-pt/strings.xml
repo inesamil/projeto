@@ -92,8 +92,6 @@
     <string name="movements">Movimentos</string>
     <!-- Initial Setup - Family Members -->
     <string name="initial_setup">Configuração Inicial</string>
-    <string name="family_members">Membros da Família</string>
-    <string name="dash">-</string>
     <string name="babies">Bebés (0\-3 anos)</string>
     <string name="children">Crianças (4\-14 anos)</string>
     <string name="adults">Adultos (15\-64 anos)</string>
@@ -123,4 +121,7 @@
     <string name="initial_setup_1_2">Configuração Inicial</string>
     <string name="initial_setup_2_2">Configuração Inicial - Membros da Família (2/2)</string>
     <string name="home_icon_description">Ícone da Casa</string>
+    <string name="in_stock">Em stock</string>
+    <string name="allergies">Alergias</string>
+    <string name="write_nfc_tag">"Escrever numa tag NFC "</string>
 </resources>

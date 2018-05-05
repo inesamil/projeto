@@ -16,5 +16,10 @@ object ExtraUtils {
     val CATEGORY: String = "CATEGORY"
     val HOUSE_ID: String = "HOUSE-ID"
     val STOCK_ITEM: String = "STOCK-ITEM"
+    val SHOW_ALLERGIES: String = "SHOW-ALLERGIES"
+    val ALLERGIES: String = "ALLERGIES"
+    val WRITING_NFC_TAG: String = "WRITING-NFC-TAG"
+    val NFC_MESSAGE: String = "NFC-MESSAGE"
+    val WRITE_NFC_TAG: String = "WRITE-NFC-TAG"
 
 }

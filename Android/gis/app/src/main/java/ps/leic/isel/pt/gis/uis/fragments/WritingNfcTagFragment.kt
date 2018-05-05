@@ -1,6 +1,5 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -8,31 +7,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_write.*
-import ps.leic.isel.pt.gis.Listener
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.uis.activities.NFCActivity
+import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.NFCUtils
 
-class WriteFragment : DialogFragment() {
+class WritingNfcTagFragment : DialogFragment() {
 
-    private var listener: Listener? = null
+    private lateinit var messageToWrite: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            messageToWrite = it.getString(ExtraUtils.NFC_MESSAGE)
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_write, container, false)
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = context as? NFCActivity
-        listener?.onDialogDisplayed()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener?.onDialogDismissed()
-    }
-
-    fun onNfcDetected(messageToWrite: String, intent: Intent?) {
+    // When NFC tag is detected call this method
+    fun onNfcDetected(intent: Intent?) {
         progress.visibility = View.VISIBLE
         tv_message.text = getString(R.string.message_write_progress)
         val messageWrittenSuccessfully = NFCUtils.createNFCMessage(messageToWrite, intent)
@@ -43,10 +38,18 @@ class WriteFragment : DialogFragment() {
         progress.visibility = View.GONE
     }
 
+    /**
+     * WritingNfcTagFragment Factory
+     */
     companion object {
-        val TAG = WriteFragment::class.java.simpleName
+        val TAG = WritingNfcTagFragment::class.java.simpleName
 
         @JvmStatic
-        fun newInstance() = WriteFragment()
+        fun newInstance(message: String) =
+                WritingNfcTagFragment().apply {
+                    arguments = Bundle().apply {
+                        putString(ExtraUtils.NFC_MESSAGE, message)
+                    }
+                }
     }
 }
