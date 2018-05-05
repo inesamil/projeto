@@ -8,5 +8,11 @@ import java.util.List;
 
 public interface HouseAllergyRepository extends CrudRepository<HouseAllergy, HouseAllergyId> {
 
+    /**
+     * Find all allergies of the house with house id
+     *
+     * @param houseId The id of the house
+     * @return List with all allergies of the house
+     */
     List<HouseAllergy> findAllById_HouseId(Long houseId);
 }

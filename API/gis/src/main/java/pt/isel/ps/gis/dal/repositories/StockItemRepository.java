@@ -10,8 +10,21 @@ import java.util.List;
 
 public interface StockItemRepository extends CrudRepository<StockItem, StockItemId>, StockItemRepositoryCustom {
 
+    /**
+     * Find all stock items associated with specific house
+     *
+     * @param houseId The id of the house
+     * @return List with all stock items associated with param houseId
+     */
     List<StockItem> findAllById_HouseId(Long houseId);
 
+    /**
+     * Find all stock items with specific allergen
+     *
+     * @param houseId  The id of the house
+     * @param allergen The id of the allergy
+     * @return List with all stock items with param allergen
+     */
     @Query(value = "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, " +
             "public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, public.\"stockitem\".stockitem_segment, " +
             "public.\"stockitem\".stockitem_variety, public.\"stockitem\".stockitem_quantity, " +

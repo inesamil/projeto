@@ -8,5 +8,12 @@ import java.util.List;
 
 public interface ListProductRepository extends CrudRepository<ListProduct, ListProductId> {
 
+    /**
+     * Find all products of the specific list
+     *
+     * @param houseId The id of the house
+     * @param listId  The id of the list
+     * @return List with all products in specific list
+     */
     List<ListProduct> findAllById_HouseIdAndId_ListId(Long houseId, Short listId);
 }

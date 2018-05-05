@@ -11,6 +11,12 @@ import java.util.List;
 @Repository
 public interface HouseRepository extends CrudRepository<House, Long>, HouseRepositoryCustom {
 
+    /**
+     * Find all houses of the specific user
+     *
+     * @param username The id of the user
+     * @return List of houses that belongs to the user
+     */
     @Query(value = "SELECT public.\"house\".house_id, public.\"house\".house_name, public.\"house\".house_characteristics " +
             "FROM public.\"house\" JOIN public.\"userhouse\" ON public.\"house\".house_id = public.\"userhouse\".house_id " +
             "WHERE public.\"userhouse\".users_username = :username", nativeQuery = true)

@@ -9,5 +9,11 @@ import java.util.List;
 public interface StockItemMovementRepository extends CrudRepository<StockItemMovement, StockItemMovementId>,
         StockItemMovementRepositoryCustom {
 
+    /**
+     * Find all movements associated with specific house
+     *
+     * @param houseId The id fo the house
+     * @return List with all movements associated with param houseId
+     */
     List<StockItemMovement> findAllById_HouseId(Long houseId);
 }
