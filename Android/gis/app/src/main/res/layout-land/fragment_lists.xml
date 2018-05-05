@@ -6,45 +6,17 @@
     android:layout_height="match_parent">
 
     <!-- A RecyclerView with some commonly used attributes -->
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
+    <TextView
+        android:id="@+id/createNewListText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.15" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/listsRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalTopGuideline" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/horizontalTopGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="50dp" />
-
-    <TextView
-        android:id="@+id/createNewListText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
         android:text="@string/create_new_list"
         android:textAlignment="center"
         android:textColor="@color/primaryColor"
@@ -60,22 +32,53 @@
         android:id="@+id/createNewListBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/circle_red_stroke"
-        android:gravity="center_vertical|center_horizontal|center"
-        android:paddingEnd="1dp"
+        android:paddingBottom="3dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="1dp"
         android:paddingStart="1dp"
         android:text="@string/plus"
         android:textAlignment="center"
         android:textColor="@color/cardview_light_background"
         android:textSize="18sp"
-        android:theme="@style/OrangeTheme.Button"
         app:layout_constraintBottom_toTopOf="@+id/horizontalTopGuideline"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintEnd_toStartOf="@+id/verticalLeftGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalTopGuideline" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontalTopGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/verticalLeftGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
 
 </android.support.constraint.ConstraintLayout>

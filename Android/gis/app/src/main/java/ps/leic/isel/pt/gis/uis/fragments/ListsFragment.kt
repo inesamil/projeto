@@ -36,7 +36,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         // TODO: get data
         lists = arrayOf(
                 SystemListDTO(1, 1, "Lista de Compras", "system"),
-                UserListDTO(1, 2, "Lista da a Festa da Alice", "user", "bob", true)
+                UserListDTO(1, 2, "Lista para a Festa da Alice", "user", "bob", true)
         )
     }
 

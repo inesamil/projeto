@@ -150,4 +150,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="write_nfc_tag">Write to an NFC tag</string>
+    <string name="user_icon_description">User Icon</string>
+    <string name="download_icon_description">Download Icon</string>
 </resources>

@@ -119,9 +119,10 @@
     <string name="message_tap_tag">Aproxime a Tag NFC do seu telemóvel!</string>
     <string name="hint_message">Mensagem</string>
     <string name="initial_setup_1_2">Configuração Inicial</string>
-    <string name="initial_setup_2_2">Configuração Inicial - Membros da Família (2/2)</string>
     <string name="home_icon_description">Ícone da Casa</string>
     <string name="in_stock">Em stock</string>
     <string name="allergies">Alergias</string>
     <string name="write_nfc_tag">"Escrever numa tag NFC "</string>
+    <string name="user_icon_description">Ícone do Utilizador</string>
+    <string name="download_icon_description">Ícone de Download</string>
 </resources>

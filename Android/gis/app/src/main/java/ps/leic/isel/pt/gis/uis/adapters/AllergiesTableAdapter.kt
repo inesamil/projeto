@@ -22,13 +22,13 @@ class AllergiesTableAdapter(private val data: Array<HouseAllergyDTO>) :
             HEADER -> {
                 // create a new view
                 val view = LayoutInflater.from(parent.context)
-                        .inflate(R.layout.content_allergies_table_header, parent, false) as View
+                        .inflate(R.layout.item_allergiestable_header, parent, false) as View
                 return HeaderViewHolder(view)
             }
             else -> {
                 // create a new view
                 val view = LayoutInflater.from(parent.context)
-                        .inflate(R.layout.content_allergies_table_row, parent, false) as View
+                        .inflate(R.layout.item_allergiestable_row, parent, false) as View
                 return RowViewHolder(view)
             }
         }

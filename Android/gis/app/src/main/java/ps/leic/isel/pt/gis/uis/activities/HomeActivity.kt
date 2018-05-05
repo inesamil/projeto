@@ -114,7 +114,6 @@ class HomeActivity : AppCompatActivity(),
         val tag = intent?.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
         if (tag != null) {
             Toast.makeText(this, getString(R.string.message_tag_detected), Toast.LENGTH_SHORT).show()
-            val messageToWrite = msgTxt.text.toString()
             val writingNfcTagFragment = supportFragmentManager.findFragmentByTag(ExtraUtils.WRITING_NFC_TAG) as? WritingNfcTagFragment
             writingNfcTagFragment?.let {
                 if (it.isVisible)

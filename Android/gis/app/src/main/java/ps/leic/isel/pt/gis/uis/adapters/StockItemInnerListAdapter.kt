@@ -22,7 +22,7 @@ class StockItemInnerListAdapter()
     // inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context: Context? = parent.context
-        val itemView: View = LayoutInflater.from(context).inflate(R.layout.content_stock_item_list_item_inside, parent, false)
+        val itemView: View = LayoutInflater.from(context).inflate(R.layout.item_stockitem_innerlist, parent, false)
         return ViewHolder(itemView)
     }
 
