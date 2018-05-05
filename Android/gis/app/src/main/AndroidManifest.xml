@@ -29,28 +29,8 @@
         <activity android:name=".uis.activities.RegisterActivity" />
         <activity android:name=".uis.activities.InitialSetupActivity" />
         <activity
-            android:name=".uis.activities.ListActivity"
-            android:label="@string/listLabel"
-            android:theme="@style/OrangeTheme" />
-        <activity
-            android:name=".uis.activities.SettingsActivity"
-            android:label="@string/settingsLabel"
-            android:theme="@style/OrangeTheme" />
-        <activity
-            android:name=".uis.activities.AboutActivity"
-            android:label="@string/aboutLabel"
-            android:theme="@style/OrangeTheme" />
-        <activity
-            android:name=".uis.activities.StockItemListActivity"
-            android:label="@string/stockItemListLabel"
-            android:theme="@style/OrangeTheme" />
-        <activity
             android:name=".uis.activities.RecipesActivity"
             android:label="@string/recipesLabel"
-            android:theme="@style/OrangeTheme" />
-        <activity
-            android:name=".uis.activities.StockItemDetailsActivity"
-            android:label="@string/stockItemDetailsLabel"
             android:theme="@style/OrangeTheme" />
         <activity android:name=".uis.activities.AllergiesActivity" />
         <activity android:name=".uis.activities.HomeActivity" />
@@ -67,7 +47,6 @@
                     android:scheme="vnd.android.nfc" />
             </intent-filter>
         </activity>
-        <activity android:name=".uis.activities.ProductActivity"></activity>
     </application>
 
 </manifest>

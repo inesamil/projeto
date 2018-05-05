@@ -3,14 +3,12 @@ package ps.leic.isel.pt.gis.uis.fragments
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_categories.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.CategoryDTO
-import ps.leic.isel.pt.gis.model.ids.CategoryID
 import ps.leic.isel.pt.gis.uis.adapters.CategoriesAdapter
 
 /**
@@ -35,10 +33,6 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
                 CategoryDTO(1, "Laticínios"),
                 CategoryDTO(2, "Carne"),
                 CategoryDTO(3, "Peixe"))
-        arguments?.let {
-            // TODO: delete this if no information present in the bundle
-            //categories = it.getParcelableArray(ExtraUtils.CATEGORIES) as Array<CategoryDTO>
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -76,7 +70,7 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
      // Listener for category item clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
         val category: CategoryDTO = categories[position]
-        listener?.onCategoryInteraction(CategoryID(category.categoryId), category.categoryName)
+        listener?.onCategoryInteraction(category)
     }
 
     /**
@@ -86,7 +80,7 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
      * activity.
      */
     interface OnCategoriesFragmentInteractionListener {
-        fun onCategoryInteraction(categoryId: CategoryID, categoryName: String)
+        fun onCategoryInteraction(category: CategoryDTO)
     }
 
     /**
@@ -100,11 +94,6 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
          * @return A new instance of fragment CategoriesFragment.
          */
         @JvmStatic
-        fun newInstance() =
-                CategoriesFragment().apply {
-                    arguments = Bundle().apply {
-                        //TODO: put smthg if needed
-                    }
-                }
+        fun newInstance() = CategoriesFragment()
     }
 }

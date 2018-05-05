@@ -1,6 +1,5 @@
 package ps.leic.isel.pt.gis.uis.adapters
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +8,8 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ListProductDTO
 
-class ListAdapter(private val data: Array<ListProductDTO>)
-    : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
+class ListDetailAdapter(private val data: Array<ListProductDTO>)
+    : RecyclerView.Adapter<ListDetailAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
 

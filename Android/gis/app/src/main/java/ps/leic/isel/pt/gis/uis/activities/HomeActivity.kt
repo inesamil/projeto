@@ -1,6 +1,5 @@
 package ps.leic.isel.pt.gis.uis.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -13,20 +12,20 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.ListDTO
-import ps.leic.isel.pt.gis.model.ids.CategoryID
-import ps.leic.isel.pt.gis.model.ids.ProductID
-import ps.leic.isel.pt.gis.uis.fragments.CategoriesFragment
-import ps.leic.isel.pt.gis.uis.fragments.CategoryProductsFragment
-import ps.leic.isel.pt.gis.uis.fragments.ListsFragment
+import ps.leic.isel.pt.gis.model.*
+import ps.leic.isel.pt.gis.uis.fragments.*
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
 
 class HomeActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
+        SettingsFragment.OnSettingsFragmentInteractionListener,
         CategoriesFragment.OnCategoriesFragmentInteractionListener,
         CategoryProductsFragment.OnCategoryProductsFragmentInteractionListener,
-        ListsFragment.OnListsFragmentInteractionListener {
+        ListsFragment.OnListsFragmentInteractionListener,
+        ListDetailFragment.OnListDetailFragmentInteractionListener,
+        StockItemListFragment.OnStockItemListFragmentInteractionListener,
+        StockItemDetailFragment.OnStockItemDetailFragmentInteractionListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,20 +57,38 @@ class HomeActivity : AppCompatActivity(),
      */
 
     // Listener for CategoriesFragement interaction
-    override fun onCategoryInteraction(categoryId: CategoryID, categoryName: String) {
-        val fragment = CategoryProductsFragment.newInstance(categoryId, categoryName)
+    override fun onCategoryInteraction(category: CategoryDTO) {
+        val fragment = CategoryProductsFragment.newInstance(category)
         supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.PRODUCTS)
     }
 
     // Listener for CategoryProductsFragement interaction
-    override fun onProductInteraction(productId: ProductID) {
-        //TODO
-        Toast.makeText(this, "Specific product fragement", Toast.LENGTH_SHORT).show()
+    override fun onProductInteraction(product: ProductDTO) {
+        val fragment = ProductDetailFragment.newInstance(product)
+        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.PRODUCT)
     }
 
-    override fun onListInteraction(listId: ListDTO) {
+    // Listener for ListsFragment interaction
+    override fun onListInteraction(list: ListDTO) {
+        val fragment = ListDetailFragment.newInstance(list)
+        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.LIST)
+    }
+
+    // Listener for ListDetailFragment interaction
+    override fun onListProductInteraction(listProductDTO: ListProductDTO) {
+        //TODO: expand
+        Toast.makeText(this, "Specific List-Product", Toast.LENGTH_SHORT).show()
+    }
+
+    // Listener for StockItemListFragment interaction
+    override fun onStockItemInteraction(stockItem: StockItemDTO) {
+        val fragment = StockItemDetailFragment.newInstance(stockItem)
+        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.STOCK_ITEM)
+    }
+
+    override fun onStorageInteraction(storage: StorageDTO) {
         //TODO
-        Toast.makeText(this, "Specific List", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Specific Storage", Toast.LENGTH_SHORT).show()
     }
 
     /**
@@ -101,7 +118,10 @@ class HomeActivity : AppCompatActivity(),
         when (item.itemId) {
             R.id.invitationsItem -> return true
             R.id.preferencesItem -> return true
-            R.id.aboutItem -> return true
+            R.id.aboutItem -> {
+                replaceFragment(ExtraUtils.ABOUT, AboutFragment.Companion::newInstance)
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -110,7 +130,8 @@ class HomeActivity : AppCompatActivity(),
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_homePage -> {
-                //replaceFragment(ExtraUtils.HOME, )
+                val fragment = StockItemListFragment.newInstance(1)
+                supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.STOCK_ITEM)
             }
             R.id.nav_lists -> {
                 replaceFragment(ExtraUtils.LISTS, ListsFragment.Companion::newInstance)
@@ -122,7 +143,7 @@ class HomeActivity : AppCompatActivity(),
                 //TODO
             }
             R.id.nav_settings -> {
-                //TODO
+                replaceFragment(ExtraUtils.SETTINGS, SettingsFragment.Companion::newInstance)
             }
         }
         homeDrawerLayout.closeDrawer(GravityCompat.START)

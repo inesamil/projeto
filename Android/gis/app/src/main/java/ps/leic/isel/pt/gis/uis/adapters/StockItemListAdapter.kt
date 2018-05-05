@@ -29,7 +29,7 @@ class StockItemListAdapter(private val data: Array<StockItemDTO>)
         holder.brandText.text = item.brand
         holder.qntItemText.text = item.quantity.toString()
         // If the inner adapter needs data pass here the data
-        holder.innerAdapter.setData(item.storages)
+        //holder.innerAdapter.setData(item.storages)
     }
 
     // Total number of cells

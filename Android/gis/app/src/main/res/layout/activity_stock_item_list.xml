@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <include layout="@layout/content_stock_item_list" />
+    <include layout="@layout/fragment_stockitemlist" />
 
     <android.support.design.widget.NavigationView
         android:id="@+id/stockItemListNavView"

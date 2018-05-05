@@ -21,9 +21,5 @@ class LoginActivity : AppCompatActivity() {
 
             startActivity(Intent(this, HomeActivity::class.java))
         }
-
-        aboutTextClickable.setOnClickListener {
-            startActivity(Intent(this, AboutActivity::class.java))
-        }
     }
 }

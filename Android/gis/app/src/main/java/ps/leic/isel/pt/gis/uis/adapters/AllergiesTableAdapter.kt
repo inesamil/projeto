@@ -8,7 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 
-class TableLayoutAdapter(private val myDataset: Array<Any>) :
+class AllergiesTableAdapter(private val myDataset: Array<Any>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // Layouts

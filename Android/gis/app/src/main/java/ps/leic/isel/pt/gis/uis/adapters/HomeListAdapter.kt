@@ -24,7 +24,7 @@ class HomeListAdapter(private val data: Array<ListDTO>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: ListDTO = data[position]
 
-        val firstProduct: ListProductDTO = item.items[0]
+        /*val firstProduct: ListProductDTO = item.items[0]
         val secondProduct: ListProductDTO = item.items[1]
         val thirdProduct: ListProductDTO = item.items[2]
 
@@ -35,7 +35,7 @@ class HomeListAdapter(private val data: Array<ListDTO>) :
         holder.item2Text.text = secondProduct.productName
         holder.item2ValueText.text = secondProduct.quantity.toString()
         holder.item3Text.text = thirdProduct.productName
-        holder.item3ValueText.text = thirdProduct.quantity.toString()
+        holder.item3ValueText.text = thirdProduct.quantity.toString()*/
     }
 
     // Return the size of your dataset (invoked by the layout manager)

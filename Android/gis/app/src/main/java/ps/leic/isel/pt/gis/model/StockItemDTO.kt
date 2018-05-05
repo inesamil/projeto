@@ -14,11 +14,7 @@ data class StockItemDTO(
         val variety: String,
         val quantity: Short,
         val description: String,
-        val conservationStorage: String,
-        val allergens: Array<StockItemAllergenDTO>,
-        val expirationDates: Array<ExpirationDateDTO>,
-        val storages: Array<StorageDTO>,
-        val movements: Array<MovementDTO>
+        val conservationStorage: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
@@ -31,11 +27,7 @@ data class StockItemDTO(
             parcel.readString(),
             parcel.readInt().toShort(),
             parcel.readString(),
-            parcel.readString(),
-            parcel.createTypedArray(StockItemAllergenDTO),
-            parcel.createTypedArray(ExpirationDateDTO),
-            parcel.createTypedArray(StorageDTO),
-            parcel.createTypedArray(MovementDTO)) {
+            parcel.readString()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -50,10 +42,6 @@ data class StockItemDTO(
         parcel.writeInt(quantity.toInt())
         parcel.writeString(description)
         parcel.writeString(conservationStorage)
-        parcel.writeTypedArray(allergens, flags)
-        parcel.writeTypedArray(expirationDates, flags)
-        parcel.writeTypedArray(storages, flags)
-        parcel.writeTypedArray(movements, flags)
     }
 
     override fun describeContents(): Int {

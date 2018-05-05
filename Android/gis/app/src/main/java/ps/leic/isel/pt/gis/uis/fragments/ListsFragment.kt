@@ -86,9 +86,12 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
      * activity.
      */
     interface OnListsFragmentInteractionListener {
-        fun onListInteraction(listId: ListDTO)
+        fun onListInteraction(list: ListDTO)
     }
 
+    /**
+     * ListsFragment Factory
+     */
     companion object {
         /**
          * Use this factory method to create a new instance of

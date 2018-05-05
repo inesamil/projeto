@@ -7,13 +7,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_categoryproducts.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.CategoryDTO
 import ps.leic.isel.pt.gis.model.ProductDTO
-import ps.leic.isel.pt.gis.model.ids.CategoryID
-import ps.leic.isel.pt.gis.model.ids.ProductID
 import ps.leic.isel.pt.gis.uis.adapters.CategoryProductsAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 
@@ -28,8 +26,7 @@ import ps.leic.isel.pt.gis.utils.ExtraUtils
  */
 class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClickListener {
 
-    private lateinit var categoryId: CategoryID
-    private lateinit var categoryName: String
+    private lateinit var category: CategoryDTO
     private lateinit var products: Array<ProductDTO>
 
     private var listener: OnCategoryProductsFragmentInteractionListener? = null
@@ -37,8 +34,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            categoryId = it.getParcelable(ExtraUtils.CATEGORY_ID)
-            categoryName = it.getString(ExtraUtils.CATEGORY_NAME)
+            category = it.getParcelable(ExtraUtils.CATEGORY)
 
         }
         //TODO: get data
@@ -55,7 +51,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
         val view: View = inflater.inflate(R.layout.fragment_categoryproducts, container, false)
 
         // Set Title
-        view.categoryText.text = categoryName
+        activity!!.actionBar.title = category.categoryName
 
         // Set Adapter
         val adapter = CategoryProductsAdapter(products)
@@ -87,7 +83,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
 
     override fun onTextClick(view: View, position: Int) {
         val product: ProductDTO = products[position]
-        listener?.onProductInteraction(ProductID(product.categoryId, product.productId))
+        listener?.onProductInteraction(product)
     }
 
     override fun onPlusClick(view: View, position: Int) {
@@ -108,25 +104,26 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      * activity.
      */
     interface OnCategoryProductsFragmentInteractionListener {
-        fun onProductInteraction(productId: ProductID)
+        fun onProductInteraction(product: ProductDTO)
     }
 
+    /**
+     * CategoryProductsFragment Factory
+     */
     companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param categoryId Category ID
-         * @param categoryName Category Name (This fragment title)
+         * @param category Category
          * @return A new instance of fragment CategoryProductsFragment.
          */
 
         @JvmStatic
-        fun newInstance(categoryId: CategoryID, categoryName: String) =
+        fun newInstance(category: CategoryDTO) =
                 CategoryProductsFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable(ExtraUtils.CATEGORY_ID, categoryId)
-                        putString(ExtraUtils.CATEGORY_NAME, categoryName)
+                        putParcelable(ExtraUtils.CATEGORY, category)
                     }
                 }
     }

@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.uis.adapters.TableLayoutAdapter
+import ps.leic.isel.pt.gis.uis.adapters.AllergiesTableAdapter
 
 class AllergiesActivity : AppCompatActivity() {
 
@@ -34,7 +34,7 @@ class AllergiesActivity : AppCompatActivity() {
         allergensNumber = arrayOf("Eggs", "Shellfish", "Soy")
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = TableLayoutAdapter(allergensNumber)
+        viewAdapter = AllergiesTableAdapter(allergensNumber)
 
         recyclerView = findViewById<RecyclerView>(R.id.my_recycler_view_allergies).apply {
             // use this setting to improve performance if you know that changes

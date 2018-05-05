@@ -1,32 +1,34 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ListDTO
 import ps.leic.isel.pt.gis.model.ListProductDTO
+import ps.leic.isel.pt.gis.uis.adapters.ListDetailAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [ListFragment.OnListFragmentInteractionListener] interface
+ * [ListDetailFragment.OnListDetailFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [ListFragment.newInstance] factory method to
+ * Use the [ListDetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class ListFragment : Fragment() {
+class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
     private lateinit var list: ListDTO
     private lateinit var listProducts: Array<ListProductDTO>
 
-    private var listener: OnListFragmentInteractionListener? = null
+    private var listener: OnListDetailFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,17 +47,22 @@ class ListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_list, container, false)
 
-        //TODO set adapter
+        // Set Adapter
+        val adapter = ListDetailAdapter(listProducts)
+        view.listRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.listRecyclerView.setHasFixedSize(true)
+        view.listRecyclerView.adapter = adapter
+        adapter.setOnItemClickListener(this)
 
         return view
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
+        if (context is OnListDetailFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnListDetailFragmentInteractionListener")
         }
     }
 
@@ -64,33 +71,42 @@ class ListFragment : Fragment() {
         listener = null
     }
 
+    /***
+     * Listeners
+     ***/
+
+    // Listener for list item clicks (from adapter)
+    override fun onItemClick(view: View, position: Int) {
+        val  listProduct: ListProductDTO = listProducts[position]
+        listener?.onListProductInteraction(listProduct)
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
      */
-    interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+    interface OnListDetailFragmentInteractionListener {
+        fun onListProductInteraction(listProductDTO: ListProductDTO)
     }
 
+    /**
+     * ListDetailFragment Factory
+     */
     companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ListFragment.
+         * @param list List
+         * @return A new instance of fragment ListDetailFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                ListFragment().apply {
+        fun newInstance(list: ListDTO) =
+                ListDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
+                        putParcelable(ExtraUtils.LIST, list)
                     }
                 }
     }
