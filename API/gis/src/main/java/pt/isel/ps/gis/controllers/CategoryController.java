@@ -19,7 +19,7 @@ import java.util.Optional;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
-@RequestMapping("v1/categories")
+@RequestMapping("/v1/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;

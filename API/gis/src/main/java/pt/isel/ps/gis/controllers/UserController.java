@@ -23,7 +23,7 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
-@RequestMapping("v1/users/{username}")
+@RequestMapping("/v1/users/{username}")
 public class UserController {
 
     private final UserService userService;

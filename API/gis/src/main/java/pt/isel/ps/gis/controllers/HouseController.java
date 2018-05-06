@@ -23,7 +23,7 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
-@RequestMapping("v1/houses")
+@RequestMapping("/v1/houses")
 public class HouseController {
 
     private final HouseService houseService;

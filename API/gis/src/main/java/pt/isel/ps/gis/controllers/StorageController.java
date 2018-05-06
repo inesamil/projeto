@@ -21,7 +21,7 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
-@RequestMapping("v1/houses/{house-id}/storages")
+@RequestMapping("/v1/houses/{house-id}/storages")
 public class StorageController {
 
     private final StorageService storageService;

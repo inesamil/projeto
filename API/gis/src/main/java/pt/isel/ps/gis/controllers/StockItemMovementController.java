@@ -17,7 +17,7 @@ import java.util.List;
 import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
 
 @RestController
-@RequestMapping("v1/houses/{house-id}/movements")
+@RequestMapping("/v1/houses/{house-id}/movements")
 public class StockItemMovementController {
 
     private final StockItemMovementService stockItemMovementService;

@@ -11,7 +11,7 @@ import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
 import static pt.isel.ps.gis.utils.HeadersUtils.setJsonHomeContentType;
 
 @RestController
-@RequestMapping("v1")
+@RequestMapping("/v1")
 public class IndexController {
 
     @GetMapping("")

@@ -22,7 +22,7 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
-@RequestMapping("v1/houses/{house-id}/items")
+@RequestMapping("/v1/houses/{house-id}/items")
 public class StockItemController {
 
     private final StockItemService stockItemService;

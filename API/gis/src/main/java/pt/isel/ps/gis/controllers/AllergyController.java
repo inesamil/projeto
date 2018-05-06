@@ -20,7 +20,7 @@ import java.util.List;
 import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
 
 @RestController
-@RequestMapping("v1/houses/{house-id}/allergies")
+@RequestMapping("/v1/houses/{house-id}/allergies")
 public class AllergyController {
 
     private final HouseAllergyService houseAllergyService;
