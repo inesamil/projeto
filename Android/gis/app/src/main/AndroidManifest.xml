@@ -32,8 +32,7 @@
             android:name=".uis.activities.RecipesActivity"
             android:label="@string/recipesLabel"
             android:theme="@style/OrangeTheme" />
-        <activity android:name=".uis.activities.HomeActivity" />
-        <activity android:name=".uis.activities.NFCActivity">
+        <activity android:name=".uis.activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
@@ -42,7 +41,7 @@
                 <data
                     android:host="ext"
                     android:mimeType="text/plain"
-                    android:pathPrefix="/pt.isel.leic.ps:simulator"
+                    android:pathPrefix="/pt.isel.leic.ps:gis"
                     android:scheme="vnd.android.nfc" />
             </intent-filter>
         </activity>
