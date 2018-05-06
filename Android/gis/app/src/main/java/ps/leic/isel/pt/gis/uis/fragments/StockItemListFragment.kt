@@ -1,14 +1,13 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_stockitemlist.view.*
+import kotlinx.android.synthetic.main.fragment_stock_item_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.StockItemDTO
 import ps.leic.isel.pt.gis.uis.adapters.StockItemListAdapter
@@ -47,7 +46,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view: View =  inflater.inflate(R.layout.fragment_stockitemlist, container, false)
+        val view: View =  inflater.inflate(R.layout.fragment_stock_item_list, container, false)
 
         // Set Adapter
         val adapter = StockItemListAdapter(stockItems)

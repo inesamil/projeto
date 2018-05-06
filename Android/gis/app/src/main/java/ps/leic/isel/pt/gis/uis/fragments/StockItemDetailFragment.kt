@@ -7,8 +7,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_stockitemdetails.*
-import kotlinx.android.synthetic.main.fragment_stockitemdetails.view.*
+import kotlinx.android.synthetic.main.fragment_stock_item_detail.*
+import kotlinx.android.synthetic.main.fragment_stock_item_detail.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.*
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsExpirationDateAdapter
@@ -47,7 +47,7 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_stockitemdetails, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_stock_item_detail, container, false)
 
         // Set Allergens
         allergensText.text = allergens.getElementsSeparatedBySemiColon()

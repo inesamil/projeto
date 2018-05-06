@@ -6,7 +6,7 @@ import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_write.*
+import kotlinx.android.synthetic.main.fragment_writing_nfc_tag.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.NFCUtils
@@ -24,7 +24,7 @@ class WritingNfcTagFragment : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_write, container, false)
+            inflater.inflate(R.layout.fragment_writing_nfc_tag, container, false)
 
     // When NFC tag is detected call this method
     fun onNfcDetected(intent: Intent?) {

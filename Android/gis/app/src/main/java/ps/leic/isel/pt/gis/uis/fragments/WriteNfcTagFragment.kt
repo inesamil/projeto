@@ -7,9 +7,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import kotlinx.android.synthetic.main.fragment_nfc.*
-import kotlinx.android.synthetic.main.fragment_nfc.view.*
+import kotlinx.android.synthetic.main.fragment_write_nfc_tag.*
+import kotlinx.android.synthetic.main.fragment_write_nfc_tag.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.utils.NFCUtils
 
@@ -33,7 +32,7 @@ class WriteNfcTagFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view: View =  inflater.inflate(R.layout.fragment_nfc, container, false)
+        val view: View =  inflater.inflate(R.layout.fragment_write_nfc_tag, container, false)
 
         // Set write button listener
         view.writeBtn.setOnClickListener(this)

@@ -16,7 +16,7 @@ class StockItemDetailsStorageAdapter(private val data: Array<StorageDTO>)
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_stockitemdetails_storage, parent, false) as View
+                .inflate(R.layout.item_stock_item_detail_storage, parent, false) as View
         return ViewHolder(view)
     }
 

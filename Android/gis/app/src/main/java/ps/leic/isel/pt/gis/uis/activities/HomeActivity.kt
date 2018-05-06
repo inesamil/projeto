@@ -5,19 +5,24 @@ import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
 import android.os.Parcelable
+import android.provider.ContactsContract
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
+import android.support.v4.view.PagerAdapter
+import android.support.v7.app.ActionBar
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.fragment_nfc.*
+import kotlinx.android.synthetic.main.fragment_write_nfc_tag.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.*
+import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
 import ps.leic.isel.pt.gis.uis.fragments.*
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
@@ -25,6 +30,8 @@ import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
 class HomeActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
         SettingsFragment.OnSettingsFragmentInteractionListener,
+        HousesFragment.OnHousesFragmentInteractionListener,
+        BasicInformationFragment.OnBasicInformationFragmentInteractionListener,
         CategoriesFragment.OnCategoriesFragmentInteractionListener,
         CategoryProductsFragment.OnCategoryProductsFragmentInteractionListener,
         ListsFragment.OnListsFragmentInteractionListener,
@@ -66,6 +73,16 @@ class HomeActivity : AppCompatActivity(),
     /**
      * Fragment Listeners
      */
+
+    // Listener for HousesFragment interaction
+    override fun onHouseInteraction(house: HouseDTO) {
+        //TODO
+    }
+
+    // Listener for BasicInformationFragment interaction
+    override fun onBasicInformationUpdate(user: UserDTO) {
+        //TODO
+    }
 
     // Listener for CategoriesFragement interaction
     override fun onCategoryInteraction(category: CategoryDTO) {
@@ -174,8 +191,11 @@ class HomeActivity : AppCompatActivity(),
                 replaceFragment(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance)
             }
             R.id.nav_profile -> {
-                val fragment = AllergiesFragment.newInstance(1, false)
-                supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.ALLERGIES)
+                //val fragment = AllergiesFragment.newInstance(1, false)
+                //supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.ALLERGIES)
+
+                val fragment = ProfileFragment.newInstance("alice")
+                supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.PROFILE)
             }
             R.id.nav_settings -> {
                 replaceFragment(ExtraUtils.SETTINGS, SettingsFragment.Companion::newInstance)

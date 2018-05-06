@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_categoryproducts.view.*
+import kotlinx.android.synthetic.main.fragment_category_products.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.CategoryDTO
 import ps.leic.isel.pt.gis.model.ProductDTO
@@ -48,7 +48,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_categoryproducts, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_category_products, container, false)
 
         // Set Adapter
         val adapter = CategoryProductsAdapter(products)

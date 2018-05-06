@@ -125,4 +125,5 @@
     <string name="write_nfc_tag">"Escrever numa tag NFC "</string>
     <string name="user_icon_description">Ícone do Utilizador</string>
     <string name="download_icon_description">Ícone de Download</string>
+    <string name="houses">Casas</string>
 </resources>
