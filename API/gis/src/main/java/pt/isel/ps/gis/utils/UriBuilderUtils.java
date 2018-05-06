@@ -3,7 +3,7 @@ package pt.isel.ps.gis.utils;
 public class UriBuilderUtils {
 
     private static final String
-            VERSION = "v1",
+            VERSION = "/v1",
             ALLERGIES = "allergies",
             CATEGORIES = "categories",
             HOUSES = "houses",
@@ -15,7 +15,7 @@ public class UriBuilderUtils {
             USERS = "users";
 
     /**
-     * URI Template: v1
+     * URI Template: /v1
      *
      * @return URI to index page
      */
@@ -24,7 +24,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/allergies
+     * URI Template: /v1/allergies
      *
      * @return URI to allergies
      */
@@ -34,7 +34,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/categories
+     * URI Template: /v1/categories
      *
      * @return URI to all categories
      */
@@ -44,7 +44,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/categories/{category-id}
+     * URI Template: /v1/categories/{category-id}
      *
      * @param categoryId The id of the category
      * @return URI to specific category
@@ -55,7 +55,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/categories/{category-id}/products
+     * URI Template: /v1/categories/{category-id}/products
      *
      * @param categoryId The id of the category
      * @return URI to products of the category
@@ -66,7 +66,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/categories/{category-id}/products/{product-id}
+     * URI Template: /v1/categories/{category-id}/products/{product-id}
      *
      * @param categoryId The id of the category
      * @param productId  The id of the product
@@ -78,7 +78,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}
+     * URI Template: /v1/houses/{house-id}
      *
      * @param houseId The id of the house
      * @return URI for a specific house
@@ -89,7 +89,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/allergies
+     * URI Template: /v1/houses/{house-id}/allergies
      *
      * @param houseId The id of the house
      * @return URI to allergies of the house
@@ -100,7 +100,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/allergies/{allergen}
+     * URI Template: /v1/houses/{house-id}/allergies/{allergen}
      *
      * @param houseId  The id of the house
      * @param allergen The id of the allergy
@@ -112,7 +112,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/allergies/{allergen}/items
+     * URI Template: /v1/houses/{house-id}/allergies/{allergen}/items
      *
      * @param houseId  The id of the house
      * @param allergen The id of the allergy
@@ -124,7 +124,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/items
+     * URI Template: /v1/houses/{house-id}/items
      *
      * @param houseId The id of the house
      * @return URI to items of the house
@@ -135,7 +135,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/items/{stock-item-id}
+     * URI Template: /v1/houses/{house-id}/items/{stock-item-id}
      *
      * @param houseId The id of the house
      * @param sku     The id of the stock item
@@ -147,7 +147,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/items/{stock-item-id}/allergies
+     * URI Template: /v1/houses/{house-id}/items/{stock-item-id}/allergies
      *
      * @param houseId The id of the house
      * @param sku     The id of the stock item
@@ -159,7 +159,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/lists
+     * URI Template: /v1/houses/{house-id}/lists
      *
      * @param houseId The id of the house
      * @return URI to lists of the house
@@ -170,7 +170,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/lists/{list-id}
+     * URI Template: /v1/houses/{house-id}/lists/{list-id}
      *
      * @param houseId The id of the house
      * @param listId  The id of the list
@@ -182,7 +182,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/lists/{list-id}/products
+     * URI Template: /v1/houses/{house-id}/lists/{list-id}/products
      *
      * @param houseId The id of the house
      * @param listId  The id of the list
@@ -194,7 +194,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/lists/{list-id}/products/{product-id}
+     * URI Template: /v1/houses/{house-id}/lists/{list-id}/products/{product-id}
      *
      * @param houseId   The id of the house
      * @param listId    The id of the list
@@ -207,7 +207,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/movements
+     * URI Template: /v1/houses/{house-id}/movements
      *
      * @param houseId The id of the house
      * @return URI for a movements of the house
@@ -218,7 +218,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/storages
+     * URI Template: /v1/houses/{house-id}/storages
      *
      * @param houseId The id of the house
      * @return URI to storages of the house
@@ -229,7 +229,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/storages/{storage-id}
+     * URI Template: /v1/houses/{house-id}/storages/{storage-id}
      *
      * @param houseId   The id of the house
      * @param storageId The id of the storage
@@ -241,7 +241,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/users
+     * URI Template: /v1/houses/{house-id}/users
      *
      * @param houseId The id of the house
      * @return URI to household
@@ -252,7 +252,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/houses/{house-id}/users/{username}/lists/{list-id}
+     * URI Template: /v1/houses/{house-id}/users/{username}/lists/{list-id}
      *
      * @param houseId  The id of the house
      * @param username The id of the user
@@ -265,7 +265,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/users/{username}
+     * URI Template: /v1/users/{username}
      *
      * @param username The id of the user
      * @return The specific user
@@ -276,7 +276,7 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: v1/users/{username}/houses
+     * URI Template: /v1/users/{username}/houses
      *
      * @param username The id of the user
      * @return URI to houses of the user

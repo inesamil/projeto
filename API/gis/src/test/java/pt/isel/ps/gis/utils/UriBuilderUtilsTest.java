@@ -6,30 +6,30 @@ import static org.junit.Assert.assertEquals;
 
 public class UriBuilderUtilsTest {
 
-    private final static String INDEX = "v1",
-            ALLERGIES = "v1/allergies",
-            CATEGORIES = "v1/categories",
-            CATEGORY = "v1/categories/1",
-            PRODUCTS_CATEGORY = "v1/categories/1/products",
-            PRODUCT = "v1/categories/1/products/1",
-            HOUSE = "v1/houses/1",
-            HOUSE_ALLERGIES = "v1/houses/1/allergies",
-            HOUSE_ALLERGY = "v1/houses/1/allergies/lactose",
-            STOCK_ITEMS_ALLERGEN = "v1/houses/1/allergies/lactose/items",
-            STOCK_ITEMS = "v1/houses/1/items",
-            STOCK_ITEM = "v1/houses/1/items/C1P1-Mimosa-Magro-1l",
-            ALLERGIES_STOCK_ITEM = "v1/houses/1/items/C1P1-Mimosa-Magro-1l/allergies",
-            LISTS = "v1/houses/1/lists",
-            LIST = "v1/houses/1/lists/1",
-            PRODUCTS_LIST = "v1/houses/1/lists/1/products",
-            PRODUCT_LIST = "v1/houses/1/lists/1/products/1",
-            MOVEMENTS = "v1/houses/1/movements",
-            STORAGES = "v1/houses/1/storages",
-            STORAGE = "v1/houses/1/storages/1",
-            HOUSEHOLD = "v1/houses/1/users",
-            USER_LIST = "v1/houses/1/users/test/lists/1",
-            USER = "v1/users/test",
-            USER_HOUSES = "v1/users/test/houses";
+    private final static String INDEX = "/v1",
+            ALLERGIES = "/v1/allergies",
+            CATEGORIES = "/v1/categories",
+            CATEGORY = "/v1/categories/1",
+            PRODUCTS_CATEGORY = "/v1/categories/1/products",
+            PRODUCT = "/v1/categories/1/products/1",
+            HOUSE = "/v1/houses/1",
+            HOUSE_ALLERGIES = "/v1/houses/1/allergies",
+            HOUSE_ALLERGY = "/v1/houses/1/allergies/lactose",
+            STOCK_ITEMS_ALLERGEN = "/v1/houses/1/allergies/lactose/items",
+            STOCK_ITEMS = "/v1/houses/1/items",
+            STOCK_ITEM = "/v1/houses/1/items/C1P1-Mimosa-Magro-1l",
+            ALLERGIES_STOCK_ITEM = "/v1/houses/1/items/C1P1-Mimosa-Magro-1l/allergies",
+            LISTS = "/v1/houses/1/lists",
+            LIST = "/v1/houses/1/lists/1",
+            PRODUCTS_LIST = "/v1/houses/1/lists/1/products",
+            PRODUCT_LIST = "/v1/houses/1/lists/1/products/1",
+            MOVEMENTS = "/v1/houses/1/movements",
+            STORAGES = "/v1/houses/1/storages",
+            STORAGE = "/v1/houses/1/storages/1",
+            HOUSEHOLD = "/v1/houses/1/users",
+            USER_LIST = "/v1/houses/1/users/test/lists/1",
+            USER = "/v1/users/test",
+            USER_HOUSES = "/v1/users/test/houses";
 
     @Test
     public void test_build_index_uri() {
@@ -101,7 +101,6 @@ public class UriBuilderUtilsTest {
         assertEquals(LISTS, UriBuilderUtils.buildListsUri(1));
     }
 
-    ///////////////////////////////////
     @Test
     public void test_build_list_uri() {
         assertEquals(LIST, UriBuilderUtils.buildListUri(1L, (short) 1));
