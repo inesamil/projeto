@@ -26,7 +26,6 @@ class CategoriesAdapter(private val data: Array<CategoryDTO>)
         val item: CategoryDTO = data[position]
         // Fill ViewHolder
         holder.categoryItemText.text = item.categoryName
-        holder.categoryItemImage.setImageResource(R.drawable.ic_house_setup)
     }
 
     // Total number of cells
@@ -35,7 +34,6 @@ class CategoriesAdapter(private val data: Array<CategoryDTO>)
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val categoryItemText: TextView = itemView.findViewById(R.id.categoryItemText) as TextView
-        internal val categoryItemImage: ImageView = itemView.findViewById(R.id.categoryItemImage) as ImageView
 
         init {
             itemView.setOnClickListener {
