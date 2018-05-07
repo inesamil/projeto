@@ -15,11 +15,11 @@ public interface StockItemRepositoryCustom {
      * @param productName Search for product name
      * @param brand       Search for stock item brand
      * @param variety     Search for stock item variety
-     * @param segment     Search for stock item segment
+     * @param segment     Search for stock item segment (stockItem.segment + stockItem.segmentUnit)
      * @param storageId   Search for specific storage
-     * @return List with all stock items associated wirh param houseId and filtered
+     * @return List with all stock items associated with param houseId and filtered
      */
-    List<StockItem> findStockItemsFiltered(Long houseId, String productName, String brand, String variety, Float segment, Short storageId);
+    List<StockItem> findStockItemsFiltered(Long houseId, String productName, String brand, String variety, String segment, Short storageId);
 
     /**
      * Insert stock item

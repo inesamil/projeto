@@ -96,10 +96,10 @@ public interface StockItemService {
         public final String product;
         public final String brand;
         public final String variety;
-        public final float segment;
+        public final String segment;
         public final short storage;
 
-        public StockItemFilters(String product, String brand, String variety, float segment, short storage) {
+        public StockItemFilters(String product, String brand, String variety, String segment, short storage) {
             this.product = product;
             this.brand = brand;
             this.variety = variety;

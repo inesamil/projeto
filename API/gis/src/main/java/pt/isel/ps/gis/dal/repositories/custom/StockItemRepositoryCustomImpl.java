@@ -18,7 +18,7 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
     private EntityManager entityManager;
 
     @Override
-    public List<StockItem> findStockItemsFiltered(Long houseId, String productName, String brand, String variety, Float segment, Short storageId) {
+    public List<StockItem> findStockItemsFiltered(Long houseId, String productName, String brand, String variety, String segment, Short storageId) {
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
             String sql = "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
@@ -74,7 +74,7 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
                 if (isNotNull(ps, 8, houseId))
                     ps.setLong(8, houseId);
                 if (isNotNull(ps, 9, segment))
-                    ps.setFloat(9, segment);
+                    ps.setString(9, segment);
                 if (isNotNull(ps, 10, houseId))
                     ps.setLong(10, houseId);
                 if (isNotNull(ps, 11, storageId))
