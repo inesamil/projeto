@@ -16,7 +16,7 @@ public class ListRequestParam {
         return system == null && user == null && shareable == null;
     }
 
-    public boolean getSystem() {
+    public Boolean getSystem() {
         return system;
     }
 
@@ -24,7 +24,7 @@ public class ListRequestParam {
         return user;
     }
 
-    public boolean getShareable() {
+    public Boolean getShareable() {
         return shareable;
     }
 }
