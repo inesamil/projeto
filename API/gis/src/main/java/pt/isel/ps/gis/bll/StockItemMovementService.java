@@ -53,9 +53,9 @@ public interface StockItemMovementService {
      * Filtros - filtragem dos movimentos
      */
     class MovementFilters {
-        public final boolean type;
+        public final Boolean type;
         public final Timestamp dateTime;
-        public final short storage;
+        public final Short storage;
         public final String item;   // SKU
 
         public MovementFilters(boolean type, Timestamp dateTime, Short storage, String item) {

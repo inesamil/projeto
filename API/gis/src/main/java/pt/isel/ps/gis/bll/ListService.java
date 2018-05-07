@@ -81,11 +81,11 @@ public interface ListService {
      * Filtros - filtragem das listas
      */
     class ListFilters {
-        public final boolean systemLists;
+        public final Boolean systemLists;
         public final String listsFromUser;
-        public final boolean sharedLists;
+        public final Boolean sharedLists;
 
-        public ListFilters(boolean systemLists, String listsFromUser, boolean sharedLists) {
+        public ListFilters(Boolean systemLists, String listsFromUser, Boolean sharedLists) {
             this.systemLists = systemLists;
             this.listsFromUser = listsFromUser;
             this.sharedLists = sharedLists;
