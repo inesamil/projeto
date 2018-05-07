@@ -64,4 +64,11 @@ public class DateUtils {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return simpleDateFormat.format(timestamp);
     }
+
+    public static Timestamp convertStringToTimestamp(String timestamp) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        java.util.Date parsedDate = dateFormat.parse(timestamp);
+        System.out.println(parsedDate.toString());
+        return new Timestamp(parsedDate.getTime());
+    }
 }
