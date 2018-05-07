@@ -42,7 +42,7 @@ public class StockItemsOutputModel {
                         new Data("brand", null, "Brand"),
                         new Data("variety", null, "Variety"),
                         new Data("segment", null, "Segment"),
-                        new Data("storage", null, "Storage")
+                        new Data("storage", null, "Storage ID")
                 })
         };
 
