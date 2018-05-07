@@ -17,7 +17,7 @@ public class StockItemRequestParam {
     }
 
     public boolean isNull() {
-        return product == null && brand == null && variety == null && segment == null && storage == 0;
+        return product == null && brand == null && variety == null && segment == null && storage == null;
     }
 
     public String getProduct() {
