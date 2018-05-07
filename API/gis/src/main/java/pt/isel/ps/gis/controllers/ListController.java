@@ -3,10 +3,7 @@ package pt.isel.ps.gis.controllers;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.ListProductService;
 import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -16,6 +13,7 @@ import pt.isel.ps.gis.model.ListProduct;
 import pt.isel.ps.gis.model.outputModel.ListOutputModel;
 import pt.isel.ps.gis.model.outputModel.ListsOutputModel;
 import pt.isel.ps.gis.model.outputModel.ProductsListOutputModel;
+import pt.isel.ps.gis.model.requestParams.ListRequestParam;
 
 import java.util.Optional;
 
@@ -35,9 +33,31 @@ public class ListController {
     }
 
     @GetMapping("")
-    public ResponseEntity<ListsOutputModel> getLists(@PathVariable("house-id") long houseId) {
-        // Qual usar?
-        return null;
+    public ResponseEntity<ListsOutputModel> getLists(
+            @PathVariable("house-id") long houseId,
+            // TODO change request header
+            @RequestHeader("authorization") String username,
+            ListRequestParam param
+    ) throws EntityException {
+        java.util.List<List> lists;
+        if (param.isNull()) {
+            ListService.ListFilters filters = new ListService.ListFilters(
+                    true,
+                    username,
+                    true
+            );
+            lists = listService.getListsByHouseIdFiltered(houseId, filters);
+        } else {
+            ListService.ListFilters filters = new ListService.ListFilters(
+                    param.getSystem(),
+                    param.getUser(),
+                    param.getShareable()
+            );
+            lists = listService.getListsByHouseIdFiltered(houseId, filters);
+        }
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setCollectionContentType(headers),
+                HttpStatus.OK);
     }
 
     @GetMapping("/{list-id}")
