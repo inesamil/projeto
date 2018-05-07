@@ -36,7 +36,7 @@ public class ListController {
     public ResponseEntity<ListsOutputModel> getLists(
             @PathVariable("house-id") long houseId,
             // TODO change request header
-            @RequestHeader("authorization") String username,
+            @RequestHeader(value = "authorization", required = false) String username,
             ListRequestParam param
     ) throws EntityException {
         java.util.List<List> lists;
