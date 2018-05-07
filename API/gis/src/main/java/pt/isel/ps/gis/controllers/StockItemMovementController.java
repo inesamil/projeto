@@ -11,6 +11,7 @@ import pt.isel.ps.gis.bll.StockItemMovementService;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.outputModel.MovementsOutputModel;
+import pt.isel.ps.gis.model.requestParams.StockItemMovementRequestParam;
 
 import java.util.List;
 
@@ -27,9 +28,23 @@ public class StockItemMovementController {
     }
 
     @GetMapping("")
-    public ResponseEntity<MovementsOutputModel> getMovements(@PathVariable("house-id") long houseId) throws EntityException {
-        List<StockItemMovement> movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId);
-        // TODO qual usar?
+    public ResponseEntity<MovementsOutputModel> getMovements(
+            @PathVariable("house-id") long houseId,
+            StockItemMovementRequestParam params
+    ) throws EntityException {
+        List<StockItemMovement> movements;
+        if (params.isNull())
+            movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId);
+        else {
+            // TODO filter nao está a funcionar bem
+            StockItemMovementService.MovementFilters filters = new StockItemMovementService.MovementFilters(
+                    params.getType(),
+                    params.getDatetime(),
+                    params.getStorage(),
+                    params.getItem()
+            );
+            movements = stockItemMovementService.getStockItemMovementsByHouseIdFiltered(houseId, filters);
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new MovementsOutputModel(houseId, movements), setCollectionContentType(headers),
                 HttpStatus.OK);
