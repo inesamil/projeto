@@ -39,22 +39,21 @@ public class ListController {
             @RequestHeader(value = "authorization", required = false) String username,
             ListRequestParam param
     ) throws EntityException {
-        java.util.List<List> lists;
+        ListService.ListFilters filters;
         if (param.isNull()) {
-            ListService.ListFilters filters = new ListService.ListFilters(
+            filters = new ListService.ListFilters(
                     true,
                     username,
                     true
             );
-            lists = listService.getListsByHouseIdFiltered(houseId, filters);
         } else {
-            ListService.ListFilters filters = new ListService.ListFilters(
+            filters = new ListService.ListFilters(
                     param.getSystem(),
                     param.getUser(),
                     param.getShareable()
             );
-            lists = listService.getListsByHouseIdFiltered(houseId, filters);
         }
+        java.util.List<List> lists = listService.getListsByHouseIdFiltered(houseId, filters);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setCollectionContentType(headers),
                 HttpStatus.OK);
