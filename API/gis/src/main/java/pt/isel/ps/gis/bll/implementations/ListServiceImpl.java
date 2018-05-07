@@ -36,12 +36,6 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public java.util.List<List> getListsByHouseId(long houseId, String username) throws EntityException {
-        ValidationsUtils.validateHouseId(houseId);
-        return listRepository.findListsFiltered(houseId, true, username, true);
-    }
-
-    @Override
     public java.util.List<List> getListsByHouseIdFiltered(long houseId, ListFilters filters) throws EntityException {
         ValidationsUtils.validateHouseId(houseId);
         return listRepository.findListsFiltered(houseId, filters.systemLists, filters.listsFromUser, filters.sharedLists);

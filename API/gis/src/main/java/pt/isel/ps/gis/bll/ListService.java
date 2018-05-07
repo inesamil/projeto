@@ -31,15 +31,6 @@ public interface ListService {
     Optional<List> getListByListId(long houseId, short listId) throws EntityException;
 
     /**
-     * Listar as listas de uma casa através do ID da casa
-     *
-     * @param houseId identificador da casa
-     * @return List<List>
-     * @throws EntityException se os parâmetros recebidos forem inválidos
-     */
-    java.util.List<List> getListsByHouseId(long houseId, String username) throws EntityException;
-
-    /**
      * Listar as listas filtradas de uma casa através do ID da casa
      *
      * @param houseId identificador da casa
