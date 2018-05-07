@@ -14,6 +14,7 @@ import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.outputModel.AllergiesStockItemOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemsOutputModel;
+import pt.isel.ps.gis.model.requestParams.StockItemRequestParams;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,9 +33,24 @@ public class StockItemController {
     }
 
     @GetMapping("")
-    public ResponseEntity<StockItemsOutputModel> getStockItems(@PathVariable("house-id") long houseId) throws EntityException {
-        List<StockItem> stockItems = stockItemService.getStockItemsByHouseId(houseId);
-        // TODO qual usar?
+    public ResponseEntity<StockItemsOutputModel> getStockItems(
+            @PathVariable("house-id") long houseId,
+            StockItemRequestParams params
+    ) throws EntityException {
+        List<StockItem> stockItems;
+        if (params.allFieldsAreNull())
+            stockItems = stockItemService.getStockItemsByHouseId(houseId);
+        else {
+            // TODO filter nao está bem.
+            StockItemService.StockItemFilters filters = new StockItemService.StockItemFilters(
+                    params.getProduct(),
+                    params.getBrand(),
+                    params.getVariety(),
+                    params.getSegment(),
+                    params.getStorage()
+            );
+            stockItems = stockItemService.getStockItemsByHouseIdFiltered(houseId, filters);
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemsOutputModel(houseId, stockItems), setCollectionContentType(headers),
                 HttpStatus.OK);
