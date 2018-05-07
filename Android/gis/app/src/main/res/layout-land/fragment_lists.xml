@@ -38,7 +38,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/circle_red_stroke"
+        android:background="@drawable/orange_circle"
         android:paddingBottom="3dp"
         android:paddingLeft="3dp"
         android:paddingRight="1dp"

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_lists.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ListDTO
@@ -25,7 +26,7 @@ import ps.leic.isel.pt.gis.uis.adapters.ListsAdapter
  * create an instance of this fragment.
  *
  */
-class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
+class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener, View.OnClickListener {
 
     private lateinit var lists: Array<ListDTO>
 
@@ -51,6 +52,10 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         view.listsRecyclerView.setHasFixedSize(true)
         view.listsRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
+
+        // Set new lists listener
+        view.createNewListBtn.setOnClickListener(this)
+        view.createNewListText.setOnClickListener(this)
 
         return view
     }
@@ -78,10 +83,16 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
      * Listeners
      ***/
 
-    // NfcListener for category item clicks (from adapter)
+    // Listener for list clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
         val list: ListDTO = lists[position]
         listener?.onListInteraction(list)
+    }
+
+    // Listener for new list creation
+    override fun onClick(v: View?) {
+        //TODO: create new list
+        Toast.makeText(view?.context,"New list creation", Toast.LENGTH_SHORT).show()
     }
 
     /**

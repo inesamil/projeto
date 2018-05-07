@@ -7,13 +7,6 @@
 
     <!-- A RecyclerView with some commonly used attributes -->
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listsRecyclerView"
         android:layout_width="0dp"
@@ -34,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_begin="67dp" />
 
     <TextView
         android:id="@+id/createNewListText"
@@ -62,23 +55,20 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/circle_red_stroke"
+        android:background="@drawable/orange_circle"
         android:gravity="center_vertical|center_horizontal|center"
         android:paddingEnd="1dp"
         android:paddingStart="1dp"
         android:text="@string/plus"
         android:textAlignment="center"
         android:textColor="@color/cardview_light_background"
-        android:textSize="18sp"
+        android:textSize="30sp"
         android:theme="@style/OrangeTheme.Button"
         app:layout_constraintBottom_toTopOf="@+id/horizontalTopGuideline"
         app:layout_constraintDimensionRatio="w,1:1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
