@@ -58,7 +58,7 @@ public interface StockItemMovementService {
         public final Short storage;
         public final String item;   // SKU
 
-        public MovementFilters(boolean type, Timestamp dateTime, Short storage, String item) {
+        public MovementFilters(Boolean type, Timestamp dateTime, Short storage, String item) {
             this.type = type;
             this.dateTime = dateTime;
             this.storage = storage;
