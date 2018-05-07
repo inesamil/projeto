@@ -1,6 +1,6 @@
 package pt.isel.ps.gis.model.requestParams;
 
-public class StockItemRequestParams {
+public class StockItemRequestParam {
 
     private String product;
     private String brand;
@@ -8,7 +8,7 @@ public class StockItemRequestParams {
     private String segment;
     private short storage;
 
-    public boolean allFieldsAreNull() {
+    public boolean isNull() {
         return product == null && brand == null && variety == null && segment == null && storage == 0;
     }
 

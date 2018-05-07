@@ -14,7 +14,7 @@ import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.outputModel.AllergiesStockItemOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemsOutputModel;
-import pt.isel.ps.gis.model.requestParams.StockItemRequestParams;
+import pt.isel.ps.gis.model.requestParams.StockItemRequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,10 +35,10 @@ public class StockItemController {
     @GetMapping("")
     public ResponseEntity<StockItemsOutputModel> getStockItems(
             @PathVariable("house-id") long houseId,
-            StockItemRequestParams params
+            StockItemRequestParam params
     ) throws EntityException {
         List<StockItem> stockItems;
-        if (params.allFieldsAreNull())
+        if (params.isNull())
             stockItems = stockItemService.getStockItemsByHouseId(houseId);
         else {
             // TODO filter nao está bem.
