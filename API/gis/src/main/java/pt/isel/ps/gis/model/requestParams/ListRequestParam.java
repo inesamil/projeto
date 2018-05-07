@@ -6,13 +6,17 @@ public class ListRequestParam {
     private String user;
     private Boolean shareable;
 
+    public ListRequestParam(Boolean system, String user, Boolean shareable) {
+        this.system = system;
+        this.user = user;
+        this.shareable = shareable;
+    }
+
     public boolean isNull() {
         return system == null && user == null && shareable == null;
     }
 
     public boolean getSystem() {
-        if (system == null)
-            return false;
         return system;
     }
 
@@ -21,8 +25,6 @@ public class ListRequestParam {
     }
 
     public boolean getShareable() {
-        if (shareable == null)
-            return false;
         return shareable;
     }
 }
