@@ -26,7 +26,7 @@ import ps.leic.isel.pt.gis.uis.adapters.ListsAdapter
  * create an instance of this fragment.
  *
  */
-class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener, View.OnClickListener {
+class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
 
     private lateinit var lists: Array<ListDTO>
 
@@ -54,8 +54,12 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener, View.OnClick
         adapter.setOnItemClickListener(this)
 
         // Set new lists listener
-        view.createNewListBtn.setOnClickListener(this)
-        view.createNewListText.setOnClickListener(this)
+        view.createNewListBtn.setOnClickListener{
+            onNewListClick()
+        }
+        view.createNewListText.setOnClickListener{
+            onNewListClick()
+        }
 
         return view
     }
@@ -90,7 +94,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener, View.OnClick
     }
 
     // Listener for new list creation
-    override fun onClick(v: View?) {
+    fun onNewListClick() {
         //TODO: create new list
         Toast.makeText(view?.context,"New list creation", Toast.LENGTH_SHORT).show()
     }
