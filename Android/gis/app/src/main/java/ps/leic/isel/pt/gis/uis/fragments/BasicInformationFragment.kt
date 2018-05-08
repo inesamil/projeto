@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_basic_information.view.*
 
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.UserDTO
@@ -25,7 +26,7 @@ import ps.leic.isel.pt.gis.utils.ExtraUtils
 class BasicInformationFragment : Fragment() {
 
     private lateinit var username: String
-    //private lateinit var user: UserDTO
+    private lateinit var user: UserDTO
 
     private var listener: OnBasicInformationFragmentInteractionListener? = null
 
@@ -34,12 +35,22 @@ class BasicInformationFragment : Fragment() {
         arguments?.let {
             username = it.getString(ExtraUtils.USER_USERNAME)
         }
+        //TODO: get data
+        user = UserDTO("alice", "alice@example.com", 20, "Alice Smith")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_basic_information, container, false)
+        val view = inflater.inflate(R.layout.fragment_basic_information, container, false)
+
+        // Set info
+        view.fullnameText.text = user.userName
+        view.emailText.text = user.userEmail
+        view.usernameText.text = user.userUsername
+        view.ageText.text = user.userAge.toString()
+
+        return view
     }
 
     override fun onAttach(context: Context) {
