@@ -1,17 +1,19 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.content.res.ResourcesCompat
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ps.leic.isel.pt.gis.GisApplication
+import kotlinx.android.synthetic.main.fragment_houses.view.*
 
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.CharacteristicsDTO
 import ps.leic.isel.pt.gis.model.HouseDTO
+import ps.leic.isel.pt.gis.model.MemberDTO
+import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 
 /**
@@ -23,10 +25,10 @@ import ps.leic.isel.pt.gis.utils.ExtraUtils
  * create an instance of this fragment.
  *
  */
-class HousesFragment : Fragment() {
+class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
 
     private lateinit var username: String
-    //private lateinit var houses: Array<HouseDTO>
+    private lateinit var houses: Array<HouseDTO>
 
     private var listener: OnHousesFragmentInteractionListener? = null
 
@@ -36,12 +38,34 @@ class HousesFragment : Fragment() {
             username = it.getString(ExtraUtils.USER_USERNAME)
         }
         //TODO: get data
+        houses = arrayOf(
+                HouseDTO(1, "Smith", CharacteristicsDTO(0, 0, 2, 0),
+                        arrayOf(MemberDTO(1, "alice", true),
+                                MemberDTO(1, "bob", false)))
+        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_houses, container, false)
+        val view = inflater.inflate(R.layout.fragment_houses, container, false)
+
+        // Set Adapter
+        val adapter = HousesAdapter(houses)
+        view.housesRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.housesRecyclerView.setHasFixedSize(true)
+        view.housesRecyclerView.adapter = adapter
+        adapter.setOnItemClickListener(this)
+
+        // Set new house button listener
+        view.newHouseBtn.setOnClickListener{
+            val house: HouseDTO = HouseDTO(2, "Jones", CharacteristicsDTO(0, 0, 1, 0),
+                    arrayOf(MemberDTO(1, "alice", true)))
+            //TODO: get new House
+            listener?.onNewHouseInteraction(house)
+        }
+
+        return view
     }
 
     override fun onAttach(context: Context) {
@@ -62,6 +86,11 @@ class HousesFragment : Fragment() {
      * Listeners
      ***/
 
+    override fun onItemClick(view: View, position: Int) {
+        val house = houses[position]
+        listener?.onHouseInteraction(house)
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -70,6 +99,7 @@ class HousesFragment : Fragment() {
      */
     interface OnHousesFragmentInteractionListener {
         fun onHouseInteraction(house: HouseDTO)
+        fun onNewHouseInteraction(house: HouseDTO)
     }
 
     /**

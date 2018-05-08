@@ -7,23 +7,20 @@ data class HouseDTO(
         val houseId: Long,
         val name: String,
         val characteristics: CharacteristicsDTO,
-        val members: List<MemberDTO>,
-        val allergies: List<HouseAllergyDTO>
+        val members: Array<MemberDTO>
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
             parcel.readString(),
             parcel.readParcelable(CharacteristicsDTO::class.java.classLoader),
-            parcel.createTypedArrayList(MemberDTO),
-            parcel.createTypedArrayList(HouseAllergyDTO)) {
+            parcel.createTypedArray(MemberDTO)) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(houseId)
         parcel.writeString(name)
         parcel.writeParcelable(characteristics, flags)
-        parcel.writeTypedList(members)
-        parcel.writeTypedList(allergies)
+        parcel.writeTypedArray(members, flags)
     }
 
     override fun describeContents(): Int {

@@ -79,6 +79,11 @@ class HomeActivity : AppCompatActivity(),
         //TODO
     }
 
+    override fun onNewHouseInteraction(house: HouseDTO) {
+        Toast.makeText(this, "New house added", Toast.LENGTH_SHORT).show()
+        //TODO
+    }
+
     // Listener for BasicInformationFragment interaction
     override fun onBasicInformationUpdate(user: UserDTO) {
         //TODO
