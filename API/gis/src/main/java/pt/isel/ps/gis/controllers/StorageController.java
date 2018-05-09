@@ -3,14 +3,17 @@ package pt.isel.ps.gis.controllers;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.StorageService;
+import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
+import pt.isel.ps.gis.model.House;
+import pt.isel.ps.gis.model.Numrange;
 import pt.isel.ps.gis.model.Storage;
+import pt.isel.ps.gis.model.inputModel.StorageInputModel;
 import pt.isel.ps.gis.model.outputModel.StorageOutputModel;
 import pt.isel.ps.gis.model.outputModel.StoragesOutputModel;
 
@@ -25,13 +28,17 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 public class StorageController {
 
     private final StorageService storageService;
+    private final HouseService houseService;
 
-    public StorageController(StorageService storageService) {
+    public StorageController(StorageService storageService, HouseService houseService) {
         this.storageService = storageService;
+        this.houseService = houseService;
     }
 
     @GetMapping("")
-    public ResponseEntity<StoragesOutputModel> getStorages(@PathVariable("house-id") long houseId) throws EntityException {
+    public ResponseEntity<StoragesOutputModel> getStorages(
+            @PathVariable("house-id") long houseId
+    ) throws EntityException {
         List<Storage> storages = storageService.getStorageByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setCollectionContentType(headers),
@@ -41,10 +48,86 @@ public class StorageController {
     @GetMapping("/{storage-id}")
     public ResponseEntity<StorageOutputModel> getStorage(
             @PathVariable("house-id") long houseId,
-            @PathVariable("storage-id") short storageId) throws EntityException, NotFoundException {
+            @PathVariable("storage-id") short storageId
+    ) throws EntityException, NotFoundException {
         Optional<Storage> storageOptional = storageService.getStorageByStorageId(houseId, storageId);
         Storage storage = storageOptional.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StorageOutputModel(storage), setSirenContentType(headers), HttpStatus.OK);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<StoragesOutputModel> postStorage(
+            @PathVariable("house-id") long houseId,
+            @RequestBody StorageInputModel body
+    ) throws EntityException, BadRequestException {
+        checkHouse(houseId);
+        storageService.addStorage(new Storage(
+                houseId,
+                body.getName(),
+                new Numrange(body.getMinimumTemperature(), body.getMaximumTemperature())
+        ));
+        List<Storage> storages = storageService.getStorageByHouseId(houseId);
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setCollectionContentType(headers),
+                HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{storage-id}")
+    public ResponseEntity<StoragesOutputModel> putStorage(
+            @PathVariable("house-id") long houseId,
+            @PathVariable("storage-id") short storageId,
+            @RequestBody StorageInputModel body
+    ) throws EntityException, BadRequestException, EntityNotFoundException {
+        checkHouse(houseId);
+        Storage storage = checkStorage(houseId, storageId);
+        boolean toUpdate = false;
+        if (body.getName() != null && !storage.getStorageName().equals(body.getName())) {
+            storage.setStorageName(body.getName());
+            toUpdate = true;
+        }
+        if (body.getMinimumTemperature() != null && body.getMaximumTemperature() != null) {
+            Numrange storageTemperature = storage.getStorageTemperature();
+            if (!storageTemperature.getMinimum().equals(body.getMinimumTemperature())
+                    || storage.getStorageTemperature().getMaximum().equals(body.getMaximumTemperature())) {
+                Numrange numrange = new Numrange(body.getMinimumTemperature(), body.getMaximumTemperature());
+                storage.setStorageTemperature(numrange);
+                toUpdate = true;
+            }
+        }
+        if (toUpdate)
+            storageService.updateStorage(storage);
+        List<Storage> storages = storageService.getStorageByHouseId(houseId);
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setCollectionContentType(headers),
+                HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{storage-id}")
+    public ResponseEntity<StoragesOutputModel> deleteStorage(
+            @PathVariable("house-id") long houseId,
+            @PathVariable("storage-id") short storageId
+    ) throws EntityException, BadRequestException, EntityNotFoundException {
+        checkHouse(houseId);
+        checkStorage(houseId, storageId);
+        storageService.deleteStorageByStorageId(houseId, storageId);
+        List<Storage> storages = storageService.getStorageByHouseId(houseId);
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setCollectionContentType(headers),
+                HttpStatus.OK);
+    }
+
+    private House checkHouse(long houseId) throws EntityException, BadRequestException {
+        Optional<House> house = houseService.getHouseByHouseId(houseId);
+        if (!house.isPresent())
+            throw new BadRequestException("House does not exist.");
+        return house.get();
+    }
+
+    private Storage checkStorage(long houseId, short storageId) throws EntityException, BadRequestException {
+        Optional<Storage> storage = storageService.getStorageByStorageId(houseId, storageId);
+        if (!storage.isPresent())
+            throw new BadRequestException("Storage does not exist.");
+        return storage.get();
     }
 }
