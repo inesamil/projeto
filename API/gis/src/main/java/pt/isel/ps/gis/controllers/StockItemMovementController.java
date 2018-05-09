@@ -36,7 +36,6 @@ public class StockItemMovementController {
         if (params.isNull())
             movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId);
         else {
-            // TODO filter nao está a funcionar bem
             StockItemMovementService.MovementFilters filters = new StockItemMovementService.MovementFilters(
                     params.getType(),
                     params.getDatetime(),
