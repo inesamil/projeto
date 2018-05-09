@@ -33,6 +33,13 @@ class HousesAdapter(private val data: Array<HouseDTO>)
         holder.seniorsNumber.text = item.characteristics.seniorsNumber.toString()
         //Pass data to the Adapter
         holder.membersAdapter.setData(item.members)
+        // Set listeners
+        holder.storages.setOnClickListener {
+            mOnItemClickListener.onStoragesClick(item.houseId)
+        }
+        holder.allergies.setOnClickListener {
+            mOnItemClickListener.onAllergiesClick(item.houseId)
+        }
     }
 
     // Total number of cells
@@ -45,6 +52,8 @@ class HousesAdapter(private val data: Array<HouseDTO>)
         internal val childrenNumber: TextView = itemView.findViewById(R.id.childrenNumberText)
         internal val adultsNumber: TextView = itemView.findViewById(R.id.adultsNumberText)
         internal val seniorsNumber: TextView = itemView.findViewById(R.id.seniorsNumberText)
+        internal val storages: TextView = itemView.findViewById(R.id.storagesText)
+        internal val allergies: TextView = itemView.findViewById(R.id.allergiesText)
         internal val membersAdapter: MembersAdapter
 
         init {
@@ -55,13 +64,8 @@ class HousesAdapter(private val data: Array<HouseDTO>)
             membersRecyclerView.layoutManager = LinearLayoutManager(context)
             membersRecyclerView.setHasFixedSize(true)
             membersRecyclerView.adapter = membersAdapter
-
-            itemView.setOnClickListener{
-                mOnItemClickListener.onItemClick(itemView, adapterPosition)
-            }
         }
     }
-
 
     // Sets listener for items click
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -70,6 +74,7 @@ class HousesAdapter(private val data: Array<HouseDTO>)
 
     // Parent activity will implement this method to respond to click events
     interface OnItemClickListener {
-        fun onItemClick(view: View, position: Int)
+        fun onStoragesClick(houseId: Long)
+        fun onAllergiesClick(houseId: Long)
     }
 }

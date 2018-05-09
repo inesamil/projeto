@@ -1,5 +1,6 @@
 package ps.leic.isel.pt.gis.uis.activities
 
+import android.content.Context
 import android.content.Intent
 import android.nfc.NfcAdapter
 import android.nfc.Tag
@@ -75,8 +76,15 @@ class HomeActivity : AppCompatActivity(),
      */
 
     // Listener for HousesFragment interaction
-    override fun onHouseInteraction(house: HouseDTO) {
-        //TODO
+    override fun onStoragesInteraction(houseId: Long) {
+        val fragment = StoragesFragment.newInstance(houseId)
+        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.STORAGES)
+    }
+
+    override fun onAllergiesInteraction(houseId: Long) {
+        //TODO: get preferences, show allergies or not
+       val fragment = AllergiesFragment.newInstance(houseId, true)
+        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.ALLERGIES)
     }
 
     override fun onNewHouseInteraction(house: HouseDTO) {
@@ -170,10 +178,22 @@ class HomeActivity : AppCompatActivity(),
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.invitationsItem -> {
+                var fragment = supportFragmentManager.findFragmentByTag(ExtraUtils.INVITATIONS)
+                if (fragment == null){
+                    // Fragment not present in back stack. Instantiates new fragment.
+                    fragment = InvitationsFragment.newInstance(username = "alice")
+                    supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.INVITATIONS)
+                }
+                else {
+                    // Fragment is in the back stack
+                    supportFragmentManager.popBackStack(ExtraUtils.INVITATIONS, 0)
+                }
+                return true
+            }
+            R.id.preferencesItem -> {
                 replaceFragment(ExtraUtils.WRITE_NFC_TAG, WriteNfcTagFragment.Companion::newInstance)
                 return true
             }
-            R.id.preferencesItem -> return true
             R.id.aboutItem -> {
                 replaceFragment(ExtraUtils.ABOUT, AboutFragment.Companion::newInstance)
                 return true
@@ -196,10 +216,7 @@ class HomeActivity : AppCompatActivity(),
                 replaceFragment(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance)
             }
             R.id.nav_profile -> {
-                //val fragment = AllergiesFragment.newInstance(1, false)
-                //supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.ALLERGIES)
-
-                val fragment = ProfileFragment.newInstance("alice")
+                val fragment = ProfileFragment.newInstance("alice") //TODO
                 supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.PROFILE)
             }
             R.id.nav_settings -> {

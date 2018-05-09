@@ -1,8 +1,6 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.content.Context
-import android.content.res.Resources
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -47,7 +45,7 @@ class BasicInformationFragment : Fragment() {
         // Set info
         view.fullnameText.text = user.userName
         view.emailText.text = user.userEmail
-        view.usernameText.text = user.userUsername
+        view.requesterUserText.text = user.userUsername
         view.ageText.text = user.userAge.toString()
 
         return view

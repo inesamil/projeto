@@ -86,9 +86,12 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
      * Listeners
      ***/
 
-    override fun onItemClick(view: View, position: Int) {
-        val house = houses[position]
-        listener?.onHouseInteraction(house)
+    override fun onStoragesClick(houseId: Long) {
+        listener?.onStoragesInteraction(houseId)
+    }
+
+    override fun onAllergiesClick(houseId: Long) {
+        listener?.onAllergiesInteraction(houseId)
     }
 
     /**
@@ -98,7 +101,8 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
      * activity.
      */
     interface OnHousesFragmentInteractionListener {
-        fun onHouseInteraction(house: HouseDTO)
+        fun onStoragesInteraction(houseId: Long)
+        fun onAllergiesInteraction(houseId: Long)
         fun onNewHouseInteraction(house: HouseDTO)
     }
 

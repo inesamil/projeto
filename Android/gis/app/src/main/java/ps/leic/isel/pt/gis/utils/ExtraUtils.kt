@@ -23,5 +23,6 @@ object ExtraUtils {
     val WRITE_NFC_TAG: String = "WRITE-NFC-TAG"
     val USER_USERNAME: String = "USER-USERNAME"
     val PROFILE: String = "PROFILE"
-
+    val INVITATIONS: String = "INVITATIONS"
+    val STORAGES: String = "STORAGES"
 }

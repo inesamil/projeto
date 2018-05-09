@@ -37,13 +37,13 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:contentDescription="@string/home_icon_description"
                 app:layout_constraintBottom_toTopOf="@+id/HorizontalGuideline1"
                 app:layout_constraintDimensionRatio="w,1:1"
                 app:layout_constraintEnd_toStartOf="@+id/VerticalGuideline1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_home_round_inverse_hi_res_512"
-                android:contentDescription="@string/home_icon_description" />
+                app:srcCompat="@mipmap/ic_home_round_inverse_hi_res_512" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/HorizontalGuideline1"
@@ -79,6 +79,51 @@
                 app:layout_constraintGuide_begin="150dp" />
 
             <TextView
+                android:id="@+id/storagesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/storage"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/HorizontalGuideline3"
+                app:layout_constraintEnd_toStartOf="@+id/allergiesText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/HorizontalGuideline2" />
+
+            <TextView
+                android:id="@+id/allergiesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/allergies"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/HorizontalGuideline3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/storagesText"
+                app:layout_constraintTop_toTopOf="@+id/HorizontalGuideline2" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/HorizontalGuideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="200dp" />
+
+            <TextView
                 android:id="@+id/membersText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,15 +131,17 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/members"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/membersRecyclerView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.04"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/HorizontalGuideline2" />
+                app:layout_constraintTop_toTopOf="@+id/HorizontalGuideline3"
+                app:layout_constraintVertical_bias="1.0" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/membersRecyclerView"
