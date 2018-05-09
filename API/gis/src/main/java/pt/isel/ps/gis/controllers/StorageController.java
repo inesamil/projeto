@@ -10,7 +10,6 @@ import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
-import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.Numrange;
 import pt.isel.ps.gis.model.Storage;
 import pt.isel.ps.gis.model.inputModel.StorageInputModel;
@@ -81,7 +80,8 @@ public class StorageController {
             @RequestBody StorageInputModel body
     ) throws EntityException, BadRequestException, EntityNotFoundException {
         checkHouse(houseId);
-        Storage storage = checkStorage(houseId, storageId);
+        Storage storage = storageService.getStorageByStorageId(houseId, storageId)
+                .orElseThrow(() -> new BadRequestException("Storage does not exist."));
         boolean toUpdate = false;
         if (body.getName() != null && !storage.getStorageName().equals(body.getName())) {
             storage.setStorageName(body.getName());
@@ -119,15 +119,12 @@ public class StorageController {
     }
 
     private void checkHouse(long houseId) throws EntityException, BadRequestException {
-        Optional<House> house = houseService.getHouseByHouseId(houseId);
-        if (!house.isPresent())
+        if (!houseService.existsHouseByHouseId(houseId))
             throw new BadRequestException("House does not exist.");
     }
 
-    private Storage checkStorage(long houseId, short storageId) throws EntityException, BadRequestException {
-        Optional<Storage> storage = storageService.getStorageByStorageId(houseId, storageId);
-        if (!storage.isPresent())
+    private void checkStorage(long houseId, short storageId) throws EntityException, BadRequestException {
+        if (!storageService.existsStorageByStorageId(houseId, storageId))
             throw new BadRequestException("Storage does not exist.");
-        return storage.get();
     }
 }

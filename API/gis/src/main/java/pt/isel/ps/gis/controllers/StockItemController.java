@@ -108,8 +108,7 @@ public class StockItemController {
     }
 
     private void checkHouse(long houseId) throws EntityException, BadRequestException {
-        Optional<House> house = houseService.getHouseByHouseId(houseId);
-        if (!house.isPresent())
+        if (!houseService.existsHouseByHouseId(houseId))
             throw new BadRequestException("House does not exist.");
     }
 }
