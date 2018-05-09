@@ -252,16 +252,15 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: /v1/houses/{house-id}/users/{username}/lists/{list-id}
+     * URI Template: /v1/houses/{house-id}/lists/{list-id}
      *
      * @param houseId  The id of the house
-     * @param username The id of the user
      * @param listId   The id of the list
-     * @return URI to specific list of specific user of the house
+     * @return URI to specific list of the house
      */
-    public static String buildUserListUri(Long houseId, String username, Short listId) {
-        String uriTemplate = "%s/%s/%d/%s/%s/%s/%d";
-        return String.format(uriTemplate, VERSION, HOUSES, houseId, USERS, username, LISTS, listId);
+    public static String buildUserListUri(Long houseId, Short listId) {
+        String uriTemplate = "%s/%s/%d/%s/%d";
+        return String.format(uriTemplate, VERSION, HOUSES, houseId, LISTS, listId);
     }
 
     /**

@@ -27,7 +27,7 @@ public class UriBuilderUtilsTest {
             STORAGES = "/v1/houses/1/storages",
             STORAGE = "/v1/houses/1/storages/1",
             HOUSEHOLD = "/v1/houses/1/users",
-            USER_LIST = "/v1/houses/1/users/test/lists/1",
+            USER_LIST = "/v1/houses/1/lists/1",
             USER = "/v1/users/test",
             USER_HOUSES = "/v1/users/test/houses";
 
@@ -138,7 +138,7 @@ public class UriBuilderUtilsTest {
 
     @Test
     public void test_build_user_list_uri() {
-        assertEquals(USER_LIST, UriBuilderUtils.buildUserListUri(1L, "test", (short) 1));
+        assertEquals(USER_LIST, UriBuilderUtils.buildUserListUri(1L, (short) 1));
     }
 
     @Test

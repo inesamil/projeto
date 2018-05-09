@@ -75,13 +75,12 @@ public class ListOutputModel {
 
         Long houseId = list.getId().getHouseId();
         Short listId = list.getId().getListId();
-        String username = list.getUserlist().getUsersUsername();
 
         // Type
         String type = "application/x-www-form-urlencoded";
 
         // URIs
-        String userListUri = UriBuilderUtils.buildUserListUri(houseId, username, listId);
+        String userListUri = UriBuilderUtils.buildUserListUri(houseId, listId);
 
         // PUT List
         Action putList = new Action(
