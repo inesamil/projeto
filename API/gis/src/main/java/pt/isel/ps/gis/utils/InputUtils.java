@@ -1,6 +1,5 @@
 package pt.isel.ps.gis.utils;
 
-// TODO better name
 public class InputUtils {
 
     /**
