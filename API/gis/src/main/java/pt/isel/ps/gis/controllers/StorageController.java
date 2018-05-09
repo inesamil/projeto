@@ -49,7 +49,8 @@ public class StorageController {
     public ResponseEntity<StorageOutputModel> getStorage(
             @PathVariable("house-id") long houseId,
             @PathVariable("storage-id") short storageId
-    ) throws EntityException, NotFoundException {
+    ) throws EntityException, NotFoundException, BadRequestException {
+        checkHouse(houseId);
         Optional<Storage> storageOptional = storageService.getStorageByStorageId(houseId, storageId);
         Storage storage = storageOptional.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
@@ -117,11 +118,10 @@ public class StorageController {
                 HttpStatus.OK);
     }
 
-    private House checkHouse(long houseId) throws EntityException, BadRequestException {
+    private void checkHouse(long houseId) throws EntityException, BadRequestException {
         Optional<House> house = houseService.getHouseByHouseId(houseId);
         if (!house.isPresent())
             throw new BadRequestException("House does not exist.");
-        return house.get();
     }
 
     private Storage checkStorage(long houseId, short storageId) throws EntityException, BadRequestException {
