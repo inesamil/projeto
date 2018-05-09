@@ -60,9 +60,8 @@ public class AllergyController {
             @RequestBody AllergyInputModel body
     ) throws BadRequestException, EntityException, EntityNotFoundException {
         checkHouse(houseId);
-        checkAllergen(houseId, allergen);
         if (body.getAllergicsNum() == null)
-            throw new BadRequestException("You must specify the body correctly");
+            throw new BadRequestException("You must specify the body correctly.");
         HouseAllergy houseAllergy = new HouseAllergy(houseId, allergen, body.getAllergicsNum());
         if (isToUpdateAllergen(houseId, allergen))
             houseAllergyService.updateHouseAllergy(houseAllergy);
