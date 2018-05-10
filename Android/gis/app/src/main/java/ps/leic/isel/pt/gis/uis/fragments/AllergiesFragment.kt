@@ -101,6 +101,8 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
     }
 
     companion object {
+        val houseIdArg: String = "houseid"
+        val showAllergiesArg: String = "showallergies"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -110,11 +112,11 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
          * @return A new instance of fragment AllergiesFragment.
          */
         @JvmStatic
-        fun newInstance(houseId: Long, showAllergies: Boolean) =
+        fun newInstance(args: Map<String, Any>) =
                 AllergiesFragment().apply {
                     arguments = Bundle().apply {
-                        putLong(ExtraUtils.HOUSE_ID, houseId)
-                        putBoolean(ExtraUtils.SHOW_ALLERGIES, showAllergies)
+                        putLong(ExtraUtils.HOUSE_ID, args[houseIdArg] as Long)
+                        putBoolean(ExtraUtils.SHOW_ALLERGIES, args[showAllergiesArg] as Boolean)
                     }
                 }
     }

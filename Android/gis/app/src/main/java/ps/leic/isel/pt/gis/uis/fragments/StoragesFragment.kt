@@ -62,6 +62,7 @@ class StoragesFragment : Fragment() {
      * StoragesFragment Factory
      */
     companion object {
+        val houseIdArg: String = "houseid"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -70,10 +71,10 @@ class StoragesFragment : Fragment() {
          * @return A new instance of fragment StoragesFragment.
          */
         @JvmStatic
-        fun newInstance(houseId: Long) =
+        fun newInstance(args: Map<String, Any>) =
                 StoragesFragment().apply {
                     arguments = Bundle().apply {
-                        putLong(ExtraUtils.HOUSE_ID, houseId)
+                        putLong(ExtraUtils.HOUSE_ID, args[houseIdArg] as Long)
                     }
                 }
     }

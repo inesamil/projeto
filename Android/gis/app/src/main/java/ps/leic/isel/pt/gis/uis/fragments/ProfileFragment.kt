@@ -2,6 +2,8 @@ package ps.leic.isel.pt.gis.uis.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
+import android.provider.ContactsContract
 import android.support.v4.app.Fragment
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
@@ -27,11 +29,13 @@ import ps.leic.isel.pt.gis.utils.ExtraUtils
 class ProfileFragment : Fragment() {
 
     private lateinit var username: String
+    private lateinit var page: PageTabsAdapter.ProfilePage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             username = it.getString(ExtraUtils.USER_USERNAME)
+            page = PageTabsAdapter.ProfilePage.values()[it.getInt(ExtraUtils.PROFILE_PAGE)]
         }
     }
 
@@ -43,6 +47,7 @@ class ProfileFragment : Fragment() {
         // Set Adapter
         val adapter = PageTabsAdapter(username, childFragmentManager)
         view.viewPager.adapter = adapter
+        view.viewPager.currentItem = page.ordinal
 
         // Set TabLayout
         view.tabLayout.setupWithViewPager(view.viewPager)
@@ -59,18 +64,22 @@ class ProfileFragment : Fragment() {
      * ProfileFragment Factory
      */
     companion object {
+
+        val usernameArg: String = "username"
+        val pageArg: String = "page"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param username Username
+         * @param args Arguments
          * @return A new instance of fragment ProfileFragment.
          */
         @JvmStatic
-        fun newInstance(username: String) =
+        fun newInstance(args: Map<String, Any>) =
                 ProfileFragment().apply {
                     arguments = Bundle().apply {
-                       putString(ExtraUtils.USER_USERNAME, username)
+                        putString(ExtraUtils.USER_USERNAME, args[usernameArg] as String)
+                        putInt(ExtraUtils.PROFILE_PAGE, (args[pageArg] as PageTabsAdapter.ProfilePage).ordinal)
                     }
                 }
     }

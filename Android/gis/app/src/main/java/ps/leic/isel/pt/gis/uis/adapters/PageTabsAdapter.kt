@@ -1,6 +1,7 @@
 package ps.leic.isel.pt.gis.uis.adapters
 
 import android.content.res.Resources
+import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
@@ -10,12 +11,18 @@ import ps.leic.isel.pt.gis.uis.fragments.HousesFragment
 
 class PageTabsAdapter(private val username: String, private val fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
 
-    private val NUM_PAGES: Int = 2
+    enum class ProfilePage()
+    {
+        BasicInfo,
+        Houses
+    }
+
+    private val NUM_PAGES: Int = ProfilePage.values().size
 
     override fun getItem(position: Int): Fragment? {
         return when(position){
-            0 -> BasicInformationFragment.newInstance(username)
-            1 -> HousesFragment.newInstance(username)
+            ProfilePage.BasicInfo.ordinal -> BasicInformationFragment.newInstance(username)
+            ProfilePage.Houses.ordinal -> HousesFragment.newInstance(username)
             else -> null
         }
     }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/pantryCardView"
+        android:id="@+id/myPantryCardView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -14,7 +14,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         app:cardBackgroundColor="@color/primaryColorOpacity200"
         app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
 
             <TextView
                 android:id="@+id/myPantryText"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
@@ -57,7 +57,7 @@
         app:layout_constraintGuide_percent="0.4" />
 
     <android.support.v7.widget.CardView
-        android:id="@+id/housesCardView"
+        android:id="@+id/myHousesCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -163,7 +163,7 @@
         android:id="@+id/myListsCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"

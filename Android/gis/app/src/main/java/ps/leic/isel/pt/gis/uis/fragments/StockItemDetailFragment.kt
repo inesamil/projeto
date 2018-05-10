@@ -120,18 +120,20 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
      * StockItemDetailFragment Factory
      */
     companion object {
+        val stockItemArg: String = "stockitem"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param stockItem Stock Item
+         * @param args Arguments
          * @return A new instance of fragment StockItemDetailFragment.
          */
         @JvmStatic
-        fun newInstance(stockItem: StockItemDTO) =
+        fun newInstance(args: Map<String, Any>) =
                 StockItemDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable(ExtraUtils.STOCK_ITEM, stockItem)
+                        putParcelable(ExtraUtils.STOCK_ITEM, args[stockItemArg] as StockItemDTO)
                     }
                 }
     }

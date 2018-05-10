@@ -45,7 +45,7 @@ class InvitationsAdapter(private val data: Array<InvitationDTO>)
     override fun getItemCount() = data.size
 
     private fun removeItem(position: Int) {
-        data.toMutableList().removeAt(position)
+        data.toMutableList().removeAt(position)//TODO: remove item
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, data.size)
     }

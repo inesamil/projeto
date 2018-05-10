@@ -100,6 +100,8 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
      * ListDetailFragment Factory
      */
     companion object {
+
+        val listArg: String = "list"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -108,10 +110,10 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
          * @return A new instance of fragment ListDetailFragment.
          */
         @JvmStatic
-        fun newInstance(list: ListDTO) =
+        fun newInstance(args: Map<String, Any>) =
                 ListDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable(ExtraUtils.LIST, list)
+                        putParcelable(ExtraUtils.LIST, args[listArg] as ListDTO)
                     }
                 }
     }

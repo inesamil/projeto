@@ -113,6 +113,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      * CategoryProductsFragment Factory
      */
     companion object {
+        val categoryArg: String = "category"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -122,10 +123,10 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
          */
 
         @JvmStatic
-        fun newInstance(category: CategoryDTO) =
+        fun newInstance(args: Map<String, Any>) =
                 CategoryProductsFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable(ExtraUtils.CATEGORY, category)
+                        putParcelable(ExtraUtils.CATEGORY, args[categoryArg] as CategoryDTO)
                     }
                 }
     }

@@ -48,6 +48,7 @@ class ProductDetailFragment : Fragment() {
      * ProductDetailFragment Factory
      */
     companion object {
+        val productArg: String = "product"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -56,10 +57,10 @@ class ProductDetailFragment : Fragment() {
          * @return A new instance of fragment ProductDetailFragment.
          */
         @JvmStatic
-        fun newInstance(product: ProductDTO) =
+        fun newInstance(args: Map<String, Any>) =
                 ProductDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable(ExtraUtils.PRODUCT, product)
+                        putParcelable(ExtraUtils.PRODUCT, args[productArg] as ProductDTO)
                     }
                 }
     }

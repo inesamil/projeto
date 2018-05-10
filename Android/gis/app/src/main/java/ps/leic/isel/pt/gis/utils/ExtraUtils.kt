@@ -25,4 +25,7 @@ object ExtraUtils {
     val PROFILE: String = "PROFILE"
     val INVITATIONS: String = "INVITATIONS"
     val STORAGES: String = "STORAGES"
+    val STOCK_ITEM_LIST: String = "STOCK-ITEM-LIST"
+    val PROFILE_PAGE: String = "PROFILE-PAGE"
+    val HOME_PAGE: String = "HOME-PAGE"
 }

@@ -24,6 +24,7 @@ import ps.leic.isel.pt.gis.utils.ExtraUtils
  */
 class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListener {
 
+    private lateinit var username: String
     private var houseId: Long = 0
     private lateinit var stockItems: Array<StockItemDTO>
 
@@ -32,7 +33,8 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            houseId = it.getLong(ExtraUtils.HOUSE_ID)
+            username = it.getString(ExtraUtils.USER_USERNAME)
+            houseId = 1//TODO
         }
         //TODO: Get data
         //if (houseId != 0)
@@ -54,6 +56,11 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         view.stockItemListRecyclerView.setHasFixedSize(true)
         view.stockItemListRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
+
+        // Set listener for add stock item
+        view.addStockItemBtn.setOnClickListener{
+            listener?.onNewStockItemIteraction()
+        }
 
         return view
     }
@@ -94,24 +101,26 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
      */
     interface OnStockItemListFragmentInteractionListener {
         fun onStockItemInteraction(stockItem: StockItemDTO)
+        fun onNewStockItemIteraction()
     }
 
     /**
      * StcokItemListFragment Factory
      */
     companion object {
+        val usernameArg: String = "username"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param houseId House ID
+         * @param args Arguments
          * @return A new instance of fragment StockItemListFragment.
          */
         @JvmStatic
-        fun newInstance(houseId: Long) =
+        fun newInstance(args: Map<String, Any>) =
                 StockItemListFragment().apply {
                     arguments = Bundle().apply {
-                        putLong(ExtraUtils.HOUSE_ID, houseId)
+                        putString(ExtraUtils.USER_USERNAME, args[usernameArg] as String)
                     }
                 }
     }

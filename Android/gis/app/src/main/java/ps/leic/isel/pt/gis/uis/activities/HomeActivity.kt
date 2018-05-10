@@ -1,25 +1,17 @@
 package ps.leic.isel.pt.gis.uis.activities
 
-import android.content.Context
 import android.content.Intent
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
-import android.os.Parcelable
-import android.provider.ContactsContract
 import android.support.design.widget.NavigationView
-import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
-import android.support.v4.view.PagerAdapter
-import android.support.v7.app.ActionBar
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.fragment_write_nfc_tag.*
-import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.*
@@ -31,6 +23,7 @@ import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
 class HomeActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
         SettingsFragment.OnSettingsFragmentInteractionListener,
+        HomePageFragment.OnHomeFragmentInteractionListener,
         HousesFragment.OnHousesFragmentInteractionListener,
         BasicInformationFragment.OnBasicInformationFragmentInteractionListener,
         CategoriesFragment.OnCategoriesFragmentInteractionListener,
@@ -74,17 +67,43 @@ class HomeActivity : AppCompatActivity(),
     /**
      * Fragment Listeners
      */
+    // Listener for HomePageFragment
+    override fun onMyPantryInteraction() {
+        val args: Map<String, Any> = mutableMapOf(
+                Pair(StockItemListFragment.usernameArg, "alice")    //TODO
+        )
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM_LIST, StockItemListFragment.Companion::newInstance, args)
+    }
+
+    // Listener for HomePageFragment
+    override fun onMyHousesInteraction() {
+        //TODO
+    }
+
+    // Listener for HomePageFragment
+    override fun onMyProfileInteraction() {
+        //TODO
+    }
+
+    // Listener for HomePageFragment
+    override fun onMyListsInteraction() {
+        //TODO
+    }
 
     // Listener for HousesFragment interaction
     override fun onStoragesInteraction(houseId: Long) {
-        val fragment = StoragesFragment.newInstance(houseId)
-        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.STORAGES)
+        val args: Map<String, Any> = mutableMapOf(
+                Pair(StoragesFragment.houseIdArg, houseId)
+        )
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STORAGES, StoragesFragment.Companion::newInstance, args)
     }
 
     override fun onAllergiesInteraction(houseId: Long) {
-        //TODO: get preferences, show allergies or not
-       val fragment = AllergiesFragment.newInstance(houseId, true)
-        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.ALLERGIES)
+        val args: Map<String, Any> = mutableMapOf(
+                Pair(AllergiesFragment.houseIdArg, houseId),
+                Pair(AllergiesFragment.showAllergiesArg, true) //TODO: get preferences, show allergies or not
+        )
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.ALLERGIES, AllergiesFragment.Companion::newInstance, args)
     }
 
     override fun onNewHouseInteraction(house: HouseDTO) {
@@ -99,20 +118,26 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for CategoriesFragement interaction
     override fun onCategoryInteraction(category: CategoryDTO) {
-        val fragment = CategoryProductsFragment.newInstance(category)
-        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.PRODUCTS)
+        val args: Map<String, Any> = mutableMapOf(
+                Pair(CategoryProductsFragment.categoryArg, category)
+        )
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCTS, CategoryProductsFragment.Companion::newInstance, args)
     }
 
     // Listener for CategoryProductsFragement interaction
     override fun onProductInteraction(product: ProductDTO) {
-        val fragment = ProductDetailFragment.newInstance(product)
-        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.PRODUCT)
+        val args: Map<String, Any> = mutableMapOf(
+                Pair(ProductDetailFragment.productArg, product)
+        )
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCT, ProductDetailFragment.Companion::newInstance, args)
     }
 
     // Listener for ListsFragment interaction
     override fun onListInteraction(list: ListDTO) {
-        val fragment = ListDetailFragment.newInstance(list)
-        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.LIST)
+        val args: Map<String, Any> = mutableMapOf(
+                Pair(ListDetailFragment.listArg, list)
+        )
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LIST, ListDetailFragment.Companion::newInstance, args)
     }
 
     // Listener for ListDetailFragment interaction
@@ -123,8 +148,15 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for StockItemListFragment interaction
     override fun onStockItemInteraction(stockItem: StockItemDTO) {
-        val fragment = StockItemDetailFragment.newInstance(stockItem)
-        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.STOCK_ITEM)
+        val args: Map<String, Any> = mutableMapOf(
+                Pair(StockItemDetailFragment.stockItemArg, stockItem)
+        )
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM, StockItemDetailFragment.Companion::newInstance, args)
+    }
+
+    // Listener for StockItemListFragment interaction
+    override fun onNewStockItemIteraction() {
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.WRITE_NFC_TAG, WriteNfcTagFragment.Companion::newInstance)
     }
 
     override fun onStorageInteraction(storage: StorageDTO) {
@@ -134,8 +166,10 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for WriteNfcTagFragment
     override fun onWriteNfcTagInteraction(tagContent: String) {
-        val fragment = WritingNfcTagFragment.newInstance(tagContent)
-        supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.NFC_MESSAGE)
+        val args: Map<String, Any> = mutableMapOf(
+                Pair(WritingNfcTagFragment.messageArg, tagContent)
+        )
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.NFC_MESSAGE, WritingNfcTagFragment.Companion::newInstance, args)
     }
 
     // Listener for new intents (NFC tag intents)
@@ -178,24 +212,18 @@ class HomeActivity : AppCompatActivity(),
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.invitationsItem -> {
-                var fragment = supportFragmentManager.findFragmentByTag(ExtraUtils.INVITATIONS)
-                if (fragment == null){
-                    // Fragment not present in back stack. Instantiates new fragment.
-                    fragment = InvitationsFragment.newInstance(username = "alice")
-                    supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.INVITATIONS)
-                }
-                else {
-                    // Fragment is in the back stack
-                    supportFragmentManager.popBackStack(ExtraUtils.INVITATIONS, 0)
-                }
+                val args: Map<String, Any> = mutableMapOf(
+                        Pair(InvitationsFragment.usernameArg, "alice") //TODO
+                )
+                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.INVITATIONS, InvitationsFragment.Companion::newInstance, args)
                 return true
             }
             R.id.preferencesItem -> {
-                replaceFragment(ExtraUtils.WRITE_NFC_TAG, WriteNfcTagFragment.Companion::newInstance)
+                //TODO
                 return true
             }
             R.id.aboutItem -> {
-                replaceFragment(ExtraUtils.ABOUT, AboutFragment.Companion::newInstance)
+                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.ABOUT, AboutFragment.Companion::newInstance)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -206,39 +234,27 @@ class HomeActivity : AppCompatActivity(),
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_homePage -> {
-                val fragment = StockItemListFragment.newInstance(1)
-                supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.STOCK_ITEM)
+                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.HOME_PAGE, HomePageFragment.Companion::newInstance)
             }
             R.id.nav_lists -> {
-                replaceFragment(ExtraUtils.LISTS, ListsFragment.Companion::newInstance)
+                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance)
             }
             R.id.nav_products -> {
-                replaceFragment(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance)
+                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance)
             }
             R.id.nav_profile -> {
-                val fragment = ProfileFragment.newInstance("alice") //TODO
-                supportFragmentManager.replaceCurrentFragmentWith(fragment, ExtraUtils.PROFILE)
+                val args: Map<String, Any> = mutableMapOf(
+                        Pair(ProfileFragment.usernameArg, "alice"), //TODO
+                        Pair(ProfileFragment.pageArg, PageTabsAdapter.ProfilePage.BasicInfo)
+                )
+                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PROFILE, ProfileFragment.Companion::newInstance, args)
             }
             R.id.nav_settings -> {
-                replaceFragment(ExtraUtils.SETTINGS, SettingsFragment.Companion::newInstance)
+                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.SETTINGS, SettingsFragment.Companion::newInstance)
             }
         }
         homeDrawerLayout.closeDrawer(GravityCompat.START)
         return true
-    }
-
-
-    private fun replaceFragment(tag: String, newInstance: () -> Fragment) {
-        var fragment = supportFragmentManager.findFragmentByTag(tag)
-        if (fragment == null){
-            // Fragment not present in back stack. Instantiates new fragment.
-            fragment = newInstance()
-            supportFragmentManager.replaceCurrentFragmentWith(fragment, tag)
-        }
-        else {
-            // Fragment is in the back stack
-            supportFragmentManager.popBackStack(tag, 0)
-        }
     }
 }
 
