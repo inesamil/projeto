@@ -21,6 +21,22 @@ public interface ListService {
     boolean existsListByListId(long houseId, short listId) throws EntityException;
 
     /**
+     * Verifica se uma dada lista é uma lista de sistema
+     *
+     * @param list lista a verificar
+     * @return true se a lista for de sistema, false caso contrário
+     */
+    boolean isSystemListType(List list);
+
+    /**
+     * Verifica se uma dada lista é uma lista de utilizador
+     *
+     * @param list lista a verificar
+     * @return true se a lista for de utilizador, false caso contrário
+     */
+    boolean isUserListType(List list);
+
+    /**
      * Obter uma lista através do seu ID
      *
      * @param houseId identificador da casa

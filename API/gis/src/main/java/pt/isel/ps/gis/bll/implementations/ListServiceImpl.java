@@ -8,6 +8,7 @@ import pt.isel.ps.gis.dal.repositories.UserListRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.*;
+import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.Optional;
@@ -28,6 +29,16 @@ public class ListServiceImpl implements ListService {
     @Override
     public boolean existsListByListId(long houseId, short listId) throws EntityException {
         return listRepository.existsById(new ListId(houseId, listId));
+    }
+
+    @Override
+    public boolean isSystemListType(List list) {
+        return list.getListType().equals(RestrictionsUtils.LIST_TYPE.system.name());
+    }
+
+    @Override
+    public boolean isUserListType(List list) {
+        return list.getListType().equals(RestrictionsUtils.LIST_TYPE.user.name());
     }
 
     @Override

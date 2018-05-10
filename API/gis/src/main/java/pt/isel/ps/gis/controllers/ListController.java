@@ -127,8 +127,7 @@ public class ListController {
         checkHouse(houseId);
         List list = listService.getListByListId(houseId, listId)
                 .orElseThrow(() -> new BadRequestException("List does not exist."));
-        // TODO meter este if no serviço
-        if (list.getListType().equals("system"))
+        if (listService.isSystemListType(list))// TODO meter este if no serviço // Inês: Está bom ?
             throw new BadRequestException("Invalid list.");
         boolean toUpdate = false;
         if (body.getName() != null && !list.getListName().equals(body.getName())) {
