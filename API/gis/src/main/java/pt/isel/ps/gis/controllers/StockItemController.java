@@ -63,7 +63,6 @@ public class StockItemController {
     public ResponseEntity<StockItemOutputModel> getStockItem(
             @PathVariable("house-id") long houseId,
             @PathVariable("stock-item-id") String sku) throws EntityException, NotFoundException, BadRequestException {
-        checkHouse(houseId);
         Optional<StockItem> stockItemOptional = stockItemService.getStockItemByStockItemId(houseId, sku);
         StockItem stockItem = stockItemOptional.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
@@ -74,7 +73,6 @@ public class StockItemController {
     public ResponseEntity<AllergiesStockItemOutputModel> getAllergiesFromStockItem(
             @PathVariable("house-id") long houseId,
             @PathVariable("stock-item-id") String sku) throws BadRequestException, EntityException {
-        checkHouse(houseId);
         checkStockItem(houseId, sku);
         // TODO falta metodo no servico
         return null;

@@ -50,7 +50,6 @@ public class StorageController {
             @PathVariable("house-id") long houseId,
             @PathVariable("storage-id") short storageId
     ) throws EntityException, NotFoundException, BadRequestException {
-        checkHouse(houseId);
         Optional<Storage> storageOptional = storageService.getStorageByStorageId(houseId, storageId);
         Storage storage = storageOptional.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
