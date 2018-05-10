@@ -53,7 +53,6 @@ public class ListsOutputModel {
     }
 
     private Item[] mapItems(long houseId, java.util.List<List> lists) {
-        // TODO check this
         int listsSize = lists.size();
         Item[] items = new Item[listsSize];
         for (int i = 0; i < listsSize; i++) {
@@ -61,7 +60,7 @@ public class ListsOutputModel {
             short listId = list.getId().getListId();
             if (list.getListType().equals("system")) {
                 items[i] = new Item(
-                        null,
+                        null,   // TODO check this
                         new Data[]{
                                 new Data("house-id", houseId, "House ID"),
                                 new Data("list-id", listId, "List ID"),

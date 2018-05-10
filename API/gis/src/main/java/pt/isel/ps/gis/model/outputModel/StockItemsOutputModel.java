@@ -85,7 +85,7 @@ public class StockItemsOutputModel {
                             new Data("stock-item-variety", stockItem.getStockitemVariety(), "Variety")
                     },
                     new Link[]{
-                            // TODO verificar se o nome da relacao está bom.
+                            // TODO verificar se o nome da relacao está bom. //Inês: Poderia ser antes allergens, e no URI também mas não é dramático
                             new Link("allergies-stock-item", UriBuilderUtils.buildAllergiesStockItemUri(houseId, sku))
                     }
             );

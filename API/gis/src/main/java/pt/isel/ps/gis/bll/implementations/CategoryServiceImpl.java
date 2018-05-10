@@ -21,6 +21,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public boolean existsCategoryByCategoryId(int categoryId) throws EntityException {
+        ValidationsUtils.validateCategoryId(categoryId);
+        return categoryRepository.existsById(categoryId);
+    }
+
+    @Override
     public List<Category> getCategories() {
         ArrayList<Category> categories = new ArrayList<>();
         categoryRepository.findAll().forEach(categories::add);

@@ -57,7 +57,11 @@ public class ProductController {
     }
 
     private void checkCategory(int categoryId) {
-        // TODO exists category no servico
-        // if (!categoryService.exists)
+        try {
+            if (!categoryService.existsCategoryByCategoryId(categoryId));
+                //TODO do something
+        } catch (EntityException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -9,6 +9,15 @@ import java.util.Optional;
 public interface CategoryService {
 
     /**
+     * Verifica se uma dada categoria existe através do seu ID
+     *
+     * @param categoryId identificador da categoria
+     * @return true se a categoria existir, false caso contrário
+     * @throws EntityException se os parâmetros recebidos forem inválidos
+     */
+    boolean existsCategoryByCategoryId(int categoryId) throws EntityException;
+
+    /**
      * Listar todas as categorias
      *
      * @return List<Category>
