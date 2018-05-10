@@ -7,8 +7,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.fragment_stock_item_list.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.CharacteristicsDTO
+import ps.leic.isel.pt.gis.model.HouseDTO
+import ps.leic.isel.pt.gis.model.MemberDTO
 import ps.leic.isel.pt.gis.model.StockItemDTO
 import ps.leic.isel.pt.gis.uis.adapters.StockItemListAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
@@ -22,11 +27,15 @@ import ps.leic.isel.pt.gis.utils.ExtraUtils
  * create an instance of this fragment.
  *
  */
-class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListener {
+class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     private lateinit var username: String
-    private var houseId: Long = 0
+    private lateinit var houses: Array<HouseDTO>
     private lateinit var stockItems: Array<StockItemDTO>
+
+    private val first = 0
+
+    private lateinit var stockItemListAdapter: StockItemListAdapter
 
     private var listener: OnStockItemListFragmentInteractionListener? = null
 
@@ -34,10 +43,16 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         super.onCreate(savedInstanceState)
         arguments?.let {
             username = it.getString(ExtraUtils.USER_USERNAME)
-            houseId = 1//TODO
         }
         //TODO: Get data
-        //if (houseId != 0)
+        houses = arrayOf(
+                HouseDTO(1, "Smith", CharacteristicsDTO(0, 0, 2, 0),
+                        arrayOf(MemberDTO(1, "alice", true),
+                                MemberDTO(1, "bob", false))),
+                HouseDTO(2, "Jones", CharacteristicsDTO(0, 1, 2, 0),
+                        arrayOf(MemberDTO(2, "carol", true),
+                                MemberDTO(2, "david", true))))
+        // TODO: get stock item list for the first house
         stockItems = arrayOf(
                 StockItemDTO(1, "C1-P1-Mimosa-UHT Magro-1L", 1, 1, "Leite", "Mimosa", "1L", "UHT Magro", 2, "Leite Magro - Bem Essencial", "Frigorífico"),
                 StockItemDTO(1, "C1-P1-Mimosa-UHT Meio Gordo-1L", 1, 1, "Leite", "Mimosa", "1L", "UHT Meio Gordo", 1, "Leite Meio Gordo - Bem Essencial", "Frigorífico"),
@@ -50,12 +65,18 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         // Inflate the layout for this fragment
         val view: View =  inflater.inflate(R.layout.fragment_stock_item_list, container, false)
 
+        // Set spinner options
+        val spinnerAdapter = ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_item, houses.map { house -> house.name })
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        view.housesSpinner.adapter = spinnerAdapter
+        view.housesSpinner.setSelection(first)
+
         // Set Adapter
-        val adapter = StockItemListAdapter(stockItems)
+        stockItemListAdapter = StockItemListAdapter(stockItems)
         view.stockItemListRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.stockItemListRecyclerView.setHasFixedSize(true)
-        view.stockItemListRecyclerView.adapter = adapter
-        adapter.setOnItemClickListener(this)
+        view.stockItemListRecyclerView.adapter = stockItemListAdapter
+        stockItemListAdapter.setOnItemClickListener(this)
 
         // Set listener for add stock item
         view.addStockItemBtn.setOnClickListener{
@@ -91,6 +112,21 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     override fun onItemClick(view: View, position: Int) {
         val stockItem: StockItemDTO = stockItems[position]
         listener?.onStockItemInteraction(stockItem)
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        // Nothing to do here
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        parent?.let {
+            if (it.housesSpinner.selectedItem != position){
+                val houseId = houses[position].houseId
+                //TODO: get data
+                stockItemListAdapter.setData(stockItems)
+                stockItemListAdapter.notifyDataSetChanged()
+            }
+        }
     }
 
     /**

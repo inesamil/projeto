@@ -10,7 +10,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.StockItemDTO
 
-class StockItemListAdapter(private val data: Array<StockItemDTO>)
+class StockItemListAdapter(private var data: Array<StockItemDTO>)
     : RecyclerView.Adapter<StockItemListAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
@@ -34,6 +34,12 @@ class StockItemListAdapter(private val data: Array<StockItemDTO>)
 
     // Total number of cells
     override fun getItemCount() = data.size
+
+    // Set adapter data
+    fun setData(data: Array<StockItemDTO>) {
+        this.data = data
+    }
+
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {

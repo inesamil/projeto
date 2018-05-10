@@ -9,7 +9,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.InvitationDTO
 
-class InvitationsAdapter(private val data: Array<InvitationDTO>)
+class InvitationsAdapter(private val data: MutableList<InvitationDTO>)
     : RecyclerView.Adapter<InvitationsAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
@@ -45,7 +45,7 @@ class InvitationsAdapter(private val data: Array<InvitationDTO>)
     override fun getItemCount() = data.size
 
     private fun removeItem(position: Int) {
-        data.toMutableList().removeAt(position)//TODO: remove item
+        data.removeAt(position)//TODO: remove item
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, data.size)
     }

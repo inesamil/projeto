@@ -48,8 +48,8 @@ class HomeActivity : AppCompatActivity(),
 
         // Init
         supportFragmentManager.beginTransaction()
-                            .replace(R.id.content, CategoriesFragment.newInstance(), ExtraUtils.CATEGORIES)
-                            .addToBackStack(ExtraUtils.CATEGORIES)
+                            .replace(R.id.content, HomePageFragment.newInstance(), ExtraUtils.HOME_PAGE)
+                            .addToBackStack(ExtraUtils.HOME_PAGE)
                             .commit()
     }
 
@@ -69,7 +69,7 @@ class HomeActivity : AppCompatActivity(),
      */
     // Listener for HomePageFragment
     override fun onMyPantryInteraction() {
-        val args: Map<String, Any> = mutableMapOf(
+        val args: Map<String, Any> = mapOf(
                 Pair(StockItemListFragment.usernameArg, "alice")    //TODO
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM_LIST, StockItemListFragment.Companion::newInstance, args)
@@ -77,29 +77,37 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for HomePageFragment
     override fun onMyHousesInteraction() {
-        //TODO
+        val args: Map<String, Any> = mapOf(
+                Pair(ProfileFragment.usernameArg, "alice"), //TODO
+                Pair(ProfileFragment.pageArg, PageTabsAdapter.ProfilePage.Houses)
+        )
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.USER_USERNAME, ProfileFragment.Companion::newInstance, args)
     }
 
     // Listener for HomePageFragment
     override fun onMyProfileInteraction() {
-        //TODO
+        val args: Map<String, Any> = mapOf(
+                Pair(ProfileFragment.usernameArg, "alice"), //TODO
+                Pair(ProfileFragment.pageArg, PageTabsAdapter.ProfilePage.BasicInfo)
+        )
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.USER_USERNAME, ProfileFragment.Companion::newInstance, args)
     }
 
     // Listener for HomePageFragment
     override fun onMyListsInteraction() {
-        //TODO
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance)
     }
 
     // Listener for HousesFragment interaction
     override fun onStoragesInteraction(houseId: Long) {
-        val args: Map<String, Any> = mutableMapOf(
+        val args: Map<String, Any> = mapOf(
                 Pair(StoragesFragment.houseIdArg, houseId)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STORAGES, StoragesFragment.Companion::newInstance, args)
     }
 
     override fun onAllergiesInteraction(houseId: Long) {
-        val args: Map<String, Any> = mutableMapOf(
+        val args: Map<String, Any> = mapOf(
                 Pair(AllergiesFragment.houseIdArg, houseId),
                 Pair(AllergiesFragment.showAllergiesArg, true) //TODO: get preferences, show allergies or not
         )
@@ -118,7 +126,7 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for CategoriesFragement interaction
     override fun onCategoryInteraction(category: CategoryDTO) {
-        val args: Map<String, Any> = mutableMapOf(
+        val args: Map<String, Any> = mapOf(
                 Pair(CategoryProductsFragment.categoryArg, category)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCTS, CategoryProductsFragment.Companion::newInstance, args)
@@ -126,7 +134,7 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for CategoryProductsFragement interaction
     override fun onProductInteraction(product: ProductDTO) {
-        val args: Map<String, Any> = mutableMapOf(
+        val args: Map<String, Any> = mapOf(
                 Pair(ProductDetailFragment.productArg, product)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCT, ProductDetailFragment.Companion::newInstance, args)
@@ -134,7 +142,7 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for ListsFragment interaction
     override fun onListInteraction(list: ListDTO) {
-        val args: Map<String, Any> = mutableMapOf(
+        val args: Map<String, Any> = mapOf(
                 Pair(ListDetailFragment.listArg, list)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LIST, ListDetailFragment.Companion::newInstance, args)
@@ -148,7 +156,7 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for StockItemListFragment interaction
     override fun onStockItemInteraction(stockItem: StockItemDTO) {
-        val args: Map<String, Any> = mutableMapOf(
+        val args: Map<String, Any> = mapOf(
                 Pair(StockItemDetailFragment.stockItemArg, stockItem)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM, StockItemDetailFragment.Companion::newInstance, args)
@@ -166,7 +174,7 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for WriteNfcTagFragment
     override fun onWriteNfcTagInteraction(tagContent: String) {
-        val args: Map<String, Any> = mutableMapOf(
+        val args: Map<String, Any> = mapOf(
                 Pair(WritingNfcTagFragment.messageArg, tagContent)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.NFC_MESSAGE, WritingNfcTagFragment.Companion::newInstance, args)
@@ -212,7 +220,7 @@ class HomeActivity : AppCompatActivity(),
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.invitationsItem -> {
-                val args: Map<String, Any> = mutableMapOf(
+                val args: Map<String, Any> = mapOf(
                         Pair(InvitationsFragment.usernameArg, "alice") //TODO
                 )
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.INVITATIONS, InvitationsFragment.Companion::newInstance, args)
@@ -243,7 +251,7 @@ class HomeActivity : AppCompatActivity(),
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance)
             }
             R.id.nav_profile -> {
-                val args: Map<String, Any> = mutableMapOf(
+                val args: Map<String, Any> = mapOf(
                         Pair(ProfileFragment.usernameArg, "alice"), //TODO
                         Pair(ProfileFragment.pageArg, PageTabsAdapter.ProfilePage.BasicInfo)
                 )

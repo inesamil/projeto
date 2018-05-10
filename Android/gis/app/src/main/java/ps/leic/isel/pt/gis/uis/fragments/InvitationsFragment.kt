@@ -48,7 +48,7 @@ class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
         }
 
         // Set Adapter
-        val adapter = InvitationsAdapter(invitations)
+        val adapter = InvitationsAdapter(invitations.toMutableList())
         view.invitationsRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.invitationsRecyclerView.setHasFixedSize(true)
         view.invitationsRecyclerView.adapter = adapter

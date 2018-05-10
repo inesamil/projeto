@@ -34,7 +34,7 @@
         android:background="@drawable/orange_circle"
         android:text="@string/plus"
         android:textColor="@color/cardview_light_background"
-        android:textSize="18sp"
+        android:textSize="36sp"
         android:textStyle="bold"
         android:theme="@style/OrangeTheme.Button"
         app:layout_constraintBottom_toBottomOf="parent"
