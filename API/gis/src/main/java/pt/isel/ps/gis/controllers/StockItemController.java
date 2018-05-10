@@ -5,10 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.HouseService;
+import pt.isel.ps.gis.bll.StockItemAllergenService;
 import pt.isel.ps.gis.bll.StockItemService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
+import pt.isel.ps.gis.model.Allergy;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.inputModel.StockItemInputModel;
 import pt.isel.ps.gis.model.outputModel.AllergiesStockItemOutputModel;
@@ -29,10 +31,13 @@ public class StockItemController {
 
     private final StockItemService stockItemService;
     private final HouseService houseService;
+    private final StockItemAllergenService stockItemAllergenService;
 
-    public StockItemController(StockItemService stockItemService, HouseService houseService) {
+    public StockItemController(StockItemService stockItemService, HouseService houseService,
+                               StockItemAllergenService stockItemAllergenService) {
         this.stockItemService = stockItemService;
         this.houseService = houseService;
+        this.stockItemAllergenService = stockItemAllergenService;
     }
 
     @GetMapping("")
@@ -74,8 +79,10 @@ public class StockItemController {
             @PathVariable("house-id") long houseId,
             @PathVariable("stock-item-id") String sku) throws BadRequestException, EntityException {
         checkStockItem(houseId, sku);
-        // TODO falta metodo no servico
-        return null;
+        List<Allergy> allergens = stockItemAllergenService.getAllergensByStockItemId(houseId, sku);
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new AllergiesStockItemOutputModel(houseId, sku, allergens),
+                setCollectionContentType(headers), HttpStatus.OK);
     }
 
     @PostMapping("")
