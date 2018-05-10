@@ -36,7 +36,10 @@ public class AllergyController {
     }
 
     @GetMapping("")
-    public ResponseEntity<HouseAllergiesOutputModel> getHouseAllergies(@PathVariable("house-id") long houseId) throws EntityException {
+    public ResponseEntity<HouseAllergiesOutputModel> getHouseAllergies(
+            @PathVariable("house-id") long houseId
+    ) throws EntityException, BadRequestException {
+        checkHouse(houseId);
         List<HouseAllergy> allergies = houseAllergyService.getAllergiesByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setCollectionContentType(headers),
@@ -46,7 +49,9 @@ public class AllergyController {
     @GetMapping("/{allergen}/items")
     public ResponseEntity<StockItemsAllergenOutputModel> getStockItemsAllergen(
             @PathVariable("house-id") long houseId,
-            @PathVariable("allergen") String allergen) throws EntityException {
+            @PathVariable("allergen") String allergen
+    ) throws EntityException, BadRequestException {
+        checkAllergen(houseId, allergen);
         List<StockItem> stockItemsAllergen = stockItemAllergenService.getStockItemsByHouseIdAndAllergenId(houseId, allergen);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemsAllergenOutputModel(houseId, allergen, stockItemsAllergen),

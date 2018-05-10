@@ -4,6 +4,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pt.isel.ps.gis.bll.CategoryService;
 import pt.isel.ps.gis.bll.ProductService;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
@@ -22,9 +23,11 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 public class ProductController {
 
     private final ProductService productService;
+    private final CategoryService categoryService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("")
@@ -32,6 +35,7 @@ public class ProductController {
             @PathVariable("category-id") int categoryId,
             @RequestParam(value = "name", required = false) String name
     ) throws EntityException {
+        checkCategory(categoryId);
         List<Product> products;
         if (name == null)
             products = productService.getProductsByCategoryId(categoryId);
@@ -50,5 +54,10 @@ public class ProductController {
         Product product = productOptional.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ProductOutputModel(product), setSirenContentType(headers), HttpStatus.OK);
+    }
+
+    private void checkCategory(int categoryId) {
+        // TODO exists category no servico
+        // if (!categoryService.exists)
     }
 }

@@ -73,7 +73,6 @@ public class ListController {
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId
     ) throws EntityException, NotFoundException, BadRequestException {
-        checkHouse(houseId);
         Optional<List> listOptional = listService.getListByListId(houseId, listId);
         List list = listOptional.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
@@ -85,7 +84,6 @@ public class ListController {
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId
     ) throws EntityException, BadRequestException {
-        checkHouse(houseId);
         checkList(houseId, listId);
         java.util.List<ListProduct> listProducts = listProductService.getListProductsByListId(houseId, listId);
         HttpHeaders headers = new HttpHeaders();

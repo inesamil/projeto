@@ -58,8 +58,6 @@ public class UserController {
     @PutMapping("")
     public ResponseEntity<UserOutputModel> putUser(
             @PathVariable("username") String username,
-            // TODO change request header
-            @RequestHeader(value = "authorization", required = false) String authorization,
             @RequestBody UserInputModel body
     ) throws EntityException, EntityNotFoundException {
         Users user = new Users(body.getUsername(), body.getEmail(), body.getAge(), body.getName(), body.getPassword());

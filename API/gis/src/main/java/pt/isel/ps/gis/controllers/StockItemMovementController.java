@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.StockItemMovementService;
+import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.outputModel.MovementsOutputModel;
@@ -22,16 +24,19 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
 public class StockItemMovementController {
 
     private final StockItemMovementService stockItemMovementService;
+    private final HouseService houseService;
 
-    public StockItemMovementController(StockItemMovementService stockItemMovementService) {
+    public StockItemMovementController(StockItemMovementService stockItemMovementService, HouseService houseService) {
         this.stockItemMovementService = stockItemMovementService;
+        this.houseService = houseService;
     }
 
     @GetMapping("")
     public ResponseEntity<MovementsOutputModel> getMovements(
             @PathVariable("house-id") long houseId,
             StockItemMovementRequestParam params
-    ) throws EntityException {
+    ) throws EntityException, BadRequestException {
+        checkHouse(houseId);
         List<StockItemMovement> movements;
         if (params.isNull())
             movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId);
@@ -47,5 +52,10 @@ public class StockItemMovementController {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new MovementsOutputModel(houseId, movements), setCollectionContentType(headers),
                 HttpStatus.OK);
+    }
+
+    private void checkHouse(long houseId) throws EntityException, BadRequestException {
+        if (!houseService.existsHouseByHouseId(houseId))
+            throw new BadRequestException("House does not exist.");
     }
 }

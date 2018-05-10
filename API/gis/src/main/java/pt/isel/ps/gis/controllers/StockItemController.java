@@ -9,7 +9,6 @@ import pt.isel.ps.gis.bll.StockItemService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
-import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.inputModel.StockItemInputModel;
 import pt.isel.ps.gis.model.outputModel.AllergiesStockItemOutputModel;
@@ -76,6 +75,7 @@ public class StockItemController {
             @PathVariable("house-id") long houseId,
             @PathVariable("stock-item-id") String sku) throws BadRequestException, EntityException {
         checkHouse(houseId);
+        checkStockItem(houseId, sku);
         // TODO falta metodo no servico
         return null;
     }
@@ -110,5 +110,10 @@ public class StockItemController {
     private void checkHouse(long houseId) throws EntityException, BadRequestException {
         if (!houseService.existsHouseByHouseId(houseId))
             throw new BadRequestException("House does not exist.");
+    }
+
+    private void checkStockItem(long houseId, String sku) throws EntityException, BadRequestException {
+        if (!stockItemService.existsStockItemByStockItemId(houseId, sku))
+            throw new BadRequestException("Stock Item does not exist.");
     }
 }

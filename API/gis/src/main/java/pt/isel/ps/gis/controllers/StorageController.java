@@ -37,7 +37,8 @@ public class StorageController {
     @GetMapping("")
     public ResponseEntity<StoragesOutputModel> getStorages(
             @PathVariable("house-id") long houseId
-    ) throws EntityException {
+    ) throws EntityException, BadRequestException {
+        checkHouse(houseId);
         List<Storage> storages = storageService.getStorageByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setCollectionContentType(headers),
