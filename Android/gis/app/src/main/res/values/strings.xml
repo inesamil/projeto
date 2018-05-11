@@ -5,7 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- Login Activity -->
-    <string name="login">LOGIN</string>
+    <string name="login">Login</string>
     <string name="sing_in">SIGN IN</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -34,9 +34,9 @@
     <string name="adults">Adults (15\-64 years)</string>
     <string name="seniors">Seniors (65\+ years)</string>
     <string name="start">Let\'s Get Started</string>
-    <string name="default_number">0</string>
-    <string name="plus">+</string>
-    <string name="minus">-</string>
+    <string name="default_number" translatable="false">0</string>
+    <string name="plus" translatable="false">+</string>
+    <string name="minus" translatable="false">-</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Product Category Activity -->
@@ -69,7 +69,7 @@
     </string-array>
 
     <!-- nav_bar_menu.xml -->
-    <string name="homePage">HOME PAGE</string>
+    <string name="homePage">Home Page</string>
     <string name="lists">Lists</string>
     <string name="products">Products</string>
     <string name="recipes">Recipes</string>
@@ -148,7 +148,6 @@
     <string name="allergies">Allergies</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="write_nfc_tag">Write to an NFC tag</string>
     <string name="user_icon_description">User Icon</string>
     <string name="download_icon_description">Download Icon</string>
@@ -159,4 +158,9 @@
     <string name="invitation_question_1">Can I join to</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="list_name">List Name</string>
+    <string name="shareable_list">Shareable</string>
+    <string name="private_list">Private</string>
 </resources>

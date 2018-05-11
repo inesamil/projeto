@@ -95,8 +95,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
 
     // Listener for new list creation
     fun onNewListClick() {
-        //TODO: create new list
-        Toast.makeText(view?.context,"New list creation", Toast.LENGTH_SHORT).show()
+        listener?.onNewListInteraction()
     }
 
     /**
@@ -107,6 +106,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
      */
     interface OnListsFragmentInteractionListener {
         fun onListInteraction(list: ListDTO)
+        fun onNewListInteraction()
     }
 
     /**

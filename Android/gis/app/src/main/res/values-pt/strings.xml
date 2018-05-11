@@ -40,7 +40,7 @@
         <item>PICANTES</item>
     </string-array>
     <!--Product Diary Activity-->
-    <string name="diary">Diário</string>
+    <string name="diary">Laticínios</string>
     <!-- content_product_diary_item.xml -->
     <string-array name="products_diaries">
         <item>LEITE</item>
@@ -48,7 +48,6 @@
         <item>QUEIJO</item>
     </string-array>
     <!-- nav_bar_menu.xml -->
-    <string name="homePage">PÁGINA PRINCIPAL</string>
     <string name="lists">Listas</string>
     <string name="products">Produtos</string>
     <string name="recipes">Receitas</string>
@@ -97,9 +96,6 @@
     <string name="adults">Adultos (15\-64 anos)</string>
     <string name="seniors">Seniores (65\+ anos)</string>
     <string name="start">Vamos Começar</string>
-    <string name="default_number">0</string>
-    <string name="plus">+</string>
-    <string name="minus">-</string>
     <!-- Activity Lists -->
     <string name="create_new_list">Criar nova lista</string>
     <!-- Allergies -->
@@ -128,4 +124,11 @@
     <string name="houses">Casas</string>
     <string name="my_pantry">Minha Despensa</string>
     <string name="admin">admin</string>
+    <string name="accept">Aceitar</string>
+    <string name="decline">Recusar</string>
+    <string name="homePage">Página Principal</string>
+    <string name="add">Adicionar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="private_list">Privada</string>
+    <string name="shareable_list">Partilhar</string>
 </resources>

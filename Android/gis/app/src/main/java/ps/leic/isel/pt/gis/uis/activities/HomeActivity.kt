@@ -148,6 +148,12 @@ class HomeActivity : AppCompatActivity(),
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LIST, ListDetailFragment.Companion::newInstance, args)
     }
 
+    // Listener for ListsFragment interaction
+    override fun onNewListInteraction() {
+        val fragment = NewListDialogFragment.newInstance()
+        fragment.show(supportFragmentManager, ExtraUtils.NEW_LIST_DIALOG)
+    }
+
     // Listener for ListDetailFragment interaction
     override fun onListProductInteraction(listProductDTO: ListProductDTO) {
         //TODO: expand

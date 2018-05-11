@@ -28,4 +28,5 @@ object ExtraUtils {
     val STOCK_ITEM_LIST: String = "STOCK-ITEM-LIST"
     val PROFILE_PAGE: String = "PROFILE-PAGE"
     val HOME_PAGE: String = "HOME-PAGE"
+    val NEW_LIST_DIALOG: String = "NEW-LIST"
 }
