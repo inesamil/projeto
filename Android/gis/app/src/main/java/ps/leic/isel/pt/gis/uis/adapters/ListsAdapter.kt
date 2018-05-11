@@ -34,7 +34,7 @@ class ListsAdapter(private val data: Array<ListDTO>) :
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        internal val listNameText: TextView = view.findViewById(R.id.listNameText)
+        internal val listNameText: TextView = view.findViewById(R.id.listNameEditText)
         internal val itemsText: TextView = view.findViewById(R.id.totalItemsText)
 
         init {

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.HouseDTO
@@ -52,8 +53,8 @@ class HousesAdapter(private val data: Array<HouseDTO>)
         internal val childrenNumber: TextView = itemView.findViewById(R.id.childrenNumberText)
         internal val adultsNumber: TextView = itemView.findViewById(R.id.adultsNumberText)
         internal val seniorsNumber: TextView = itemView.findViewById(R.id.seniorsNumberText)
-        internal val storages: TextView = itemView.findViewById(R.id.storagesText)
-        internal val allergies: TextView = itemView.findViewById(R.id.allergiesText)
+        internal val storages: Button = itemView.findViewById(R.id.storageBtn)
+        internal val allergies: Button = itemView.findViewById(R.id.allergiesBtn)
         internal val membersAdapter: MembersAdapter
 
         init {

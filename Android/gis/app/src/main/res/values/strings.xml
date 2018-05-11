@@ -119,12 +119,12 @@
     <!-- content_stock_item_details.xml -->
     <string name="allergens">Allergens</string>
     <string name="expirationDate">Expiration Date</string>
-    <string name="storage">Storage</string>
+    <string name="storages">Storages</string>
     <string name="description">Description</string>
     <string name="movements">Movements</string>
 
     <!-- Activity Lists -->
-    <string name="create_new_list">Create new list</string>
+    <string name="add_new_list">Add new list</string>
 
     <!-- Allergies -->
     <string name="allergics_question">Are there members with allergies in the house ?</string>
@@ -150,6 +150,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="write_nfc_tag">Write to an NFC tag</string>
     <string name="user_icon_description">User Icon</string>
+    <string name="list_icon_description">List Icon</string>
     <string name="download_icon_description">Download Icon</string>
     <string name="houses">Houses</string>
     <string name="my_pantry">My Pantry</string>
@@ -161,6 +162,14 @@
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
     <string name="list_name">List Name</string>
-    <string name="shareable_list">Shareable</string>
+    <string name="shareable_list">Public</string>
     <string name="private_list">Private</string>
+    <string name="secret_list">Secret list</string>
+    <string name="add_new_house">Add new house</string>
+    <string name="characteristics">Characteristics</string>
+    <string name="brand">Brand</string>
+    <string name="variety">Variety</string>
+    <string name="conservation_storage">Conservation Storage</string>
+    <string name="date">Date</string>
+    <string name="item">Item</string>
 </resources>

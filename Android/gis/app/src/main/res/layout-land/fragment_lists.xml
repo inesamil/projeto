@@ -17,7 +17,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif"
-        android:text="@string/create_new_list"
+        android:text="@string/add_new_list"
         android:textAlignment="center"
         android:textColor="@color/primaryColor"
         android:textSize="18sp"

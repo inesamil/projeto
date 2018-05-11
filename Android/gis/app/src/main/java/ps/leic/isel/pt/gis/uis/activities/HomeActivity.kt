@@ -115,8 +115,8 @@ class HomeActivity : AppCompatActivity(),
     }
 
     override fun onNewHouseInteraction(house: HouseDTO) {
-        Toast.makeText(this, "New house added", Toast.LENGTH_SHORT).show()
-        //TODO
+        val fragment = NewHouseDialogFragment.newInstance()
+        fragment.show(supportFragmentManager, ExtraUtils.NEW_HOUSE_DIALOG)
     }
 
     // Listener for BasicInformationFragment interaction

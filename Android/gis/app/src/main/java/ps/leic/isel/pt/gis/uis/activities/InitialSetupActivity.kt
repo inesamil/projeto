@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_initial_setup.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.utils.EditTextUtils
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.RestrictionsUtils
 
 class InitialSetupActivity : AppCompatActivity() {
 
@@ -17,6 +19,63 @@ class InitialSetupActivity : AppCompatActivity() {
 
         houseName = intent.getStringExtra(ExtraUtils.HOUSE_NAME)
 
+        // Set Plus buttons listener
+        babiesPlusBtn.setOnClickListener {
+            EditTextUtils.incNumberText(
+                    babiesNumEditText,
+                    RestrictionsUtils.characteristicsMinValue,
+                    RestrictionsUtils.characteristicsMaxValue)
+        }
+
+        childrenPlusBtn.setOnClickListener {
+            EditTextUtils.incNumberText(
+                    childrenNumEditText,
+                    RestrictionsUtils.characteristicsMinValue,
+                    RestrictionsUtils.characteristicsMaxValue)
+        }
+
+        adultsPlusBtn.setOnClickListener {
+            EditTextUtils.incNumberText(
+                    adultsNumEditText,
+                    RestrictionsUtils.characteristicsMinValue,
+                    RestrictionsUtils.characteristicsMaxValue)
+        }
+
+        seniorsPlusBtn.setOnClickListener {
+            EditTextUtils.incNumberText(
+                    seniorNumEditText,
+                    RestrictionsUtils.characteristicsMinValue,
+                    RestrictionsUtils.characteristicsMaxValue)
+        }
+
+        // Set Minus buttons listener
+        babiesMinusBtn.setOnClickListener {
+            EditTextUtils.decNumberText(
+                    babiesNumEditText,
+                    RestrictionsUtils.characteristicsMinValue,
+                    RestrictionsUtils.characteristicsMaxValue)
+        }
+        childrenMinusBtn.setOnClickListener {
+            EditTextUtils.decNumberText(
+                    childrenNumEditText,
+                    RestrictionsUtils.characteristicsMinValue,
+                    RestrictionsUtils.characteristicsMaxValue)
+        }
+
+        adultsMinusBtn.setOnClickListener {
+            EditTextUtils.decNumberText(
+                    adultsNumEditText,
+                    RestrictionsUtils.characteristicsMinValue,
+                    RestrictionsUtils.characteristicsMaxValue)
+        }
+
+        seniorsMinusBtn.setOnClickListener {
+            EditTextUtils.decNumberText(
+                    seniorNumEditText,
+                    RestrictionsUtils.characteristicsMinValue,
+                    RestrictionsUtils.characteristicsMaxValue)
+        }
+        // Set start button listener
         startBtn.setOnClickListener {
             //TODO: addHouse()
             //TODO: addMember()

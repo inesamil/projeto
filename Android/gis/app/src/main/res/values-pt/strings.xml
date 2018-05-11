@@ -86,7 +86,7 @@
     <!-- content_stock_item_details.xml -->
     <string name="allergens">Alergénios</string>
     <string name="expirationDate">Data de validade</string>
-    <string name="storage">Armazenamento</string>
+    <string name="storages">Armazenamento</string>
     <string name="description">Descrição</string>
     <string name="movements">Movimentos</string>
     <!-- Initial Setup - Family Members -->
@@ -97,7 +97,7 @@
     <string name="seniors">Seniores (65\+ anos)</string>
     <string name="start">Vamos Começar</string>
     <!-- Activity Lists -->
-    <string name="create_new_list">Criar nova lista</string>
+    <string name="add_new_list">Adicionar nova lista</string>
     <!-- Allergies -->
     <string name="allergics_question">Existem membros com alergias em casa ?</string>
     <string name="yes">Sim</string>
@@ -130,5 +130,6 @@
     <string name="add">Adicionar</string>
     <string name="cancel">Cancelar</string>
     <string name="private_list">Privada</string>
-    <string name="shareable_list">Partilhar</string>
+    <string name="shareable_list">Pública</string>
+    <string name="secret_list">Lista secreta</string>
 </resources>

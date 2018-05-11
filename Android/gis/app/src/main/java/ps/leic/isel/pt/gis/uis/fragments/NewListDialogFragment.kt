@@ -7,11 +7,6 @@ import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import ps.leic.isel.pt.gis.R
 
-
-
-
-
-
 class NewListDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
