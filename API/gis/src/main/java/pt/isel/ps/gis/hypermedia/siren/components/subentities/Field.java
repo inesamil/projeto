@@ -26,11 +26,13 @@ public class Field {
     private String name;
     private Type type;
     private Object value;
+    public String title;
 
-    public Field(String name, Type type, Object value) {
+    public Field(String name, Type type, Object value, String title) {
         this.name = name;
         this.type = type;
         this.value = value;
+        this.title = title;
     }
 
     public String getName() {
