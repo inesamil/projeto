@@ -16,22 +16,21 @@
     }
 </style>
 
-<table>
-    <caption>{{title}}</caption>
-    {{#each houses}}
-    <tr>
-        <td>
-            <div class="container">
-                <div>
-                    <span class='glyphicon glyphicon-home' style='font-size:100px; display:inline-block'></span>
-                    <h4  style='font-size:30px; display:inline-block'> {{houseName}}</h4>
-                </div>
-                <h6>Members</h6> 
-                {{#each members}}
+{{#each houses}}
+    <div class="card">
+        <div style='text-align: center'>
+            <h4  style='font-size:30px;'> {{houseName}}</h4>    
+            <span class='glyphicon glyphicon-home' style='font-size:100px; color:#ff9800'></span>
+        </div>
+        <div class="container">
+            <h4 align="left">Members:</h4> 
+        </div>
+        <div style='text-align: center'>
+            {{#each members}}
                 <p>{{member}}</p>
-                {{/each}}
-            </div>
-        </td>
-    </tr>
-    {{/each}}
-</table>
+            {{/each}}
+            <br>
+        </div>
+    </div>
+{{/each}}
+
