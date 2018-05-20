@@ -4,18 +4,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.util.HashMap;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"class", "rel", "href"})
+@JsonPropertyOrder({"class", "rel", "properties", "href"})
 public class Entity {
-
     @JsonProperty(value = "class")
-    private String[] klass;
-    private String[] rel;
-    private String href;
+    public String[] klass;
+    public String[] rel;
+    public HashMap<String, Object> properties;
+    public String href;
 
-    public Entity(String[] klass, String[] rel, String href) {
+    public Entity(String[] klass, String[] rel, HashMap<String, Object> properties, String href) {
         this.klass = klass;
         this.rel = rel;
+        this.properties = properties;
         this.href = href;
     }
 
