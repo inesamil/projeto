@@ -3,9 +3,7 @@ package pt.isel.ps.gis.model.outputModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import pt.isel.ps.gis.hypermedia.siren.components.subentities.Action;
-import pt.isel.ps.gis.hypermedia.siren.components.subentities.Entity;
-import pt.isel.ps.gis.hypermedia.siren.components.subentities.Link;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
 import pt.isel.ps.gis.model.Category;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
@@ -51,22 +49,32 @@ public class CategoryOutputModel {
     }
 
     private Entity[] initEntities(Category category) {
-        int categoryId = category.getCategoryId();
-
-        // URIs
-        String productsCategoryUri = UriBuilderUtils.buildProductsCategoryUri(categoryId);
+        //URI
         String categoriesUri = UriBuilderUtils.buildCategoriesUri();
 
-        // Subentities
-        Entity productsCategory = new Entity(new String[]{"products-category", "collection"},
-                new String[]{"products-category"}, productsCategoryUri);
-        Entity categories = new Entity(new String[]{"categories", "collection"}, new String[]{"categories"}, categoriesUri);
-
-        return new Entity[]{productsCategory, categories};
+        // categories
+        Entity categories = new Entity(new String[]{"categories", "collection"}, new String[]{"categories"}, null, categoriesUri);
+        return new Entity[]{categories};
     }
 
     private Action[] initActions(Category category) {
-        return new Action[]{};
+        // Type
+        String type = "application/json";
+
+        //URIs
+        String categoryUri = UriBuilderUtils.buildCategoryUri(category.getCategoryId());
+
+        // DELETE allergies
+        Action deleteCategory = new Action(
+                "delete-category",
+                "Delete Category",
+                Method.DELETE,
+                categoryUri,
+                null,
+                null
+        );
+
+        return new Action[]{deleteCategory};
     }
 
     private Link[] initLinks(Category category) {
@@ -74,10 +82,14 @@ public class CategoryOutputModel {
 
         // URIs
         String categoryUri = UriBuilderUtils.buildCategoryUri(categoryId);
+        String productsCategoryUri = UriBuilderUtils.buildProductsCategoryUri(categoryId);
 
         // Link-self
-        Link self = new Link(new String[]{"self"}, categoryUri);
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS},categoryUri);
 
-        return new Link[]{self};
+        // Link-related-productsCategory
+        Link productsCategoryLink = new Link(new String[]{"related"}, new String[]{"products-category", "collection"}, productsCategoryUri);
+
+        return new Link[]{self, productsCategoryLink};
     }
 }
