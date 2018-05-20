@@ -67,20 +67,20 @@ SELECT * FROM public."house";
 INSERT INTO public."category" VALUES (1, 'Lacticínios'), (2, 'Fruta');
 INSERT INTO public."product" VALUES  (1, 1, 'Leite de Vaca', true, 3, 'day'), (2, 1, 'Maçã', true, 2, 'month'), (2, 2, 'Laranja', true, 2, 'month');
 
-INSERT INTO public."storage" VALUES (1, 1, 'Storage 1', numrange(0.0, 5.0));
+INSERT INTO public."storage" VALUES (1, 1, 'Storage 1', numrange(0.0, 5.0, '[]'));
 
-INSERT INTO public."stockitem" VALUES (1, 'SKU 1', 1, 1, 'Mimosa', 1, 'UHT Magro', 1, 'l', 'Leite Magro da Mimosa é do melhor que há!', 'Conservar em local fresco após abertura.'),
-	(1, 'SKU 2', 2, 1, 'Fruta Del Monte', 1, 'Golden', 5, 'units', 'Maçãs Del Monte.', 'Conservar em local seco.');
+INSERT INTO public."stockitem" VALUES (1, 'SKU_1', 1, 1, 'Mimosa', 1, 'UHT Magro', 1, 'l', 'Leite Magro da Mimosa é do melhor que há!', 'Conservar em local fresco após abertura.'),
+	(1, 'SKU_2', 2, 1, 'Fruta Del Monte', 1, 'Golden', 5, 'units', 'Maçãs Del Monte.', 'Conservar em local seco.');
 
-INSERT INTO public."stockitemstorage" VALUES (1, 'SKU 1', 1, 1), (1, 'SKU 2', 1, 3);
+INSERT INTO public."stockitemstorage" VALUES (1, 'SKU_1', 1, 1), (1, 'SKU_2', 1, 3);
 
-INSERT INTO public."stockitemmovement" VALUES (1, 'SKU 1', 1, true, '2018-04-18 08:02:31', 1), (1, 'SKU 2', 1, true, '2018-04-18 19:05:06', 3);
+INSERT INTO public."stockitemmovement" VALUES (1, 'SKU_1', 1, true, '2018-04-18 08:02:31', 1), (1, 'SKU_2', 1, true, '2018-04-18 19:05:06', 3);
 
 INSERT INTO public."allergy" VALUES ('lactose');
-INSERT INTO public."stockitemallergy" VALUES (1, 'SKU 1', 'lactose');
+INSERT INTO public."stockitemallergy" VALUES (1, 'SKU_1', 'lactose');
 
 INSERT INTO public."date" VALUES ('2018-05-28');
-INSERT INTO public."expirationdate" VALUES (1, 'SKU 1', '2018-05-28', 1);
+INSERT INTO public."expirationdate" VALUES (1, 'SKU_1', '2018-05-28', 1);
 
 SELECT * FROM public."stockitem";
 
@@ -107,13 +107,13 @@ INSERT INTO public."product" VALUES  (1, 1, 'Leite de Vaca', true, 3, 'day'), (2
 
 INSERT INTO public."storage" VALUES (1, 1, 'Storage 1', numrange(0.0, 5.0));
 
-INSERT INTO public."stockitem" VALUES (1, 'SKU 1', 1, 1, 'Mimosa', 1, 'UHT Magro', 1, 'l', 'Leite Magro da Mimosa é do melhor que há!', 'Conservar em local fresco após abertura.'),
-	(1, 'SKU 2', 2, 1, 'Fruta Del Monte', 1, 'Golden', 5, 'units', 'Maçãs Del Monte.', 'Conservar em local seco.');
+INSERT INTO public."stockitem" VALUES (1, 'SKU_1', 1, 1, 'Mimosa', 1, 'UHT Magro', 1, 'l', 'Leite Magro da Mimosa é do melhor que há!', 'Conservar em local fresco após abertura.'),
+	(1, 'SKU_2', 2, 1, 'Fruta Del Monte', 1, 'Golden', 5, 'units', 'Maçãs Del Monte.', 'Conservar em local seco.');
 
-INSERT INTO public."stockitemstorage" VALUES (1, 'SKU 1', 1, 1), (1, 'SKU 2', 1, 3);
+INSERT INTO public."stockitemstorage" VALUES (1, 'SKU_1', 1, 1), (1, 'SKU_2', 1, 3);
 
-INSERT INTO public."stockitemmovement" VALUES (1, 'SKU 1', 1, true, '2018-04-18 08:02:31', 1),
-	(1, 'SKU 2', 1, true, '2018-04-18 19:05:06', 3), (1, 'SKU 2', 1, false, '2018-04-18 20:35:15', 1), (1, 'SKU 2', 1, true, '2018-04-18 20:36:02', 2);
+INSERT INTO public."stockitemmovement" VALUES (1, 'SKU_1', 1, true, '2018-04-18 08:02:31', 1),
+	(1, 'SKU_2', 1, true, '2018-04-18 19:05:06', 3), (1, 'SKU_2', 1, false, '2018-04-18 20:35:15', 1), (1, 'SKU_2', 1, true, '2018-04-18 20:36:02', 2);
 
 
 SELECT get_movements_filtered (1, null, null, null, null);	-- EXPECTED: Todos os movimentos na casa
