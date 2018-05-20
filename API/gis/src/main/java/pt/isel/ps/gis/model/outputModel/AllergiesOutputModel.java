@@ -2,57 +2,108 @@ package pt.isel.ps.gis.model.outputModel;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Collection;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Data;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Item;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Link;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
 import pt.isel.ps.gis.model.Allergy;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"class", "properties", "entities", "actions", "links"})
 public class AllergiesOutputModel {
 
-    @JsonProperty
-    private final Collection collection;
+    private final static String ENTITY_CLASS = "allergies";
 
+    @JsonProperty(value = "class")
+    private final String[] klass;
+    @JsonProperty
+    private final Map<String, Object> properties;
+    @JsonProperty
+    private final Entity[] entities;
+    @JsonProperty
+    private final Action[] actions;
+    @JsonProperty
+    private final Link[] links;
+
+    // Ctor
     public AllergiesOutputModel(List<Allergy> allergies) {
-        this.collection = initCollection(allergies);
+        this.klass = initKlass();
+        this.properties = initProperties(allergies);
+        this.entities = initEntities(allergies);
+        this.actions = initActions();
+        this.links = initLinks(allergies);
     }
 
-    private Collection initCollection(List<Allergy> allergies) {
+    private String[] initKlass() {
+        return new String[]{ENTITY_CLASS, "collection"};
+    }
+
+    private Map<String, Object> initProperties(List<Allergy> allergies) {
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("size", allergies.size());
+
+        return properties;
+    }
+
+    private Entity[] initEntities(List<Allergy> allergies) {
+        Entity[] entities = new Entity[allergies.size()];
+        for (int i = 0; i < allergies.size(); ++i) {
+            Allergy allergy = allergies.get(i);
+
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("allergy_allergen", allergy.getAllergyAllergen());
+
+            entities[i] = new Entity(new String[]{"allergy"}, new String[]{"item"}, properties, null);
+        }
+        return entities;
+    }
+
+    private Action[] initActions() {
+        // Type
+        String type = "application/json";
+
+        //URIs
+        String allergiesUri = UriBuilderUtils.buildAllergiesUri();
+
+        // POST allergy
+        Action postAllergy = new Action(
+                "add-allergy",
+                "Add Allergy",
+                Method.POST,
+                allergiesUri,
+                type,
+                new Field[]{
+                        new Field("allergy-allergen", Field.Type.text, null, "Name")
+                }
+        );
+
+        // DELETE allergies
+        Action deleteAllergies = new Action(
+                "delete-allergies",
+                "Delete Allergies",
+                Method.DELETE,
+                allergiesUri,
+                null,
+                null
+        );
+
+        return new Action[]{postAllergy, deleteAllergies};
+    }
+
+    private Link[] initLinks(List<Allergy> allergies) {
         //URIs
         String indexUri = UriBuilderUtils.buildIndexUri();
         String allergiesUri = UriBuilderUtils.buildAllergiesUri();
 
-        // Version
-        String version = "1.0";
+        //Link-author-user
+        Link indexLink = new Link(new String[]{"index"}, new String[]{"index"}, indexUri);
+        // Link-self
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, allergiesUri);
 
-        // Link
-        Link[] links = new Link[]{
-                new Link("index", indexUri)
-        };
-
-        // Items
-        Item[] items = mapItems(allergies);
-
-        return new Collection(version, allergiesUri, links, items);
+        return new Link[]{self, indexLink};
     }
 
-    private Item[] mapItems(List<Allergy> allergies) {
-        int allergiesSize = allergies.size();
-        Item[] items = new Item[allergiesSize];
-        for (int i = 0; i < allergiesSize; i++) {
-            Allergy allergy = allergies.get(i);
-            items[i] = new Item(
-                    null,
-                    new Data[]{
-                            new Data("allergy-allergen", allergy.getAllergyAllergen(), "Allergen")
-                    },
-                    null
-            );
-        }
-        return items;
-    }
 }
