@@ -33,7 +33,7 @@ public class AllergiesStockItemOutputModel {
         this.properties = initProperties(allergies);
         this.entities = initEntities(houseId, sku, allergies);
         this.actions = initActions(houseId, sku);
-        this.links = initLinks(houseId, sku, allergies);
+        this.links = initLinks(houseId, sku);
     }
 
     private String[] initKlass() {
@@ -94,19 +94,16 @@ public class AllergiesStockItemOutputModel {
         return new Action[]{postAllergy, deleteAllergies};
     }
 
-    private Link[] initLinks(long houseId, String sku, List<Allergy> allergies) {
+    private Link[] initLinks(long houseId, String sku) {
         //URIs
-        String indexUri = UriBuilderUtils.buildIndexUri();
         String allergiesStockItemUri = UriBuilderUtils.buildAllergiesStockItemUri(houseId, sku);
         String stockItemUri = UriBuilderUtils.buildStockItemUri(houseId, sku);
 
-        //Link-author-user
-        Link indexLink = new Link(new String[]{"index"}, new String[]{"index"}, indexUri);
         //Link-related-stockItem
         Link stockItemLink = new Link(new String[]{"stock-item"}, new String[]{"related"}, stockItemUri);
         // Link-self
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, allergiesStockItemUri);
 
-        return new Link[]{self, indexLink, stockItemLink};
+        return new Link[]{self, stockItemLink};
     }
 }
