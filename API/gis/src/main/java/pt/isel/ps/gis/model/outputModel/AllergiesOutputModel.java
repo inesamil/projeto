@@ -34,7 +34,7 @@ public class AllergiesOutputModel {
         this.properties = initProperties(allergies);
         this.entities = initEntities(allergies);
         this.actions = initActions();
-        this.links = initLinks(allergies);
+        this.links = initLinks();
     }
 
     private String[] initKlass() {
@@ -93,7 +93,7 @@ public class AllergiesOutputModel {
         return new Action[]{postAllergy, deleteAllergies};
     }
 
-    private Link[] initLinks(List<Allergy> allergies) {
+    private Link[] initLinks() {
         //URIs
         String indexUri = UriBuilderUtils.buildIndexUri();
         String allergiesUri = UriBuilderUtils.buildAllergiesUri();
