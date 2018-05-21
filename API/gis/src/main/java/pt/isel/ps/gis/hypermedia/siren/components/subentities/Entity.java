@@ -13,12 +13,14 @@ public class Entity {
     public String[] klass;
     public String[] rel;
     public HashMap<String, Object> properties;
+    public Action[] actions;
     public String href;
 
-    public Entity(String[] klass, String[] rel, HashMap<String, Object> properties, String href) {
+    public Entity(String[] klass, String[] rel, HashMap<String, Object> properties, Action[] actions, String href) {
         this.klass = klass;
         this.rel = rel;
         this.properties = properties;
+        this.actions = actions;
         this.href = href;
     }
 
