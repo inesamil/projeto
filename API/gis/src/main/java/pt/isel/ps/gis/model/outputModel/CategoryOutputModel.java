@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"class", "properties", "entities", "actions", "links"})
+@JsonPropertyOrder({"class", "properties", "entities", "links"})
 public class CategoryOutputModel {
 
     private final static String ENTITY_CLASS = "category";
@@ -23,8 +23,6 @@ public class CategoryOutputModel {
     @JsonProperty
     private final Entity[] entities;
     @JsonProperty
-    private final Action[] actions;
-    @JsonProperty
     private final Link[] links;
 
     // Ctor
@@ -32,7 +30,6 @@ public class CategoryOutputModel {
         this.klass = initKlass();
         this.properties = initProperties(category);
         this.entities = initEntities(category);
-        this.actions = initActions(category);
         this.links = initLinks(category);
     }
 
@@ -53,28 +50,8 @@ public class CategoryOutputModel {
         String categoriesUri = UriBuilderUtils.buildCategoriesUri();
 
         // categories
-        Entity categories = new Entity(new String[]{"categories", "collection"}, new String[]{"categories"}, null, categoriesUri);
+        Entity categories = new Entity(new String[]{"categories", "collection"}, new String[]{"categories"}, null, null, categoriesUri);
         return new Entity[]{categories};
-    }
-
-    private Action[] initActions(Category category) {
-        // Type
-        String type = "application/json";
-
-        //URIs
-        String categoryUri = UriBuilderUtils.buildCategoryUri(category.getCategoryId());
-
-        // DELETE allergies
-        Action deleteCategory = new Action(
-                "delete-category",
-                "Delete Category",
-                Method.DELETE,
-                categoryUri,
-                null,
-                null
-        );
-
-        return new Action[]{deleteCategory};
     }
 
     private Link[] initLinks(Category category) {
