@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"class", "properties", "entities", "actions", "links"})
+@JsonPropertyOrder({"class", "properties", "entities", "links"})
 public class AllergiesStockItemOutputModel {
 
     private final static String ENTITY_CLASS = "allergies-stock-item";
@@ -24,15 +24,12 @@ public class AllergiesStockItemOutputModel {
     @JsonProperty
     private final Entity[] entities;
     @JsonProperty
-    private final Action[] actions;
-    @JsonProperty
     private final Link[] links;
 
     public AllergiesStockItemOutputModel(long houseId, String sku, List<Allergy> allergies) {
         this.klass = initKlass();
         this.properties = initProperties(allergies);
         this.entities = initEntities(houseId, sku, allergies);
-        this.actions = initActions(houseId, sku);
         this.links = initLinks(houseId, sku);
     }
 
@@ -57,41 +54,9 @@ public class AllergiesStockItemOutputModel {
             properties.put("stock-item-id", sku);
             properties.put("allergy_allergen", allergy.getAllergyAllergen());
 
-            entities[i] = new Entity(new String[]{"allergy"}, new String[]{"item"}, properties, null);
+            entities[i] = new Entity(new String[]{"allergy"}, new String[]{"item"}, properties, null, null);
         }
         return entities;
-    }
-
-    private Action[] initActions(long houseId, String sku) {
-        // Type
-        String type = "application/json";
-
-        //URIs
-        String allergiesStockItemUri = UriBuilderUtils.buildAllergiesStockItemUri(houseId, sku);
-
-        // POST allergy
-        Action postAllergy = new Action(
-                "add-allergy",
-                "Add Allergy",
-                Method.POST,
-                allergiesStockItemUri,
-                type,
-                new Field[]{
-                        new Field("allergy-allergen", Field.Type.text, null, "Name")
-                }
-        );
-
-        // DELETE allergies
-        Action deleteAllergies = new Action(
-                "delete-allergies",
-                "Delete Allergies",
-                Method.DELETE,
-                allergiesStockItemUri,
-                null,
-                null
-        );
-
-        return new Action[]{postAllergy, deleteAllergies};
     }
 
     private Link[] initLinks(long houseId, String sku) {
