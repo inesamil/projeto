@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"class", "properties", "entities", "actions", "links"})
+@JsonPropertyOrder({"class", "properties", "entities", "links"})
 public class AllergiesOutputModel {
 
     private final static String ENTITY_CLASS = "allergies";
@@ -24,8 +24,6 @@ public class AllergiesOutputModel {
     @JsonProperty
     private final Entity[] entities;
     @JsonProperty
-    private final Action[] actions;
-    @JsonProperty
     private final Link[] links;
 
     // Ctor
@@ -33,7 +31,6 @@ public class AllergiesOutputModel {
         this.klass = initKlass();
         this.properties = initProperties(allergies);
         this.entities = initEntities(allergies);
-        this.actions = initActions();
         this.links = initLinks();
     }
 
@@ -56,41 +53,9 @@ public class AllergiesOutputModel {
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("allergy_allergen", allergy.getAllergyAllergen());
 
-            entities[i] = new Entity(new String[]{"allergy"}, new String[]{"item"}, properties, null);
+            entities[i] = new Entity(new String[]{"allergy"}, new String[]{"item"}, properties, null, null);
         }
         return entities;
-    }
-
-    private Action[] initActions() {
-        // Type
-        String type = "application/json";
-
-        //URIs
-        String allergiesUri = UriBuilderUtils.buildAllergiesUri();
-
-        // POST allergy
-        Action postAllergy = new Action(
-                "add-allergy",
-                "Add Allergy",
-                Method.POST,
-                allergiesUri,
-                type,
-                new Field[]{
-                        new Field("allergy-allergen", Field.Type.text, null, "Name")
-                }
-        );
-
-        // DELETE allergies
-        Action deleteAllergies = new Action(
-                "delete-allergies",
-                "Delete Allergies",
-                Method.DELETE,
-                allergiesUri,
-                null,
-                null
-        );
-
-        return new Action[]{postAllergy, deleteAllergies};
     }
 
     private Link[] initLinks() {
@@ -98,7 +63,7 @@ public class AllergiesOutputModel {
         String indexUri = UriBuilderUtils.buildIndexUri();
         String allergiesUri = UriBuilderUtils.buildAllergiesUri();
 
-        //Link-author-user
+        //Link-index
         Link indexLink = new Link(new String[]{"index"}, new String[]{"index"}, indexUri);
         // Link-self
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, allergiesUri);
