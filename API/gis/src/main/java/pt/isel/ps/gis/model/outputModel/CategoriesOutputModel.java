@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"class", "properties", "entities", "actions", "links"})
+@JsonPropertyOrder({"class", "properties", "entities", "links"})
 public class CategoriesOutputModel {
 
     private final static String ENTITY_CLASS = "categories";
@@ -24,15 +24,12 @@ public class CategoriesOutputModel {
     @JsonProperty
     private final Entity[] entities;
     @JsonProperty
-    private final Action[] actions;
-    @JsonProperty
     private final Link[] links;
 
     public CategoriesOutputModel(List<Category> categories) {
         this.klass = initKlass();
         this.properties = initProperties(categories);
         this.entities = initEntities(categories);
-        this.actions = initActions();
         this.links = initLinks();
     }
 
@@ -57,41 +54,9 @@ public class CategoriesOutputModel {
             properties.put("category-id", category.getCategoryId());
             properties.put("category-name", category.getCategoryName());
 
-            entities[i] = new Entity(new String[]{"category"}, new String[]{"item"}, properties, null);
+            entities[i] = new Entity(new String[]{"category"}, new String[]{"item"}, properties, null, null);
         }
         return entities;
-    }
-
-    private Action[] initActions() {
-        // Type
-        String type = "application/json";
-
-        //URIs
-        String categoriesUri = UriBuilderUtils.buildCategoriesUri();
-
-        // POST allergy
-        Action postCategory = new Action(
-                "add-category",
-                "Add Category",
-                Method.POST,
-                categoriesUri,
-                type,
-                new Field[]{
-                        new Field("category-name", Field.Type.text, null, "Name")
-                }
-        );
-
-        // DELETE allergies
-        Action deleteCategories = new Action(
-                "delete-categories",
-                "Delete Categories",
-                Method.DELETE,
-                categoriesUri,
-                null,
-                null
-        );
-
-        return new Action[]{postCategory, deleteCategories};
     }
 
     private Link[] initLinks() {
