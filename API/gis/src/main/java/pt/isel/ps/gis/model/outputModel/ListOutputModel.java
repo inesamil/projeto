@@ -58,15 +58,13 @@ public class ListOutputModel {
         Short listId = list.getId().getListId();
 
         // URIs
-        String listsUri = UriBuilderUtils.buildListsUri(houseId);
         String productsListUri = UriBuilderUtils.buildProductsListUri(houseId, listId);
 
         // Subentities
-        Entity lists = new Entity(new String[]{"lists", "collection"}, new String[]{"lists"}, listsUri);
-        Entity productsList = new Entity(new String[]{"products-list", "collection"}, new String[]{"products-list"},
+        Entity productsList = new Entity(new String[]{"products-list", "collection"}, new String[]{"products-list"}, null, null,
                 productsListUri);
 
-        return new Entity[]{lists, productsList};
+        return new Entity[]{productsList};
     }
 
     private Action[] initActions(List list) {
@@ -77,7 +75,7 @@ public class ListOutputModel {
         Short listId = list.getId().getListId();
 
         // Type
-        String type = "application/x-www-form-urlencoded";
+        String type = "application/json";
 
         // URIs
         String userListUri = UriBuilderUtils.buildUserListUri(houseId, listId);
@@ -90,8 +88,8 @@ public class ListOutputModel {
                 userListUri,
                 type,
                 new Field[]{
-                        new Field("list-name", Field.Type.number, null),
-                        new Field("list-shareable", Field.Type.bool, null)
+                        new Field("list-name", Field.Type.number, null, "Name"),
+                        new Field("list-shareable", Field.Type.bool, null, "Shareable")
                 }
         );
 
@@ -114,10 +112,13 @@ public class ListOutputModel {
 
         // URIs
         String listUri = UriBuilderUtils.buildListUri(houseId, listId);
+        String listsUri = UriBuilderUtils.buildListsUri(houseId);
 
         // Link-self
-        Link self = new Link(new String[]{"self"}, listUri);
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS}, listUri);
+        //Link-related-lists
+        Link listsLink = new Link(new String[]{"related"}, new String[]{"lists", "collection"}, listsUri);
 
-        return new Link[]{self};
+        return new Link[]{self, listsLink};
     }
 }
