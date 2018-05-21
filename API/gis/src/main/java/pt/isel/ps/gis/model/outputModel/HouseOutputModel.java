@@ -51,9 +51,7 @@ public class HouseOutputModel {
 
     private Entity[] initEntities(House house) {
         long houseId = house.getHouseId();
-
         // URIs
-        String indexUri = UriBuilderUtils.buildIndexUri();
         String movementsUri = UriBuilderUtils.buildMovementsUri(houseId);
         String itemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
         String householdUri = UriBuilderUtils.buildHouseholdUri(houseId);
@@ -62,16 +60,15 @@ public class HouseOutputModel {
         String storagesUri = UriBuilderUtils.buildStoragesUri(houseId);
 
         // Subentities
-        Entity index = new Entity(new String[]{"index"}, new String[]{"index"}, indexUri);
-        Entity movements = new Entity(new String[]{"movements", "collection"}, new String[]{"movements"}, movementsUri);
-        Entity items = new Entity(new String[]{"items", "collection"}, new String[]{"items"}, itemsUri);
-        Entity household = new Entity(new String[]{"household", "collection"}, new String[]{"household"}, householdUri);
+        Entity movements = new Entity(new String[]{"movements", "collection"}, new String[]{"movements"}, null, null, movementsUri);
+        Entity items = new Entity(new String[]{"items", "collection"}, new String[]{"items"}, null, null, itemsUri);
+        Entity household = new Entity(new String[]{"household", "collection"}, new String[]{"household"}, null, null, householdUri);
         Entity houseAllergies = new Entity(new String[]{"house-allergies", "collection"},
-                new String[]{"house-allergies"}, houseAllergiesUri);
-        Entity lists = new Entity(new String[]{"lists", "collection"}, new String[]{"lists"}, listsUri);
-        Entity storages = new Entity(new String[]{"storages", "collection"}, new String[]{"storages"}, storagesUri);
+                new String[]{"house-allergies"}, null, null, houseAllergiesUri);
+        Entity lists = new Entity(new String[]{"lists", "collection"}, new String[]{"lists"}, null, null, listsUri);
+        Entity storages = new Entity(new String[]{"storages", "collection"}, new String[]{"storages"}, null, null, storagesUri);
 
-        return new Entity[]{index, movements, items, household, houseAllergies, lists, storages};
+        return new Entity[]{movements, items, household, houseAllergies, lists, storages};
     }
 
     private Action[] initActions(House house) {
@@ -91,11 +88,11 @@ public class HouseOutputModel {
                 houseUri,
                 type,
                 new Field[]{
-                        new Field("name", Field.Type.text, null),
-                        new Field("babies-number", Field.Type.number, null),
-                        new Field("children-number", Field.Type.number, null),
-                        new Field("adults-number", Field.Type.number, null),
-                        new Field("seniors-number", Field.Type.number, null)
+                        new Field("name", Field.Type.text, null, "Name"),
+                        new Field("babies-number", Field.Type.number, null, "Number of Babies"),
+                        new Field("children-number", Field.Type.number, null, "Number of Children"),
+                        new Field("adults-number", Field.Type.number, null, "Number of Adults"),
+                        new Field("seniors-number", Field.Type.number, null, "Number of Seniors")
                 }
         );
 
@@ -117,10 +114,13 @@ public class HouseOutputModel {
 
         // URIs
         String houseUri = UriBuilderUtils.buildHouseUri(houseId);
+        String indexUri = UriBuilderUtils.buildIndexUri();
 
         // Link-self
-        Link self = new Link(new String[]{"self"}, houseUri);
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS}, houseUri);
+        //Link-index
+        Link indexLink = new Link(new String[]{"index"}, new String[]{"index"}, indexUri);
 
-        return new Link[]{self};
+        return new Link[]{self, indexLink};
     }
 }
