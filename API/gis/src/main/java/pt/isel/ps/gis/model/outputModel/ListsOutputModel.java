@@ -2,88 +2,102 @@ package pt.isel.ps.gis.model.outputModel;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Collection;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.*;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
 import pt.isel.ps.gis.model.List;
+import pt.isel.ps.gis.model.ListId;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"class", "properties", "entities", "actions", "links"})
 public class ListsOutputModel {
 
+    private final static String ENTITY_CLASS = "lists";
+
+    @JsonProperty(value = "class")
+    private final String[] klass;
     @JsonProperty
-    private final Collection collection;
+    private final Map<String, Object> properties;
+    @JsonProperty
+    private final Entity[] entities;
+    @JsonProperty
+    private final Action[] actions;
+    @JsonProperty
+    private final Link[] links;
 
     public ListsOutputModel(long houseId, java.util.List<List> lists) {
-        this.collection = initCollection(houseId, lists);
+        this.klass = initKlass();
+        this.properties = initProperties(lists);
+        this.entities = initEntities(houseId, lists);
+        this.actions = initActions(houseId);
+        this.links = initLinks(houseId, lists);
     }
 
-    private Collection initCollection(long houseId, java.util.List<List> lists) {
-        //URIs
+    // Initters
+    private String[] initKlass() {
+        return new String[]{ENTITY_CLASS};
+    }
+
+    private Map<String, Object> initProperties(java.util.List<List> lists) {
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("size", lists.size());
+
+        return properties;
+    }
+
+    private Entity[] initEntities(long houseId, java.util.List<List> lists) {
+        Entity[] entities = new Entity[lists.size()];
+        for (int i = 0; i < lists.size(); ++i) {
+            List list = lists.get(i);
+            ListId listId = list.getId();
+
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("house-id", houseId);
+            properties.put("list-id", listId.getListId());
+            properties.put("list-name", list.getListName());
+
+            String listUri = UriBuilderUtils.buildListUri(houseId, listId.getListId());
+            entities[i] = new Entity(new String[]{"list"}, new String[]{"item"}, properties, null, listUri);
+        }
+        return entities;
+    }
+
+    private Action[] initActions(long houseId) {
+        // Type
+        String type = "application/json";
+
+        // URIs
+        String listsUri = UriBuilderUtils.buildListsUri(houseId);
+
+        // POST List
+        Action postList = new Action(
+                "add-list",
+                "Add List",
+                Method.POST,
+                listsUri,
+                type,
+                new Field[]{
+                        new Field("list-name", Field.Type.number, null, "Name"),
+                        new Field("list-shareable", Field.Type.bool, null, "Shareable")
+                }
+        );
+
+        return new Action[]{postList};
+    }
+
+    private Link[] initLinks(long houseId, java.util.List<List> lists) {
+        // URIs
         String houseUri = UriBuilderUtils.buildHouseUri(houseId);
         String listsUri = UriBuilderUtils.buildListsUri(houseId);
 
-        // Version
-        String version = "1.0";
+        // Link-self
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, listsUri);
+        //Link-related-lists
+        Link userLink = new Link(new String[]{"related"}, new String[]{"house"}, houseUri);
 
-        // Link
-        Link[] links = new Link[]{
-                new Link("house", houseUri)
-        };
-
-        // Items
-        Item[] items = mapItems(houseId, lists);
-
-        Query[] queries = new Query[]{
-                new Query(listsUri, "search", "Search by system or/and user or/and sharebale", new Data[]{
-                        new Data("system", null, "System"),
-                        new Data("user", null, "User"),
-                        new Data("shareable", null, "Shareable")
-                })
-        };
-
-        // Template
-        Template template = new Template(
-                new Data[]{
-                        new Data("user-username", null, "Username"),
-                        new Data("list-name", null, "Name"),
-                        new Data("list-shareable", null, "Shareable")
-                });
-
-        return new Collection(version, listsUri, links, items, queries, template);
-    }
-
-    private Item[] mapItems(long houseId, java.util.List<List> lists) {
-        int listsSize = lists.size();
-        Item[] items = new Item[listsSize];
-        for (int i = 0; i < listsSize; i++) {
-            List list = lists.get(i);
-            short listId = list.getId().getListId();
-            if (list.getListType().equals("system")) {
-                items[i] = new Item(
-                        null,   // TODO check this
-                        new Data[]{
-                                new Data("house-id", houseId, "House ID"),
-                                new Data("list-id", listId, "List ID"),
-                                new Data("list-name", list.getListName(), "Name")
-                        },
-                        null
-                );
-            } else {
-                items[i] = new Item(
-                        UriBuilderUtils.buildListUri(houseId, listId),
-                        new Data[]{
-                                new Data("house-id", houseId, "House ID"),
-                                new Data("list-id", listId, "List ID"),
-                                new Data("list-name", list.getListName(), "Name"),
-                                new Data("user-username", list.getUserlist().getUsersUsername(), "Username"),
-                                new Data("list-shareable", list.getUserlist().getListShareable(), "Shareable")
-                        },
-                        new Link[]{
-                                new Link("products-list", UriBuilderUtils.buildProductsListUri(houseId, listId))
-                        }
-                );
-            }
-        }
-        return items;
+        return new Link[]{self, userLink};
     }
 }
