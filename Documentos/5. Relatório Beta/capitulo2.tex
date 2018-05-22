@@ -1,0 +1,71 @@
+%
+% Capítulo 2
+%
+\chapter{Formulação do Problema} \label{cap2}
+
+Neste capítulo o problema é descrito de forma detalhada na secção \ref{sec21}, bem como os requisitos funcionais e não funcionais na secção \ref{sec22}. A secção \ref{sec23} apresenta as dificuldades que surgiram no decorrer do projeto.
+
+
+%
+% Secção 2.1
+%
+\section{Descrição do Problema} \label{sec21}
+No âmbito do projeto existe a necessidade de criar um sistema de informação que permita gerir os itens em stock de uma dada casa.
+
+Uma casa está associada a um ou mais utilizadores, podendo um utilizador ter várias casas. Cada casa é caracterizada por um identificador único, um nome, atribuído por um utilizador no momento de registo da casa, quantos bebés, crianças, adultos e seniores vivem nessa casa. Cada utilizador é identificado univocamente por um email ou por um nome de utilizador, pelo nome da própria pessoa, idade e uma password. Para cada casa podem existir um ou mais administradores. Um utilizador pode criar as suas listas e as suas receitas. As listas que este cria pode decidir se quer partilhar com os restantes utilizadores da casa a que pertence, nunca podendo partilhar com utilizadores fora da sua casa. Existem listas do sistema que são comuns a todos os utilizadores registados, contudo são particulares a cada casa. As listas partilhadas pelos vários utilizadores dependem dos produtos que cada utilizador tem em casa. As receitas que um utilizador cria podem ser partilhadas com todos os utilizadores registados ou só com determinados utilizadores. Existem ainda um conjunto de receitas que são partilhadas por todos os utilizadores registados.
+
+Cada receita é identificada por um identificador único, um nome, uma preparação, uma dificuldade, um tempo, quantas doses, qual o tipo de cozinha e qual o tipo de prato. Cada receita pode ter vários ingredientes. Para cada receita deve ser possível saber a quantidade dos vários ingredientes que a compõem.
+Cada lista é identificada por um identificador único e um nome. Uma lista pode ter vários produtos. Para os produtos presentes numa lista pode ser possível saber a sua marca e a quantidade de um produto na lista. Um produto é identificado pelo seu identificador único, contém um nome, se é comestível ou não, e a validade perecível. Um produto pertence a uma categoria, podendo uma categoria ter vários produtos. Uma categoria é identificada por um identificador único ou um nome. Um produto pode ter vários itens em casa. Uma casa pode ter vários itens presentes na mesma. 
+
+Um item presente numa casa é identificado por um identificador único ou por uma marca, uma variedade e um segmento, é também caracterizado por uma descrição, o local de conservação, a quantidade e as datas de validade. Para cada item deve ser possível saber os seus movimentos, isto é, se entrou ou saiu de um local de armazenamento. Para cada movimento deve ser possível saber o tipo de movimento (entrada ou saída), a data em que ocorreu o movimento e a quantidade de produtos que ocorrem num movimento.
+Para cada casa existem vários locais de armazenamento dos itens, por exemplo armários, frigoríficos, etc. Cada local de armazenamento é caraterizado por um identificador único, a temperatura e um nome. Um local de armazenamento pode ter vários itens presentes numa casa e vários movimentos. Para cada local de armazenamento deve ser possível saber a quantidade de cada item.
+
+Para cada casa deve ser possível saber que alergias os seus membros têm e para cada alergia saber o número de membros que têm essa alergia (os membros não precisam necessariamente de estar registados). Deve também ser possível saber os alergénios de um item presente na casa.
+
+
+
+%
+% Secção 2.2
+%
+\section{Requisitos Funcionais e Opcionais} \label{sec22}
+
+\paragraph{Requisitos Funcionais}
+\begin{itemize}
+	\item Informar o utilizador dos produtos existentes, a sua validade e a sua quantidade;
+	\item Alertas sobre os produtos que estão perto da data de validade;
+	\item Geração da lista de compras com os produtos em falta;
+	\item Possibilidade de especificar os produtos a ter sempre em stock bem como as suas quantidades mínimas;	
+	\item Lista de Compras \textit{Offline};
+	\item Listas partilhadas entre utilizadores da mesma casa;
+	\item Criação de Listas (As Minhas Listas);
+	\item Especificação das alergias dos membros da casa.
+\end{itemize}
+
+
+\paragraph{Requisitos Opcionais}
+\begin{itemize}
+	\item Lista de produtos quase a expirar;
+	\item Lista de produtos indesejados (Lista Negra);
+	\item Lista de contenção em situações de emergência (Lista SOS);
+	\item Sugestão de receitas que utilizem os produtos mais perto do fim da validade;
+	\item Inserção de receitas (As Minhas Receitas);
+	\item Inserir refeições extraordinárias de eventos a realizar num futuro próximo, para acrescentar alimentos não básicos à lista de compras;
+	\item Especificação dietas alimentares (Vegetarianos, \textit{Vegans}, etc.) a cada utilizador da casa.
+\end{itemize}
+
+
+%
+% Secção 2.3
+%
+\section{Dificuldades Encontradas} \label{sec23}
+
+Para a realização deste projeto encontrámos dificuldades nos aspetos a seguir referidos.
+
+\subsection{Rótulos em Formato Não Digital}
+
+Nos dias de hoje, os produtos não possuem rótulos digitais. Isto é um problema para a concretização do projeto, na medida em que se torna menos eficiente a recolha dos dados presentes nos produtos. Contudo, assumindo que este problema é resolvido fora do âmbito do projeto, apenas é preciso definir um formato standard de como os dados devem ser armazenados nas \textit{tags}, que podem ser \acrshort{nfc} ou \acrshort{rfid}. Num cenário ideal, este formato deve ser respeitado por todos os embaladores. Assim, os produtos têm um rótulo, código de barras e uma \textit{tag} \acrshort{nfc} ou \acrshort{rfid}, com a informação necessária. Está fora do âmbito do trabalho implementar o suporte hardware para a leitura das \textit{tags} e qual o sentido do movimento (entrada ou saída). Assume-se que essas informações são disponibilizadas num formato conhecido. 
+
+
+\subsection{Ausência de Identificador Único nos Itens}
+
+Os itens não dispõem de um identificador unívoco. Alguns deles contêm um lote e um número de série. A ausência deste identificador impede a distinção entre itens iguais, o que impossibilita saber se entrou um novo item no local de armazenamento ou se saiu um dos itens presentes. Tal facto torna a gestão dos stocks dependente do dispositivo de hardware para distinguir o tipo de movimento.

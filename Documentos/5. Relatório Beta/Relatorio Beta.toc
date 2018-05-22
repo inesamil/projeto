@@ -1,0 +1,30 @@
+\babel@toc {portuguese}{}
+\contentsline {chapter}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o}{1}
+\contentsline {section}{\numberline {1.1}Abordagem}{1}
+\contentsline {section}{\numberline {1.2}Metas e Objetivos}{1}
+\contentsline {section}{\numberline {1.3}Especifica\IeC {\c c}\IeC {\~o}es do Projeto e Resumo da Solu\IeC {\c c}\IeC {\~a}o}{2}
+\contentsline {section}{\numberline {1.4}Estrutura do Relat\IeC {\'o}rio}{3}
+\contentsline {chapter}{\numberline {2}Formula\IeC {\c c}\IeC {\~a}o do Problema}{5}
+\contentsline {section}{\numberline {2.1}Descri\IeC {\c c}\IeC {\~a}o do Problema}{5}
+\contentsline {section}{\numberline {2.2}Requisitos Funcionais e Opcionais}{6}
+\contentsline {paragraph}{Requisitos Funcionais}{6}
+\contentsline {paragraph}{Requisitos Opcionais}{6}
+\contentsline {section}{\numberline {2.3}Dificuldades Encontradas}{7}
+\contentsline {subsection}{\numberline {2.3.1}R\IeC {\'o}tulos em Formato N\IeC {\~a}o Digital}{7}
+\contentsline {subsection}{\numberline {2.3.2}Aus\IeC {\^e}ncia de Identificador \IeC {\'U}nico nos Itens}{7}
+\contentsline {chapter}{\numberline {3}Solu\IeC {\c c}\IeC {\~a}o Proposta}{9}
+\contentsline {section}{\numberline {3.1}Modelo de Dados}{10}
+\contentsline {subsection}{\numberline {3.1.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{10}
+\contentsline {subsection}{\numberline {3.1.2}Dom\IeC {\'\i }nio dos Atributos}{11}
+\contentsline {section}{\numberline {3.2}Base de Dados}{18}
+\contentsline {subsection}{\numberline {3.2.1}Implementa\IeC {\c c}\IeC {\~a}o}{19}
+\contentsline {section}{\numberline {3.3}Acesso a Dados}{19}
+\contentsline {subsection}{\numberline {3.3.1}Implementa\IeC {\c c}\IeC {\~a}o}{20}
+\contentsline {section}{\numberline {3.4}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{20}
+\contentsline {subsection}{\numberline {3.4.1}Implementa\IeC {\c c}\IeC {\~a}o}{20}
+\contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{21}
+\contentsline {section}{\numberline {4.1}Planeamento}{21}
+\contentsline {section}{\numberline {4.2}Sum\IeC {\'a}rio}{23}
+\contentsline {section}{\numberline {4.3}Trabalho Futuro}{23}
+\contentsline {chapter}{\numberline {A}Terminologia}{27}
+\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{27}

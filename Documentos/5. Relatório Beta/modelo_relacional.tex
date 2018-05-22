@@ -1,0 +1,141 @@
+% Modelo Relacional
+\subsection{Modelo Relacional}\label{subsec312}
+
+{\parindent 0pt
+	\begin{description}
+		\item House(house\_id, house\_name, house\_babiesNumber, house\_childrenNumber, house\_adultsNumber, house\_seniorsNumber) \newline
+		\acrshort{cp}: (house\_id) 
+		
+		\item User(user\_username, user\_email, user\_age, user\_name, user\_password) \newline
+		\acrshort{cp}: (user\_username)  \newline
+		\acrshort{occ}: (user\_email)
+		
+		\item Allergy(allergy\_allergen) \newline
+		\acrshort{cp}: (allergy\_allergen) 
+		
+		\item Recipe(recipe\_id, recipe\_name, recipe\_instructions, recipe\_difficulty, recipe\_time, recipe\_servings, recipe\_cuisine, recipe\_dishType, recipe\_type) \newline
+		\acrshort{cp}: (recipe\_id) 
+		
+		\item SystemRecipe(recipe\_id) \newline
+		\acrshort{cp}: (recipe\_id) \newline
+		\acrshort{ce}: \{(recipe\_id) ref Recipe\}
+		
+		\item UserRecipe(recipe\_id, user\_username) \newline
+		\acrshort{cp}: (recipe\_id) \newline
+		\acrshort{ce}: \{(recipe\_id) ref Recipe, (user\_username) ref User\}
+		
+		\item SharedRecipe(recipe\_id, user\_username) \newline
+		\acrshort{cp}:(recipe\_id, user\_username) \newline
+		\acrshort{ce}: \{(recipe\_id) ref UserRecipe, (user\_username) ref User\}
+		
+		\item List(house\_id, list\_id, list\_name, list\_type) \newline
+		\acrshort{cp}: (house\_id, list\_id) \newline
+		\acrshort{ce}: \{(house\_id) ref House\}
+		
+		\item SystemList(house\_id, list\_id)
+		\newline
+		\acrshort{cp}: (house\_id, list\_id) \newline
+		\acrshort{ce}: \{(house\_id, list\_id) ref List\}
+		
+		\item UserList(house\_id, list\_id, user\_username, list\_shareable)
+		\newline
+		\acrshort{cp}: (house\_id, list\_id) \newline
+		\acrshort{ce}: \{(house\_id, list\_id) ref List, (user\_username) ref User\}
+		
+		\item Category(category\_id, category\_name)
+		\newline
+		\acrshort{cp}: (category\_id) \newline
+		\acrshort{occ}: (category\_name)
+		
+		\item Product(category\_id, product\_id, product\_name, product\_edible, product\_shelfLife, \newline product\_shelfLifeTimeUnit) \newline
+		\acrshort{cp}: (category\_id, product\_id) \newline
+		\acrshort{ce}: \{(category\_id) ref Category\}
+		
+		\item StockItem(house\_id, stockItem\_sku, category\_id, product\_id, stockItem\_brand, stockItem\_segment, stockItem\_variety, stockItem\_quantity, stockItem\_segmentUnit, stockItem\_description, stockItem\_conservationStorage) \newline
+		\acrshort{cp}: (house\_id, stockItem\_sku) \newline
+		\acrshort{occ}: (house\_id, category\_id, product\_id, stockItem\_brand, stockItem\_segment, \newline stockItem\_variety) \newline
+		\acrshort{ce}: \{(house\_id) ref House, (category\_id, product\_id) ref Product\}
+		
+		\item Ingredient(recipe\_id, category\_id, product\_id, ingredient\_quantity, ingredient\_quantityUnit) \newline
+		\acrshort{cp}: (recipe\_id, category\_id, product\_id) \newline
+		\acrshort{ce}: \{(recipe\_id) ref Recipe, (category\_id, product\_id) ref Product\}
+		
+		\item Storage(house\_id, storage\_id, storage\_name, storage\_temperature)  \newline
+		\acrshort{cp}:(house\_id, storage\_id) \newline
+		\acrshort{ce}: \{(house\_id) ref House\}
+		
+		\item UserHouse(house\_id, user\_username, userHouse\_administrator) \newline
+		\acrshort{cp}: (house\_id, user\_username) \newline
+		\acrshort{ce}: \{(house\_id) ref House, (user\_username) ref User\}
+		
+		\item StockItemStorage(house\_id, stockItem\_sku, storage\_id, stockItemStorage\_quantity) \newline
+		\acrshort{cp}: (house\_id, stockItem\_sku, storage\_id) \newline
+		\acrshort{ce}: \{(house\_id, stockItem\_sku) ref StockItem, (house\_id, storage\_id) ref Storage\}
+		
+		\item StockItemMovement(house\_id, stockItem\_sku, storage\_id, stockItemMovement\_type, \newline stockItemMovement\_dateTime) \newline
+		\acrshort{cp}: (house\_id, stockItem\_sku, storage\_id, stockItemMovement\_type, \newline stockItemMovement\_dateTime) \newline
+		\acrshort{ce}: \{(house\_id, stockItem\_sku) ref StockItem, (house\_id, storage\_id) ref Storage\}
+		
+		\item HouseAllergy(house\_id, allergy\_allergen, houseAllergy\_alergicsNum) \newline
+		\acrshort{cp}: (house\_id, allergy\_allergen) \newline
+		\acrshort{ce}: \{(house\_id) ref House, (allergy\_allergen) ref Allergy\}
+		
+		\item ListProduct(house\_id, list\_id, category\_id, product\_id, listProduct\_brand, listProduct\_quantity) \newline
+		\acrshort{cp}: (house\_id, list\_id, category\_id, product\_id) \newline
+		\acrshort{ce}: \{(house\_id, list\_id) ref List, (category\_id, product\_id) ref Product\}
+		
+		\item StockItemAllergy(house\_id, stockItem\_sku, allergy\_allergen) \newline
+		\acrshort{cp}: (house\_id, stockItem\_sku, allergy\_allergen) \newline
+		\acrshort{ce}: \{(house\_id, stockItem\_sku) ref StockItem, (allergy\_allergen) ref Allergy\}
+		
+		\item Date(date\_date) \newline
+		\acrshort{cp}: (date\_date)
+		
+		\item ExpirationDate(house\_id, stockItem\_sku, date\_date) \newline
+		\acrshort{cp}: (house\_id, stockItem\_sku, date\_date) \newline
+		\acrshort{ce}: \{(house\_id, stockItem\_sku) ref StockItem, (date\_date) ref Date\}
+	\end{description}	
+}
+
+
+\subsubsection{Restrições de Integridade}
+\begin{description}
+	\item RI1: house\_id é auto-incrementado;
+	\item RI2: house\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, pode incluir letras, números, pontos finais e underscores;
+	\item RI3: house\_characteristics é um objeto \acrshort{json} obrigatório;
+	\item RI4: user\_username é uma cadeia de caracteres obrigatória de comprimento máximo 30, pode incluir letras, números, pontos finais e underscores;
+	\item RI5: user\_email é uma cadeia de caracteres obrigatória de comprimento máximo 254, pode incluir letras, números, pontos finais, underscores e um arroba;
+	\item RI6: user\_age é um número inteiro obrigatório contido no intervalo [0, 150];
+	\item RI7: user\_name é uma cadeia de caracteres obrigatória de comprimento máximo 70, sendo apenas composta por letras;
+	\item RI8: user\_password é uma cadeia de caracteres obrigatória de comprimento máximo 50, pode incluir letras, números e caracteres especiais;
+	\item RI9: allergy\_allergen é uma cadeia de caracteres obrigatória de comprimento máximo 75;
+	\item RI10: recipe\_id é auto-incrementado;
+	\item RI11: recipe\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, pode incluir letras, números, pontos finais e underscores;
+	\item RI12: recipe\_difficulty é opcional e pode tomar um dos valores [‘easy’, ‘average’, ‘difficult’];
+	\item RI13: recipe\_time é um número inteiro opcional superior a 0;
+	\item RI14: recipe\_servings é um número inteiro opcional superior a 0;
+	\item RI15: recipe\_cuisine é uma cadeia de caracteres opcional de comprimento máximo 35;
+	\item RI16: recipe\_dishType é uma cadeia de caracteres opcional de comprimento máximo 35;
+	\item RI17: recipe\_type é obrigatório e tem de tomar um dos valores [‘system, ‘user];
+	\item RI18: list\_id é único dentro da casa;
+	\item RI19: list\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, pode incluir letras, números, pontos e underscores;
+	\item RI20: list\_type é obrigatório e tem de tomar um dos valores [‘system, ‘user];
+	\item RI21: category\_id é auto-incrementado;
+	\item RI22: category\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, sendo apenas composta por letras;
+	\item RI23: product\_id é único dentro da categoria;
+	\item RI24: product\_name é uma cadeia de caracteres obrigatória de comprimento máximo 35, sendo apenas composta por letras;
+	\item RI25: product\_edible é obrigatório e tem de tomar um dos valores ['true', 'false'];
+	\item RI26: product\_shelfLife é um número inteiro obrigatório superior a 0;
+	\item RI27: product\_shelfLifeTimeUnit é obrigatório e tem de tomar um dos valores [‘day’, ‘week’, ‘month’, ‘year’];
+	\item RI28: stockItem\_sku é uma cadeia de caracteres obrigatória de comprimento máximo 128, gerada pela composição de category\_id, product\_id, stockItem\_brand, stockItem\_segment e stockItem\_variety;
+	\item RI29: stockItem\_brand é uma cadeia de caracteres obrigatória de comprimento máximo 35;
+	\item RI30: stockItem\_segment é uma cadeia de caracteres obrigatória de comprimento máximo 35;
+	\item RI31: stockItem\_variety é uma cadeia de caracteres obrigatória de comprimento máximo 35;
+	\item RI32: stockItem\_quantity é um número inteiro obrigatório superior a 0;
+	\item RI33: stockItem\_segmentUnit é obrigatório e tem de tomar um dos valores [‘kg’, ‘dag’, ‘hg’, ‘g’, ‘dg’, ‘cg’, ‘mg’, ‘kl’, ‘hl’, ‘dal’, ‘l’, ‘dl’, ‘cl’, ‘ml’, ‘oz’, ‘lb’, ‘pt’, ‘fl oz’, ‘units’];
+	\item RI34: stockItem\_conservationStorage é uma cadeia de caracteres obrigatório de comprimento máximo 128;
+	\item RI35: ingredient\_quantity é um número inteiro obrigatório superior a 0;
+	\item RI36: ingredient\_quantityUnit é obrigatório e tem de tomar um dos valores [‘kg’, ‘dag’, ‘hg’, ‘g’, ‘dg’, ‘cg’, ‘mg’, ‘kl’, ‘hl’, ‘dal’, ‘l’, ‘dl’, ‘cl’, ‘ml’, ‘oz’, ‘lb’, ‘pt’, ‘fl oz’, ‘units’];
+	\item RI37: storage\_id é único dentro da casa;
+	\item RI38: storage\_name é uma cadeia de caracteres de comprimento máximo 35;
+\end{description}
