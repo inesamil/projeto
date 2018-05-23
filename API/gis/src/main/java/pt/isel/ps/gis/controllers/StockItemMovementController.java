@@ -17,7 +17,7 @@ import pt.isel.ps.gis.model.requestParams.StockItemMovementRequestParam;
 
 import java.util.List;
 
-import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
+import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
 @RequestMapping("/v1/houses/{house-id}/movements")
@@ -50,7 +50,7 @@ public class StockItemMovementController {
             movements = stockItemMovementService.getStockItemMovementsByHouseIdFiltered(houseId, filters);
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new MovementsOutputModel(houseId, movements), setCollectionContentType(headers),
+        return new ResponseEntity<>(new MovementsOutputModel(houseId, movements), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
