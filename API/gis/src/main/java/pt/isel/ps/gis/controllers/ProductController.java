@@ -15,7 +15,6 @@ import pt.isel.ps.gis.model.outputModel.ProductsCategoryOutputModel;
 import java.util.List;
 import java.util.Optional;
 
-import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
@@ -43,7 +42,7 @@ public class ProductController {
             products = productService.getProductsByCategoryIdFiltered(categoryId, new ProductService.ProductFilters(name));
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ProductsCategoryOutputModel(categoryId, products),
-                setCollectionContentType(headers), HttpStatus.OK);
+                setSirenContentType(headers), HttpStatus.OK);
     }
 
     @GetMapping("/{product-id}")
