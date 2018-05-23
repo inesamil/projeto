@@ -12,7 +12,7 @@ import pt.isel.ps.gis.model.outputModel.AllergiesOutputModel;
 
 import java.util.List;
 
-import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
+import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
 @RequestMapping("/v1/allergies")
@@ -28,7 +28,7 @@ public class AllergiesController {
     public ResponseEntity<AllergiesOutputModel> getAllergies() {
         List<Allergy> allergies = allergyService.getAllergies();
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new AllergiesOutputModel(allergies), setCollectionContentType(headers),
+        return new ResponseEntity<>(new AllergiesOutputModel(allergies), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 }
