@@ -54,14 +54,12 @@ public class UserOutputModel {
         String username = user.getUsersUsername();
 
         // URIs
-        String indexUri = UriBuilderUtils.buildIndexUri();
         String userHousesUri = UriBuilderUtils.buildUserHousesUri(username);
 
         // Subentities
-        Entity index = new Entity(new String[]{"index"}, new String[]{"index"}, indexUri);
-        Entity userHouses = new Entity(new String[]{"user-houses", "collection"}, new String[]{"user-houses"},
+        Entity userHouses = new Entity(new String[]{"user-houses", "collection"}, new String[]{"user-houses"}, null, null,
                 userHousesUri);
-        return new Entity[]{index, userHouses};
+        return new Entity[]{userHouses};
     }
 
     private Action[] initActions(Users user) {
@@ -81,8 +79,8 @@ public class UserOutputModel {
                 userUri,
                 type,
                 new Field[]{
-                        new Field("user-name", Field.Type.text, null),
-                        new Field("user-age", Field.Type.number, null)
+                        new Field("user-name", Field.Type.text, null, "Name"),
+                        new Field("user-age", Field.Type.number, null, "Age")
                 }
         );
 
@@ -104,10 +102,13 @@ public class UserOutputModel {
 
         // URIs
         String userUri = UriBuilderUtils.buildUserUri(username);
+        String indexUri = UriBuilderUtils.buildIndexUri();
 
         // Link-self
-        Link self = new Link(new String[]{"self"}, userUri);
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS}, userUri);
+        // Link-index
+        Link indexLink = new Link(new String[]{"index"}, new String[]{"index"}, indexUri);
 
-        return new Link[]{self};
+        return new Link[]{self, indexLink};
     }
 }
