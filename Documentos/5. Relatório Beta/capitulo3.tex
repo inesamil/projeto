@@ -5,6 +5,32 @@
 
 Neste capítulo pretende-se dar ênfase à solução implementada para resolver o problema apresentado no capítulo \ref{cap2}. Este capítulo está divido nas seguintes secções, Modelo de Dados na secção \ref{sec31}, \acrlong{bd} na secção \ref{sec32}, Acesso a Dados na secção \ref{sec33} e Lógica de Negócio na secção \ref{sec34}.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=12cm, scale=1]{./figures/project_structures.png}
+	\caption{Estrutura do Projeto}
+	\label{project-structure}
+\end{figure}
+
+\begin{center}
+	\includegraphics[width=12cm, scale=1]{./figures/project_structures_caption.png}
+\end{center}
+
+Com a Figura \ref{project-structure} pretende-se não só apresentar os principais componentes do projeto, bem como demonstrar de forma breve a relação dos mesmos. É de destacar que uma \textit{tag} pode ser lida por um dispositivo de \textit{hardware} munido de um leitor de \textit{tags}. Um \textit{smartphone} equipado com tecnologia \acrshort{nfc} pode escrever na \textit{tag} \acrshort{nfc}, tal é necessário para identificar produtos avulsos presentes num sistema de arrumação. Tanto o dispositivo de \textit{hardware} como as aplicações, móvel e \textit{web}, comunicam com a \gls{api-web}.\\
+
+O projeto é composto por 2 blocos principais, que se relacionam. A Figura \ref{project-architecture} representa esses blocos. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=9cm, scale=1]{./figures/project_architecture.png}
+	\caption{Arquitetura do Projeto}
+	\label{project-architecture}
+\end{figure}
+
+O lado do servidor incluí quatro camadas e expõe uma \gls{api-web}. A camada da \acrfull{bd} é realizada com o \acrfull{sgbd} \textit{PostgreSQL}. A \acrfull{dal} é responsável pelas leituras e escritas à \acrshort{bd}. Esta camada é produzida com a linguagem de programação \textit{Java}, com a \acrfull{jpa}. A \acrfull{bll} é responsável pela gestão dos dados obtidos da \acrshort{bd} ou dos \textit{controllers}. A implementação desta camada recorreu à mesma ferramenta que foi usada na \acrshort{dal}. Os \textit{controllers} foram desenvolvidos em \textit{Java} com a \textit{framework} da \textit{Spring}, chamada de \textit{Spring Boot}. A \gls{api-web} disponibiliza recursos em diferentes \textit{hypermedia}.
+
+Do lado do cliente existem dois modos de interação, por uma aplicação móvel e outra por uma aplicação web. A aplicação móvel disponível para a plataforma \textit{Android}, desenvolvida em linguagem \textit{Kotlin}. A aplicação web é disponibilizada para a maioria dos browsers, implementada utilizando a linguagem \textit{JavaScript}, com o auxilio da \textit{framework Express}.
+
 \input{seccao31}
 
 \input{seccao32}

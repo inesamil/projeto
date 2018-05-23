@@ -3,70 +3,72 @@
 %
 \chapter{Introdução} \label{cap1}
 
-Atualmente, são várias as aplicações responsáveis por fornecer listas de compras, porém carecem de controlo de stocks e conhecimento dos hábitos dos seus utilizadores. Neste projeto pretende-se desenvolver uma aplicação que permite a gestão e controlo de stocks de produtos alimentares na despensa de qualquer casa. Os padrões de consumo dos utilizadores são registados, permitindo prever a data da rotura de stock de produtos.
+A gestão de stocks é uma tarefa estruturada e repetitiva, para a qual já existem soluções capazes de fornecer listas de compras. \textit{OutOfMilk} e \textit{Bring} são exemplos dessas soluções no formato de aplicações \textit{mobile}. Contudo carecem de controlo de stocks e conhecimento dos hábitos dos seus utilizadores.  Como tal, por meio de uma aplicação \textit{mobile} e \textit{web} com suporte inteligente de um algoritmo de previsão de stocks pretende-se solucionar este problema.
+
+Tendo por base a automatização da recolha de dados, simplifica-se, não só, o controlo de stocks, como também, a análise dos padrões de consumo e reposição numa casa.
+Desta forma, auxilia-se os utilizadores a manter o stock adequado às suas necessidades, bem como alertá-los para a proximidade do fim da validade e/ou stock dos produtos. 
+
+Assim, este trabalho vai no sentido de responder a questões como: ``De que forma podemos evitar transtornos causados na altura de reabastecer a nossa despensa? Ou como proceder ao controlo de stocks de alimentos e outros produtos? E como impedir artigos fora de prazo?". Se se entender que uma casa funciona como uma empresa e existem quantidades mínimas recomendadas, é possível gerar uma nota de encomenda com os produtos em falta ou prestes a terminar para o utilizador poder consultar e exercer a compra.
 
 %
 % Secção 1.1
 %
-\section{Abordagem} \label{sec11}
+\section{Contexto} \label{sec11}
 
-No contexto do projeto assume-se a existência de duas formas de apresentação para os produtos: avulsos e embalados. Os primeiros são conservados em sistemas de arrumação marcados com \textit{tags} programáveis por \textit{smartphones}. Os detalhes dos itens são especificados pelo utilizador e carregados para a \textit{tag}. Enquanto que para os produtos embalados, admite-se que os produtores utilizam \textit{tags}, \acrfull{nfc} ou \acrfull{rfid}, para guardar os rótulos de forma digital e em formato standard.
+Uma boa gestão de stocks de mercadorias é de extrema importância porque tem reflexos imediatos nos resultados de uma empresa, o que permite manter os clientes satisfeitos não só a nível da quantidade como da qualidade. Para manter o stock ideal não basta bom senso e intuição, é necessário conhecer o fluxo de vendas, utilizar ferramentas adequadas de gestão de informação sobre movimentos e eventuais constrangimentos no fornecimento. Extrapolando para a empresa "casa", o processo é apenas um problema de escala. Organizar a despensa como se de uma empresa se tratasse possibilita uma melhor logística de custos e tempo. Ao elaborar uma lista de stock, onde se vai anotando os produtos que se tem, o que está a acabar e o que se tem de comprar, passa por uma solução indispensável. Por vezes torna-se numa tarefa que ``não é para todos".
 
-Após a aquisição, os artigos são armazenados em locais que devem dispor de dispositivos de hardware equipados com leitores de \textit{tags}. É recolhida a informação presente na \textit{tag}, identificado o tipo de movimento (entrada ou saída) e enviado para a \gls{api-web}.
+Perante este problema, pretende-se desenvolver um projeto, utilizando uma solução digital, aplicação \textit{mobile} e de \textit{web}, que tem como objetivo ajudar os portugueses nesta repetitiva tarefa que é adotar e manter, ao longo do tempo, a sua despensa sem faltas.
+Através da mesma, o individuo terá sempre presente informação útil e prática, com possibilidade de utilizar um formato de lembretes e de registar as tendências para uma futura investigação no que diz respeito aos hábitos de consumo.
+
+Destaca-se ainda o facto de, no contexto atual, existir um aumento na facilidade de acesso às novas tecnologias, nomeadamente à \textit{internet}. Em plena era da informação a proliferação dos meios de comunicação e da própria \textit{internet} permitiu que os utilizadores se liguem à rede 24 horas, por dia, através de telemóveis, portáteis, \textit{tablets} e outros. A cada dia que passa assiste-se a uma mudança massiva do comportamento do consumidor nesta área, graças à utilização dos dispositivos móveis dos ``8 aos 80" anos. Segundo os dados divulgados em Dezembro de 2016 pelo Gabinete de Estatísticas da União Europeia (Eurostat) \cite{eurostat:internetAccess2016}.
 
 %
 % Secção 1.2
 %
 \section{Metas e Objetivos} \label{sec12}
-Têm-se como objetivos, os seguintes pontos:
-\begin{itemize} \itemsep 0pt
-	\item Desenho e Implementação das Aplicações Móvel e Web
-	\item Elaboração do Algoritmo de Previsão de Stocks
-\end{itemize}
+Face aos exposto, a existência de uma aplicação móvel na agenda de tarefas de uma organização doméstica poderá ser uma mais valia. Para o concretizar de uma aplicação móvel foi necessário cumprir com objetivos mais específicos que respondessem à seguinte questão: 
 
+``Quais as características e funcionalidades deverá ter a aplicação que sejam úteis para os utilizadores e se diferencia das restantes?"
+
+Deste modo, definiram-se os seguintes objetivos:
+\begin{itemize} \itemsep 0pt
+	\item Rever e sumarizar os conteudos das aplicações móveis mais populares e com classificação mais elevada.
+	\item Criar o primeiro prototipo de uma aplicação simples e educativa com base em estratégias de usabilidade e manutenção.
+	\item Avaliar a rentabilidade e sustentabilidade do negócio resultante do lançamento no mercado de uma aplicação com as descrições a cima apresentadas.
+\end{itemize}
 
 %
 % Secção 1.3
 %
-\section{Especificações do Projeto e Resumo da Solução} \label{sec13}
+\section{Abordagem do Projeto} \label{sec13}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=12cm, scale=1]{./figures/project_structures.png}
-	\caption{Estrutura do Projeto}
-	\label{project-structure}
-\end{figure}
+Este trabalho divide-se em duas partes principais. A primeira com o enquadramento teórico, em que se fez uma revisão da literatura focando os principais temas associados ao projeto, nomeadamente, gestão de stocks, a utilização das novas tecnologias. Reviu-se também estratégias de usabilidade e promoção de literatura na construção das aplicações móveis bem como a regulamentação existente e possibilidade de certificação.
+Ainda nesta parte, efetuou-se investigação exploratória de suporte à elaboração do projeto, assim como análise e discussão dos resultados obtidos.
 
-\begin{center}
-	\includegraphics[width=12cm, scale=1]{./figures/project_structures_caption.png}
-\end{center}
-
-Com a Figura \ref{project-structure} pretende-se não só apresentar os principais componentes do projeto, bem como demonstrar de forma breve a relação dos mesmos. É de destacar que uma \textit{tag} pode ser lida por um dispositivo de \textit{hardware} munido de um leitor de \textit{tags}. Um \textit{smartphone} equipado com tecnologia \acrshort{nfc} pode escrever na \textit{tag} \acrshort{nfc}, tal é necessário para identificar produtos avulsos presentes num sistema de arrumação. Tanto o dispositivo de \textit{hardware} como as aplicações, móvel e \textit{web}, comunicam com a \gls{api-web}.\\
-
-O projeto é composto por 2 blocos principais, que se relacionam. A Figura \ref{project-architecture} representa esses blocos. 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[height=9cm, scale=1]{./figures/project_architecture.png}
-	\caption{Arquitetura do Projeto}
-	\label{project-architecture}
-\end{figure}
-
-O lado do servidor incluí quatro camadas e expõe uma \gls{api-web}. A camada da \acrfull{bd} é realizada com o \acrfull{sgbd} \textit{PostgreSQL}. A \acrfull{dal} é responsável pelas leituras e escritas à \acrshort{bd}. Esta camada é produzida com a linguagem de programação \textit{Java}, com a \acrfull{jpa}. A \acrfull{bll} é responsável pela gestão dos dados obtidos da \acrshort{bd} ou dos \textit{controllers}. A implementação desta camada recorreu à mesma ferramenta que foi usada na \acrshort{dal}. Os \textit{controllers} foram desenvolvidos em \textit{Java} com a \textit{framework} da \textit{Spring}, chamada de \textit{Spring Boot}. A \gls{api-web} disponibiliza recursos em diferentes \textit{hypermedia}.
-
-Do lado do cliente existem dois modos de interação, por uma aplicação móvel e outra por uma aplicação web. A aplicação móvel disponível para a plataforma \textit{Android}, desenvolvida em linguagem \textit{Kotlin}. A aplicação web é disponibilizada para a maioria dos browsers, implementada utilizando a linguagem \textit{JavaScript}, com o auxilio da \textit{framework Express}.
+Na segunda parte encontra-se o trabalho desenvolvido para o projeto, ou seja os requisitos do projeto, a solução implementada e acesso a dados. Concluindo com o plano de negócio, e.g. apresentação da empresa e do mercado, objetivos e estratégia da empresa.
 
 
 %
 % Secção 1.4
 %
 \section{Estrutura do Relatório} \label{sec14}
-O relatório está estruturado em 4 capítulos.
+O relatório está estruturado em 9 capítulos.
 
-O capítulo 2 formula o problema, detalhando os requisitos do projeto. São ainda apresentadas as dificuldades encontradas ao longo do projeto. 
+O capítulo 2 formula o problema, detalhando os requisitos do projeto. 
 
-No capítulo 3 o problema é solucionado, sendo apresentada, com detalhe, a solução implementada. O capítulo foi dividido pelas várias camadas que compõe o projeto. Na secção \ref{sec31} expõe-se a modelagem dada aos dados. Por conseguinte, a secção \ref{sec32} explicita de que forma esses dados foram armazenados, sendo ainda justificadas as decisões tomadas nesta camada. A secção \ref{sec33} fundamenta a seleção das ferramentas utilizadas para a implementação. A lógica de negócio está presente na secção \ref{sec34}. 
+No capítulo 3 o problema é solucionado, sendo apresentada a solução implementada. É ainda apresentada uma análise da solução.
 
-É no capítulo 4 que se retiram conclusões face ao trabalho desenvolvido em relação ao trabalho inicialmente previsto. Este planeamento inicial é revelado na secção \ref{sec41}. Para finalizar, propõe-se o trabalho a realizar futuramente, na secção \ref{sec43}.
+Os casos de uso são expostos, com detalhe, no capítulo 4.
+
+No capítulo 5 são abordadas as aplicações de interação direta com o utilizador.
+
+O capítulo 6 destina-se ao esclarecimento do desenvolvimento e implementação do algoritmo de previsão.
+
+É no capítulo 7 que é feita referência à \gls{api-web} bem como todas as suas particularidades.
+
+O capítulo 8 elucida a modelagem dada aos dados. Por conseguinte explicita de que forma esses dados foram armazenados, sendo ainda justificadas as decisões tomadas nesta camada. A lógica de negócio está presente, também, neste capítulo. 
+
+É no capítulo 9 que se retiram conclusões face ao trabalho desenvolvido em relação ao trabalho inicialmente previsto. Este planeamento inicial é revelado na secção \ref{sec41}. Para finalizar, propõe-se o trabalho a realizar futuramente, na secção \ref{sec43}.
 
 No Anexo A define-se terminologia, quer a básica à gestão de stocks, para melhor compreensão de alguns dos termos utilizados no decorrer do projeto, quer de conceitos de programação.
+

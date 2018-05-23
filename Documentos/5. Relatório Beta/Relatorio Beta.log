@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.22)  22 MAY 2018 12:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.22)  23 MAY 2018 16:50
 entering extended mode
 **"./Relatorio Beta.tex"
 ("Relatorio Beta.tex"
@@ -1017,104 +1017,102 @@ Underfull \hbox (badness 10000) in paragraph at lines 5--6
 
  (capitulo1.tex
 Cap\'{\i }tulo 1.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 23.
-("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omscmr.fd"
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 23.
-<./figures/project_structures.png, id=53, 347.49825pt x 246.9225pt>
-File: ./figures/project_structures.png Graphic file (type png)
-<use ./figures/project_structures.png>
-Package pdftex.def Info: ./figures/project_structures.png  used on input line 3
-5.
-(pdftex.def)             Requested size: 347.49738pt x 246.92188pt.
-
 [1
 
 
 ]
-<./figures/project_structures_caption.png, id=58, 390.258pt x 252.945pt>
-File: ./figures/project_structures_caption.png Graphic file (type png)
-<use ./figures/project_structures_caption.png>
-Package pdftex.def Info: ./figures/project_structures_caption.png  used on inpu
-t line 41.
-(pdftex.def)             Requested size: 390.25703pt x 252.94438pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 44--45
-
- []
-
-[2 <./figures/project_structures.png> <./figures/project_structures_caption.png
->]
-<./figures/project_architecture.png, id=62, 369.7815pt x 423.984pt>
-File: ./figures/project_architecture.png Graphic file (type png)
-<use ./figures/project_architecture.png>
-Package pdftex.def Info: ./figures/project_architecture.png  used on input line
- 50.
-(pdftex.def)             Requested size: 369.78058pt x 423.98294pt.
- [3 <./figures/project_architecture.png>]) [4]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 35.
+ ("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 35.
+ [2]) [3]
 \openout2 = `capitulo2.aux'.
 
- (capitulo2.tex
-Cap\'{\i }tulo 2.
-[5
-
-
-
-] [6]) [7]
-\openout2 = `capitulo3.aux'.
-
- (capitulo3.tex [8
+ (capitulo2.tex [4
 
 
 
 ]
+Cap\'{\i }tulo 2.
+[5] [6] [7]) [8]
+\openout2 = `capitulo3.aux'.
+
+ (capitulo3.tex
 Cap\'{\i }tulo 3.
-(seccao31.tex
+<./figures/project_structures.png, id=79, 347.49825pt x 246.9225pt>
+File: ./figures/project_structures.png Graphic file (type png)
+<use ./figures/project_structures.png>
+Package pdftex.def Info: ./figures/project_structures.png  used on input line 1
+0.
+(pdftex.def)             Requested size: 347.49738pt x 246.92188pt.
+<./figures/project_structures_caption.png, id=80, 390.258pt x 252.945pt>
+File: ./figures/project_structures_caption.png Graphic file (type png)
+<use ./figures/project_structures_caption.png>
+Package pdftex.def Info: ./figures/project_structures_caption.png  used on inpu
+t line 16.
+(pdftex.def)             Requested size: 390.25703pt x 252.94438pt.
+[9
+
+
+
+ <./figures/project_structures.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+
+ []
+
+<./figures/project_architecture.png, id=84, 369.7815pt x 423.984pt>
+File: ./figures/project_architecture.png Graphic file (type png)
+<use ./figures/project_architecture.png>
+Package pdftex.def Info: ./figures/project_architecture.png  used on input line
+ 25.
+(pdftex.def)             Requested size: 369.78058pt x 423.98294pt.
+[10 <./figures/project_structures_caption.png> <./figures/project_architecture.
+png>] (seccao31.tex
 
 pdfTeX warning: pdflatex.exe (file ./files/EA.pdf): PDF inclusion: found PDF ve
 rsion <1.7>, but at most version <1.5> allowed
-<./files/EA.pdf, id=82, 845.07724pt x 597.55246pt>
+<./files/EA.pdf, id=88, 845.07724pt x 597.55246pt>
 File: ./files/EA.pdf Graphic file (type pdf)
 <use ./files/EA.pdf>
-Package pdftex.def Info: ./files/EA.pdf  used on input line 14.
+Package pdftex.def Info: ./files/EA.pdf  used on input line 19.
 (pdftex.def)             Requested size: 845.07518pt x 597.551pt.
 
-Overfull \hbox (59.3452pt too wide) in paragraph at lines 12--15
+Overfull \hbox (59.3452pt too wide) in paragraph at lines 17--20
  []|  [] 
  []
 
-[9] [10 <./files/EA.pdf>]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 90.
+[11] [12 <./files/EA.pdf>]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 95.
 
 ("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 90.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 95.
 
-[11] [12] [13]
-Overfull \hbox (3.40536pt too wide) in paragraph at lines 217--217
+[13] [14] [15]
+Overfull \hbox (3.40536pt too wide) in paragraph at lines 222--222
  \OT1/cmr/m/n/10.95 duct[]shelfLifeTimeUnit 
  []
 
-[14] [15] [16] [17]
-Overfull \hbox (3.76271pt too wide) in paragraph at lines 393--393
+[16] [17] [18] [19]
+Overfull \hbox (3.76271pt too wide) in paragraph at lines 398--398
  \OT1/cmr/m/n/10.95 (AAAA/MM/DD)| 
  []
 
 
-Overfull \hbox (3.76271pt too wide) in paragraph at lines 410--410
+Overfull \hbox (3.76271pt too wide) in paragraph at lines 415--415
  \OT1/cmr/m/n/10.95 (AAAA/MM/DD)| 
  []
 
-) (seccao32.tex [18]) (seccao33.tex [19]) (seccao34.tex)) [20]
+) (seccao32.tex [20]) (seccao33.tex [21]) (seccao34.tex)) [22]
 \openout2 = `capitulo4.aux'.
 
  (capitulo4.tex
 Cap\'{\i }tulo 4.
-<./files/Planeamento.pdf, id=131, 582.11276pt x 923.31651pt>
+<./files/Planeamento.pdf, id=137, 582.11276pt x 923.31651pt>
 File: ./files/Planeamento.pdf Graphic file (type pdf)
 <use ./files/Planeamento.pdf>
 Package pdftex.def Info: ./files/Planeamento.pdf  used on input line 20.
@@ -1124,41 +1122,41 @@ Overfull \hbox (52.26312pt too wide) in paragraph at lines 19--21
 []  [] 
  []
 
-[21
+[23
 
 
 
-] [22 <./files/Planeamento.pdf>]) [23] ("Relatorio Beta.bbl" [24
+] [24 <./files/Planeamento.pdf>]) [25] ("Relatorio Beta.bbl" [26
 
 
 ]
-Underfull \hbox (badness 4096) in paragraph at lines 17--23
+Underfull \hbox (badness 4096) in paragraph at lines 25--31
 []\OT1/cmr/m/n/10.95 Business Dic-ti-o-nary.  What is stan-dard stock item? de-
 fi-ni-tion and me-a-
  []
 
 
-Underfull \hbox (badness 3312) in paragraph at lines 32--38
+Underfull \hbox (badness 3312) in paragraph at lines 40--46
 []\OT1/cmr/m/n/10.95 Thad Scheer.  Ca-te-gory, seg-ment, and brand { what's the
  dif-fe-rence? {
  []
 
 
-Underfull \hbox (badness 8189) in paragraph at lines 32--38
+Underfull \hbox (badness 8189) in paragraph at lines 40--46
 \OT1/cmr/m/n/10.95 sphere of in-flu-ence : Analy-tics stu-dio.  $\OT1/cmtt/m/n/
 10.95 https : / / sphereoi . com / studios /
  []
 
 
-Underfull \hbox (badness 5548) in paragraph at lines 32--38
+Underfull \hbox (badness 5548) in paragraph at lines 40--46
 \OT1/cmtt/m/n/10.95 category-[]segment-[]and-[]brand-[]whats-[]the-[]difference
 /$\OT1/cmr/m/n/10.95 .  [On-line; Ac-ces-sed on
  []
 
-) [25]
+) [27]
 \openout2 = `anexo1.aux'.
 
- (anexo1.tex [26
+ (anexo1.tex [28
 
 
 ]
@@ -1169,12 +1167,12 @@ Overfull \hbox (14.09998pt too wide) in paragraph at lines 20--26
 [] 
  []
 
-[27]
+[29]
 Overfull \hbox (14.09998pt too wide) in paragraph at lines 52--65
 [] 
  []
 
-) [28]
+) [30]
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
@@ -1183,13 +1181,13 @@ This document will not have a glossary.
 ("Relatorio Beta.aux" (resumo.aux) (abstract.aux) (capitulo1.aux)
 (capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux)) ) 
 Here is how much of TeX's memory you used:
- 11966 strings out of 493303
- 201294 string characters out of 3130219
- 338663 words of memory out of 3000000
- 15162 multiletter control sequences out of 15000+200000
+ 11971 strings out of 493303
+ 201390 string characters out of 3130219
+ 338668 words of memory out of 3000000
+ 15167 multiletter control sequences out of 15000+200000
  14989 words of font info for 49 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 45i,13n,39p,2012b,375s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 45i,13n,39p,2012b,377s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Rita/A
 ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/
 Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmb
@@ -1207,9 +1205,9 @@ ype1/urw/helvetic/uhvb8ac.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/
 fonts/type1/urw/helvetic/uhvbo8ac.pfb><C:/Users/Rita/AppData/Local/Programs/MiK
 TeX 2.9/fonts/type1/urw/helvetic/uhvr8ac.pfb><C:/Users/Rita/AppData/Local/Progr
 ams/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvro8ac.pfb>
-Output written on "Relatorio Beta.pdf" (42 pages, 558197 bytes).
+Output written on "Relatorio Beta.pdf" (44 pages, 564262 bytes).
 PDF statistics:
- 219 PDF objects out of 1000 (max. 8388607)
+ 226 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
