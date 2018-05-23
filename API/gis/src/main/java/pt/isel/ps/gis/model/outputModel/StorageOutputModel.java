@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"class", "properties", "entities", "actions", "links"})
+@JsonPropertyOrder({"class", "properties", "actions", "links"})
 public class StorageOutputModel {
 
     private final static String ENTITY_CLASS = "storage";
@@ -21,8 +21,6 @@ public class StorageOutputModel {
     @JsonProperty
     private final Map<String, Object> properties;
     @JsonProperty
-    private final Entity[] entities;
-    @JsonProperty
     private final Action[] actions;
     @JsonProperty
     private final Link[] links;
@@ -31,7 +29,6 @@ public class StorageOutputModel {
     public StorageOutputModel(Storage storage) {
         this.klass = initKlass();
         this.properties = initProperties(storage);
-        this.entities = initEntities(storage);
         this.actions = initActions(storage);
         this.links = initLinks(storage);
     }
@@ -48,18 +45,6 @@ public class StorageOutputModel {
         properties.put("storage-name", storage.getStorageName());
         properties.put("storage-temperature", storage.getStorageTemperature());
         return properties;
-    }
-
-    private Entity[] initEntities(Storage storage) {
-        long houseId = storage.getId().getHouseId();
-
-        // URIs
-        String storagesUri = UriBuilderUtils.buildStoragesUri(houseId);
-
-        // Subentities
-        Entity storages = new Entity(new String[]{"storages", "collection"}, new String[]{"storages"}, storagesUri);
-
-        return new Entity[]{storages};
     }
 
     private Action[] initActions(Storage storage) {
@@ -80,9 +65,9 @@ public class StorageOutputModel {
                 storageUri,
                 type,
                 new Field[]{
-                        new Field("storage-minimum-temperature", Field.Type.number, null),
-                        new Field("storage-maximum-temperature", Field.Type.number, null),
-                        new Field("storage-name", Field.Type.text, null)
+                        new Field("storage-minimum-temperature", Field.Type.number, null, "Minimum Temperature"),
+                        new Field("storage-maximum-temperature", Field.Type.number, null, "Maximum Temperature"),
+                        new Field("storage-name", Field.Type.text, null, "Name")
                 }
         );
 
@@ -105,10 +90,13 @@ public class StorageOutputModel {
 
         // URIs
         String storageUri = UriBuilderUtils.buildStorageUri(houseId, storageId);
+        String storagesUri = UriBuilderUtils.buildStoragesUri(houseId);
 
         // Link-self
-        Link self = new Link(new String[]{"self"}, storageUri);
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS}, storageUri);
+        // Link-related-storages
+        Link storagesLink = new Link(new String[]{"related"}, new String[]{"storages", "collection"}, storagesUri);
 
-        return new Link[]{self};
+        return new Link[]{self, storagesLink};
     }
 }
