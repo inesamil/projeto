@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"class", "properties", "entities", "actions", "links"})
+@JsonPropertyOrder({"class", "properties", "entities", "links"})
 public class StockItemOutputModel {
 
     private final static String ENTITY_CLASS = "stock-item";
@@ -25,8 +25,6 @@ public class StockItemOutputModel {
     @JsonProperty
     private final Entity[] entities;
     @JsonProperty
-    private final Action[] actions;
-    @JsonProperty
     private final Link[] links;
 
     // Ctor
@@ -34,7 +32,6 @@ public class StockItemOutputModel {
         this.klass = initKlass();
         this.properties = initProperties(stockItem);
         this.entities = initEntities(stockItem);
-        this.actions = initActions(stockItem);
         this.links = initLinks(stockItem);
     }
 
@@ -63,20 +60,12 @@ public class StockItemOutputModel {
         String sku = stockItem.getId().getStockitemSku();
 
         // URIs
-        String stockItemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
         String itemAllergiesUri = UriBuilderUtils.buildAllergiesStockItemUri(houseId, sku);
 
         // Subentities
-        Entity stockItems = new Entity(new String[]{"stock-items", "collection"}, new String[]{"stock-items"},
-                stockItemsUri);
-        Entity allergiesItem = new Entity(new String[]{"allergies-stock-item", "collection"}, new String[]{"allergies-item"},
-                itemAllergiesUri);
+        Entity allergiesItem = new Entity(new String[]{"allergies-stock-item", "collection"}, new String[]{"allergies-item"}, null, null, itemAllergiesUri);
 
-        return new Entity[]{stockItems, allergiesItem};
-    }
-
-    private Action[] initActions(StockItem stockItem) {
-        return new Action[]{};
+        return new Entity[]{allergiesItem};
     }
 
     private Link[] initLinks(StockItem stockItem) {
@@ -85,10 +74,13 @@ public class StockItemOutputModel {
 
         // URIs
         String stockItemUri = UriBuilderUtils.buildStockItemUri(houseId, sku);
+        String stockItemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
 
         // Link-self
-        Link self = new Link(new String[]{"self"}, stockItemUri);
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS}, stockItemUri);
+        //Link-related-stockItems
+        Link stockItemsLink = new Link(new String[]{"related"}, new String[]{"stock-items", "collection"}, stockItemsUri);
 
-        return new Link[]{self};
+        return new Link[]{self, stockItemsLink};
     }
 }
