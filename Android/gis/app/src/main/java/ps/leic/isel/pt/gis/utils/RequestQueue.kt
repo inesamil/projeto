@@ -8,11 +8,11 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.Volley
 
-class RequestQueue constructor(context: Context) {
+class RequestQueue constructor(context: Context?) {
     companion object {
-        @Volatile private var INSTANCE: RequestQueue? = null
+        @Volatile private var INSTANCE: ps.leic.isel.pt.gis.utils.RequestQueue? = null
 
-        fun getInstance(context: Context) =
+        fun getInstance(context: Context?) =
                 INSTANCE ?: synchronized(this) {
                     INSTANCE ?: RequestQueue(context)
                 }
@@ -34,7 +34,7 @@ class RequestQueue constructor(context: Context) {
     }
 
     val requestQueue: RequestQueue by lazy {
-        Volley.newRequestQueue(context.applicationContext)
+        Volley.newRequestQueue(context?.applicationContext)
     }
 
     fun <T> addToRequestQueue(req: Request<T>) {
