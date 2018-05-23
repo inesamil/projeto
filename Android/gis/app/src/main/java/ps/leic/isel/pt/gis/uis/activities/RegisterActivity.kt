@@ -28,7 +28,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        signupBtn.setOnClickListener{
+        signupBtn.setOnClickListener {
             val credentials: Credential = Credential.Builder(usernameEditText.text.toString())
                     .setPassword(passwordEditText.text.toString())
                     .build()
@@ -61,14 +61,14 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun saveCredentials(credentials: Credential) {
         val credentialsClient: CredentialsClient = Credentials.getClient(this)
-        credentialsClient.save(credentials).addOnCompleteListener{
+        credentialsClient.save(credentials).addOnCompleteListener {
             if (it.isSuccessful) {
                 Log.d("", "SAVE: OK")
                 return@addOnCompleteListener
             }
             val ex: Exception? = it.exception
             ex.let {
-                if (ex is ResolvableApiException){
+                if (ex is ResolvableApiException) {
                     // Try to resolve the save request. This will prompt the user if
                     // the credential is new.
                     val rae: ResolvableApiException = ex

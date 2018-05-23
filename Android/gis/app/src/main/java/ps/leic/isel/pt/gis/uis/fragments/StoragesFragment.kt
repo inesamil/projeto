@@ -6,12 +6,17 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.android.volley.Request
+import com.android.volley.VolleyError
 import kotlinx.android.synthetic.main.fragment_storages.view.*
 
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.StorageDTO
+import ps.leic.isel.pt.gis.model.TemperatureStorageDTO
 import ps.leic.isel.pt.gis.uis.adapters.StoragesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.RequestQueue
+import ps.leic.isel.pt.gis.utils.Requester
 
 /**
  * A simple [Fragment] subclass.
@@ -32,8 +37,24 @@ class StoragesFragment : Fragment() {
         arguments?.let {
             houseId = it.getLong(ExtraUtils.HOUSE_ID)
         }
+        // for demo
+        val url = "http://localhost:8081/v1/houses/1/storages"
+        val tagToBeCancelled = "STORAGES_FRAGMENT"
+
+        RequestQueue.getInstance(activity?.applicationContext).addToRequestQueue(
+                Requester(Request.Method.GET, url, null, StorageDTO::class.java, {onSuccess(it)}, {onError(it)}, tagToBeCancelled)
+        )
+
         //TODO: get data
-        storages = arrayOf(StorageDTO(1, 1, "Fridge", "[0,5]"))
+        storages = arrayOf(StorageDTO(1, 1, "Fridge", TemperatureStorageDTO(0F, 5F)))
+    }
+
+    private fun onSuccess(dto: StorageDTO) {
+
+    }
+
+    private fun onError(error: VolleyError) {
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +74,11 @@ class StoragesFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         activity?.title = getString(R.string.storages)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        RequestQueue.getInstance(activity?.applicationContext).requestQueue.cancelAll("STORAGES_FRAGMENT")
     }
 
     /**
