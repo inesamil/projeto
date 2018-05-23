@@ -17,22 +17,15 @@
 \contentsline {section}{\numberline {2.2}Requisitos Funcionais e Opcionais}{7}
 \contentsline {paragraph}{Requisitos Funcionais}{7}
 \contentsline {paragraph}{Requisitos Opcionais}{7}
-\contentsline {section}{\numberline {2.3}Dificuldades Encontradas}{8}
-\contentsline {subsection}{\numberline {2.3.1}R\IeC {\'o}tulos em Formato N\IeC {\~a}o Digital}{8}
-\contentsline {subsection}{\numberline {2.3.2}Aus\IeC {\^e}ncia de Identificador \IeC {\'U}nico nos Itens}{8}
 \contentsline {chapter}{\numberline {3}Solu\IeC {\c c}\IeC {\~a}o Proposta}{9}
-\contentsline {section}{\numberline {3.1}Modelo de Dados}{11}
-\contentsline {subsection}{\numberline {3.1.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{12}
-\contentsline {subsection}{\numberline {3.1.2}Dom\IeC {\'\i }nio dos Atributos}{12}
-\contentsline {section}{\numberline {3.2}Base de Dados}{20}
-\contentsline {subsection}{\numberline {3.2.1}Implementa\IeC {\c c}\IeC {\~a}o}{21}
-\contentsline {section}{\numberline {3.3}Acesso a Dados}{21}
-\contentsline {subsection}{\numberline {3.3.1}Implementa\IeC {\c c}\IeC {\~a}o}{22}
-\contentsline {section}{\numberline {3.4}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{22}
-\contentsline {subsection}{\numberline {3.4.1}Implementa\IeC {\c c}\IeC {\~a}o}{22}
-\contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{23}
-\contentsline {section}{\numberline {4.1}Planeamento}{23}
-\contentsline {section}{\numberline {4.2}Sum\IeC {\'a}rio}{25}
-\contentsline {section}{\numberline {4.3}Trabalho Futuro}{25}
-\contentsline {chapter}{\numberline {A}Terminologia}{29}
-\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{29}
+\contentsline {section}{\numberline {3.1}Abordagem}{10}
+\contentsline {section}{\numberline {3.2}An\IeC {\'a}lise}{11}
+\contentsline {section}{\numberline {3.3}Dificuldades Encontradas}{12}
+\contentsline {subsection}{\numberline {3.3.1}R\IeC {\'o}tulos em Formato N\IeC {\~a}o Digital}{12}
+\contentsline {subsection}{\numberline {3.3.2}Aus\IeC {\^e}ncia de Identificador \IeC {\'U}nico nos Itens}{13}
+\contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{15}
+\contentsline {section}{\numberline {4.1}Planeamento}{15}
+\contentsline {section}{\numberline {4.2}Sum\IeC {\'a}rio}{17}
+\contentsline {section}{\numberline {4.3}Trabalho Futuro}{17}
+\contentsline {chapter}{\numberline {A}Terminologia}{21}
+\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{21}
