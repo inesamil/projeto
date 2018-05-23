@@ -2,66 +2,75 @@ package pt.isel.ps.gis.model.outputModel;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Collection;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Data;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Item;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Link;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.Entity;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.Link;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"class", "properties", "entities", "links"})
 public class UserHousesOutputModel {
 
+    private final static String ENTITY_CLASS = "user-houses";
+
+    @JsonProperty(value = "class")
+    private final String[] klass;
     @JsonProperty
-    private final Collection collection;
+    private final Map<String, Object> properties;
+    @JsonProperty
+    private final Entity[] entities;
+    @JsonProperty
+    private final Link[] links;
 
     public UserHousesOutputModel(String username, List<House> houses) {
-        this.collection = initCollection(username, houses);
+        this.klass = initKlass();
+        this.properties = initProperties(houses);
+        this.entities = initEntities(username, houses);
+        this.links = initLinks(username);
     }
 
-    private Collection initCollection(String username, List<House> houses) {
+    private String[] initKlass() {
+        return new String[]{ENTITY_CLASS, "collection"};
+    }
+
+    private Map<String,Object> initProperties(List<House> houses) {
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("size", houses.size());
+
+        return properties;
+    }
+
+    private Entity[] initEntities(String username, List<House> houses) {
+        Entity[] entities = new Entity[houses.size()];
+        for (int i = 0; i < houses.size(); ++i) {
+            House house = houses.get(i);
+
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("house-id", house.getHouseId());
+            properties.put("house-name", house.getHouseName());
+
+            String houseUri = UriBuilderUtils.buildHouseUri(house.getHouseId());
+            entities[i] = new Entity(new String[]{"house"}, new String[]{"item"}, properties, null, houseUri);
+        }
+        return entities;
+    }
+
+    private Link[] initLinks(String username) {
         //URIs
         String userUri = UriBuilderUtils.buildUserUri(username);
         String userHousesUri = UriBuilderUtils.buildUserHousesUri(username);
 
-        // Version
-        String version = "1.0";
+        // Link-self
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, userHousesUri);
+        //Link-related-user
+        Link userLink = new Link(new String[]{"user"}, new String[]{"related"}, userUri);
 
-        // Link
-        Link[] links = new Link[]{
-                new Link("user", userUri)
-        };
+        return new Link[]{self, userLink};
 
-        // Items
-        Item[] items = mapItems(houses);
-
-        return new Collection(version, userHousesUri, links, items);
-    }
-
-    private Item[] mapItems(List<House> houses) {
-        int housesSize = houses.size();
-        Item[] items = new Item[housesSize];
-        for (int i = 0; i < housesSize; i++) {
-            House house = houses.get(i);
-            long houseId = house.getHouseId();
-            items[i] = new Item(
-                    UriBuilderUtils.buildHouseUri(houseId),
-                    new Data[]{
-                            new Data("house-id", houseId, "ID"),
-                            new Data("house-name", house.getHouseName(), "Name")
-                    },
-                    new Link[]{
-                            new Link("movements", UriBuilderUtils.buildMovementsUri(houseId)),
-                            new Link("items", UriBuilderUtils.buildStockItemsUri(houseId)),
-                            new Link("household", UriBuilderUtils.buildHouseholdUri(houseId)),
-                            new Link("house-allergies", UriBuilderUtils.buildHouseAllergiesUri(houseId)),
-                            new Link("lists", UriBuilderUtils.buildListsUri(houseId)),
-                            new Link("storages", UriBuilderUtils.buildStoragesUri(houseId))
-                    }
-            );
-        }
-        return items;
     }
 }
