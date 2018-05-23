@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import java.io.IOException
 
-class Requester<DTO>(method: Int, url: String, body: Any, private val dtoType: Class<DTO>,
+class Requester<DTO>(method: Int, url: String, body: Any?, private val dtoType: Class<DTO>,
                      onSuccess: (DTO) -> Unit, onError: (VolleyError) -> Unit, val tag: String)
     : JsonRequest<DTO>(method, url, Requester.mapper.writeValueAsString(body), onSuccess, onError) {
 
