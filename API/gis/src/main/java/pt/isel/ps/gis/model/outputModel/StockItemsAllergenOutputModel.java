@@ -2,70 +2,84 @@ package pt.isel.ps.gis.model.outputModel;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Collection;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Data;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Item;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Link;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.Entity;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.Link;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"class", "properties", "entities", "links"})
 public class StockItemsAllergenOutputModel {
 
+    private final static String ENTITY_CLASS = "stock-items";
+
+    @JsonProperty(value = "class")
+    private final String[] klass;
     @JsonProperty
-    private final Collection collection;
+    private final Map<String, Object> properties;
+    @JsonProperty
+    private final Entity[] entities;
+    @JsonProperty
+    private final Link[] links;
 
     public StockItemsAllergenOutputModel(long houseId, String allergen, List<StockItem> stockItems) {
-        this.collection = initCollection(houseId, allergen, stockItems);
+        this.klass = initKlass();
+        this.properties = initProperties(stockItems);
+        this.entities = initEntities(houseId, allergen, stockItems);
+        this.links = initLinks(houseId, allergen);
     }
 
-    private Collection initCollection(long houseId, String allergen, List<StockItem> stockItems) {
+    // Initters
+    private String[] initKlass() {
+        return new String[]{ENTITY_CLASS, "collection"};
+    }
+
+    private Map<String,Object> initProperties(List<StockItem> stockItems) {
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("size", stockItems.size());
+
+        return properties;
+    }
+
+    private Entity[] initEntities(long houseId, String allergen, List<StockItem> stockItems) {
+        Entity[] entities = new Entity[stockItems.size()];
+        for (int i = 0; i < stockItems.size(); ++i) {
+            StockItem stockItem = stockItems.get(i);
+
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("house-id", houseId);
+            properties.put("allergy-allergen", allergen);
+            properties.put("stock-item-id", stockItem.getId().getStockitemSku());
+            properties.put("category-id", stockItem.getCategoryId());
+            properties.put("product-id", stockItem.getProductId());
+            properties.put("stock-item-brand", stockItem.getStockitemBrand());
+            properties.put("stock-item-conservation-storage", stockItem.getStockitemConservationstorage());
+            properties.put("stock-item-description", stockItem.getStockitemDescription());
+            properties.put("stock-item-quantity", stockItem.getStockitemQuantity());
+            properties.put("stock-item-segment", stockItem.getStockitemSegment() +
+                    stockItem.getStockitemSegmentunit());
+            properties.put("stock-item-variety", stockItem.getStockitemVariety());
+
+            entities[i] = new Entity(new String[]{"stock-item"}, new String[]{"item"}, properties, null, null);
+        }
+        return entities;
+    }
+
+    private Link[] initLinks(long houseId, String allergen) {
         //URIs
         String houseAllergiesUri = UriBuilderUtils.buildHouseAllergiesUri(houseId);
         String stockItemsAllergenUri = UriBuilderUtils.buildStockItemsAllergenUri(houseId, allergen);
 
-        // Version
-        String version = "1.0";
+        // Link-self
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, stockItemsAllergenUri);
+        //Link-related-houseAllergies
+        Link houseAllergiesLink = new Link(new String[]{"related"}, new String[]{"house-allergies", "collection"}, houseAllergiesUri);
 
-        // Link
-        Link[] links = new Link[]{
-                new Link("house-allergies", houseAllergiesUri)
-        };
-
-        // Items
-        Item[] items = mapItems(houseId, allergen, stockItems);
-
-        return new Collection(version, stockItemsAllergenUri, links, items);
-    }
-
-    private Item[] mapItems(long houseId, String allergen, List<StockItem> stockItems) {
-        int stockItemsSize = stockItems.size();
-        Item[] items = new Item[stockItemsSize];
-        for (int i = 0; i < stockItemsSize; i++) {
-            StockItem stockItem = stockItems.get(i);
-
-            items[i] = new Item(
-                    null,
-                    new Data[]{
-                            new Data("house-id", houseId, "House ID"),
-                            new Data("allergy-allergen", allergen, "Allergen"),
-                            new Data("stock-item-id", stockItem.getId().getStockitemSku(), "Stock Item ID"),
-                            new Data("category-id", stockItem.getCategoryId(), "Category ID"),
-                            new Data("product-id", stockItem.getProductId(), "Product ID"),
-                            new Data("stock-item-brand", stockItem.getStockitemBrand(), "Brand"),
-                            new Data("stock-item-conservation-storage", stockItem.getStockitemConservationstorage(),
-                                    "Conservation Storage"),
-                            new Data("stock-item-description", stockItem.getStockitemDescription(), "Description"),
-                            new Data("stock-item-quantity", stockItem.getStockitemQuantity(), "Quantity"),
-                            new Data("stock-item-segment", stockItem.getStockitemSegment() +
-                                    stockItem.getStockitemSegmentunit(), "Segment"),
-                            new Data("stock-item-variety", stockItem.getStockitemVariety(), "Variety")
-                    },
-                    null
-            );
-        }
-        return items;
+        return new Link[]{self, houseAllergiesLink};
     }
 }
