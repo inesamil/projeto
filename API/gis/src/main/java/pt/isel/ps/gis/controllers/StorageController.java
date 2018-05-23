@@ -19,7 +19,6 @@ import pt.isel.ps.gis.model.outputModel.StoragesOutputModel;
 import java.util.List;
 import java.util.Optional;
 
-import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
@@ -41,7 +40,7 @@ public class StorageController {
         checkHouse(houseId);
         List<Storage> storages = storageService.getStorageByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setCollectionContentType(headers),
+        return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
@@ -69,7 +68,7 @@ public class StorageController {
         ));
         List<Storage> storages = storageService.getStorageByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setCollectionContentType(headers),
+        return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),
                 HttpStatus.CREATED);
     }
 
@@ -100,7 +99,7 @@ public class StorageController {
             storageService.updateStorage(storage);
         List<Storage> storages = storageService.getStorageByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setCollectionContentType(headers),
+        return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
@@ -114,7 +113,7 @@ public class StorageController {
         storageService.deleteStorageByStorageId(houseId, storageId);
         List<Storage> storages = storageService.getStorageByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setCollectionContentType(headers),
+        return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
