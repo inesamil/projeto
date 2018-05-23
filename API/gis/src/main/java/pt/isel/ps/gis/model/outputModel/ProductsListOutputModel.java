@@ -2,67 +2,117 @@ package pt.isel.ps.gis.model.outputModel;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Collection;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Data;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Item;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.Link;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
 import pt.isel.ps.gis.model.ListProduct;
+import pt.isel.ps.gis.model.Product;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"class", "properties", "entities", "actions", "links"})
 public class ProductsListOutputModel {
 
+    private final static String ENTITY_CLASS = "products-list";
+
+    @JsonProperty(value = "class")
+    private final String[] klass;
     @JsonProperty
-    private final Collection collection;
+    private final Map<String, Object> properties;
+    @JsonProperty
+    private final Entity[] entities;
+    @JsonProperty
+    private final Action[] actions;
+    @JsonProperty
+    private final Link[] links;
 
     public ProductsListOutputModel(long houseId, short listId, List<ListProduct> listProducts) {
-        this.collection = initCollection(houseId, listId, listProducts);
+        this.klass = initKlass();
+        this.properties = initProperties(listProducts);
+        this.entities = initEntities(houseId, listId, listProducts);
+        this.actions = initActions(houseId, listId);
+        this.links = initLinks(houseId, listId);
     }
 
-    private Collection initCollection(long houseId, short listId, List<ListProduct> listProducts) {
+    // Initters
+    private String[] initKlass() {
+        return new String[]{ENTITY_CLASS, "collection"};
+    }
+
+    private Map<String,Object> initProperties(List<ListProduct> listProducts) {
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("size", listProducts.size());
+
+        return properties;
+    }
+
+    private Entity[] initEntities(long houseId, short listId, List<ListProduct> listProducts) {
+        Entity[] entities = new Entity[listProducts.size()];
+        for (int i = 0; i < listProducts.size(); ++i) {
+            ListProduct listProduct = listProducts.get(i);
+            Product product = listProduct.getProduct();
+
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("house-id", houseId);
+            properties.put("list-id", listId);
+            properties.put("category-id", product.getCategoryByCategoryId().getCategoryId());
+            properties.put("product-id", product.getId().getProductId());
+            properties.put("list-product-brand", listProduct.getListproductBrand());
+            properties.put("list-product-quantity", listProduct.getListproductQuantity());
+
+            String productUri = UriBuilderUtils.buildProductUri((int)houseId, listId);
+
+            entities[i] = new Entity(new String[]{"product"}, new String[]{"item"}, properties, null, productUri);
+        }
+        return entities;
+    }
+
+    private Action[] initActions(long houseId, short listId) {
+        // Type
+        String type = "application/json";
+
+        // URIs
+        String productsListUri = UriBuilderUtils.buildProductsListUri(houseId, listId);
+
+        // PUT List
+        Action putListProduct = new Action(
+                "update-product",
+                "Update product",
+                Method.PUT,
+                productsListUri,
+                type,
+                new Field[]{
+                        new Field("list-product-brand", Field.Type.text, null, "Brand"),
+                        new Field("list-product-quantity", Field.Type.number, null, "Quantity")
+                }
+        );
+
+        // DELETE List Products
+        Action deleteListProducts = new Action(
+                "delete-list-products",
+                "Delete List Products",
+                Method.PUT,
+                productsListUri,
+                null,
+                null
+        );
+
+        return new Action[]{putListProduct, deleteListProducts};
+    }
+
+    private Link[] initLinks(long houseId, short listId) {
         //URIs
         String listUri = UriBuilderUtils.buildListUri(houseId, listId);
         String productsListUri = UriBuilderUtils.buildProductsListUri(houseId, listId);
 
-        // Version
-        String version = "1.0";
+        // Link-self
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, productsListUri);
+        //Link-related-list
+        Link listLink = new Link(new String[]{"related"}, new String[]{"list"}, listUri);
 
-        // Link
-        Link[] links = new Link[]{
-                new Link("list", listUri)
-        };
-
-        // Items
-        Item[] items = mapItems(houseId, listId, listProducts);
-
-        return new Collection(version, productsListUri, links, items);
-    }
-
-    // The items does not support HTTP GET method, just HTTP PUT and DELETE.
-    private Item[] mapItems(long houseId, short listId, List<ListProduct> listProducts) {
-        int listProductsSize = listProducts.size();
-        Item[] items = new Item[listProductsSize];
-        for (int i = 0; i < listProductsSize; i++) {
-            ListProduct listProduct = listProducts.get(i);
-            int categoryId = listProduct.getId().getCategoryId();
-            int productId = listProduct.getId().getProductId();
-            items[i] = new Item(
-                    UriBuilderUtils.buildProductListUri(houseId, listId, productId),
-                    new Data[]{
-                            new Data("house-id", houseId, "House ID"),
-                            new Data("list-id", listId, "List ID"),
-                            new Data("category-id", categoryId, "Category ID"),
-                            new Data("product-id", productId, "Product ID"),
-                            new Data("list-product-brand", listProduct.getListproductBrand(), "Brand"),
-                            new Data("list-product-quantity", listProduct.getListproductQuantity(), "Quantity")
-                    },
-                    new Link[]{
-                            new Link("listProducts-category", UriBuilderUtils.buildProductsCategoryUri(categoryId))
-                    }
-            );
-        }
-        return items;
+        return new Link[]{self, listLink};
     }
 }
