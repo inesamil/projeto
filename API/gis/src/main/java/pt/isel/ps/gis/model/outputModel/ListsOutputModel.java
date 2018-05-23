@@ -33,12 +33,12 @@ public class ListsOutputModel {
         this.properties = initProperties(lists);
         this.entities = initEntities(houseId, lists);
         this.actions = initActions(houseId);
-        this.links = initLinks(houseId, lists);
+        this.links = initLinks(houseId);
     }
 
     // Initters
     private String[] initKlass() {
-        return new String[]{ENTITY_CLASS};
+        return new String[]{ENTITY_CLASS, "collection"};
     }
 
     private Map<String, Object> initProperties(java.util.List<List> lists) {
@@ -88,16 +88,16 @@ public class ListsOutputModel {
         return new Action[]{postList};
     }
 
-    private Link[] initLinks(long houseId, java.util.List<List> lists) {
+    private Link[] initLinks(long houseId) {
         // URIs
         String houseUri = UriBuilderUtils.buildHouseUri(houseId);
         String listsUri = UriBuilderUtils.buildListsUri(houseId);
 
         // Link-self
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, listsUri);
-        //Link-related-lists
-        Link userLink = new Link(new String[]{"related"}, new String[]{"house"}, houseUri);
+        //Link-related-house
+        Link houseLink = new Link(new String[]{"related"}, new String[]{"house"}, houseUri);
 
-        return new Link[]{self, userLink};
+        return new Link[]{self, houseLink};
     }
 }
