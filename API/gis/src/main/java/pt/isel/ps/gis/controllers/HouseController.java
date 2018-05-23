@@ -52,7 +52,7 @@ public class HouseController {
         checkHouse(houseId);
         List<UserHouse> household = houseMemberService.getMembersByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseholdOutputModel(houseId, household), setCollectionContentType(headers),
+        return new ResponseEntity<>(new HouseholdOutputModel(houseId, household), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
@@ -101,7 +101,7 @@ public class HouseController {
             houseMemberService.addMember(member);
         List<UserHouse> household = houseMemberService.getMembersByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseholdOutputModel(houseId, household), setCollectionContentType(headers),
+        return new ResponseEntity<>(new HouseholdOutputModel(houseId, household), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
@@ -124,7 +124,7 @@ public class HouseController {
         houseMemberService.deleteMemberByMemberId(houseId, username);
         List<UserHouse> household = houseMemberService.getMembersByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseholdOutputModel(houseId, household), setCollectionContentType(headers),
+        return new ResponseEntity<>(new HouseholdOutputModel(houseId, household), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
