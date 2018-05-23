@@ -11,8 +11,6 @@ public class HeadersUtilsTest {
 
     private final static String SIREN_MEDIA_TYPE = "application/vnd.siren+json";
     private final static String JSON_HOME_MEDIA_TYPE = "application/home+json";
-    private final static String COLLECTION_JSON_MEDIA_TYPE = "application/vnd.collection+json";
-
 
     @Test
     public void test_set_siren_content_type() {
@@ -24,12 +22,6 @@ public class HeadersUtilsTest {
     public void test_set_json_home_content_type() {
         HttpHeaders headers = new HttpHeaders();
         assertEquals(MediaType.valueOf(JSON_HOME_MEDIA_TYPE), setJsonHomeContentType(headers).getContentType());
-    }
-
-    @Test
-    public void test_set_collection_content_type() {
-        HttpHeaders headers = new HttpHeaders();
-        assertEquals(MediaType.valueOf(COLLECTION_JSON_MEDIA_TYPE), setCollectionContentType(headers).getContentType());
     }
 
     @Test
