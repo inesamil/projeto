@@ -14,7 +14,6 @@ import pt.isel.ps.gis.model.outputModel.CategoryOutputModel;
 import java.util.List;
 import java.util.Optional;
 
-import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
@@ -37,7 +36,7 @@ public class CategoryController {
         else
             categories = categoryService.getCategoriesFiltered(new CategoryService.CategoryFilters(name));
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new CategoriesOutputModel(categories), setCollectionContentType(headers),
+        return new ResponseEntity<>(new CategoriesOutputModel(categories), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
