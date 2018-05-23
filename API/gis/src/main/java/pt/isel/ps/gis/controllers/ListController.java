@@ -23,7 +23,6 @@ import pt.isel.ps.gis.model.requestParams.ListRequestParam;
 
 import java.util.Optional;
 
-import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
@@ -64,7 +63,7 @@ public class ListController {
         }
         java.util.List<List> lists = listService.getListsByHouseIdFiltered(houseId, filters);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setCollectionContentType(headers),
+        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
@@ -88,7 +87,7 @@ public class ListController {
         java.util.List<ListProduct> listProducts = listProductService.getListProductsByListId(houseId, listId);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ProductsListOutputModel(houseId, listId, listProducts),
-                setCollectionContentType(headers), HttpStatus.OK);
+                setSirenContentType(headers), HttpStatus.OK);
     }
 
     @PostMapping("")
@@ -112,7 +111,7 @@ public class ListController {
         );
         java.util.List<List> lists = listService.getListsByHouseIdFiltered(houseId, filters);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setCollectionContentType(headers),
+        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
                 HttpStatus.CREATED);
     }
 
@@ -147,7 +146,7 @@ public class ListController {
         );
         java.util.List<List> lists = listService.getListsByHouseIdFiltered(houseId, filters);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setCollectionContentType(headers),
+        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
@@ -184,7 +183,7 @@ public class ListController {
         );
         java.util.List<List> lists = listService.getListsByHouseIdFiltered(houseId, filters);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setCollectionContentType(headers),
+        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
@@ -206,7 +205,7 @@ public class ListController {
         );
         java.util.List<List> lists = listService.getListsByHouseIdFiltered(houseId, filters);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setCollectionContentType(headers),
+        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
@@ -237,7 +236,7 @@ public class ListController {
         );
         java.util.List<List> lists = listService.getListsByHouseIdFiltered(houseId, filters);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setCollectionContentType(headers),
+        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
