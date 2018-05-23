@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"class", "properties", "entities", "actions", "links"})
+@JsonPropertyOrder({"class", "properties", "links"})
 public class ProductOutputModel {
 
     private final static String ENTITY_CLASS = "product";
@@ -23,18 +23,12 @@ public class ProductOutputModel {
     @JsonProperty
     private final Map<String, Object> properties;
     @JsonProperty
-    private final Entity[] entities;
-    @JsonProperty
-    private final Action[] actions;
-    @JsonProperty
     private final Link[] links;
 
     // Ctor
     public ProductOutputModel(Product product) {
         this.klass = initKlass();
         this.properties = initProperties(product);
-        this.entities = initEntities(product);
-        this.actions = initActions(product);
         this.links = initLinks(product);
     }
 
@@ -53,33 +47,18 @@ public class ProductOutputModel {
         return properties;
     }
 
-    private Entity[] initEntities(Product product) {
-        int categoryId = product.getId().getCategoryId();
-
-        // URIs
-        String productsCategoryUri = UriBuilderUtils.buildProductsCategoryUri(categoryId);
-
-        // Subentities
-        Entity productsCategory = new Entity(new String[]{"products-category", "collection"},
-                new String[]{"products-category"}, productsCategoryUri);
-
-        return new Entity[]{productsCategory};
-    }
-
-    private Action[] initActions(Product product) {
-        return new Action[]{};
-    }
-
     private Link[] initLinks(Product product) {
         int categoryId = product.getId().getCategoryId();
         int productId = product.getId().getProductId();
 
         // URIs
         String productUri = UriBuilderUtils.buildProductUri(categoryId, productId);
+        String productsCategoryUri = UriBuilderUtils.buildProductsCategoryUri(categoryId);
 
         // Link-self
-        Link self = new Link(new String[]{"self"}, productUri);
-
-        return new Link[]{self};
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS}, productUri);
+        //Link-related-productsCategory
+        Link productsCategoryLink = new Link(new String[]{"related"}, new String[]{"products-category", "collection"}, productsCategoryUri);
+        return new Link[]{self, productsCategoryLink};
     }
 }
