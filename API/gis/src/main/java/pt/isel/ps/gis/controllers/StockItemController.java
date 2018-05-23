@@ -22,7 +22,6 @@ import pt.isel.ps.gis.utils.InputUtils;
 import java.util.List;
 import java.util.Optional;
 
-import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
@@ -60,7 +59,7 @@ public class StockItemController {
             stockItems = stockItemService.getStockItemsByHouseIdFiltered(houseId, filters);
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new StockItemsOutputModel(houseId, stockItems), setCollectionContentType(headers),
+        return new ResponseEntity<>(new StockItemsOutputModel(houseId, stockItems), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
@@ -82,7 +81,7 @@ public class StockItemController {
         List<Allergy> allergens = stockItemAllergenService.getAllergensByStockItemId(houseId, sku);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new AllergiesStockItemOutputModel(houseId, sku, allergens),
-                setCollectionContentType(headers), HttpStatus.OK);
+                setSirenContentType(headers), HttpStatus.OK);
     }
 
     @PostMapping("")
@@ -108,7 +107,7 @@ public class StockItemController {
         ));
         List<StockItem> items = stockItemService.getStockItemsByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new StockItemsOutputModel(houseId, items), setCollectionContentType(headers),
+        return new ResponseEntity<>(new StockItemsOutputModel(houseId, items), setSirenContentType(headers),
                 HttpStatus.CREATED);
     }
 
