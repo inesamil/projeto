@@ -2,94 +2,116 @@ package pt.isel.ps.gis.model.outputModel;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.Collection;
-import pt.isel.ps.gis.hypermedia.collectionPlusJson.components.subentities.*;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"class", "properties", "entities", "actions", "links"})
 public class StockItemsOutputModel {
 
+    private final static String ENTITY_CLASS = "stock-items";
+
+    @JsonProperty(value = "class")
+    private final String[] klass;
     @JsonProperty
-    private final Collection collection;
+    private final Map<String, Object> properties;
+    @JsonProperty
+    private final Entity[] entities;
+    @JsonProperty
+    private final Action[] actions;
+    @JsonProperty
+    private final Link[] links;
 
     public StockItemsOutputModel(long houseId, List<StockItem> stockItems) {
-        this.collection = initCollection(houseId, stockItems);
+        this.klass = initKlass();
+        this.properties = initProperties(stockItems);
+        this.entities = initEntities(houseId, stockItems);
+        this.actions = initActions(houseId);
+        this.links = initLinks(houseId);
     }
 
-    private Collection initCollection(long houseId, List<StockItem> stockItems) {
+    // Initters
+    private String[] initKlass() {
+        return new String[]{ENTITY_CLASS, "collection"};
+    }
+
+    private Map<String,Object> initProperties(List<StockItem> stockItems) {
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("size", stockItems.size());
+
+        return properties;
+    }
+
+    private Entity[] initEntities(long houseId, List<StockItem> stockItems) {
+        Entity[] entities = new Entity[stockItems.size()];
+        for (int i = 0; i < stockItems.size(); ++i) {
+            StockItem stockItem = stockItems.get(i);
+
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("house-id", houseId);
+            properties.put("stock-item-id", stockItem.getId().getStockitemSku());
+            properties.put("category-id", stockItem.getCategoryId());
+            properties.put("product-id", stockItem.getProductId());
+            properties.put("stock-item-brand", stockItem.getStockitemBrand());
+            properties.put("stock-item-conservation-storage", stockItem.getStockitemConservationstorage());
+            properties.put("stock-item-description", stockItem.getStockitemDescription());
+            properties.put("stock-item-quantity", stockItem.getStockitemQuantity());
+            properties.put("stock-item-segment", stockItem.getStockitemSegment() +
+                    stockItem.getStockitemSegmentunit());
+            properties.put("stock-item-variety", stockItem.getStockitemVariety());
+
+            String stockItemUri = UriBuilderUtils.buildStockItemUri(houseId, stockItem.getId().getStockitemSku());
+
+            entities[i] = new Entity(new String[]{"stock-item"}, new String[]{"item"}, properties, null, stockItemUri);
+        }
+        return entities;
+    }
+
+    private Action[] initActions(long houseId) {
+        // Type
+        String type = "application/json";
+
+        // URIs
+        String stockItemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
+
+        // POST List
+        Action postStockItems = new Action(
+                "add-stock-item",
+                "Add Stock Item",
+                Method.POST,
+                stockItemsUri,
+                type,
+                new Field[]{
+                        new Field("category-id", Field.Type.number, null, "Category ID"),
+                        new Field("product-id", Field.Type.number, null, "Product ID"),
+                        new Field("stock-item-brand", Field.Type.text, null, "Brand"),
+                        new Field("stock-item-conservation-storage", Field.Type.text, null, "Conservation Storage"),
+                        new Field("stock-item-description", Field.Type.text, null, "Description"),
+                        new Field("stock-item-quantity", Field.Type.number, null, "Quantity"),
+                        new Field("stock-item-segment", Field.Type.text, null, "Segment"),
+                        new Field("stock-item-variety", Field.Type.text, null, "Variety")
+                }
+        );
+
+        return new Action[]{postStockItems};
+    }
+
+    private Link[] initLinks(long houseId) {
         //URIs
         String houseUri = UriBuilderUtils.buildHouseUri(houseId);
         String stockItemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
 
-        // Version
-        String version = "1.0";
+        // Link-self
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, stockItemsUri);
+        //Link-related-house
+        Link houseLink = new Link(new String[]{"related"}, new String[]{"house"}, houseUri);
 
-        // Link
-        Link[] links = new Link[]{
-                new Link("house", houseUri)
-        };
-
-        // Items
-        Item[] items = mapItems(houseId, stockItems);
-
-        Query[] queries = new Query[]{
-                new Query(stockItemsUri, "search", "Search by product and/or brand and/or variety and/or " +
-                        "segment and/or storage", new Data[]{
-                        new Data("product", null, "Product"),
-                        new Data("brand", null, "Brand"),
-                        new Data("variety", null, "Variety"),
-                        new Data("segment", null, "Segment"),
-                        new Data("storage", null, "Storage ID")
-                })
-        };
-
-        // Template
-        Template template = new Template(
-                new Data[]{
-                        new Data("category-id", null, "Category ID"),
-                        new Data("product-id", null, "Product ID"),
-                        new Data("stock-item-brand", null, "Brand"),
-                        new Data("stock-item-conservation-storage", null, "Conservation Storage"),
-                        new Data("stock-item-description", null, "Description"),
-                        new Data("stock-item-quantity", null, "Quantity"),
-                        new Data("stock-item-segment", null, "Segment"),
-                        new Data("stock-item-variety", null, "Variety")
-                });
-
-        return new Collection(version, stockItemsUri, links, items, queries, template);
-    }
-
-    private Item[] mapItems(long houseId, List<StockItem> stockItems) {
-        int stockItemsSize = stockItems.size();
-        Item[] items = new Item[stockItemsSize];
-        for (int i = 0; i < stockItemsSize; i++) {
-            StockItem stockItem = stockItems.get(i);
-            String sku = stockItem.getId().getStockitemSku();
-            items[i] = new Item(
-                    UriBuilderUtils.buildStockItemUri(houseId, sku),
-                    new Data[]{
-                            new Data("house-id", houseId, "House ID"),
-                            new Data("stock-item-id", sku, "Stock Item ID"),
-                            new Data("category-id", stockItem.getCategoryId(), "Category ID"),
-                            new Data("product-id", stockItem.getProductId(), "Product ID"),
-                            new Data("stock-item-brand", stockItem.getStockitemBrand(), "Brand"),
-                            new Data("stock-item-conservation-storage", stockItem.getStockitemConservationstorage(),
-                                    "Conservation Storage"),
-                            new Data("stock-item-description", stockItem.getStockitemDescription(), "Description"),
-                            new Data("stock-item-quantity", stockItem.getStockitemQuantity(), "Quantity"),
-                            new Data("stock-item-segment", stockItem.getStockitemSegment() +
-                                    stockItem.getStockitemSegmentunit(), "Segment"),
-                            new Data("stock-item-variety", stockItem.getStockitemVariety(), "Variety")
-                    },
-                    new Link[]{
-                            // TODO verificar se o nome da relacao está bom. //Inês: Poderia ser antes allergens, e no URI também mas não é dramático
-                            new Link("allergies-stock-item", UriBuilderUtils.buildAllergiesStockItemUri(houseId, sku))
-                    }
-            );
-        }
-        return items;
+        return new Link[]{self, houseLink};
     }
 }
