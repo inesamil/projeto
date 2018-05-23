@@ -7,19 +7,20 @@ data class StorageDTO(
         val houseId: Long,
         val storageId: Short,
         val name: String,
-        val temperatureRange: Any
+        val temperatureRange: TemperatureStorageDTO
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
             parcel.readInt().toShort(),
             parcel.readString(),
-            TODO("temperatureRange")) {
+            parcel.readParcelable(TemperatureStorageDTO::class.java.classLoader)) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(houseId)
         parcel.writeInt(storageId.toInt())
         parcel.writeString(name)
+        parcel.writeParcelable(temperatureRange, flags)
     }
 
     override fun describeContents(): Int {
@@ -35,4 +36,5 @@ data class StorageDTO(
             return arrayOfNulls(size)
         }
     }
+
 }
