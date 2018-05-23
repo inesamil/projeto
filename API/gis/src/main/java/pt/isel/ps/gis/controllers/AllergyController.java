@@ -18,7 +18,7 @@ import pt.isel.ps.gis.model.outputModel.StockItemsAllergenOutputModel;
 
 import java.util.List;
 
-import static pt.isel.ps.gis.utils.HeadersUtils.setCollectionContentType;
+import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
 @RequestMapping("/v1/houses/{house-id}/allergies")
@@ -42,7 +42,7 @@ public class AllergyController {
         checkHouse(houseId);
         List<HouseAllergy> allergies = houseAllergyService.getAllergiesByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setCollectionContentType(headers),
+        return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
@@ -55,7 +55,7 @@ public class AllergyController {
         List<StockItem> stockItemsAllergen = stockItemAllergenService.getStockItemsByHouseIdAndAllergenId(houseId, allergen);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemsAllergenOutputModel(houseId, allergen, stockItemsAllergen),
-                setCollectionContentType(headers), HttpStatus.OK);
+                setSirenContentType(headers), HttpStatus.OK);
     }
 
     @PutMapping("/{allergen}")
@@ -74,7 +74,7 @@ public class AllergyController {
             houseAllergyService.addHouseAllergy(houseAllergy);
         List<HouseAllergy> allergies = houseAllergyService.getAllergiesByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setCollectionContentType(headers),
+        return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
@@ -88,7 +88,7 @@ public class AllergyController {
         houseAllergyService.deleteHouseAllergyByHouseAllergyId(houseId, allergen);
         List<HouseAllergy> allergies = houseAllergyService.getAllergiesByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setCollectionContentType(headers),
+        return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
