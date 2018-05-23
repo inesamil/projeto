@@ -51,7 +51,7 @@ public class UserController {
         checkUser(username);
         List<House> userHouses = houseService.getHousesByUserId(username);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new UserHousesOutputModel(username, userHouses), setCollectionContentType(headers),
+        return new ResponseEntity<>(new UserHousesOutputModel(username, userHouses), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
