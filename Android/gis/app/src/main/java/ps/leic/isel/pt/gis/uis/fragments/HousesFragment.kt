@@ -4,17 +4,23 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.android.volley.Request
+import com.android.volley.VolleyError
 import kotlinx.android.synthetic.main.fragment_houses.view.*
 
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.CharacteristicsDTO
 import ps.leic.isel.pt.gis.model.HouseDTO
 import ps.leic.isel.pt.gis.model.MemberDTO
+import ps.leic.isel.pt.gis.model.inputModel.HouseDto
 import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.RequestQueue
+import ps.leic.isel.pt.gis.utils.Requester
 
 /**
  * A simple [Fragment] subclass.
@@ -37,12 +43,26 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         arguments?.let {
             username = it.getString(ExtraUtils.USER_USERNAME)
         }
+
+        val url = "http://10.0.2.2:8081/v1/houses/1"
+        RequestQueue.getInstance(activity?.applicationContext).addToRequestQueue(
+                Requester(Request.Method.GET, url, null, HouseDto::class.java, ::onSuccess, ::onError, "")
+        )
+
         //TODO: get data
         houses = arrayOf(
                 HouseDTO(1, "Smith", CharacteristicsDTO(0, 0, 2, 0),
                         arrayOf(MemberDTO(1, "alice", true),
                                 MemberDTO(1, "bob", false)))
         )
+    }
+
+    private fun onSuccess(house: HouseDto) {
+        house.houseId
+    }
+
+    private fun onError(error: VolleyError?) {
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

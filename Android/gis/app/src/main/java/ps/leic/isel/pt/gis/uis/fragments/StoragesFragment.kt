@@ -3,16 +3,21 @@ package ps.leic.isel.pt.gis.uis.fragments
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.volley.Request
 import com.android.volley.VolleyError
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import kotlinx.android.synthetic.main.fragment_storages.view.*
 
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.hypermedia.subentities.Siren
 import ps.leic.isel.pt.gis.model.StorageDTO
 import ps.leic.isel.pt.gis.model.TemperatureStorageDTO
+import ps.leic.isel.pt.gis.model.inputModel.HouseDto
 import ps.leic.isel.pt.gis.uis.adapters.StoragesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.RequestQueue
@@ -38,22 +43,22 @@ class StoragesFragment : Fragment() {
             houseId = it.getLong(ExtraUtils.HOUSE_ID)
         }
         // for demo
-        val url = "http://localhost:8081/v1/houses/1/storages"
+        val url = "http://10.0.2.2:8081/v1/houses/1"
         val tagToBeCancelled = "STORAGES_FRAGMENT"
 
         RequestQueue.getInstance(activity?.applicationContext).addToRequestQueue(
-                Requester(Request.Method.GET, url, null, StorageDTO::class.java, {onSuccess(it)}, {onError(it)}, tagToBeCancelled)
+                Requester(Request.Method.GET, url, null, HouseDto::class.java, ::onSuccess, ::onError, tagToBeCancelled)
         )
 
         //TODO: get data
         storages = arrayOf(StorageDTO(1, 1, "Fridge", TemperatureStorageDTO(0F, 5F)))
     }
 
-    private fun onSuccess(dto: StorageDTO) {
+    private fun onSuccess(dto: HouseDto) {
 
     }
 
-    private fun onError(error: VolleyError) {
+    private fun onError(error: VolleyError?) {
 
     }
 
