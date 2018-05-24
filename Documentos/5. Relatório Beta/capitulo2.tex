@@ -1,18 +1,17 @@
 %
 % Capítulo 2
 %
-\chapter{Gestão de Stocks} \label{cap2}
+\chapter{Sistema de Gestão de Stocks} \label{cap2}
 
-Neste capítulo a aplicação Smart Stocks é descrita na secção \ref{sec21}, bem como os requisitos funcionais e opcionais na secção \ref{sec22}.
-
+O sistema de gestão de stocks desenvolvido neste projeto, denominado Smart Stocks, é apresentado neste capítulo. Bem como os requisitos funcionais e opcionais na secção \ref{sec22}.
 
 %
 % Secção 2.1
 %
-\section{Aplicação Smart Stocks} \label{sec21}
-A Smart Stocks é uma aplicação que visa dar suporte à gestão de stocks domésticos. Com fim de se alcançar o desejado é necessário recolher determinadas informações, tais como, as características da casa a gerir, as particularidades dos membros co-habitantes da casa e ainda os padrões de consumo e reposição. Para facilitar tal tarefa são disponibilizadas listas geridas pelo sistema. Por exemplo, lista de compras e lista dos itens em stock na casa, cuja consistência é garantida às custas dos movimentos de entrada e saída dos itens nos diversos locais de armazenamento.
+\section{Sistema Smart Stocks} \label{sec21}
+A Smart Stocks é um sistema que visa dar suporte à gestão de stocks domésticos. Para tal é necessário recolher determinadas informações, tais como, as características da casa a gerir, as particularidades dos membros co-habitantes da casa e ainda os padrões de consumo e reposição. De forma a facilitar tal tarefa são disponibilizadas listas geridas pelo sistema. Por exemplo, lista de compras e lista dos itens em stock na casa, cuja consistência é garantida às custas dos movimentos de entrada e saída dos itens nos diversos locais de armazenamento.
 
-Em seguida listam-se as diversas entidades que compõem o sistema de informação que permita gerir os itens em stock numa dada casa.
+Em seguida listam-se as diversas entidades relevantes que compõem o sistema de informação que permita gerir os itens em stock numa dada casa.
 \subsubsection{Casa}
 \begin{itemize}
 	\item Cada casa é caracterizada por um identificador único, um nome, atribuído por um utilizador no momento de registo da casa. O número de bebés, crianças, adultos e seniores que vivem nessa casa.
@@ -55,7 +54,7 @@ Em seguida listam-se as diversas entidades que compõem o sistema de informaçã
 \begin{itemize}
 	\item Um item em stock é a concretização de um produto que existe numa casa. É identificado univocamente por um número ou por uma marca, uma variedade e um segmento, é também caracterizado por uma descrição, o local de conservação, a quantidade e as datas de validade. 
 	\item Para cada item deve ser possível saber os seus movimentos de entrada e saída de um local de armazenamento.
-	\item Deve também ser possível saber os alergénios de um item presente na casa.
+	\item Deve também ser possível saber os alergénios de cada item presente na casa.
 \end{itemize}
 
 \subsubsection{Movimento}
@@ -81,8 +80,7 @@ Em seguida listam-se as diversas entidades que compõem o sistema de informaçã
 	\item Informar o utilizador dos produtos existentes, a sua validade e a sua quantidade;
 	\item Alertas sobre os produtos que estão perto da data de validade;
 	\item Geração da lista de compras com os produtos em falta;
-	\item Possibilidade de especificar os produtos a ter sempre em stock bem como as suas quantidades mínimas;	
-	\item Lista de Compras \textit{Offline};
+	\item Possibilidade de especificar os produtos a ter sempre em stock bem como as suas quantidades mínimas;
 	\item Listas partilhadas entre utilizadores da mesma casa;
 	\item Criação de Listas;
 	\item Especificação das alergias dos membros da casa.
@@ -94,5 +92,5 @@ Em seguida listam-se as diversas entidades que compõem o sistema de informaçã
 	\item Lista de produtos quase a expirar;
 	\item Lista de produtos indesejados (Lista Negra);
 	\item Lista de contenção em situações de emergência (Lista SOS);
-	\item Inserir refeições extraordinárias de eventos a realizar num futuro próximo, para acrescentar alimentos não básicos à lista de compras;
+	\item Inserir refeições extraordinárias de eventos a realizar num futuro próximo, para acrescentar alimentos não básicos à lista de compras.
 \end{itemize}

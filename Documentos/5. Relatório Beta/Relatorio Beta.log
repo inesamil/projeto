@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.22)  23 MAY 2018 19:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.22)  24 MAY 2018 20:14
 entering extended mode
 **"./Relatorio Beta.tex"
 ("Relatorio Beta.tex"
@@ -978,12 +978,8 @@ go_ISEL_principal_PNG.png>] [2] [1
 
 
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 5--6
-
- []
-
-) [5
+])
+[5
 
 ] [6
 
@@ -1045,51 +1041,37 @@ Cap\'{\i }tulo 2.
 
 ]
 Cap\'{\i }tulo 3.
-<./figures/architecture.png, id=79, 477.28313pt x 243.15843pt>
+<./figures/architecture.png, id=82, 490.83376pt x 258.9675pt>
 File: ./figures/architecture.png Graphic file (type png)
 <use ./figures/architecture.png>
-Package pdftex.def Info: ./figures/architecture.png  used on input line 10.
-(pdftex.def)             Requested size: 477.28195pt x 243.15784pt.
+Package pdftex.def Info: ./figures/architecture.png  used on input line 15.
+(pdftex.def)             Requested size: 490.83255pt x 258.96684pt.
 
-Overfull \hbox (14.22664pt too wide) in paragraph at lines 10--11
+Overfull \hbox (14.23965pt too wide) in paragraph at lines 15--16
  [][] 
  []
 
 [9 <./figures/architecture.png>]
-<./figures/project_structures.png, id=85, 347.49825pt x 246.9225pt>
-File: ./figures/project_structures.png Graphic file (type png)
-<use ./figures/project_structures.png>
-Package pdftex.def Info: ./figures/project_structures.png  used on input line 2
-9.
-(pdftex.def)             Requested size: 347.49738pt x 246.92188pt.
-<./figures/project_structures_caption.png, id=86, 390.258pt x 252.945pt>
-File: ./figures/project_structures_caption.png Graphic file (type png)
-<use ./figures/project_structures_caption.png>
-Package pdftex.def Info: ./figures/project_structures_caption.png  used on inpu
-t line 36.
-(pdftex.def)             Requested size: 390.25703pt x 252.94438pt.
- [10 <./figures/project_structures.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 39--40
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
 
  []
 
-<./figures/project_architecture.png, id=90, 369.7815pt x 423.984pt>
+<./figures/project_architecture.png, id=88, 425.33907pt x 570.63188pt>
 File: ./figures/project_architecture.png Graphic file (type png)
 <use ./figures/project_architecture.png>
 Package pdftex.def Info: ./figures/project_architecture.png  used on input line
- 50.
-(pdftex.def)             Requested size: 369.78058pt x 423.98294pt.
-[11 <./figures/project_structures_caption.png>] [12 <./figures/project_architec
-ture.png>]) [13]
+ 35.
+(pdftex.def)             Requested size: 425.33801pt x 570.6305pt.
+[10 <./figures/project_architecture.png>]) [11]
 \openout2 = `capitulo4.aux'.
 
- (capitulo4.tex [14
+ (capitulo4.tex [12
 
 
 
 ]
 Cap\'{\i }tulo 4.
-<./files/Planeamento.pdf, id=104, 582.11276pt x 923.31651pt>
+<./files/Planeamento.pdf, id=100, 582.11276pt x 923.31651pt>
 File: ./files/Planeamento.pdf Graphic file (type pdf)
 <use ./files/Planeamento.pdf>
 Package pdftex.def Info: ./files/Planeamento.pdf  used on input line 20.
@@ -1099,37 +1081,37 @@ Overfull \hbox (52.26312pt too wide) in paragraph at lines 19--21
 []  [] 
  []
 
-[15] [16 <./files/Planeamento.pdf>]) [17] ("Relatorio Beta.bbl" [18
+[13] [14 <./files/Planeamento.pdf>]) [15] ("Relatorio Beta.bbl" [16
 
 
 ]
-Underfull \hbox (badness 4096) in paragraph at lines 25--31
+Underfull \hbox (badness 4096) in paragraph at lines 35--41
 []\OT1/cmr/m/n/10.95 Business Dic-ti-o-nary.  What is stan-dard stock item? de-
 fi-ni-tion and me-a-
  []
 
 
-Underfull \hbox (badness 3312) in paragraph at lines 40--46
+Underfull \hbox (badness 3312) in paragraph at lines 50--56
 []\OT1/cmr/m/n/10.95 Thad Scheer.  Ca-te-gory, seg-ment, and brand { what's the
  dif-fe-rence? {
  []
 
 
-Underfull \hbox (badness 8189) in paragraph at lines 40--46
+Underfull \hbox (badness 8189) in paragraph at lines 50--56
 \OT1/cmr/m/n/10.95 sphere of in-flu-ence : Analy-tics stu-dio.  $\OT1/cmtt/m/n/
 10.95 https : / / sphereoi . com / studios /
  []
 
 
-Underfull \hbox (badness 5548) in paragraph at lines 40--46
+Underfull \hbox (badness 5548) in paragraph at lines 50--56
 \OT1/cmtt/m/n/10.95 category-[]segment-[]and-[]brand-[]whats-[]the-[]difference
 /$\OT1/cmr/m/n/10.95 .  [On-line; Ac-ces-sed on
  []
 
-) [19]
+) [17]
 \openout2 = `anexo1.aux'.
 
- (anexo1.tex [20
+ (anexo1.tex [18
 
 
 ]
@@ -1140,12 +1122,12 @@ Overfull \hbox (14.09998pt too wide) in paragraph at lines 20--26
 [] 
  []
 
-[21]
+[19]
 Overfull \hbox (14.09998pt too wide) in paragraph at lines 52--65
 [] 
  []
 
-) [22]
+) [20]
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
@@ -1154,11 +1136,11 @@ This document will not have a glossary.
 ("Relatorio Beta.aux" (resumo.aux) (abstract.aux) (capitulo1.aux)
 (capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux)) ) 
 Here is how much of TeX's memory you used:
- 11911 strings out of 493303
- 199818 string characters out of 3130219
- 314315 words of memory out of 3000000
- 15122 multiletter control sequences out of 15000+200000
- 14989 words of font info for 49 fonts, out of 3000000 for 9000
+ 11905 strings out of 493303
+ 199482 string characters out of 3130219
+ 314289 words of memory out of 3000000
+ 15115 multiletter control sequences out of 15000+200000
+ 16054 words of font info for 53 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,13n,39p,2012b,352s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Rita/A
@@ -1168,18 +1150,20 @@ x12.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/ams
 fonts/cm/cmbxti10.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
 pe1/public/amsfonts/cm/cmr10.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2
 .9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Rita/AppData/Local/Progra
-ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/Rita/AppData/Lo
-cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Rit
-a/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><
-C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmtt10.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/hel
-vetic/uhvb8ac.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
-urw/helvetic/uhvbo8ac.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/font
-s/type1/urw/helvetic/uhvr8ac.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2
-.9/fonts/type1/urw/helvetic/uhvro8ac.pfb>
-Output written on "Relatorio Beta.pdf" (36 pages, 358556 bytes).
+ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Rita/AppData/Lo
+cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Rita/
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/U
+sers/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmti10.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmtt10.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9
+/fonts/type1/urw/helvetic/uhvb8ac.pfb><C:/Users/Rita/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/urw/helvetic/uhvbo8ac.pfb><C:/Users/Rita/AppData/Local/Prog
+rams/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8ac.pfb><C:/Users/Rita/AppData/Loc
+al/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvro8ac.pfb>
+Output written on "Relatorio Beta.pdf" (34 pages, 322590 bytes).
 PDF statistics:
- 187 PDF objects out of 1000 (max. 8388607)
+ 188 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
