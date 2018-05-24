@@ -6,7 +6,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-/*
+
 @Component
 public class MyCorsFilter extends CorsFilter {
 
@@ -22,10 +22,11 @@ public class MyCorsFilter extends CorsFilter {
         config.addAllowedMethod(HttpMethod.POST);
         config.addAllowedMethod(HttpMethod.PUT);
         config.addAllowedMethod(HttpMethod.DELETE);
-        config.addAllowedOrigin("http://localhost:55789");
+        // TODO remove *
+        config.addAllowedOrigin("*");
         config.addAllowedHeader("Authorization");
         config.addAllowedHeader("Content-Type");
         source.registerCorsConfiguration("/**", config);
         return source;
     }
-}*/
+}
