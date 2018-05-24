@@ -1,15 +1,17 @@
 package ps.leic.isel.pt.gis.utils
 
+import android.util.Log
 import com.android.volley.NetworkResponse
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonRequest
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import ps.leic.isel.pt.gis.hypermedia.subentities.Siren
 import java.io.IOException
 
 class Requester<DTO>(method: Int, url: String, body: Any?, private val dtoType: Class<DTO>,
-                     onSuccess: (DTO) -> Unit, onError: (VolleyError) -> Unit, val tag: String)
+                     onSuccess: (DTO) -> Unit, onError: (VolleyError?) -> Unit, val tag: String)
     : JsonRequest<DTO>(method, url, Requester.mapper.writeValueAsString(body), onSuccess, onError) {
 
     companion object {
@@ -21,10 +23,13 @@ class Requester<DTO>(method: Int, url: String, body: Any?, private val dtoType: 
      */
     override fun parseNetworkResponse(response: NetworkResponse): Response<DTO> {
         return try {
-            val dto = Requester.mapper.readValue(response.data, dtoType)
+            val siren = Requester.mapper.readValue(response.data, Siren::class.java)
+            val constructor = dtoType.getConstructor(Siren::class.java)
+            val dto = constructor.newInstance(siren)
             setTag(tag)
             Response.success(dto, null)
         } catch (e: IOException) {
+            Log.e("APP_GIS", e.message)
             Response.error(VolleyError(response))
         }
     }
