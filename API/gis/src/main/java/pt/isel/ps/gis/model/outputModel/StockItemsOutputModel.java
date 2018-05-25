@@ -68,7 +68,12 @@ public class StockItemsOutputModel {
 
             String stockItemUri = UriBuilderUtils.buildStockItemUri(houseId, stockItem.getId().getStockitemSku());
 
-            entities[i] = new Entity(new String[]{"stock-item"}, new String[]{"item"}, properties, null, stockItemUri);
+            entities[i] = new Entity(
+                    new String[]{"stock-item"},
+                    new String[]{"item"},
+                    properties,
+                    null,
+                    new Link[]{new Link(new String[]{"self"}, new String[]{"stock-item"}, stockItemUri)});
         }
         return entities;
     }

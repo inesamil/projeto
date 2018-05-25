@@ -62,7 +62,12 @@ public class ProductsCategoryOutputModel {
 
             String productUri = UriBuilderUtils.buildProductUri(productsCategory.getCategoryByCategoryId().getCategoryId(), productId);
 
-            entities[i] = new Entity(new String[]{"movement"}, new String[]{"item"}, properties, null, productUri);
+            entities[i] = new Entity(
+                    new String[]{"product"},
+                    new String[]{"item"},
+                    properties,
+                    null,
+                    new Link[]{new Link(new String[]{"self"},  new String[]{"product"}, productUri)});
         }
         return entities;
     }

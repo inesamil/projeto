@@ -59,7 +59,12 @@ public class HouseholdOutputModel {
             properties.put("household-administrator", userHouse.getUserhouseAdministrator());
 
             String userUri = UriBuilderUtils.buildUserUri(username.getUsersUsername());
-            entities[i] = new Entity(new String[]{"user"}, new String[]{"item"}, properties, null, userUri);
+            entities[i] = new Entity(
+                    new String[]{"user"},
+                    new String[]{"item"},
+                    properties,
+                    null,
+                    new Link[]{new Link(new String[]{"self"},  new String[]{"user"}, userUri)});
         }
         return entities;
     }

@@ -57,8 +57,12 @@ public class UserOutputModel {
         String userHousesUri = UriBuilderUtils.buildUserHousesUri(username);
 
         // Subentities
-        Entity userHouses = new Entity(new String[]{"user-houses", "collection"}, new String[]{"user-houses"}, null, null,
-                userHousesUri);
+        Entity userHouses = new Entity(
+                new String[]{"user-houses", "collection"},
+                new String[]{"user-houses"},
+                null,
+                null,
+                new Link[]{new Link(new String[]{"self"}, new String[]{"user-houses", "collection"}, userHousesUri)});
         return new Entity[]{userHouses};
     }
 

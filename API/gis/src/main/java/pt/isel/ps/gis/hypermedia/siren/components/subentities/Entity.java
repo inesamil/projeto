@@ -14,25 +14,13 @@ public class Entity {
     public String[] rel;
     public HashMap<String, Object> properties;
     public Action[] actions;
-    public String href;
+    public Link[] links;
 
-    public Entity(String[] klass, String[] rel, HashMap<String, Object> properties, Action[] actions, String href) {
+    public Entity(String[] klass, String[] rel, HashMap<String, Object> properties, Action[] actions, Link[] links) {
         this.klass = klass;
         this.rel = rel;
         this.properties = properties;
         this.actions = actions;
-        this.href = href;
-    }
-
-    public String[] getKlass() {
-        return klass;
-    }
-
-    public String[] getRel() {
-        return rel;
-    }
-
-    public String getHref() {
-        return href;
+        this.links = links;
     }
 }

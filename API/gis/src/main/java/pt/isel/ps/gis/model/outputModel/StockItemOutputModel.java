@@ -63,7 +63,12 @@ public class StockItemOutputModel {
         String itemAllergiesUri = UriBuilderUtils.buildAllergiesStockItemUri(houseId, sku);
 
         // Subentities
-        Entity allergiesItem = new Entity(new String[]{"allergies-stock-item", "collection"}, new String[]{"allergies-item"}, null, null, itemAllergiesUri);
+        Entity allergiesItem = new Entity(
+                new String[]{"allergies-stock-item", "collection"},
+                new String[]{"allergies-item"},
+                null,
+                null,
+                new Link[]{new Link(new String[]{"self"}, new String[]{"allergies-stock-item", "collection"}, itemAllergiesUri)});
 
         return new Entity[]{allergiesItem};
     }

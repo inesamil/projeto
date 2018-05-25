@@ -65,7 +65,12 @@ public class ProductsListOutputModel {
 
             String productUri = UriBuilderUtils.buildProductUri((int)houseId, listId);
 
-            entities[i] = new Entity(new String[]{"product"}, new String[]{"item"}, properties, null, productUri);
+            entities[i] = new Entity(
+                    new String[]{"product"},
+                    new String[]{"item"},
+                    properties,
+                    null,
+                    new Link[]{new Link(new String[]{"self"}, new String[]{"product"}, productUri)});
         }
         return entities;
     }

@@ -60,7 +60,12 @@ public class StoragesOutputModel {
 
             String storageUri = UriBuilderUtils.buildStorageUri(houseId, storage.getId().getStorageId());
 
-            entities[i] = new Entity(new String[]{"storage"}, new String[]{"item"}, properties, null, storageUri);
+            entities[i] = new Entity(
+                    new String[]{"storage"},
+                    new String[]{"item"},
+                    properties,
+                    null,
+                    new Link[]{new Link(new String[]{"self"}, new String[]{"storage"}, storageUri)});
         }
         return entities;
     }

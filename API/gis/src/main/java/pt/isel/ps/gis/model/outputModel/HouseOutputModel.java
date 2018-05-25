@@ -60,14 +60,42 @@ public class HouseOutputModel {
         String storagesUri = UriBuilderUtils.buildStoragesUri(houseId);
 
         // Subentities
-        Entity movements = new Entity(new String[]{"movements", "collection"}, new String[]{"movements"}, null, null, movementsUri);
-        Entity items = new Entity(new String[]{"items", "collection"}, new String[]{"items"}, null, null, itemsUri);
-        Entity household = new Entity(new String[]{"household", "collection"}, new String[]{"household"}, null, null, householdUri);
-        Entity houseAllergies = new Entity(new String[]{"house-allergies", "collection"},
-                new String[]{"house-allergies"}, null, null, houseAllergiesUri);
-        Entity lists = new Entity(new String[]{"lists", "collection"}, new String[]{"lists"}, null, null, listsUri);
-        Entity storages = new Entity(new String[]{"storages", "collection"}, new String[]{"storages"}, null, null, storagesUri);
-
+        Entity movements = new Entity(
+                new String[]{"movements", "collection"},
+                new String[]{"movements"},
+                null,
+                null,
+                new Link[]{new Link(new String[]{"self"}, new String[]{"movements", "collection"}, movementsUri)});
+        Entity items = new Entity(
+                new String[]{"items", "collection"},
+                new String[]{"items"},
+                null,
+                null,
+                new Link[]{new Link(new String[]{"self"}, new String[]{"items", "collection"}, itemsUri)});
+        Entity household = new Entity(
+                new String[]{"household", "collection"},
+                new String[]{"household"},
+                null,
+                null,
+                new Link[]{new Link(new String[]{"self"}, new String[]{"household", "collection"}, householdUri)});
+        Entity houseAllergies = new Entity(
+                new String[]{"house-allergies", "collection"},
+                new String[]{"house-allergies"},
+                null,
+                null,
+                new Link[]{new Link(new String[]{"self"}, new String[]{"house-allergies", "collection"}, houseAllergiesUri)});
+        Entity lists = new Entity(
+                new String[]{"lists", "collection"},
+                new String[]{"lists"},
+                null,
+                null,
+                new Link[]{new Link(new String[]{"self"}, new String[]{"lists", "collection"}, listsUri)});
+        Entity storages = new Entity(
+                new String[]{"storages", "collection"},
+                new String[]{"storages"},
+                null,
+                null,
+                new Link[]{new Link(new String[]{"self"}, new String[]{"storages", "collection"}, storagesUri)});
         return new Entity[]{movements, items, household, houseAllergies, lists, storages};
     }
 

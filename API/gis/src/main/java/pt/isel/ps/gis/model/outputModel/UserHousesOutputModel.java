@@ -55,7 +55,12 @@ public class UserHousesOutputModel {
             properties.put("house-name", house.getHouseName());
 
             String houseUri = UriBuilderUtils.buildHouseUri(house.getHouseId());
-            entities[i] = new Entity(new String[]{"house"}, new String[]{"item"}, properties, null, houseUri);
+            entities[i] = new Entity(
+                    new String[]{"house"},
+                    new String[]{"item"},
+                    properties,
+                    null,
+                    new Link[]{new Link(new String[]{"self"}, new String[]{"house"}, houseUri)});
         }
         return entities;
     }

@@ -86,11 +86,12 @@ public class HouseAllergiesOutputModel {
             );
 
             String stockItemsAllergenUri = UriBuilderUtils.buildStockItemsAllergenUri(houseId, allergen);
-            entities[i] = new Entity(new String[]{"stock-items-allergen", "collection"},
-                                        new String[]{"collection"},
-                                        properties,
-                                        new Action[]{putHouseAllergy, deleteHouseAllergy},
-                                        stockItemsAllergenUri);
+            entities[i] = new Entity(
+                    new String[]{"stock-items-allergen", "collection"},
+                    new String[]{"collection"},
+                    properties,
+                    new Action[]{putHouseAllergy, deleteHouseAllergy},
+                    new Link[]{new Link(new String[]{"self"}, new String[]{"stock-items-allergen", "collection"}, stockItemsAllergenUri)});
         }
         return entities;
     }

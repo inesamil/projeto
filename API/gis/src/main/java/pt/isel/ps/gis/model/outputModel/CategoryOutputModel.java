@@ -50,7 +50,12 @@ public class CategoryOutputModel {
         String categoriesUri = UriBuilderUtils.buildCategoriesUri();
 
         // categories
-        Entity categories = new Entity(new String[]{"categories", "collection"}, new String[]{"categories"}, null, null, categoriesUri);
+        Entity categories = new Entity(
+                new String[]{"categories", "collection"},
+                new String[]{"categories"},
+                null,
+                null,
+                new Link[]{new Link(new String[]{"self"}, new String[]{"categories", "collection"}, categoriesUri)});
         return new Entity[]{categories};
     }
 

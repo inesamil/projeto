@@ -60,7 +60,12 @@ public class ListsOutputModel {
             properties.put("list-name", list.getListName());
 
             String listUri = UriBuilderUtils.buildListUri(houseId, listId.getListId());
-            entities[i] = new Entity(new String[]{"list"}, new String[]{"item"}, properties, null, listUri);
+            entities[i] = new Entity(
+                    new String[]{"list"},
+                    new String[]{"item"},
+                    properties,
+                    null,
+                    new Link[]{new Link(new String[]{"self"}, new String[]{"list"}, listUri)});
         }
         return entities;
     }
