@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.android.volley.Request
 import com.android.volley.VolleyError
 import kotlinx.android.synthetic.main.fragment_storages.view.*
 
@@ -16,8 +15,7 @@ import ps.leic.isel.pt.gis.model.TemperatureStorageDTO
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.uis.adapters.StoragesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
-import ps.leic.isel.pt.gis.request.RequestQueue
-import ps.leic.isel.pt.gis.request.Requester
+import ps.leic.isel.pt.gis.utils.RequestQueue
 
 /**
  * A simple [Fragment] subclass.

@@ -6,22 +6,20 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.android.volley.Request
 import com.android.volley.VolleyError
-
+import kotlinx.android.synthetic.main.fragment_houses.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.CharacteristicsDTO
 import ps.leic.isel.pt.gis.model.HouseDTO
 import ps.leic.isel.pt.gis.model.MemberDTO
-import ps.leic.isel.pt.gis.model.dtos.HouseDto
+import ps.leic.isel.pt.gis.model.dtos.HousesDto
+import ps.leic.isel.pt.gis.request.Status
 import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
-import ps.leic.isel.pt.gis.request.RequestQueue
-import ps.leic.isel.pt.gis.request.Requester
-import ps.leic.isel.pt.gis.request.Status
 import ps.leic.isel.pt.gis.viewModel.HouseViewModel
 
 /**
@@ -85,7 +83,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         adapter.setOnItemClickListener(this)
 
         // Set new house button listener
-        view.newHouseBtn.setOnClickListener{
+        view.newHouseBtn.setOnClickListener {
             val house: HouseDTO = HouseDTO(2, "Jones", CharacteristicsDTO(0, 0, 1, 0),
                     arrayOf(MemberDTO(1, "alice", true)))
             //TODO: get new House
