@@ -1,5 +1,7 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -17,8 +19,10 @@ import ps.leic.isel.pt.gis.model.MemberDTO
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
-import ps.leic.isel.pt.gis.utils.RequestQueue
-import ps.leic.isel.pt.gis.utils.Requester
+import ps.leic.isel.pt.gis.request.RequestQueue
+import ps.leic.isel.pt.gis.request.Requester
+import ps.leic.isel.pt.gis.request.Status
+import ps.leic.isel.pt.gis.viewModel.HouseViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -35,17 +39,22 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     private lateinit var houses: Array<HouseDTO>
 
     private var listener: OnHousesFragmentInteractionListener? = null
+    private var houseVM: HouseViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             username = it.getString(ExtraUtils.USER_USERNAME)
         }
-
+        houseVM = ViewModelProviders.of(this).get(HouseViewModel::class.java)
         val url = "http://10.0.2.2:8081/v1/houses/1"
-        RequestQueue.getInstance(activity?.applicationContext).addToRequestQueue(
-                Requester(Request.Method.GET, url, null, HouseDto::class.java, ::onSuccess, ::onError, "")
-        )
+        houseVM?.init(url)
+        houseVM?.getHouses()?.observe(this, Observer {
+            if (it?.status == Status.SUCCESS)
+                onSuccess(it.data!!)
+            else if (it?.status == Status.ERROR)
+                onError(VolleyError(it.message))
+        })
 
         //TODO: get data
         houses = arrayOf(
@@ -55,12 +64,12 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         )
     }
 
-    private fun onSuccess(house: HouseDto) {
-        house.houseId
+    private fun onSuccess(house: HousesDto) {
+        Log.v("APP_GIS", "SUCCESS")
     }
 
     private fun onError(error: VolleyError?) {
-
+        Log.v("APP_GIS", "ERROR")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

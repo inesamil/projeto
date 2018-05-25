@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.android.volley.Request
 import com.android.volley.VolleyError
+import kotlinx.android.synthetic.main.fragment_storages.view.*
 
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.StorageDTO
@@ -15,8 +16,8 @@ import ps.leic.isel.pt.gis.model.TemperatureStorageDTO
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.uis.adapters.StoragesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
-import ps.leic.isel.pt.gis.utils.RequestQueue
-import ps.leic.isel.pt.gis.utils.Requester
+import ps.leic.isel.pt.gis.request.RequestQueue
+import ps.leic.isel.pt.gis.request.Requester
 
 /**
  * A simple [Fragment] subclass.
@@ -41,9 +42,9 @@ class StoragesFragment : Fragment() {
         val url = "http://10.0.2.2:8081/v1/houses/1"
         val tagToBeCancelled = "STORAGES_FRAGMENT"
 
-        RequestQueue.getInstance(activity?.applicationContext).addToRequestQueue(
+        /*RequestQueue.getInstance(activity?.applicationContext).addToRequestQueue(
                 Requester(Request.Method.GET, url, null, HouseDto::class.java, ::onSuccess, ::onError, tagToBeCancelled)
-        )
+        )*/
 
         //TODO: get data
         storages = arrayOf(StorageDTO(1, 1, "Fridge", TemperatureStorageDTO(0F, 5F)))
