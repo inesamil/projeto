@@ -135,7 +135,7 @@ public class HouseAllergiesOutputModel {
         String houseAllergiesUri = UriBuilderUtils.buildHouseAllergiesUri(houseId);
 
         //Link-related-house
-        Link houseLink = new Link(new String[]{"house"}, new String[]{"related"}, houseUri);
+        Link houseLink = new Link(new String[]{"related"}, new String[]{"house"}, houseUri);
         // Link-self
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, houseAllergiesUri);
 
