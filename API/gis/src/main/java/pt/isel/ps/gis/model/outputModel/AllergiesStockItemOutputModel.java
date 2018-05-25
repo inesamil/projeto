@@ -65,7 +65,7 @@ public class AllergiesStockItemOutputModel {
         String stockItemUri = UriBuilderUtils.buildStockItemUri(houseId, sku);
 
         //Link-related-stockItem
-        Link stockItemLink = new Link(new String[]{"stock-item"}, new String[]{"related"}, stockItemUri);
+        Link stockItemLink = new Link(new String[]{"related"}, new String[]{"stock-item"}, stockItemUri);
         // Link-self
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, allergiesStockItemUri);
 
