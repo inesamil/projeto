@@ -8,17 +8,6 @@ import ps.leic.isel.pt.gis.hypermedia.subentities.Siren
 import ps.leic.isel.pt.gis.model.CharacteristicsDTO
 
 class HouseDto(siren: Siren) {
-
-    companion object {
-        val mapper: ObjectMapper = jacksonObjectMapper()
-        const val houseIdLabel: String = "house-id"
-        const val houseNameLabel: String = "house-name"
-        const val houseCharacteristicsLabel = "house-characteristics"
-        const val houseClassLabel: String = "house"
-        const val indexLabel: String = "index"
-        const val addHouseLabel: String = "add-house"
-    }
-
     val houseId: Long
     val name: String?
     val characteristics: CharacteristicsDTO?
@@ -50,4 +39,13 @@ class HouseDto(siren: Siren) {
         }?.href
     }
 
+    companion object {
+        val mapper: ObjectMapper = jacksonObjectMapper()
+        const val houseIdLabel: String = "house-id"
+        const val houseNameLabel: String = "house-name"
+        const val houseCharacteristicsLabel = "house-characteristics"
+        const val houseClassLabel: String = "house"
+        const val indexLabel: String = "index"
+        const val addHouseLabel: String = "add-house"
+    }
 }
