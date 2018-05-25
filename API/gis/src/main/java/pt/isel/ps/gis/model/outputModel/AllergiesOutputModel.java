@@ -51,7 +51,7 @@ public class AllergiesOutputModel {
             Allergy allergy = allergies.get(i);
 
             HashMap<String, Object> properties = new HashMap<>();
-            properties.put("allergy_allergen", allergy.getAllergyAllergen());
+            properties.put("allergy-allergen", allergy.getAllergyAllergen());
 
             entities[i] = new Entity(new String[]{"allergy"}, new String[]{"item"}, properties, null, null);
         }
