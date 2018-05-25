@@ -65,7 +65,7 @@ public class StockItemOutputModel {
         // Subentities
         Entity allergiesItem = new Entity(
                 new String[]{"allergies-stock-item", "collection"},
-                new String[]{"allergies-item"},
+                new String[]{"collection"},
                 null,
                 null,
                 new Link[]{new Link(new String[]{"self"}, new String[]{"allergies-stock-item", "collection"}, itemAllergiesUri)});
