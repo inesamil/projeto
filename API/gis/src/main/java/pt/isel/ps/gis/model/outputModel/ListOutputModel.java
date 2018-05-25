@@ -63,7 +63,7 @@ public class ListOutputModel {
         // Subentities
         Entity productsList = new Entity(
                 new String[]{"products-list", "collection"},
-                new String[]{"products-list"},
+                new String[]{"collection"},
                 null,
                 null,
                 new Link[]{new Link(new String[]{"self"}, new String[]{"products-list", "collection"}, productsListUri)});
@@ -103,7 +103,7 @@ public class ListOutputModel {
                 "Delete List",
                 Method.DELETE,
                 userListUri,
-                type,
+                null,
                 null
         );
 
