@@ -73,7 +73,7 @@ public class UserHousesOutputModel {
         // Link-self
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, userHousesUri);
         //Link-related-user
-        Link userLink = new Link(new String[]{"user"}, new String[]{"related"}, userUri);
+        Link userLink = new Link(new String[]{"related"}, new String[]{"user"}, userUri);
 
         return new Link[]{self, userLink};
 
