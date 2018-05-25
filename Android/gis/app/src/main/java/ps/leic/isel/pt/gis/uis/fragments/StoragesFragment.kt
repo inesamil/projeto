@@ -3,21 +3,16 @@ package ps.leic.isel.pt.gis.uis.fragments
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.volley.Request
 import com.android.volley.VolleyError
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import kotlinx.android.synthetic.main.fragment_storages.view.*
 
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.hypermedia.subentities.Siren
 import ps.leic.isel.pt.gis.model.StorageDTO
 import ps.leic.isel.pt.gis.model.TemperatureStorageDTO
-import ps.leic.isel.pt.gis.model.inputModel.HouseDto
+import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.uis.adapters.StoragesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.RequestQueue

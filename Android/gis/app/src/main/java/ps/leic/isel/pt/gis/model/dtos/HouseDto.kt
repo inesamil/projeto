@@ -1,4 +1,4 @@
-package ps.leic.isel.pt.gis.model.inputModel
+package ps.leic.isel.pt.gis.model.dtos
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
