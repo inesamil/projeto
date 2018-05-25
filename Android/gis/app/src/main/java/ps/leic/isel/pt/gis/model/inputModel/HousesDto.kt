@@ -6,22 +6,32 @@ import ps.leic.isel.pt.gis.hypermedia.subentities.Siren
 
 class HousesDto(siren: Siren) {
 
-    val houses: List<HouseDto> = siren.entities?.map {
-        // TODO change null with it.links
-        HouseDto(Siren(it.klass, it.properties, null, it.actions, null))
-    }.orEmpty()
-    val actions: HousesAction = HousesAction(siren.actions)
-    val links: HousesLink = HousesLink(siren.links)
+    companion object {
+        const val userLabel: String = "user"
+        const val addHouseLabel: String = "add-house"
+    }
 
-    class HousesAction(actions: Array<Action>?) {
+    val houses: List<HouseDto>
+    val actions: HousesActions
+    val links: HousesLink
+
+    init {
+        houses = siren.entities?.map {
+            HouseDto(Siren(it.klass, it.properties, null, it.actions, it.links))
+        }.orEmpty()
+        actions = HousesActions(siren.actions)
+        links = HousesLink(siren.links)
+    }
+
+    class HousesActions(actions: Array<Action>?) {
         val addHouse: Action? = actions?.find {
-            it.name == "add-house"
+            it.name == addHouseLabel
         }
     }
 
     class HousesLink(links: Array<Link>?) {
         val userLink: String? = links?.find {
-            it.klass?.contains("user") ?: false
+            it.klass?.contains(userLabel) ?: false
         }?.href
     }
 }
