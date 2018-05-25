@@ -52,7 +52,7 @@ public class StorageOutputModel {
         Short storageId = storage.getId().getStorageId();
 
         // Type
-        String type = "application/x-www-form-urlencoded";
+        String type = "application/json";
 
         // URIs
         String storageUri = UriBuilderUtils.buildStorageUri(houseId, storageId);
@@ -77,7 +77,7 @@ public class StorageOutputModel {
                 "Delete Storage",
                 Method.DELETE,
                 storageUri,
-                type,
+                null,
                 null
         );
 
