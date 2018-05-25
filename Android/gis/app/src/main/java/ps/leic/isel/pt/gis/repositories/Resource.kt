@@ -1,4 +1,4 @@
-package ps.leic.isel.pt.gis.request
+package ps.leic.isel.pt.gis.repositories
 
 enum class Status {
     SUCCESS,
