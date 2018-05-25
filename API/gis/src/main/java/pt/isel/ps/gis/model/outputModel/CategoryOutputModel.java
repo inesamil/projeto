@@ -52,7 +52,7 @@ public class CategoryOutputModel {
         // categories
         Entity categories = new Entity(
                 new String[]{"categories", "collection"},
-                new String[]{"categories"},
+                new String[]{"collection"},
                 null,
                 null,
                 new Link[]{new Link(new String[]{"self"}, new String[]{"categories", "collection"}, categoriesUri)});
