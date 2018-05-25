@@ -1,12 +1,10 @@
 package ps.leic.isel.pt.gis.repositories
 
 import android.arch.lifecycle.LiveData
-import ps.leic.isel.pt.gis.model.inputModel.HousesDto
 import ps.leic.isel.pt.gis.request.WebService
 import android.arch.lifecycle.MutableLiveData
+import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.request.Resource
-import javax.inject.Inject
-import javax.inject.Singleton
 
 class HousesRepository constructor(private val service: WebService<HousesDto>) : HouseRepository {
 
