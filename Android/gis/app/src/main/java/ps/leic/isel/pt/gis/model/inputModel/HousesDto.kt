@@ -5,20 +5,14 @@ import ps.leic.isel.pt.gis.hypermedia.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.subentities.Siren
 
 class HousesDto(siren: Siren) {
-
-    companion object {
-        const val userLabel: String = "user"
-        const val addHouseLabel: String = "add-house"
-    }
-
-    val houses: List<HouseDto>
+    val houses: Array<HouseDto>
     val actions: HousesActions
     val links: HousesLink
 
     init {
         houses = siren.entities?.map {
             HouseDto(Siren(it.klass, it.properties, null, it.actions, it.links))
-        }.orEmpty()
+        }.orEmpty().toTypedArray()
         actions = HousesActions(siren.actions)
         links = HousesLink(siren.links)
     }
@@ -33,5 +27,10 @@ class HousesDto(siren: Siren) {
         val userLink: String? = links?.find {
             it.klass?.contains(userLabel) ?: false
         }?.href
+    }
+
+    companion object {
+        const val userLabel: String = "user"
+        const val addHouseLabel: String = "add-house"
     }
 }
