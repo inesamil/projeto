@@ -32,7 +32,7 @@ public class ProductsCategoryOutputModel {
     public ProductsCategoryOutputModel(int categoryId, List<Product> products) {
         this.klass = initKlass();
         this.properties = initProperties(products);
-        this.entities = initEntities(categoryId, products);
+        this.entities = initEntities(products);
         this.links = initLinks(categoryId);
     }
 
@@ -48,7 +48,7 @@ public class ProductsCategoryOutputModel {
         return properties;
     }
 
-    private Entity[] initEntities(int categoryId, List<Product> products) {
+    private Entity[] initEntities(List<Product> products) {
         Entity[] entities = new Entity[products.size()];
         for (int i = 0; i < products.size(); ++i) {
             Product productsCategory = products.get(i);
