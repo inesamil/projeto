@@ -52,7 +52,7 @@ public class AllergiesStockItemOutputModel {
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("house-id", houseId);
             properties.put("stock-item-id", sku);
-            properties.put("allergy_allergen", allergy.getAllergyAllergen());
+            properties.put("allergy-allergen", allergy.getAllergyAllergen());
 
             entities[i] = new Entity(new String[]{"allergy"}, new String[]{"item"}, properties, null, null);
         }
