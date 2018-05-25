@@ -9,4 +9,4 @@ import java.util.HashMap;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 class Entity(@field:JsonProperty(value = "class") var klass: Array<String>?, var rel: Array<String>,
-             var properties: HashMap<String, Any>?, var actions: Array<Action>?, var href: String)
+             var properties: HashMap<String, Any>?, var actions: Array<Action>?, var links: Array<Link>)
