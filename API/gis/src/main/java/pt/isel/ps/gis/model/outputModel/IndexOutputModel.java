@@ -3,6 +3,7 @@ package pt.isel.ps.gis.model.outputModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import pt.isel.ps.gis.hypermedia.EmptyObject;
 import pt.isel.ps.gis.hypermedia.jsonHome.components.Api;
 import pt.isel.ps.gis.hypermedia.jsonHome.components.members.Hints;
 import pt.isel.ps.gis.hypermedia.jsonHome.components.members.Links;
@@ -24,7 +25,7 @@ public class IndexOutputModel {
     HashMap<String, Object> applicationJsonFormat = new HashMap<>();
 
     public IndexOutputModel() {
-        applicationJsonFormat.put("application/json", new Object());
+        applicationJsonFormat.put("application/json", new EmptyObject());
         this.api = initApi();
         this.resources = initResources();
     }
