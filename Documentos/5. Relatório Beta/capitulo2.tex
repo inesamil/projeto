@@ -3,13 +3,13 @@
 %
 \chapter{Sistema de Gestão de Stocks} \label{cap2}
 
-O sistema de gestão de stocks desenvolvido neste projeto, denominado Smart Stocks, é apresentado neste capítulo. Bem como os requisitos funcionais e opcionais na secção \ref{sec22}.
+O sistema de gestão de stocks desenvolvido neste projeto, denominado Smart Stocks, é apresentado neste capítulo. Bem como os requisitos funcionais e opcionais na secção \ref{sec22}. Para a leitura deste capítulo é recomendada a leitura do Anexo \ref{a1}, a leigos em gestão de stocks, para uma melhor compreensão de certos termos.
 
 %
 % Secção 2.1
 %
 \section{Sistema Smart Stocks} \label{sec21}
-A Smart Stocks é um sistema que visa dar suporte à gestão de stocks domésticos. Para tal é necessário recolher determinadas informações, tais como, as características da casa a gerir, as particularidades dos membros co-habitantes da casa e ainda os padrões de consumo e reposição. De forma a facilitar tal tarefa são disponibilizadas listas geridas pelo sistema. Por exemplo, lista de compras e lista dos itens em stock na casa, cuja consistência é garantida às custas dos movimentos de entrada e saída dos itens nos diversos locais de armazenamento.
+O Smart Stocks é um sistema que visa dar suporte à gestão de stocks domésticos. Para tal é necessário recolher determinadas informações, tais como, as características da casa a gerir, as particularidades dos membros co-habitantes da casa e ainda os padrões de consumo e reposição. De forma a facilitar tal tarefa são disponibilizadas listas geridas pelo sistema. Por exemplo, lista de compras e lista dos itens em stock na casa, cuja consistência é garantida às custas dos movimentos de entrada e saída dos itens nos diversos locais de armazenamento.
 
 Em seguida listam-se as diversas entidades relevantes que compõem o sistema de informação que permita gerir os itens em stock numa dada casa.
 \subsubsection{Casa}
@@ -17,7 +17,7 @@ Em seguida listam-se as diversas entidades relevantes que compõem o sistema de 
 	\item Cada casa é caracterizada por um identificador único, um nome, atribuído por um utilizador no momento de registo da casa. O número de bebés, crianças, adultos e seniores que vivem nessa casa.
 	\item Uma casa está associada a um ou mais utilizadores, podendo um utilizador ter várias casas. 
 	\item Podem existir um ou mais administradores.
-	\item A casa pode ter vários itens em stock presentes na mesma.
+	\item A casa pode ter vários itens em stock presentes.
 	\item Para cada casa existem vários locais de armazenamento dos itens, por exemplo armários, frigoríficos, etc.
 	\item Em cada casa deve ser possível conhecer as alergias assim como quantos membros possuem essa alergia (os membros não precisam necessariamente de estar registados).
 \end{itemize}
@@ -33,7 +33,7 @@ Em seguida listam-se as diversas entidades relevantes que compõem o sistema de 
 	\item Uma lista pode ter vários produtos.
 	\item Existem dois tipos de listas: de sistema e de utilizador. 
 	\item As listas de sistema são comuns a todos os utilizadores registados, contudo são particulares a cada casa. 
-	\item Um utilizador pode criar as suas listas, partilhando-as com outros utilizadores da casa ou tornar a lista secreta.
+	\item Um utilizador pode criar as suas listas, partilhando-as com outros utilizadores da casa ou tornando-as secretas.
 \end{itemize}
 
 \subsubsection{Categoria}

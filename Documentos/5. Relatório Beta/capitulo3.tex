@@ -21,14 +21,14 @@ Após uma ida às compras, os itens adquiridos, Figura \ref{project-general-arch
 
 Ao guardar os artigos nos locais de armazenamento, os mesmos devem ser lidos pelos leitores, de forma a que a informação presente na \textit{tag} e o tipo de movimento (entrada ou saída) possam ser enviados para a API, Figura \ref{project-general-architecture}(c). Assim, estes dados são posteriormente tratados e armazenados de forma persistente na \acrfull{bd}, Figura \ref{project-general-architecture}(d). A API é responsável por retornar dados para as aplicações cliente, Figura \ref{project-general-architecture}(e, f). É ainda nesta que está presente o algoritmo de previsão de stocks utilizado para fazer estimativas quanto à duração de cada um dos itens em stock.
 
-No contexto da gestão de stocks assume-se a existência de duas formas de apresentação para os itens em stock: avulsos e embalados. Os primeiros são conservados em sistemas de arrumação identificados com \textit{tags} programáveis por \textit{smartphones}, \ref{project-general-architecture}(e). Os detalhes dos itens são especificados pelo utilizador e carregados para a \textit{tag}. \\
+No contexto da gestão de stocks assume-se a existência de duas formas de apresentação para os itens em stock: avulsos e embalados. Os primeiros são conservados em sistemas de arrumação identificados com \textit{tags} programáveis por \textit{smartphones}, \ref{project-general-architecture}(e). Os detalhes dos itens são especificados pelo utilizador e carregados para a \textit{tag}. Já os segundos contêm os seus rótulos digitais com o seu detalhe guardado pelos fornecedores.\\
 
 %
 % Secção 3.2 Análise
 %
 \section{Análise}\label{sec32}
 
-O sitema de gestão de stocks é composto por 2 blocos principais: o bloco do lado do cliente e o bloco do lado do servidor, que se relacionam. A representação destes blocos são apresentados na Figura \ref{project-layers-structure}. 
+O sitema de gestão de stocks é composto por 2 blocos principais: o bloco do lado do cliente e o bloco do lado do servidor, que se relacionam. A representação destes blocos é apresentados na Figura \ref{project-layers-structure}. 
 
 \begin{figure}[H]
 	\centering
@@ -37,8 +37,6 @@ O sitema de gestão de stocks é composto por 2 blocos principais: o bloco do la
 	\label{project-layers-structure}
 \end{figure}
 
-O lado do servidor incluí três camadas e expõe uma \gls{api-web}. A \acrfull{dal} é responsável pelas leituras e escritas à \acrshort{bd} que é realizada com o \acrfull{sgbd} \textit{PostgreSQL}. Esta camada é produzida com a linguagem de programação \textit{Java}, usando a \acrfull{jpa}. A \acrfull{bll} é responsável pela implementação das regras de negócio. A implementação desta camada é, também, implementada com linguagem \textit{Java}, usando a \acrfull{jpa}. Os \textit{controllers} foram desenvolvidos em \textit{Java} com a \textit{framework} da \textit{Spring}, chamada de \textit{Spring Boot}. A \gls{api-web} disponibiliza recursos em diferentes \textit{hypermedia}.
-
-recorreu à mesma ferramenta que foi usada na \acrshort{dal}. 
+O lado do servidor incluí três camadas e expõe uma \gls{api-web}. A \acrfull{dal} é a responsável pelas leituras e escritas exercidas na \acrshort{bd}, \acrfull{sgbd} \textit{PostgreSQL}. Esta camada é produzida com a linguagem de programação \textit{Java}, usando a \acrfull{jpa}. A \acrfull{bll} é responsável pela execução das regras de negócio. A implementação desta camada é, também, implementada com linguagem \textit{Java}, usando a \acrshort{jpa}. Os \textit{controllers} foram desenvolvidos em \textit{Java} com a \textit{framework} da \textit{Spring}, chamada de \textit{Spring Boot}. A \gls{api-web} disponibiliza recursos em diferentes \textit{hypermedia}, \textit{Siren} e \textit{Json Home}.
 
 Do lado do cliente existem dois modos de interação, por uma aplicação móvel e outra por uma aplicação web. A aplicação móvel disponível para a plataforma \textit{Android}, desenvolvida em linguagem \textit{Kotlin}. A aplicação web é disponibilizada para a maioria dos browsers, implementada utilizando a linguagem \textit{JavaScript}, com o auxilio da \textit{framework Express}.
