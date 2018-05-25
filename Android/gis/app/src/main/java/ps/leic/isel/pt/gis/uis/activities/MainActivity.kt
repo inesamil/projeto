@@ -10,8 +10,6 @@ import android.widget.Toast
 import com.google.android.gms.auth.api.credentials.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.utils.CredentialsUtils
-import ps.leic.isel.pt.gis.utils.ServiceLocator
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,9 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Init Service Locator
-        ServiceLocator.init(this, Locale.getDefault().language)
-
         if (isFirstTime())
             goToRegister()
         else {
@@ -39,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                     .build()    // Specifies the sign-in systems from where credentials should be requested
 
             // Request stored credentials
-            mCredentialsClient.request(mCredentialRequest).addOnCompleteListener{
+            mCredentialsClient.request(mCredentialRequest).addOnCompleteListener {
                 if (it.isSuccessful) {
                     // Successful credential request
                     it.result.credential.let {
@@ -86,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                                         // sign-in forms, so repurposing this field will
                                         // likely cause errors.
                 .build()*/
-        if (CredentialsUtils.isValidCredential(credential)){
+        if (CredentialsUtils.isValidCredential(credential)) {
             goToContent()
         } else {
             Log.d(SMART_LOCK_TAG, "Retrieved invalid credential, so delete retrieved credential.")
@@ -97,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun deleteCredential(credential: Credential) {
-        mCredentialsClient.delete(credential).addOnCompleteListener{
+        mCredentialsClient.delete(credential).addOnCompleteListener {
             if (it.isSuccessful) {
                 Log.d(SMART_LOCK_TAG, "Credential successfully deleted.");
             } else {

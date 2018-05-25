@@ -10,17 +10,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.android.volley.VolleyError
-import kotlinx.android.synthetic.main.fragment_houses.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.CharacteristicsDTO
 import ps.leic.isel.pt.gis.model.HouseDTO
 import ps.leic.isel.pt.gis.model.MemberDTO
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
-import ps.leic.isel.pt.gis.request.Status
+import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
-import ps.leic.isel.pt.gis.viewModel.HouseViewModel
+import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -37,21 +35,21 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     private lateinit var houses: Array<HouseDTO>
 
     private var listener: OnHousesFragmentInteractionListener? = null
-    private var houseVM: HouseViewModel? = null
+    private var housesVM: HousesViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             username = it.getString(ExtraUtils.USER_USERNAME)
         }
-        houseVM = ViewModelProviders.of(this).get(HouseViewModel::class.java)
+        housesVM = ViewModelProviders.of(this).get(HousesViewModel::class.java)
         val url = "http://10.0.2.2:8081/v1/houses/1"
-        houseVM?.init(url)
-        houseVM?.getHouses()?.observe(this, Observer {
+        housesVM?.init(url)
+        housesVM?.getHouses()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
-                onError(VolleyError(it.message))
+                onError(it.message)
         })
 
         //TODO: get data
@@ -62,35 +60,32 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         )
     }
 
-    private fun onSuccess(house: HousesDto) {
-        Log.v("APP_GIS", "SUCCESS")
+    private fun onSuccess(houses: HousesDto) {
+        // Set Adapter
+        val adapter = HousesAdapter(/*houses.houses*/arrayOf())
+        view?.let {
+            it.housesRecyclerView.layoutManager = LinearLayoutManager(it.context)
+            it.housesRecyclerView.setHasFixedSize(true)
+            it.housesRecyclerView.adapter = adapter
+            // Set new house button listener
+            it.newHouseBtn.setOnClickListener {
+                val house: HouseDTO = HouseDTO(2, "Jones", CharacteristicsDTO(0, 0, 1, 0),
+                        arrayOf(MemberDTO(1, "alice", true)))
+                //TODO: get new House
+                listener?.onNewHouseInteraction(house)
+            }
+        }
+        adapter.setOnItemClickListener(this)
     }
 
-    private fun onError(error: VolleyError?) {
+    private fun onError(error: String?) {
         Log.v("APP_GIS", "ERROR")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_houses, container, false)
-
-        // Set Adapter
-        val adapter = HousesAdapter(houses)
-        view.housesRecyclerView.layoutManager = LinearLayoutManager(view.context)
-        view.housesRecyclerView.setHasFixedSize(true)
-        view.housesRecyclerView.adapter = adapter
-        adapter.setOnItemClickListener(this)
-
-        // Set new house button listener
-        view.newHouseBtn.setOnClickListener {
-            val house: HouseDTO = HouseDTO(2, "Jones", CharacteristicsDTO(0, 0, 1, 0),
-                    arrayOf(MemberDTO(1, "alice", true)))
-            //TODO: get new House
-            listener?.onNewHouseInteraction(house)
-        }
-
-        return view
+        return inflater.inflate(R.layout.fragment_houses, container, false)
     }
 
     override fun onAttach(context: Context) {
