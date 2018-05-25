@@ -59,7 +59,7 @@ public class UserOutputModel {
         // Subentities
         Entity userHouses = new Entity(
                 new String[]{"user-houses", "collection"},
-                new String[]{"user-houses"},
+                new String[]{"collection"},
                 null,
                 null,
                 new Link[]{new Link(new String[]{"self"}, new String[]{"user-houses", "collection"}, userHousesUri)});
@@ -70,7 +70,7 @@ public class UserOutputModel {
         String username = user.getUsersUsername();
 
         // Type
-        String type = "application/x-www-form-urlencoded";
+        String type = "application/json";
 
         // URIs
         String userUri = UriBuilderUtils.buildUserUri(username);
@@ -94,7 +94,7 @@ public class UserOutputModel {
                 "Delete User",
                 Method.DELETE,
                 userUri,
-                type,
+                null,
                 null
         );
 
