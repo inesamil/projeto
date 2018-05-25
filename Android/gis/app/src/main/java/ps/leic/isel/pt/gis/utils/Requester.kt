@@ -30,7 +30,6 @@ open class Requester<DTO>(method: Int, url: String, body: Any?, private val head
             setTag(tag)
             Response.success(dto, null)
         } catch (e: IOException) {
-            Log.e("APP_GIS", e.message)
             Response.error(VolleyError(e))
         }
     }
