@@ -2,6 +2,8 @@ package ps.leic.isel.pt.gis.request
 
 import android.app.Application
 import com.android.volley.VolleyError
+import ps.leic.isel.pt.gis.utils.RequestQueue
+import ps.leic.isel.pt.gis.utils.Requester
 
 class Service<T>(private val application: Application) : WebService<T> {
 
