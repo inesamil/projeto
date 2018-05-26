@@ -8,6 +8,7 @@ import pt.isel.ps.gis.hypermedia.siren.components.subentities.Entity;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Link;
 import pt.isel.ps.gis.model.ExpirationDate;
 import pt.isel.ps.gis.model.StockItem;
+import pt.isel.ps.gis.model.StockItemStorage;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.HashMap;
@@ -58,23 +59,40 @@ public class StockItemOutputModel {
     }
 
     private Entity[] initEntities(StockItem stockItem) {
-        Entity[] entities = new Entity[stockItem.getExpirationdates().size()];
+
+        // Expiration Dates
+        ExpirationDateJsonObject[] expirationDates = new ExpirationDateJsonObject[stockItem.getExpirationdates().size()];
         int i = 0;
         for (ExpirationDate expirationDate : stockItem.getExpirationdates()) {
-            //Properties
-            HashMap<String, Object> properties = new HashMap<>();
-            properties.put("expiration-date", expirationDate.getId().getDateString());
-            properties.put("quantity", expirationDate.getDateQuantity());
-
-            entities[i++] = new Entity(
-                    new String[]{"expiration-date"},
-                    new String[]{"item"},
-                    properties,
-                    null,
-                    null);
+            expirationDates[i++] = new ExpirationDateJsonObject(expirationDate.getId().getDateString(), expirationDate.getDateQuantity());
         }
+        HashMap<String, Object> expirationDatesProperties = new HashMap<>();
+        properties.put("elements", expirationDates);
 
-        return entities;
+        Entity expirationDatesEntity = new Entity(
+                new String[]{"expiration-date"},
+                new String[]{"collection"},
+                expirationDatesProperties,
+                null,
+                null);
+
+        // Storages
+        String[] storages = new String[stockItem.getStockitemstorages().size()];
+        i = 0;
+        for (StockItemStorage storage : stockItem.getStockitemstorages()) {
+            storages[i++] = storage.getStorage().getStorageName();
+        }
+        HashMap<String, Object> storagesProperties = new HashMap<>();
+        properties.put("elements", storages);
+
+        Entity storagesEntity = new Entity(
+                new String[]{"storages"},
+                new String[]{"collection"},
+                storagesProperties,
+                null,
+                null);
+
+        return new Entity[]{expirationDatesEntity, storagesEntity};
     }
 
     private Link[] initLinks(StockItem stockItem) {
