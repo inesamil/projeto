@@ -67,7 +67,7 @@ public class StockItemOutputModel {
             expirationDates[i++] = new ExpirationDateJsonObject(expirationDate.getId().getDateString(), expirationDate.getDateQuantity());
         }
         HashMap<String, Object> expirationDatesProperties = new HashMap<>();
-        properties.put("elements", expirationDates);
+        expirationDatesProperties.put("elements", expirationDates);
 
         Entity expirationDatesEntity = new Entity(
                 new String[]{"expiration-date"},
@@ -83,7 +83,7 @@ public class StockItemOutputModel {
             storages[i++] = storage.getStorage().getStorageName();
         }
         HashMap<String, Object> storagesProperties = new HashMap<>();
-        properties.put("elements", storages);
+        storagesProperties.put("elements", storages);
 
         Entity storagesEntity = new Entity(
                 new String[]{"storages"},
