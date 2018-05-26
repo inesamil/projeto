@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.StorageDTO
+import ps.leic.isel.pt.gis.model.dtos.StorageDto
 
-class StoragesAdapter(private val data: Array<StorageDTO>) : RecyclerView.Adapter<StoragesAdapter.ViewHolder>() {
+class StoragesAdapter(private val data: Array<StorageDto>) : RecyclerView.Adapter<StoragesAdapter.ViewHolder>() {
 
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,7 +22,7 @@ class StoragesAdapter(private val data: Array<StorageDTO>) : RecyclerView.Adapte
         val item = data[position]
         // Fill ViewHolder
         holder.storageName.text = item.name
-        holder.storageTemperature.text = item.temperatureRange.toString()
+        holder.storageTemperature.text = item.temperature
     }
 
     override fun getItemCount() = data.size
