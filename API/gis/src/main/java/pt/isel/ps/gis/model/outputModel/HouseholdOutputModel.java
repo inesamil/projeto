@@ -64,7 +64,7 @@ public class HouseholdOutputModel {
                     new String[]{"item"},
                     properties,
                     null,
-                    new Link[]{new Link(new String[]{"self"},  new String[]{"user"}, userUri)});
+                    new Link[]{new Link(new String[]{"related"},  new String[]{"user"}, userUri)});
         }
         return entities;
     }
