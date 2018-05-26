@@ -43,7 +43,7 @@ class StockItemInnerListAdapter()
 
     // stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var localItemText: TextView = itemView.findViewById<TextView>(R.id.localText) as TextView
-        internal var unitsItemText: TextView = itemView.findViewById<TextView>(R.id.unitsText) as TextView
+        internal var localItemText: TextView = itemView.findViewById(R.id.localText) as TextView
+        internal var unitsItemText: TextView = itemView.findViewById(R.id.unitsText) as TextView
     }
 }
