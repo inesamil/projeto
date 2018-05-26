@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.ProductDTO
+import ps.leic.isel.pt.gis.model.dtos.ProductDto
 
-class CategoryProductsAdapter(private val data: Array<ProductDTO>)
+
+class CategoryProductsAdapter(private val data: Array<ProductDto>)
     : RecyclerView.Adapter<CategoryProductsAdapter.ViewHolder>() {
 
     private var mOnItemClickListener: OnItemClickListener? = null
@@ -23,9 +24,9 @@ class CategoryProductsAdapter(private val data: Array<ProductDTO>)
 
     // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: ProductDTO = data[position]
+        val item: ProductDto = data[position]
         // Fill ViewHolder
-        holder.productDiaryItemText.text = item.name
+        holder.productText.text = item.productName
     }
 
     // Total number of cells
@@ -33,20 +34,20 @@ class CategoryProductsAdapter(private val data: Array<ProductDTO>)
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val productDiaryItemText: TextView = itemView.findViewById(R.id.productDiaryItemText)
-        internal val productDiaryItemPlusBtn: Button = itemView.findViewById(R.id.productDiaryItemPlusBtn)
-        internal val productDiaryItemMinusBtn: Button = itemView.findViewById(R.id.productDiaryItemMinusBtn)
+        internal val productText: TextView = itemView.findViewById(R.id.productDiaryItemText)
+        internal val productPlusBtn: Button = itemView.findViewById(R.id.productDiaryItemPlusBtn)
+        internal val productMinusBtn: Button = itemView.findViewById(R.id.productDiaryItemMinusBtn)
 
         init {
-            productDiaryItemText.setOnClickListener{
+            productText.setOnClickListener{
                 mOnItemClickListener?.onTextClick(it, adapterPosition)
             }
 
-            productDiaryItemPlusBtn.setOnClickListener {
+            productPlusBtn.setOnClickListener {
                 mOnItemClickListener?.onPlusClick(it, adapterPosition)
             }
 
-            productDiaryItemMinusBtn.setOnClickListener {
+            productMinusBtn.setOnClickListener {
                 mOnItemClickListener?.onMinusClick(it, adapterPosition)
             }
         }
