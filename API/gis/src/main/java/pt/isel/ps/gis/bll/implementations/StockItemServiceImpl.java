@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.StockItemService;
 import pt.isel.ps.gis.dal.repositories.StockItemRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -26,9 +27,14 @@ public class StockItemServiceImpl implements StockItemService {
         return stockItemRepository.existsById(new StockItemId(houseId, stockItemSku));
     }
 
+    @Transactional
     @Override
     public Optional<StockItem> getStockItemByStockItemId(long houseId, String stockItemSku) throws EntityException {
-        return stockItemRepository.findById(new StockItemId(houseId, stockItemSku));
+        Optional<StockItem> byId = stockItemRepository.findById(new StockItemId(houseId, stockItemSku));
+        if (!byId.isPresent()) return byId;
+        StockItem stockItem = byId.get();
+        stockItem.getStockitemstorages().size();
+        return byId;
     }
 
     @Override
