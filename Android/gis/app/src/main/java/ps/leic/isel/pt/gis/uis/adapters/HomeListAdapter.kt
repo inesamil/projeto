@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.*
+import ps.leic.isel.pt.gis.model.ListDTO
+import ps.leic.isel.pt.gis.model.dtos.ListDto
 
-class HomeListAdapter(private val data: Array<ListDTO>) :
+class HomeListAdapter(private val data: Array<ListDto>) :
         RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
@@ -22,7 +23,7 @@ class HomeListAdapter(private val data: Array<ListDTO>) :
 
     // Binds the data to the components in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: ListDTO = data[position]
+        val item: ListDto = data[position]
 
         /*val firstProduct: ListProductDTO = item.items[0]
         val secondProduct: ListProductDTO = item.items[1]
