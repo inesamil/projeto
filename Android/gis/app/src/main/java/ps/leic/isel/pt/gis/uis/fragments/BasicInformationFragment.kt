@@ -1,16 +1,21 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_basic_information.view.*
-
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.UserDTO
+import ps.leic.isel.pt.gis.model.dtos.UserDto
+import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.viewModel.BasicInformationViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -27,28 +32,45 @@ class BasicInformationFragment : Fragment() {
     private lateinit var user: UserDTO
 
     private var listener: OnBasicInformationFragmentInteractionListener? = null
+    private var basicInfoVM: BasicInformationViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             username = it.getString(ExtraUtils.USER_USERNAME)
         }
+        basicInfoVM = ViewModelProviders.of(this).get(BasicInformationViewModel::class.java)
+        val url = ""
+        basicInfoVM?.init(url)
+        basicInfoVM?.getUser()?.observe(this, Observer {
+            if (it?.status == Status.SUCCESS)
+                onSuccess(it.data!!)
+            else if (it?.status == Status.ERROR)
+                onError(it.message)
+        })
         //TODO: get data
         user = UserDTO("alice", "alice@example.com", 20, "Alice Smith")
+    }
+
+    private fun onSuccess(user: UserDto) {
+        // Set info
+        view?.let {
+            UserDTO
+            it.fullnameText.text = user.name
+            it.emailText.text = user.email
+            it.requesterUserText.text = user.username
+            it.ageText.text = user.age.toString()
+        }
+    }
+
+    private fun onError(error: String?) {
+        Log.v("APP_GIS", error)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_basic_information, container, false)
-
-        // Set info
-        view.fullnameText.text = user.userName
-        view.emailText.text = user.userEmail
-        view.requesterUserText.text = user.userUsername
-        view.ageText.text = user.userAge.toString()
-
-        return view
+        return inflater.inflate(R.layout.fragment_basic_information, container, false)
     }
 
     override fun onAttach(context: Context) {
