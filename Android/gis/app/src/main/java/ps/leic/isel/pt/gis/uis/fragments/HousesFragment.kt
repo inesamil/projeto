@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_houses.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.CharacteristicsDTO
 import ps.leic.isel.pt.gis.model.HouseDTO
@@ -43,7 +44,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
             username = it.getString(ExtraUtils.USER_USERNAME)
         }
         housesVM = ViewModelProviders.of(this).get(HousesViewModel::class.java)
-        val url = "http://10.0.2.2:8081/v1/houses/1"
+        val url = "http://10.0.2.2:8081/v1/users/nuno/houses"
         housesVM?.init(url)
         housesVM?.getHouses()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
@@ -79,7 +80,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     }
 
     private fun onError(error: String?) {
-        Log.v("APP_GIS", "ERROR")
+        Log.v("APP_GIS", error)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
