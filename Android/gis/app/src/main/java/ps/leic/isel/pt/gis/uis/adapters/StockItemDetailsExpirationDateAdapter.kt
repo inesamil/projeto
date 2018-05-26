@@ -8,7 +8,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ExpirationDateDTO
 
-class StockItemDetailsExpirationDateAdapter(private val data: Array<ExpirationDateDTO>)
+class StockItemDetailsExpirationDateAdapter(private val data: Array<ExpirationDateDTO>) //TODO
     : RecyclerView.Adapter<StockItemDetailsExpirationDateAdapter.ViewHolder>() {
 
     // Inflates the cell layout from xml when needed
