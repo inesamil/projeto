@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.StorageDTO
+import ps.leic.isel.pt.gis.model.dtos.StorageDto
 
-class StockItemDetailsStorageAdapter(private val data: Array<StorageDTO>)
+class StockItemDetailsStorageAdapter(private val data: Array<StorageDto>)
     : RecyclerView.Adapter<StockItemDetailsStorageAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
@@ -22,7 +22,7 @@ class StockItemDetailsStorageAdapter(private val data: Array<StorageDTO>)
 
     // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: StorageDTO = data[position]
+        val item: StorageDto = data[position]
         // Fill ViewHolder
         holder.storageItemText.text = item.storageId.toString()
         //TODO
