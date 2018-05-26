@@ -3,22 +3,29 @@ package ps.leic.isel.pt.gis.viewModel
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
+import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.dtos.StockItemsDto
 import ps.leic.isel.pt.gis.repositories.Resource
-import ps.leic.isel.pt.gis.repositories.StockItemsRepository
 
-class StockItemListViewModel(application: Application) : AndroidViewModel(application) {
+class StockItemListViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    private val stockItemsRepo: StockItemsRepository = StockItemsRepositoryImpl(application)
-
-    private lateinit var stockItems: LiveData<Resource<StockItemsDto>>
+    private var stockItems: LiveData<Resource<StockItemsDto>>? = null
 
     fun init(url: String) {
-        if (::stockItems.isInitialized) return
-        stockItems = stockItemsRepo.getStockItems(url)
+        if (stockItems != null) return
+        stockItems = ServiceLocator.getRepository(app.applicationContext).get(StockItemsDto::class.java, url, TAG)
     }
 
-    fun getStockItems(): LiveData<Resource<StockItemsDto>> {
+    fun getStockItems(): LiveData<Resource<StockItemsDto>>? {
         return stockItems
+    }
+
+    fun cancel() {
+        ServiceLocator.getRepository(app.applicationContext).cancelAllPendingRequests(TAG)
+        stockItems = null
+    }
+
+    companion object {
+        private const val TAG: String = "StockItemListViewModel"
     }
 }
