@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Action;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Entity;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Link;
+import pt.isel.ps.gis.model.ExpirationDate;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
@@ -56,36 +57,41 @@ public class StockItemOutputModel {
     }
 
     private Entity[] initEntities(StockItem stockItem) {
-        long houseId = stockItem.getId().getHouseId();
-        String sku = stockItem.getId().getStockitemSku();
+        Entity[] entities = new Entity[stockItem.getExpirationdates().size()];
+        int i = 0;
+        for (ExpirationDate expirationDate : stockItem.getExpirationdates()) {
+            //Properties
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("expiration-date", expirationDate.getId().getDateString());
+            properties.put("quantity", expirationDate.getDateQuantity());
 
-        // URIs
-        String itemAllergiesUri = UriBuilderUtils.buildAllergiesStockItemUri(houseId, sku);
+            entities[i++] = new Entity(
+                    new String[]{"expiration-date"},
+                    new String[]{"item"},
+                    properties,
+                    null,
+                    null);
+        }
 
-        // Subentities
-        Entity allergiesItem = new Entity(
-                new String[]{"allergies-stock-item", "collection"},
-                new String[]{"collection"},
-                null,
-                null,
-                new Link[]{new Link(new String[]{"self"}, new String[]{"allergies-stock-item", "collection"}, itemAllergiesUri)});
-
-        return new Entity[]{allergiesItem};
+        return entities;
     }
 
     private Link[] initLinks(StockItem stockItem) {
         long houseId = stockItem.getId().getHouseId();
         String sku = stockItem.getId().getStockitemSku();
 
-        // URIs
-        String stockItemUri = UriBuilderUtils.buildStockItemUri(houseId, sku);
-        String stockItemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
-
         // Link-self
+        String stockItemUri = UriBuilderUtils.buildStockItemUri(houseId, sku);
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS}, stockItemUri);
+
         //Link-related-stockItems
+        String stockItemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
         Link stockItemsLink = new Link(new String[]{"related"}, new String[]{"stock-items", "collection"}, stockItemsUri);
 
-        return new Link[]{self, stockItemsLink};
+        // Link-related-allergens
+        String itemAllergiesUri = UriBuilderUtils.buildAllergiesStockItemUri(houseId, sku);
+        Link itemAllergiesLink = new Link(new String[]{"self"}, new String[]{"stock-item-allergens", "collection"}, itemAllergiesUri);
+
+        return new Link[]{self, stockItemsLink, itemAllergiesLink};
     }
 }
