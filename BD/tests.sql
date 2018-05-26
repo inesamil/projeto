@@ -9,8 +9,8 @@ SELECT delete_house(1)
 --creates.sql
 --functions.sql
 
-INSERT INTO public."house" VALUES (1, 'house1', '{"house_babiesNumber":1}');
-INSERT INTO public."house" VALUES (2, 'house2', '{"house_babiesNumber":2}');
+INSERT INTO public."house" VALUES (1, 'house1', '{"house_babiesNumber":1, "house_childrenNumber":0, "house_adultsNumber":2, "house_seniorsNumber":0}');
+INSERT INTO public."house" VALUES (2, '{"house_babiesNumber":1, "house_childrenNumber":0, "house_adultsNumber":2, "house_seniorsNumber":0}');
 SELECT * FROM public."house"; 
 
 INSERT INTO public."users" VALUES ('ze', 'email', 20, 'ze', '123');
