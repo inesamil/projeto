@@ -32,6 +32,7 @@ class MembersAdapter() : RecyclerView.Adapter<MembersAdapter.ViewHolder>() {
 
     fun setData(data: Array<MemberDto>) {
        this.data = data
+        notifyDataSetChanged()
     }
 
     // Stores and recycles views as they are scrolled off screen
