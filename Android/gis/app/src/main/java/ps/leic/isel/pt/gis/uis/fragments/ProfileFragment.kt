@@ -1,19 +1,12 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
-import android.content.Context
 import android.os.Bundle
-import android.os.Parcelable
-import android.provider.ContactsContract
 import android.support.v4.app.Fragment
-import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.HouseDTO
 import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 
@@ -42,7 +35,7 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
         // Set Adapter
         val adapter = PageTabsAdapter(username, childFragmentManager)

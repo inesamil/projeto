@@ -3,7 +3,7 @@ package ps.leic.isel.pt.gis.model
 import android.os.Parcel
 import android.os.Parcelable
 
-open class ListDTO (
+open class ListDTO(
         open val houseId: Long,
         open val listId: Short,
         open val listName: String,

@@ -29,13 +29,13 @@ class InvitationsAdapter(private val data: MutableList<InvitationDTO>)
         holder.invitationQuestion.text = "Can I join to " + item.houseName + "'s house?"    //TODO: user string resources
 
         // Set on accept invitation listener
-        holder.acceptInvitation.setOnClickListener{
+        holder.acceptInvitation.setOnClickListener {
             removeItem(position)
             mOnItemClickListener.onAcceptInvitation(item)
         }
 
         // Set on decline invitation listener
-        holder.declineInvitation.setOnClickListener{
+        holder.declineInvitation.setOnClickListener {
             removeItem(position)
             mOnItemClickListener.onDeclineInvitation(item)
         }

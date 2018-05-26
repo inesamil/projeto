@@ -6,7 +6,8 @@ import java.util.*
 
 class GisApplication : Application() {
 
-    @Volatile lateinit var language: String
+    @Volatile
+    lateinit var language: String
 
     override fun onCreate() {
         super.onCreate()

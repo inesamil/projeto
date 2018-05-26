@@ -31,7 +31,7 @@ class MembersAdapter() : RecyclerView.Adapter<MembersAdapter.ViewHolder>() {
     override fun getItemCount() = data.size
 
     fun setData(data: Array<MemberDto>) {
-       this.data = data
+        this.data = data
         notifyDataSetChanged()
     }
 

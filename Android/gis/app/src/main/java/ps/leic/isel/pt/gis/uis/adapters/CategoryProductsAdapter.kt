@@ -39,7 +39,7 @@ class CategoryProductsAdapter(private val data: Array<ProductDto>)
         internal val productMinusBtn: Button = itemView.findViewById(R.id.productDiaryItemMinusBtn)
 
         init {
-            productText.setOnClickListener{
+            productText.setOnClickListener {
                 mOnItemClickListener?.onTextClick(it, adapterPosition)
             }
 

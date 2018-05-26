@@ -34,6 +34,7 @@ class StockItemDetailsMovementsAdapter(private val data: Array<MovementDto>)
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val movementsItemText: TextView = itemView.findViewById(R.id.movementsItemText)
+
         //TODO
         init {
             itemView.setOnClickListener {

@@ -25,8 +25,8 @@ object ServiceLocator {
         return mPreferences.getString(CREDENTIALS_TAG, "")
     }
 
-    fun getRepository(context: Context) : Repository {
-        if (repository == null){
+    fun getRepository(context: Context): Repository {
+        if (repository == null) {
             repository = RepositoryImpl(context)
         }
         return repository as Repository

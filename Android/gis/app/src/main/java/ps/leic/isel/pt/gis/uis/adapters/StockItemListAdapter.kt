@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.StockItemDTO
 import ps.leic.isel.pt.gis.model.dtos.StockItemDto
 
 class StockItemListAdapter(private var data: Array<StockItemDto>)
@@ -58,7 +57,7 @@ class StockItemListAdapter(private var data: Array<StockItemDto>)
             innerAdapter = StockItemInnerListAdapter()
             stockItemInnerListRecyclerView.adapter = innerAdapter
 
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 mOnItemClickListener.onItemClick(it, adapterPosition)
             }
         }

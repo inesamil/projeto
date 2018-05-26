@@ -29,22 +29,22 @@ class HomePageFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         // Set on my pantry click listener
-        view.myPantryCardView.setOnClickListener{
+        view.myPantryCardView.setOnClickListener {
             listener?.onMyPantryInteraction()
         }
 
         // Set on my houses click listener
-        view.myHousesCardView.setOnClickListener{
+        view.myHousesCardView.setOnClickListener {
             listener?.onMyHousesInteraction()
         }
 
         // Set on my profile click listener
-        view.myProfileCardView.setOnClickListener{
+        view.myProfileCardView.setOnClickListener {
             listener?.onMyProfileInteraction()
         }
 
         // Set on my lists click listener
-        view.myListsCardView.setOnClickListener{
+        view.myListsCardView.setOnClickListener {
             listener?.onMyListsInteraction()
         }
 

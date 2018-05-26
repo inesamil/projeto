@@ -28,7 +28,7 @@ class NewHouseDialogFragment : DialogFragment() {
                 .setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { dialog, id -> this@NewHouseDialogFragment.getDialog().cancel() })
 
         // Set Plus buttons listeners
-        view.babiesPlusBtn.setOnClickListener{
+        view.babiesPlusBtn.setOnClickListener {
             EditTextUtils.incNumberText(
                     view.babiesNumEditText,
                     RestrictionsUtils.characteristicsMinValue,
@@ -42,14 +42,14 @@ class NewHouseDialogFragment : DialogFragment() {
                     RestrictionsUtils.characteristicsMaxValue)
         }
 
-        view.adultsPlusBtn.setOnClickListener{
+        view.adultsPlusBtn.setOnClickListener {
             EditTextUtils.incNumberText(
                     view.adultsNumEditText,
                     RestrictionsUtils.characteristicsMinValue,
                     RestrictionsUtils.characteristicsMaxValue)
         }
 
-        view.seniorsPlusBtn.setOnClickListener{
+        view.seniorsPlusBtn.setOnClickListener {
             EditTextUtils.incNumberText(
                     view.seniorNumEditText,
                     RestrictionsUtils.characteristicsMinValue,
@@ -57,13 +57,13 @@ class NewHouseDialogFragment : DialogFragment() {
         }
 
         // Set Minus buttons listeners
-        view.babiesMinusBtn.setOnClickListener{
+        view.babiesMinusBtn.setOnClickListener {
             EditTextUtils.decNumberText(
                     view.babiesNumEditText,
                     RestrictionsUtils.characteristicsMinValue,
                     RestrictionsUtils.characteristicsMaxValue)
         }
-        view.childrenMinusBtn.setOnClickListener{
+        view.childrenMinusBtn.setOnClickListener {
             EditTextUtils.decNumberText(
                     view.childrenNumEditText,
                     RestrictionsUtils.characteristicsMinValue,
@@ -85,7 +85,6 @@ class NewHouseDialogFragment : DialogFragment() {
         }
         return builder.create()
     }
-
 
 
     /**

@@ -48,9 +48,9 @@ class HomeActivity : AppCompatActivity(),
 
         // Init
         supportFragmentManager.beginTransaction()
-                            .replace(R.id.content, HomePageFragment.newInstance(), ExtraUtils.HOME_PAGE)
-                            .addToBackStack(ExtraUtils.HOME_PAGE)
-                            .commit()
+                .replace(R.id.content, HomePageFragment.newInstance(), ExtraUtils.HOME_PAGE)
+                .addToBackStack(ExtraUtils.HOME_PAGE)
+                .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -210,11 +210,10 @@ class HomeActivity : AppCompatActivity(),
         if (homeDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             homeDrawerLayout.closeDrawer(GravityCompat.START)
         } else {
-           val count: Int = supportFragmentManager.backStackEntryCount
-            if (count == 1){
+            val count: Int = supportFragmentManager.backStackEntryCount
+            if (count == 1) {
                 finish()
-            }
-            else {
+            } else {
                 supportFragmentManager.popBackStack()
             }
         }

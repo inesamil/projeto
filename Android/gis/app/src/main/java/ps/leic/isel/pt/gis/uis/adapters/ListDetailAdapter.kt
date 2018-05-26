@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.ListProductDTO
 import ps.leic.isel.pt.gis.model.dtos.ProductListDto
 
 class ListDetailAdapter(private val data: Array<ProductListDto>)

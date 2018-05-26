@@ -44,7 +44,7 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 CategoryDTO(2, "Carne"),
                 CategoryDTO(3, "Peixe"))
         products = arrayOf(
-                ProductDTO(1,  1, "Leite", true, "3dias"),
+                ProductDTO(1, 1, "Leite", true, "3dias"),
                 ProductDTO(1, 2, "Queijo", true, "7dias"),
                 ProductDTO(1, 3, "Iogurte", true, "20dias"))
     }
@@ -52,7 +52,7 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view: View =  inflater.inflate(R.layout.fragment_write_nfc_tag, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_write_nfc_tag, container, false)
 
         // Set category spinner options
         val categorySpinnerAdapter = ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_item, categories.map { category -> category.categoryName })
@@ -62,7 +62,7 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         view.categorySpinner.setSelection(first)
 
         // Set write button listener
-        view.writeBtn.setOnClickListener{
+        view.writeBtn.setOnClickListener {
             onWriteClick(it)
         }
 
@@ -119,7 +119,7 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         view?.let {
-            when(view.id){
+            when (view.id) {
                 R.id.categorySpinner -> {
                     // Set category spinner options
                     //categorySpinner.selectedItem

@@ -1,7 +1,5 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -9,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_invitations.view.*
-
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.InvitationDTO
 import ps.leic.isel.pt.gis.uis.adapters.InvitationsAdapter
