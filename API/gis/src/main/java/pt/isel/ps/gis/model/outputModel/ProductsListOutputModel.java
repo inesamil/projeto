@@ -60,6 +60,7 @@ public class ProductsListOutputModel {
             properties.put("list-id", listId);
             properties.put("category-id", product.getCategoryByCategoryId().getCategoryId());
             properties.put("product-id", product.getId().getProductId());
+            properties.put("product-name", product.getProductName());
             properties.put("list-product-brand", listProduct.getListproductBrand());
             properties.put("list-product-quantity", listProduct.getListproductQuantity());
 
