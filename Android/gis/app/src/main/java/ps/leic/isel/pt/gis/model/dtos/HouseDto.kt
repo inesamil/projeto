@@ -11,6 +11,7 @@ class HouseDto(siren: Siren) {
     val houseId: Long
     val name: String?
     val characteristics: CharacteristicsDTO?
+    val members: Array<MemberDto>
     val actions: HousesActions
     val links: HouseLinks
 
@@ -20,6 +21,9 @@ class HouseDto(siren: Siren) {
         name = properties[houseNameLabel] as String
         val characteristics = properties[houseCharacteristicsLabel]
         this.characteristics = mapper.convertValue<CharacteristicsDTO>(characteristics, CharacteristicsDTO::class.java)
+        members = siren.entities?.map {
+            MemberDto(Siren(it.klass, it.properties, null, null, null))
+        }.orEmpty().toTypedArray()
         actions = HousesActions(siren.actions)
         links = HouseLinks(siren.links)
     }
