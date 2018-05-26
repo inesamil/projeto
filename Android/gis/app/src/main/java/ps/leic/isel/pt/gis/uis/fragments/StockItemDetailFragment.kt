@@ -1,9 +1,12 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +14,14 @@ import kotlinx.android.synthetic.main.fragment_stock_item_detail.*
 import kotlinx.android.synthetic.main.fragment_stock_item_detail.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.*
+import ps.leic.isel.pt.gis.model.dtos.StockItemDto
+import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsExpirationDateAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsMovementsAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsStorageAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.getElementsSeparatedBySemiColon
+import ps.leic.isel.pt.gis.viewModel.StockItemDetailViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -35,46 +41,62 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
     private lateinit var movements: Array<MovementDTO>
 
     private var listener: OnStockItemDetailFragmentInteractionListener? = null
+    private var stockItemDetailViewModel: StockItemDetailViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             stockItem = it.getParcelable(ExtraUtils.STOCK_ITEM)
         }
+        stockItemDetailViewModel = ViewModelProviders.of(this).get(StockItemDetailViewModel::class.java)
+        val url = ""
+        stockItemDetailViewModel?.init(url)
+        stockItemDetailViewModel?.getStockItem()?.observe(this, Observer {
+            if (it?.status == Status.SUCCESS)
+                onSuccess(it.data!!)
+            else if (it?.status == Status.ERROR)
+                onError(it.message)
+        })
         //TODO: get data
+    }
+
+    private fun onSuccess(stockItem: StockItemDto) {
+        // Set Allergens
+        allergensText.text = allergens.getElementsSeparatedBySemiColon()
+
+        // Set Adapters (Expiration dates)
+        val expirationDatesAdapter = StockItemDetailsExpirationDateAdapter(/*stockItem.expirationsDate*/arrayOf())
+        // Set Adapter (Storages)
+        val storagesAdapter = StockItemDetailsStorageAdapter(/*stockItem.storages*/arrayOf())
+        // Set Adapter (Movements)
+        val movementsAdapter = StockItemDetailsMovementsAdapter(/*stockItem.movements*/arrayOf())
+        view?.let {
+            // Set Adapters (Expiration dates)
+            it.expirationDateRecyclerView.layoutManager = LinearLayoutManager(it.context)
+            it.expirationDateRecyclerView.setHasFixedSize(true)
+            it.expirationDateRecyclerView.adapter = expirationDatesAdapter
+            // Set Adapter (Storages)
+            it.storageRecyclerView.layoutManager = LinearLayoutManager(it.context)
+            it.storageRecyclerView.setHasFixedSize(true)
+            it.storageRecyclerView.adapter = storagesAdapter
+            // Set Description
+            it.descriptionText.text = stockItem.description
+            // Set Adapter (Movements)
+            it.movementsRecyclerView.layoutManager = LinearLayoutManager(it.context)
+            it.movementsRecyclerView.setHasFixedSize(true)
+            it.movementsRecyclerView.adapter = movementsAdapter
+        }
+        storagesAdapter.setOnItemClickListener(this)
+    }
+
+    private fun onError(error: String?) {
+        Log.v("APP_GIS", error)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_stock_item_detail, container, false)
-
-        // Set Allergens
-        allergensText.text = allergens.getElementsSeparatedBySemiColon()
-
-        // Set Adapters (Expiration dates)
-        val expirationDatesAdapter = StockItemDetailsExpirationDateAdapter(expirationDates)
-        view.expirationDateRecyclerView.layoutManager = LinearLayoutManager(view.context)
-        view.expirationDateRecyclerView.setHasFixedSize(true)
-        view.expirationDateRecyclerView.adapter = expirationDatesAdapter
-
-        // Set Adapter (Storages)
-        val storagesAdapter = StockItemDetailsStorageAdapter(/*storages*/arrayOf())
-        view.storageRecyclerView.layoutManager = LinearLayoutManager(view.context)
-        view.storageRecyclerView.setHasFixedSize(true)
-        view.storageRecyclerView.adapter = storagesAdapter
-        storagesAdapter.setOnItemClickListener(this)
-
-        // Set Description
-        view.descriptionText.text = stockItem.description
-
-        // Set Adapter (Movements)
-        val movementsAdapter = StockItemDetailsMovementsAdapter(/*movements*/arrayOf())
-        view.movementsRecyclerView.layoutManager = LinearLayoutManager(view.context)
-        view.movementsRecyclerView.setHasFixedSize(true)
-        view.movementsRecyclerView.adapter = movementsAdapter
-
-        return view
+        return inflater.inflate(R.layout.fragment_stock_item_detail, container, false)
     }
 
     override fun onStart() {
