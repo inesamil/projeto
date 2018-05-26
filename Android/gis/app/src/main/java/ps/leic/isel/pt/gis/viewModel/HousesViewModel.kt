@@ -5,21 +5,24 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
-import ps.leic.isel.pt.gis.repositories.HousesRepository
 import ps.leic.isel.pt.gis.repositories.Resource
-import ps.leic.isel.pt.gis.repositories.implementations.HousesRepositoryImpl
 
 class HousesViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    private lateinit var houses: LiveData<Resource<HousesDto>>
+    private var houses: LiveData<Resource<HousesDto>>? = null
 
     fun init(url: String) {
-        if (::houses.isInitialized) return
+        if (houses != null) return
         houses = ServiceLocator.getRepository(app.applicationContext).get(HousesDto::class.java, url, TAG)
     }
 
-    fun getHouses(): LiveData<Resource<HousesDto>> {
+    fun getHouses(): LiveData<Resource<HousesDto>>? {
         return houses
+    }
+
+    fun cancel() {
+        ServiceLocator.getRepository(app.applicationContext).cancelAllPendingRequests(TAG)
+        houses = null
     }
 
     companion object {
