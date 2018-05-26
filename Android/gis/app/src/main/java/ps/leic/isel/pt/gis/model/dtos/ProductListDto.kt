@@ -8,6 +8,7 @@ class ProductListDto(siren: Siren) {
     val listId: Long
     val categoryId: Long
     val productId: Long
+    val productName: String
     val productListBrand: String
     val productsListQuantity: Short
     val links: ProductListLynks
@@ -18,6 +19,7 @@ class ProductListDto(siren: Siren) {
         listId = (properties?.get(listIdLabel) as Int).toLong()
         categoryId = (properties?.get(categoryIdLabel) as Int).toLong()
         productId = (properties?.get(productIdLabel) as Int).toLong()
+        productName = properties?.get(productNameLabel) as String
         productListBrand = properties?.get(productListBrandLabel) as String
         productsListQuantity = properties?.get(productsListQuantityLabel) as Short
         links = ProductListLynks(siren.links)
@@ -34,6 +36,7 @@ class ProductListDto(siren: Siren) {
         const val listIdLabel: String = "list-id"
         const val categoryIdLabel: String = "category-id"
         const val productIdLabel: String = "product-id"
+        const val productNameLabel: String = "product-name"
         const val productListBrandLabel: String = "list-product-brand"
         const val productsListQuantityLabel: String = "list-product-quantity"
         const val productLabel: String = "product"
