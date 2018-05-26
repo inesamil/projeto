@@ -13,6 +13,7 @@ class StockItemDto(siren: Siren) {
     val description: String
     val quantity: Short
     val segment: String
+    val expirationsDate: Array<ExpirationDateDto>
     val links: StockItemLinks
 
     init {
@@ -26,6 +27,9 @@ class StockItemDto(siren: Siren) {
         description = properties?.get(descriptionLabel) as String
         quantity = properties?.get(quantityLabel) as Short
         segment = properties?.get(segmentLabel) as String
+        expirationsDate = siren.entities?.map {
+            ExpirationDateDto(Siren(it.klass, it.properties, null, null, null))
+        }.orEmpty().toTypedArray()
         links = StockItemLinks(siren.links)
     }
 
