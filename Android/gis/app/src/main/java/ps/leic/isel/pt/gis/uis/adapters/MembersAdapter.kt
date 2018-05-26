@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.MemberDTO
+import ps.leic.isel.pt.gis.model.dtos.MemberDto
 
 class MembersAdapter() : RecyclerView.Adapter<MembersAdapter.ViewHolder>() {
 
-    private lateinit var data: Array<MemberDTO>
+    private lateinit var data: Array<MemberDto>
 
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,13 +24,13 @@ class MembersAdapter() : RecyclerView.Adapter<MembersAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
         // Fill ViewHolder
-        holder.member.text = item.userUsername
+        holder.member.text = item.username
         holder.admin.visibility = if (item.administrator) View.VISIBLE else View.INVISIBLE
     }
 
     override fun getItemCount() = data.size
 
-    fun setData(data: Array<MemberDTO>) {
+    fun setData(data: Array<MemberDto>) {
        this.data = data
     }
 
