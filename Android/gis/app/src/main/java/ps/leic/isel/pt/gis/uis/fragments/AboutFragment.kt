@@ -1,6 +1,5 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -22,7 +21,7 @@ class AboutFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view: View =  inflater.inflate(R.layout.fragment_about, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_about, container, false)
 
         return view
     }

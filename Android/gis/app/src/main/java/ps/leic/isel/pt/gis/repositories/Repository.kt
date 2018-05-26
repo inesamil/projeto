@@ -6,9 +6,9 @@ import android.arch.lifecycle.MutableLiveData
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.httpRequest.HttpWebService
 
-class Repository (val application: Application){
+class Repository(val application: Application) {
 
-    inline fun <reified T> get(url: String, tag: String) : LiveData<Resource<T>> {
+    inline fun <reified T> get(url: String, tag: String): LiveData<Resource<T>> {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()
@@ -23,7 +23,7 @@ class Repository (val application: Application){
         return data
     }
 
-    inline fun <reified T> create(url: String, body: String, tag: String) : LiveData<Resource<T>> {
+    inline fun <reified T> create(url: String, body: String, tag: String): LiveData<Resource<T>> {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()
@@ -39,7 +39,7 @@ class Repository (val application: Application){
         return data
     }
 
-    inline fun <reified T> update(url: String, body: String, tag: String) : LiveData<Resource<T>> {
+    inline fun <reified T> update(url: String, body: String, tag: String): LiveData<Resource<T>> {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()
@@ -55,7 +55,7 @@ class Repository (val application: Application){
         return data
     }
 
-    inline fun <reified T> delete(url: String, tag: String) : LiveData<Resource<T>> {
+    inline fun <reified T> delete(url: String, tag: String): LiveData<Resource<T>> {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()

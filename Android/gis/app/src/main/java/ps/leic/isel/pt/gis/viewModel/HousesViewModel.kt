@@ -12,15 +12,14 @@ class HousesViewModel(application: Application) : AndroidViewModel(application) 
 
     private val housesRepo: HousesRepository = HousesRepositoryImpl(application)
 
-    private var houses: LiveData<Resource<HousesDto>>? = null
+    private lateinit var houses: LiveData<Resource<HousesDto>>
 
     fun init(url: String) {
-        if (houses != null)
-            return
+        if (::houses.isInitialized) return
         houses = housesRepo.getHouses(url)
     }
 
-    fun getHouses(): LiveData<Resource<HousesDto>>? {
+    fun getHouses(): LiveData<Resource<HousesDto>> {
         return houses
     }
 }
