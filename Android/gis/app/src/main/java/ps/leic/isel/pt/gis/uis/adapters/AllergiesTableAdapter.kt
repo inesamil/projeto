@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.HouseAllergyDTO
+import ps.leic.isel.pt.gis.model.dtos.HouseAllergyDto
 
-class AllergiesTableAdapter(private val data: Array<HouseAllergyDTO>) :
+class AllergiesTableAdapter(private val data: Array<HouseAllergyDto>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // View Holder Types
@@ -50,8 +50,8 @@ class AllergiesTableAdapter(private val data: Array<HouseAllergyDTO>) :
                 val item = data[position - 1]
                 holder as RowViewHolder
                 // Fill ViewHolder
-                holder.allergensText.text = item.allergyAllergen
-                holder.allergicsText.setText(item.allergicsNumber.toString())
+                holder.allergensText.text = item.allergen
+                holder.allergicsText.setText(item.houseAllergiesNum.toString())
             }
         }
     }
