@@ -91,7 +91,7 @@ public class HouseAllergiesOutputModel {
                     new String[]{"collection"},
                     properties,
                     new Action[]{putHouseAllergy, deleteHouseAllergy},
-                    new Link[]{new Link(new String[]{"self"}, new String[]{"stock-items-allergen", "collection"}, stockItemsAllergenUri)});
+                    new Link[]{new Link(new String[]{"related"}, new String[]{"stock-items-allergen", "collection"}, stockItemsAllergenUri)});
         }
         return entities;
     }
