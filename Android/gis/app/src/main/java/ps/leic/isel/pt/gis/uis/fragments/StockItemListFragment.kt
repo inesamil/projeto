@@ -1,22 +1,27 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.fragment_stock_item_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.CharacteristicsDTO
 import ps.leic.isel.pt.gis.model.HouseDTO
 import ps.leic.isel.pt.gis.model.MemberDTO
 import ps.leic.isel.pt.gis.model.StockItemDTO
+import ps.leic.isel.pt.gis.model.dtos.StockItemsDto
+import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.StockItemListAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.viewModel.StockItemListViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -38,12 +43,22 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     private lateinit var stockItemListAdapter: StockItemListAdapter
 
     private var listener: OnStockItemListFragmentInteractionListener? = null
+    private var stockItemListViewModel: StockItemListViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             username = it.getString(ExtraUtils.USER_USERNAME)
         }
+        stockItemListViewModel = ViewModelProviders.of(this).get(StockItemListViewModel::class.java)
+        val url = ""
+        stockItemListViewModel?.init(url)
+        stockItemListViewModel?.getStockItems()?.observe(this, Observer {
+            if (it?.status == Status.SUCCESS)
+                onSuccess(it.data!!)
+            else if (it?.status == Status.ERROR)
+                onError(it.message)
+        })
         //TODO: Get data
         houses = arrayOf(
                 HouseDTO(1, "Smith", CharacteristicsDTO(0, 0, 2, 0),
@@ -60,30 +75,36 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         )
     }
 
+    private fun onSuccess(stockItems: StockItemsDto) {
+        // Set spinner options
+        // TODO falta ir buscar a casa
+        /* val spinnerAdapter = ArrayAdapter<String>(view?.context, android.R.layout.simple_spinner_item, houses.map { house -> house.name })
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        view.housesSpinner.adapter = spinnerAdapter
+        view.housesSpinner.setSelection(first) */
+
+        // Set Adapter
+        stockItemListAdapter = StockItemListAdapter(stockItems.stockItems)
+        view?.let {
+            it.stockItemListRecyclerView.layoutManager = LinearLayoutManager(it.context)
+            it.stockItemListRecyclerView.setHasFixedSize(true)
+            it.stockItemListRecyclerView.adapter = stockItemListAdapter
+            // Set listener for add stock item
+            it.addStockItemBtn.setOnClickListener {
+                listener?.onNewStockItemIteraction()
+            }
+        }
+        stockItemListAdapter.setOnItemClickListener(this)
+    }
+
+    private fun onError(error: String?) {
+        Log.v("APP_GIS", error)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view: View =  inflater.inflate(R.layout.fragment_stock_item_list, container, false)
-
-        // Set spinner options
-        val spinnerAdapter = ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_item, houses.map { house -> house.name })
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        view.housesSpinner.adapter = spinnerAdapter
-        view.housesSpinner.setSelection(first)
-
-        // Set Adapter
-        stockItemListAdapter = StockItemListAdapter(/*stockItems*/arrayOf())
-        view.stockItemListRecyclerView.layoutManager = LinearLayoutManager(view.context)
-        view.stockItemListRecyclerView.setHasFixedSize(true)
-        view.stockItemListRecyclerView.adapter = stockItemListAdapter
-        stockItemListAdapter.setOnItemClickListener(this)
-
-        // Set listener for add stock item
-        view.addStockItemBtn.setOnClickListener{
-            listener?.onNewStockItemIteraction()
-        }
-
-        return view
+        return inflater.inflate(R.layout.fragment_stock_item_list, container, false)
     }
 
     override fun onStart() {
@@ -120,7 +141,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         parent?.let {
-            if (it.housesSpinner.selectedItem != position){
+            if (it.housesSpinner.selectedItem != position) {
                 val houseId = houses[position].houseId
                 //TODO: get data
                 stockItemListAdapter.setData(/*stockItems*/arrayOf())
