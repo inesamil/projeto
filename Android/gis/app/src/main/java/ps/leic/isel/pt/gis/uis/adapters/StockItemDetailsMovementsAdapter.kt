@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.MovementDTO
+import ps.leic.isel.pt.gis.model.dtos.MovementDto
 
-class StockItemDetailsMovementsAdapter(private val data: Array<MovementDTO>)
+class StockItemDetailsMovementsAdapter(private val data: Array<MovementDto>)
     : RecyclerView.Adapter<StockItemDetailsMovementsAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
@@ -22,9 +22,9 @@ class StockItemDetailsMovementsAdapter(private val data: Array<MovementDTO>)
 
     // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: MovementDTO = data[position]
+        val item: MovementDto = data[position]
         // Fill View Holder
-        holder.movementsItemText.text = item.type
+        holder.movementsItemText.text = item.movementType
         //TODO
     }
 
