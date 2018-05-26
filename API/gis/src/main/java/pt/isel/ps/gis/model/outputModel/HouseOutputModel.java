@@ -45,7 +45,8 @@ public class HouseOutputModel {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("house-id", house.getHouseId());
         properties.put("house-name", house.getHouseName());
-        properties.put("house-characteristics", house.getHouseCharacteristics());
+        //properties.put("house-characteristics", house.getHouseCharacteristics());
+        properties.put("house-members", house.getUserhousesByHouseId().toArray());
         return properties;
     }
 
