@@ -1,9 +1,12 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +15,11 @@ import kotlinx.android.synthetic.main.fragment_category_products.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.CategoryDTO
 import ps.leic.isel.pt.gis.model.ProductDTO
+import ps.leic.isel.pt.gis.model.dtos.ProductsDto
+import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.CategoryProductsAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.viewModel.CategoryProductsViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -30,6 +36,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     private lateinit var products: Array<ProductDTO>
 
     private var listener: OnCategoryProductsFragmentInteractionListener? = null
+    private var categoryProductsViewModel: CategoryProductsViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,27 +44,42 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
             category = it.getParcelable(ExtraUtils.CATEGORY)
 
         }
+        categoryProductsViewModel = ViewModelProviders.of(this).get(CategoryProductsViewModel::class.java)
+        val url = ""
+        categoryProductsViewModel?.init(url)
+        categoryProductsViewModel?.getProducts()?.observe(this, Observer {
+            if (it?.status == Status.SUCCESS)
+                onSuccess(it.data!!)
+            else if (it?.status == Status.ERROR)
+                onError(it.message)
+        })
         //TODO: get data
         products = arrayOf(
-                ProductDTO(1,  1, "Leite", true, "3dias"),
+                ProductDTO(1, 1, "Leite", true, "3dias"),
                 ProductDTO(1, 2, "Queijo", true, "7dias"),
                 ProductDTO(1, 3, "Iogurte", true, "20dias")
         )
     }
 
+    private fun onSuccess(products: ProductsDto) {
+        // Set Adapter
+        val adapter = CategoryProductsAdapter(products.products)
+        view?.let {
+            it.categoryProductsRecyclerView.layoutManager = LinearLayoutManager(it.context)
+            it.categoryProductsRecyclerView.setHasFixedSize(true)
+            it.categoryProductsRecyclerView.adapter = adapter
+        }
+        adapter.setOnItemClickListener(this)
+    }
+
+    private fun onError(error: String?) {
+        Log.v("APP_GIS", error)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_category_products, container, false)
-
-        // Set Adapter
-        val adapter = CategoryProductsAdapter(/*products*/arrayOf())
-        view.categoryProductsRecyclerView.layoutManager = LinearLayoutManager(view.context)
-        view.categoryProductsRecyclerView.setHasFixedSize(true)
-        view.categoryProductsRecyclerView.adapter = adapter
-        adapter.setOnItemClickListener(this)
-
-        return view
+        return inflater.inflate(R.layout.fragment_category_products, container, false)
     }
 
     override fun onStart() {
