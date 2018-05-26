@@ -6,10 +6,10 @@ import android.arch.lifecycle.MutableLiveData
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.httpRequest.HttpWebService
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
-import ps.leic.isel.pt.gis.repositories.HouseRepository
+import ps.leic.isel.pt.gis.repositories.HousesRepository
 import ps.leic.isel.pt.gis.repositories.Resource
 
-class HousesRepository(private val application: Application) : HouseRepository {
+class HousesRepositoryImpl(private val application: Application) : HousesRepository {
 
     override fun getHouses(url: String): LiveData<Resource<HousesDto>> {
         val data = MutableLiveData<Resource<HousesDto>>()
@@ -31,6 +31,6 @@ class HousesRepository(private val application: Application) : HouseRepository {
     }
 
     companion object {
-        private const val TAG = "HousesRepository"
+        private const val TAG = "HousesRepositoryImpl"
     }
 }
