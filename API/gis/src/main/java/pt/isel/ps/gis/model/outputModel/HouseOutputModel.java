@@ -6,10 +6,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.UserHouse;
+import pt.isel.ps.gis.model.Users;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -47,58 +49,30 @@ public class HouseOutputModel {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("house-id", house.getHouseId());
         properties.put("house-name", house.getHouseName());
-        properties.put("house-characteristics", house.getHouseCharacteristics());
+        properties.put("house-characteristics", new CharacteristicsJsonObject(house.getHouseCharacteristics()));
         return properties;
     }
 
     private Entity[] initEntities(House house) {
-        long houseId = house.getHouseId();
-        // URIs
-        String movementsUri = UriBuilderUtils.buildMovementsUri(houseId);
-        String itemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
-        String householdUri = UriBuilderUtils.buildHouseholdUri(houseId);
-        String houseAllergiesUri = UriBuilderUtils.buildHouseAllergiesUri(houseId);
-        String listsUri = UriBuilderUtils.buildListsUri(houseId);
-        String storagesUri = UriBuilderUtils.buildStoragesUri(houseId);
+        Entity[] entities = new Entity[house.getUserhousesByHouseId().size()];
+        int i = 0;
+        //Subentities
+        for (UserHouse member : house.getUserhousesByHouseId()) {
+            //Properties
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("house-id", member.getId().getHouseId());
+            properties.put("user-username", member.getId().getUsersUsername());
+            properties.put("household-administrator", member.getUserhouseAdministrator());
 
-        // Subentities
-        Entity movements = new Entity(
-                new String[]{"movements", "collection"},
-                new String[]{"collection"},
-                null,
-                null,
-                new Link[]{new Link(new String[]{"self"}, new String[]{"movements", "collection"}, movementsUri)});
-        Entity items = new Entity(
-                new String[]{"items", "collection"},
-                new String[]{"collection"},
-                null,
-                null,
-                new Link[]{new Link(new String[]{"self"}, new String[]{"items", "collection"}, itemsUri)});
-        Entity household = new Entity(
-                new String[]{"household", "collection"},
-                new String[]{"collection"},
-                null,
-                null,
-                new Link[]{new Link(new String[]{"self"}, new String[]{"household", "collection"}, householdUri)});
-        Entity houseAllergies = new Entity(
-                new String[]{"house-allergies", "collection"},
-                new String[]{"collection"},
-                null,
-                null,
-                new Link[]{new Link(new String[]{"self"}, new String[]{"house-allergies", "collection"}, houseAllergiesUri)});
-        Entity lists = new Entity(
-                new String[]{"lists", "collection"},
-                new String[]{"collection"},
-                null,
-                null,
-                new Link[]{new Link(new String[]{"self"}, new String[]{"lists", "collection"}, listsUri)});
-        Entity storages = new Entity(
-                new String[]{"storages", "collection"},
-                new String[]{"collection"},
-                null,
-                null,
-                new Link[]{new Link(new String[]{"self"}, new String[]{"storages", "collection"}, storagesUri)});
-        return new Entity[]{movements, items, household, houseAllergies, lists, storages};
+            String userUri = UriBuilderUtils.buildUserUri(member.getId().getUsersUsername());
+            entities[i++] = new Entity(
+                    new String[]{"house-member"},
+                    new String[]{"item"},
+                    properties,
+                    null,
+                    new Link[]{new Link(new String[]{"related"},  new String[]{"user"}, userUri)});
+        }
+        return entities;
     }
 
     private Action[] initActions(House house) {
@@ -142,15 +116,34 @@ public class HouseOutputModel {
     private Link[] initLinks(House house) {
         long houseId = house.getHouseId();
 
-        // URIs
-        String houseUri = UriBuilderUtils.buildHouseUri(houseId);
-        String indexUri = UriBuilderUtils.buildIndexUri();
-
         // Link-self
-        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS}, houseUri);
-        //Link-index
+        String houseUri = UriBuilderUtils.buildHouseUri(houseId);
+        Link selfLink = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS}, houseUri);
+
+        // Link-index
+        String indexUri = UriBuilderUtils.buildIndexUri();
         Link indexLink = new Link(new String[]{"index"}, new String[]{"index"}, indexUri);
 
-        return new Link[]{self, indexLink};
+        // Link-items
+        String itemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
+        Link itemsLink = new Link(new String[]{"related"}, new String[]{"items", "collection"}, itemsUri);
+
+        // Link-movements
+        String movementsUri = UriBuilderUtils.buildMovementsUri(houseId);
+        Link movementsLink = new Link(new String[]{"related"}, new String[]{"movements", "collection"}, movementsUri);
+
+        // Link-allergies
+        String houseAllergiesUri = UriBuilderUtils.buildHouseAllergiesUri(houseId);
+        Link allergiesLink = new Link(new String[]{"related"}, new String[]{"house-allergies", "collection"}, houseAllergiesUri);
+
+        // Link-lists
+        String listsUri = UriBuilderUtils.buildListsUri(houseId);
+        Link listsLink = new Link(new String[]{"related"}, new String[]{"lists", "collection"}, listsUri);
+
+        // Link-storages
+        String storagesUri = UriBuilderUtils.buildStoragesUri(houseId);
+        Link storagesLink = new Link(new String[]{"related"}, new String[]{"storages", "collection"}, storagesUri);
+
+        return new Link[]{selfLink, indexLink, itemsLink, movementsLink, allergiesLink, listsLink, storagesLink};
     }
 }
