@@ -3,23 +3,30 @@ package ps.leic.isel.pt.gis.viewModel
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
+import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Resource
-import ps.leic.isel.pt.gis.repositories.UsersRepository
 
-class BasicInformationViewModel(application: Application) : AndroidViewModel(application) {
+class BasicInformationViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    // TODO mudar para user em vez de usersRepository?
-    private val usersRepository: UsersRepository = UsersRepositoryImpl(application)
-
-    private lateinit var users: LiveData<Resource<UserDto>>
+    private var users: LiveData<Resource<UserDto>>? = null
 
     fun init(url: String) {
-        if (::users.isInitialized) return
-        users = usersRepository.getUser(url)
+        if (users != null) return
+        users = ServiceLocator.getRepository(app.applicationContext)
+                .get(UserDto::class.java, url, TAG)
     }
 
-    fun getUser(): LiveData<Resource<UserDto>> {
+    fun getUser(): LiveData<Resource<UserDto>>? {
         return users
+    }
+
+    fun cancel() {
+        ServiceLocator.getRepository(app.applicationContext).cancelAllPendingRequests(TAG)
+        users = null
+    }
+
+    companion object {
+        private const val TAG = "BasicInformationViewModel"
     }
 }
