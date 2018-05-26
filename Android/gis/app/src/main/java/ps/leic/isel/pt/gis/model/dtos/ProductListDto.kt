@@ -16,12 +16,12 @@ class ProductListDto(siren: Siren) {
     init {
         val properties = siren.properties
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
-        listId = (properties?.get(listIdLabel) as Int).toLong()
-        categoryId = (properties?.get(categoryIdLabel) as Int).toLong()
-        productId = (properties?.get(productIdLabel) as Int).toLong()
-        productName = properties?.get(productNameLabel) as String
-        productListBrand = properties?.get(productListBrandLabel) as String
-        productsListQuantity = properties?.get(productsListQuantityLabel) as Short
+        listId = (properties.get(listIdLabel) as Int).toLong()
+        categoryId = (properties.get(categoryIdLabel) as Int).toLong()
+        productId = (properties.get(productIdLabel) as Int).toLong()
+        productName = properties.get(productNameLabel) as String
+        productListBrand = properties.get(productListBrandLabel) as String
+        productsListQuantity = properties.get(productsListQuantityLabel) as Short
         links = ProductListLynks(siren.links)
     }
 
