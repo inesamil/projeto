@@ -5,10 +5,10 @@ import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonProperty
 
 data class CharacteristicsDTO(
-        @field:JsonProperty(value = "house_babiesNumber") val babiesNumber: Short,
-        @field:JsonProperty(value = "house_childrenNumber") val childrenNumber: Short,
-        @field:JsonProperty(value = "house_adultsNumber") val adultsNumber: Short,
-        @field:JsonProperty(value = "house_seniorsNumber") val seniorsNumber: Short
+        @field:JsonProperty(value = "babies-number") val babiesNumber: Short,
+        @field:JsonProperty(value = "children-number") val childrenNumber: Short,
+        @field:JsonProperty(value = "adults-number") val adultsNumber: Short,
+        @field:JsonProperty(value = "seniors-number") val seniorsNumber: Short
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt().toShort(),
