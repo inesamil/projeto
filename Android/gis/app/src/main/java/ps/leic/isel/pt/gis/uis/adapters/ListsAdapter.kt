@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.ListDTO
+import ps.leic.isel.pt.gis.model.dtos.ListDto
 
-class ListsAdapter(private val data: Array<ListDTO>) :
+class ListsAdapter(private val data: Array<ListDto>) :
         RecyclerView.Adapter<ListsAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
@@ -22,7 +22,7 @@ class ListsAdapter(private val data: Array<ListDTO>) :
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: ListDTO = data[position]
+        val item: ListDto = data[position]
 
         // Fill ViewHolder
         //holder.itemsText.text =
