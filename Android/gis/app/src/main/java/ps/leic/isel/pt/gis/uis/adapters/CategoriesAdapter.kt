@@ -4,12 +4,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.CategoryDTO
+import ps.leic.isel.pt.gis.model.dtos.CategoryDto
 
-class CategoriesAdapter(private val data: Array<CategoryDTO>)
+class CategoriesAdapter(private val data: Array<CategoryDto>)
     : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
@@ -23,7 +22,7 @@ class CategoriesAdapter(private val data: Array<CategoryDTO>)
 
     // Binds the data to the components in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: CategoryDTO = data[position]
+        val item: CategoryDto = data[position]
         // Fill ViewHolder
         holder.categoryItemText.text = item.categoryName
     }
