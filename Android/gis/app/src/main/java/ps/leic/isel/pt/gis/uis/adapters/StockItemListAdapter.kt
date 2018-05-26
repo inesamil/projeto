@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.StockItemDTO
+import ps.leic.isel.pt.gis.model.dtos.StockItemDto
 
-class StockItemListAdapter(private var data: Array<StockItemDTO>)
+class StockItemListAdapter(private var data: Array<StockItemDto>)
     : RecyclerView.Adapter<StockItemListAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
@@ -24,8 +25,8 @@ class StockItemListAdapter(private var data: Array<StockItemDTO>)
 
     // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: StockItemDTO = data[position]
-        holder.stockItemText.text = item.productName
+        val item: StockItemDto = data[position]
+        //TODO: holder.stockItemText.text = item.productName
         holder.brandText.text = item.brand
         holder.qntItemText.text = item.quantity.toString()
         // If the inner adapter needs data pass here the data
@@ -36,7 +37,7 @@ class StockItemListAdapter(private var data: Array<StockItemDTO>)
     override fun getItemCount() = data.size
 
     // Set adapter data
-    fun setData(data: Array<StockItemDTO>) {
+    fun setData(data: Array<StockItemDto>) {
         this.data = data
     }
 
@@ -61,7 +62,6 @@ class StockItemListAdapter(private var data: Array<StockItemDTO>)
             }
         }
     }
-
 
     // Sets listener for items click
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
