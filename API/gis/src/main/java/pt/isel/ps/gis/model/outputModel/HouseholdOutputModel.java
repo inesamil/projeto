@@ -50,15 +50,14 @@ public class HouseholdOutputModel {
     private Entity[] initEntities(long houseId, List<UserHouse> users) {
         Entity[] entities = new Entity[users.size()];
         for (int i = 0; i < users.size(); ++i) {
-            UserHouse userHouse = users.get(i);
-            Users username = userHouse.getUsersByUsersUsername();
+            UserHouse member = users.get(i);
 
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("house-id", houseId);
-            properties.put("user-username", username);
-            properties.put("household-administrator", userHouse.getUserhouseAdministrator());
+            properties.put("user-username", member.getId().getUsersUsername());
+            properties.put("household-administrator", member.getUserhouseAdministrator());
 
-            String userUri = UriBuilderUtils.buildUserUri(username.getUsersUsername());
+            String userUri = UriBuilderUtils.buildUserUri(member.getId().getUsersUsername());
             entities[i] = new Entity(
                     new String[]{"user"},
                     new String[]{"item"},
