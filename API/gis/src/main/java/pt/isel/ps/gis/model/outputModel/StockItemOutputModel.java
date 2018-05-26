@@ -47,6 +47,7 @@ public class StockItemOutputModel {
         properties.put("stock-item-sku", stockItem.getId().getStockitemSku());
         properties.put("category-id", stockItem.getCategoryId());
         properties.put("product-id", stockItem.getProductId());
+        properties.put("product-name", stockItem.getProduct().getProductName());
         properties.put("stock-item-brand", stockItem.getStockitemBrand());
         properties.put("stock-item-conservation-storage", stockItem.getStockitemConservationstorage());
         properties.put("stock-item-description", stockItem.getStockitemDescription());
