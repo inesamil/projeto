@@ -39,6 +39,7 @@ class StockItemListAdapter(private var data: Array<StockItemDto>)
     // Set adapter data
     fun setData(data: Array<StockItemDto>) {
         this.data = data
+        notifyDataSetChanged()
     }
 
 
