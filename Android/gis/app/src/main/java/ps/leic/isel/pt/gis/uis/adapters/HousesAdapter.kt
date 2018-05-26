@@ -33,7 +33,7 @@ class HousesAdapter(private val data: Array<HouseDto>)
         holder.adultsNumber.text = item.characteristics?.adultsNumber.toString()
         holder.seniorsNumber.text = item.characteristics?.seniorsNumber.toString()
         //Pass data to the Adapter
-        //TODO: holder.membersAdapter.setData(item.members)
+        holder.membersAdapter.setData(item.members)
         // Set listeners
         holder.storages.setOnClickListener {
             mOnItemClickListener.onStoragesClick(item.houseId)
