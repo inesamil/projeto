@@ -44,7 +44,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
             username = it.getString(ExtraUtils.USER_USERNAME)
         }
         housesVM = ViewModelProviders.of(this).get(HousesViewModel::class.java)
-        val url = "http://10.0.2.2:8081/v1/users/nuno/houses"
+        val url = "http://10.0.2.2:8081/v1/users/ze/houses"
         housesVM?.init(url)
         housesVM?.getHouses()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
