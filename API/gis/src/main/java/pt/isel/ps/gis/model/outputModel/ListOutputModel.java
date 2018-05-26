@@ -85,7 +85,7 @@ public class ListOutputModel {
         String userListUri = UriBuilderUtils.buildUserListUri(houseId, listId);
 
         // PUT List
-        Action putList = new Action(
+        Action updateList = new Action(
                 "update-list",
                 "Update List",
                 Method.PUT,
@@ -107,7 +107,7 @@ public class ListOutputModel {
                 null
         );
 
-        return new Action[]{putList, deleteList};
+        return new Action[]{updateList, deleteList};
     }
 
     private Link[] initLinks(List list) {
