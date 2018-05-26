@@ -2,8 +2,8 @@ package ps.leic.isel.pt.gis.model.dtos
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import ps.leic.isel.pt.gis.hypermedia.subentities.Link
-import ps.leic.isel.pt.gis.hypermedia.subentities.Siren
+import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
+import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 
 class CategoryDto(siren: Siren) {
     val categoryId: Long

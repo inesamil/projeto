@@ -7,7 +7,7 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonRequest
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import ps.leic.isel.pt.gis.hypermedia.subentities.Siren
+import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 import java.io.IOException
 
 open class Requester<DTO>(method: Int, url: String, body: Any?, private val headers: MutableMap<String, String>,

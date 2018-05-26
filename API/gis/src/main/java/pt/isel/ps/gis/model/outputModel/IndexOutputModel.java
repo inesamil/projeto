@@ -42,11 +42,11 @@ public class IndexOutputModel {
 
     private HashMap<String, ResourceObject> initResources() {
         HashMap<String, ResourceObject> resources = new HashMap<>();
-        resources.put("rel/houses", createPostHouses());
-        resources.put("rel/users", createGetPutUsers());
+        resources.put("rel/house", createPostHouses());
+        resources.put("rel/user", createGetPutUsers());
         resources.put("rel/categories", createGetCategories());
         resources.put("rel/allergies", createGetAllergies());
-        resources.put("rel/house", createGetHouse());
+        resources.put("rel/houses", createGetHouses());
         return resources;
     }
 
@@ -117,13 +117,13 @@ public class IndexOutputModel {
         );
     }
 
-    private ResourceObject createGetHouse() {
+    private ResourceObject createGetHouses() {
         HashMap<String, String> hrefVars = new HashMap<>();
-        hrefVars.put("house-id", "Number");
+        hrefVars.put("username", "String");
 
         return new ResourceObject(
                 null,
-                "/v1/houses/{house-id}",
+                "/v1/users/{useraname}/houses",
                 hrefVars,
                 new Hints(
                         new Method[]{Method.GET},
