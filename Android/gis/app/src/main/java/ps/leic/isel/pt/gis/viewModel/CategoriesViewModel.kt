@@ -3,22 +3,30 @@ package ps.leic.isel.pt.gis.viewModel
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
+import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.dtos.CategoriesDto
-import ps.leic.isel.pt.gis.repositories.CategoriesRepository
 import ps.leic.isel.pt.gis.repositories.Resource
 
-class CategoriesViewModel(application: Application) : AndroidViewModel(application) {
+class CategoriesViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    private val categoriesRepo: CategoriesRepository = CategoriesRepositoryImpl(application)
-
-    private lateinit var categories: LiveData<Resource<CategoriesDto>>
+    private var categories: LiveData<Resource<CategoriesDto>>? = null
 
     fun init(url: String) {
-        if (::categories.isInitialized) return
-        categories = categoriesRepo.getCategories(url)
+        if (categories != null) return
+        categories = ServiceLocator.getRepository(app.applicationContext)
+                .get(CategoriesDto::class.java, url, TAG)
     }
 
-    fun getCategories(): LiveData<Resource<CategoriesDto>> {
+    fun getCategories(): LiveData<Resource<CategoriesDto>>? {
         return categories
+    }
+
+    fun cancel() {
+        ServiceLocator.getRepository(app.applicationContext).cancelAllPendingRequests(TAG)
+        categories = null
+    }
+
+    companion object {
+        private const val TAG = "CategoriesViewModel"
     }
 }
