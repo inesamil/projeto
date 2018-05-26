@@ -20,23 +20,5 @@
 \contentsline {chapter}{\numberline {3}Solu\IeC {\c c}\IeC {\~a}o Proposta}{9}
 \contentsline {section}{\numberline {3.1}Abordagem}{9}
 \contentsline {section}{\numberline {3.2}An\IeC {\'a}lise}{10}
-\contentsline {chapter}{\numberline {4}Progresso}{13}
-\contentsline {section}{\numberline {4.1}Planeamento}{13}
-\contentsline {section}{\numberline {4.2}Web API}{13}
-\contentsline {section}{\numberline {4.3}Algoritmo de Previs\IeC {\~a}o}{13}
-\contentsline {section}{\numberline {4.4}Aplica\IeC {\c c}\IeC {\~o}es M\IeC {\'o}vel e Web}{13}
-\contentsline {section}{\numberline {4.5}Modelo de Dados}{14}
-\contentsline {subsection}{\numberline {4.5.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{14}
-\contentsline {subsection}{\numberline {4.5.2}Dom\IeC {\'\i }nio dos Atributos}{15}
-\contentsline {subsection}{\numberline {4.5.3}Base de Dados}{23}
-\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{23}
-\contentsline {subsection}{\numberline {4.5.4}Acesso a Dados}{24}
-\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{24}
-\contentsline {subsection}{\numberline {4.5.5}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{25}
-\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{25}
-\contentsline {chapter}{\numberline {5}Conclus\IeC {\~o}es}{27}
-\contentsline {section}{\numberline {5.1}Planeamento}{27}
-\contentsline {section}{\numberline {5.2}Sum\IeC {\'a}rio}{29}
-\contentsline {section}{\numberline {5.3}Trabalho Futuro}{29}
-\contentsline {chapter}{\numberline {A}Terminologia}{33}
-\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{33}
+\contentsline {chapter}{\numberline {A}Terminologia}{15}
+\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{15}
