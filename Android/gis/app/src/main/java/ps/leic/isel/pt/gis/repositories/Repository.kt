@@ -23,7 +23,7 @@ class Repository (val application: Application){
         return data
     }
 
-    inline fun <reified T> post(url: String, body: String, tag: String) : LiveData<Resource<T>> {
+    inline fun <reified T> create(url: String, body: String, tag: String) : LiveData<Resource<T>> {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()
@@ -39,7 +39,7 @@ class Repository (val application: Application){
         return data
     }
 
-    inline fun <reified T> put(url: String, body: String, tag: String) : LiveData<Resource<T>> {
+    inline fun <reified T> update(url: String, body: String, tag: String) : LiveData<Resource<T>> {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()
