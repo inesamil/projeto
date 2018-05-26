@@ -1,6 +1,5 @@
 package ps.leic.isel.pt.gis.model.dtos
 
-import ps.leic.isel.pt.gis.hypermedia.subentities.Action
 import ps.leic.isel.pt.gis.hypermedia.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.subentities.Siren
 
