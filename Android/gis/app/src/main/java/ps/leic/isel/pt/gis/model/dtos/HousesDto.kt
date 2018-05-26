@@ -7,14 +7,14 @@ import ps.leic.isel.pt.gis.hypermedia.subentities.Siren
 class HousesDto(siren: Siren) {
     val houses: Array<HouseDto>
     val actions: HousesActions
-    val links: HousesLink
+    val links: HousesLinks
 
     init {
         houses = siren.entities?.map {
             HouseDto(Siren(it.klass, it.properties, null, it.actions, it.links))
         }.orEmpty().toTypedArray()
         actions = HousesActions(siren.actions)
-        links = HousesLink(siren.links)
+        links = HousesLinks(siren.links)
     }
 
     class HousesActions(actions: Array<Action>?) {
@@ -23,7 +23,7 @@ class HousesDto(siren: Siren) {
         }
     }
 
-    class HousesLink(links: Array<Link>?) {
+    class HousesLinks(links: Array<Link>?) {
         val userLink: String? = links?.find {
             it.klass?.contains(userLabel) ?: false
         }?.href
