@@ -16,7 +16,7 @@ import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"class", "properties", "entities", "links"})
-public class HouseholdOutputModel {
+public class HouseMembersOutputModel {
 
     private final static String ENTITY_CLASS = "household";
 
@@ -29,7 +29,7 @@ public class HouseholdOutputModel {
     @JsonProperty
     private final Link[] links;
 
-    public HouseholdOutputModel(long houseId, List<UserHouse> users) {
+    public HouseMembersOutputModel(long houseId, List<UserHouse> users) {
         this.klass = initKlass();
         this.properties = initProperties(users);
         this.entities = initEntities(houseId, users);

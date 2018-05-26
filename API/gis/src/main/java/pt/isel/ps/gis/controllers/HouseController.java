@@ -16,7 +16,7 @@ import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.model.inputModel.HouseInputModel;
 import pt.isel.ps.gis.model.inputModel.HouseholdInputModel;
 import pt.isel.ps.gis.model.outputModel.HouseOutputModel;
-import pt.isel.ps.gis.model.outputModel.HouseholdOutputModel;
+import pt.isel.ps.gis.model.outputModel.HouseMembersOutputModel;
 import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
 
 import java.util.List;
@@ -46,13 +46,13 @@ public class HouseController {
     }
 
     @GetMapping("/{house-id}/users")
-    public ResponseEntity<HouseholdOutputModel> getHousehold(
+    public ResponseEntity<HouseMembersOutputModel> getHousehold(
             @PathVariable("house-id") long houseId
     ) throws EntityException, BadRequestException {
         checkHouse(houseId);
         List<UserHouse> household = houseMemberService.getMembersByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseholdOutputModel(houseId, household), setSirenContentType(headers),
+        return new ResponseEntity<>(new HouseMembersOutputModel(houseId, household), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
@@ -89,7 +89,7 @@ public class HouseController {
     }
 
     @PutMapping("/{house-id}/users/{username}")
-    public ResponseEntity<HouseholdOutputModel> putMember(
+    public ResponseEntity<HouseMembersOutputModel> putMember(
             @PathVariable("house-id") long houseId,
             @PathVariable("username") String username,
             @RequestBody HouseholdInputModel body
@@ -101,7 +101,7 @@ public class HouseController {
             houseMemberService.addMember(member);
         List<UserHouse> household = houseMemberService.getMembersByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseholdOutputModel(houseId, household), setSirenContentType(headers),
+        return new ResponseEntity<>(new HouseMembersOutputModel(houseId, household), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
@@ -116,7 +116,7 @@ public class HouseController {
     }
 
     @DeleteMapping("/{house-id}/users/{username}")
-    public ResponseEntity<HouseholdOutputModel> deleteUser(
+    public ResponseEntity<HouseMembersOutputModel> deleteUser(
             @PathVariable("house-id") long houseId,
             @PathVariable("username") String username
     ) throws BadRequestException, EntityException, EntityNotFoundException {
@@ -124,7 +124,7 @@ public class HouseController {
         houseMemberService.deleteMemberByMemberId(houseId, username);
         List<UserHouse> household = houseMemberService.getMembersByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseholdOutputModel(houseId, household), setSirenContentType(headers),
+        return new ResponseEntity<>(new HouseMembersOutputModel(houseId, household), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
