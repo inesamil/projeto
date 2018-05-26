@@ -54,7 +54,12 @@ public class CategoriesOutputModel {
             properties.put("category-id", category.getCategoryId());
             properties.put("category-name", category.getCategoryName());
 
-            entities[i] = new Entity(new String[]{"category"}, new String[]{"item"}, properties, null, null);
+            entities[i] = new Entity(
+                    new String[]{"category"},
+                    new String[]{"item"},
+                    properties,
+                    null,
+                    new Link[]{new Link(new String[]{"self"}, new String[]{"category", "item"}, categoryUri)});
         }
         return entities;
     }
