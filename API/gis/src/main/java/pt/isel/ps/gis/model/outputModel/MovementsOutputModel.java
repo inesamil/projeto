@@ -76,7 +76,7 @@ public class MovementsOutputModel {
         String movementsUri = UriBuilderUtils.buildMovementsUri(houseId);
 
         // POST Movement
-        Action postMovement = new Action(
+        Action addMovement = new Action(
                 "add-movement",
                 "Add Movement",
                 Method.POST,
@@ -90,7 +90,7 @@ public class MovementsOutputModel {
                 }
         );
 
-        return new Action[]{postMovement};
+        return new Action[]{addMovement};
     }
 
     private Link[] initLinks(long houseId) {
