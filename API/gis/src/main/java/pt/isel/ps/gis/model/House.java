@@ -48,7 +48,7 @@ public class House {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
     private Collection<Storage> storagesByHouseId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "houseByHouseId")
     private Collection<UserHouse> userhousesByHouseId;
 
     /**

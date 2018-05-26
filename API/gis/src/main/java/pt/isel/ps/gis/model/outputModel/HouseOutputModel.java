@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
 import pt.isel.ps.gis.model.House;
+import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,8 +47,7 @@ public class HouseOutputModel {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("house-id", house.getHouseId());
         properties.put("house-name", house.getHouseName());
-        //properties.put("house-characteristics", house.getHouseCharacteristics());
-        properties.put("house-members", house.getUserhousesByHouseId().toArray());
+        properties.put("house-characteristics", house.getHouseCharacteristics());
         return properties;
     }
 
