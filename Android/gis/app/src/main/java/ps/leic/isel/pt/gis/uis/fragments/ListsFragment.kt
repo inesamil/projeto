@@ -47,7 +47,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         val view: View = inflater.inflate(R.layout.fragment_lists, container, false)
 
         // Set Adapter
-        val adapter = ListsAdapter(lists)
+        val adapter = ListsAdapter(/*lists*/arrayOf())
         view.listsRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.listsRecyclerView.setHasFixedSize(true)
         view.listsRecyclerView.adapter = adapter

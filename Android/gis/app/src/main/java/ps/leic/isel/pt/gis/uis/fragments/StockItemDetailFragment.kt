@@ -59,7 +59,7 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
         view.expirationDateRecyclerView.adapter = expirationDatesAdapter
 
         // Set Adapter (Storages)
-        val storagesAdapter = StockItemDetailsStorageAdapter(storages)
+        val storagesAdapter = StockItemDetailsStorageAdapter(/*storages*/arrayOf())
         view.storageRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.storageRecyclerView.setHasFixedSize(true)
         view.storageRecyclerView.adapter = storagesAdapter
@@ -69,7 +69,7 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
         view.descriptionText.text = stockItem.description
 
         // Set Adapter (Movements)
-        val movementsAdapter = StockItemDetailsMovementsAdapter(movements)
+        val movementsAdapter = StockItemDetailsMovementsAdapter(/*movements*/arrayOf())
         view.movementsRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.movementsRecyclerView.setHasFixedSize(true)
         view.movementsRecyclerView.adapter = movementsAdapter

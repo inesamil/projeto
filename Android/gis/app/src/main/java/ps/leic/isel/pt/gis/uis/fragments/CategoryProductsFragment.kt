@@ -51,7 +51,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
         val view: View = inflater.inflate(R.layout.fragment_category_products, container, false)
 
         // Set Adapter
-        val adapter = CategoryProductsAdapter(products)
+        val adapter = CategoryProductsAdapter(/*products*/arrayOf())
         view.categoryProductsRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.categoryProductsRecyclerView.setHasFixedSize(true)
         view.categoryProductsRecyclerView.adapter = adapter

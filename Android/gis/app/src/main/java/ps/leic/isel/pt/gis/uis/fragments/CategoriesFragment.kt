@@ -41,7 +41,7 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
         val view: View =  inflater.inflate(R.layout.fragment_categories, container, false)
 
         // Set Adapter
-        val adapter = CategoriesAdapter(categories)
+        val adapter = CategoriesAdapter(/*categories*/arrayOf())
         view.categoryRecyclerView.setHasFixedSize(true)
         view.categoryRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)

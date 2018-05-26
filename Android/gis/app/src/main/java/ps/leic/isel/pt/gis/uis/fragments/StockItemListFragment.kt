@@ -72,7 +72,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         view.housesSpinner.setSelection(first)
 
         // Set Adapter
-        stockItemListAdapter = StockItemListAdapter(stockItems)
+        stockItemListAdapter = StockItemListAdapter(/*stockItems*/arrayOf())
         view.stockItemListRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.stockItemListRecyclerView.setHasFixedSize(true)
         view.stockItemListRecyclerView.adapter = stockItemListAdapter
@@ -123,7 +123,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
             if (it.housesSpinner.selectedItem != position){
                 val houseId = houses[position].houseId
                 //TODO: get data
-                stockItemListAdapter.setData(stockItems)
+                stockItemListAdapter.setData(/*stockItems*/arrayOf())
                 stockItemListAdapter.notifyDataSetChanged()
             }
         }

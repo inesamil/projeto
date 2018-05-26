@@ -48,7 +48,7 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
         val view: View =  inflater.inflate(R.layout.fragment_allergies, container, false)
 
         // Set Adapter
-        val adapter = AllergiesTableAdapter(allergies)
+        val adapter = AllergiesTableAdapter(/*allergies*/arrayOf())
         view.allergiesRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.allergiesRecyclerView.setHasFixedSize(true)
         view.allergiesRecyclerView.adapter = adapter

@@ -62,7 +62,7 @@ class StoragesFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_storages, container, false)
 
         // Set Adapter
-        val adapter = StoragesAdapter(storages)
+        val adapter = StoragesAdapter(/*storages*/arrayOf())
         view.storagesRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.storagesRecyclerView.setHasFixedSize(true)
         view.storagesRecyclerView.adapter = adapter
