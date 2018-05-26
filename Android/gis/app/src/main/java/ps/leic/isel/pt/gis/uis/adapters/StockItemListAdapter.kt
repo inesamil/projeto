@@ -26,11 +26,11 @@ class StockItemListAdapter(private var data: Array<StockItemDto>)
     // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: StockItemDto = data[position]
-        //TODO: holder.stockItemText.text = item.productName
+        holder.stockItemText.text = item.productName
         holder.brandText.text = item.brand
         holder.qntItemText.text = item.quantity.toString()
         // If the inner adapter needs data pass here the data
-        //holder.innerAdapter.setData(item.storages)
+        holder.innerAdapter.setData(item.storages)
     }
 
     // Total number of cells
