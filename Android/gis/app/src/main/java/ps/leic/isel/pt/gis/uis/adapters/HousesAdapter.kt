@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.HouseDTO
+import ps.leic.isel.pt.gis.model.dtos.HouseDto
 
-class HousesAdapter(private val data: Array<HouseDTO>)
+class HousesAdapter(private val data: Array<HouseDto>)
     : RecyclerView.Adapter<HousesAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
@@ -28,12 +28,12 @@ class HousesAdapter(private val data: Array<HouseDTO>)
         val item = data[position]
         // Fill ViewHolder
         holder.houseName.text = item.name
-        holder.babiesNumber.text = item.characteristics.babiesNumber.toString()
-        holder.childrenNumber.text = item.characteristics.childrenNumber.toString()
-        holder.adultsNumber.text = item.characteristics.adultsNumber.toString()
-        holder.seniorsNumber.text = item.characteristics.seniorsNumber.toString()
+        holder.babiesNumber.text = item.characteristics?.babiesNumber.toString()
+        holder.childrenNumber.text = item.characteristics?.childrenNumber.toString()
+        holder.adultsNumber.text = item.characteristics?.adultsNumber.toString()
+        holder.seniorsNumber.text = item.characteristics?.seniorsNumber.toString()
         //Pass data to the Adapter
-        holder.membersAdapter.setData(item.members)
+        //TODO: holder.membersAdapter.setData(item.members)
         // Set listeners
         holder.storages.setOnClickListener {
             mOnItemClickListener.onStoragesClick(item.houseId)
