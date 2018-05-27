@@ -22,35 +22,6 @@ CREATE TABLE IF NOT EXISTS public."allergy" (
 	allergy_allergen character varying(75) NOT NULL PRIMARY KEY
 );
 
-CREATE TABLE IF NOT EXISTS public."recipe" (
-	recipe_id bigserial NOT NULL PRIMARY KEY,
-	recipe_name character varying(35) NOT NULL,
-	recipe_instructions text NOT NULL,
-	recipe_difficulty character varying(9) CHECK (recipe_difficulty IN ('easy', 'average', 'difficult')),
-	recipe_time smallint CHECK (recipe_time > 0),
-	recipe_servings smallint CHECK (recipe_servings > 0),
-	recipe_cuisine character varying(35),
-	recipe_dishType character varying(35),
-	recipe_type character varying(7) NOT NULL CHECK (recipe_type IN ('system', 'user'))
-);
-
-CREATE TABLE IF NOT EXISTS public."systemrecipe" (
-	recipe_id bigint NOT NULL CHECK (recipe_id > 0) REFERENCES public."recipe" (recipe_id),
-	PRIMARY KEY (recipe_id)
-);
-
-CREATE TABLE IF NOT EXISTS public."userrecipe" (
-	recipe_id bigint NOT NULL CHECK (recipe_id > 0) REFERENCES public."recipe" (recipe_id),
-	users_username character varying(30) NOT NULL REFERENCES public."users" (users_username),
-	PRIMARY KEY (recipe_id)
-);
-
-CREATE TABLE IF NOT EXISTS public."sharedrecipe" (
-	recipe_id bigint NOT NULL CHECK (recipe_id > 0) REFERENCES public."userrecipe" (recipe_id),
-	users_username character varying(30) NOT NULL REFERENCES public."users" (users_username),
-	PRIMARY KEY (recipe_id, users_username)
-);
-
 CREATE TABLE IF NOT EXISTS public."list" (
 	house_id bigint NOT NULL CHECK (house_id > 0) REFERENCES public."house" (house_id),
 	list_id smallint NOT NULL,
@@ -107,16 +78,6 @@ CREATE TABLE IF NOT EXISTS public."stockitem" (
 	FOREIGN KEY (category_id, product_id) REFERENCES public."product" (category_id, product_id)
 );
 
-CREATE TABLE IF NOT EXISTS public."ingredient" (
-	recipe_id integer NOT NULL CHECK (recipe_id > 0) REFERENCES public."recipe" (recipe_id),
-	category_id integer NOT NULL CHECK (category_id > 0),
-	product_id integer NOT NULL CHECK (product_id > 0),
-	ingredient_quantity integer NOT NULL CHECK (ingredient_quantity > 0),
-	ingredient_quantityunit character varying(5) NOT NULL CHECK (ingredient_quantityunit IN ('kg', 'dag', 'hg', 'g', 'dg', 'cg', 'mg', 'kl', 'hl', 'dal', 'l', 'dl', 'cl', 'ml', 'oz', 'lb', 'pt', 'fl oz', 'units')),
-	PRIMARY KEY (recipe_id, category_id, product_id),
-	FOREIGN KEY (category_id, product_id) REFERENCES public."product" (category_id, product_id)
-);
-
 CREATE TABLE IF NOT EXISTS public."storage" (
 	house_id bigint NOT NULL CHECK (house_id > 0) REFERENCES public."house" (house_id),
 	storage_id smallint NOT NULL CHECK (storage_id > 0),
@@ -149,7 +110,7 @@ CREATE TABLE IF NOT EXISTS public."stockitemmovement" (
 	stockitemmovement_type boolean NOT NULL,
 	stockitemmovement_dateTime timestamp NOT NULL,
 	stockitemmovement_quantity smallint NOT NULL CHECK (stockitemmovement_quantity > 0),
-	PRIMARY KEY (house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_dateTime, stockitemmovement_quantity),
+	PRIMARY KEY (house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_dateTime),
 	FOREIGN KEY (house_id, stockitem_sku) REFERENCES public."stockitem" (house_id, stockitem_sku),
 	FOREIGN KEY (house_id, storage_id) REFERENCES public."storage" (house_id, storage_id)
 );
