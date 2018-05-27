@@ -20,9 +20,6 @@ public class ListProductId implements Serializable {
     @Column(name = "list_id", nullable = false)
     private Short listId;
 
-    @Column(name = "category_id", nullable = false)
-    private Integer categoryId;
-
     @Column(name = "product_id", nullable = false)
     private Integer productId;
 
@@ -32,10 +29,9 @@ public class ListProductId implements Serializable {
     protected ListProductId() {
     }
 
-    public ListProductId(Long houseId, Short listId, Integer categoryId, Integer productId) throws EntityException {
+    public ListProductId(Long houseId, Short listId, Integer productId) throws EntityException {
         setHouseId(houseId);
         setListId(listId);
-        setCategoryId(categoryId);
         setProductId(productId);
     }
 
@@ -60,15 +56,6 @@ public class ListProductId implements Serializable {
         this.listId = listId;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) throws EntityException {
-        ValidationsUtils.validateCategoryId(categoryId);
-        this.categoryId = categoryId;
-    }
-
     public Integer getProductId() {
         return productId;
     }
@@ -85,12 +72,11 @@ public class ListProductId implements Serializable {
         ListProductId that = (ListProductId) obj;
         return Objects.equals(houseId, that.houseId) &&
                 Objects.equals(listId, that.listId) &&
-                Objects.equals(categoryId, that.categoryId) &&
                 Objects.equals(productId, that.productId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(houseId, listId, categoryId, productId);
+        return Objects.hash(houseId, listId, productId);
     }
 }
