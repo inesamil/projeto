@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.fragment_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ListDTO
 import ps.leic.isel.pt.gis.model.ListProductDTO
+import ps.leic.isel.pt.gis.model.dtos.ListDto
+import ps.leic.isel.pt.gis.model.dtos.ProductListDto
 import ps.leic.isel.pt.gis.model.dtos.ProductsListDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.ListDetailAdapter
@@ -31,8 +33,8 @@ import ps.leic.isel.pt.gis.viewModel.ListDetailViewModel
  */
 class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
-    private lateinit var list: ListDTO
-    private lateinit var listProducts: Array<ListProductDTO>
+    private lateinit var list: ListDto
+    private lateinit var listProducts: ProductsListDto
 
     private var listener: OnListDetailFragmentInteractionListener? = null
     private var listDetailViewModel: ListDetailViewModel? = null
@@ -40,7 +42,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            list = it.getParcelable(ExtraUtils.LIST)
+            //TODO list = it.getParcelable(ExtraUtils.LIST) -> url?
         }
         listDetailViewModel = ViewModelProviders.of(this).get(ListDetailViewModel::class.java)
         val url = ""
@@ -52,10 +54,10 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
                 onError(it.message)
         })
         //TODO: get listproducts in the list
-        listProducts = arrayOf(
+        /*listProducts = arrayOf(
                 ListProductDTO(1, 1, 1, 1, "Leite", "Mimosa", 1),
                 ListProductDTO(1, 2, 1, 3, "Iogurtes", "Danone", 4)
-        )
+        )*/
     }
 
     private fun onSuccess(productsList: ProductsListDto) {
@@ -104,7 +106,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
     // NfcListener for list item clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
-        val listProduct: ListProductDTO = listProducts[position]
+        val listProduct: ProductListDto = listProducts.productsList[position]
         listener?.onListProductInteraction(listProduct)
     }
 
@@ -115,7 +117,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
      * activity.
      */
     interface OnListDetailFragmentInteractionListener {
-        fun onListProductInteraction(listProductDTO: ListProductDTO)
+        fun onListProductInteraction(listProductDto: ProductListDto)
     }
 
     /**
