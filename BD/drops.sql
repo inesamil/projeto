@@ -6,7 +6,6 @@ DROP FUNCTION IF EXISTS delete_stock_item;
 DROP FUNCTION IF EXISTS delete_storage;
 DROP FUNCTION IF EXISTS insert_user_list;
 DROP FUNCTION IF EXISTS insert_system_list;
-DROP FUNCTION IF EXISTS insert_product;
 DROP FUNCTION IF EXISTS insert_stock_item;
 DROP FUNCTION IF EXISTS generate_sku;
 DROP FUNCTION IF EXISTS insert_storage;

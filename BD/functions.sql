@@ -1,8 +1,8 @@
 -- Procedure to delete a User
 -- DROP FUNCTION delete_user
-CREATE OR REPLACE FUNCTION delete_user(username character varying(35)) 
+CREATE OR REPLACE FUNCTION delete_user(username character varying(35))
 RETURNS VOID AS $$
-DECLARE 
+DECLARE
 	ids_array integer[];
 BEGIN
 	-- Save list IDs to remove
