@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.ExpirationDateDTO
+import ps.leic.isel.pt.gis.model.dtos.ExpirationDateDto
 
-class StockItemDetailsExpirationDateAdapter(private val data: Array<ExpirationDateDTO>) //TODO
+class StockItemDetailsExpirationDateAdapter(private val data: Array<ExpirationDateDto>) //TODO
     : RecyclerView.Adapter<StockItemDetailsExpirationDateAdapter.ViewHolder>() {
 
     // Inflates the cell layout from xml when needed
@@ -20,9 +20,9 @@ class StockItemDetailsExpirationDateAdapter(private val data: Array<ExpirationDa
 
     // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: ExpirationDateDTO = data[position]
+        val item: ExpirationDateDto = data[position]
         // Fill ViewHolder
-        holder.expirationDateItemText.text = item.date
+        holder.expirationDateItemText.text = item.expirationDate
     }
 
     // Total number of cells
