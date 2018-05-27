@@ -7,12 +7,15 @@ import ps.leic.isel.pt.gis.httpRequest.HttpWebService
 import ps.leic.isel.pt.gis.httpRequest.HttpWebServiceImpl
 import ps.leic.isel.pt.gis.repositories.Repository
 import ps.leic.isel.pt.gis.repositories.RepositoryImpl
+import ps.leic.isel.pt.gis.utils.SmartLock
+import ps.leic.isel.pt.gis.utils.SmartLockImpl
 
 object ServiceLocator {
 
     private var httpWebService: HttpWebService? = null
     private const val CREDENTIALS_TAG = "credentials"
     private var repository: Repository? = null
+    private var smartLock: SmartLock? = null
 
     fun getWebService(context: Context): HttpWebService {
         if (httpWebService == null)
@@ -30,5 +33,12 @@ object ServiceLocator {
             repository = RepositoryImpl(context)
         }
         return repository as Repository
+    }
+
+    fun getSmartLock(context: Context) : SmartLock {
+        if (smartLock == null){
+            smartLock = SmartLockImpl(context)
+        }
+        return smartLock as SmartLock
     }
 }
