@@ -64,10 +64,12 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
             it.listsRecyclerView.adapter = adapter
             // Set new lists listener
             it.createNewListBtn.setOnClickListener {
-                onNewListClick()
+                // Listener for new list creation
+                listener?.onNewListInteraction()
             }
             it.createNewListText.setOnClickListener {
-                onNewListClick()
+                // Listener for new list creation
+                listener?.onNewListInteraction()
             }
         }
         adapter.setOnItemClickListener(this)
@@ -110,11 +112,6 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     override fun onItemClick(view: View, position: Int) {
         val list: ListDTO = lists[position]
         listener?.onListInteraction(list)
-    }
-
-    // Listener for new list creation
-    fun onNewListClick() {
-        listener?.onNewListInteraction()
     }
 
     /**
