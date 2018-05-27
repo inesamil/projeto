@@ -6,7 +6,6 @@ import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 class ProductListDto(siren: Siren) {
     val houseId: Long
     val listId: Long
-    val categoryId: Long
     val productId: Long
     val productName: String
     val productListBrand: String
@@ -17,7 +16,6 @@ class ProductListDto(siren: Siren) {
         val properties = siren.properties
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
         listId = (properties.get(listIdLabel) as Int).toLong()
-        categoryId = (properties.get(categoryIdLabel) as Int).toLong()
         productId = (properties.get(productIdLabel) as Int).toLong()
         productName = properties.get(productNameLabel) as String
         productListBrand = properties.get(productListBrandLabel) as String
@@ -34,7 +32,6 @@ class ProductListDto(siren: Siren) {
     companion object {
         const val houseIdLabel: String = "house-id"
         const val listIdLabel: String = "list-id"
-        const val categoryIdLabel: String = "category-id"
         const val productIdLabel: String = "product-id"
         const val productNameLabel: String = "product-name"
         const val productListBrandLabel: String = "list-product-brand"
