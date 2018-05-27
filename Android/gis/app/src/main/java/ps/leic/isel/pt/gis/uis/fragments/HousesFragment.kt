@@ -12,9 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_houses.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.CharacteristicsDTO
-import ps.leic.isel.pt.gis.model.HouseDTO
-import ps.leic.isel.pt.gis.model.MemberDTO
+import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
@@ -34,10 +32,10 @@ import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
 
     private lateinit var username: String
-    private lateinit var houses: HousesDto
 
     private var listener: OnHousesFragmentInteractionListener? = null
     private var housesVM: HousesViewModel? = null
+    private val adapter = HousesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,32 +51,10 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
             else if (it?.status == Status.ERROR)
                 onError(it.message)
         })
-
-        //TODO: get data
-        /*houses = arrayOf(
-                HouseDTO(1, "Smith", CharacteristicsDTO(0, 0, 2, 0),
-                        arrayOf(MemberDTO(1, "alice", true),
-                                MemberDTO(1, "bob", false)))
-        )*/
     }
 
     private fun onSuccess(houses: HousesDto) {
-        // Set Adapter
-        val adapter = HousesAdapter(houses.houses)
-        view?.let {
-            it.housesRecyclerView.layoutManager = LinearLayoutManager(it.context)
-            it.housesRecyclerView.setHasFixedSize(true)
-            it.housesRecyclerView.adapter = adapter
-            // Set new house button listener
-            it.newHouseBtn.setOnClickListener {
-                //TODO
-                val house = HouseDto/*(2, "Jones", CharacteristicsDTO(0, 0, 1, 0),
-                        arrayOf(MemberDTO(1, "alice", true)))*/
-                //TODO: get new House
-                //listener?.onNewHouseInteraction(house)
-            }
-        }
-        adapter.setOnItemClickListener(this)
+        adapter.setData(houses.houses)
     }
 
     private fun onError(error: String?) {
@@ -88,7 +64,18 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_houses, container, false)
+        val view = inflater.inflate(R.layout.fragment_houses, container, false)
+        view.housesRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.housesRecyclerView.setHasFixedSize(true)
+        view.housesRecyclerView.adapter = adapter
+        adapter.setOnItemClickListener(this)
+        view.newHouseBtn.setOnClickListener {
+            //TODO
+            val house = HouseDto(Siren(null, null, null, null, null))
+            //TODO: get new House
+            listener?.onNewHouseInteraction(house)
+        }
+        return view
     }
 
     override fun onAttach(context: Context) {

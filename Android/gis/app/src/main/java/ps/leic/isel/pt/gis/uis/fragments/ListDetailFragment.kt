@@ -117,7 +117,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
      * activity.
      */
     interface OnListDetailFragmentInteractionListener {
-        fun onListProductInteraction(listProductDto: ProductListDto)
+        fun onListProductInteraction(listProduct: ProductListDto)
     }
 
     /**

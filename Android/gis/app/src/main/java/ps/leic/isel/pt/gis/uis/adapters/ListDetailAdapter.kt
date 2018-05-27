@@ -24,7 +24,7 @@ class ListDetailAdapter(private val data: Array<ProductListDto>)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: ProductListDto = data[position]
         // Fill ViewHolder
-        //TODO: holder.nameItemText.text = item.productName
+        holder.nameItemText.text = item.productName
         holder.numberItemText.text = item.productsListQuantity.toString()
     }
 

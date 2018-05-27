@@ -14,7 +14,8 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.*
+import ps.leic.isel.pt.gis.model.UserDTO
+import ps.leic.isel.pt.gis.model.dtos.*
 import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
 import ps.leic.isel.pt.gis.uis.fragments.*
 import ps.leic.isel.pt.gis.utils.ExtraUtils
@@ -114,7 +115,7 @@ class HomeActivity : AppCompatActivity(),
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.ALLERGIES, AllergiesFragment.Companion::newInstance, args)
     }
 
-    override fun onNewHouseInteraction(house: HouseDTO) {
+    override fun onNewHouseInteraction(house: HouseDto) {
         val fragment = NewHouseDialogFragment.newInstance()
         fragment.show(supportFragmentManager, ExtraUtils.NEW_HOUSE_DIALOG)
     }
@@ -125,7 +126,7 @@ class HomeActivity : AppCompatActivity(),
     }
 
     // Listener for CategoriesFragement interaction
-    override fun onCategoryInteraction(category: CategoryDTO) {
+    override fun onCategoryInteraction(category: CategoryDto) {
         val args: Map<String, Any> = mapOf(
                 Pair(CategoryProductsFragment.categoryArg, category)
         )
@@ -133,7 +134,7 @@ class HomeActivity : AppCompatActivity(),
     }
 
     // Listener for CategoryProductsFragement interaction
-    override fun onProductInteraction(product: ProductDTO) {
+    override fun onProductInteraction(product: ProductDto) {
         val args: Map<String, Any> = mapOf(
                 Pair(ProductDetailFragment.productArg, product)
         )
@@ -141,7 +142,7 @@ class HomeActivity : AppCompatActivity(),
     }
 
     // Listener for ListsFragment interaction
-    override fun onListInteraction(list: ListDTO) {
+    override fun onListInteraction(list: ListDto) {
         val args: Map<String, Any> = mapOf(
                 Pair(ListDetailFragment.listArg, list)
         )
@@ -155,13 +156,13 @@ class HomeActivity : AppCompatActivity(),
     }
 
     // Listener for ListDetailFragment interaction
-    override fun onListProductInteraction(listProductDTO: ListProductDTO) {
+    override fun onListProductInteraction(listProduct: ProductListDto) {
         //TODO: expand
         Toast.makeText(this, "Specific List-Product", Toast.LENGTH_SHORT).show()
     }
 
     // Listener for StockItemListFragment interaction
-    override fun onStockItemInteraction(stockItem: StockItemDTO) {
+    override fun onStockItemInteraction(stockItem: StockItemDto) {
         val args: Map<String, Any> = mapOf(
                 Pair(StockItemDetailFragment.stockItemArg, stockItem)
         )
@@ -173,7 +174,7 @@ class HomeActivity : AppCompatActivity(),
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.WRITE_NFC_TAG, WriteNfcTagFragment.Companion::newInstance)
     }
 
-    override fun onStorageInteraction(storage: StorageDTO) {
+    override fun onStorageInteraction(storage: StorageDto) {
         //TODO
         Toast.makeText(this, "Specific Storage", Toast.LENGTH_SHORT).show()
     }

@@ -9,8 +9,10 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseAllergyDto
 
-class AllergiesTableAdapter(private val data: Array<HouseAllergyDto>) :
+class AllergiesTableAdapter() :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var data: Array<HouseAllergyDto>? = null
 
     // View Holder Types
     private val HEADER: Int = 0
@@ -47,17 +49,24 @@ class AllergiesTableAdapter(private val data: Array<HouseAllergyDto>) :
             ROW -> {
                 // - get element from your dataset at this position
                 // - replace the contents of the view with that element
-                val item: HouseAllergyDto = data[position - 1]
-                holder as RowViewHolder
-                // Fill ViewHolder
-                holder.allergensText.text = item.allergen
-                holder.allergicsText.setText(item.houseAllergiesNum.toString())
+                data?.let {
+                    val item: HouseAllergyDto = it.get(position - 1)
+                    holder as RowViewHolder
+                    // Fill ViewHolder
+                    holder.allergensText.text = item.allergen
+                    holder.allergicsText.setText(item.houseAllergiesNum.toString())
+                }
             }
         }
     }
 
+    fun setData(data: Array<HouseAllergyDto>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
+
     // Total number of cells
-    override fun getItemCount() = data.size + 1
+    override fun getItemCount() = data?.size?.plus(1) ?: 0
 
     // Stores and recycles views as they are scrolled off screen (HEADER TYPE)
     class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {

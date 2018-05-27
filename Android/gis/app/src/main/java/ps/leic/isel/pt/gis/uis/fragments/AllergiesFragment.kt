@@ -3,6 +3,7 @@ package ps.leic.isel.pt.gis.uis.fragments
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -11,12 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
 import android.widget.Toast
+import kotlinx.android.synthetic.main.fragment_allergies.*
 import kotlinx.android.synthetic.main.fragment_allergies.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.HouseAllergyDTO
-import ps.leic.isel.pt.gis.model.dtos.AllergiesDto
 import ps.leic.isel.pt.gis.model.dtos.HouseAllergiesDto
-import ps.leic.isel.pt.gis.model.dtos.HouseAllergyDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.AllergiesTableAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
@@ -33,42 +32,38 @@ import ps.leic.isel.pt.gis.viewModel.AllergiesViewModel
  */
 class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
-    private var houseId: Long = 0
-    private var showAllergies: Boolean = false
-    private lateinit var allergies: HouseAllergiesDto
     private var allergiesViewModel: AllergiesViewModel? = null
+    private var url: String? = null
+    private val adapter = AllergiesTableAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("APP_GIS", "On create")
+        url?.let {
+            Log.d("APP_GIS", it)
+        }
         arguments?.let {
-            showAllergies = it.getBoolean(ExtraUtils.SHOW_ALLERGIES)
-            houseId = it.getLong(ExtraUtils.HOUSE_ID)
+            url = it.getString(ExtraUtils.URL)
         }
         allergiesViewModel = ViewModelProviders.of(this).get(AllergiesViewModel::class.java)
-        val url = ""
-        allergiesViewModel?.init(url)
+        url?.let {
+            allergiesViewModel?.init(it)
+        }
         allergiesViewModel?.getAllergies()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
         })
-        //TODO: get data
-        /*allergies = arrayOf(
-                HouseAllergyDTO(1, "Lactose", 1),
-                HouseAllergyDTO(1, "Glúten", 1)
-        )*/
     }
 
     private fun onSuccess(allergies: HouseAllergiesDto) {
-        // Set Adapter
-        val adapter = AllergiesTableAdapter(allergies.houseAllergies)
-        view?.let {
-            it.allergiesRecyclerView.layoutManager = LinearLayoutManager(it.context)
-            it.allergiesRecyclerView.setHasFixedSize(true)
-            it.allergiesRecyclerView.adapter = adapter
+        adapter.setData(allergies.houseAllergies)
 
-            // Show allergies or not
+        // Show allergies or not
+        view?.let {
+            val mPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+            val showAllergies = mPreferences.getBoolean(SHOW_ALLERGIES_TAG, true)
             if (showAllergies) {
                 it.allergiesRecyclerView.visibility = View.VISIBLE
                 it.allergiesRadioGroup.check(R.id.allergiesYesRadioBtn)
@@ -92,12 +87,53 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_allergies, container, false)
+        Log.d("APP_GIS", "On create view")
+        url?.let {
+            Log.d("APP_GIS", it)
+        }
+        val view = inflater.inflate(R.layout.fragment_allergies, container, false)
+        // Set Adapter
+        view.allergiesRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.allergiesRecyclerView.setHasFixedSize(true)
+        view.allergiesRecyclerView.adapter = adapter
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log.d("APP_GIS", "On activity created")
+        url?.let {
+            Log.d("APP_GIS", it)
+        }
+        url = savedInstanceState?.getString(ExtraUtils.URL)
     }
 
     override fun onStart() {
         super.onStart()
+        Log.d("APP_GIS", "On start")
+        url?.let {
+            Log.d("APP_GIS", it)
+        }
         activity?.title = getString(R.string.allergies)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("APP_GIS", "On pause")
+        url?.let {
+            Log.d("APP_GIS", it)
+        }
+        val mPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+        mPreferences.edit().putBoolean(SHOW_ALLERGIES_TAG, allergiesYesRadioBtn.isChecked).apply()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d("APP_GIS", "On save instance state")
+        url?.let {
+            Log.d("APP_GIS", it)
+        }
+        outState.putString(ExtraUtils.URL, url)
     }
 
     /***
@@ -106,14 +142,16 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
 
     // NfcListener for radio group buttons clicks
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
-        when (checkedId) {
-            R.id.allergiesYesRadioBtn -> {
-                view!!.allergiesRecyclerView.visibility = View.VISIBLE
-                view!!.allergiesRadioGroup.check(R.id.allergiesYesRadioBtn)
-            }
-            R.id.allergiesNoRadioBtn -> {
-                view!!.allergiesRecyclerView.visibility = View.INVISIBLE
-                view!!.allergiesRadioGroup.check(R.id.allergiesNoRadioBtn)
+        view?.let {
+            when (checkedId) {
+                R.id.allergiesYesRadioBtn -> {
+                    it.allergiesRecyclerView.visibility = View.VISIBLE
+                    it.allergiesRadioGroup.check(R.id.allergiesYesRadioBtn)
+                }
+                R.id.allergiesNoRadioBtn -> {
+                    it.allergiesRecyclerView.visibility = View.INVISIBLE
+                    it.allergiesRadioGroup.check(R.id.allergiesNoRadioBtn)
+                }
             }
         }
     }
@@ -127,6 +165,8 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
     companion object {
         val houseIdArg: String = "houseid"
         val showAllergiesArg: String = "showallergies"
+        private const val SHOW_ALLERGIES_TAG = "SHOW_ALLERGIES_TAG"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

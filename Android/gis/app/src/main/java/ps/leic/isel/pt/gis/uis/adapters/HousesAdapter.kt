@@ -11,10 +11,11 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 
-class HousesAdapter(private val data: Array<HouseDto>)
+class HousesAdapter
     : RecyclerView.Adapter<HousesAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
+    private var data: Array<HouseDto>? = null
 
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,26 +26,33 @@ class HousesAdapter(private val data: Array<HouseDto>)
 
     // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
-        // Fill ViewHolder
-        holder.houseName.text = item.name
-        holder.babiesNumber.text = item.characteristics?.babiesNumber.toString()
-        holder.childrenNumber.text = item.characteristics?.childrenNumber.toString()
-        holder.adultsNumber.text = item.characteristics?.adultsNumber.toString()
-        holder.seniorsNumber.text = item.characteristics?.seniorsNumber.toString()
-        //Pass data to the Adapter
-        holder.membersAdapter.setData(item.members)
-        // Set listeners
-        holder.storages.setOnClickListener {
-            mOnItemClickListener.onStoragesClick(item.houseId)
-        }
-        holder.allergies.setOnClickListener {
-            mOnItemClickListener.onAllergiesClick(item.houseId)
+        data?.let {
+            val item = it[position]
+            // Fill ViewHolder
+            holder.houseName.text = item.name
+            holder.babiesNumber.text = item.characteristics?.babiesNumber.toString()
+            holder.childrenNumber.text = item.characteristics?.childrenNumber.toString()
+            holder.adultsNumber.text = item.characteristics?.adultsNumber.toString()
+            holder.seniorsNumber.text = item.characteristics?.seniorsNumber.toString()
+            //Pass data to the Adapter
+            holder.membersAdapter.setData(item.members)
+            // Set listeners
+            holder.storages.setOnClickListener {
+                mOnItemClickListener.onStoragesClick(item.houseId)
+            }
+            holder.allergies.setOnClickListener {
+                mOnItemClickListener.onAllergiesClick(item.houseId)
+            }
         }
     }
 
+    fun setData(data: Array<HouseDto>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
+
     // Total number of cells
-    override fun getItemCount() = data.size
+    override fun getItemCount() = data?.size ?: 0
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
