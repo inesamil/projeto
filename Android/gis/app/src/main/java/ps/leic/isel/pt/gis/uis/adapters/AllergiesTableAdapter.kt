@@ -47,7 +47,7 @@ class AllergiesTableAdapter(private val data: Array<HouseAllergyDto>) :
             ROW -> {
                 // - get element from your dataset at this position
                 // - replace the contents of the view with that element
-                val item = data[position - 1]
+                val item: HouseAllergyDto = data[position - 1]
                 holder as RowViewHolder
                 // Fill ViewHolder
                 holder.allergensText.text = item.allergen
