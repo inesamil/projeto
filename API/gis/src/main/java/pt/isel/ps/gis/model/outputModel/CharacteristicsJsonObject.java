@@ -7,13 +7,13 @@ import pt.isel.ps.gis.model.Characteristics;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CharacteristicsJsonObject {
     @JsonProperty(value = "babies-number")
-    private final short babiesNumber;
+    private final Short babiesNumber;
     @JsonProperty(value = "children-number")
-    private final short childrenNumber;
+    private final Short childrenNumber;
     @JsonProperty(value = "adults-number")
-    private final short adultsNumber;
+    private final Short adultsNumber;
     @JsonProperty(value = "seniors-number")
-    private final short seniorsNumber;
+    private final Short seniorsNumber;
 
     // Ctor
     public CharacteristicsJsonObject(Characteristics characteristics) {
