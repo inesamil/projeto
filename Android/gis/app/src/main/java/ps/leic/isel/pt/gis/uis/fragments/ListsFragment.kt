@@ -15,6 +15,7 @@ import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ListDTO
 import ps.leic.isel.pt.gis.model.SystemListDTO
 import ps.leic.isel.pt.gis.model.UserListDTO
+import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.model.dtos.ListsDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.ListsAdapter
@@ -31,7 +32,7 @@ import ps.leic.isel.pt.gis.viewModel.ListsViewModel
  */
 class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
 
-    private lateinit var lists: Array<ListDTO>
+    private lateinit var lists: ListsDto
 
     private var listener: OnListsFragmentInteractionListener? = null
     private var listsViewModel: ListsViewModel? = null
@@ -49,10 +50,10 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         })
 
         // TODO: get data
-        lists = arrayOf(
+        /*lists = arrayOf(
                 SystemListDTO(1, 1, "Lista de Compras", "system"),
                 UserListDTO(1, 2, "Lista para a Festa da Alice", "user", "bob", true)
-        )
+        )*/
     }
 
     private fun onSuccess(lists: ListsDto) {
@@ -110,7 +111,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
 
     // Listener for list clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
-        val list: ListDTO = lists[position]
+        val list: ListDto = lists.lists[position]
         listener?.onListInteraction(list)
     }
 
@@ -121,7 +122,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
      * activity.
      */
     interface OnListsFragmentInteractionListener {
-        fun onListInteraction(list: ListDTO)
+        fun onListInteraction(list: ListDto)
         fun onNewListInteraction()
     }
 
