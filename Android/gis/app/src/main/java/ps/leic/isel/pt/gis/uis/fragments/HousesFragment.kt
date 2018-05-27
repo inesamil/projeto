@@ -70,7 +70,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
             it.housesRecyclerView.adapter = adapter
             // Set new house button listener
             it.newHouseBtn.setOnClickListener {
-                val house: HouseDTO = HouseDTO(2, "Jones", CharacteristicsDTO(0, 0, 1, 0),
+                val house = HouseDTO(2, "Jones", CharacteristicsDTO(0, 0, 1, 0),
                         arrayOf(MemberDTO(1, "alice", true)))
                 //TODO: get new House
                 listener?.onNewHouseInteraction(house)
