@@ -216,47 +216,10 @@ $$ LANGUAGE plpgsql;
 
 -------------------------------------------------------------------------------------------
 
--- Procedure to insert a Product
--- DROP FUNCTION insert_product
-CREATE OR REPLACE FUNCTION insert_product(categoryID integer, designation character varying(35), edible boolean, shelfLife smallint, shelfLifeTimeUnit character varying(5))
-RETURNS TABLE(
-	category_id integer,
-	product_id integer,
-	product_name character varying(35),
-	product_edible boolean,
-	product_shelflife smallint,
-	product_shelflifetimeunit character varying(5)
-) AS $$
-DECLARE 
-	productID smallint;
-BEGIN
-	-- Get last id
-	SELECT public."product".product_id FROM public."product" WHERE public."product".category_id = categoryID ORDER BY public."product".product_id DESC LIMIT 1 INTO productID;
-	IF productID IS NULL THEN
-		productID := 1; 	-- First list inserted
-	ELSE
-		productID := productID + 1;	-- Increment
-	END IF;
-		
-	-- Add Product
-	INSERT INTO public."product" (category_id, product_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
-		VALUES (categoryID, productID, designation, edible, shelfLife, shelfLifeTimeUnit);
-		
-	RETURN query SELECT public."product".category_id, public."product".product_id, public."product".product_name, public."product".product_edible, public."product".product_shelflife,
-			public."product".product_shelflifetimeunit
-	FROM public."product" WHERE public."product".category_id = categoryID AND public."product".product_id = productID;
-END;
-$$ LANGUAGE plpgsql;
-
--------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------------------
-
 -- Procedure to insert a StockItem
 -- DROP FUNCTION insert_stock_item
 CREATE OR REPLACE FUNCTION insert_stock_item(
 	houseID bigint,
-	categoryID integer,
 	productID integer,
 	brand character varying(35),
 	variety character varying(35),
@@ -268,7 +231,6 @@ CREATE OR REPLACE FUNCTION insert_stock_item(
 RETURNS TABLE(
 	house_id bigint,
 	stockitem_sku character varying(128),
-	category_id integer,
 	product_id integer,
 	stockitem_brand character varying(35),
 	stockitem_segment real,
@@ -282,16 +244,16 @@ DECLARE
 	sku character varying(128) = 0;
 BEGIN
 	-- Generate SKU
-	sku := generate_sku(categoryID, productID, brand, variety, segment, segmentUnit);
+	sku := generate_sku(productID, brand, variety, segment, segmentUnit);
 	
 		
 	-- Add StockItem
-	INSERT INTO public."stockitem" (house_id, stockitem_sku, category_id, product_id, stockitem_brand, stockitem_variety, stockitem_segment,
+	INSERT INTO public."stockitem" (house_id, stockitem_sku, product_id, stockitem_brand, stockitem_variety, stockitem_segment,
 										stockitem_segmentUnit, stockitem_quantity, stockitem_description, stockitem_conservationStorage) 
-		VALUES (houseID, sku, categoryID, productID, brand, variety, segment, segmentUnit, quantity, description, conservationStorage);
+		VALUES (houseID, sku, productID, brand, variety, segment, segmentUnit, quantity, description, conservationStorage);
 		
 	RETURN query
-	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".category_id, public."stockitem".product_id, public."stockitem".stockitem_brand,
+	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".product_id, public."stockitem".stockitem_brand,
 			public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit,
 			public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
 	FROM public."stockitem"
@@ -306,7 +268,6 @@ $$ LANGUAGE plpgsql;
 -- Procedure to generate a SKU
 -- DROP FUNCTION generate_sku
 CREATE OR REPLACE FUNCTION generate_sku(
-	categoryID integer,
 	productID integer,
 	brand character varying(35),
 	variety character varying(35),
@@ -317,7 +278,7 @@ DECLARE
 	sku character varying(128) = 0;
 BEGIN
 	-- Generate SKU
-	sku := 'C' || categoryID || '-' || 'P' || productID || '-' || brand || '-' || variety || '-' || segment || segmentUnit;
+	sku := 'P' || productID || '-' || brand || '-' || variety || '-' || segment || segmentUnit;
 	
 	RETURN sku;
 END;
