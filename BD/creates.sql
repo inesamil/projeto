@@ -53,18 +53,17 @@ CREATE TABLE IF NOT EXISTS public."category" (
 
 CREATE TABLE IF NOT EXISTS public."product" (
 	category_id integer NOT NULL CHECK (category_id > 0) REFERENCES public."category" (category_id),
-	product_id integer NOT NULL,
+	product_id serial NOT NULL,
 	product_name character varying(35) NOT NULL,
 	product_edible boolean NOT NULL,
 	product_shelflife smallint NOT NULL CHECK (product_shelfLife > 0),
 	product_shelflifetimeunit character varying(5) NOT NULL CHECK (product_shelflifetimeunit IN ('day', 'week', 'month', 'year')),
-	PRIMARY KEY (category_id, product_id)
+	PRIMARY KEY (product_id)
 );
 
 CREATE TABLE IF NOT EXISTS public."stockitem" (
 	house_id bigint NOT NULL CHECK (house_id > 0) REFERENCES public."house" (house_id),
 	stockitem_sku character varying(128) NOT NULL,
-	category_id integer NOT NULL CHECK (category_id > 0),
 	product_id integer NOT NULL CHECK (product_id > 0),
 	stockitem_brand character varying(35) NOT NULL,
 	stockitem_segment real NOT NULL,
@@ -74,8 +73,8 @@ CREATE TABLE IF NOT EXISTS public."stockitem" (
 	stockitem_description text,
 	stockitem_conservationstorage character varying(128) NOT NULL,
 	PRIMARY KEY (house_id, stockitem_sku),
-	UNIQUE (house_id, category_id, product_id, stockitem_brand, stockitem_segment, stockitem_variety),
-	FOREIGN KEY (category_id, product_id) REFERENCES public."product" (category_id, product_id)
+	UNIQUE (house_id, product_id, stockitem_brand, stockitem_segment, stockitem_variety),
+	FOREIGN KEY (product_id) REFERENCES public."product" (product_id)
 );
 
 CREATE TABLE IF NOT EXISTS public."storage" (
@@ -125,13 +124,12 @@ CREATE TABLE IF NOT EXISTS public."houseallergy" (
 CREATE TABLE IF NOT EXISTS public."listproduct" (
 	house_id bigint NOT NULL CHECK (house_id > 0),
 	list_id smallint NOT NULL CHECK (list_id > 0),
-	category_id integer NOT NULL CHECK (category_id > 0),
 	product_id integer NOT NULL CHECK (product_id > 0),
 	listproduct_brand character varying(35),
 	listproduct_quantity smallint NOT NULL CHECK (listproduct_quantity > 0),
-	PRIMARY KEY (house_id, list_id, category_id, product_id),
+	PRIMARY KEY (house_id, list_id, product_id),
 	FOREIGN KEY (house_id, list_id) REFERENCES public."list" (house_id, list_id),
-	FOREIGN KEY (category_id, product_id) REFERENCES public."product" (category_id, product_id)
+	FOREIGN KEY (product_id) REFERENCES public."product" (product_id)
 );
 
 CREATE TABLE IF NOT EXISTS public."stockitemallergy" (
