@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.fragment_category_products.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.CategoryDTO
 import ps.leic.isel.pt.gis.model.ProductDTO
+import ps.leic.isel.pt.gis.model.dtos.CategoryDto
+import ps.leic.isel.pt.gis.model.dtos.ProductDto
 import ps.leic.isel.pt.gis.model.dtos.ProductsDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.CategoryProductsAdapter
@@ -32,8 +34,8 @@ import ps.leic.isel.pt.gis.viewModel.CategoryProductsViewModel
  */
 class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClickListener {
 
-    private lateinit var category: CategoryDTO
-    private lateinit var products: Array<ProductDTO>
+    private lateinit var category: CategoryDto
+    private lateinit var products: ProductsDto
 
     private var listener: OnCategoryProductsFragmentInteractionListener? = null
     private var categoryProductsViewModel: CategoryProductsViewModel? = null
@@ -41,7 +43,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            category = it.getParcelable(ExtraUtils.CATEGORY)
+            //TODO category = it.getParcelable(ExtraUtils.CATEGORY)
 
         }
         categoryProductsViewModel = ViewModelProviders.of(this).get(CategoryProductsViewModel::class.java)
@@ -54,11 +56,11 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
                 onError(it.message)
         })
         //TODO: get data
-        products = arrayOf(
+       /* products = arrayOf(
                 ProductDTO(1, 1, "Leite", true, "3dias"),
                 ProductDTO(1, 2, "Queijo", true, "7dias"),
                 ProductDTO(1, 3, "Iogurte", true, "20dias")
-        )
+        )*/
     }
 
     private fun onSuccess(products: ProductsDto) {
@@ -106,7 +108,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      ***/
 
     override fun onTextClick(view: View, position: Int) {
-        val product: ProductDTO = products[position]
+        val product: ProductDto = products.products[position]
         listener?.onProductInteraction(product)
     }
 
@@ -128,7 +130,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      * activity.
      */
     interface OnCategoryProductsFragmentInteractionListener {
-        fun onProductInteraction(product: ProductDTO)
+        fun onProductInteraction(product: ProductDto)
     }
 
     /**
