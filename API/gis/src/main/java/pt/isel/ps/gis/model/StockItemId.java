@@ -15,7 +15,7 @@ public class StockItemId implements Serializable {
     /**
      * COLUNAS
      */
-    @Column(name = "house_id", nullable = false)
+    @Column(name = "house_id", nullable = false, unique = true)
     private Long houseId;
 
     @Column(name = "stockitem_sku", length = RestrictionsUtils.STOCKITEM_SKU_MAX_LENGTH, nullable = false)
