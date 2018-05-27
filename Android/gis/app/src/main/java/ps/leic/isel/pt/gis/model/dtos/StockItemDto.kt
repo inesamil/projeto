@@ -8,7 +8,6 @@ import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 class StockItemDto(siren: Siren) {
     val houseId: Long
     val sku: String
-    val categoryId: Long
     val productId: Long
     val productName: String
     val brand: String
@@ -26,7 +25,6 @@ class StockItemDto(siren: Siren) {
         val properties = siren.properties
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
         sku = properties.get(skuLabel) as String
-        categoryId = (properties.get(categoryIdLabel) as Int).toLong()
         productId = (properties.get(productIdLabel) as Int).toLong()
         productName = properties.get(productNameLabel) as String
         brand = properties.get(brandLabel) as String
@@ -64,7 +62,6 @@ class StockItemDto(siren: Siren) {
     companion object {
         const val houseIdLabel: String = "house-id"
         const val skuLabel: String = "stock-item-sku"
-        const val categoryIdLabel: String = "category-id"
         const val productIdLabel: String = "product-id"
         const val productNameLabel: String = "product-name"
         const val brandLabel: String = "stock-item-brand"
