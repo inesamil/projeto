@@ -11,8 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_storages.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.StorageDTO
-import ps.leic.isel.pt.gis.model.TemperatureStorageDTO
 import ps.leic.isel.pt.gis.model.dtos.StoragesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.StoragesAdapter
@@ -32,7 +30,7 @@ import ps.leic.isel.pt.gis.viewModel.StoragesViewModel
 class StoragesFragment : Fragment() {
 
     private var houseId: Long = 0
-    private lateinit var storages: Array<StorageDTO>
+    private lateinit var storages: StoragesDto
     private var storagesViewModel: StoragesViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +49,7 @@ class StoragesFragment : Fragment() {
                 onError(it.message)
         })
         //TODO: get data
-        storages = arrayOf(StorageDTO(1, 1, "Fridge", TemperatureStorageDTO(0F, 5F)))
+        //storages = arrayOf(StorageDTO(1, 1, "Fridge", TemperatureStorageDTO(0F, 5F)))
     }
 
     private fun onSuccess(storages: StoragesDto) {
