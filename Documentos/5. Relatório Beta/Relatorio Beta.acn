@@ -17,10 +17,8 @@
 \glossaryentry{BLL?\glossentry{bll}|setentrycounter[]{page}\glsnumberformat}{11}
 \glossaryentry{HTTP?\glossentry{http}|setentrycounter[]{page}\glsnumberformat}{14}
 \glossaryentry{HTTP?\glossentry{http}|setentrycounter[]{page}\glsnumberformat}{14}
-\glossaryentry{BLL?\glossentry{bll}|setentrycounter[]{page}\glsnumberformat}{15}
-\glossaryentry{BLL?\glossentry{bll}|setentrycounter[]{page}\glsnumberformat}{15}
-\glossaryentry{DAL?\glossentry{dal}|setentrycounter[]{page}\glsnumberformat}{15}
-\glossaryentry{DAL?\glossentry{dal}|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{DAL?\glossentry{dal}|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{DAL?\glossentry{dal}|setentrycounter[]{page}\glsnumberformat}{14}
 \glossaryentry{JPA?\glossentry{jpa}|setentrycounter[]{page}\glsnumberformat}{15}
 \glossaryentry{Jdbc Template?\glossentry{jdbctemplate}|setentrycounter[]{page}\glsnumberformat}{15}
 \glossaryentry{Jdbc Template?\glossentry{jdbctemplate}|setentrycounter[]{page}\glsnumberformat}{15}
@@ -38,6 +36,8 @@
 \glossaryentry{BD?\glossentry{bd}|setentrycounter[]{page}\glsnumberformat}{15}
 \glossaryentry{CP?\glossentry{cp}|setentrycounter[]{page}\glsnumberformat}{15}
 \glossaryentry{CE?\glossentry{ce}|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{BLL?\glossentry{bll}|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{BLL?\glossentry{bll}|setentrycounter[]{page}\glsnumberformat}{15}
 \glossaryentry{HTTPS?\glossentry{https}|setentrycounter[]{page}\glsnumberformat}{16}
 \glossaryentry{HTTPS?\glossentry{https}|setentrycounter[]{page}\glsnumberformat}{16}
 \glossaryentry{JSON?\glossentry{json}|setentrycounter[]{page}\glsnumberformat}{19}
