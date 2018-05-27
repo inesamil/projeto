@@ -62,73 +62,6 @@
 	}
 \end{table}
 
-
-% Recipe
-\begin{table} [H]
-	\centering
-	\caption{Domínio dos Atributos da Entidade Recipe.} \vspace{2mm}
-	\label{tab-dominio-atributos-recipe}
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
-			\hline
-			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
-			\multirow{9}{*}{Recipe} & recipe\_id & Número inteiro auto-incrementado & bigserial & - & não\\ \cline{2-6}
-			& recipe\_name & Cadeia de caracteres de comprimento variável & character varying(35) & até 35 caracteres & não\\ \cline{2-6}
-			& recipe\_instructions & Cadeia de caracteres de comprimento variável & text & - & não\\ \cline{2-6}
-			& recipe\_difficulty & Cadeia de caracteres de comprimento variável & character varying(9) & recipe\_difficulty in ['easy', 'average', 'difficult'] & sim\\ \cline{2-6}
-			& recipe\_time & Número inteiro & smallint & recipe\_time \textgreater{} 0 & sim\\ \cline{2-6}
-			& recipe\_servings & Número inteiro & smallint & recipe\_servings \textgreater{} 0 & sim\\ \cline{2-6}
-			& recipe\_cuisine & Cadeia de caracteres de comprimento variável & character varying(35) & até 35 caracteres & sim\\ \cline{2-6}
-			& recipe\_dishType & Cadeia de caracteres de comprimento variável & character varying(35) & até 35 caracteres & sim\\ \cline{2-6}
-			& recipe\_type & Cadeia de caracteres de comprimento variável & character varying(7) & recipe\_type  in ['system', 'user'] & não\\ \hline
-		\end{tabular}
-	}
-\end{table}
-
-% System Recipe
-\begin{table} [H]
-	\centering
-	\caption{Domínio dos Atributos da Entidade SystemRecipe.} \vspace{2mm}
-	\label{tab-dominio-atributos-systemRecipe}
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
-			\hline
-			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
-			{System Recipe} & recipe\_id & Número inteiro & bigint & recipe\_id \textgreater{} 0 & não\\ \hline
-		\end{tabular}
-	}
-\end{table}
-
-% User Recipe
-\begin{table} [H]
-	\centering
-	\caption{Domínio dos Atributos da Entidade UserRecipe.} \vspace{2mm}
-	\label{tab-dominio-atributos-userRecipe}
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
-			\hline
-			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
-			\multirow{2}{*}{User Recipe} & recipe\_id & Número inteiro & bigint & recipe\_id \textgreater{} 0 & não\\ \cline{2-6}
-			& user\_username & Cadeia de caracteres de comprimento variável & character varying(30) & até 30 caracteres & não\\ \hline
-		\end{tabular}
-	}
-\end{table}
-
-% Shared Recipe
-\begin{table} [H]
-	\centering
-	\caption{Domínio dos Atributos da Entidade SharedRecipe.} \vspace{2mm}
-	\label{tab-dominio-atributos-sharedRecipe}
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
-			\hline
-			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
-			\multirow{2}{*}{Shared Recipe} & recipe\_id & Número inteiro & bigint & recipe\_id \textgreater{} 0 & não\\ \cline{2-6}
-			& user\_username & Cadeia de caracteres de comprimento variável & character varying(30) & até 30 caracteres & não\\ \hline
-		\end{tabular}
-	}
-\end{table}
-
 % List
 \begin{table} [H]
 	\centering
@@ -203,7 +136,7 @@
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
 			\multirow{6}{*}{Product} & category\_id & Número inteiro & integer & category\_id \textgreater{} 0 & não\\ \cline{2-6}
-			& product\_id & Número inteiro auto-incrementado & integer & - & não\\ \cline{2-6}
+			& product\_id & Número inteiro auto-incrementado & serial & - & não\\ \cline{2-6}
 			& product\_name & Cadeia de caracteres de comprimento variável & character varying(35) & até 35 caracteres & não\\ \cline{2-6}
 			& product\_edible & Booleano & boolean & - & não\\ \cline{2-6}
 			& product\_shelfLife & Número inteiro & smallint & product\_shelfLife \textgreater{} 0 & não\\ \cline{2-6}

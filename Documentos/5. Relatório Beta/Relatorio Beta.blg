@@ -8,16 +8,6 @@ A level-1 auxiliary file: capitulo4.aux
 The style file: unsrt.bst
 A level-1 auxiliary file: anexo1.aux
 Database file #1: referencias.bib
-You're missing a field name---line 102 of file referencias.bib
- :  author = "M. Nottingham", 
- :                            "Akamai", "E. Wilde",
-I'm skipping whatever remains of this entry
-You're missing a field name---line 111 of file referencias.bib
- :  author = "R. Fielding, Ed.", 
- :                               "J. Reschke, Ed.",
-I'm skipping whatever remains of this entry
-You're missing a field name---line 120 of file referencias.bib
- :  author = "E. Rescorla", 
- :                          "A. Schiffman",
-I'm skipping whatever remains of this entry
-(There were 3 error messages)
+Warning--string name "junho" is undefined
+--line 114 of file referencias.bib
+(There was 1 warning)

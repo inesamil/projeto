@@ -33,7 +33,7 @@
 \contentsline {section}{\numberline {4.4}Modelo de Dados}{17}
 \contentsline {subsection}{\numberline {4.4.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{17}
 \contentsline {subsection}{\numberline {4.4.2}Dom\IeC {\'\i }nio dos Atributos}{18}
-\contentsline {subsection}{\numberline {4.4.3}Base de Dados}{25}
-\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{26}
-\contentsline {chapter}{\numberline {A}Terminologia}{29}
-\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{29}
+\contentsline {subsection}{\numberline {4.4.3}Base de Dados}{24}
+\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{24}
+\contentsline {chapter}{\numberline {A}Terminologia}{27}
+\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{27}

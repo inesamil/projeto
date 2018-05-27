@@ -30,14 +30,24 @@ Kevin Swiber.
 \newblock \url{https://github.com/kevinswiber/siren}.
 \newblock [Online, Acedido a 15/04/2018].
 
-\bibitem{RFC7807P89:problemDetails}
-M.~Nottingham.
+\bibitem{RFC7807:problemDetails}
+M.~Nottingham, Akamai, and E.~Wilde.
+\newblock Rfc 7807 - problem details for http apis.
+\newblock \url{https://tools.ietf.org/html/rfc7807}, Março 2016.
+\newblock [Online, Acedido a 15/04/2018].
 
 \bibitem{RFC7231:http}
-Ed. R.~Fielding.
+R.~Fielding and J.~Reschke.
+\newblock Rfc 7231 - hypertext transfer protocol (http/1.1): Semantics and
+  content.
+\newblock \url{https://tools.ietf.org/html/rfc7231}, 2014.
+\newblock [Online, Acedido a 15/04/2018].
 
 \bibitem{RFC2660:https}
-E.~Rescorla.
+E.~Rescorla and E.~A.~Schiffman.
+\newblock Rfc 2660 - the secure hypertext transfer protocol.
+\newblock \url{https://tools.ietf.org/html/rfc2660}, Agosto 1999.
+\newblock [Online, Acedido a 15/04/2018].
 
 \bibitem{RFC7617:basicSheme}
 J.~Reschke.

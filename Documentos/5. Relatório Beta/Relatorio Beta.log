@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  27 MAY 2018 20:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  27 MAY 2018 20:24
 entering extended mode
 **"./Relatorio Beta.tex"
 ("Relatorio Beta.tex"
@@ -854,11 +854,7 @@ ne 56.
 \openout2 = `terminologia.aux'.
 
 (terminologia.tex) ("Relatorio Beta.aux" (resumo.aux) (abstract.aux)
-(capitulo1.aux) (capitulo2.aux) (capitulo3.aux) (capitulo4.aux
-
-LaTeX Warning: Label `subsec452' multiply defined.
-
-) (anexo1.aux))
+(capitulo1.aux) (capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux))
 \openout1 = `"Relatorio Beta.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 102.
@@ -1087,74 +1083,74 @@ Underfull \hbox (badness 10000) in paragraph at lines 21--22
 
 pdfTeX warning: pdflatex.exe (file ./files/EA.pdf): PDF inclusion: found PDF ve
 rsion <1.7>, but at most version <1.5> allowed
-<./files/EA.pdf, id=113, 845.07724pt x 597.55246pt>
+<./files/EA.pdf, id=113, 844.95674pt x 597.432pt>
 File: ./files/EA.pdf Graphic file (type pdf)
 <use ./files/EA.pdf>
 Package pdftex.def Info: ./files/EA.pdf  used on input line 9.
-(pdftex.def)             Requested size: 845.07518pt x 597.551pt.
+(pdftex.def)             Requested size: 844.95468pt x 597.43054pt.
 
-Overfull \hbox (59.3452pt too wide) in paragraph at lines 7--10
+Overfull \hbox (59.34142pt too wide) in paragraph at lines 7--10
  []|  [] 
  []
 
 [16] [17 <./files/EA.pdf>]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 85.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 79.
 
 ("C:\Users\inesa\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 85.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 79.
 
-[18] [19] [20]
-Overfull \hbox (3.40536pt too wide) in paragraph at lines 212--212
+[18]
+Overfull \hbox (3.40536pt too wide) in paragraph at lines 145--145
  \OT1/cmr/m/n/10.95 duct[]shelfLifeTimeUnit 
  []
 
-[21] [22] [23] [24]
-Overfull \hbox (3.76271pt too wide) in paragraph at lines 388--388
+[19] [20] [21] [22]
+Overfull \hbox (3.76271pt too wide) in paragraph at lines 321--321
  \OT1/cmr/m/n/10.95 (AAAA/MM/DD)| 
  []
 
 
-Overfull \hbox (3.76271pt too wide) in paragraph at lines 405--405
+Overfull \hbox (3.76271pt too wide) in paragraph at lines 338--338
  \OT1/cmr/m/n/10.95 (AAAA/MM/DD)| 
  []
 
-[25])) [26] ("Relatorio Beta.bbl"
+[23])) [24] ("Relatorio Beta.bbl"
 Underfull \hbox (badness 1430) in paragraph at lines 4--10
 \OT1/cmtt/m/n/10.95 2995521 / 7771139 / 9-[]20122016-[]BP-[]EN . pdf$\OT1/cmr/m
 /n/10.95 , De-zem-bro 2016.  [On-line, Ace-dido a
  []
 
+[25
 
-Underfull \hbox (badness 3323) in paragraph at lines 62--68
+
+]
+Underfull \hbox (badness 3323) in paragraph at lines 72--78
 []\OT1/cmr/m/n/10.95 Business Dic-ti-o-nary.  What is stan-dard stock item? de-
 fi-ni-tion and me-a-
  []
 
-[27
 
-
-]
-Underfull \hbox (badness 2707) in paragraph at lines 77--83
+Underfull \hbox (badness 2707) in paragraph at lines 87--93
 []\OT1/cmr/m/n/10.95 Thad Scheer.  Ca-te-gory, seg-ment, and brand { what's the
  dif-fe-rence? {
  []
 
 
-Underfull \hbox (badness 6445) in paragraph at lines 77--83
+Underfull \hbox (badness 6445) in paragraph at lines 87--93
 \OT1/cmr/m/n/10.95 sphere of in-flu-ence : Analy-tics stu-dio.  $\OT1/cmtt/m/n/
 10.95 https : / / sphereoi . com / studios /
  []
 
 
-Underfull \hbox (badness 5563) in paragraph at lines 77--83
+Underfull \hbox (badness 5563) in paragraph at lines 87--93
 \OT1/cmtt/m/n/10.95 category-[]segment-[]and-[]brand-[]whats-[]the-[]difference
 /$\OT1/cmr/m/n/10.95 .  [On-line, Ace-dido on
  []
 
-) [28]
+) [26]
 \openout2 = `anexo1.aux'.
 
  (anexo1.tex
@@ -1165,7 +1161,7 @@ Overfull \hbox (14.09998pt too wide) in paragraph at lines 20--26
 [] 
  []
 
-[29
+[27
 
 
 ]
@@ -1173,46 +1169,43 @@ Overfull \hbox (14.09998pt too wide) in paragraph at lines 52--65
 [] 
  []
 
-) [30]
+) [28]
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
 ("Relatorio Beta.aux" (resumo.aux) (abstract.aux) (capitulo1.aux)
-(capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux))
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+(capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux)) ) 
 Here is how much of TeX's memory you used:
- 12041 strings out of 493303
- 202591 string characters out of 3129784
- 339530 words of memory out of 3000000
- 15235 multiletter control sequences out of 15000+200000
+ 12034 strings out of 493303
+ 202423 string characters out of 3129784
+ 337445 words of memory out of 3000000
+ 15228 multiletter control sequences out of 15000+200000
  16722 words of font info for 55 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,13n,39p,2012b,375s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmbx10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmbx12.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/inesa/AppData/Local/Programs/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Users/inesa/AppData/
-Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/i
-nesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb
-><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmr12.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmr6.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/inesa/AppData/Local/Pro
-grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/inesa/AppD
-ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/User
-s/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10
-.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmtt10.pfb>
-Output written on "Relatorio Beta.pdf" (44 pages, 526838 bytes).
+<C:/Users/inesa/
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:
+/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mbx12.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmbx8.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmbxti10.pfb><C:/Users/inesa/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/inesa/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/inesa/A
+ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/U
+sers/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
+6.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmr8.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmr9.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/inesa/AppData/Local/Programs
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/inesa/AppData/Lo
+cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/ine
+sa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+
+Output written on "Relatorio Beta.pdf" (42 pages, 607561 bytes).
 PDF statistics:
- 218 PDF objects out of 1000 (max. 8388607)
+ 392 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
