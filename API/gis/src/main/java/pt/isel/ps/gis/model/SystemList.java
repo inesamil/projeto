@@ -21,6 +21,7 @@ public class SystemList {
      * ASSOCIAÇÕES
      */
     @OneToOne
+    @MapsId
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false),
             @JoinColumn(name = "list_id", referencedColumnName = "list_id", nullable = false)
