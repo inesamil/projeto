@@ -7,9 +7,7 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.StockItemMovementId;
 import pt.isel.ps.gis.utils.ValidationsUtils;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -23,7 +21,7 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     @Override
     public boolean existsStockItemMovementByStockItemMovementId(long houseId, String stockItemSku, short storageId, boolean type, String dateTime, short quantity) throws EntityException {
-        return stockItemMovementRepository.existsById(new StockItemMovementId(houseId, stockItemSku, storageId, type, dateTime, quantity));
+        return stockItemMovementRepository.existsById(new StockItemMovementId(houseId, stockItemSku, storageId, type, dateTime));
     }
 
     @Override

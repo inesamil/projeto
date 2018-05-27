@@ -57,11 +57,11 @@ public class MovementsOutputModel {
 
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("house-id", houseId);
-            properties.put("storage-id", stockItemMovement.getStorage().getId());
-            properties.put("stock-item-id", stockItemMovement.getStockitem().getId());
+            properties.put("storage-id", stockItemMovementId.getStorageId());
+            properties.put("stock-item-id", stockItemMovementId.getStockitemSku());
             properties.put("movement-datetime", stockItemMovementId.getStockitemmovementDatetime());
             properties.put("movement-type", stockItemMovementId.getStockitemmovementType());
-            properties.put("movement-quantity", stockItemMovementId.getStockitemmovementQuantity());
+            properties.put("movement-quantity", stockItemMovement.getStockitemmovementQuantity());
 
             entities[i] = new Entity(new String[]{"movement"}, new String[]{"item"}, properties, null, null);
         }

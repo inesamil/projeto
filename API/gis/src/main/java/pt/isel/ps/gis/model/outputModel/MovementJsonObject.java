@@ -31,6 +31,6 @@ public class MovementJsonObject {
         this.storageId = movement.getId().getStorageId();
         this.stockItemMovementType = movement.getId().getStockitemmovementType();
         this.stockItemMovementDatetime = movement.getId().getStockitemmovementDatetime();
-        this.stockItemMovementQuantity = movement.getId().getStockitemmovementQuantity();
+        this.stockItemMovementQuantity = movement.getStockitemmovementQuantity();
     }
 }
