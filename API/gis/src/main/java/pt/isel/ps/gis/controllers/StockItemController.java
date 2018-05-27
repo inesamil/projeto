@@ -95,7 +95,6 @@ public class StockItemController {
             throw new BadRequestException("Segment is invalid.");
         stockItemService.addStockItem(new StockItem(
                 houseId,
-                body.getCategoryId(),
                 body.getProductId(),
                 body.getBrand(),
                 Float.parseFloat(segmentSplitted[0]),

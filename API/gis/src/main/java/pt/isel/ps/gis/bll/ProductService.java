@@ -9,24 +9,22 @@ import java.util.Optional;
 public interface ProductService {
 
     /**
-     * Verifica se um dado produto existe numa dada categoria através dos seus IDs
+     * Verifica se um dado produto existe através do seu ID
      *
-     * @param categoryId identificador da categoria
      * @param productId identificador do produto
      * @return true se o produto existir na categoria, false caso contrário
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    boolean existsProductByProductId(int categoryId, int productId) throws EntityException;
+    boolean existsProductByProductId(int productId) throws EntityException;
 
     /**
      * Obter um produto através do seu ID
      *
-     * @param categoryId  identificador da categoria
      * @param productId identificador do produto
      * @return Optional<Product>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Optional<Product> getProductByProductId(int categoryId, int productId) throws EntityException;
+    Optional<Product> getProductByProductId(int productId) throws EntityException;
 
     /**
      * Listar os produtos de uma categoria através do ID da categoria

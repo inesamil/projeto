@@ -39,8 +39,8 @@ public class ProductOutputModel {
 
     private HashMap<String, Object> initProperties(Product product) {
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("category-id", product.getId().getCategoryId());
-        properties.put("product-id", product.getId().getProductId());
+        properties.put("category-id", product.getCategoryId());
+        properties.put("product-id", product.getProductId());
         properties.put("product-name", product.getProductName());
         properties.put("product-edible", product.getProductEdible());
         properties.put("product-shelflifetime", product.getProductShelflife() + " " + product.getProductShelflifetimeunit());
@@ -48,8 +48,8 @@ public class ProductOutputModel {
     }
 
     private Link[] initLinks(Product product) {
-        int categoryId = product.getId().getCategoryId();
-        int productId = product.getId().getProductId();
+        int categoryId = product.getCategoryId();
+        int productId = product.getProductId();
 
         // URIs
         String productUri = UriBuilderUtils.buildProductUri(categoryId, productId);

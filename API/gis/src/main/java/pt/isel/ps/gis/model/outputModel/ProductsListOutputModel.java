@@ -42,7 +42,7 @@ public class ProductsListOutputModel {
         return new String[]{ENTITY_CLASS, "collection"};
     }
 
-    private Map<String,Object> initProperties(List<ListProduct> listProducts) {
+    private Map<String, Object> initProperties(List<ListProduct> listProducts) {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("size", listProducts.size());
 
@@ -58,13 +58,13 @@ public class ProductsListOutputModel {
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("house-id", houseId);
             properties.put("list-id", listId);
-            properties.put("category-id", product.getCategoryByCategoryId().getCategoryId());
-            properties.put("product-id", product.getId().getProductId());
+            properties.put("category-id", product.getCategoryId());
+            properties.put("product-id", product.getProductId());
             properties.put("product-name", product.getProductName());
             properties.put("list-product-brand", listProduct.getListproductBrand());
             properties.put("list-product-quantity", listProduct.getListproductQuantity());
 
-            String productUri = UriBuilderUtils.buildProductUri((int)houseId, listId);
+            String productUri = UriBuilderUtils.buildProductUri((int) houseId, listId);
 
             entities[i] = new Entity(
                     new String[]{"list-product"},

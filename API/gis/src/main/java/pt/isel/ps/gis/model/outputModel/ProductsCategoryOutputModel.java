@@ -52,7 +52,7 @@ public class ProductsCategoryOutputModel {
         Entity[] entities = new Entity[products.size()];
         for (int i = 0; i < products.size(); ++i) {
             Product productsCategory = products.get(i);
-            int productId = productsCategory.getId().getProductId();
+            int productId = productsCategory.getProductId();
 
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("product-id", productId);

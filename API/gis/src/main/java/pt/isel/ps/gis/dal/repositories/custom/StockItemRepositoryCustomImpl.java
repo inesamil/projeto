@@ -21,37 +21,37 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
     public List<StockItem> findStockItemsFiltered(Long houseId, String productName, String brand, String variety, String segment, Short storageId) {
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
-            String sql = "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
+            String sql = "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
                     "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
                     "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage " +
                     "FROM public.\"stockitem\" " +
                     "WHERE public.\"stockitem\".house_id = ? " +
                     "EXCEPT " +
-                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
+                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
                     "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
                     "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage " +
-                    "FROM public.\"stockitem\" JOIN public.\"product\" ON (public.\"stockitem\".category_id = public.\"product\".category_id AND public.\"stockitem\".product_id = public.\"product\".product_id) " +
+                    "FROM public.\"stockitem\" JOIN public.\"product\" ON public.\"stockitem\".product_id = public.\"product\".product_id " +
                     "WHERE public.\"stockitem\".house_id = ? AND public.\"product\".product_name != ? " +
                     "EXCEPT " +
-                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
+                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
                     "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
                     "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage " +
                     "FROM public.\"stockitem\" " +
                     "WHERE public.\"stockitem\".house_id = ? AND public.\"stockitem\".stockitem_brand != ? " +
                     "EXCEPT " +
-                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
+                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
                     "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
                     "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage " +
                     "FROM public.\"stockitem\" " +
                     "WHERE public.\"stockitem\".house_id = ? AND public.\"stockitem\".stockitem_variety != ? " +
                     "EXCEPT " +
-                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
+                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
                     "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
                     "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage " +
                     "FROM public.\"stockitem\" " +
                     "WHERE public.\"stockitem\".house_id = ? AND public.\"stockitem\".stockitem_segment != ? " +
                     "EXCEPT " +
-                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
+                    "SELECT public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
                     "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
                     "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage " +
                     "FROM public.\"stockitem\" JOIN public.\"stockitemstorage\" ON (public.\"stockitem\".house_id = public.\"stockitemstorage\".house_id AND public.\"stockitem\".stockitem_sku = public.\"stockitemstorage\".stockitem_sku) " +
@@ -100,18 +100,17 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
             try (CallableStatement function = connection.prepareCall(
-                    "{call insert_stock_item(?,?,?,?,?,?,?,?,?,?)}"
+                    "{call insert_stock_item(?,?,?,?,?,?,?,?,?)}"
             )) {
                 function.setLong(1, stockItem.getId().getHouseId());
-                function.setInt(2, stockItem.getCategoryId());
-                function.setInt(3, stockItem.getProductId());
-                function.setString(4, stockItem.getStockitemBrand());
-                function.setString(5, stockItem.getStockitemVariety());
-                function.setFloat(6, stockItem.getStockitemSegment());
-                function.setString(7, stockItem.getStockitemSegmentunit());
-                function.setShort(8, stockItem.getStockitemQuantity());
-                function.setString(9, stockItem.getStockitemDescription());
-                function.setString(10, stockItem.getStockitemConservationstorage());
+                function.setInt(2, stockItem.getProductId());
+                function.setString(3, stockItem.getStockitemBrand());
+                function.setString(4, stockItem.getStockitemVariety());
+                function.setFloat(5, stockItem.getStockitemSegment());
+                function.setString(6, stockItem.getStockitemSegmentunit());
+                function.setShort(7, stockItem.getStockitemQuantity());
+                function.setString(8, stockItem.getStockitemDescription());
+                function.setString(9, stockItem.getStockitemConservationstorage());
                 return executeUpdate(function);
             }
         });
@@ -124,7 +123,7 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
             String sql = "UPDATE public.\"stockitem\" SET stockitem_quantity = public.\"stockitem\".stockitem_quantity - ? " +
                     "WHERE public.\"stockitem\".house_id = ? AND public.\"stockitem\".stockitem_sku = ? RETURNING " +
                     "public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, " +
-                    "public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
+                    "public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
                     "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, " +
                     "public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
                     "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage;";
@@ -142,7 +141,7 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
             String sql = "UPDATE public.\"stockitem\" SET stockitem_quantity = public.\"stockitem\".stockitem_quantity + ? " +
                     "WHERE public.\"stockitem\".house_id = ? AND public.\"stockitem\".stockitem_sku = ? RETURNING " +
                     "public.\"stockitem\".house_id, public.\"stockitem\".stockitem_sku, " +
-                    "public.\"stockitem\".category_id, public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
+                    "public.\"stockitem\".product_id, public.\"stockitem\".stockitem_brand, " +
                     "public.\"stockitem\".stockitem_segment, public.\"stockitem\".stockitem_variety, " +
                     "public.\"stockitem\".stockitem_quantity, public.\"stockitem\".stockitem_segmentunit, " +
                     "public.\"stockitem\".stockitem_description, public.\"stockitem\".stockitem_conservationstorage;";
@@ -231,16 +230,15 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
     private StockItem extractStockItemFromResultSet(ResultSet resultSet) throws SQLException, EntityException {
         long house_id = resultSet.getLong(1);
         String stockitem_sku = resultSet.getString(2);
-        int category_id = resultSet.getInt(3);
-        int product_id = resultSet.getInt(4);
-        String stockitem_brand = resultSet.getString(5);
-        float stockitem_segment = resultSet.getFloat(6);
-        String stockitem_variety = resultSet.getString(7);
-        short stockitem_quantity = resultSet.getShort(8);
-        String stockitem_segmentunit = resultSet.getString(9);
-        String stockitem_description = resultSet.getString(10);
-        String stockitem_conservationstorage = resultSet.getString(11);
-        return new StockItem(house_id, stockitem_sku, category_id, product_id, stockitem_brand, stockitem_segment,
+        int product_id = resultSet.getInt(3);
+        String stockitem_brand = resultSet.getString(4);
+        float stockitem_segment = resultSet.getFloat(5);
+        String stockitem_variety = resultSet.getString(6);
+        short stockitem_quantity = resultSet.getShort(7);
+        String stockitem_segmentunit = resultSet.getString(8);
+        String stockitem_description = resultSet.getString(9);
+        String stockitem_conservationstorage = resultSet.getString(10);
+        return new StockItem(house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment,
                 stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage);
     }
 }

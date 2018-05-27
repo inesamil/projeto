@@ -49,7 +49,7 @@ public class ProductController {
     public ResponseEntity<ProductOutputModel> getProduct(
             @PathVariable("category-id") int categoryId,
             @PathVariable("product-id") int productId) throws EntityException, NotFoundException {
-        Optional<Product> productOptional = productService.getProductByProductId(categoryId, productId);
+        Optional<Product> productOptional = productService.getProductByProductId(productId);
         Product product = productOptional.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ProductOutputModel(product), setSirenContentType(headers), HttpStatus.OK);
@@ -57,8 +57,8 @@ public class ProductController {
 
     private void checkCategory(int categoryId) {
         try {
-            if (!categoryService.existsCategoryByCategoryId(categoryId));
-                //TODO do something
+            if (!categoryService.existsCategoryByCategoryId(categoryId)) ;
+            //TODO do something
         } catch (EntityException e) {
             e.printStackTrace();
         }

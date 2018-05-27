@@ -22,13 +22,13 @@ public class ListProductServiceImpl implements ListProductService {
     }
 
     @Override
-    public boolean existsListProductByListProductId(long houseId, short listId, int categoryId, int productId) throws EntityException {
-        return listProductRepository.existsById(new ListProductId(houseId, listId, categoryId, productId));
+    public boolean existsListProductByListProductId(long houseId, short listId, int productId) throws EntityException {
+        return listProductRepository.existsById(new ListProductId(houseId, listId, productId));
     }
 
     @Override
-    public Optional<ListProduct> getListProductByListProductId(long houseId, short listId, int categoryId, int productId) throws EntityException {
-        return listProductRepository.findById(new ListProductId(houseId, listId, categoryId, productId));
+    public Optional<ListProduct> getListProductByListProductId(long houseId, short listId, int productId) throws EntityException {
+        return listProductRepository.findById(new ListProductId(houseId, listId, productId));
     }
 
     @Override
@@ -51,17 +51,17 @@ public class ListProductServiceImpl implements ListProductService {
     public ListProduct updateListProduct(ListProduct listProduct) throws EntityNotFoundException {
         ListProductId id = listProduct.getId();
         if (!listProductRepository.existsById(id))
-            throw new EntityNotFoundException(String.format("Product with ID %d from the category with ID %d does not exist in the list with ID %d in the house with ID %d.",
-                    id.getProductId(), id.getCategoryId(), id.getListId(), id.getHouseId()));
+            throw new EntityNotFoundException(String.format("Product with ID %d does not exist in the list with ID %d in the house with ID %d.",
+                    id.getProductId(), id.getListId(), id.getHouseId()));
         return listProductRepository.save(listProduct);
     }
 
     @Override
-    public void deleteListProductByListProductId(long houseId, short listId, int categoryId, int productId) throws EntityException, EntityNotFoundException {
-        ListProductId id = new ListProductId(houseId, listId, categoryId, productId);
+    public void deleteListProductByListProductId(long houseId, short listId, int productId) throws EntityException, EntityNotFoundException {
+        ListProductId id = new ListProductId(houseId, listId, productId);
         if (!listProductRepository.existsById(id))
-            throw new EntityNotFoundException(String.format("Product with ID %d from the category with ID %d does not exist in the list with ID %d in the house with ID %d.",
-                    productId, categoryId, listId, houseId));
+            throw new EntityNotFoundException(String.format("Product with ID %d does not exist in the list with ID %d in the house with ID %d.",
+                    productId, listId, houseId));
         listProductRepository.deleteById(id);
     }
 }

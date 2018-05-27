@@ -154,25 +154,17 @@ public class ListController {
     public ResponseEntity<ListsOutputModel> putProductInList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
-            @PathVariable("product-id") String categoryProductId,
+            @PathVariable("product-id") int productId,
             // TODO change request header
             @RequestHeader(value = "authorization", required = false) String username,
             @RequestBody ListProductInputModel body
     ) throws EntityException, BadRequestException, EntityNotFoundException {
         checkHouse(houseId);
         checkList(houseId, listId);
-        String[] ids = extractCategoryIdAndProductId(categoryProductId);
-        int categoryId, productId;
-        try {
-            categoryId = Integer.parseInt(ids[0]);
-            productId = Integer.parseInt(ids[1]);
-        } catch (NumberFormatException ex) {
-            throw new BadRequestException("Invalid product id.");
-        }
         if (body.getBrand() == null || body.getQuantity() == null)
             throw new BadRequestException("You must specify the body correctly.");
-        ListProduct listProduct = new ListProduct(houseId, listId, categoryId, productId, body.getBrand(), body.getQuantity());
-        if (isToUpdateList(houseId, listId, categoryId, productId))
+        ListProduct listProduct = new ListProduct(houseId, listId, productId, body.getBrand(), body.getQuantity());
+        if (isToUpdateList(houseId, listId, productId))
             listProductService.updateListProduct(listProduct);
         else
             listProductService.addListProduct(listProduct);
@@ -213,22 +205,14 @@ public class ListController {
     public ResponseEntity<ListsOutputModel> deleteProductFromList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
-            @PathVariable("product-id") String categoryProductId,
+            @PathVariable("product-id") int productId,
             // TODO change request header
             @RequestHeader(value = "authorization", required = false) String username
     ) throws BadRequestException, EntityException, EntityNotFoundException {
         checkHouse(houseId);
         checkList(houseId, listId);
-        String[] ids = extractCategoryIdAndProductId(categoryProductId);
-        int categoryId, productId;
-        try {
-            categoryId = Integer.parseInt(ids[0]);
-            productId = Integer.parseInt(ids[1]);
-        } catch (NumberFormatException ex) {
-            throw new BadRequestException("Invalid product id.");
-        }
-        checkProductInList(houseId, listId, categoryId, productId);
-        listProductService.deleteListProductByListProductId(houseId, listId, categoryId, productId);
+        checkProductInList(houseId, listId, productId);
+        listProductService.deleteListProductByListProductId(houseId, listId, productId);
         ListService.ListFilters filters = new ListService.ListFilters(
                 true,
                 username,
@@ -250,8 +234,8 @@ public class ListController {
             throw new BadRequestException("List does not exist.");
     }
 
-    private void checkProductInList(long houseId, short listId, int categoryId, int productId) throws BadRequestException, EntityException {
-        if (listProductService.existsListProductByListProductId(houseId, listId, categoryId, productId))
+    private void checkProductInList(long houseId, short listId, int productId) throws BadRequestException, EntityException {
+        if (listProductService.existsListProductByListProductId(houseId, listId, productId))
             throw new BadRequestException("Product in that list does not exist.");
     }
 
@@ -262,7 +246,7 @@ public class ListController {
         return ids;
     }
 
-    private boolean isToUpdateList(long houseId, short listId, int categoryId, int productId) throws EntityException {
-        return listProductService.existsListProductByListProductId(houseId, listId, categoryId, productId);
+    private boolean isToUpdateList(long houseId, short listId, int productId) throws EntityException {
+        return listProductService.existsListProductByListProductId(houseId, listId, productId);
     }
 }

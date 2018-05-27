@@ -5,7 +5,6 @@ import pt.isel.ps.gis.bll.ProductService;
 import pt.isel.ps.gis.dal.repositories.ProductRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.Product;
-import pt.isel.ps.gis.model.ProductId;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
@@ -21,19 +20,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean existsProductByProductId(int categoryId, int productId) throws EntityException {
-        return productRepository.existsById(new ProductId(categoryId, productId));
+    public boolean existsProductByProductId(int productId) {
+        return productRepository.existsById(productId);
     }
 
     @Override
-    public Optional<Product> getProductByProductId(int categoryId, int productId) throws EntityException {
-        return productRepository.findById(new ProductId(categoryId, productId));
+    public Optional<Product> getProductByProductId(int productId) {
+        return productRepository.findById(productId);
     }
 
     @Override
     public List<Product> getProductsByCategoryId(int categoryId) throws EntityException {
         ValidationsUtils.validateCategoryId(categoryId);
-        return productRepository.findAllById_CategoryId(categoryId);
+        return productRepository.findAllByCategoryId(categoryId);
     }
 
     @Override
@@ -44,9 +43,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product addProduct(Product product) throws EntityException {
-        if (product.getId() != null && productRepository.existsById(product.getId()))
-            throw new EntityException(String.format("Product with ID %d in the category with ID %d already exists.",
-                    product.getId().getProductId(), product.getId().getCategoryId()));
-        return productRepository.insertProduct(product);
+        if (product.getProductId() != null && productRepository.existsById(product.getProductId()))
+            throw new EntityException(String.format("Product with ID %d already exists.",
+                    product.getProductId()));
+        return productRepository.save(product);
     }
 }
