@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.model;
 
 import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -14,6 +15,10 @@ public class StockItemMovement {
      */
     @EmbeddedId
     private StockItemMovementId id;
+
+    @Basic
+    @Column(name = "stockitemmovement_quantity", nullable = false)
+    private Short stockitemmovementQuantity;
 
     /**
      * ASSOCIAÇÕES
@@ -38,13 +43,15 @@ public class StockItemMovement {
     protected StockItemMovement() {
     }
 
-    public StockItemMovement(StockItemMovementId id) {
+    public StockItemMovement(StockItemMovementId id, Short stockitemmovementQuantity) throws EntityException {
         this.id = id;
+        setStockitemmovementQuantity(stockitemmovementQuantity);
     }
 
     public StockItemMovement(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
                              String stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
-        setId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity);
+        setId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime);
+        setStockitemmovementQuantity(stockitemmovementQuantity);
     }
 
     /**
@@ -58,8 +65,17 @@ public class StockItemMovement {
         this.id = id;
     }
 
-    public void setId(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType, String stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
-        setId(new StockItemMovementId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity));
+    public void setId(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType, String stockitemmovementDatetime) throws EntityException {
+        setId(new StockItemMovementId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime));
+    }
+
+    public Short getStockitemmovementQuantity() {
+        return stockitemmovementQuantity;
+    }
+
+    public void setStockitemmovementQuantity(Short stockitemmovementQuantity) throws EntityException {
+        ValidationsUtils.validateStockItemMovementQuantity(stockitemmovementQuantity);
+        this.stockitemmovementQuantity = stockitemmovementQuantity;
     }
 
     public StockItem getStockitem() {
@@ -83,11 +99,12 @@ public class StockItemMovement {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         StockItemMovement that = (StockItemMovement) obj;
-        return Objects.equals(id, that.id);
+        return Objects.equals(id, that.id) &&
+                Objects.equals(stockitemmovementQuantity, that.stockitemmovementQuantity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, stockitemmovementQuantity);
     }
 }
