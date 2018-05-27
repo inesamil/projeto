@@ -15,9 +15,11 @@ class StockItemDto(siren: Siren) {
     val conservationStorage: String
     val description: String
     val quantity: Short
+    val variety: String
     val segment: String
-    val expirationsDate: Array<ExpirationDateDto>
+    val expirationDates: Array<ExpirationDateDto>
     val storages: Array<String>
+    val movements: Array<MovementDto>
     val links: StockItemLinks
 
     init {
@@ -31,16 +33,22 @@ class StockItemDto(siren: Siren) {
         conservationStorage = properties.get(conservationStorageLabel) as String
         description = properties.get(descriptionLabel) as String
         quantity = properties.get(quantityLabel) as Short
+        variety = properties.get(varietyLabel) as String
         segment = properties.get(segmentLabel) as String
         val expirationDateElements = siren.entities?.find {
-            it.klass?.contains("expiration-dates") ?: false
-        }?.properties?.get("elements")
-        expirationsDate = mapper.convertValue<Array<ExpirationDateDto>>(expirationDateElements, Array<ExpirationDateDto>::class.java)
+            it.klass?.contains(expirationDatesLabel) ?: false
+        }?.properties?.get(elementsLabel)
+        expirationDates = mapper.convertValue<Array<ExpirationDateDto>>(expirationDateElements, Array<ExpirationDateDto>::class.java)
 
         val storageElements = siren.entities?.find {
-            it.klass?.contains("storages") ?: false
-        }?.properties?.get("elements")
+            it.klass?.contains(storagesLabel) ?: false
+        }?.properties?.get(elementsLabel)
         storages = mapper.convertValue<Array<String>>(storageElements, Array<String>::class.java)
+
+        val movementElements = siren.entities?.find {
+            it.klass?.contains(movementsLabel) ?: false
+        }?.properties?.get(elementsLabel)
+        movements = mapper.convertValue<Array<MovementDto>>(movementElements, Array<MovementDto>::class.java)
         links = StockItemLinks(siren.links)
     }
 
@@ -64,7 +72,11 @@ class StockItemDto(siren: Siren) {
         const val descriptionLabel: String = "stock-item-description"
         const val quantityLabel: String = "stock-item-quantity"
         const val segmentLabel: String = "stock-item-segment"
-        const val variety: String = "stock-item-variety"
+        const val varietyLabel: String = "stock-item-variety"
+        const val expirationDatesLabel: String = "expiration-dates"
+        const val storagesLabel: String = "storages"
+        const val movementsLabel: String = "movements"
+        const val elementsLabel: String = "elements"
         const val stockItemClassLabel: String = "stock-item"
         const val stockItemsLabel: String = "stock-items"
         val mapper: ObjectMapper = jacksonObjectMapper()
