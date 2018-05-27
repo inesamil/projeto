@@ -36,10 +36,7 @@ public class ListProduct {
     private List list;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumns({
-            @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false, insertable = false, updatable = false),
-            @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
-    })
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     private Product product;
 
     /**
@@ -54,8 +51,8 @@ public class ListProduct {
         setListproductQuantity(productQuantity);
     }
 
-    public ListProduct(Long houseId, Short listId, Integer categoryId, Integer productId, String productBrand, Short productQuantity) throws EntityException {
-        setId(houseId, listId, categoryId, productId);
+    public ListProduct(Long houseId, Short listId, Integer productId, String productBrand, Short productQuantity) throws EntityException {
+        setId(houseId, listId, productId);
         setListproductBrand(productBrand);
         setListproductQuantity(productQuantity);
     }
@@ -71,8 +68,8 @@ public class ListProduct {
         this.id = id;
     }
 
-    public void setId(Long houseId, Short listId, Integer categoryId, Integer productId) throws EntityException {
-        setId(new ListProductId(houseId, listId, categoryId, productId));
+    public void setId(Long houseId, Short listId, Integer productId) throws EntityException {
+        setId(new ListProductId(houseId, listId, productId));
     }
 
     public String getListproductBrand() {
