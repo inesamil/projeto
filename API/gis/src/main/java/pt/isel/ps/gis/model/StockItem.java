@@ -19,23 +19,19 @@ public class StockItem {
     private StockItemId id;
 
     @Basic
-    @Column(name = "category_id", nullable = false)
-    private Integer categoryId;
-
-    @Basic
-    @Column(name = "product_id", nullable = false)
+    @Column(name = "product_id", nullable = false, unique = true)
     private Integer productId;
 
     @Basic
-    @Column(name = "stockitem_brand", length = RestrictionsUtils.STOCKITEM_BRAND_MAX_LENGTH, nullable = false)
+    @Column(name = "stockitem_brand", length = RestrictionsUtils.STOCKITEM_BRAND_MAX_LENGTH, nullable = false, unique = true)
     private String stockitemBrand;
 
     @Basic
-    @Column(name = "stockitem_segment", nullable = false)
+    @Column(name = "stockitem_segment", nullable = false, unique = true)
     private Float stockitemSegment;
 
     @Basic
-    @Column(name = "stockitem_variety", length = RestrictionsUtils.STOCKITEM_VARIETY_MAX_LENGTH, nullable = false)
+    @Column(name = "stockitem_variety", length = RestrictionsUtils.STOCKITEM_VARIETY_MAX_LENGTH, nullable = false, unique = true)
     private String stockitemVariety;
 
     @Basic
@@ -66,10 +62,7 @@ public class StockItem {
     private House houseByHouseId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumns({
-            @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false, insertable = false, updatable = false),
-            @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
-    })
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     private Product product;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockitem")
@@ -87,10 +80,9 @@ public class StockItem {
     protected StockItem() {
     }
 
-    private StockItem(Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
+    private StockItem(Integer productId, String stockitemBrand, Float stockitemSegment,
                       String stockitemVariety, Short stockitemQuantity, String stockitemSegmentUnit, String stockitemDescription,
                       String stockitemConservationStorage) throws EntityException {
-        setCategoryId(categoryId);
         setProductId(productId);
         setStockitemBrand(stockitemBrand);
         setStockitemSegment(stockitemSegment);
@@ -101,26 +93,26 @@ public class StockItem {
         setStockitemConservationstorage(stockitemConservationStorage);
     }
 
-    public StockItem(StockItemId id, Integer categoryId, Integer productId, String stockitemBrand,
+    public StockItem(StockItemId id, Integer productId, String stockitemBrand,
                      Float stockitemSegment, String stockitemVariety, Short stockitemQuantity, String stockitemSegmentUnit,
                      String stockitemDescription, String stockitemConservationStorage) throws EntityException {
-        this(categoryId, productId, stockitemBrand, stockitemSegment, stockitemVariety,
+        this(productId, stockitemBrand, stockitemSegment, stockitemVariety,
                 stockitemQuantity, stockitemSegmentUnit, stockitemDescription, stockitemConservationStorage);
         this.id = id;
     }
 
-    public StockItem(Long houseId, Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
+    public StockItem(Long houseId, Integer productId, String stockitemBrand, Float stockitemSegment,
                      String stockitemVariety, Short stockitemQuantity, String stockitemSegmentUnit, String stockitemDescription,
                      String stockitemConservationStorage) throws EntityException {
-        this(categoryId, productId, stockitemBrand, stockitemSegment, stockitemVariety,
+        this(productId, stockitemBrand, stockitemSegment, stockitemVariety,
                 stockitemQuantity, stockitemSegmentUnit, stockitemDescription, stockitemConservationStorage);
         setId(houseId);
     }
 
-    public StockItem(Long houseId, String stockitemSku, Integer categoryId, Integer productId, String stockitemBrand, Float stockitemSegment,
+    public StockItem(Long houseId, String stockitemSku, Integer productId, String stockitemBrand, Float stockitemSegment,
                      String stockitemVariety, Short stockitemQuantity, String stockitemSegmentUnit, String stockitemDescription,
                      String stockitemConservationStorage) throws EntityException {
-        this(categoryId, productId, stockitemBrand, stockitemSegment, stockitemVariety, stockitemQuantity,
+        this(productId, stockitemBrand, stockitemSegment, stockitemVariety, stockitemQuantity,
                 stockitemSegmentUnit, stockitemDescription, stockitemConservationStorage);
         setId(houseId, stockitemSku);
     }
@@ -142,15 +134,6 @@ public class StockItem {
 
     public void setId(Long houseId, String stockitemSku) throws EntityException {
         setId(new StockItemId(houseId, stockitemSku));
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) throws EntityException {
-        ValidationsUtils.validateCategoryId(categoryId);
-        this.categoryId = categoryId;
     }
 
     public Integer getProductId() {
@@ -279,7 +262,6 @@ public class StockItem {
         if (obj == null || getClass() != obj.getClass()) return false;
         StockItem that = (StockItem) obj;
         return Objects.equals(id, that.id) &&
-                Objects.equals(categoryId, that.categoryId) &&
                 Objects.equals(productId, that.productId) &&
                 Objects.equals(stockitemBrand, that.stockitemBrand) &&
                 Objects.equals(stockitemSegment, that.stockitemSegment) &&
@@ -292,6 +274,6 @@ public class StockItem {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, categoryId, productId, stockitemBrand, stockitemSegment, stockitemVariety, stockitemQuantity, stockitemSegmentunit, stockitemDescription, stockitemConservationstorage);
+        return Objects.hash(id, productId, stockitemBrand, stockitemSegment, stockitemVariety, stockitemQuantity, stockitemSegmentunit, stockitemDescription, stockitemConservationstorage);
     }
 }
