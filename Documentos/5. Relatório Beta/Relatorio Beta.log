@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.22)  27 MAY 2018 22:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.22)  27 MAY 2018 22:12
 entering extended mode
 **"./Relatorio Beta.tex"
 ("Relatorio Beta.tex"
@@ -855,59 +855,17 @@ LaTeX Font Info:    Try loading font information for U+psy on input line 64.
 ("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\upsy.fd"
 File: upsy.fd 2001/06/04 font definitions for U/psy.
 ))
-("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\latex\svg\svg.sty"
-Package: svg 2017/11/29 v2.01 (include SVG pictures)
-
-("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\latex\koma-script\scrbase
-.sty"
-Package: scrbase 2018/03/30 v3.25 KOMA-Script package (KOMA-Script-independent 
-basics and keyval usage)
-
-("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\latex\koma-script\scrlfil
-e.sty"
-Package: scrlfile 2018/03/30 v3.25 KOMA-Script package (loading files)
-))
-("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ifluatex
-.sty"
-Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-)
-("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\pdftexcm
-ds.sty"
-Package: pdftexcmds 2018/01/21 v0.26 Utility functions of pdfTeX for LuaTeX (HO
-)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
-("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\shellesc.sty"
-Package: shellesc 2016/06/07 v0.02a unified shell escape interface for LaTeX
-Package shellesc Info: Restricted shell escape enabled on input line 69.
-)
-\c@svg@param@lastpage=\count146
-\c@svg@param@currpage=\count147
-)
-("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\transparen
-t.sty"
-Package: transparent 2016/05/16 v1.1 Transparency via pdfTeX's color stack (HO)
-
-
-("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\auxhook.st
-y"
-Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
-))
 \glswrite=\write3
 \glo@main@file=\write4
 \openout4 = `"Relatorio Beta.glo"'.
 
 Package glossaries Info: Writing glossary file "Relatorio Beta".glo on input li
-ne 63.
+ne 62.
 \glo@acronym@file=\write5
 \openout5 = `"Relatorio Beta.acn"'.
 
 Package glossaries Info: Writing glossary file "Relatorio Beta".acn on input li
-ne 63.
+ne 62.
 
 \@input{abreviaturas.aux}
 \openout2 = `abreviaturas.aux'.
@@ -920,32 +878,32 @@ ne 63.
 (capitulo1.aux) (capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux))
 \openout1 = `"Relatorio Beta.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
 
 ("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.mki
 i"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count148
+\scratchcounter=\count146
 \scratchdimen=\dimen142
 \scratchbox=\box40
-\nofMPsegments=\count149
-\nofMParguments=\count150
+\nofMPsegments=\count147
+\nofMParguments=\count148
 \everyMPshowfont=\toks41
-\MPscratchCnt=\count151
+\MPscratchCnt=\count149
 \MPscratchDim=\dimen143
-\MPnumerator=\count152
-\makeMPintoPDFobject=\count153
+\MPnumerator=\count150
+\makeMPintoPDFobject=\count151
 \everyMPtoPDFconversion=\toks42
 )
 ("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-b
@@ -971,11 +929,26 @@ Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 ("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\etexcmds
 .sty"
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ifluatex
+.sty"
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
 Package etexcmds Info: Could not find \expanded.
 (etexcmds)             That can mean that you are not using pdfTeX 1.50 or
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )))
+("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\pdftexcm
+ds.sty"
+Package: pdftexcmds 2018/01/21 v0.26 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 38.
 Package grfext Info: Graphics extension search list:
@@ -988,23 +961,23 @@ G,.JBIG2,.JB2,.eps]
 File: ./figures/logo_ISEL_principal_PNG.png Graphic file (type png)
 <use ./figures/logo_ISEL_principal_PNG.png>
 Package pdftex.def Info: ./figures/logo_ISEL_principal_PNG.png  used on input l
-ine 113.
+ine 112.
 (pdftex.def)             Requested size: 426.5927pt x 301.12425pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 113--113
+Underfull \hbox (badness 10000) in paragraph at lines 112--112
 
  []
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 113.
+LaTeX Font Info:    Try loading font information for U+msa on input line 112.
 ("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 113.
+LaTeX Font Info:    Try loading font information for U+msb on input line 112.
 
 ("C:\Users\Rita\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (14.22636pt too wide) in paragraph at lines 113--113
+Overfull \hbox (14.22636pt too wide) in paragraph at lines 112--112
  []$ 
  []
 
@@ -1211,7 +1184,7 @@ Underfull \hbox (badness 5563) in paragraph at lines 87--93
 
  (anexo1.tex
 Anexo A.
-\c@ExampleCounter=\count154
+\c@ExampleCounter=\count152
 
 Overfull \hbox (14.09998pt too wide) in paragraph at lines 20--26
 [] 
@@ -1234,13 +1207,13 @@ This document will not have a glossary.
 ("Relatorio Beta.aux" (resumo.aux) (abstract.aux) (capitulo1.aux)
 (capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux)) ) 
 Here is how much of TeX's memory you used:
- 13117 strings out of 493303
- 221596 string characters out of 3130219
- 373754 words of memory out of 3000000
- 16261 multiletter control sequences out of 15000+200000
+ 12373 strings out of 493303
+ 206323 string characters out of 3130219
+ 338889 words of memory out of 3000000
+ 15537 multiletter control sequences out of 15000+200000
  20338 words of font info for 72 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 48i,13n,50p,2012b,375s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 45i,13n,39p,2012b,375s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Rita/A
 ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/
 Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmb
@@ -1259,7 +1232,7 @@ fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Rita/AppData/Local/Programs/
 MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Rita/AppData/Loc
 al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Rita
 /AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on "Relatorio Beta.pdf" (44 pages, 614102 bytes).
+Output written on "Relatorio Beta.pdf" (44 pages, 612266 bytes).
 PDF statistics:
  403 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

@@ -1,6 +1,6 @@
 \section{Servidor}\label{sec42}
 
-A \gls{api-web} é a interface exposta pelo servidor \textit{web} baseado em \acrfull{http} \cite{RFC7231:http}. Esta disponibiliza informação e funcionalidades fornecidas pelo sistema Smart Stocks, através de \textit{endpoints} públicos. Os formatos de resposta são de três tipos, \textit{Json Home}, \textit{Siren} e \textit{Problem Details}. A escolha destas \textit{hypermedias} apoia-se em questões evolutivas da API e em termos de hiperligações.
+A \gls{api-web} é a interface exposta pelo servidor \textit{web} baseado em \acrfull{http} \cite{RFC7231:http}. Esta disponibiliza informação e funcionalidades fornecidas pelo sistema Smart Stocks, através de \textit{endpoints} públicos. Os formatos de resposta são de três tipos, \textit{Json Home}, \textit{Siren} e \textit{Problem Details}. A escolha destas \textit{hypermedias} apoia-se em questões evolutivas da API em termos de hiperligações, ou seja, caso os \textit{endpoints} dos recursos sejam alterados a aplicação cliente não sofre alterações.
 
 A decisão de utilizar a \textit{framework} \textit{Spring} para implementar o servidor deve-se ao facto de ser uma ferramenta \gls{open-source}. E por fornecer uma integração com tecnologias de \textit{back-end}, como a JPA. Por fim, por questões de conhecimento e de experiência anterior com esta \textit{framework}. 
 
