@@ -63,7 +63,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
 
     private fun onSuccess(houses: HousesDto) {
         // Set Adapter
-        val adapter = HousesAdapter(/*houses.houses*/arrayOf())
+        val adapter = HousesAdapter(houses.houses)
         view?.let {
             it.housesRecyclerView.layoutManager = LinearLayoutManager(it.context)
             it.housesRecyclerView.setHasFixedSize(true)
