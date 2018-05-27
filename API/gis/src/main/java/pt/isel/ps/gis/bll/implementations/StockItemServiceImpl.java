@@ -34,6 +34,7 @@ public class StockItemServiceImpl implements StockItemService {
         if (!byId.isPresent()) return byId;
         StockItem stockItem = byId.get();
         stockItem.getStockitemstorages().size();
+        stockItem.getStockitemmovements().size();
         return byId;
     }
 
