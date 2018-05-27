@@ -26,8 +26,10 @@ class MainActivity : AppCompatActivity() {
             finish()
             startActivity(Intent(this, RegisterActivity::class.java))
         } else {
+            Log.d(TAG, "Try to retrieve credentials.")
             ServiceLocator.getSmartLock(applicationContext).retrieveCredentials({
                 // Credentials retrieved
+                Log.d(TAG, "Credentials retrieved.")
                 if (true) {    //TODO: validateCredentials
                     // Valid Credentials
                     finish()
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "Retrieved invalid credential, so delete retrieved credential.")
                     Toast.makeText(this, "Retrieved credentials are invalid.", Toast.LENGTH_SHORT).show()
                 }
+                //ServiceLocator.getSmartLock(applicationContext).deleteCredentials(it)   //TODO: delete
             }, {
                 // No credentials retrieved
                 finish()
