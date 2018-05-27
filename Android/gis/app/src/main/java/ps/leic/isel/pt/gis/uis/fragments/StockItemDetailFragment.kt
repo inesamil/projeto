@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_stock_item_detail.*
 import kotlinx.android.synthetic.main.fragment_stock_item_detail.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.*
-import ps.leic.isel.pt.gis.model.dtos.StockItemDto
+import ps.leic.isel.pt.gis.model.dtos.*
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsExpirationDateAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsMovementsAdapter
@@ -34,11 +34,11 @@ import ps.leic.isel.pt.gis.viewModel.StockItemDetailViewModel
  */
 class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnItemClickListener {
 
-    private lateinit var stockItem: StockItemDTO
-    private lateinit var allergens: Array<StockItemAllergenDTO>
-    private lateinit var expirationDates: Array<ExpirationDateDTO>
-    private lateinit var storages: Array<StorageDTO>
-    private lateinit var movements: Array<MovementDTO>
+    private lateinit var stockItem: StockItemDto
+    private lateinit var allergens: Array<StockItemsAllergenDto>
+    private lateinit var expirationDates: Array<ExpirationDateDto>
+    private lateinit var storages: Array<StorageDto>
+    private lateinit var movements: Array<MovementDto>
 
     private var listener: OnStockItemDetailFragmentInteractionListener? = null
     private var stockItemDetailViewModel: StockItemDetailViewModel? = null
@@ -46,7 +46,7 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            stockItem = it.getParcelable(ExtraUtils.STOCK_ITEM)
+            //TODO stockItem = it.getParcelable(ExtraUtils.STOCK_ITEM)
         }
         stockItemDetailViewModel = ViewModelProviders.of(this).get(StockItemDetailViewModel::class.java)
         val url = ""
@@ -62,14 +62,14 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
 
     private fun onSuccess(stockItem: StockItemDto) {
         // Set Allergens
-        allergensText.text = allergens.getElementsSeparatedBySemiColon()
+        //TODO allergensText.text = allergens.getElementsSeparatedBySemiColon()
 
         // Set Adapters (Expiration dates)
-        val expirationDatesAdapter = StockItemDetailsExpirationDateAdapter(/*stockItem.expirationsDate*/arrayOf())
+        val expirationDatesAdapter = StockItemDetailsExpirationDateAdapter(stockItem.expirationDates)
         // Set Adapter (Storages)
-        val storagesAdapter = StockItemDetailsStorageAdapter(/*stockItem.storages*/arrayOf())
+        val storagesAdapter = StockItemDetailsStorageAdapter(stockItem.storages)
         // Set Adapter (Movements)
-        val movementsAdapter = StockItemDetailsMovementsAdapter(/*stockItem.movements*/arrayOf())
+        val movementsAdapter = StockItemDetailsMovementsAdapter(stockItem.movements)
         view?.let {
             // Set Adapters (Expiration dates)
             it.expirationDateRecyclerView.layoutManager = LinearLayoutManager(it.context)
@@ -124,7 +124,7 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
 
     // NfcListener for storage item clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
-        val storage: StorageDTO = storages[position]
+        val storage: StorageDto = storages[position]
         listener?.onStorageInteraction(storage)
     }
 
@@ -135,7 +135,7 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
      * activity.
      */
     interface OnStockItemDetailFragmentInteractionListener {
-        fun onStorageInteraction(storage: StorageDTO)
+        fun onStorageInteraction(storage: StorageDto)
     }
 
     /**
