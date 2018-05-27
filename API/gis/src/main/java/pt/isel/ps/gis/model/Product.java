@@ -15,8 +15,14 @@ public class Product {
     /**
      * COLUNAS
      */
-    @EmbeddedId
-    private ProductId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id", nullable = false)
+    private Integer productId;
+
+    @Basic
+    @Column(name = "category_id", nullable = false)
+    private Integer categoryId;
 
     @Basic
     @Column(name = "product_name", length = RestrictionsUtils.PRODUCT_NAME_MAX_LENGTH, nullable = false)
@@ -53,46 +59,39 @@ public class Product {
     protected Product() {
     }
 
-    private Product(String productName, Boolean productEdible, Short productShelflife, String productShelflifeTimeunit) throws EntityException {
+    private Product(Integer categoryId, String productName, Boolean productEdible, Short productShelflife, String productShelflifeTimeunit) throws EntityException {
+        setCategoryId(categoryId);
         setProductName(productName);
         setProductEdible(productEdible);
         setProductShelflife(productShelflife);
         setProductShelflifetimeunit(productShelflifeTimeunit);
     }
 
-    public Product(ProductId id, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws EntityException {
-        this(productName, productEdible, productShelflife, productShelflifetimeunit);
-        this.id = id;
-    }
-
-    public Product(Integer categoryId, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws EntityException {
-        this(productName, productEdible, productShelflife, productShelflifetimeunit);
-        setId(categoryId);
-    }
-
-    public Product(Integer categoryId, Integer product_id, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws EntityException {
-        this(productName, productEdible, productShelflife, productShelflifetimeunit);
-        setId(categoryId, product_id);
+    public Product(Integer productId, Integer categoryId, String productName, Boolean productEdible, Short productShelflife, String productShelflifetimeunit) throws EntityException {
+        this(categoryId, productName, productEdible, productShelflife, productShelflifetimeunit);
+        setProductId(productId);
     }
 
     /**
      * GETTERS E SETTERS
      */
 
-    public ProductId getId() {
-        return id;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setId(ProductId id) {
-        this.id = id;
+    public void setProductId(Integer productId) throws EntityException {
+        ValidationsUtils.validateProductId(productId);
+        this.productId = productId;
     }
 
-    public void setId(Integer categoryId) throws EntityException {
-        setId(new ProductId(categoryId));
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setId(Integer categoryId, Integer productId) throws EntityException {
-        setId(new ProductId(categoryId, productId));
+    public void setCategoryId(Integer categoryId) throws EntityException {
+        ValidationsUtils.validateCategoryId(categoryId);
+        this.categoryId = categoryId;
     }
 
     public String getProductName() {
@@ -160,7 +159,8 @@ public class Product {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Product that = (Product) obj;
-        return Objects.equals(id, that.id) &&
+        return Objects.equals(productId, that.productId) &&
+                Objects.equals(categoryId, that.categoryId) &&
                 Objects.equals(productName, that.productName) &&
                 Objects.equals(productEdible, that.productEdible) &&
                 Objects.equals(productShelflife, that.productShelflife) &&
@@ -169,6 +169,6 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productName, productEdible, productShelflife, productShelflifetimeunit);
+        return Objects.hash(productId, categoryId, productName, productEdible, productShelflife, productShelflifetimeunit);
     }
 }
