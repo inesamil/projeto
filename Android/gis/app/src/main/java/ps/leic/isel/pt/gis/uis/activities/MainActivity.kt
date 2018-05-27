@@ -7,10 +7,8 @@ import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
-import com.google.android.gms.auth.api.credentials.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
-import ps.leic.isel.pt.gis.utils.CredentialsUtils
 
 
 class MainActivity : AppCompatActivity() {
