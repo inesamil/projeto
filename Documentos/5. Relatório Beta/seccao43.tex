@@ -1,18 +1,49 @@
 \section{Algoritmo de Previsão de Stocks}\label{sec43}
 
- ao sistema de gestão de stocks in
-Previsão de stocks
-*Banco da dados
-*Limite mínimo de unidades
-*Alertas produto chegou ao limite minimo
-*Banco de dados atualizado x em x tempo
-*Oráculo dado uma data estima os produtos que vão se encontrar ou não em stock nessa data
+Uma vez que para uma boa gestão de stocks existe a necessidade de prever a duração de cada um dos itens em stock, com base nos historial de consumo e reposição da casa. De forma a garantir este requisito inerente ao sistema Smart Stocks, introduziu-se um algoritmo de previsão de stocks.
 
-___________ Características ____________
-Modelos de Previsão -> Modelos Quantitativos -> Modelo de séries temporais
-- Métodos Quantitativos: baseados em dados históricos
-- Modelos de Séries Temporais: baseiam as suas
-previsões futuras em dados históricos . Estes dados
-podem incluir um conjunto de vários elementos:
-sazonalidade, tendência, influências cíclicas ou
-comportamento aleatório.
+Para a realização deste algoritmo, teve-se a preocupação de analisar os vários tipos de modelo existentes e adotar o mais adequado ao sistema. Durante a pesquisa, deparou-se com a existência de dois tipos de modelo de previsão, sendo eles, Modelos Quantitativos e Qualitativos. Os primeiros baseiam-se em análises numéricas dos dados históricos, enquanto que os qualitativos privilegiam dados subjetivos baseados na opinião de especialistas. Como se deseja realizar este algoritmo com base no histórico de consumo e reposição, optou-se pelo Modelo Quantitativo. 
+
+Dos sub-modelos disponíveis elegeu-se um modelo de séries temporais visto que este pode incluir nos seus dados um conjunto de elementos, por exemplo, sazonalidade, tendências, influências cíclicas ou comportamento aleatório.
+
+
+
+
+%
+% Implementação
+%
+\subsection{Implementação}\label{subsec431}
+
+Aplicou-se o método da média móvel ponderada para um período mínimo de 3 semanas. Este procedimento começa por atribuir pesos aos dados consoante a semana a que se referem, sendo que as mais recentes têm maior peso.
+
+Como se tratam de dados diários e para evitar a descompensação de valores provocada por dias com consumo excecionais amortecem-se  os valores. Assim os resultados tornam-se mais homogéneos e com um comportamento mais sazonal.   
+
+Com base nestes dois aspetos construiu-se um dia típico, que servirá de base para uma previsão. Seguiu-se o seguinte procedimento:\\
+
+\textbf{1º Passo}\\
+A primeira fase consiste em aplicar o método da média móvel ponderada aos dados, para isso usou-se a seguinte expressão:
+
+\begin{displaymath} 
+	Pdiax'= T1 \times Rdia1 + T2 \times Rdia2 + T3 \times Rdia3
+\end{displaymath}
+
+Onde os valores de $Tx$ correspondem às taxas definidas como pesos para os dados diários ($Rdiax$) da semana $x$. As taxas escolhidas foram: 
+\begin{center}
+	\textit{T1 = 10\%, T2 = 30\% e T3 = 60\%}
+\end{center}
+
+
+\textbf{2º Passo}\\
+Aos valores obtidos anteriormente aplicou-se um método de amortização de forma a homogeneizar e harmonizar a previsão. Assim, o valor obtido para um dia da semana resulta da soma do seu valor e do valor do dia da semana anterior e da seguinte, multiplicados por taxas, ou seja: 
+
+\begin{displaymath} 
+	Pdiax''= Tant \times PdiaxAnt' + Tdiax \times Pdiax' + Tseg \times PdiaxSeg'
+\end{displaymath}
+
+Onde os valores de $Tant$, $Tdiax$ e $Tseg$ correspondem às taxas definidas como pesos para os dias da semana anterior, atual e seguinte, respetivamente. Os valores $PdiaxAnt'$, $Pdiax'$ e $PdiaxSeg'$ são os valores previstos no 1º passo do método de previsão para os dias da semana anterior, atual e seguinte, respetivamente. As taxas escolhidas foram: 
+
+\begin{center}
+	\textit{Tant = Tseg = 25\%  e Tdiax = 50\%.}
+\end{center}
+ 
+
