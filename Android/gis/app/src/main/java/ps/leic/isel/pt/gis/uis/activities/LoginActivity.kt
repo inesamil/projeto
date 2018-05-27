@@ -26,9 +26,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
         signinBtn.setOnClickListener {
-            val username = it.usernameEditText.text.toString()
-            val password = it.passwordEditText.text.toString()
-            if (true) {
+            Log.i(TAG, usernameEditText.text.toString())
+            val username = usernameEditText.text.toString()
+            val password = passwordEditText.text.toString()
+            if (true) { //TODO: validate credentials
                 ServiceLocator.getSmartLock(applicationContext).storeCredentials(username, password,
                         {
                             // On Success
@@ -55,8 +56,10 @@ class LoginActivity : AppCompatActivity() {
                         })
                 startActivity(Intent(this, HomeActivity::class.java))
             }
-            Log.d(TAG, "Wrong credentials")
-            Toast.makeText(this, "Wrong Credentials", Toast.LENGTH_SHORT).show()
+            else {
+                Log.i(TAG, "Wrong credentials")
+                Toast.makeText(this, "Wrong Credentials", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
