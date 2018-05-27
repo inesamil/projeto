@@ -8,6 +8,7 @@ import pt.isel.ps.gis.hypermedia.siren.components.subentities.Entity;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Link;
 import pt.isel.ps.gis.model.ExpirationDate;
 import pt.isel.ps.gis.model.StockItem;
+import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.StockItemStorage;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
@@ -70,7 +71,7 @@ public class StockItemOutputModel {
         expirationDatesProperties.put("elements", expirationDates);
 
         Entity expirationDatesEntity = new Entity(
-                new String[]{"expiration-date"},
+                new String[]{"expiration-dates", "collection"},
                 new String[]{"collection"},
                 expirationDatesProperties,
                 null,
@@ -86,13 +87,29 @@ public class StockItemOutputModel {
         storagesProperties.put("elements", storages);
 
         Entity storagesEntity = new Entity(
-                new String[]{"storages"},
+                new String[]{"storages", "collection"},
                 new String[]{"collection"},
                 storagesProperties,
                 null,
                 null);
 
-        return new Entity[]{expirationDatesEntity, storagesEntity};
+        // Movements
+        MovementJsonObject[] movements = new MovementJsonObject[stockItem.getStockitemmovements().size()];
+        i = 0;
+        for (StockItemMovement movement : stockItem.getStockitemmovements()) {
+            movements[i++] = new MovementJsonObject(movement);
+        }
+        HashMap<String, Object> movementProperties = new HashMap<>();
+        movementProperties.put("elements", movements);
+
+        Entity movementsEntity = new Entity(
+                new String[]{"movements, collection"},
+                new String[]{"collection"},
+                movementProperties,
+                null,
+                null);
+
+        return new Entity[]{expirationDatesEntity, storagesEntity, movementsEntity};
     }
 
     private Link[] initLinks(StockItem stockItem) {
