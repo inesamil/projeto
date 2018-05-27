@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  26 MAY 2018 12:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  27 MAY 2018 18:34
 entering extended mode
 **"./Relatorio Beta.tex"
 ("Relatorio Beta.tex"
@@ -854,7 +854,7 @@ ne 56.
 \openout2 = `terminologia.aux'.
 
 (terminologia.tex) ("Relatorio Beta.aux" (resumo.aux) (abstract.aux)
-(capitulo1.aux) (capitulo2.aux) (capitulo3.aux) (anexo1.aux))
+(capitulo1.aux) (capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux))
 \openout1 = `"Relatorio Beta.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 102.
@@ -1026,11 +1026,7 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 35.
- [2]
-
-LaTeX Warning: Reference `sec43' on page 3 undefined on input line 62.
-
-) [3]
+ [2]) [3]
 \openout2 = `capitulo2.aux'.
 
  (capitulo2.tex [4
@@ -1069,40 +1065,53 @@ File: ./figures/project_architecture.png Graphic file (type png)
 Package pdftex.def Info: ./figures/project_architecture.png  used on input line
  35.
 (pdftex.def)             Requested size: 434.37175pt x 632.36096pt.
-[10 <./figures/project_architecture.png>]) [11] ("Relatorio Beta.bbl" [12
+[10 <./figures/project_architecture.png>]) [11]
+\openout2 = `capitulo4.aux'.
+
+ (capitulo4.tex [12
+
 
 
 ]
-Underfull \hbox (badness 4096) in paragraph at lines 35--41
+Cap\'{\i }tulo 4.
+(seccao41.tex) (seccao42.tex [13]) (seccao43.tex) (seccao44.tex)) [14] [15]
+("Relatorio Beta.bbl" [16
+
+
+]
+Underfull \hbox (badness 1430) in paragraph at lines 4--10
+\OT1/cmtt/m/n/10.95 2995521 / 7771139 / 9-[]20122016-[]BP-[]EN . pdf$\OT1/cmr/m
+/n/10.95 , De-zem-bro 2016.  [On-line, Ace-dido a
+ []
+
+
+Underfull \hbox (badness 3323) in paragraph at lines 62--68
 []\OT1/cmr/m/n/10.95 Business Dic-ti-o-nary.  What is stan-dard stock item? de-
 fi-ni-tion and me-a-
  []
 
-
-Underfull \hbox (badness 3312) in paragraph at lines 50--56
+[17]
+Underfull \hbox (badness 2707) in paragraph at lines 77--83
 []\OT1/cmr/m/n/10.95 Thad Scheer.  Ca-te-gory, seg-ment, and brand { what's the
  dif-fe-rence? {
  []
 
 
-Underfull \hbox (badness 8189) in paragraph at lines 50--56
+Underfull \hbox (badness 6445) in paragraph at lines 77--83
 \OT1/cmr/m/n/10.95 sphere of in-flu-ence : Analy-tics stu-dio.  $\OT1/cmtt/m/n/
 10.95 https : / / sphereoi . com / studios /
  []
 
 
-Underfull \hbox (badness 5548) in paragraph at lines 50--56
+Underfull \hbox (badness 5563) in paragraph at lines 77--83
 \OT1/cmtt/m/n/10.95 category-[]segment-[]and-[]brand-[]whats-[]the-[]difference
-/$\OT1/cmr/m/n/10.95 .  [On-line; Ac-ces-sed on
+/$\OT1/cmr/m/n/10.95 .  [On-line, Ace-dido on
  []
 
-) [13]
+) [18]
 \openout2 = `anexo1.aux'.
 
- (anexo1.tex [14
-
-
-]
+ (anexo1.tex
 Anexo A.
 \c@ExampleCounter=\count152
 
@@ -1110,47 +1119,47 @@ Overfull \hbox (14.09998pt too wide) in paragraph at lines 20--26
 [] 
  []
 
-[15]
+[19
+
+
+]
 Overfull \hbox (14.09998pt too wide) in paragraph at lines 52--65
 [] 
  []
 
-) [16]
+) [20]
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
 ("Relatorio Beta.aux" (resumo.aux) (abstract.aux) (capitulo1.aux)
-(capitulo2.aux) (capitulo3.aux) (anexo1.aux))
-
-LaTeX Warning: There were undefined references.
-
- ) 
+(capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux)) ) 
 Here is how much of TeX's memory you used:
- 11885 strings out of 493303
- 199247 string characters out of 3129784
- 313728 words of memory out of 3000000
- 15104 multiletter control sequences out of 15000+200000
- 16054 words of font info for 53 fonts, out of 3000000 for 9000
+ 11981 strings out of 493303
+ 201211 string characters out of 3129784
+ 315149 words of memory out of 3000000
+ 15181 multiletter control sequences out of 15000+200000
+ 16413 words of font info for 54 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,13n,39p,2012b,352s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmbx10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmbx12.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Users/inesa/AppData/Local/Progra
-ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/inesa/AppData/
-Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/in
-esa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><
-C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmr8.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmr9.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmsy10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/inesa/AppData/Local/Pr
-ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on "Relatorio Beta.pdf" (30 pages, 275000 bytes).
+<C:/Users/inesa/
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:
+/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mbx12.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmbxti10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/inesa/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/inesa/AppData/Local/
+Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/inesa/App
+Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/User
+s/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.p
+fb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmsy10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmti10.pfb><C:/Users/inesa/AppData/Local/Programs/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on "Relatorio Beta.pdf" (34 pages, 284201 bytes).
 PDF statistics:
- 149 PDF objects out of 1000 (max. 8388607)
+ 162 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

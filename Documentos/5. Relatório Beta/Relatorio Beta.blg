@@ -5,11 +5,19 @@ A level-1 auxiliary file: capitulo1.aux
 A level-1 auxiliary file: capitulo2.aux
 A level-1 auxiliary file: capitulo3.aux
 A level-1 auxiliary file: capitulo4.aux
-A level-1 auxiliary file: seccao45.aux
-A level-1 auxiliary file: subsec452.aux
-A level-1 auxiliary file: subsec453.aux
-A level-1 auxiliary file: subsec454.aux
-A level-1 auxiliary file: capitulo5.aux
 The style file: unsrt.bst
 A level-1 auxiliary file: anexo1.aux
 Database file #1: referencias.bib
+You're missing a field name---line 102 of file referencias.bib
+ :  author = "M. Nottingham", 
+ :                            "Akamai", "E. Wilde",
+I'm skipping whatever remains of this entry
+You're missing a field name---line 111 of file referencias.bib
+ :  author = "R. Fielding, Ed.", 
+ :                               "J. Reschke, Ed.",
+I'm skipping whatever remains of this entry
+You're missing a field name---line 120 of file referencias.bib
+ :  author = "E. Rescorla", 
+ :                          "A. Schiffman",
+I'm skipping whatever remains of this entry
+(There were 3 error messages)

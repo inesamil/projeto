@@ -1,22 +1,49 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{eurostat:internetAccess2016}
 Eurostat.
 \newblock Internet use by individuals.
 \newblock
   \url{http://ec.europa.eu/eurostat/documents/2995521/7771139/9-20122016-BP-EN.pdf},
-  December 2016.
-\newblock [Online, Accessed on 05/23/2018].
+  Dezembro 2016.
+\newblock [Online, Acedido a 23/05/2018].
 
 \bibitem{nfcforum:nfc}
 What is nfc? - nfc forum | nfc forum.
 \newblock \url{https://nfc-forum.org/what-is-nfc/}.
-\newblock [Online, Accessed on 04/15/2018].
+\newblock [Online, Acedido a 15/04/2018].
 
 \bibitem{rfidinc:rfid}
 Rfid readers and rfid tags for any specialty rfid needs - rfid, inc.
 \newblock \url{http://rfidinc.com/}.
-\newblock [Online, Accessed on 04/15/2018].
+\newblock [Online, Acedido a 15/04/2018].
+
+\bibitem{draftnot72:jsonHome}
+Home documents for http apis draft-nottingham-json-home-06.
+\newblock \url{https://tools.ietf.org/html/draft-nottingham-json-home-06},
+  Fevereiro 2017.
+\newblock [Online, Acedido a 15/04/2018].
+
+\bibitem{kevinswiber:siren}
+Kevin Swiber.
+\newblock Siren: a hypermedia specification for representing entities.
+\newblock \url{https://github.com/kevinswiber/siren}.
+\newblock [Online, Acedido a 15/04/2018].
+
+\bibitem{RFC7807P89:problemDetails}
+M.~Nottingham.
+
+\bibitem{RFC7231:http}
+Ed. R.~Fielding.
+
+\bibitem{RFC2660:https}
+E.~Rescorla.
+
+\bibitem{RFC7617:basicSheme}
+J.~Reschke.
+\newblock Rfc 7617 - the 'basic' http authentication scheme.
+\newblock \url{https://tools.ietf.org/html/rfc7617}, Setembro 2015.
+\newblock [Online, Acedido a 15/04/2018].
 
 \bibitem{businessDictionary:invetoryDefinition2018}
 Business Dictionary.
@@ -29,7 +56,7 @@ Investopedia.
 \newblock Stock keeping unit (sku).
 \newblock
   \url{https://www.investopedia.com/terms/s/stock-keeping-unit-sku.asp}.
-\newblock [Online, Accessed on 04/26/2018].
+\newblock [Online, Acedido a 26/04/2018].
 
 \bibitem{businessDictionary:stockItemDefinition2018}
 Business Dictionary.
@@ -37,14 +64,14 @@ Business Dictionary.
   businessdictionary.com.
 \newblock
   \url{http://www.businessdictionary.com/definition/standard-stock-item.html}.
-\newblock [Online, Accessed on 04/26/2018].
+\newblock [Online, Acedido on 26/04/2018].
 
 \bibitem{phostersoft:stockItemDefinition2018}
 Gazelle~Point of~Sale~Support.
 \newblock Stock item and non-stock item : Gazelle point-of-sale support.
 \newblock
   \url{http://support.phostersoft.com/support/solutions/articles/17907-stock-item-and-non-stock-item}.
-\newblock [Online, Accessed on 04/26/2018].
+\newblock [Online, Acedido a 26/04/2018].
 
 \bibitem{sphereoi:itemIdentification2018}
 Thad Scheer.
@@ -52,12 +79,12 @@ Thad Scheer.
   of influence : Analytics studio.
 \newblock
   \url{https://sphereoi.com/studios/category-segment-and-brand-whats-the-difference/}.
-\newblock [Online; Accessed on 03/25/2018].
+\newblock [Online, Acedido on 25/03/2018].
 
 \bibitem{investopedia:brandDefinition2018}
 Investopedia.
 \newblock Brand.
 \newblock \url{https://www.investopedia.com/terms/b/brand.asp}.
-\newblock [Online, Accessed on 04/26/2018].
+\newblock [Online, Acedido a 26/04/2018].
 
 \end{thebibliography}
