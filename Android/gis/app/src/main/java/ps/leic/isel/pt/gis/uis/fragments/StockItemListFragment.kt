@@ -13,10 +13,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import kotlinx.android.synthetic.main.fragment_stock_item_list.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.CharacteristicsDTO
-import ps.leic.isel.pt.gis.model.HouseDTO
-import ps.leic.isel.pt.gis.model.MemberDTO
-import ps.leic.isel.pt.gis.model.StockItemDTO
+import ps.leic.isel.pt.gis.model.dtos.HousesDto
+import ps.leic.isel.pt.gis.model.dtos.StockItemDto
 import ps.leic.isel.pt.gis.model.dtos.StockItemsDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.StockItemListAdapter
@@ -35,8 +33,8 @@ import ps.leic.isel.pt.gis.viewModel.StockItemListViewModel
 class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     private lateinit var username: String
-    private lateinit var houses: Array<HouseDTO>
-    private lateinit var stockItems: Array<StockItemDTO>
+    private lateinit var houses: HousesDto
+    private lateinit var stockItems: StockItemsDto
 
     private val first = 0
 
@@ -60,7 +58,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
                 onError(it.message)
         })
         //TODO: Get data
-        houses = arrayOf(
+        /*houses = arrayOf(
                 HouseDTO(1, "Smith", CharacteristicsDTO(0, 0, 2, 0),
                         arrayOf(MemberDTO(1, "alice", true),
                                 MemberDTO(1, "bob", false))),
@@ -72,7 +70,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
                 StockItemDTO(1, "C1-P1-Mimosa-UHT Magro-1L", 1, 1, "Leite", "Mimosa", "1L", "UHT Magro", 2, "Leite Magro - Bem Essencial", "Frigorífico"),
                 StockItemDTO(1, "C1-P1-Mimosa-UHT Meio Gordo-1L", 1, 1, "Leite", "Mimosa", "1L", "UHT Meio Gordo", 1, "Leite Meio Gordo - Bem Essencial", "Frigorífico"),
                 StockItemDTO(1, "C1-P2-Danone-Natural Açucarado-100mg", 1, 2, "Iogurte", "Danone", "100mg", "Natural Açucarado", 4, "Danone os iogurtes não sei que", "Frigorífico")
-        )
+        )*/
     }
 
     private fun onSuccess(stockItems: StockItemsDto) {
@@ -131,7 +129,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
      ***/
 
     override fun onItemClick(view: View, position: Int) {
-        val stockItem: StockItemDTO = stockItems[position]
+        val stockItem: StockItemDto = stockItems.stockItems[position]
         listener?.onStockItemInteraction(stockItem)
     }
 
@@ -142,7 +140,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         parent?.let {
             if (it.housesSpinner.selectedItem != position) {
-                val houseId = houses[position].houseId
+                val houseId = houses.houses[position].houseId
                 //TODO: get data
                 stockItemListAdapter.setData(/*stockItems*/arrayOf())
                 stockItemListAdapter.notifyDataSetChanged()
@@ -157,7 +155,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
      * activity.
      */
     interface OnStockItemListFragmentInteractionListener {
-        fun onStockItemInteraction(stockItem: StockItemDTO)
+        fun onStockItemInteraction(stockItem: StockItemDto)
         fun onNewStockItemIteraction()
     }
 
