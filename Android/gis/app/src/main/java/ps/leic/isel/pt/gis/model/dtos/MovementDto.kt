@@ -5,7 +5,7 @@ import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 class MovementDto(siren: Siren) {
     val houseId: Long
     val storageId: Long
-    val stockItemId: Long
+    val stockItemSku: String
     val movementDateTime: String
     val movementType: String
     val quantity: Int
@@ -13,17 +13,17 @@ class MovementDto(siren: Siren) {
     init {
         val properties = siren.properties
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
-        storageId = (properties?.get(storageIdLabel) as Int).toLong()
-        stockItemId = (properties?.get(storageIdLabel) as Int).toLong()
-        movementDateTime = properties?.get(movementDateTimeLabel) as String
-        movementType = properties?.get(movementTypeLabel) as String
-        quantity = properties?.get(quantityLabel) as Int
+        storageId = (properties.get(storageIdLabel) as Int).toLong()
+        stockItemSku = properties.get(stockItemSkuLabel) as String
+        movementDateTime = properties.get(movementDateTimeLabel) as String
+        movementType = properties.get(movementTypeLabel) as String
+        quantity = properties.get(quantityLabel) as Int
     }
 
     companion object {
         const val houseIdLabel: String = "house-id"
         const val storageIdLabel: String = "storage-id"
-        const val stockItemId: String = "stock-item-id"
+        const val stockItemSkuLabel: String = "stock-item-sku"
         const val movementDateTimeLabel: String = "movement-datetime"
         const val movementTypeLabel: String = "movement-type"
         const val quantityLabel: String = "movement-quantity"
