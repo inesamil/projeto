@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.fragment_allergies.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.HouseAllergyDTO
 import ps.leic.isel.pt.gis.model.dtos.AllergiesDto
+import ps.leic.isel.pt.gis.model.dtos.HouseAllergiesDto
+import ps.leic.isel.pt.gis.model.dtos.HouseAllergyDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.AllergiesTableAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
@@ -33,7 +35,7 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
 
     private var houseId: Long = 0
     private var showAllergies: Boolean = false
-    private lateinit var allergies: Array<HouseAllergyDTO>
+    private lateinit var allergies: HouseAllergiesDto
     private var allergiesViewModel: AllergiesViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,15 +54,15 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
                 onError(it.message)
         })
         //TODO: get data
-        allergies = arrayOf(
+        /*allergies = arrayOf(
                 HouseAllergyDTO(1, "Lactose", 1),
                 HouseAllergyDTO(1, "Glúten", 1)
-        )
+        )*/
     }
 
-    private fun onSuccess(allergies: AllergiesDto) {
+    private fun onSuccess(allergies: HouseAllergiesDto) {
         // Set Adapter
-        val adapter = AllergiesTableAdapter(/*HouseAllergyDto*/arrayOf())
+        val adapter = AllergiesTableAdapter(allergies.houseAllergies)
         view?.let {
             it.allergiesRecyclerView.layoutManager = LinearLayoutManager(it.context)
             it.allergiesRecyclerView.setHasFixedSize(true)
