@@ -15,6 +15,7 @@ import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.CharacteristicsDTO
 import ps.leic.isel.pt.gis.model.HouseDTO
 import ps.leic.isel.pt.gis.model.MemberDTO
+import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
@@ -33,7 +34,7 @@ import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
 
     private lateinit var username: String
-    private lateinit var houses: Array<HouseDTO>
+    private lateinit var houses: HousesDto
 
     private var listener: OnHousesFragmentInteractionListener? = null
     private var housesVM: HousesViewModel? = null
@@ -54,11 +55,11 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         })
 
         //TODO: get data
-        houses = arrayOf(
+        /*houses = arrayOf(
                 HouseDTO(1, "Smith", CharacteristicsDTO(0, 0, 2, 0),
                         arrayOf(MemberDTO(1, "alice", true),
                                 MemberDTO(1, "bob", false)))
-        )
+        )*/
     }
 
     private fun onSuccess(houses: HousesDto) {
@@ -70,10 +71,11 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
             it.housesRecyclerView.adapter = adapter
             // Set new house button listener
             it.newHouseBtn.setOnClickListener {
-                val house = HouseDTO(2, "Jones", CharacteristicsDTO(0, 0, 1, 0),
-                        arrayOf(MemberDTO(1, "alice", true)))
+                //TODO
+                val house = HouseDto/*(2, "Jones", CharacteristicsDTO(0, 0, 1, 0),
+                        arrayOf(MemberDTO(1, "alice", true)))*/
                 //TODO: get new House
-                listener?.onNewHouseInteraction(house)
+                //listener?.onNewHouseInteraction(house)
             }
         }
         adapter.setOnItemClickListener(this)
@@ -124,7 +126,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     interface OnHousesFragmentInteractionListener {
         fun onStoragesInteraction(houseId: Long)
         fun onAllergiesInteraction(houseId: Long)
-        fun onNewHouseInteraction(house: HouseDTO)
+        fun onNewHouseInteraction(house: HouseDto)
     }
 
     /**
