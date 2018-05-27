@@ -21,7 +21,7 @@ Após uma ida às compras, os itens adquiridos, Figura \ref{project-general-arch
 
 Ao guardar os artigos nos locais de armazenamento, os mesmos devem ser lidos pelos leitores, de forma a que a informação presente na \textit{tag} e o tipo de movimento (entrada ou saída) possam ser enviados para a API, Figura \ref{project-general-architecture}(c). Assim, estes dados são posteriormente tratados e armazenados de forma persistente na \acrfull{bd}, Figura \ref{project-general-architecture}(d). A API é responsável por retornar dados para as aplicações cliente, Figura \ref{project-general-architecture}(e, f). É no servidor que está presente o algoritmo de previsão de stocks utilizado para efetuar a previsão quanto à duração de cada um dos itens em stock.
 
-No contexto da gestão de stocks assume-se a existência de duas formas de apresentação para os itens em stock: avulsos e embalados. Os primeiros são conservados em sistemas de arrumação identificados com \textit{tags} programáveis por \textit{smartphones}, \ref{project-general-architecture}(e). Os detalhes dos itens são especificados pelo utilizador e carregados para a \textit{tag}. Já os segundos contêm os seus rótulos digitais com o seu detalhe guardado pelos fornecedores.\\
+No contexto da gestão de stocks assume-se a existência de duas formas de apresentação para os itens em stock: avulsos e embalados. Os primeiros são conservados em sistemas de arrumação identificados com \textit{tags} programáveis por \textit{smartphones}, \ref{project-general-architecture}(e). Os detalhes dos itens são especificados pelo utilizador e carregados para a \textit{tag}. Já os segundos contêm os seus rótulos digitais com o seu detalhe guardado pelos embaladores.\\
 
 %
 % Secção 3.2 Análise

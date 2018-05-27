@@ -21,19 +21,19 @@
 \contentsline {section}{\numberline {3.1}Abordagem}{9}
 \contentsline {section}{\numberline {3.2}An\IeC {\'a}lise}{10}
 \contentsline {chapter}{\numberline {4}Implementa\IeC {\c c}\IeC {\~a}o do Sistema de Gest\IeC {\~a}o de Stocks}{13}
-\contentsline {section}{\numberline {4.1}Aplica\IeC {\c c}\IeC {\~o}es Cliente}{13}
-\contentsline {section}{\numberline {4.2}Servidor}{13}
-\contentsline {subsection}{\numberline {4.2.1}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{13}
-\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{14}
-\contentsline {subsection}{\numberline {4.2.2}Acesso a Dados}{14}
-\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{14}
-\contentsline {subsection}{\numberline {4.2.3}Seguran\IeC {\c c}a}{14}
-\contentsline {section}{\numberline {4.3}Algoritmo de Previs\IeC {\~a}o de Stocks}{15}
-\contentsline {subsection}{\numberline {4.3.1}Implementa\IeC {\c c}\IeC {\~a}o}{15}
-\contentsline {section}{\numberline {4.4}Modelo de Dados}{17}
-\contentsline {subsection}{\numberline {4.4.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{17}
-\contentsline {subsection}{\numberline {4.4.2}Dom\IeC {\'\i }nio dos Atributos}{18}
-\contentsline {subsection}{\numberline {4.4.3}Base de Dados}{24}
-\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{24}
-\contentsline {chapter}{\numberline {A}Terminologia}{27}
-\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{27}
+\contentsline {section}{\numberline {4.1}Aplica\IeC {\c c}\IeC {\~o}es Cliente}{14}
+\contentsline {section}{\numberline {4.2}Servidor}{14}
+\contentsline {subsection}{\numberline {4.2.1}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{15}
+\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{15}
+\contentsline {subsection}{\numberline {4.2.2}Acesso a Dados}{15}
+\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{15}
+\contentsline {subsection}{\numberline {4.2.3}Seguran\IeC {\c c}a}{16}
+\contentsline {section}{\numberline {4.3}Algoritmo de Previs\IeC {\~a}o de Stocks}{16}
+\contentsline {subsection}{\numberline {4.3.1}Implementa\IeC {\c c}\IeC {\~a}o}{16}
+\contentsline {section}{\numberline {4.4}Modelo de Dados}{18}
+\contentsline {subsection}{\numberline {4.4.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{18}
+\contentsline {subsection}{\numberline {4.4.2}Dom\IeC {\'\i }nio dos Atributos}{19}
+\contentsline {subsection}{\numberline {4.4.3}Base de Dados}{25}
+\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{25}
+\contentsline {chapter}{\numberline {A}Terminologia}{29}
+\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{29}
