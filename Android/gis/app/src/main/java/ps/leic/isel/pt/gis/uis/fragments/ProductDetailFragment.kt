@@ -26,13 +26,13 @@ import ps.leic.isel.pt.gis.viewModel.ProductDetailViewModel
  */
 class ProductDetailFragment : Fragment() {
 
-    private lateinit var product: ProductDTO
+    private lateinit var product: ProductDto
     private var productDetailViewModel: ProductDetailViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            product = it.getParcelable(ExtraUtils.PRODUCT)
+            //TODO product = it.getParcelable(ExtraUtils.PRODUCT)
         }
         productDetailViewModel = ViewModelProviders.of(this).get(ProductDetailViewModel::class.java)
         val url = ""
@@ -61,7 +61,7 @@ class ProductDetailFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        activity?.title = product.name
+        activity?.title = product.productName
     }
 
     /**
