@@ -29,9 +29,6 @@ public class StockItemMovementId implements Serializable {
     @Column(name = "stockitemmovement_datetime", nullable = false)
     private Timestamp stockitemmovementDatetime;
 
-    @Column(name = "stockitemmovement_quantity", nullable = false)
-    private Short stockitemmovementQuantity;
-
     /**
      * CONSTRUTORES
      */
@@ -39,13 +36,12 @@ public class StockItemMovementId implements Serializable {
     }
 
     public StockItemMovementId(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
-                               String stockitemmovementDatetime, Short stockitemmovementQuantity) throws EntityException {
+                               String stockitemmovementDatetime) throws EntityException {
         setHouseId(houseId);
         setStockitemSku(stockitemSku);
         setStorageId(storageId);
         setStockitemmovementType(stockitemmovementType);
         setStockitemmovementDatetime(stockitemmovementDatetime);
-        setStockitemmovementQuantity(stockitemmovementQuantity);
     }
 
     /**
@@ -96,15 +92,6 @@ public class StockItemMovementId implements Serializable {
         this.stockitemmovementDatetime = Timestamp.valueOf(stockitemmovementDatetime);
     }
 
-    public Short getStockitemmovementQuantity() {
-        return stockitemmovementQuantity;
-    }
-
-    public void setStockitemmovementQuantity(Short stockitemmovementQuantity) throws EntityException {
-        ValidationsUtils.validateStockItemMovementQuantity(stockitemmovementQuantity);
-        this.stockitemmovementQuantity = stockitemmovementQuantity;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -114,12 +101,11 @@ public class StockItemMovementId implements Serializable {
                 Objects.equals(stockitemSku, that.stockitemSku) &&
                 Objects.equals(storageId, that.storageId) &&
                 Objects.equals(stockitemmovementType, that.stockitemmovementType) &&
-                Objects.equals(stockitemmovementDatetime, that.stockitemmovementDatetime) &&
-                Objects.equals(stockitemmovementQuantity, that.stockitemmovementQuantity);
+                Objects.equals(stockitemmovementDatetime, that.stockitemmovementDatetime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime, stockitemmovementQuantity);
+        return Objects.hash(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime);
     }
 }
