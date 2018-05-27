@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  27 MAY 2018 20:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.2.27)  27 MAY 2018 20:33
 entering extended mode
 **"./Relatorio Beta.tex"
 ("Relatorio Beta.tex"
@@ -1083,7 +1083,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 21--22
 
 pdfTeX warning: pdflatex.exe (file ./files/EA.pdf): PDF inclusion: found PDF ve
 rsion <1.7>, but at most version <1.5> allowed
-<./files/EA.pdf, id=113, 844.95674pt x 597.432pt>
+<./files/EA.pdf, id=112, 844.95674pt x 597.432pt>
 File: ./files/EA.pdf Graphic file (type pdf)
 <use ./files/EA.pdf>
 Package pdftex.def Info: ./files/EA.pdf  used on input line 9.
@@ -1178,11 +1178,11 @@ This document will not have a glossary.
 ("Relatorio Beta.aux" (resumo.aux) (abstract.aux) (capitulo1.aux)
 (capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux)) ) 
 Here is how much of TeX's memory you used:
- 12034 strings out of 493303
- 202423 string characters out of 3129784
+ 12033 strings out of 493303
+ 202405 string characters out of 3129784
  337445 words of memory out of 3000000
- 15228 multiletter control sequences out of 15000+200000
- 16722 words of font info for 55 fonts, out of 3000000 for 9000
+ 15227 multiletter control sequences out of 15000+200000
+ 16363 words of font info for 54 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,13n,39p,2012b,375s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/inesa/
@@ -1203,7 +1203,7 @@ onts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/inesa/AppData/Local/Programs
 cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/ine
 sa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
 
-Output written on "Relatorio Beta.pdf" (42 pages, 607561 bytes).
+Output written on "Relatorio Beta.pdf" (42 pages, 606930 bytes).
 PDF statistics:
  392 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

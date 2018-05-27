@@ -21,7 +21,7 @@
 \contentsline {section}{\numberline {3.1}Abordagem}{9}
 \contentsline {section}{\numberline {3.2}An\IeC {\'a}lise}{10}
 \contentsline {chapter}{\numberline {4}Implementa\IeC {\c c}\IeC {\~a}o do Sistema de Gest\IeC {\~a}o de Stocks}{13}
-\contentsline {section}{\numberline {4.1}Aplica\IeC {\c c}\IeC {\~o}es M\IeC {\'o}vel e \textit {Web}}{13}
+\contentsline {section}{\numberline {4.1}Aplica\IeC {\c c}\IeC {\~o}es Cliente}{13}
 \contentsline {section}{\numberline {4.2}Servidor}{13}
 \contentsline {subsection}{\numberline {4.2.1}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{13}
 \contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{14}
