@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_categories.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.CategoryDTO
 import ps.leic.isel.pt.gis.model.dtos.CategoriesDto
+import ps.leic.isel.pt.gis.model.dtos.CategoryDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.CategoriesAdapter
 import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
@@ -28,7 +29,7 @@ import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
  */
 class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
 
-    private lateinit var categories: Array<CategoryDTO>
+    private lateinit var categories: CategoriesDto
 
     private var listener: OnCategoriesFragmentInteractionListener? = null
     private var categoriesViewModel: CategoriesViewModel? = null
@@ -45,10 +46,10 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
                 onError(it.message)
         })
         // TODO: Get Data
-        categories = arrayOf(
+        /*categories = arrayOf(
                 CategoryDTO(1, "Laticínios"),
                 CategoryDTO(2, "Carne"),
-                CategoryDTO(3, "Peixe"))
+                CategoryDTO(3, "Peixe"))*/
     }
 
     private fun onSuccess(categories: CategoriesDto) {
@@ -97,7 +98,7 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
 
     // NfcListener for category item clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
-        val category: CategoryDTO = categories[position]
+        val category: CategoryDto = categories.categories[position]
         listener?.onCategoryInteraction(category)
     }
 
@@ -108,7 +109,7 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
      * activity.
      */
     interface OnCategoriesFragmentInteractionListener {
-        fun onCategoryInteraction(category: CategoryDTO)
+        fun onCategoryInteraction(category: CategoryDto)
     }
 
     /**
