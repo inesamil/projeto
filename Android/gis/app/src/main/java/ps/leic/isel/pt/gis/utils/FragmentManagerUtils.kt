@@ -19,11 +19,11 @@ fun FragmentManager.replaceCurrentFragmentWith(tag: String, newInstance: () -> F
     }
 }
 
-fun FragmentManager.replaceCurrentFragmentWith(tag: String, newInstance: (String) -> Fragment, args: String) {
+fun FragmentManager.replaceCurrentFragmentWith(tag: String, newInstance: (String) -> Fragment, url: String) {
     var fragment = findFragmentByTag(tag)
     if (fragment == null) {
         // Fragment not present in back stack. Instantiates new fragment.
-        fragment = newInstance(args)
+        fragment = newInstance(url)
         beginTransaction()
                 .replace(R.id.content, fragment, tag)
                 .addToBackStack(tag)
