@@ -26,31 +26,23 @@ import ps.leic.isel.pt.gis.viewModel.ProductDetailViewModel
  */
 class ProductDetailFragment : Fragment() {
 
-    private lateinit var product: ProductDto
-    private var productDetailViewModel: ProductDetailViewModel? = null
+    private lateinit var url: String
+    private lateinit var productDetailViewModel: ProductDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            //TODO product = it.getParcelable(ExtraUtils.PRODUCT)
+            url = it.getString(ExtraUtils.URL)
         }
         productDetailViewModel = ViewModelProviders.of(this).get(ProductDetailViewModel::class.java)
-        val url = ""
-        productDetailViewModel?.init(url)
-        productDetailViewModel?.getProduct()?.observe(this, Observer {
+        val url = ""    //TODO: delete
+        productDetailViewModel.init(url)
+        productDetailViewModel.getProduct()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
         })
-    }
-
-    private fun onSuccess(product: ProductDto) {
-        //TODO
-    }
-
-    private fun onError(error: String?) {
-        Log.v("APP_GIS", error)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -61,26 +53,51 @@ class ProductDetailFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        activity?.title = product.productName
+        //TODO: activity?.title = product.productName
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        savedInstanceState?.let {
+            url = it.getString(ExtraUtils.URL)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ExtraUtils.URL, url)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        productDetailViewModel.cancel()
+    }
+
+    private fun onSuccess(product: ProductDto) {
+        //TODO
+    }
+
+    private fun onError(error: String?) {
+        Log.v("APP_GIS", error)
+        //TODO
     }
 
     /**
      * ProductDetailFragment Factory
      */
     companion object {
-        val productArg: String = "product"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param product Product
+         * @param url URL
          * @return A new instance of fragment ProductDetailFragment.
          */
         @JvmStatic
-        fun newInstance(args: Map<String, Any>) =
+        fun newInstance(url: String) =
                 ProductDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable(ExtraUtils.PRODUCT, args[productArg] as ProductDTO)
+                        putString(ExtraUtils.URL, url)
                     }
                 }
     }
