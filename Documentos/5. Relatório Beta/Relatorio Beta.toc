@@ -6,17 +6,18 @@
 \contentsline {section}{\numberline {1.4}Estrutura do Relat\IeC {\'o}rio}{3}
 \contentsline {chapter}{\numberline {2}Sistema de Gest\IeC {\~a}o de Stocks}{5}
 \contentsline {section}{\numberline {2.1}Sistema Smart Stocks}{5}
-\contentsline {subsubsection}{Casa}{5}
+\contentsline {subsection}{\numberline {2.1.1}Requisitos}{5}
+\contentsline {paragraph}{Requisitos Funcionais}{5}
+\contentsline {paragraph}{Requisitos Opcionais}{6}
+\contentsline {subsection}{\numberline {2.1.2}Entidades}{6}
+\contentsline {subsubsection}{Casa}{6}
 \contentsline {subsubsection}{Utilizador}{6}
 \contentsline {subsubsection}{Listas}{6}
-\contentsline {subsubsection}{Categoria}{6}
-\contentsline {subsubsection}{Produtos}{6}
-\contentsline {subsubsection}{Item em Stock}{6}
+\contentsline {subsubsection}{Categoria}{7}
+\contentsline {subsubsection}{Produtos}{7}
+\contentsline {subsubsection}{Item em Stock}{7}
 \contentsline {subsubsection}{Movimento}{7}
 \contentsline {subsubsection}{Local de armazenamento}{7}
-\contentsline {section}{\numberline {2.2}Requisitos Funcionais e Opcionais}{7}
-\contentsline {paragraph}{Requisitos Funcionais}{7}
-\contentsline {paragraph}{Requisitos Opcionais}{7}
 \contentsline {chapter}{\numberline {3}Solu\IeC {\c c}\IeC {\~a}o Proposta}{9}
 \contentsline {section}{\numberline {3.1}Abordagem}{9}
 \contentsline {section}{\numberline {3.2}An\IeC {\'a}lise}{10}

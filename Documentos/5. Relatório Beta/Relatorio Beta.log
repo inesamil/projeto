@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.22)  28 MAY 2018 17:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.22)  28 MAY 2018 18:13
 entering extended mode
 **"./Relatorio Beta.tex"
 ("Relatorio Beta.tex"
@@ -1064,14 +1064,10 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 
 ]
 Cap\'{\i }tulo 2.
-[5] [6]) [7]
+[5] [6] [7]) [8]
 \openout2 = `capitulo3.aux'.
 
- (capitulo3.tex [8
-
-
-
-]
+ (capitulo3.tex
 Cap\'{\i }tulo 3.
 <./figures/architecture.png, id=82, 481.8pt x 255.95625pt>
 File: ./figures/architecture.png Graphic file (type png)
@@ -1083,7 +1079,11 @@ Overfull \hbox (14.24158pt too wide) in paragraph at lines 15--16
  [][] 
  []
 
-[9 <./figures/architecture.png>]
+[9
+
+
+
+ <./figures/architecture.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 24--25
 
  []
@@ -1207,10 +1207,10 @@ This document will not have a glossary.
 ("Relatorio Beta.aux" (resumo.aux) (abstract.aux) (capitulo1.aux)
 (capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux)) ) 
 Here is how much of TeX's memory you used:
- 12374 strings out of 493303
- 206335 string characters out of 3130219
- 338545 words of memory out of 3000000
- 15538 multiletter control sequences out of 15000+200000
+ 12375 strings out of 493303
+ 206350 string characters out of 3130219
+ 338559 words of memory out of 3000000
+ 15539 multiletter control sequences out of 15000+200000
  20697 words of font info for 73 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,13n,39p,2012b,375s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1232,7 +1232,7 @@ fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Rita/AppData/Local/Programs/
 MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Rita/AppData/Loc
 al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Rita
 /AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on "Relatorio Beta.pdf" (42 pages, 616459 bytes).
+Output written on "Relatorio Beta.pdf" (42 pages, 616716 bytes).
 PDF statistics:
  398 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

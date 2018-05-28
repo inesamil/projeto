@@ -3,7 +3,7 @@
 %
 \chapter{Sistema de Gestão de Stocks} \label{cap2}
 
-O sistema de gestão de stocks desenvolvido neste projeto, denominado Smart Stocks, é apresentado neste capítulo, bem como os requisitos funcionais e opcionais na secção \ref{sec22}. Para uma melhor compreensão deste capítulo é recomendada a leitura do Anexo \ref{seca11}.
+O sistema de gestão de stocks desenvolvido neste projeto, denominado Smart Stocks, é apresentado neste capítulo, bem como os requisitos funcionais e opcionais na secção \ref{subsec211}. Para uma melhor compreensão deste capítulo é recomendada a leitura do Anexo \ref{seca11}.
 
 %
 % Secção 2.1
@@ -11,20 +11,52 @@ O sistema de gestão de stocks desenvolvido neste projeto, denominado Smart Stoc
 \section{Sistema Smart Stocks} \label{sec21}
 Smart Stocks é um sistema que visa dar suporte à gestão de stocks domésticos. Para tal é necessário recolher determinadas informações, tais como, as características da casa a gerir, as particularidades dos membros co-habitantes da casa e ainda os padrões de consumo e reposição. De forma a facilitar tal tarefa são disponibilizadas listas geridas pelo sistema. Por exemplo, lista de compras e lista dos itens em stock na casa, cuja consistência é garantida às custas dos movimentos de entrada e saída dos itens nos diversos locais de armazenamento.
 
-Em seguida listam-se as diversas entidades relevantes que compõem o sistema de informação, que permite gerir os itens em stock numa dada casa.
+%
+% Subsecção 2.1.1
+%
+\subsection{Requisitos} \label{subsec211}
+Como forma de assegurar as funcionalidades pretendidas para o sistema, são exigidos os seguintes requisitos funcionais e opcionais.
+
+\paragraph{Requisitos Funcionais}
+\begin{itemize}
+	\item Informar o utilizador dos itens existentes, a sua validade e a sua quantidade;
+	\item Alertar sobre os produtos que estão perto da data de validade;
+	\item Gerar listas de compras com os produtos em falta;
+	\item Possibilidade de especificar listas com os produtos a ter sempre em stock bem como as suas quantidades mínimas;
+	\item Partilhar listas entre utilizadores da mesma casa;
+	\item Criar de Listas;
+	\item Especificação das alergias dos membros da casa.
+\end{itemize}
+
+
+\paragraph{Requisitos Opcionais}
+\begin{itemize}
+	\item Criar listas de produtos quase a expirar;
+	\item Criar listas de produtos indesejados (Lista Negra);
+	\item Criar listas de contenção em situações de emergência (Lista SOS);
+	\item Inserir refeições extraordinárias de eventos a realizar num futuro próximo, para acrescentar alimentos não básicos à lista de compras.
+\end{itemize}
+
+%
+% Subsecção 2.1.2
+%
+\subsection{Entidades} \label{subsec212}
+
+Em seguida identificam-se as diversas entidades relevantes que compõem o sistema de informação, que permite gerir os itens em stock numa dada casa.
 \subsubsection{Casa}
 \begin{itemize}
-	\item Cada casa é caracterizada por um identificador único, um nome, atribuído por um utilizador no momento de registo da casa. O número de bebés, crianças, adultos e seniores que vivem nessa casa.
+	\item Cada casa é caracterizada por um identificador único, um nome, atribuído por um utilizador no momento de registo da casa. 
+	\item Deve ser possível saber o número de bebés, crianças, adultos e seniores que vivem nessa casa.
 	\item Uma casa está associada a um ou mais utilizadores, podendo um utilizador ter várias casas. 
-	\item Podem existir um ou mais administradores.
-	\item A casa pode ter vários itens em stock presentes.
+	\item Podem existir um ou mais administradores de uma casa.
+	\item A casa pode ter vários itens em stock.
 	\item Para cada casa existem vários locais de armazenamento dos itens, por exemplo armários, frigoríficos, etc.
 	\item Em cada casa deve ser possível conhecer as alergias assim como quantos membros possuem essa alergia (os membros não precisam necessariamente de estar registados).
 \end{itemize}
 
 \subsubsection{Utilizador}
 \begin{itemize}
-	\item Uma pessoa é representada por um utilizador que é identificado univocamente por um email ou por um nome de utilizador, pelo nome da pessoa, a sua idade e uma password.
+	\item Uma pessoa é representada por um utilizador que é caracterizado por um email ou por um nome de utilizador, pelo nome da pessoa, a sua idade e uma password.
 \end{itemize}
 
 \subsubsection{Listas}
@@ -32,7 +64,7 @@ Em seguida listam-se as diversas entidades relevantes que compõem o sistema de 
 	\item Cada lista é composta por um identificador único e um nome.
 	\item Uma lista pode ter vários produtos.
 	\item Existem dois tipos de listas: de sistema e de utilizador. 
-	\item As listas de sistema são comuns a todos os utilizadores registados, contudo são particulares a cada casa. 
+	\item As listas de sistema são comuns a todos os utilizadores registados, contudo são particulares a cada casa.	
 	\item Um utilizador pode criar as suas listas, partilhando-as com outros utilizadores da casa ou tornando-as secretas.
 \end{itemize}
 
@@ -69,28 +101,4 @@ Em seguida listam-se as diversas entidades relevantes que compõem o sistema de 
 	\item Um local de armazenamento pode ter vários itens em stock presentes na casa e estar associado a diversos movimentos.
 \end{itemize}
 
-
-%
-% Secção 2.2
-%
-\section{Requisitos Funcionais e Opcionais} \label{sec22}
-
-\paragraph{Requisitos Funcionais}
-\begin{itemize}
-	\item Informar o utilizador dos produtos existentes, a sua validade e a sua quantidade;
-	\item Alertas sobre os produtos que estão perto da data de validade;
-	\item Geração da lista de compras com os produtos em falta;
-	\item Possibilidade de especificar os produtos a ter sempre em stock bem como as suas quantidades mínimas;
-	\item Listas partilhadas entre utilizadores da mesma casa;
-	\item Criação de Listas;
-	\item Especificação das alergias dos membros da casa.
-\end{itemize}
-
-
-\paragraph{Requisitos Opcionais}
-\begin{itemize}
-	\item Lista de produtos quase a expirar;
-	\item Lista de produtos indesejados (Lista Negra);
-	\item Lista de contenção em situações de emergência (Lista SOS);
-	\item Inserir refeições extraordinárias de eventos a realizar num futuro próximo, para acrescentar alimentos não básicos à lista de compras.
-\end{itemize}
+%\input{seccao23}
