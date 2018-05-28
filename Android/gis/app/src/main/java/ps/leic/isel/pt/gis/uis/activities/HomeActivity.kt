@@ -208,9 +208,7 @@ class HomeActivity : AppCompatActivity(),
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.invitationsItem -> {
-                val args: Map<String, Any> = mapOf(
-                        Pair(InvitationsFragment.usernameArg, "alice") //TODO
-                )
+                val url: String = ""    //TODO
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.INVITATIONS, InvitationsFragment.Companion::newInstance, args)
                 return true
             }
