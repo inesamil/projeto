@@ -78,21 +78,18 @@ class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
      * InvitationsFragment Factory
      */
     companion object {
-
-        val usernameArg: String = "username"
-
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param args Arguments
+         * @param url URL
          * @return A new instance of fragment InvitationsFragment.
          */
         @JvmStatic
-        fun newInstance(args: Map<String, Any>) =
+        fun newInstance(url: String) =
                 InvitationsFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.USER_USERNAME, args[usernameArg] as String)
+                        putString(ExtraUtils.URL, url)
                     }
                 }
     }
