@@ -31,21 +31,20 @@ import ps.leic.isel.pt.gis.viewModel.HousesViewModel
  */
 class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
 
-    private lateinit var username: String
+    private lateinit var url: String
 
     private var listener: OnHousesFragmentInteractionListener? = null
-    private var housesVM: HousesViewModel? = null
+    private lateinit var housesVM: HousesViewModel
     private val adapter = HousesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            username = it.getString(ExtraUtils.USER_USERNAME)
+            url = it.getString(ExtraUtils.URL)
         }
         housesVM = ViewModelProviders.of(this).get(HousesViewModel::class.java)
-        val url = "http://10.0.2.2:8081/v1/users/ze/houses"
-        housesVM?.init(url)
-        housesVM?.getHouses()?.observe(this, Observer {
+        housesVM.init(url)
+        housesVM.getHouses()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
@@ -78,6 +77,13 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         return view
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        savedInstanceState?.let {
+            url = it.getString(ExtraUtils.URL)
+        }
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnHousesFragmentInteractionListener) {
@@ -85,6 +91,11 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         } else {
             throw RuntimeException(context.toString() + " must implement OnHousesFragmentInteractionListener")
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ExtraUtils.URL, url)
     }
 
     override fun onDetach() {
