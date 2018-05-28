@@ -70,9 +70,7 @@ class HomeActivity : AppCompatActivity(),
      */
     // Listener for HomePageFragment
     override fun onMyPantryInteraction() {
-        val args: Map<String, Any> = mapOf(
-                Pair(StockItemListFragment.usernameArg, "alice")    //TODO
-        )
+        val args: String = ""   //TODO
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM_LIST, StockItemListFragment.Companion::newInstance, args)
     }
 
@@ -101,17 +99,12 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for HousesFragment interaction
     override fun onStoragesInteraction(houseId: Long) {
-        val args: Map<String, Any> = mapOf(
-                Pair(StoragesFragment.houseIdArg, houseId)
-        )
+        val args: String = ""    //TODO
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STORAGES, StoragesFragment.Companion::newInstance, args)
     }
 
     override fun onAllergiesInteraction(houseId: Long) {
-        val args: Map<String, Any> = mapOf(
-                Pair(AllergiesFragment.houseIdArg, houseId),
-                Pair(AllergiesFragment.showAllergiesArg, true) //TODO: get preferences, show allergies or not
-        )
+        val args: String = ""   //TODO
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.ALLERGIES, AllergiesFragment.Companion::newInstance, args)
     }
 
@@ -127,25 +120,19 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for CategoriesFragement interaction
     override fun onCategoryInteraction(category: CategoryDto) {
-        val args: Map<String, Any> = mapOf(
-                Pair(CategoryProductsFragment.categoryArg, category)
-        )
+        val args: String = ""   //TODO
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCTS, CategoryProductsFragment.Companion::newInstance, args)
     }
 
     // Listener for CategoryProductsFragement interaction
     override fun onProductInteraction(product: ProductDto) {
-        val args: Map<String, Any> = mapOf(
-                Pair(ProductDetailFragment.productArg, product)
-        )
+        val args: String = ""   //TODO
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCT, ProductDetailFragment.Companion::newInstance, args)
     }
 
     // Listener for ListsFragment interaction
     override fun onListInteraction(list: ListDto) {
-        val args: Map<String, Any> = mapOf(
-                Pair(ListDetailFragment.listArg, list)
-        )
+        val args: String = ""   //TODO
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LIST, ListDetailFragment.Companion::newInstance, args)
     }
 
@@ -163,9 +150,7 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for StockItemListFragment interaction
     override fun onStockItemInteraction(stockItem: StockItemDto) {
-        val args: Map<String, Any> = mapOf(
-                Pair(StockItemDetailFragment.stockItemArg, stockItem)
-        )
+        val args: String = ""   //TODO
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM, StockItemDetailFragment.Companion::newInstance, args)
     }
 
@@ -181,10 +166,7 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for WriteNfcTagFragment
     override fun onWriteNfcTagInteraction(tagContent: String) {
-        val args: Map<String, Any> = mapOf(
-                Pair(WritingNfcTagFragment.messageArg, tagContent)
-        )
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.NFC_MESSAGE, WritingNfcTagFragment.Companion::newInstance, args)
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.NFC_MESSAGE, WritingNfcTagFragment.Companion::newInstance, tagContent)
     }
 
     // Listener for new intents (NFC tag intents)
@@ -251,7 +233,8 @@ class HomeActivity : AppCompatActivity(),
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.HOME_PAGE, HomePageFragment.Companion::newInstance)
             }
             R.id.nav_lists -> {
-                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance)
+                val url = ""    //TODO
+                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance, url)
             }
             R.id.nav_products -> {
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance)
