@@ -29,7 +29,7 @@ import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
  */
 class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
 
-    private lateinit var categories: CategoriesDto
+    private var categories: Array<CategoryDto>? = null
 
     private var listener: OnCategoriesFragmentInteractionListener? = null
     private lateinit var categoriesViewModel: CategoriesViewModel
@@ -63,6 +63,7 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
     private fun onSuccess(categories: CategoriesDto) {
         // Set Adapter
         adapter.setData(categories.categories)
+        this.categories = categories.categories
     }
 
     private fun onError(error: String?) {
@@ -113,8 +114,10 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
 
     // NfcListener for category item clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
-        val category: CategoryDto = categories.categories[position]
-        listener?.onCategoryInteraction(category)
+        categories?.let {
+            val category = it[position]
+            listener?.onCategoryInteraction(category)
+        }
     }
 
     /**
@@ -131,13 +134,19 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
      * CategoriesFragment Factory
      */
     companion object {
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
+         * @param url url
          * @return A new instance of fragment CategoriesFragment.
          */
         @JvmStatic
-        fun newInstance() = CategoriesFragment()
+        fun newInstance(url: String) = CategoriesFragment().apply {
+            arguments = Bundle().apply {
+                putString(ExtraUtils.URL, url)
+            }
+        }
     }
 }
