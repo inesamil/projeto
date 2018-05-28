@@ -18,6 +18,13 @@ Rfid readers and rfid tags for any specialty rfid needs - rfid, inc.
 \newblock \url{http://rfidinc.com/}.
 \newblock [Online, Acedido a 15/04/2018].
 
+\bibitem{RFC7231:http}
+R.~Fielding and J.~Reschke.
+\newblock Rfc 7231 - hypertext transfer protocol (http/1.1): Semantics and
+  content.
+\newblock \url{https://tools.ietf.org/html/rfc7231}, Junho 2014.
+\newblock [Online, Acedido a 15/04/2018].
+
 \bibitem{draftnot72:jsonHome}
 Home documents for http apis draft-nottingham-json-home-06.
 \newblock \url{https://tools.ietf.org/html/draft-nottingham-json-home-06},
@@ -34,13 +41,6 @@ Kevin Swiber.
 M.~Nottingham, Akamai, and E.~Wilde.
 \newblock Rfc 7807 - problem details for http apis.
 \newblock \url{https://tools.ietf.org/html/rfc7807}, Março 2016.
-\newblock [Online, Acedido a 15/04/2018].
-
-\bibitem{RFC7231:http}
-R.~Fielding and J.~Reschke.
-\newblock Rfc 7231 - hypertext transfer protocol (http/1.1): Semantics and
-  content.
-\newblock \url{https://tools.ietf.org/html/rfc7231}, Junho 2014.
 \newblock [Online, Acedido a 15/04/2018].
 
 \bibitem{RFC2660:https}
