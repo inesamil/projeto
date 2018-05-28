@@ -209,7 +209,7 @@ class HomeActivity : AppCompatActivity(),
         when (item.itemId) {
             R.id.invitationsItem -> {
                 val url: String = ""    //TODO
-                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.INVITATIONS, InvitationsFragment.Companion::newInstance, args)
+                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.INVITATIONS, InvitationsFragment.Companion::newInstance, url)
                 return true
             }
             R.id.preferencesItem -> {
