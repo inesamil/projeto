@@ -13,8 +13,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_category_products.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.CategoryDTO
-import ps.leic.isel.pt.gis.model.ProductDTO
 import ps.leic.isel.pt.gis.model.dtos.CategoryDto
 import ps.leic.isel.pt.gis.model.dtos.ProductDto
 import ps.leic.isel.pt.gis.model.dtos.ProductsDto
@@ -38,40 +36,37 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     private lateinit var products: ProductsDto
 
     private var listener: OnCategoryProductsFragmentInteractionListener? = null
-    private var categoryProductsViewModel: CategoryProductsViewModel? = null
+    private val adapter = CategoryProductsAdapter()
+    private lateinit var categoryProductsViewModel: CategoryProductsViewModel
+    private lateinit var url: String
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnCategoryProductsFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnCategoryProductsFragmentInteractionListener")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            //TODO category = it.getParcelable(ExtraUtils.CATEGORY)
-
+            url = it.getString(ExtraUtils.URL)
         }
         categoryProductsViewModel = ViewModelProviders.of(this).get(CategoryProductsViewModel::class.java)
-        val url = ""
-        categoryProductsViewModel?.init(url)
-        categoryProductsViewModel?.getProducts()?.observe(this, Observer {
+        categoryProductsViewModel.init(url)
+        categoryProductsViewModel.getProducts()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
         })
-        //TODO: get data
-       /* products = arrayOf(
-                ProductDTO(1, 1, "Leite", true, "3dias"),
-                ProductDTO(1, 2, "Queijo", true, "7dias"),
-                ProductDTO(1, 3, "Iogurte", true, "20dias")
-        )*/
     }
 
     private fun onSuccess(products: ProductsDto) {
         // Set Adapter
-        val adapter = CategoryProductsAdapter(products.products)
-        view?.let {
-            it.categoryProductsRecyclerView.layoutManager = LinearLayoutManager(it.context)
-            it.categoryProductsRecyclerView.setHasFixedSize(true)
-            it.categoryProductsRecyclerView.adapter = adapter
-        }
-        adapter.setOnItemClickListener(this)
+        adapter.setData(products.products)
     }
 
     private fun onError(error: String?) {
@@ -81,7 +76,19 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category_products, container, false)
+        val view = inflater.inflate(R.layout.fragment_category_products, container, false)
+        view.categoryProductsRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.categoryProductsRecyclerView.setHasFixedSize(true)
+        view.categoryProductsRecyclerView.adapter = adapter
+        adapter.setOnItemClickListener(this)
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        savedInstanceState?.let {
+            url = it.getString(ExtraUtils.URL)
+        }
     }
 
     override fun onStart() {
@@ -89,13 +96,14 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
         activity?.title = category.categoryName
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnCategoryProductsFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnCategoryProductsFragmentInteractionListener")
-        }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ExtraUtils.URL, url)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        categoryProductsViewModel.cancel()
     }
 
     override fun onDetach() {
@@ -137,20 +145,19 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      * CategoryProductsFragment Factory
      */
     companion object {
-        val categoryArg: String = "category"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param category Category
+         * @param url url
          * @return A new instance of fragment CategoryProductsFragment.
          */
-
         @JvmStatic
-        fun newInstance(args: Map<String, Any>) =
+        fun newInstance(url: String) =
                 CategoryProductsFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable(ExtraUtils.CATEGORY, args[categoryArg] as CategoryDTO)
+                        putString(ExtraUtils.URL, url)
                     }
                 }
     }
