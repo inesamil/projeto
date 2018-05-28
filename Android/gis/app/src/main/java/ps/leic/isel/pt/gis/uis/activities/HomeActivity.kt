@@ -70,8 +70,8 @@ class HomeActivity : AppCompatActivity(),
      */
     // Listener for HomePageFragment
     override fun onMyPantryInteraction() {
-        val args: String = ""   //TODO
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM_LIST, StockItemListFragment.Companion::newInstance, args)
+        val url: String = ""   //TODO
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM_LIST, StockItemListFragment.Companion::newInstance, url)
     }
 
     // Listener for HomePageFragment
@@ -94,18 +94,19 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for HomePageFragment
     override fun onMyListsInteraction() {
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance)
+        val url = ""    //TODO
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance, url)
     }
 
     // Listener for HousesFragment interaction
     override fun onStoragesInteraction(houseId: Long) {
-        val args: String = ""    //TODO
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STORAGES, StoragesFragment.Companion::newInstance, args)
+        val url: String = ""    //TODO
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STORAGES, StoragesFragment.Companion::newInstance, url)
     }
 
     override fun onAllergiesInteraction(houseId: Long) {
-        val args: String = ""   //TODO
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.ALLERGIES, AllergiesFragment.Companion::newInstance, args)
+        val url: String = ""   //TODO
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.ALLERGIES, AllergiesFragment.Companion::newInstance, url)
     }
 
     override fun onNewHouseInteraction(house: HouseDto) {
@@ -120,19 +121,22 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for CategoriesFragement interaction
     override fun onCategoryInteraction(category: CategoryDto) {
-        val args: String = ""   //TODO
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCTS, CategoryProductsFragment.Companion::newInstance, args)
+        val url: String = ""   //TODO
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCTS, CategoryProductsFragment.Companion::newInstance, url)
     }
 
     // Listener for CategoryProductsFragement interaction
     override fun onProductInteraction(product: ProductDto) {
-        val args: String = ""   //TODO
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCT, ProductDetailFragment.Companion::newInstance, args)
+        val url: String = ""   //TODO
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCT, ProductDetailFragment.Companion::newInstance, url)
     }
 
     // Listener for ListsFragment interaction
     override fun onListInteraction(list: ListDto) {
-        val args: String = ""   //TODO
+        val args: Map<String, Any> = mapOf(
+                Pair(ListDetailFragment.URL_ARG, ""), //TODO
+                Pair(ListDetailFragment.LIST_NAME_ARG, "")   //TODO
+        )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LIST, ListDetailFragment.Companion::newInstance, args)
     }
 
@@ -150,8 +154,8 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for StockItemListFragment interaction
     override fun onStockItemInteraction(stockItem: StockItemDto) {
-        val args: String = ""   //TODO
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM, StockItemDetailFragment.Companion::newInstance, args)
+        val url: String = ""   //TODO
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM, StockItemDetailFragment.Companion::newInstance, url)
     }
 
     // Listener for StockItemListFragment interaction
@@ -235,7 +239,8 @@ class HomeActivity : AppCompatActivity(),
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance, url)
             }
             R.id.nav_products -> {
-                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance)
+                val url = ""    //TODO
+                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance, url)
             }
             R.id.nav_profile -> {
                 val args: Map<String, Any> = mapOf(
