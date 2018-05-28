@@ -37,38 +37,27 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     private lateinit var listProducts: ProductsListDto
 
     private var listener: OnListDetailFragmentInteractionListener? = null
-    private var listDetailViewModel: ListDetailViewModel? = null
+    private lateinit var listDetailViewModel: ListDetailViewModel
+    private lateinit var url: String
+    private val adapter = ListDetailAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            //TODO list = it.getParcelable(ExtraUtils.LIST) -> url?
+            url = it.getString(ExtraUtils.URL)
         }
         listDetailViewModel = ViewModelProviders.of(this).get(ListDetailViewModel::class.java)
-        val url = ""
-        listDetailViewModel?.init(url)
-        listDetailViewModel?.getListDetail()?.observe(this, Observer {
+        listDetailViewModel.init(url)
+        listDetailViewModel.getListDetail()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
         })
-        //TODO: get listproducts in the list
-        /*listProducts = arrayOf(
-                ListProductDTO(1, 1, 1, 1, "Leite", "Mimosa", 1),
-                ListProductDTO(1, 2, 1, 3, "Iogurtes", "Danone", 4)
-        )*/
     }
 
     private fun onSuccess(productsList: ProductsListDto) {
-        // Set Adapter
-        val adapter = ListDetailAdapter(productsList.productsList)
-        view?.let {
-            it.listRecyclerView.layoutManager = LinearLayoutManager(it.context)
-            it.listRecyclerView.setHasFixedSize(true)
-            it.listRecyclerView.adapter = adapter
-        }
-        adapter.setOnItemClickListener(this)
+        adapter.setData(productsList.productsList)
     }
 
     private fun onError(error: String?) {
@@ -78,12 +67,29 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_list, container, false)
+        view.listRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.listRecyclerView.setHasFixedSize(true)
+        view.listRecyclerView.adapter = adapter
+        adapter.setOnItemClickListener(this)
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        savedInstanceState?.let {
+            url = it.getString(ExtraUtils.URL)
+        }
     }
 
     override fun onStart() {
         super.onStart()
         activity?.title = list.listName
+    }
+
+    override fun onStop() {
+        super.onStop()
+        listDetailViewModel.cancel()
     }
 
     override fun onAttach(context: Context) {
@@ -93,6 +99,11 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         } else {
             throw RuntimeException(context.toString() + " must implement OnListDetailFragmentInteractionListener")
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ExtraUtils.URL, url)
     }
 
     override fun onDetach() {
@@ -124,20 +135,18 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
      * ListDetailFragment Factory
      */
     companion object {
-
-        val listArg: String = "list"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param list List
+         * @param url url
          * @return A new instance of fragment ListDetailFragment.
          */
         @JvmStatic
-        fun newInstance(args: Map<String, Any>) =
+        fun newInstance(url: String) =
                 ListDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable(ExtraUtils.LIST, args[listArg] as ListDTO)
+                        putString(ExtraUtils.URL, url)
                     }
                 }
     }
