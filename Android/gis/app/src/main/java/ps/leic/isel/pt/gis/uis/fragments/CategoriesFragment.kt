@@ -11,11 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_categories.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.CategoryDTO
 import ps.leic.isel.pt.gis.model.dtos.CategoriesDto
 import ps.leic.isel.pt.gis.model.dtos.CategoryDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.CategoriesAdapter
+import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
 
 /**
@@ -32,34 +32,37 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
     private lateinit var categories: CategoriesDto
 
     private var listener: OnCategoriesFragmentInteractionListener? = null
-    private var categoriesViewModel: CategoriesViewModel? = null
+    private lateinit var categoriesViewModel: CategoriesViewModel
+    private val adapter = CategoriesAdapter()
+    private lateinit var url: String
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnCategoriesFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnCategoriesFragmentInteractionListener")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            url = it.getString(ExtraUtils.URL)
+        }
         categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
-        val url = ""
-        categoriesViewModel?.init(url)
-        categoriesViewModel?.getCategories()?.observe(this, Observer {
+        categoriesViewModel.init(url)
+        categoriesViewModel.getCategories()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
         })
-        // TODO: Get Data
-        /*categories = arrayOf(
-                CategoryDTO(1, "Laticínios"),
-                CategoryDTO(2, "Carne"),
-                CategoryDTO(3, "Peixe"))*/
     }
 
     private fun onSuccess(categories: CategoriesDto) {
         // Set Adapter
-        val adapter = CategoriesAdapter(categories.categories)
-        view?.let {
-            it.categoryRecyclerView.setHasFixedSize(true)
-            it.categoryRecyclerView.adapter = adapter
-        }
-        adapter.setOnItemClickListener(this)
+        adapter.setData(categories.categories)
     }
 
     private fun onError(error: String?) {
@@ -69,7 +72,18 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_categories, container, false)
+        val view = inflater.inflate(R.layout.fragment_categories, container, false)
+        view.categoryRecyclerView.setHasFixedSize(true)
+        view.categoryRecyclerView.adapter = adapter
+        adapter.setOnItemClickListener(this)
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        savedInstanceState?.let {
+            url = it.getString(ExtraUtils.URL)
+        }
     }
 
     override fun onStart() {
@@ -78,13 +92,14 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
         activity?.title = getString(R.string.categories)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnCategoriesFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnCategoriesFragmentInteractionListener")
-        }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ExtraUtils.URL, url)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        categoriesViewModel.cancel()
     }
 
     override fun onDetach() {
