@@ -32,24 +32,20 @@ import ps.leic.isel.pt.gis.viewModel.AllergiesViewModel
  */
 class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
-    private var allergiesViewModel: AllergiesViewModel? = null
-    private var url: String? = null
+    private lateinit var allergiesViewModel: AllergiesViewModel
+    private lateinit var url: String
     private val adapter = AllergiesTableAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("APP_GIS", "On create")
-        url?.let {
-            Log.d("APP_GIS", it)
-        }
         arguments?.let {
             url = it.getString(ExtraUtils.URL)
         }
         allergiesViewModel = ViewModelProviders.of(this).get(AllergiesViewModel::class.java)
-        url?.let {
-            allergiesViewModel?.init(it)
+        url.let {
+            allergiesViewModel.init(it)
         }
-        allergiesViewModel?.getAllergies()?.observe(this, Observer {
+        allergiesViewModel.getAllergies()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
@@ -87,10 +83,6 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        Log.d("APP_GIS", "On create view")
-        url?.let {
-            Log.d("APP_GIS", it)
-        }
         val view = inflater.inflate(R.layout.fragment_allergies, container, false)
         // Set Adapter
         view.allergiesRecyclerView.layoutManager = LinearLayoutManager(view.context)
@@ -101,38 +93,24 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.d("APP_GIS", "On activity created")
-        url?.let {
-            Log.d("APP_GIS", it)
+        savedInstanceState?.let {
+            url = it.getString(ExtraUtils.URL)
         }
-        url = savedInstanceState?.getString(ExtraUtils.URL)
     }
 
     override fun onStart() {
         super.onStart()
-        Log.d("APP_GIS", "On start")
-        url?.let {
-            Log.d("APP_GIS", it)
-        }
         activity?.title = getString(R.string.allergies)
     }
 
     override fun onPause() {
         super.onPause()
-        Log.d("APP_GIS", "On pause")
-        url?.let {
-            Log.d("APP_GIS", it)
-        }
         val mPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
         mPreferences.edit().putBoolean(SHOW_ALLERGIES_TAG, allergiesYesRadioBtn.isChecked).apply()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        Log.d("APP_GIS", "On save instance state")
-        url?.let {
-            Log.d("APP_GIS", it)
-        }
         outState.putString(ExtraUtils.URL, url)
     }
 
