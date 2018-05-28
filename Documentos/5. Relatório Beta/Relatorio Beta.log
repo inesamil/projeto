@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.22)  28 MAY 2018 18:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.22)  28 MAY 2018 18:57
 entering extended mode
 **"./Relatorio Beta.tex"
 ("Relatorio Beta.tex"
@@ -875,7 +875,23 @@ ne 62.
 \openout2 = `terminologia.aux'.
 
 (terminologia.tex) ("Relatorio Beta.aux" (resumo.aux) (abstract.aux)
-(capitulo1.aux) (capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux))
+(capitulo1.aux) (capitulo2.aux) (capitulo3.aux
+
+LaTeX Warning: Label `sec22' multiply defined.
+
+
+LaTeX Warning: Label `subsec221' multiply defined.
+
+
+LaTeX Warning: Label `project-general-architecture' multiply defined.
+
+
+LaTeX Warning: Label `subsec222' multiply defined.
+
+
+LaTeX Warning: Label `project-layers-structure' multiply defined.
+
+) (capitulo4.aux) (anexo1.aux))
 \openout1 = `"Relatorio Beta.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 108.
@@ -1031,21 +1047,20 @@ go_ISEL_principal_PNG.png>] [2] [1
 ] [10
 
 ]
-("Relatorio Beta.toc")
+("Relatorio Beta.toc" [11
+
+
+])
 \tf@toc=\write8
 \openout8 = `"Relatorio Beta.toc"'.
 
- [11
-
-
-] [12
-
-]
+ [12]
 \openout2 = `capitulo1.aux'.
 
  (capitulo1.tex
 Cap\'{\i }tulo 1.
 [1
+
 
 
 ]
@@ -1064,46 +1079,67 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 
 ]
 Cap\'{\i }tulo 2.
-[5] [6] [7]) [8]
-\openout2 = `capitulo3.aux'.
-
- (capitulo3.tex
-Cap\'{\i }tulo 3.
-<./figures/architecture.png, id=82, 481.8pt x 255.95625pt>
+[5] [6] [7] (seccao22.tex
+<./figures/architecture.png, id=79, 476.53032pt x 258.21469pt>
 File: ./figures/architecture.png Graphic file (type png)
 <use ./figures/architecture.png>
 Package pdftex.def Info: ./figures/architecture.png  used on input line 15.
-(pdftex.def)             Requested size: 481.79881pt x 255.95561pt.
+(pdftex.def)             Requested size: 476.52916pt x 258.21405pt.
 
-Overfull \hbox (14.24158pt too wide) in paragraph at lines 15--16
+Overfull \hbox (14.25027pt too wide) in paragraph at lines 15--16
  [][] 
  []
 
-[9
 
-
-
- <./figures/architecture.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 24--25
 
  []
 
-<./figures/project_architecture.png, id=88, 434.37282pt x 632.3625pt>
+[8 <./figures/architecture.png>]
+<./figures/project_architecture.png, id=85, 434.37282pt x 632.3625pt>
+File: ./figures/project_architecture.png Graphic file (type png)
+<use ./figures/project_architecture.png>
+Package pdftex.def Info: ./figures/project_architecture.png  used on input line
+ 37.
+(pdftex.def)             Requested size: 434.37175pt x 632.36096pt.
+ [9 <./figures/project_architecture.png>]))
+[10]
+\openout2 = `capitulo3.aux'.
+
+ (capitulo3.tex
+File: ./figures/architecture.png Graphic file (type png)
+<use ./figures/architecture.png>
+Package pdftex.def Info: ./figures/architecture.png  used on input line 15.
+(pdftex.def)             Requested size: 476.52916pt x 258.21405pt.
+
+Overfull \hbox (14.25027pt too wide) in paragraph at lines 15--16
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
+
+ []
+
+[11
+
+
+]
 File: ./figures/project_architecture.png Graphic file (type png)
 <use ./figures/project_architecture.png>
 Package pdftex.def Info: ./figures/project_architecture.png  used on input line
  35.
 (pdftex.def)             Requested size: 434.37175pt x 632.36096pt.
-[10 <./figures/project_architecture.png>]) [11]
+) [12]
 \openout2 = `capitulo4.aux'.
 
- (capitulo4.tex [12
+ (capitulo4.tex
+Cap\'{\i }tulo 3.
+(seccao41.tex) (seccao42.tex [13
 
 
 
-]
-Cap\'{\i }tulo 4.
-(seccao41.tex) (seccao42.tex [13] [14]) (seccao43.tex [15]
+] [14]) (seccao43.tex [15]
 Underfull \hbox (badness 10000) in paragraph at lines 21--22
 
  []
@@ -1205,34 +1241,38 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 This document will not have a glossary.
 
 ("Relatorio Beta.aux" (resumo.aux) (abstract.aux) (capitulo1.aux)
-(capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux)) ) 
+(capitulo2.aux) (capitulo3.aux) (capitulo4.aux) (anexo1.aux))
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 12375 strings out of 493303
- 206350 string characters out of 3130219
- 338559 words of memory out of 3000000
+ 12378 strings out of 493303
+ 206469 string characters out of 3130219
+ 338608 words of memory out of 3000000
  15539 multiletter control sequences out of 15000+200000
  20697 words of font info for 73 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,13n,39p,2012b,375s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/Rita/A
-ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/
-Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmb
-x12.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/ams
-fonts/cm/cmbx8.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmbxti10.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Rita/AppData/Local/Progr
-ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Rita/AppData/
-Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Ri
-ta/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C
-:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-mr8.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/ams
-fonts/cm/cmr9.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Rita/AppData/Local/Programs/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Rita/AppData/Loc
-al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Rita
-/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on "Relatorio Beta.pdf" (42 pages, 616716 bytes).
+<C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmbx10.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmbx12.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/Rita/AppData/Local/Programs/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Users/Rita/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Rita/A
+ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/U
+sers/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr1
+2.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmr6.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmr8.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/Rita/AppData/Local/Programs/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Rita/AppData/Local/Pr
+ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Rita/AppDa
+ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/User
+s/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.
+pfb><C:/Users/Rita/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/zapfding/u
+zdr.pfb>
+Output written on "Relatorio Beta.pdf" (42 pages, 616835 bytes).
 PDF statistics:
  398 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
