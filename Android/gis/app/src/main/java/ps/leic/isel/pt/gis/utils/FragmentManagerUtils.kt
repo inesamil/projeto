@@ -19,7 +19,7 @@ fun FragmentManager.replaceCurrentFragmentWith(tag: String, newInstance: () -> F
     }
 }
 
-fun FragmentManager.replaceCurrentFragmentWith(tag: String, newInstance: (Map<String, Any>) -> Fragment, args: Map<String, Any>) {
+fun FragmentManager.replaceCurrentFragmentWith(tag: String, newInstance: (String) -> Fragment, args: String) {
     var fragment = findFragmentByTag(tag)
     if (fragment == null) {
         // Fragment not present in back stack. Instantiates new fragment.
