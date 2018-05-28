@@ -11,14 +11,14 @@ import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
 
 
-class MainActivity : AppCompatActivity() {
+class SplashScreenActivity : AppCompatActivity() {
 
     private var firstTime: Boolean? = null
     private val FIRST_TIME_TAG = "first_time"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_splash_screen)
 
         if (isFirstTime()){
             finish()
@@ -56,6 +56,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG: String = "MainActivity"
+        private const val TAG: String = "SplashScreenActivity"
     }
 }
