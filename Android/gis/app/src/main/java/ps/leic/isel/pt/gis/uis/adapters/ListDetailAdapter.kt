@@ -8,10 +8,11 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.ProductListDto
 
-class ListDetailAdapter(private val data: Array<ProductListDto>)
+class ListDetailAdapter
     : RecyclerView.Adapter<ListDetailAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
+    private var data: Array<ProductListDto>? = null
 
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,14 +23,21 @@ class ListDetailAdapter(private val data: Array<ProductListDto>)
 
     // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: ProductListDto = data[position]
-        // Fill ViewHolder
-        holder.nameItemText.text = item.productName
-        holder.numberItemText.text = item.productsListQuantity.toString()
+        data?.let {
+            val item = it[position]
+            // Fill ViewHolder
+            holder.nameItemText.text = item.productName
+            holder.numberItemText.text = item.productsListQuantity.toString()
+        }
+    }
+
+    fun setData(data: Array<ProductListDto>) {
+        this.data = data
+        notifyDataSetChanged()
     }
 
     // Total number of cells
-    override fun getItemCount() = data.size
+    override fun getItemCount() = data?.size ?: 0
 
     // stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
