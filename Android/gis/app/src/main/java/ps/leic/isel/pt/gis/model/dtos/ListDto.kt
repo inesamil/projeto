@@ -16,10 +16,10 @@ class ListDto(siren: Siren) {
     init {
         val properties = siren.properties
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
-        listId = (properties?.get(listIdLabel) as Int).toLong()
-        listName = properties?.get(listNameLabel) as String
-        username = properties?.get(usernameLabel) as String
-        shareable = properties?.get(shareableLabel) as Boolean
+        listId = (properties[listIdLabel] as Int).toLong()
+        listName = properties[listNameLabel] as String
+        username = properties[usernameLabel] as String
+        shareable = properties[shareableLabel] as Boolean
         actions = HousesActions(siren.actions)
         links = HouseLinks(siren.links)
     }
