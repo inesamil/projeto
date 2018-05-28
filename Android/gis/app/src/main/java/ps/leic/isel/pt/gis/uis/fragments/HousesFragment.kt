@@ -31,11 +31,19 @@ import ps.leic.isel.pt.gis.viewModel.HousesViewModel
  */
 class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
 
-    private lateinit var url: String
-
     private var listener: OnHousesFragmentInteractionListener? = null
     private lateinit var housesVM: HousesViewModel
     private val adapter = HousesAdapter()
+    private lateinit var url: String
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnHousesFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnHousesFragmentInteractionListener")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,18 +92,14 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnHousesFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnHousesFragmentInteractionListener")
-        }
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(ExtraUtils.URL, url)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        housesVM.cancel()
     }
 
     override fun onDetach() {
@@ -131,18 +135,19 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
      * HousesFragment Factory
      */
     companion object {
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param username Username
+         * @param url url
          * @return A new instance of fragment HousesFragment.
          */
         @JvmStatic
-        fun newInstance(username: String) =
+        fun newInstance(url: String) =
                 HousesFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.USER_USERNAME, username)
+                        putString(ExtraUtils.URL, url)
                     }
                 }
     }
