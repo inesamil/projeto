@@ -20,25 +20,23 @@
 \contentsline {subsubsection}{Local de armazenamento}{7}
 \contentsline {section}{\numberline {2.2}Arquitetura da Solu\IeC {\c c}\IeC {\~a}o}{8}
 \contentsline {subsection}{\numberline {2.2.1}Abordagem}{8}
-\contentsline {subsection}{\numberline {2.2.2}Estrutura por camadas}{9}
-\contentsline {section}{\numberline {2.3}Arquitetura da Solu\IeC {\c c}\IeC {\~a}o}{11}
-\contentsline {subsection}{\numberline {2.3.1}Abordagem}{11}
-\contentsline {subsection}{\numberline {2.3.2}An\IeC {\'a}lise}{12}
-\contentsline {chapter}{\numberline {3}Implementa\IeC {\c c}\IeC {\~a}o do Sistema de Gest\IeC {\~a}o de Stocks}{13}
-\contentsline {section}{\numberline {3.1}Aplica\IeC {\c c}\IeC {\~o}es Cliente}{13}
-\contentsline {section}{\numberline {3.2}Servidor}{13}
-\contentsline {subsection}{\numberline {3.2.1}Acesso a Dados}{14}
-\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{14}
-\contentsline {subsection}{\numberline {3.2.2}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{14}
-\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{15}
-\contentsline {subsection}{\numberline {3.2.3}\textit {Controllers}}{15}
-\contentsline {subsection}{\numberline {3.2.4}Seguran\IeC {\c c}a}{15}
-\contentsline {section}{\numberline {3.3}Algoritmo de Previs\IeC {\~a}o de Stocks}{15}
-\contentsline {subsection}{\numberline {3.3.1}Implementa\IeC {\c c}\IeC {\~a}o}{15}
-\contentsline {section}{\numberline {3.4}Modelo de Dados}{17}
-\contentsline {subsection}{\numberline {3.4.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{17}
-\contentsline {subsection}{\numberline {3.4.2}Dom\IeC {\'\i }nio dos Atributos}{18}
-\contentsline {subsection}{\numberline {3.4.3}Base de Dados}{24}
-\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{24}
-\contentsline {chapter}{\numberline {A}Terminologia}{27}
-\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{27}
+\contentsline {subsection}{\numberline {2.2.2}Arquitetura por Camadas}{9}
+\contentsline {subsubsection}{Tecnologias Inerentes \IeC {\`a} Solu\IeC {\c c}\IeC {\~a}o}{10}
+\contentsline {chapter}{\numberline {3}Implementa\IeC {\c c}\IeC {\~a}o do Sistema de Gest\IeC {\~a}o de Stocks}{11}
+\contentsline {section}{\numberline {3.1}Aplica\IeC {\c c}\IeC {\~o}es Cliente}{11}
+\contentsline {section}{\numberline {3.2}Servidor}{11}
+\contentsline {subsection}{\numberline {3.2.1}Acesso a Dados}{12}
+\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{12}
+\contentsline {subsection}{\numberline {3.2.2}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{12}
+\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{13}
+\contentsline {subsection}{\numberline {3.2.3}\textit {Controllers}}{13}
+\contentsline {subsection}{\numberline {3.2.4}Seguran\IeC {\c c}a}{13}
+\contentsline {section}{\numberline {3.3}Algoritmo de Previs\IeC {\~a}o de Stocks}{13}
+\contentsline {subsection}{\numberline {3.3.1}Implementa\IeC {\c c}\IeC {\~a}o}{13}
+\contentsline {section}{\numberline {3.4}Modelo de Dados}{15}
+\contentsline {subsection}{\numberline {3.4.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{15}
+\contentsline {subsection}{\numberline {3.4.2}Dom\IeC {\'\i }nio dos Atributos}{16}
+\contentsline {subsection}{\numberline {3.4.3}Base de Dados}{22}
+\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{22}
+\contentsline {chapter}{\numberline {A}Terminologia}{25}
+\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{25}
