@@ -8,10 +8,11 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.CategoryDto
 
-class CategoriesAdapter(private val data: Array<CategoryDto>)
+class CategoriesAdapter
     : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
+    private var data: Array<CategoryDto>? = null
 
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,13 +23,20 @@ class CategoriesAdapter(private val data: Array<CategoryDto>)
 
     // Binds the data to the components in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: CategoryDto = data[position]
-        // Fill ViewHolder
-        holder.categoryItemText.text = item.categoryName
+        data?.let {
+            val item = it.get(position)
+            // Fill ViewHolder
+            holder.categoryItemText.text = item.categoryName
+        }
+    }
+
+    fun setData(data: Array<CategoryDto>) {
+        this.data = data
+        notifyDataSetChanged()
     }
 
     // Total number of cells
-    override fun getItemCount() = data.size
+    override fun getItemCount() = data?.size ?: 0
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
