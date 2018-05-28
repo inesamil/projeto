@@ -43,13 +43,12 @@ class WritingNfcTagFragment : DialogFragment() {
      */
     companion object {
         val TAG = WritingNfcTagFragment::class.java.simpleName
-        val messageArg: String = "message"
 
         @JvmStatic
-        fun newInstance(args: Map<String, Any>) =
+        fun newInstance(message: String) =
                 WritingNfcTagFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.NFC_MESSAGE, args[messageArg] as String)
+                        putString(ExtraUtils.NFC_MESSAGE, message)
                     }
                 }
     }
