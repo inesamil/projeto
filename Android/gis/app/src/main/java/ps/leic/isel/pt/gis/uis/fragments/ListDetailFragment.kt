@@ -12,9 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.ListDTO
-import ps.leic.isel.pt.gis.model.ListProductDTO
-import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.model.dtos.ProductListDto
 import ps.leic.isel.pt.gis.model.dtos.ProductsListDto
 import ps.leic.isel.pt.gis.repositories.Status
@@ -33,18 +30,28 @@ import ps.leic.isel.pt.gis.viewModel.ListDetailViewModel
  */
 class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
-    private lateinit var list: ListDto
-    private lateinit var listProducts: ProductsListDto
+    private var listName: String? = null
+    private var listProducts: Array<ProductListDto>? = null
 
     private var listener: OnListDetailFragmentInteractionListener? = null
     private lateinit var listDetailViewModel: ListDetailViewModel
     private lateinit var url: String
     private val adapter = ListDetailAdapter()
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnListDetailFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnListDetailFragmentInteractionListener")
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             url = it.getString(ExtraUtils.URL)
+            listName = it.getString(ExtraUtils.LIST_NAME)
         }
         listDetailViewModel = ViewModelProviders.of(this).get(ListDetailViewModel::class.java)
         listDetailViewModel.init(url)
@@ -58,6 +65,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
     private fun onSuccess(productsList: ProductsListDto) {
         adapter.setData(productsList.productsList)
+        this.listProducts = productsList.productsList
     }
 
     private fun onError(error: String?) {
@@ -79,31 +87,24 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
             url = it.getString(ExtraUtils.URL)
+            listName = it.getString(ExtraUtils.LIST_NAME)
         }
     }
 
     override fun onStart() {
         super.onStart()
-        activity?.title = list.listName
-    }
-
-    override fun onStop() {
-        super.onStop()
-        listDetailViewModel.cancel()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnListDetailFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnListDetailFragmentInteractionListener")
-        }
+        activity?.title = listName
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(ExtraUtils.URL, url)
+        outState.putString(ExtraUtils.LIST_NAME, listName)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        listDetailViewModel.cancel()
     }
 
     override fun onDetach() {
@@ -117,8 +118,10 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
     // NfcListener for list item clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
-        val listProduct: ProductListDto = listProducts.productsList[position]
-        listener?.onListProductInteraction(listProduct)
+        listProducts?.let {
+            val listProduct = it[position]
+            listener?.onListProductInteraction(listProduct)
+        }
     }
 
     /**
@@ -143,10 +146,11 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
          * @return A new instance of fragment ListDetailFragment.
          */
         @JvmStatic
-        fun newInstance(url: String) =
+        fun newInstance(url: String, listName: String) =
                 ListDetailFragment().apply {
                     arguments = Bundle().apply {
                         putString(ExtraUtils.URL, url)
+                        putString(ExtraUtils.LIST_NAME, listName)
                     }
                 }
     }
