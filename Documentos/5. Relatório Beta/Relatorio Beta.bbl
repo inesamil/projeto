@@ -25,6 +25,31 @@ R.~Fielding and J.~Reschke.
 \newblock \url{https://tools.ietf.org/html/rfc7231}, Junho 2014.
 \newblock [Online, Acedido a 15/04/2018].
 
+\bibitem{PofEAARe31:repositoryPattern}
+Edward Hieatt and Rob Mee.
+\newblock P of eaa: Repository.
+\newblock \url{https://martinfowler.com/eaaCatalog/repository.html}.
+\newblock [Online, Acedido a 25/05/2018].
+
+\bibitem{PofEAAUn16:unitOfWorkPattern}
+Martin Fowler.
+\newblock P of eaa: Unit of work.
+\newblock \url{https://martinfowler.com/eaaCatalog/unitOfWork.html}.
+\newblock [Online, Acedido a 25/05/2018].
+
+\bibitem{PofEAASe2:serviceLayer}
+Randy Stafford.
+\newblock P of eaa: Service layer.
+\newblock \url{https://www.martinfowler.com/eaaCatalog/serviceLayer.html}.
+\newblock [Online, Acedido a 28/05/2018].
+
+\bibitem{APIBestP87:hypermedia}
+Mike Stowe.
+\newblock Api best practices: Hypermedia (part 4.1) | mulesoft blog.
+\newblock
+  \url{https://blogs.mulesoft.com/dev/api-dev/api-best-practices-hypermedia-part-1/}.
+\newblock [Online, Acedido a 28/05/2018].
+
 \bibitem{draftnot72:jsonHome}
 Home documents for http apis draft-nottingham-json-home-06.
 \newblock \url{https://tools.ietf.org/html/draft-nottingham-json-home-06},

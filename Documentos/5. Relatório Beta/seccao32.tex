@@ -1,0 +1,51 @@
+\section{Servidor}\label{sec32}
+
+A \gls{api-web} é a interface exposta pela aplicação baseado em \acrfull{http} \cite{RFC7231:http}. Esta disponibiliza informação e funcionalidades fornecidas pelo sistema Smart Stocks, através de \textit{endpoints} públicos.
+
+A decisão de utilizar a \textit{framework} \textit{Spring Boot} para implementar o servidor deve-se ao facto de ser uma ferramenta \gls{open-source}, capaz de criar rapidamente aplicações com auto-configuração, através de anotações. Outra vantagem é a integração com tecnologias de persistência de dados, como a \acrfull{jpa}. Por fim, por questões de conhecimento e de experiência anterior com esta \textit{framework}.
+
+O servidor é composto por várias camadas - Acesso a Dados, Lógica de Negócio e Controlo.
+
+%
+% Acesso a Dados
+%
+\subsection{Acesso a Dados}\label{subsec321}
+
+Uma vez armazenados os dados de forma persistente é indispensável realizar escritas e leituras sobre os mesmos. Como forma de abstrair as restantes camadas do \acrshort{sgbd}, é necessário definir interfaces entre as diferentes camadas. Para tal, desenvolveu-se a \acrfull{dal}.
+
+%Para implementar esta camada, ponderaram-se duas opções, \acrfull{jpa} \cite{javaee6:jpa} com \textit{Hibernate} \cite{hibernateORM:hibernate} e \gls{jdbctemplate} \cite{dataAccessWithJDBC:jdbctemplate}. Apesar de \acrshort{jdbctemplate} permitir um maior controlo do lado do programador, não se fizeram notar discrepâncias significativas, pelo que se optou então por \acrshort{jpa} com \textit{Hibernate}, por questões de familiaridade.
+
+Como o modelo de dados é relativamente extenso o uso de \acrfull{jpa} com \textit{Hibernate} torna-se benéfico uma vez que permite reduzir a repetição de código envolvido para suportar as operações básicas de \acrfull{crud} em todas as entidades. 
+
+No acesso a dados, são utilizados dois padrões de desenho: Padrão \textit{Repository} \cite{PofEAARe31:repositoryPattern} e Padrão \textit{Unit Of Work} \cite{PofEAAUn16:unitOfWorkPattern}. A \acrshort{dal} é, salvo exceções, gerada através da \acrshort{jpa} com \textit{Hibernate}.
+
+O principal requisito é o acesso aos dados da \acrshort{bd} e o suporte para as operações \acrshort{crud} nas tabelas. Desta forma criou-se interfaces \textit{repositories} com métodos que garantem não só essas operações, como outras para facilitar a obtenção de dados de determinada forma. O uso de \acrshort{jpa} com \textit{Hibernate} obriga a representar o modelo da \acrshort{bd} em classes \textit{Java}, \acrfull{pojo}.
+
+Cada entidade presente na \acrshort{bd} é mapeada numa classe em Java, que representa o modelo de domínio da mesma. Esta classe tem várias anotações da \acrshort{jpa} com \textit{Hibernate} para referir a \acrlong{cp}, \acrlong{ce}, associações entre entidades, etc. Em conjunto estas classes Java formam o modelo utilizado entre as camadas internas do lado do servidor.
+
+%
+% Lógica de Negócio
+%
+\subsection{Lógica de Negócio}\label{subsec322}
+
+É fundamental fazer cumprir as regras, restrições e toda a lógica da gestão dos dados para o correto funcionamento do sistema. Assim  este controlo foi depositado na \acrfull{bll} e também no modelo desenvolvido. Esta decisão permite não só concentrar a gestão dos dados como também controlar numa camada intermédia os dados a obter, atualizar, remover ou inserir, antes de realizar o acesso/escrita dos mesmos. 
+
+que estabelece um conjunto de operações disponíveis e coordena a resposta do aplicativo em cada operação.
+
+Cada serviço estabelece um conjunto de operações disponíveis \cite{PofEAASe2:serviceLayer}. Desta maneira, consegue-se isolar as diversas operações referentes a cada entidade. Assim, para a implementação desta camada criaram-se serviços para cada entidade. Estes expõem funcionalidades e aplicam as regras de negócio necessárias. É de salientar que um serviço está fortemente ligado a um ou mais \textit{repositories}, e estes podem estar associados a um ou mais serviços.
+
+%
+% Controlo
+%
+\subsection{Controlo}\label{subsec323}
+
+Os Controlos são responsáveis por processar os pedidos aos diferentes \textit{endpoints} e produzir uma resposta. Os formatos de resposta utilizam \textit{hypermedia} \cite{APIBestP87:hypermedia}, são de um de três tipos, \textit{Json Home} \cite{draftnot72:jsonHome}, \textit{Siren} \cite{kevinswiber:siren} e \textit{Problem Details} \cite{RFC7807:problemDetails}. A escolha do uso de \textit{hypermedia} apoia-se em questões evolutivas da API em termos de hiperligações, ou seja, caso os \textit{endpoints} dos recursos sejam alterados a aplicação cliente não sofre alterações.
+
+%
+% Segurança
+%
+\subsection{Segurança}\label{subsec324}
+
+Sendo o Smart Stocks um sistema de gestão de stocks domésticos é de extrema importância assegurar a confidencialidade e segurança dos dados de cada casa. Como tal, o acesso a recursos ou a manipulação dos mesmos só pode suceder de forma autenticada e autorizada. Ao assumir a utilização do protocolo \acrfull{https} \cite{RFC2660:https}, nesta primeira fase, permitiu escolher como forma de autenticação o \textit{Basic Scheme} \cite{RFC7617:basicSheme} .
+
+

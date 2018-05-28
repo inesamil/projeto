@@ -1,7 +1,7 @@
-\section{Modelo de Dados}\label{sec44}
+\section{Modelo de Dados}\label{sec34}
 
 % Modelo EA
-\subsection{Modelo Entidade-Associação}\label{subsec441}
+\subsection{Modelo Entidade-Associação}\label{subsec341}
 
 \begin{figure}[H]
 	\hspace*{-2,5cm}
@@ -12,7 +12,7 @@
 \end{figure}
 
 % Domínio dos Atributos
-\subsection{Domínio dos Atributos}\label{subsec442}
+\subsection{Domínio dos Atributos}\label{subsec342}
 \raggedbottom
 % House
 \begin{table} [H]
@@ -341,7 +341,7 @@
 %
 % Base de Dados
 %
-\subsection{Base de Dados}\label{subsec443}
+\subsection{Base de Dados}\label{subsec343}
 
 Os dados são armazenados de forma persistente numa \acrfull{bd}. A \acrshort{bd} implementada é relacional uma vez que não se preveem alterações durante o uso, ou seja, as tabelas são de certa forma estáticas, não necessitando portanto do dinamismo oferecido por uma \acrshort{bd} documental, por exemplo. 
 
@@ -353,7 +353,7 @@ A escolha de qual o melhor \acrfull{sgbd} assentava em três possibilidades, \te
 \end{itemize}
 Assim sendo, foi escolhido o \acrfull{sgbdro} \textit{PostgreSQL}, como já anteriormente mencionado, na secção \ref{sec13} do capítulo \ref{cap1}.
 
-\subsubsection{Implementação}\label{subsubsec4521}
+\subsubsection{Implementação}\label{subsubsec3431}
 
 Na \acrshort{bd} foram desenvolvidas funções que garantem a consistência dos dados, por um lado na inserção de entidades cujos \textit{IDs} sejam incrementais ou gerados consoante o desejado, por outro lado na remoção  de entidades que se relacionam com outras.
 
