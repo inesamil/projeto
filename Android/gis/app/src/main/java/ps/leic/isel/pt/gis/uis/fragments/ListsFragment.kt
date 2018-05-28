@@ -10,12 +10,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListAdapter
 import kotlinx.android.synthetic.main.fragment_lists.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.ListDTO
-import ps.leic.isel.pt.gis.model.SystemListDTO
-import ps.leic.isel.pt.gis.model.UserListDTO
 import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.model.dtos.ListsDto
 import ps.leic.isel.pt.gis.repositories.Status
@@ -34,12 +30,21 @@ import ps.leic.isel.pt.gis.viewModel.ListsViewModel
  */
 class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
 
-    private lateinit var lists: ListsDto
+    private var lists: Array<ListDto>? = null
 
     private var listener: OnListsFragmentInteractionListener? = null
     private lateinit var listsViewModel: ListsViewModel
     private lateinit var url: String
     private val adapter = ListsAdapter()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnListsFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnListsFragmentInteractionListener")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +63,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
 
     private fun onSuccess(lists: ListsDto) {
         adapter.setData(lists.lists)
+        this.lists = lists.lists
     }
 
     private fun onError(error: String?) {
@@ -84,11 +90,6 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-        activity?.title = getString(R.string.lists)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
@@ -96,13 +97,9 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnListsFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnListsFragmentInteractionListener")
-        }
+    override fun onStart() {
+        super.onStart()
+        activity?.title = getString(R.string.lists)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -126,8 +123,10 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
 
     // Listener for list clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
-        val list: ListDto = lists.lists[position]
-        listener?.onListInteraction(list)
+        lists?.let {
+            val list = it[position]
+            listener?.onListInteraction(list)
+        }
     }
 
     /**
