@@ -1,49 +1,51 @@
-\section{Algoritmo de Previsão de Stocks}\label{sec33}
+\section{Servidor}\label{sec33}
 
-Uma vez que para uma boa gestão de stocks existe a necessidade de prever a duração de cada um dos itens em stock, com base nos historial de consumo e reposição da casa. De forma a garantir este requisito inerente ao sistema Smart Stocks, introduziu-se um algoritmo de previsão de stocks.
+A \gls{api-web} é a interface exposta pela aplicação baseado em \acrfull{http} \cite{RFC7231:http}. Esta disponibiliza informação e funcionalidades fornecidas pelo sistema Smart Stocks, através de \textit{endpoints} públicos.
 
-Para a realização deste algoritmo, teve-se a preocupação de analisar os vários tipos de modelo existentes e adotar o mais adequado ao sistema. Durante a pesquisa, deparou-se com a existência de dois tipos de modelo de previsão, sendo eles, Modelos Quantitativos e Qualitativos. Os primeiros baseiam-se em análises numéricas dos dados históricos, enquanto que os qualitativos privilegiam dados subjetivos baseados na opinião de especialistas. Como se deseja realizar este algoritmo com base no histórico de consumo e reposição, optou-se pelo Modelo Quantitativo. 
+A decisão de utilizar a \textit{framework} \textit{Spring Boot} para implementar o servidor deve-se ao facto de ser uma ferramenta \gls{open-source}, capaz de criar rapidamente aplicações com auto-configuração, através de anotações. Outra vantagem é a integração com tecnologias de persistência de dados, como a \acrfull{jpa}. Por fim, por questões de conhecimento e de experiência anterior com esta \textit{framework}.
 
-Dos sub-modelos disponíveis elegeu-se um modelo de séries temporais visto que este pode incluir nos seus dados um conjunto de elementos, por exemplo, sazonalidade, tendências, influências cíclicas ou comportamento aleatório.
-
-
-
+O servidor é composto por várias camadas - Acesso a Dados, Lógica de Negócio e Controlo.
 
 %
-% Implementação
+% Acesso a Dados
 %
-\subsection{Implementação}\label{subsec331}
+\subsection{Acesso a Dados}\label{subsec331}
 
-Aplicou-se o método da média móvel ponderada para um período mínimo de 3 semanas. Este procedimento começa por atribuir pesos aos dados consoante a semana a que se referem, sendo que as mais recentes têm maior peso.
+Uma vez armazenados os dados de forma persistente é indispensável realizar escritas e leituras sobre os mesmos. Como forma de abstrair as restantes camadas do \acrshort{sgbd}, é necessário definir interfaces entre as diferentes camadas. Para tal, desenvolveu-se a \acrfull{dal}.
 
-Como se tratam de dados diários e para evitar a descompensação de valores provocada por dias com consumo excecionais amortecem-se  os valores. Assim os resultados tornam-se mais homogéneos e com um comportamento mais sazonal.   
+%Para implementar esta camada, ponderaram-se duas opções, \acrfull{jpa} \cite{javaee6:jpa} com \textit{Hibernate} \cite{hibernateORM:hibernate} e \gls{jdbctemplate} \cite{dataAccessWithJDBC:jdbctemplate}. Apesar de \acrshort{jdbctemplate} permitir um maior controlo do lado do programador, não se fizeram notar discrepâncias significativas, pelo que se optou então por \acrshort{jpa} com \textit{Hibernate}, por questões de familiaridade.
 
-Com base nestes dois aspetos construiu-se um dia típico, que servirá de base para uma previsão. Seguiu-se o seguinte procedimento:\\
+Como o modelo de dados é relativamente extenso o uso de \acrfull{jpa} com \textit{Hibernate} torna-se benéfico uma vez que permite reduzir a repetição de código envolvido para suportar as operações básicas de \acrfull{crud} em todas as entidades. 
 
-\textbf{1º Passo}\\
-A primeira fase consiste em aplicar o método da média móvel ponderada aos dados, para isso usou-se a seguinte expressão:
+No acesso a dados, são utilizados dois padrões de desenho: Padrão \textit{Repository} \cite{PofEAARe31:repositoryPattern} e Padrão \textit{Unit Of Work} \cite{PofEAAUn16:unitOfWorkPattern}. A \acrshort{dal} é, salvo exceções, gerada através da \acrshort{jpa} com \textit{Hibernate}.
 
-\begin{displaymath} 
-	Pdiax'= T1 \times Rdia1 + T2 \times Rdia2 + T3 \times Rdia3
-\end{displaymath}
+O principal requisito é o acesso aos dados da \acrshort{bd} e o suporte para as operações \acrshort{crud} nas tabelas. Desta forma criou-se interfaces \textit{repositories} com métodos que garantem não só essas operações, como outras para facilitar a obtenção de dados de determinada forma. O uso de \acrshort{jpa} com \textit{Hibernate} obriga a representar o modelo da \acrshort{bd} em classes \textit{Java}, \acrfull{pojo}.
 
-Onde os valores de $Tx$ correspondem às taxas definidas como pesos para os dados diários ($Rdiax$) da semana $x$. As taxas escolhidas foram: 
-\begin{center}
-	\textit{T1 = 10\%, T2 = 30\% e T3 = 60\%}
-\end{center}
+Cada entidade presente na \acrshort{bd} é mapeada numa classe em Java, que representa o modelo de domínio da mesma. Esta classe tem várias anotações da \acrshort{jpa} com \textit{Hibernate} para referir a \acrlong{cp}, \acrlong{ce}, associações entre entidades, etc. Em conjunto estas classes Java formam o modelo utilizado entre as camadas internas do lado do servidor.
 
+%
+% Lógica de Negócio
+%
+\subsection{Lógica de Negócio}\label{subsec332}
 
-\textbf{2º Passo}\\
-Aos valores obtidos anteriormente aplicou-se um método de amortização de forma a homogeneizar e harmonizar a previsão. Assim, o valor obtido para um dia da semana resulta da soma do seu valor e do valor do dia da semana anterior e da seguinte, multiplicados por taxas, ou seja: 
+É fundamental fazer cumprir as regras, restrições e toda a lógica da gestão dos dados para o correto funcionamento do sistema. Assim  este controlo foi depositado na \acrfull{bll} e também no modelo desenvolvido. Esta decisão permite não só concentrar a gestão dos dados como também controlar numa camada intermédia os dados a obter, atualizar, remover ou inserir, antes de realizar o acesso/escrita dos mesmos. 
 
-\begin{displaymath} 
-	Pdiax''= Tant \times PdiaxAnt' + Tdiax \times Pdiax' + Tseg \times PdiaxSeg'
-\end{displaymath}
+que estabelece um conjunto de operações disponíveis e coordena a resposta do aplicativo em cada operação.
 
-Onde os valores de $Tant$, $Tdiax$ e $Tseg$ correspondem às taxas definidas como pesos para os dias da semana anterior, atual e seguinte, respetivamente. Os valores $PdiaxAnt'$, $Pdiax'$ e $PdiaxSeg'$ são os valores previstos no 1º passo do método de previsão para os dias da semana anterior, atual e seguinte, respetivamente. As taxas escolhidas foram: 
+Cada serviço estabelece um conjunto de operações disponíveis \cite{PofEAASe2:serviceLayer}. Desta maneira, consegue-se isolar as diversas operações referentes a cada entidade. Assim, para a implementação desta camada criaram-se serviços para cada entidade. Estes expõem funcionalidades e aplicam as regras de negócio necessárias. É de salientar que um serviço está fortemente ligado a um ou mais \textit{repositories}, e estes podem estar associados a um ou mais serviços.
 
-\begin{center}
-	\textit{Tant = Tseg = 25\%  e Tdiax = 50\%.}
-\end{center}
- 
+%
+% Controlo
+%
+\subsection{Controlo}\label{subsec333}
+
+Os Controlos são responsáveis por processar os pedidos aos diferentes \textit{endpoints} e produzir uma resposta. Os formatos de resposta utilizam \textit{hypermedia} \cite{APIBestP87:hypermedia}, são de um de três tipos, \textit{Json Home} \cite{draftnot72:jsonHome}, \textit{Siren} \cite{kevinswiber:siren} e \textit{Problem Details} \cite{RFC7807:problemDetails}. A escolha do uso de \textit{hypermedia} apoia-se em questões evolutivas da API em termos de hiperligações, ou seja, caso os \textit{endpoints} dos recursos sejam alterados a aplicação cliente não sofre alterações.
+
+%
+% Segurança
+%
+\subsection{Segurança}\label{subsec334}
+
+Sendo o Smart Stocks um sistema de gestão de stocks domésticos é de extrema importância assegurar a confidencialidade e segurança dos dados de cada casa. Como tal, o acesso a recursos ou a manipulação dos mesmos só pode suceder de forma autenticada e autorizada. Ao assumir a utilização do protocolo \acrfull{https} \cite{RFC2660:https}, nesta primeira fase, permitiu escolher como forma de autenticação o \textit{Basic Scheme} \cite{RFC7617:basicSheme} .
+
 

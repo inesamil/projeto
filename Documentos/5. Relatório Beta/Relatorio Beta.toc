@@ -23,18 +23,21 @@
 \contentsline {subsection}{\numberline {2.2.2}Arquitetura por Camadas}{9}
 \contentsline {subsubsection}{Tecnologias Inerentes \IeC {\`a} Solu\IeC {\c c}\IeC {\~a}o}{10}
 \contentsline {chapter}{\numberline {3}Implementa\IeC {\c c}\IeC {\~a}o do Sistema de Gest\IeC {\~a}o de Stocks}{11}
-\contentsline {section}{\numberline {3.1}Aplica\IeC {\c c}\IeC {\~o}es Cliente}{11}
-\contentsline {section}{\numberline {3.2}Servidor}{11}
-\contentsline {subsection}{\numberline {3.2.1}Acesso a Dados}{12}
-\contentsline {subsection}{\numberline {3.2.2}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{12}
-\contentsline {subsection}{\numberline {3.2.3}Controlo}{13}
-\contentsline {subsection}{\numberline {3.2.4}Seguran\IeC {\c c}a}{13}
-\contentsline {section}{\numberline {3.3}Algoritmo de Previs\IeC {\~a}o de Stocks}{13}
-\contentsline {subsection}{\numberline {3.3.1}Implementa\IeC {\c c}\IeC {\~a}o}{13}
-\contentsline {section}{\numberline {3.4}Modelo de Dados}{15}
-\contentsline {subsection}{\numberline {3.4.1}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{15}
-\contentsline {subsection}{\numberline {3.4.2}Dom\IeC {\'\i }nio dos Atributos}{16}
-\contentsline {subsection}{\numberline {3.4.3}Base de Dados}{22}
-\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{22}
-\contentsline {chapter}{\numberline {A}Terminologia}{25}
-\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{25}
+\contentsline {section}{\numberline {3.1}Modelo de Dados}{11}
+\contentsline {subsection}{\numberline {3.1.1}Base de Dados}{11}
+\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{12}
+\contentsline {subsection}{\numberline {3.1.2}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{13}
+\contentsline {subsection}{\numberline {3.1.3}Dom\IeC {\'\i }nio dos Atributos}{14}
+\contentsline {section}{\numberline {3.2}Aplica\IeC {\c c}\IeC {\~o}es Cliente}{20}
+\contentsline {section}{\numberline {3.3}Servidor}{20}
+\contentsline {subsection}{\numberline {3.3.1}Acesso a Dados}{20}
+\contentsline {subsection}{\numberline {3.3.2}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{21}
+\contentsline {subsection}{\numberline {3.3.3}Controlo}{21}
+\contentsline {subsection}{\numberline {3.3.4}Seguran\IeC {\c c}a}{21}
+\contentsline {section}{\numberline {3.4}Algoritmo de Previs\IeC {\~a}o de Stocks}{22}
+\contentsline {subsection}{\numberline {3.4.1}Implementa\IeC {\c c}\IeC {\~a}o}{22}
+\contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{25}
+\contentsline {section}{\numberline {4.1}Sum\IeC {\'a}rio}{25}
+\contentsline {section}{\numberline {4.2}Trabalho Futuro}{25}
+\contentsline {chapter}{\numberline {A}Terminologia}{29}
+\contentsline {section}{\numberline {A.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{29}
