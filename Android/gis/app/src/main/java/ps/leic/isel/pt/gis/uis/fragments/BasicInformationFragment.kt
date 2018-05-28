@@ -28,34 +28,37 @@ import ps.leic.isel.pt.gis.viewModel.BasicInformationViewModel
  */
 class BasicInformationFragment : Fragment() {
 
-    private lateinit var username: String
-    private lateinit var user: UserDTO
-
     private var listener: OnBasicInformationFragmentInteractionListener? = null
-    private var basicInfoVM: BasicInformationViewModel? = null
+    private lateinit var basicInfoVM: BasicInformationViewModel
+    private lateinit var url: String
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnBasicInformationFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnBasicInformationFragmentInteractionListener")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            username = it.getString(ExtraUtils.USER_USERNAME)
+            url = it.getString(ExtraUtils.URL)
         }
         basicInfoVM = ViewModelProviders.of(this).get(BasicInformationViewModel::class.java)
-        val url = ""
-        basicInfoVM?.init(url)
-        basicInfoVM?.getUser()?.observe(this, Observer {
+        basicInfoVM.init(url)
+        basicInfoVM.getUser()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
         })
-        //TODO: get data
-        user = UserDTO("alice", "alice@example.com", 20, "Alice Smith")
     }
 
     private fun onSuccess(user: UserDto) {
         // Set info
         view?.let {
-            UserDTO
             it.fullnameText.text = user.name
             it.emailText.text = user.email
             it.requesterUserText.text = user.username
@@ -73,13 +76,21 @@ class BasicInformationFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_basic_information, container, false)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnBasicInformationFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnBasicInformationFragmentInteractionListener")
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        savedInstanceState?.let {
+            url = it.getString(ExtraUtils.URL)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ExtraUtils.URL, url)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        basicInfoVM.cancel()
     }
 
     override fun onDetach() {
@@ -98,18 +109,19 @@ class BasicInformationFragment : Fragment() {
     }
 
     companion object {
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param username Username
+         * @param url url
          * @return A new instance of fragment BasicInformationFragment.
          */
         @JvmStatic
-        fun newInstance(username: String) =
+        fun newInstance(url: String) =
                 BasicInformationFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.USER_USERNAME, username)
+                        putString(ExtraUtils.URL, url)
                     }
                 }
     }
