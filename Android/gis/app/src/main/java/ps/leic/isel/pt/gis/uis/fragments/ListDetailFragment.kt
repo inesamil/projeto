@@ -138,6 +138,10 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
      * ListDetailFragment Factory
      */
     companion object {
+
+        const val URL_ARG = "url"
+        const val LIST_NAME_ARG = "list-name"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -146,11 +150,11 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
          * @return A new instance of fragment ListDetailFragment.
          */
         @JvmStatic
-        fun newInstance(url: String, listName: String) =
+        fun newInstance(args: Map<String, Any>) =
                 ListDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, url)
-                        putString(ExtraUtils.LIST_NAME, listName)
+                        putString(ExtraUtils.URL, args[URL_ARG] as String)
+                        putString(ExtraUtils.LIST_NAME, args[LIST_NAME_ARG] as String)
                     }
                 }
     }
