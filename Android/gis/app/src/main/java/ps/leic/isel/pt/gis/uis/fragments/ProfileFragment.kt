@@ -58,8 +58,8 @@ class ProfileFragment : Fragment() {
      */
     companion object {
 
-        val usernameArg: String = "username"
-        val pageArg: String = "page"
+        const val URL_ARG: String = "url"
+        const val PAGE_ARG: String = "page"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -71,8 +71,8 @@ class ProfileFragment : Fragment() {
         fun newInstance(args: Map<String, Any>) =
                 ProfileFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.USER_USERNAME, args[usernameArg] as String)
-                        putInt(ExtraUtils.PROFILE_PAGE, (args[pageArg] as PageTabsAdapter.ProfilePage).ordinal)
+                        putString(ExtraUtils.URL, args[URL_ARG] as String)
+                        putInt(ExtraUtils.PROFILE_PAGE, (args[PAGE_ARG] as PageTabsAdapter.ProfilePage).ordinal)
                     }
                 }
     }
