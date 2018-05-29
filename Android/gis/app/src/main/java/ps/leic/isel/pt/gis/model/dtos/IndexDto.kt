@@ -4,20 +4,11 @@ import ps.leic.isel.pt.gis.hypermedia.jsonHome.subentities.JsonHome
 import ps.leic.isel.pt.gis.hypermedia.jsonHome.subentities.ResourceObject
 
 class IndexDto(jsonHome: JsonHome) {
-    val title: String?
-    val author: String?
-    val describedBy: String?
-    val license: String?
-    val resources: Resources
-
-
-    init {
-        title = jsonHome.api.title
-        author = jsonHome.api.links.author
-        describedBy = jsonHome.api.links.describedBy
-        license = jsonHome.api.links.license
-        resources = Resources(jsonHome.resources)
-    }
+    val title: String? = jsonHome.api?.title
+    val author: String? = jsonHome.api?.links?.author
+    val describedBy: String? = jsonHome.api?.links?.describedBy
+    val license: String? = jsonHome.api?.links?.license
+    val resources: Resources = Resources(jsonHome.resources)
 
     class Resources(resources: HashMap<String, ResourceObject>) {
         val getHouses: ResourceObject? = resources[relHousesLabel]
@@ -28,10 +19,10 @@ class IndexDto(jsonHome: JsonHome) {
     }
 
     companion object {
-        val relHouseLabel: String = "rel/house"
-        val relHousesLabel: String = "rel/houses"
-        val relUserLabel: String = "rel/user"
-        val relCategoriesLabel: String = "rel/categories"
-        val relAllergiesLabel: String = "rel/allergies"
+        const val relHouseLabel: String = "rel/house"
+        const val relHousesLabel: String = "rel/houses"
+        const val relUserLabel: String = "rel/user"
+        const val relCategoriesLabel: String = "rel/categories"
+        const val relAllergiesLabel: String = "rel/allergies"
     }
 }
