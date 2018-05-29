@@ -3,7 +3,10 @@ package pt.isel.ps.gis.model.outputModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.Action;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.Field;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.Link;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.Method;
 import pt.isel.ps.gis.model.Storage;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 

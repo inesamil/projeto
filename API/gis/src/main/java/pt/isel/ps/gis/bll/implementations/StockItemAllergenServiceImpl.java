@@ -10,7 +10,6 @@ import pt.isel.ps.gis.model.Allergy;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemAllergyId;
 import pt.isel.ps.gis.utils.ValidationsUtils;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 

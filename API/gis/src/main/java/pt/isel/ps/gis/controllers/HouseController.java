@@ -15,14 +15,15 @@ import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.model.inputModel.HouseInputModel;
 import pt.isel.ps.gis.model.inputModel.HouseholdInputModel;
-import pt.isel.ps.gis.model.outputModel.HouseOutputModel;
 import pt.isel.ps.gis.model.outputModel.HouseMembersOutputModel;
+import pt.isel.ps.gis.model.outputModel.HouseOutputModel;
 import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
 
 import java.util.List;
 import java.util.Optional;
 
-import static pt.isel.ps.gis.utils.HeadersUtils.*;
+import static pt.isel.ps.gis.utils.HeadersUtils.setJsonHomeContentType;
+import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
 @RequestMapping("/v1/houses")

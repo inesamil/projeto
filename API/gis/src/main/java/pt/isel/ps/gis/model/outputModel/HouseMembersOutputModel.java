@@ -3,11 +3,9 @@ package pt.isel.ps.gis.model.outputModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import pt.isel.ps.gis.hypermedia.siren.components.subentities.Action;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Entity;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Link;
 import pt.isel.ps.gis.model.UserHouse;
-import pt.isel.ps.gis.model.Users;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.HashMap;
