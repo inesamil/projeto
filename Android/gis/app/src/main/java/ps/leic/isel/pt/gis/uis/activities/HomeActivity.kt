@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.*
+import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.UserDTO
 import ps.leic.isel.pt.gis.model.dtos.*
@@ -76,11 +77,17 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for HomePageFragment
     override fun onMyHousesInteraction() {
-        val args: Map<String, Any> = mapOf(
-                Pair(ProfileFragment.URL_ARG, ""), //TODO
-                Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.Houses)
-        )
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.USER_USERNAME, ProfileFragment.Companion::newInstance, args)
+        val gisApplication = application as GisApplication
+        val url = gisApplication.index.resources.getHouses?.href
+        url?.let {
+            val args: Map<String, Any> = mapOf(
+                    Pair(ProfileFragment.URL_ARG, it),
+                    Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.Houses)
+            )
+            supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.USER_USERNAME, ProfileFragment.Companion::newInstance, args)
+            return
+        }
+        Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show()
     }
 
     // Listener for HomePageFragment
