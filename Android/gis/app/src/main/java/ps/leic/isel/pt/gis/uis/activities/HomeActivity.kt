@@ -77,8 +77,8 @@ class HomeActivity : AppCompatActivity(),
     // Listener for HomePageFragment
     override fun onMyHousesInteraction() {
         val args: Map<String, Any> = mapOf(
-                Pair(ProfileFragment.usernameArg, "alice"), //TODO
-                Pair(ProfileFragment.pageArg, PageTabsAdapter.ProfilePage.Houses)
+                Pair(ProfileFragment.URL_ARG, ""), //TODO
+                Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.Houses)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.USER_USERNAME, ProfileFragment.Companion::newInstance, args)
     }
@@ -86,8 +86,8 @@ class HomeActivity : AppCompatActivity(),
     // Listener for HomePageFragment
     override fun onMyProfileInteraction() {
         val args: Map<String, Any> = mapOf(
-                Pair(ProfileFragment.usernameArg, "alice"), //TODO
-                Pair(ProfileFragment.pageArg, PageTabsAdapter.ProfilePage.BasicInfo)
+                Pair(ProfileFragment.URL_ARG, "alice"), //TODO
+                Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.USER_USERNAME, ProfileFragment.Companion::newInstance, args)
     }
@@ -121,8 +121,11 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for CategoriesFragement interaction
     override fun onCategoryInteraction(category: CategoryDto) {
-        val url: String = ""   //TODO
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCTS, CategoryProductsFragment.Companion::newInstance, url)
+        val args: Map<String, Any> = mapOf(
+                Pair(ProductDetailFragment.URL_ARG, ""), //TODO
+                Pair(CategoryProductsFragment.CATEGORY_NAME_ARG, "")   //TODO
+        )
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCTS, CategoryProductsFragment.Companion::newInstance, args)
     }
 
     // Listener for CategoryProductsFragement interaction
@@ -251,8 +254,8 @@ class HomeActivity : AppCompatActivity(),
             }
             R.id.nav_profile -> {
                 val args: Map<String, Any> = mapOf(
-                        Pair(ProfileFragment.usernameArg, "alice"), //TODO
-                        Pair(ProfileFragment.pageArg, PageTabsAdapter.ProfilePage.BasicInfo)
+                        Pair(ProfileFragment.URL_ARG, "alice"), //TODO
+                        Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
                 )
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PROFILE, ProfileFragment.Companion::newInstance, args)
             }
