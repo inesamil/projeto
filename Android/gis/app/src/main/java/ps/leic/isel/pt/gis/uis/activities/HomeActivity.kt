@@ -127,8 +127,11 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for CategoryProductsFragement interaction
     override fun onProductInteraction(product: ProductDto) {
-        val url: String = ""   //TODO
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCT, ProductDetailFragment.Companion::newInstance, url)
+        val args: Map<String, Any> = mapOf(
+                Pair(ProductDetailFragment.URL_ARG, ""), //TODO
+                Pair(ProductDetailFragment.PRODUCT_NAME_ARG, "")   //TODO
+        )
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCT, ProductDetailFragment.Companion::newInstance, args)
     }
 
     // Listener for ListsFragment interaction
@@ -154,8 +157,12 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for StockItemListFragment interaction
     override fun onStockItemInteraction(stockItem: StockItemDto) {
-        val url: String = ""   //TODO
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM, StockItemDetailFragment.Companion::newInstance, url)
+        val args: Map<String, Any> = mapOf(
+                Pair(StockItemDetailFragment.URL_ARG, ""), //TODO
+                Pair(StockItemDetailFragment.PRODUCT_NAME_ARG, ""),   //TODO
+                Pair(StockItemDetailFragment.STOCK_ITEM_VARIETY_ARG, "")    //TODO
+        )
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM, StockItemDetailFragment.Companion::newInstance, args)
     }
 
     // Listener for StockItemListFragment interaction
