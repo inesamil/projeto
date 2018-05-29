@@ -6,16 +6,21 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonRequest
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import ps.leic.isel.pt.gis.hypermedia.jsonHome.subentities.JsonHome
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 import java.io.IOException
 
-open class Requester<DTO>(method: Int, url: String, body: Any?, private val headers: MutableMap<String, String>,
-                          private val dtoType: Class<DTO>, onSuccess: (DTO) -> Unit,
-                          onError: (VolleyError?) -> Unit, private val tag: String)
+class Requester<DTO>(method: Int, url: String, body: Any?, private val headers: MutableMap<String, String>,
+                     private val dtoType: Class<DTO>, onSuccess: (DTO) -> Unit,
+                     onError: (VolleyError?) -> Unit, private val tag: String)
     : JsonRequest<DTO>(method, url, mapper.writeValueAsString(body), onSuccess, onError) {
 
     companion object {
         val mapper: ObjectMapper = jacksonObjectMapper()
+        val classes: HashMap<String, Class<*>> = hashMapOf(
+                Pair("application/vnd.siren+json", Siren::class.java),
+                Pair("application/home+json", JsonHome::class.java)
+        )
     }
 
     /**
@@ -23,8 +28,9 @@ open class Requester<DTO>(method: Int, url: String, body: Any?, private val head
      */
     override fun parseNetworkResponse(response: NetworkResponse): Response<DTO> {
         return try {
-            val siren = mapper.readValue(response.data, Siren::class.java)
-            val constructor = dtoType.getConstructor(Siren::class.java)
+            val key = response.headers["content-type"]
+            val siren = mapper.readValue(response.data, classes[key])
+            val constructor = dtoType.getConstructor(classes[key])
             val dto = constructor.newInstance(siren)
             setTag(tag)
             Response.success(dto, null)
