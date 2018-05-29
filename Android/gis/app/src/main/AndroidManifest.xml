@@ -3,16 +3,15 @@
     package="ps.leic.isel.pt.gis">
 
     <!-- Add permission for NFC -->
-    <uses-permission
-        android:name="android.permission.NFC" />
-    <uses-permission
-        android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
 
     <application
+        android:name=".GisApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
