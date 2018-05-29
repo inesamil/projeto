@@ -15,7 +15,6 @@ import ps.leic.isel.pt.gis.model.dtos.StoragesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.StoragesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
-import ps.leic.isel.pt.gis.utils.RequestQueue
 import ps.leic.isel.pt.gis.viewModel.StoragesViewModel
 
 /**
@@ -39,8 +38,6 @@ class StoragesFragment : Fragment() {
             url = it.getString(ExtraUtils.URL)
         }
         storagesViewModel = ViewModelProviders.of(this).get(StoragesViewModel::class.java)
-        // for demo
-        val url = "http://10.0.2.2:8081/v1/houses/1"    //TODO: delete
         storagesViewModel.init(url)
         storagesViewModel.getStorages()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
@@ -50,15 +47,21 @@ class StoragesFragment : Fragment() {
         })
     }
 
+    private fun onSuccess(storages: StoragesDto) {
+        adapter.setData(storages.storages)
+    }
+
+    private fun onError(error: String?) {
+        Log.v("APP_GIS", error)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_storages, container, false)
-
         view.storagesRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.storagesRecyclerView.setHasFixedSize(true)
         view.storagesRecyclerView.adapter = adapter
-
         return view
     }
 
@@ -69,27 +72,19 @@ class StoragesFragment : Fragment() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.URL, url)
-    }
-
     override fun onStart() {
         super.onStart()
         activity?.title = getString(R.string.storages)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ExtraUtils.URL, url)
+    }
+
     override fun onStop() {
         super.onStop()
         storagesViewModel.cancel()
-    }
-
-    private fun onSuccess(storages: StoragesDto) {
-        adapter.setData(storages.storages)
-    }
-
-    private fun onError(error: String?) {
-        Log.v("APP_GIS", error)
     }
 
     /**

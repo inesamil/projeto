@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_category_products.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.dtos.CategoryDto
 import ps.leic.isel.pt.gis.model.dtos.ProductDto
 import ps.leic.isel.pt.gis.model.dtos.ProductsDto
 import ps.leic.isel.pt.gis.repositories.Status
@@ -32,13 +31,13 @@ import ps.leic.isel.pt.gis.viewModel.CategoryProductsViewModel
  */
 class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClickListener {
 
-    private lateinit var category: CategoryDto
-    private lateinit var products: ProductsDto
+    private var products: Array<ProductDto>? = null
 
     private var listener: OnCategoryProductsFragmentInteractionListener? = null
     private val adapter = CategoryProductsAdapter()
     private lateinit var categoryProductsViewModel: CategoryProductsViewModel
     private lateinit var url: String
+    private lateinit var categoryName: String
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -53,6 +52,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
         super.onCreate(savedInstanceState)
         arguments?.let {
             url = it.getString(ExtraUtils.URL)
+            categoryName = it.getString(ExtraUtils.CATEGORY_NAME)
         }
         categoryProductsViewModel = ViewModelProviders.of(this).get(CategoryProductsViewModel::class.java)
         categoryProductsViewModel.init(url)
@@ -67,6 +67,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     private fun onSuccess(products: ProductsDto) {
         // Set Adapter
         adapter.setData(products.products)
+        this.products = products.products
     }
 
     private fun onError(error: String?) {
@@ -88,17 +89,19 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
             url = it.getString(ExtraUtils.URL)
+            categoryName = it.getString(ExtraUtils.CATEGORY_NAME)
         }
     }
 
     override fun onStart() {
         super.onStart()
-        activity?.title = category.categoryName
+        activity?.title = categoryName
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(ExtraUtils.URL, url)
+        outState.putString(ExtraUtils.CATEGORY_NAME, categoryName)
     }
 
     override fun onStop() {
@@ -116,8 +119,10 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      ***/
 
     override fun onTextClick(view: View, position: Int) {
-        val product: ProductDto = products.products[position]
-        listener?.onProductInteraction(product)
+        products?.let {
+            val product: ProductDto = it[position]
+            listener?.onProductInteraction(product)
+        }
     }
 
     override fun onPlusClick(view: View, position: Int) {
@@ -145,19 +150,24 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      * CategoryProductsFragment Factory
      */
     companion object {
+        // TODO ines mete isto no home activity
+        const val URL_ARG = "url"
+        const val CATEGORY_NAME_ARG = "category-name"
+
 
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param url url
+         * @param args Arguments
          * @return A new instance of fragment CategoryProductsFragment.
          */
         @JvmStatic
-        fun newInstance(url: String) =
+        fun newInstance(args: Map<String, Any>) =
                 CategoryProductsFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, url)
+                        putString(ExtraUtils.URL, args[URL_ARG] as String)
+                        putString(ExtraUtils.CATEGORY_NAME, args[CATEGORY_NAME_ARG] as String)
                     }
                 }
     }

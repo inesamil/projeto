@@ -146,7 +146,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param url url
+         * @param args Arguments
          * @return A new instance of fragment ListDetailFragment.
          */
         @JvmStatic
