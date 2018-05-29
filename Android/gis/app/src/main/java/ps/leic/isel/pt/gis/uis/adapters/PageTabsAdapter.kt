@@ -8,7 +8,7 @@ import ps.leic.isel.pt.gis.uis.fragments.HousesFragment
 
 class PageTabsAdapter(private val username: String, private val fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
 
-    enum class ProfilePage() {
+    enum class ProfilePage {
         BasicInfo,
         Houses
     }

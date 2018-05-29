@@ -8,8 +8,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.ProductListDto
 
-class ListDetailAdapter
-    : RecyclerView.Adapter<ListDetailAdapter.ViewHolder>() {
+class ListDetailAdapter : RecyclerView.Adapter<ListDetailAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
     private var data: Array<ProductListDto>? = null
@@ -41,8 +40,8 @@ class ListDetailAdapter
 
     // stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val nameItemText: TextView = itemView.findViewById<TextView>(R.id.nameText) as TextView
-        internal val numberItemText: TextView = itemView.findViewById<TextView>(R.id.numberText) as TextView
+        internal val nameItemText: TextView = itemView.findViewById(R.id.nameText) as TextView
+        internal val numberItemText: TextView = itemView.findViewById(R.id.numberText) as TextView
 
         init {
             itemView.setOnClickListener {
@@ -53,7 +52,7 @@ class ListDetailAdapter
 
     // Sets listener for items click
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
+        mOnItemClickListener = onItemClickListener
     }
 
     // Parent activity will implement this method to respond to click events

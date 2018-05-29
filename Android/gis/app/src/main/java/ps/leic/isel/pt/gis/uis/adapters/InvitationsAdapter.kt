@@ -26,7 +26,8 @@ class InvitationsAdapter(private val data: MutableList<InvitationDTO>)
         val item = data[position]
         // Fill ViewHolder
         holder.requesterUser.text = item.requesterUser
-        holder.invitationQuestion.text = "Can I join to " + item.houseName + "'s house?"    //TODO: user string resources
+        val invitationQuestion = "Can I join to " + item.houseName + "'s house?"
+        holder.invitationQuestion.text = invitationQuestion    //TODO: user string resources
 
         // Set on accept invitation listener
         holder.acceptInvitation.setOnClickListener {
@@ -61,7 +62,7 @@ class InvitationsAdapter(private val data: MutableList<InvitationDTO>)
 
     // Sets listener for items click
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
+        mOnItemClickListener = onItemClickListener
     }
 
     // Parent activity will implement this method to respond to click events

@@ -45,7 +45,7 @@ class RecipesRecyclerViewAdapter(context: Context)
     }
 
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
+        mOnItemClickListener = onItemClickListener
     }
 
     // stores and recycles views as they are scrolled off screen

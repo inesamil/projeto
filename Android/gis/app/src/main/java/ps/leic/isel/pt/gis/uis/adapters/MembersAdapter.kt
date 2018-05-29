@@ -8,7 +8,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.MemberDto
 
-class MembersAdapter() : RecyclerView.Adapter<MembersAdapter.ViewHolder>() {
+class MembersAdapter : RecyclerView.Adapter<MembersAdapter.ViewHolder>() {
 
     private lateinit var data: Array<MemberDto>
 

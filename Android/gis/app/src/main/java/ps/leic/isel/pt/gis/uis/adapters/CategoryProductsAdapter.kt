@@ -9,8 +9,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.ProductDto
 
-class CategoryProductsAdapter
-    : RecyclerView.Adapter<CategoryProductsAdapter.ViewHolder>() {
+class CategoryProductsAdapter : RecyclerView.Adapter<CategoryProductsAdapter.ViewHolder>() {
 
     private var mOnItemClickListener: OnItemClickListener? = null
     private var data: Array<ProductDto>? = null
@@ -62,7 +61,7 @@ class CategoryProductsAdapter
 
     // Sets listener for items click
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
+        mOnItemClickListener = onItemClickListener
     }
 
     // Parent activity will implement this method to respond to click events

@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 
-class StockItemInnerListAdapter()
-    : RecyclerView.Adapter<StockItemInnerListAdapter.ViewHolder>() {
+class StockItemInnerListAdapter : RecyclerView.Adapter<StockItemInnerListAdapter.ViewHolder>() {
 
     private val examplesLocal = arrayOf("Fridge", "Cabinet1")
     private val examplesUnit = arrayOf("2 units", "4 units")

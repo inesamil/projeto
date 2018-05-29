@@ -11,8 +11,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 
-class HousesAdapter
-    : RecyclerView.Adapter<HousesAdapter.ViewHolder>() {
+class HousesAdapter : RecyclerView.Adapter<HousesAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
     private var data: Array<HouseDto>? = null
@@ -78,7 +77,7 @@ class HousesAdapter
 
     // Sets listener for items click
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
+        mOnItemClickListener = onItemClickListener
     }
 
     // Parent activity will implement this method to respond to click events

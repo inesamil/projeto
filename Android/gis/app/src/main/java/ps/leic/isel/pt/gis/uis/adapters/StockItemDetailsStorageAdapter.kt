@@ -52,7 +52,7 @@ class StockItemDetailsStorageAdapter
 
     // Sets listener for items click
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
+        mOnItemClickListener = onItemClickListener
     }
 
     // Parent activity will implement this method to respond to click events

@@ -8,7 +8,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.StorageDto
 
-class StoragesAdapter() : RecyclerView.Adapter<StoragesAdapter.ViewHolder>() {
+class StoragesAdapter : RecyclerView.Adapter<StoragesAdapter.ViewHolder>() {
 
     private var data: Array<StorageDto>? = null
 

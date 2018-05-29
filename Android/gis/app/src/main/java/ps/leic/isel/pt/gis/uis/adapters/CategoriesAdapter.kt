@@ -8,8 +8,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.CategoryDto
 
-class CategoriesAdapter
-    : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
+class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
     private var data: Array<CategoryDto>? = null
@@ -24,7 +23,7 @@ class CategoriesAdapter
     // Binds the data to the components in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         data?.let {
-            val item = it.get(position)
+            val item = it[position]
             // Fill ViewHolder
             holder.categoryItemText.text = item.categoryName
         }
@@ -51,7 +50,7 @@ class CategoriesAdapter
 
     // Sets listener for items click
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
+        mOnItemClickListener = onItemClickListener
     }
 
     // Parent activity will implement this method to respond to click events

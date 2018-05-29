@@ -9,8 +9,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseAllergyDto
 
-class AllergiesTableAdapter() :
-        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AllergiesTableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var data: Array<HouseAllergyDto>? = null
 
@@ -20,18 +19,18 @@ class AllergiesTableAdapter() :
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (viewType) {
+        return when (viewType) {
             HEADER -> {
                 // create a new view
                 val view = LayoutInflater.from(parent.context)
                         .inflate(R.layout.item_allergiestable_header, parent, false) as View
-                return HeaderViewHolder(view)
+                HeaderViewHolder(view)
             }
             else -> {
                 // create a new view
                 val view = LayoutInflater.from(parent.context)
                         .inflate(R.layout.item_allergiestable_row, parent, false) as View
-                return RowViewHolder(view)
+                RowViewHolder(view)
             }
         }
     }
@@ -50,7 +49,7 @@ class AllergiesTableAdapter() :
                 // - get element from your dataset at this position
                 // - replace the contents of the view with that element
                 data?.let {
-                    val item: HouseAllergyDto = it.get(position - 1)
+                    val item: HouseAllergyDto = it[position - 1]
                     holder as RowViewHolder
                     // Fill ViewHolder
                     holder.allergensText.text = item.allergen
