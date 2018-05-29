@@ -2,7 +2,6 @@ package pt.isel.ps.gis.model.outputModel.jsonObjects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import pt.isel.ps.gis.model.ListProduct;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ListProductJsonObject {

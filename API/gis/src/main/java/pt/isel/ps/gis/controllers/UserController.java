@@ -20,7 +20,8 @@ import pt.isel.ps.gis.model.outputModel.UserOutputModel;
 import java.util.List;
 import java.util.Optional;
 
-import static pt.isel.ps.gis.utils.HeadersUtils.*;
+import static pt.isel.ps.gis.utils.HeadersUtils.setJsonHomeContentType;
+import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
 @RequestMapping("/v1/users/{username}")
