@@ -1,5 +1,7 @@
 package ps.leic.isel.pt.gis.model.dtos
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
@@ -10,6 +12,7 @@ class ListDto(siren: Siren) {
     val listName: String
     var username: String? = null
     var shareable: Boolean? = null
+    var listProducts: Array<ProductListDto>? = null
     val actions: HousesActions
     val links: HouseLinks
 
@@ -20,6 +23,12 @@ class ListDto(siren: Siren) {
         listName = properties[listNameLabel] as String
         username = properties[usernameLabel] as String
         shareable = properties[shareableLabel] as Boolean
+
+        val listProductsElements = siren.entities?.find {
+            it.klass?.contains(listProductsLabel) ?: false
+        }?.properties?.get(elementsLabel)
+        listProducts = mapper.convertValue<Array<ProductListDto>>(listProductsElements, Array<ProductListDto>::class.java)
+
         actions = HousesActions(siren.actions)
         links = HouseLinks(siren.links)
     }
@@ -43,14 +52,17 @@ class ListDto(siren: Siren) {
     }
 
     companion object {
-        const val houseIdLabel: String = "house-id"
-        const val listIdLabel: String = "list-id"
-        const val listNameLabel = "list-name"
-        const val usernameLabel: String = "username"
-        const val shareableLabel: String = "shareable"
-        const val listClassLabel: String = "list"
-        const val listsLabel: String = "lists"
-        const val updateListLabel: String = "update-list"
-        const val deleteListLabel: String = "delete-list"
+        private val mapper: ObjectMapper = jacksonObjectMapper()
+        private const val houseIdLabel: String = "house-id"
+        private const val listIdLabel: String = "list-id"
+        private const val listNameLabel = "list-name"
+        private const val usernameLabel: String = "username"
+        private const val shareableLabel: String = "shareable"
+        private const val listProductsLabel: String = "list-products"
+        private const val elementsLabel: String = "elements"
+        private const val listClassLabel: String = "list"
+        private const val listsLabel: String = "lists"
+        private const val updateListLabel: String = "update-list"
+        private const val deleteListLabel: String = "delete-list"
     }
 }
