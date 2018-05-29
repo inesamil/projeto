@@ -150,10 +150,8 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      * CategoryProductsFragment Factory
      */
     companion object {
-        // TODO ines mete isto no home activity
         const val URL_ARG = "url"
         const val CATEGORY_NAME_ARG = "category-name"
-
 
         /**
          * Use this factory method to create a new instance of
