@@ -18,7 +18,7 @@ import pt.isel.ps.gis.model.inputModel.ListInputModel;
 import pt.isel.ps.gis.model.inputModel.ListProductInputModel;
 import pt.isel.ps.gis.model.outputModel.ListOutputModel;
 import pt.isel.ps.gis.model.outputModel.ListsOutputModel;
-import pt.isel.ps.gis.model.outputModel.ProductsListOutputModel;
+import pt.isel.ps.gis.model.outputModel.ListProductsOutputModel;
 import pt.isel.ps.gis.model.requestParams.ListRequestParam;
 
 import java.util.Optional;
@@ -79,14 +79,14 @@ public class ListController {
     }
 
     @GetMapping("/{list-id}/products")
-    public ResponseEntity<ProductsListOutputModel> getProductsInList(
+    public ResponseEntity<ListProductsOutputModel> getProductsInList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId
     ) throws EntityException, BadRequestException {
         checkList(houseId, listId);
         java.util.List<ListProduct> listProducts = listProductService.getListProductsByListId(houseId, listId);
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ProductsListOutputModel(houseId, listId, listProducts),
+        return new ResponseEntity<>(new ListProductsOutputModel(houseId, listId, listProducts),
                 setSirenContentType(headers), HttpStatus.OK);
     }
 
