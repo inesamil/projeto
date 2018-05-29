@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import kotlinx.android.synthetic.main.fragment_stock_item_list.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.StockItemDto
 import ps.leic.isel.pt.gis.model.dtos.StockItemsDto
 import ps.leic.isel.pt.gis.repositories.Status
@@ -32,7 +33,7 @@ import ps.leic.isel.pt.gis.viewModel.StockItemListViewModel
 class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     private val stockItemListAdapter = StockItemListAdapter()
-
+    private var houses: Array<HouseDto>? = null
     private var stockItems: Array<StockItemDto>? = null
 
     private var listener: OnStockItemListFragmentInteractionListener? = null
@@ -65,7 +66,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
 
     private fun onSuccess(stockItems: StockItemsDto) {
         // Set spinner options
-        // TODO falta ir buscar a casa
+        // TODO falta ir buscar as casas
         /* val spinnerAdapter = ArrayAdapter<String>(view?.context, android.R.layout.simple_spinner_item, houses.map { house -> house.name })
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         view.housesSpinner.adapter = spinnerAdapter
@@ -139,10 +140,12 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         parent?.let {
             if (it.housesSpinner.selectedItem != position) {
-                val houseId = houses.houses[position].houseId
-                //TODO: get data
-                stockItemListAdapter.setData(/*stockItems*/arrayOf())
-                stockItemListAdapter.notifyDataSetChanged()
+                houses?.let {
+                    val houseId = it[position].houseId
+                    //TODO: get data
+                    stockItemListAdapter.setData(/*stockItems*/arrayOf())
+                    stockItemListAdapter.notifyDataSetChanged()
+                }
             }
         }
     }
