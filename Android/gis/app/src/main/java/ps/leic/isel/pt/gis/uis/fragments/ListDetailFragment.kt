@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.dtos.ProductListDto
+import ps.leic.isel.pt.gis.model.dtos.ListProductDto
 import ps.leic.isel.pt.gis.model.dtos.ProductsListDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.ListDetailAdapter
@@ -31,7 +31,7 @@ import ps.leic.isel.pt.gis.viewModel.ListDetailViewModel
 class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
     private var listName: String? = null
-    private var listProducts: Array<ProductListDto>? = null
+    private var listProducts: Array<ListProductDto>? = null
 
     private var listener: OnListDetailFragmentInteractionListener? = null
     private lateinit var listDetailViewModel: ListDetailViewModel
@@ -64,8 +64,8 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     }
 
     private fun onSuccess(productsList: ProductsListDto) {
-        adapter.setData(productsList.productsList)
-        this.listProducts = productsList.productsList
+        adapter.setData(productsList.productsListProduct)
+        this.listProducts = productsList.productsListProduct
     }
 
     private fun onError(error: String?) {
@@ -131,7 +131,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
      * activity.
      */
     interface OnListDetailFragmentInteractionListener {
-        fun onListProductInteraction(listProduct: ProductListDto)
+        fun onListProductInteraction(listProduct: ListProductDto)
     }
 
     /**

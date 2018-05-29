@@ -12,7 +12,7 @@ class ListDto(siren: Siren) {
     val listName: String
     var username: String? = null
     var shareable: Boolean? = null
-    var listProducts: Array<ProductListDto>? = null
+    var listProducts: Array<ListProductDto>? = null
     val actions: HousesActions
     val links: HouseLinks
 
@@ -27,7 +27,7 @@ class ListDto(siren: Siren) {
         val listProductsElements = siren.entities?.find {
             it.klass?.contains(listProductsLabel) ?: false
         }?.properties?.get(elementsLabel)
-        listProducts = mapper.convertValue<Array<ProductListDto>>(listProductsElements, Array<ProductListDto>::class.java)
+        listProducts = mapper.convertValue<Array<ListProductDto>>(listProductsElements, Array<ListProductDto>::class.java)
 
         actions = HousesActions(siren.actions)
         links = HouseLinks(siren.links)

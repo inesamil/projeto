@@ -5,13 +5,13 @@ import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 
 class ProductsListDto(siren: Siren) {
-    val productsList: Array<ProductListDto>
+    val productsListProduct: Array<ListProductDto>
     val actions: ProductsListActions
     val links: ProductsListLink
 
     init {
-        productsList = siren.entities?.map {
-            ProductListDto(Siren(it.klass, it.properties, null, null, it.links))
+        productsListProduct = siren.entities?.map {
+            ListProductDto(Siren(it.klass, it.properties, null, null, it.links))
         }.orEmpty().toTypedArray()
         actions = ProductsListActions(siren.actions)
         links = ProductsListLink(siren.links)

@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.dtos.ProductListDto
+import ps.leic.isel.pt.gis.model.dtos.ListProductDto
 
 class ListDetailAdapter : RecyclerView.Adapter<ListDetailAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
-    private var data: Array<ProductListDto>? = null
+    private var data: Array<ListProductDto>? = null
 
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,7 +30,7 @@ class ListDetailAdapter : RecyclerView.Adapter<ListDetailAdapter.ViewHolder>() {
         }
     }
 
-    fun setData(data: Array<ProductListDto>) {
+    fun setData(data: Array<ListProductDto>) {
         this.data = data
         notifyDataSetChanged()
     }

@@ -160,7 +160,7 @@ class HomeActivity : AppCompatActivity(),
     }
 
     // Listener for ListDetailFragment interaction
-    override fun onListProductInteraction(listProduct: ProductListDto) {
+    override fun onListProductInteraction(listProduct: ListProductDto) {
         //TODO: expand
         Toast.makeText(this, "Specific List-Product", Toast.LENGTH_SHORT).show()
     }
