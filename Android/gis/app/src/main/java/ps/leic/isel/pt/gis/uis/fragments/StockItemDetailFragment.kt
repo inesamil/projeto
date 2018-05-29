@@ -154,7 +154,7 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
      * Listeners
      ***/
 
-    // NfcListener for storage item clicks (from adapter)
+    // Listener for storage item clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
         storages?.let {
             val storage = it[position]
@@ -176,10 +176,9 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
      * StockItemDetailFragment Factory
      */
     companion object {
-        // TODO ines mete isto no home activity ou onde for
         const val URL_ARG = "url"
         const val PRODUCT_NAME_ARG = "product-name"
-        const val STOCK_ITEM_VARIETY = "variety"
+        const val STOCK_ITEM_VARIETY_ARG = "variety"
 
         /**
          * Use this factory method to create a new instance of
@@ -194,7 +193,7 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
                     arguments = Bundle().apply {
                         putString(ExtraUtils.URL, args[URL_ARG] as String)
                         putString(ExtraUtils.PRODUCT_NAME, args[PRODUCT_NAME_ARG] as String)
-                        putString(ExtraUtils.VARIETY, args[STOCK_ITEM_VARIETY] as String)
+                        putString(ExtraUtils.VARIETY, args[STOCK_ITEM_VARIETY_ARG] as String)
                     }
                 }
     }
