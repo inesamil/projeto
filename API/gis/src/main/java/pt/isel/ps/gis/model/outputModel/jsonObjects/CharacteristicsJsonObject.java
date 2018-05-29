@@ -1,4 +1,4 @@
-package pt.isel.ps.gis.model.outputModel;
+package pt.isel.ps.gis.model.outputModel.jsonObjects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

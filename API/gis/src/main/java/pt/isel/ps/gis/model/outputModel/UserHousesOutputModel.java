@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Entity;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Link;
 import pt.isel.ps.gis.model.House;
+import pt.isel.ps.gis.model.outputModel.jsonObjects.CharacteristicsJsonObject;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.HashMap;

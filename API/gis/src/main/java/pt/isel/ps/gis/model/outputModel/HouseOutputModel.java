@@ -6,12 +6,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.UserHouse;
-import pt.isel.ps.gis.model.Users;
+import pt.isel.ps.gis.model.outputModel.jsonObjects.CharacteristicsJsonObject;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)

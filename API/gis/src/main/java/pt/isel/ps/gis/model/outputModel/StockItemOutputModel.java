@@ -3,13 +3,14 @@ package pt.isel.ps.gis.model.outputModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import pt.isel.ps.gis.hypermedia.siren.components.subentities.Action;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Entity;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Link;
 import pt.isel.ps.gis.model.ExpirationDate;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.StockItemStorage;
+import pt.isel.ps.gis.model.outputModel.jsonObjects.ExpirationDateJsonObject;
+import pt.isel.ps.gis.model.outputModel.jsonObjects.MovementJsonObject;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.HashMap;
