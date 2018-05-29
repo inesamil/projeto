@@ -10,10 +10,10 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.StockItemDto
 
-class StockItemListAdapter(private var data: Array<StockItemDto>)
-    : RecyclerView.Adapter<StockItemListAdapter.ViewHolder>() {
+class StockItemListAdapter : RecyclerView.Adapter<StockItemListAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
+    private var data: Array<StockItemDto>? = null
 
     // inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,16 +24,15 @@ class StockItemListAdapter(private var data: Array<StockItemDto>)
 
     // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: StockItemDto = data[position]
-        holder.stockItemText.text = item.productName
-        holder.brandText.text = item.brand
-        holder.qntItemText.text = item.quantity.toString()
-        // If the inner adapter needs data pass here the data
-        holder.innerAdapter.setData(item.storages)
+        data?.let {
+            val item: StockItemDto = it[position]
+            holder.stockItemText.text = item.productName
+            holder.brandText.text = item.brand
+            holder.qntItemText.text = item.quantity.toString()
+            // If the inner adapter needs data pass here the data
+            holder.innerAdapter.setData(item.storages)
+        }
     }
-
-    // Total number of cells
-    override fun getItemCount() = data.size
 
     // Set adapter data
     fun setData(data: Array<StockItemDto>) {
@@ -41,6 +40,8 @@ class StockItemListAdapter(private var data: Array<StockItemDto>)
         notifyDataSetChanged()
     }
 
+    // Total number of cells
+    override fun getItemCount() = data?.size ?: 0
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {

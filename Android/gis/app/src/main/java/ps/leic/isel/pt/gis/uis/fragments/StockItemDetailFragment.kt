@@ -13,14 +13,13 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_stock_item_detail.*
 import kotlinx.android.synthetic.main.fragment_stock_item_detail.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.*
-import ps.leic.isel.pt.gis.model.dtos.*
+import ps.leic.isel.pt.gis.model.dtos.StockItemDto
+import ps.leic.isel.pt.gis.model.dtos.StorageDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsExpirationDateAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsMovementsAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsStorageAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
-import ps.leic.isel.pt.gis.utils.getElementsSeparatedBySemiColon
 import ps.leic.isel.pt.gis.viewModel.StockItemDetailViewModel
 
 /**
@@ -34,30 +33,43 @@ import ps.leic.isel.pt.gis.viewModel.StockItemDetailViewModel
  */
 class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnItemClickListener {
 
-    private lateinit var stockItem: StockItemDto
-    private lateinit var allergens: Array<StockItemsAllergenDto>
-    private lateinit var expirationDates: Array<ExpirationDateDto>
-    private lateinit var storages: Array<StorageDto>
-    private lateinit var movements: Array<MovementDto>
+    private val expirationDatesAdapter = StockItemDetailsExpirationDateAdapter()
+    private val storagesAdapter = StockItemDetailsStorageAdapter()
+    private val movementsAdapter = StockItemDetailsMovementsAdapter()
+
+    private var storages: Array<StorageDto>? = null
 
     private var listener: OnStockItemDetailFragmentInteractionListener? = null
-    private var stockItemDetailViewModel: StockItemDetailViewModel? = null
+    private lateinit var stockItemDetailViewModel: StockItemDetailViewModel
+
+    private lateinit var url: String
+    private lateinit var productName: String
+    private lateinit var variety: String
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnStockItemDetailFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnStockItemDetailFragmentInteractionListener")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            //TODO stockItem = it.getParcelable(ExtraUtils.STOCK_ITEM)
+            url = it.getString(ExtraUtils.URL)
+            productName = it.getString(ExtraUtils.PRODUCT_NAME)
+            variety = it.getString(ExtraUtils.VARIETY)
         }
         stockItemDetailViewModel = ViewModelProviders.of(this).get(StockItemDetailViewModel::class.java)
-        val url = ""
-        stockItemDetailViewModel?.init(url)
-        stockItemDetailViewModel?.getStockItem()?.observe(this, Observer {
+        stockItemDetailViewModel.init(url)
+        stockItemDetailViewModel.getStockItem()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
         })
-        //TODO: get data
     }
 
     private fun onSuccess(stockItem: StockItemDto) {
@@ -65,28 +77,18 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
         //TODO allergensText.text = allergens.getElementsSeparatedBySemiColon()
 
         // Set Adapters (Expiration dates)
-        val expirationDatesAdapter = StockItemDetailsExpirationDateAdapter(stockItem.expirationDates)
+        expirationDatesAdapter.setData(stockItem.expirationDates)
+
         // Set Adapter (Storages)
-        val storagesAdapter = StockItemDetailsStorageAdapter(stockItem.storages)
+        storagesAdapter.setData(stockItem.storages)
+        // TODO stockItem.storages é um array de string e para o listener é preciso um array de storage dto
+        // this.storages = stockItem.storages
+
         // Set Adapter (Movements)
-        val movementsAdapter = StockItemDetailsMovementsAdapter(stockItem.movements)
-        view?.let {
-            // Set Adapters (Expiration dates)
-            it.expirationDateRecyclerView.layoutManager = LinearLayoutManager(it.context)
-            it.expirationDateRecyclerView.setHasFixedSize(true)
-            it.expirationDateRecyclerView.adapter = expirationDatesAdapter
-            // Set Adapter (Storages)
-            it.storageRecyclerView.layoutManager = LinearLayoutManager(it.context)
-            it.storageRecyclerView.setHasFixedSize(true)
-            it.storageRecyclerView.adapter = storagesAdapter
-            // Set Description
-            it.descriptionText.text = stockItem.description
-            // Set Adapter (Movements)
-            it.movementsRecyclerView.layoutManager = LinearLayoutManager(it.context)
-            it.movementsRecyclerView.setHasFixedSize(true)
-            it.movementsRecyclerView.adapter = movementsAdapter
-        }
-        storagesAdapter.setOnItemClickListener(this)
+        movementsAdapter.setData(stockItem.movements)
+
+        // Set Description TODO verificar se a kotlin extension funciona senão é precisar adicionar view?.
+        descriptionText.text = stockItem.description
     }
 
     private fun onError(error: String?) {
@@ -96,21 +98,51 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_stock_item_detail, container, false)
+        val view = inflater.inflate(R.layout.fragment_stock_item_detail, container, false)
+
+        // Set Adapters (Expiration dates)
+        view.expirationDateRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.expirationDateRecyclerView.setHasFixedSize(true)
+        view.expirationDateRecyclerView.adapter = expirationDatesAdapter
+
+        // Set Adapter (Storages)
+        view.storageRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.storageRecyclerView.setHasFixedSize(true)
+        view.storageRecyclerView.adapter = storagesAdapter
+
+        // Set Adapter (Movements)
+        view.movementsRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.movementsRecyclerView.setHasFixedSize(true)
+        view.movementsRecyclerView.adapter = movementsAdapter
+
+        storagesAdapter.setOnItemClickListener(this)
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        savedInstanceState?.let {
+            url = it.getString(ExtraUtils.URL)
+            productName = it.getString(ExtraUtils.PRODUCT_NAME)
+            variety = it.getString(ExtraUtils.VARIETY)
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        activity?.title = stockItem.productName + " " + stockItem.variety
+        activity?.title = "$productName $variety"
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnStockItemDetailFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnStockItemDetailFragmentInteractionListener")
-        }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ExtraUtils.URL, url)
+        outState.putString(ExtraUtils.PRODUCT_NAME, productName)
+        outState.putString(ExtraUtils.VARIETY, variety)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stockItemDetailViewModel.cancel()
     }
 
     override fun onDetach() {
@@ -124,8 +156,10 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
 
     // NfcListener for storage item clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
-        val storage: StorageDto = storages[position]
-        listener?.onStorageInteraction(storage)
+        storages?.let {
+            val storage = it[position]
+            listener?.onStorageInteraction(storage)
+        }
     }
 
     /**
@@ -142,7 +176,10 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
      * StockItemDetailFragment Factory
      */
     companion object {
-        val stockItemArg: String = "stockitem"
+        // TODO ines mete isto no home activity ou onde for
+        const val URL_ARG = "url"
+        const val PRODUCT_NAME_ARG = "product-name"
+        const val STOCK_ITEM_VARIETY = "variety"
 
         /**
          * Use this factory method to create a new instance of
@@ -155,7 +192,9 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
         fun newInstance(args: Map<String, Any>) =
                 StockItemDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable(ExtraUtils.STOCK_ITEM, args[stockItemArg] as StockItemDTO)
+                        putString(ExtraUtils.URL, args[URL_ARG] as String)
+                        putString(ExtraUtils.PRODUCT_NAME, args[PRODUCT_NAME_ARG] as String)
+                        putString(ExtraUtils.VARIETY, args[STOCK_ITEM_VARIETY] as String)
                     }
                 }
     }

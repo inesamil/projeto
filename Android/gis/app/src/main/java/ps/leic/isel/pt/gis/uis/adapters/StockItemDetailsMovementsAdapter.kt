@@ -8,10 +8,11 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.MovementDto
 
-class StockItemDetailsMovementsAdapter(private val data: Array<MovementDto>)
+class StockItemDetailsMovementsAdapter
     : RecyclerView.Adapter<StockItemDetailsMovementsAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
+    private var data: Array<MovementDto>? = null
 
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,14 +23,21 @@ class StockItemDetailsMovementsAdapter(private val data: Array<MovementDto>)
 
     // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: MovementDto = data[position]
-        // Fill View Holder
-        holder.movementsItemText.text = item.movementType
-        //TODO
+        data?.let {
+            val item: MovementDto = it[position]
+            // Fill View Holder
+            holder.movementsItemText.text = item.movementType
+            //TODO
+        }
+    }
+
+    fun setData(data: Array<MovementDto>) {
+        this.data = data
+        notifyDataSetChanged()
     }
 
     // Total number of cells
-    override fun getItemCount() = data.size
+    override fun getItemCount() = data?.size ?: 0
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {

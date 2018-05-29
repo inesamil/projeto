@@ -31,4 +31,6 @@ object ExtraUtils {
     const val NEW_HOUSE_DIALOG: String = "NEW-HOUSE"
     const val URL: String = "URL"
     const val LIST_NAME: String = "LIST_NAME"
+    const val PRODUCT_NAME: String = "PRODUCT_NAME"
+    const val VARIETY: String = "VARIETY"
 }

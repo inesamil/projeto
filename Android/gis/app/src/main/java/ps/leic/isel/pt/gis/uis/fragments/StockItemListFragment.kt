@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import kotlinx.android.synthetic.main.fragment_stock_item_list.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.model.dtos.StockItemDto
 import ps.leic.isel.pt.gis.model.dtos.StockItemsDto
 import ps.leic.isel.pt.gis.repositories.Status
@@ -32,45 +31,36 @@ import ps.leic.isel.pt.gis.viewModel.StockItemListViewModel
  */
 class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
-    private lateinit var username: String
-    private lateinit var houses: HousesDto
-    private lateinit var stockItems: StockItemsDto
+    private val stockItemListAdapter = StockItemListAdapter()
 
-    private val first = 0
-
-    private lateinit var stockItemListAdapter: StockItemListAdapter
+    private var stockItems: Array<StockItemDto>? = null
 
     private var listener: OnStockItemListFragmentInteractionListener? = null
-    private var stockItemListViewModel: StockItemListViewModel? = null
+    private lateinit var stockItemListViewModel: StockItemListViewModel
+    private lateinit var url: String
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnStockItemListFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnStockItemListFragmentInteractionListener")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            username = it.getString(ExtraUtils.USER_USERNAME)
+            url = it.getString(ExtraUtils.URL)
         }
         stockItemListViewModel = ViewModelProviders.of(this).get(StockItemListViewModel::class.java)
-        val url = ""
-        stockItemListViewModel?.init(url)
-        stockItemListViewModel?.getStockItems()?.observe(this, Observer {
+        stockItemListViewModel.init(url)
+        stockItemListViewModel.getStockItems()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
         })
-        //TODO: Get data
-        /*houses = arrayOf(
-                HouseDTO(1, "Smith", CharacteristicsDTO(0, 0, 2, 0),
-                        arrayOf(MemberDTO(1, "alice", true),
-                                MemberDTO(1, "bob", false))),
-                HouseDTO(2, "Jones", CharacteristicsDTO(0, 1, 2, 0),
-                        arrayOf(MemberDTO(2, "carol", true),
-                                MemberDTO(2, "david", true))))
-        // TODO: get stock item list for the first house
-        stockItems = arrayOf(
-                StockItemDTO(1, "C1-P1-Mimosa-UHT Magro-1L", 1, 1, "Leite", "Mimosa", "1L", "UHT Magro", 2, "Leite Magro - Bem Essencial", "Frigorífico"),
-                StockItemDTO(1, "C1-P1-Mimosa-UHT Meio Gordo-1L", 1, 1, "Leite", "Mimosa", "1L", "UHT Meio Gordo", 1, "Leite Meio Gordo - Bem Essencial", "Frigorífico"),
-                StockItemDTO(1, "C1-P2-Danone-Natural Açucarado-100mg", 1, 2, "Iogurte", "Danone", "100mg", "Natural Açucarado", 4, "Danone os iogurtes não sei que", "Frigorífico")
-        )*/
     }
 
     private fun onSuccess(stockItems: StockItemsDto) {
@@ -81,18 +71,8 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         view.housesSpinner.adapter = spinnerAdapter
         view.housesSpinner.setSelection(first) */
 
-        // Set Adapter
-        stockItemListAdapter = StockItemListAdapter(stockItems.stockItems)
-        view?.let {
-            it.stockItemListRecyclerView.layoutManager = LinearLayoutManager(it.context)
-            it.stockItemListRecyclerView.setHasFixedSize(true)
-            it.stockItemListRecyclerView.adapter = stockItemListAdapter
-            // Set listener for add stock item
-            it.addStockItemBtn.setOnClickListener {
-                listener?.onNewStockItemIteraction()
-            }
-        }
-        stockItemListAdapter.setOnItemClickListener(this)
+        stockItemListAdapter.setData(stockItems.stockItems)
+        this.stockItems = stockItems.stockItems
     }
 
     private fun onError(error: String?) {
@@ -102,7 +82,23 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_stock_item_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_stock_item_list, container, false)
+        view.stockItemListRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.stockItemListRecyclerView.setHasFixedSize(true)
+        view.stockItemListRecyclerView.adapter = stockItemListAdapter
+        // Set listener for add stock item
+        view.addStockItemBtn.setOnClickListener {
+            listener?.onNewStockItemIteraction()
+        }
+        stockItemListAdapter.setOnItemClickListener(this)
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        savedInstanceState?.let {
+            url = it.getString(ExtraUtils.URL)
+        }
     }
 
     override fun onStart() {
@@ -110,13 +106,14 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         activity?.title = getString(R.string.in_stock)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnStockItemListFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnStockItemListFragmentInteractionListener")
-        }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ExtraUtils.URL, url)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stockItemListViewModel.cancel()
     }
 
     override fun onDetach() {
@@ -129,8 +126,10 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
      ***/
 
     override fun onItemClick(view: View, position: Int) {
-        val stockItem: StockItemDto = stockItems.stockItems[position]
-        listener?.onStockItemInteraction(stockItem)
+        stockItems?.let {
+            val stockItem: StockItemDto = it[position]
+            listener?.onStockItemInteraction(stockItem)
+        }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -163,7 +162,6 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
      * StcokItemListFragment Factory
      */
     companion object {
-        val usernameArg: String = "username"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -172,10 +170,10 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
          * @return A new instance of fragment StockItemListFragment.
          */
         @JvmStatic
-        fun newInstance(args: Map<String, Any>) =
+        fun newInstance(url: String) =
                 StockItemListFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.USER_USERNAME, args[usernameArg] as String)
+                        putString(ExtraUtils.URL, url)
                     }
                 }
     }

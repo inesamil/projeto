@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.ProductDTO
 import ps.leic.isel.pt.gis.model.dtos.ProductDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.utils.ExtraUtils
@@ -26,6 +25,8 @@ import ps.leic.isel.pt.gis.viewModel.ProductDetailViewModel
  */
 class ProductDetailFragment : Fragment() {
 
+    private var productName: String? = null
+
     private lateinit var url: String
     private lateinit var productDetailViewModel: ProductDetailViewModel
 
@@ -33,9 +34,9 @@ class ProductDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             url = it.getString(ExtraUtils.URL)
+            productName = it.getString(ExtraUtils.PRODUCT_NAME)
         }
         productDetailViewModel = ViewModelProviders.of(this).get(ProductDetailViewModel::class.java)
-        val url = ""    //TODO: delete
         productDetailViewModel.init(url)
         productDetailViewModel.getProduct()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
@@ -43,34 +44,6 @@ class ProductDetailFragment : Fragment() {
             else if (it?.status == Status.ERROR)
                 onError(it.message)
         })
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product, container, false)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        //TODO: activity?.title = product.productName
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        savedInstanceState?.let {
-            url = it.getString(ExtraUtils.URL)
-        }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.URL, url)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        productDetailViewModel.cancel()
     }
 
     private fun onSuccess(product: ProductDto) {
@@ -82,22 +55,58 @@ class ProductDetailFragment : Fragment() {
         //TODO
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        // TODO se precisar de adapter, inicia-lo aqui
+        return inflater.inflate(R.layout.fragment_product, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        savedInstanceState?.let {
+            url = it.getString(ExtraUtils.URL)
+            productName = it.getString(ExtraUtils.PRODUCT_NAME)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.title = productName
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ExtraUtils.URL, url)
+        outState.putString(ExtraUtils.PRODUCT_NAME, productName)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        productDetailViewModel.cancel()
+    }
+
     /**
      * ProductDetailFragment Factory
      */
     companion object {
+        // TODO ines precisas de adicionar a home activity
+        const val URL_ARG = "url"
+        const val PRODUCT_NAME_ARG = "product-name"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param url URL
+         * @param args Arguments
          * @return A new instance of fragment ProductDetailFragment.
          */
         @JvmStatic
-        fun newInstance(url: String) =
+        fun newInstance(args: Map<String, Any>) =
                 ProductDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, url)
+                        putString(ExtraUtils.URL, args[URL_ARG] as String)
+                        putString(ExtraUtils.PRODUCT_NAME, args[PRODUCT_NAME_ARG] as String)
                     }
                 }
     }
