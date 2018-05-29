@@ -5,5 +5,5 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 class JsonHome(
-        val api: Api,
+        val api: Api?,
         val resources: HashMap<String, ResourceObject>)
