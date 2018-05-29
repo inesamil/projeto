@@ -90,7 +90,6 @@ class ProductDetailFragment : Fragment() {
      * ProductDetailFragment Factory
      */
     companion object {
-        // TODO ines precisas de adicionar a home activity
         const val URL_ARG = "url"
         const val PRODUCT_NAME_ARG = "product-name"
 
