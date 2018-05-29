@@ -31,9 +31,9 @@ import ps.leic.isel.pt.gis.viewModel.HousesViewModel
  */
 class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
 
+    private val adapter = HousesAdapter()
     private var listener: OnHousesFragmentInteractionListener? = null
     private lateinit var housesVM: HousesViewModel
-    private val adapter = HousesAdapter()
     private lateinit var url: String
 
     override fun onAttach(context: Context) {

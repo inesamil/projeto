@@ -28,9 +28,9 @@ import ps.leic.isel.pt.gis.viewModel.StoragesViewModel
  */
 class StoragesFragment : Fragment() {
 
+    private val adapter = StoragesAdapter()
     private lateinit var url: String
     private lateinit var storagesViewModel: StoragesViewModel
-    private val adapter = StoragesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

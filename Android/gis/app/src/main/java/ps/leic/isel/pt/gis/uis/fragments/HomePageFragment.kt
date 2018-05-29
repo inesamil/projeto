@@ -23,6 +23,15 @@ class HomePageFragment : Fragment() {
 
     private var listener: OnHomeFragmentInteractionListener? = null
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnHomeFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnHomeFragmentInteractionListener")
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -54,15 +63,6 @@ class HomePageFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         activity?.title = getString(R.string.homePage)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnHomeFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnHomeFragmentInteractionListener")
-        }
     }
 
     override fun onDetach() {

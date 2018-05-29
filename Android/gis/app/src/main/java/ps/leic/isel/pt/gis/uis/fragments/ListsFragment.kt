@@ -32,10 +32,10 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
 
     private var lists: Array<ListDto>? = null
 
+    private val adapter = ListsAdapter()
     private var listener: OnListsFragmentInteractionListener? = null
     private lateinit var listsViewModel: ListsViewModel
     private lateinit var url: String
-    private val adapter = ListsAdapter()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

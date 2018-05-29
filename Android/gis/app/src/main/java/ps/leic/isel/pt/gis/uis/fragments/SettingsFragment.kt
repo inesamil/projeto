@@ -21,6 +21,15 @@ class SettingsFragment : Fragment() {
 
     private var listener: OnSettingsFragmentInteractionListener? = null
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnSettingsFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnSettingsFragmentInteractionListener")
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -30,15 +39,6 @@ class SettingsFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         activity?.title = getString(R.string.settings)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnSettingsFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnSettingsFragmentInteractionListener")
-        }
     }
 
     override fun onDetach() {
