@@ -43,7 +43,11 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public Optional<List> getListByListId(long houseId, short listId) throws EntityException {
-        return listRepository.findById(new ListId(houseId, listId));
+        Optional<List> optionalList = listRepository.findById(new ListId(houseId, listId));
+        if (!optionalList.isPresent())  return optionalList;
+        List list = optionalList.get();
+        list.getListproducts().size();
+        return optionalList;
     }
 
     @Override
