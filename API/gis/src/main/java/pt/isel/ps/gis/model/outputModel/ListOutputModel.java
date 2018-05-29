@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
 import pt.isel.ps.gis.model.List;
+import pt.isel.ps.gis.model.ListProduct;
+import pt.isel.ps.gis.model.outputModel.jsonObjects.ListProductJsonObject;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.HashMap;
@@ -54,21 +56,29 @@ public class ListOutputModel {
     }
 
     private Entity[] initEntities(List list) {
-        long houseId = list.getId().getHouseId();
-        Short listId = list.getId().getListId();
+        // Products
+        ListProductJsonObject[] products = new ListProductJsonObject[list.getListproducts().size()];
+        int i = 0;
+        for (ListProduct listProduct : list.getListproducts()) {
+            products[i] = new ListProductJsonObject(
+                    listProduct.getId().getHouseId(),
+                    listProduct.getId().getListId(),
+                    listProduct.getId().getProductId(),
+                    listProduct.getProduct().getProductName(),
+                    listProduct.getListproductBrand(),
+                    listProduct.getListproductQuantity());
+        }
+        HashMap<String, Object> listProductsProperties = new HashMap<>();
+        listProductsProperties.put("elements", products);
 
-        // URIs
-        String productsListUri = UriBuilderUtils.buildProductsListUri(houseId, listId);
-
-        // Subentities
-        Entity productsList = new Entity(
-                new String[]{"products-list", "collection"},
+        Entity listProductsEntity = new Entity(
+                new String[]{"list-products", "collection"},
                 new String[]{"collection"},
+                listProductsProperties,
                 null,
-                null,
-                new Link[]{new Link(new String[]{"self"}, new String[]{"products-list", "collection"}, productsListUri)});
+                null);
 
-        return new Entity[]{productsList};
+        return new Entity[]{listProductsEntity};
     }
 
     private Action[] initActions(List list) {
