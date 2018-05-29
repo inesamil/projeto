@@ -16,7 +16,8 @@ import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.uis.adapters.RecipesRecyclerViewAdapter
 
-class RecipesActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, RecipesRecyclerViewAdapter.OnItemClickListener {
+class RecipesActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+        RecipesRecyclerViewAdapter.OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,11 +61,11 @@ class RecipesActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        when (item.itemId) {
-            R.id.invitationsItem -> return true
-            R.id.preferencesItem -> return true
-            R.id.aboutItem -> return true
-            else -> return super.onOptionsItemSelected(item)
+        return when (item.itemId) {
+            R.id.invitationsItem -> true
+            R.id.preferencesItem -> true
+            R.id.aboutItem -> true
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

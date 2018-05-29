@@ -9,7 +9,6 @@ import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.common.api.ResolvableApiException
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.utils.SmartLock
@@ -33,8 +32,8 @@ class LoginActivity : AppCompatActivity() {
                 ServiceLocator.getSmartLock(applicationContext).storeCredentials(username, password,
                         {
                             // On Success
-                            Log.d(TAG, "SAVE: OK");
-                            Toast.makeText(this, "Credentials saved", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "SAVE: OK")
+                            Toast.makeText(this, "Credentials saved", Toast.LENGTH_SHORT).show()
                         },
                         {
                             // On Exception
@@ -55,8 +54,7 @@ class LoginActivity : AppCompatActivity() {
                             }
                         })
                 startActivity(Intent(this, HomeActivity::class.java))
-            }
-            else {
+            } else {
                 Log.i(TAG, "Wrong credentials")
                 Toast.makeText(this, "Wrong Credentials", Toast.LENGTH_SHORT).show()
             }

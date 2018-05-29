@@ -1,20 +1,12 @@
 package ps.leic.isel.pt.gis.uis.activities
 
 import android.content.Intent
-import android.content.IntentSender
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.google.android.gms.auth.api.credentials.Credential
-import com.google.android.gms.auth.api.credentials.Credentials
-import com.google.android.gms.auth.api.credentials.CredentialsClient
-import com.google.android.gms.common.api.ResolvableApiException
 import kotlinx.android.synthetic.main.activity_register.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.utils.SmartLock
-import java.lang.Exception
 
 class RegisterActivity : AppCompatActivity() {
 
