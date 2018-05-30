@@ -19,15 +19,15 @@ import ps.leic.isel.pt.gis.utils.ExtraUtils
  * create an instance of this fragment.
  *
  */
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um pedido a api? ou recebe so o username pelo bundle?
 
-    private lateinit var username: String
+    private lateinit var url: String
     private lateinit var page: PageTabsAdapter.ProfilePage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            username = it.getString(ExtraUtils.USER_USERNAME)
+            url = it.getString(ExtraUtils.URL)
             page = PageTabsAdapter.ProfilePage.values()[it.getInt(ExtraUtils.PROFILE_PAGE)]
         }
     }
@@ -38,7 +38,7 @@ class ProfileFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
         // Set Adapter
-        val adapter = PageTabsAdapter(username, childFragmentManager)
+        val adapter = PageTabsAdapter("ze", childFragmentManager)
         view.viewPager.adapter = adapter
         view.viewPager.currentItem = page.ordinal
 
