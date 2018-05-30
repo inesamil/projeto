@@ -64,7 +64,7 @@ class SplashScreenActivity : AppCompatActivity() {
         val gisApplication = application as GisApplication
         gisApplication.index = index
 
-        if (isFirstTime()){
+        if (isFirstTime()) {
             finish()
             startActivity(Intent(this, RegisterActivity::class.java))
         } else {
@@ -94,6 +94,6 @@ class SplashScreenActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG: String = "SplashScreenActivity"
-        private val FIRST_TIME_TAG = "first_time"
+        private const val FIRST_TIME_TAG = "first_time"
     }
 }
