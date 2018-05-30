@@ -7,7 +7,7 @@ enum class Status {
 }
 
 //a generic class that describes a data with a status
-class Resource<T> private constructor(val status: Status, val data: T?, val message: String?) {
+class Resource<out T> private constructor(val status: Status, val data: T?, val message: String?) {
 
     companion object {
         fun <T> success(data: T): Resource<T> {

@@ -12,7 +12,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()
-        headers.put("Content-Type", "application/json") //TODO
+        headers["Content-Type"] = "application/json" //TODO
         val authorization = ServiceLocator.getUserCredentials(applicationContext)
         // headers.put("Authorization", authorization)
         ServiceLocator.getWebService(applicationContext).fetch(
@@ -43,7 +43,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()
-        headers.put("Content-Type", "application/json") //TODO
+        headers["Content-Type"] = "application/json" //TODO
         val authorization = ServiceLocator.getUserCredentials(applicationContext)
         // headers.put("Authorization", authorization)
         ServiceLocator.getWebService(applicationContext).fetch(
