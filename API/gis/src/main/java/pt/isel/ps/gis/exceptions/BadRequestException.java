@@ -1,11 +1,10 @@
 package pt.isel.ps.gis.exceptions;
 
-public class BadRequestException extends Exception {
+import org.springframework.http.HttpStatus;
 
-    public BadRequestException() {
-    }
+public class BadRequestException extends ProblemDetailsException {
 
-    public BadRequestException(String message) {
-        super(message);
+    public BadRequestException(String detail) {
+        super("Bad request.", HttpStatus.BAD_REQUEST, detail);
     }
 }
