@@ -8,7 +8,6 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -81,13 +80,15 @@ class HomeActivity : AppCompatActivity(),
     override fun onMyHousesInteraction() {
         val gisApplication = application as GisApplication
         val getHouses = gisApplication.index.resources.getHouses
+        val getUser = gisApplication.index.resources.getUser
         val uriTemplate = getHouses?.hrefTemplate
         getHouses?.hrefVars?.containsKey(USERNAME_KEY)?.let {
             if (!it) return@let
             val url = UriTemplate.expand(uriTemplate, mapOf(Pair(USERNAME_KEY, "ze")))
             url?.let {
                 val args: Map<String, Any> = mapOf(
-                        Pair(ProfileFragment.URL_ARG, it),
+                        Pair(ProfileFragment.HOUSE_URL_ARG, it),
+                        Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, UriTemplate.expand(getUser?.hrefTemplate, mapOf(Pair(USERNAME_KEY, "ze")))),
                         Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.Houses)
                 )
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.USER_USERNAME, ProfileFragment.Companion::newInstance, args)
@@ -99,8 +100,12 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for HomePageFragment
     override fun onMyProfileInteraction() {
+        val gisApplication = application as GisApplication
+        val getHouses = gisApplication.index.resources.getHouses
+        val getUser = gisApplication.index.resources.getUser
         val args: Map<String, Any> = mapOf(
-                Pair(ProfileFragment.URL_ARG, "alice"), //TODO
+                Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, UriTemplate.expand(getHouses?.hrefTemplate, mapOf(Pair(USERNAME_KEY, "ze")))),
+                Pair(ProfileFragment.HOUSE_URL_ARG, UriTemplate.expand(getUser?.hrefTemplate, mapOf(Pair(USERNAME_KEY, "ze")))), //TODO
                 Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.USER_USERNAME, ProfileFragment.Companion::newInstance, args)
@@ -268,7 +273,7 @@ class HomeActivity : AppCompatActivity(),
             }
             R.id.nav_profile -> {
                 val args: Map<String, Any> = mapOf(
-                        Pair(ProfileFragment.URL_ARG, "alice"), //TODO
+                        Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, "alice"), //TODO refazer o basic info e passar o house url
                         Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
                 )
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PROFILE, ProfileFragment.Companion::newInstance, args)
