@@ -6,27 +6,26 @@ import android.support.v4.app.FragmentPagerAdapter
 import ps.leic.isel.pt.gis.uis.fragments.BasicInformationFragment
 import ps.leic.isel.pt.gis.uis.fragments.HousesFragment
 
-class PageTabsAdapter(private val username: String, private val fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+class PageTabsAdapter(private val userUrl: String, private val houseUrl: String, fragmentManager: FragmentManager)
+    : FragmentPagerAdapter(fragmentManager) {
 
     enum class ProfilePage {
         BasicInfo,
         Houses
     }
 
-    private val NUM_PAGES: Int = ProfilePage.values().size
-
     override fun getItem(position: Int): Fragment? {
         return when (position) {
-            ProfilePage.BasicInfo.ordinal -> BasicInformationFragment.newInstance(username)
-            ProfilePage.Houses.ordinal -> HousesFragment.newInstance(username)
+            ProfilePage.BasicInfo.ordinal -> BasicInformationFragment.newInstance(userUrl)
+            ProfilePage.Houses.ordinal -> HousesFragment.newInstance(houseUrl)
             else -> null
         }
     }
 
-    override fun getCount() = NUM_PAGES
+    override fun getCount() = ProfilePage.values().size
 
     override fun getPageTitle(position: Int): CharSequence? {
-        //TODO
+        //TODO passar contexto ao adapter e ir ao strings.xml buscar os titulos
         return when (position) {
             0 -> "Basic Information"
             1 -> "Houses"
