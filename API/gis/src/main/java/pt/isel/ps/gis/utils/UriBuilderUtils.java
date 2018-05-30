@@ -11,7 +11,7 @@ public class UriBuilderUtils {
 
     static {
         try {
-            HOST = "http://" + InetAddress.getLocalHost().getHostAddress();
+            HOST = String.format("http://%s:8081", InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
