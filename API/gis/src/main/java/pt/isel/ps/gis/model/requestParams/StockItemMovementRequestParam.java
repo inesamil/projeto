@@ -19,7 +19,7 @@ public class StockItemMovementRequestParam {
             try {
                 this.datetime = DateUtils.convertStringToTimestamp(datetime);
             } catch (ParseException e) {
-                throw new BadRequestException();
+                throw new BadRequestException("Date time is missing or invalid.");
             }
         }
         this.storage = storage;
