@@ -1,4 +1,4 @@
-package ps.leic.isel.pt.gis.hypermedia.siren.subentities;
+package ps.leic.isel.pt.gis.hypermedia.siren.subentities
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
