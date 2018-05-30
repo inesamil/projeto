@@ -17,7 +17,7 @@ object EditTextUtils {
         editText.setText(count.toString())
     }
 
-    fun decNumberText(editText: EditText, min: Int, max: Int) {
+    fun decNumberText(editText: EditText, min: Int, max: Int) { // TODO max nunca é usado, está certo o metodo?
         val countText = editText.text.toString()
         var count: Int
         if (countText.isEmpty()) {

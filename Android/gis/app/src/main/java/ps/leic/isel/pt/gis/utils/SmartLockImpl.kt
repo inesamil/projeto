@@ -20,7 +20,7 @@ class SmartLockImpl(applicationContext: Context) : SmartLock {
                 // likely cause errors.
                 .build()
 
-        mCredentialsClient.save(credential).addOnCompleteListener{
+        mCredentialsClient.save(credential).addOnCompleteListener {
             if (it.isSuccessful) {
                 onSuccess()
             } else {
@@ -70,9 +70,9 @@ class SmartLockImpl(applicationContext: Context) : SmartLock {
     override fun deleteCredentials(credential: Credential) {
         mCredentialsClient.delete(credential).addOnCompleteListener {
             if (it.isSuccessful) {
-                Log.d(TAG, "Credential successfully deleted.");
+                Log.d(TAG, "Credential successfully deleted.")
             } else {
-                Log.d(TAG, "Credential not deleted successfully.");
+                Log.d(TAG, "Credential not deleted successfully.")
             }
         }
     }

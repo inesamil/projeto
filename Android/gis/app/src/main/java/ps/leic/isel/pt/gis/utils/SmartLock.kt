@@ -13,8 +13,8 @@ interface SmartLock {
 
     companion object {
         // These are the API calls that can be made.
-        val RC_SAVE = 1
-        val RC_READ = 3
-        val RC_DELETE = 4
+        const val RC_SAVE = 1
+        const val RC_READ = 3
+        const val RC_DELETE = 4
     }
 }

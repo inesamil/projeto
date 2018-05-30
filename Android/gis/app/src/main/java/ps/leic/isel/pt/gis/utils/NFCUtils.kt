@@ -50,13 +50,13 @@ object NFCUtils {
                     //Message to large to write to NFC tag
                     return false
                 }
-                if (it.isWritable) {
+                return if (it.isWritable) {
                     it.writeNdefMessage(nfcMessage)
                     //Message was written to tag
-                    return true
+                    true
                 } else {
                     //NFC tag is read-only
-                    return false
+                    false
                 }
             }
             val ndefFormatableTag = NdefFormatable.get(tag)
