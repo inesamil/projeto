@@ -21,13 +21,15 @@ import ps.leic.isel.pt.gis.utils.ExtraUtils
  */
 class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um pedido a api? ou recebe so o username pelo bundle?
 
-    private lateinit var url: String
+    private lateinit var housesUrl: String
+    private lateinit var userUrl: String
     private lateinit var page: PageTabsAdapter.ProfilePage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            url = it.getString(ExtraUtils.URL)
+            housesUrl = it.getString(ExtraUtils.HOUSE_URL)
+            userUrl = it.getString(ExtraUtils.BASIC_INFORMATION_URL)
             page = PageTabsAdapter.ProfilePage.values()[it.getInt(ExtraUtils.PROFILE_PAGE)]
         }
     }
@@ -38,9 +40,10 @@ class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um 
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
         // Set Adapter
-        val adapter = PageTabsAdapter("ze", childFragmentManager)
+        val adapter = PageTabsAdapter(userUrl, housesUrl, childFragmentManager)
         view.viewPager.adapter = adapter
         view.viewPager.currentItem = page.ordinal
+        view.viewPager.offscreenPageLimit = 1
 
         // Set TabLayout
         view.tabLayout.setupWithViewPager(view.viewPager)
@@ -48,9 +51,23 @@ class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um 
         return view
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        savedInstanceState?.let {
+            it.getString(ExtraUtils.HOUSE_URL, housesUrl)
+            it.getString(ExtraUtils.BASIC_INFORMATION_URL, userUrl)
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         activity?.title = getString(R.string.profile)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ExtraUtils.HOUSE_URL, housesUrl)
+        outState.putString(ExtraUtils.BASIC_INFORMATION_URL, userUrl)
     }
 
     /**
@@ -58,8 +75,10 @@ class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um 
      */
     companion object {
 
-        const val URL_ARG: String = "url"
         const val PAGE_ARG: String = "page"
+        const val BASIC_INFORMATION_URL_ARG: String = "basic_information_url"
+        const val HOUSE_URL_ARG: String = "house_url"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -71,7 +90,8 @@ class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um 
         fun newInstance(args: Map<String, Any>) =
                 ProfileFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, args[URL_ARG] as String)
+                        putString(ExtraUtils.BASIC_INFORMATION_URL, args[BASIC_INFORMATION_URL_ARG] as String)
+                        putString(ExtraUtils.HOUSE_URL, args[HOUSE_URL_ARG] as String)
                         putInt(ExtraUtils.PROFILE_PAGE, (args[PAGE_ARG] as PageTabsAdapter.ProfilePage).ordinal)
                     }
                 }
