@@ -24,15 +24,15 @@ class StockItemDto(siren: Siren) {
     init {
         val properties = siren.properties
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
-        sku = properties.get(skuLabel) as String
-        productId = (properties.get(productIdLabel) as Int).toLong()
-        productName = properties.get(productNameLabel) as String
-        brand = properties.get(brandLabel) as String
-        conservationStorage = properties.get(conservationStorageLabel) as String
-        description = properties.get(descriptionLabel) as String
-        quantity = properties.get(quantityLabel) as Short
-        variety = properties.get(varietyLabel) as String
-        segment = properties.get(segmentLabel) as String
+        sku = properties[skuLabel] as String
+        productId = (properties[productIdLabel] as Int).toLong()
+        productName = properties[productNameLabel] as String
+        brand = properties[brandLabel] as String
+        conservationStorage = properties[conservationStorageLabel] as String
+        description = properties[descriptionLabel] as String
+        quantity = properties[quantityLabel] as Short
+        variety = properties[varietyLabel] as String
+        segment = properties[segmentLabel] as String
         val expirationDateElements = siren.entities?.find {
             it.klass?.contains(expirationDatesLabel) ?: false
         }?.properties?.get(elementsLabel)

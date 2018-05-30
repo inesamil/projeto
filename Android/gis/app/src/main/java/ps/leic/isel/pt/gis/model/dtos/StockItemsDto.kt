@@ -5,17 +5,11 @@ import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 
 class StockItemsDto(siren: Siren) {
-    val stockItems: Array<StockItemDto>
-    val actions: StockItemsActions
-    val links: StockItemsLinks
-
-    init {
-        stockItems = siren.entities?.map {
-            StockItemDto(Siren(it.klass, it.properties, null, it.actions, it.links))
-        }.orEmpty().toTypedArray()
-        actions = StockItemsActions(siren.actions)
-        links = StockItemsLinks(siren.links)
-    }
+    val stockItems: Array<StockItemDto> = siren.entities?.map {
+        StockItemDto(Siren(it.klass, it.properties, null, it.actions, it.links))
+    }.orEmpty().toTypedArray()
+    val actions: StockItemsActions = StockItemsActions(siren.actions)
+    val links: StockItemsLinks = StockItemsLinks(siren.links)
 
     class StockItemsActions(actions: Array<Action>?) {
         val addStockItem: Action? = actions?.find {

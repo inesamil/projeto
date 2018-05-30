@@ -4,15 +4,10 @@ import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 
 class MembersDto(siren: Siren) {
-    val houseHold: Array<MemberDto>
-    val links: HouseHoldLink
-
-    init {
-        houseHold = siren.entities?.map {
-            MemberDto(Siren(it.klass, it.properties, null, it.actions, it.links))
-        }.orEmpty().toTypedArray()
-        links = HouseHoldLink(siren.links)
-    }
+    val houseHold: Array<MemberDto> = siren.entities?.map {
+        MemberDto(Siren(it.klass, it.properties, null, it.actions, it.links))
+    }.orEmpty().toTypedArray()
+    val links: HouseHoldLink = HouseHoldLink(siren.links)
 
     class HouseHoldLink(links: Array<Link>?) {
         val selfLink: String? = links?.find {

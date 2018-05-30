@@ -5,17 +5,11 @@ import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 
 class MovementsDto(siren: Siren) {
-    val movements: Array<MovementDto>
-    val actions: MovementsActions
-    val links: MovementsLink
-
-    init {
-        movements = siren.entities?.map {
-            MovementDto(Siren(it.klass, it.properties, null, null, it.links))
-        }.orEmpty().toTypedArray()
-        actions = MovementsActions(siren.actions)
-        links = MovementsLink(siren.links)
-    }
+    val movements: Array<MovementDto> = siren.entities?.map {
+        MovementDto(Siren(it.klass, it.properties, null, null, it.links))
+    }.orEmpty().toTypedArray()
+    val actions: MovementsActions = MovementsActions(siren.actions)
+    val links: MovementsLink = MovementsLink(siren.links)
 
     class MovementsActions(actions: Array<Action>?) {
         val addMovement: Action? = actions?.find {

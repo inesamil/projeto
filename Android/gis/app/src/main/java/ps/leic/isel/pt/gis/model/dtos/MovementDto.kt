@@ -13,11 +13,11 @@ class MovementDto(siren: Siren) {
     init {
         val properties = siren.properties
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
-        storageId = (properties.get(storageIdLabel) as Int).toLong()
-        stockItemSku = properties.get(stockItemSkuLabel) as String
-        movementDateTime = properties.get(movementDateTimeLabel) as String
-        movementType = properties.get(movementTypeLabel) as String
-        quantity = properties.get(quantityLabel) as Int
+        storageId = (properties[storageIdLabel] as Int).toLong()
+        stockItemSku = properties[stockItemSkuLabel] as String
+        movementDateTime = properties[movementDateTimeLabel] as String
+        movementType = properties[movementTypeLabel] as String
+        quantity = properties[quantityLabel] as Int
     }
 
     companion object {

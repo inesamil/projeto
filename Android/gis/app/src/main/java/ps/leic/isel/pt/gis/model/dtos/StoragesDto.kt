@@ -5,17 +5,11 @@ import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 
 class StoragesDto(siren: Siren) {
-    val storages: Array<StorageDto>
-    val actions: StoragesActions
-    val links: StoragesLink
-
-    init {
-        storages = siren.entities?.map {
-            StorageDto(Siren(it.klass, it.properties, null, it.actions, it.links))
-        }.orEmpty().toTypedArray()
-        actions = StoragesActions(siren.actions)
-        links = StoragesLink(siren.links)
-    }
+    val storages: Array<StorageDto> = siren.entities?.map {
+        StorageDto(Siren(it.klass, it.properties, null, it.actions, it.links))
+    }.orEmpty().toTypedArray()
+    val actions: StoragesActions = StoragesActions(siren.actions)
+    val links: StoragesLink = StoragesLink(siren.links)
 
     class StoragesActions(actions: Array<Action>?) {
         val addStorage: Action? = actions?.find {

@@ -15,10 +15,10 @@ class ProductDto(siren: Siren) {
     init {
         val properties = siren.properties
         categoryId = (properties?.get(categoryIdLabel) as Int).toLong()
-        productId = (properties?.get(productIdLabel) as Int).toLong()
-        productName = properties?.get(productNameLabel) as String
-        productEdible = properties?.get(productEdibleLabel) as Boolean
-        productShellifetime = properties?.get(productShellifetimeLabel) as String
+        productId = (properties[productIdLabel] as Int).toLong()
+        productName = properties[productNameLabel] as String
+        productEdible = properties[productEdibleLabel] as Boolean
+        productShellifetime = properties[productShellifetimeLabel] as String
         links = ProductLinks(siren.links)
     }
 

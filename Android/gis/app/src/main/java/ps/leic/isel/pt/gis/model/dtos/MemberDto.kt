@@ -12,8 +12,8 @@ class MemberDto(siren: Siren) {
     init {
         val properties = siren.properties
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
-        username = properties?.get(usernameLabel) as String
-        administrator = properties?.get(adminstratorLabel) as Boolean
+        username = properties[usernameLabel] as String
+        administrator = properties[adminstratorLabel] as Boolean
         links = MemberLynks(siren.links)
     }
 

@@ -14,8 +14,8 @@ class HouseAllergyDto(siren: Siren) {
     init {
         val properties = siren.properties
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
-        allergen = properties?.get(allergenLabel) as String
-        houseAllergiesNum = properties?.get(houseAllergiesNumLabel) as Short
+        allergen = properties[allergenLabel] as String
+        houseAllergiesNum = properties[houseAllergiesNumLabel] as Short
         actions = HouseAllergyActions(siren.actions)
         links = HouseAllergyLynks(siren.links)
     }
