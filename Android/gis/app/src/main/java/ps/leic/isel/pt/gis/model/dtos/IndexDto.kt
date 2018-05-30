@@ -1,5 +1,6 @@
 package ps.leic.isel.pt.gis.model.dtos
 
+import com.damnhandy.uri.template.UriTemplate
 import ps.leic.isel.pt.gis.hypermedia.jsonHome.subentities.JsonHome
 import ps.leic.isel.pt.gis.hypermedia.jsonHome.subentities.ResourceObject
 
@@ -18,11 +19,30 @@ class IndexDto(jsonHome: JsonHome) {
         val getAllergies: ResourceObject? = resources[relAllergiesLabel]
     }
 
+    fun getHousesUrl(username: String): String? {
+        val houses = resources.getHouses
+        houses?.hrefVars?.containsKey(USERNAME_LABEL)?.let {
+            if (!it) return@let
+            return UriTemplate.expand(houses.hrefTemplate, mapOf(Pair(USERNAME_LABEL, username)))
+        }
+        return null
+    }
+
+    fun getUserUrl(username: String): String? {
+        val user = resources.getUser
+        user?.hrefVars?.containsKey(USERNAME_LABEL)?.let {
+            if (!it) return@let
+            return UriTemplate.expand(user.hrefTemplate, mapOf(Pair(USERNAME_LABEL, username)))
+        }
+        return null
+    }
+
     companion object {
-        const val relHouseLabel: String = "rel/house"
-        const val relHousesLabel: String = "rel/houses"
-        const val relUserLabel: String = "rel/user"
-        const val relCategoriesLabel: String = "rel/categories"
-        const val relAllergiesLabel: String = "rel/allergies"
+        private const val USERNAME_LABEL: String = "username"
+        private const val relHouseLabel: String = "rel/house"
+        private const val relHousesLabel: String = "rel/houses"
+        private const val relUserLabel: String = "rel/user"
+        private const val relCategoriesLabel: String = "rel/categories"
+        private const val relAllergiesLabel: String = "rel/allergies"
     }
 }
