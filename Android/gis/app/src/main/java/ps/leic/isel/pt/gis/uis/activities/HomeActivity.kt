@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.damnhandy.uri.template.UriTemplate
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.GisApplication
@@ -79,36 +78,38 @@ class HomeActivity : AppCompatActivity(),
     // Listener for HomePageFragment
     override fun onMyHousesInteraction() {
         val gisApplication = application as GisApplication
-        val getHouses = gisApplication.index.resources.getHouses
-        val getUser = gisApplication.index.resources.getUser
-        val uriTemplate = getHouses?.hrefTemplate
-        getHouses?.hrefVars?.containsKey(USERNAME_KEY)?.let {
-            if (!it) return@let
-            val url = UriTemplate.expand(uriTemplate, mapOf(Pair(USERNAME_KEY, "ze")))
-            url?.let {
+        val index = gisApplication.index
+        index.getHousesUrl("ze")?.let {
+            val housesUrl = it
+            index.getUserUrl("ze")?.let {
                 val args: Map<String, Any> = mapOf(
-                        Pair(ProfileFragment.HOUSE_URL_ARG, it),
-                        Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, UriTemplate.expand(getUser?.hrefTemplate, mapOf(Pair(USERNAME_KEY, "ze")))),
+                        Pair(ProfileFragment.HOUSE_URL_ARG, housesUrl),
+                        Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, it),
                         Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.Houses)
                 )
-                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.USER_USERNAME, ProfileFragment.Companion::newInstance, args)
-                return
+                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PROFILE, ProfileFragment.Companion::newInstance, args)
             }
         }
-        Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() //TODO put string in xml
     }
 
     // Listener for HomePageFragment
     override fun onMyProfileInteraction() {
         val gisApplication = application as GisApplication
-        val getHouses = gisApplication.index.resources.getHouses
-        val getUser = gisApplication.index.resources.getUser
-        val args: Map<String, Any> = mapOf(
-                Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, UriTemplate.expand(getHouses?.hrefTemplate, mapOf(Pair(USERNAME_KEY, "ze")))),
-                Pair(ProfileFragment.HOUSE_URL_ARG, UriTemplate.expand(getUser?.hrefTemplate, mapOf(Pair(USERNAME_KEY, "ze")))), //TODO
-                Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
-        )
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.USER_USERNAME, ProfileFragment.Companion::newInstance, args)
+        val index = gisApplication.index
+        // TODO remover o ze em todo o lado
+        index.getUserUrl("ze")?.let {
+            val userUrl = it
+            index.getHousesUrl("ze")?.let {
+                val args: Map<String, Any> = mapOf(
+                        Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, userUrl),
+                        Pair(ProfileFragment.HOUSE_URL_ARG, it),
+                        Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
+                )
+                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PROFILE, ProfileFragment.Companion::newInstance, args)
+            }
+        }
+        Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() // TODO remove string. put in xml
     }
 
     // Listener for HomePageFragment
@@ -118,17 +119,17 @@ class HomeActivity : AppCompatActivity(),
     }
 
     // Listener for HousesFragment interaction
-    override fun onStoragesInteraction(houseId: Long) {
+    override fun onStoragesInteraction(storagesUrl: String) {
         val url: String = ""    //TODO
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STORAGES, StoragesFragment.Companion::newInstance, url)
     }
 
-    override fun onAllergiesInteraction(houseId: Long) {
+    override fun onAllergiesInteraction(allergiesUrl: String) {
         val url: String = ""   //TODO
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.ALLERGIES, AllergiesFragment.Companion::newInstance, url)
     }
 
-    override fun onNewHouseInteraction(house: HouseDto) {
+    override fun onNewHouseInteraction(houseUrl: String) {
         val fragment = NewHouseDialogFragment.newInstance()
         fragment.show(supportFragmentManager, ExtraUtils.NEW_HOUSE_DIALOG)
     }
@@ -258,6 +259,7 @@ class HomeActivity : AppCompatActivity(),
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val gisApplication = application as GisApplication
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_homePage -> {
@@ -272,11 +274,20 @@ class HomeActivity : AppCompatActivity(),
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance, url)
             }
             R.id.nav_profile -> {
-                val args: Map<String, Any> = mapOf(
-                        Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, "alice"), //TODO refazer o basic info e passar o house url
-                        Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
-                )
-                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PROFILE, ProfileFragment.Companion::newInstance, args)
+                val index = gisApplication.index
+                // TODO remover o ze em todo o lado
+                index.getUserUrl("ze")?.let {
+                    val userUrl = it
+                    index.getHousesUrl("ze")?.let {
+                        val args: Map<String, Any> = mapOf(
+                                Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, userUrl),
+                                Pair(ProfileFragment.HOUSE_URL_ARG, it),
+                                Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
+                        )
+                        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PROFILE, ProfileFragment.Companion::newInstance, args)
+                    }
+                }
+                Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() // TODO remove string. put in xml
             }
             R.id.nav_settings -> {
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.SETTINGS, SettingsFragment.Companion::newInstance)
