@@ -8,9 +8,11 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.damnhandy.uri.template.UriTemplate
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.GisApplication
@@ -78,14 +80,19 @@ class HomeActivity : AppCompatActivity(),
     // Listener for HomePageFragment
     override fun onMyHousesInteraction() {
         val gisApplication = application as GisApplication
-        val url = gisApplication.index.resources.getHouses?.href
-        url?.let {
-            val args: Map<String, Any> = mapOf(
-                    Pair(ProfileFragment.URL_ARG, it),
-                    Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.Houses)
-            )
-            supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.USER_USERNAME, ProfileFragment.Companion::newInstance, args)
-            return
+        val getHouses = gisApplication.index.resources.getHouses
+        val uriTemplate = getHouses?.hrefTemplate
+        getHouses?.hrefVars?.containsKey(USERNAME_KEY)?.let {
+            if (!it) return@let
+            val url = UriTemplate.expand(uriTemplate, mapOf(Pair(USERNAME_KEY, "ze")))
+            url?.let {
+                val args: Map<String, Any> = mapOf(
+                        Pair(ProfileFragment.URL_ARG, it),
+                        Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.Houses)
+                )
+                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.USER_USERNAME, ProfileFragment.Companion::newInstance, args)
+                return
+            }
         }
         Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show()
     }
@@ -273,5 +280,8 @@ class HomeActivity : AppCompatActivity(),
         homeDrawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
-}
 
+    companion object {
+        private const val USERNAME_KEY = "username"
+    }
+}
