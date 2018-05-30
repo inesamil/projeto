@@ -28,8 +28,8 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
             NotFoundException.class
     })
     public final ResponseEntity<ProblemPlusJson> handleForbidden(ProblemDetailsException ex) {
-        log.warn(ex.getMessage());
-        log.warn(ex.getLocalizedMessage());
+        log.warn(ex.getTitle());
+        log.warn(ex.getDetail());
         HttpStatus httpStatus = ex.getStatus();
         ProblemPlusJson problemPlusJson = new ProblemPlusJson(
                 ex.getType(),
