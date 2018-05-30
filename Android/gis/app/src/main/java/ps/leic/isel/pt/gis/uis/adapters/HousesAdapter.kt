@@ -35,13 +35,6 @@ class HousesAdapter : RecyclerView.Adapter<HousesAdapter.ViewHolder>() {
             holder.seniorsNumber.text = item.characteristics?.seniorsNumber.toString()
             //Pass data to the Adapter
             holder.membersAdapter.setData(item.members)
-            // Set listeners
-            holder.storages.setOnClickListener {
-                mOnItemClickListener.onStoragesClick(item.houseId)
-            }
-            holder.allergies.setOnClickListener {
-                mOnItemClickListener.onAllergiesClick(item.houseId)
-            }
         }
     }
 
@@ -72,6 +65,12 @@ class HousesAdapter : RecyclerView.Adapter<HousesAdapter.ViewHolder>() {
             membersRecyclerView.layoutManager = LinearLayoutManager(context)
             membersRecyclerView.setHasFixedSize(true)
             membersRecyclerView.adapter = membersAdapter
+            storages.setOnClickListener {
+                mOnItemClickListener.onStoragesClick(it, adapterPosition)
+            }
+            allergies.setOnClickListener {
+                mOnItemClickListener.onAllergiesClick(it, adapterPosition)
+            }
         }
     }
 
@@ -82,7 +81,7 @@ class HousesAdapter : RecyclerView.Adapter<HousesAdapter.ViewHolder>() {
 
     // Parent activity will implement this method to respond to click events
     interface OnItemClickListener {
-        fun onStoragesClick(houseId: Long)
-        fun onAllergiesClick(houseId: Long)
+        fun onStoragesClick(view: View, position: Int)
+        fun onAllergiesClick(view: View, position: Int)
     }
 }
