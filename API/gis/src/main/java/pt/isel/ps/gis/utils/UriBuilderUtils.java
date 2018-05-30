@@ -1,9 +1,23 @@
 package pt.isel.ps.gis.utils;
 
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 public class UriBuilderUtils {
 
+    private static String HOST; //HOST = "http://10.0.2.2:8081"
+
+    static {
+        try {
+            HOST = "http://" + InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static final String
-            HOST = "http://10.0.2.2:8081",
             VERSION = "v1",
             ALLERGIES = "allergies",
             CATEGORIES = "categories",
