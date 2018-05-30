@@ -12,8 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_houses.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
-import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
@@ -77,10 +75,8 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         view.housesRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
         view.newHouseBtn.setOnClickListener {
-            //TODO
-            val house = HouseDto(Siren(null, null, null, null, null))
-            //TODO: get new House
-            listener?.onNewHouseInteraction(house)
+            // TODO: get new House
+            // listener?.onNewHouseInteraction()
         }
         return view
     }
@@ -111,12 +107,12 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
      * Listeners
      ***/
 
-    override fun onStoragesClick(houseId: Long) {
-        listener?.onStoragesInteraction(houseId)
+    override fun onStoragesClick(view: View, position: Int) {
+        // listener?.onStoragesInteraction() // TODO receber o link para storages
     }
 
-    override fun onAllergiesClick(houseId: Long) {
-        listener?.onAllergiesInteraction(houseId)
+    override fun onAllergiesClick(view: View, position: Int) {
+        // listener?.onAllergiesInteraction()
     }
 
     /**
@@ -126,9 +122,9 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
      * activity.
      */
     interface OnHousesFragmentInteractionListener {
-        fun onStoragesInteraction(houseId: Long)
-        fun onAllergiesInteraction(houseId: Long)
-        fun onNewHouseInteraction(house: HouseDto)
+        fun onStoragesInteraction(storagesUrl: String)
+        fun onAllergiesInteraction(allergiesUrl: String)
+        fun onNewHouseInteraction(houseUrl: String)
     }
 
     /**
