@@ -41,13 +41,13 @@ class UserDto(siren: Siren) {
     }
 
     companion object {
-        const val usernameLabel: String = "user-username"
-        const val nameLabel: String = "user-name"
-        const val emailLabel: String = "user-email"
-        const val ageLabel: String = "user-age"
-        const val updateUserLabel: String = "update-user"
-        const val deleteUserLabel: String = "delete-user"
-        const val indexLabel: String = "index"
-        const val userClassLabel: String = "user"
+        private const val usernameLabel: String = "user-username"
+        private const val nameLabel: String = "user-name"
+        private const val emailLabel: String = "user-email"
+        private const val ageLabel: String = "user-age"
+        private const val updateUserLabel: String = "update-user"
+        private const val deleteUserLabel: String = "delete-user"
+        private const val indexLabel: String = "index"
+        private const val userClassLabel: String = "user"
     }
 }

@@ -44,12 +44,12 @@ class HouseDto(siren: Siren) {
     }
 
     companion object {
-        val mapper: ObjectMapper = jacksonObjectMapper()
-        const val houseIdLabel: String = "house-id"
-        const val houseNameLabel: String = "house-name"
-        const val houseCharacteristicsLabel = "house-characteristics"
-        const val houseClassLabel: String = "house"
-        const val indexLabel: String = "index"
-        const val addHouseLabel: String = "add-house"
+        private val mapper: ObjectMapper = jacksonObjectMapper()
+        private const val houseIdLabel: String = "house-id"
+        private const val houseNameLabel: String = "house-name"
+        private const val houseCharacteristicsLabel = "house-characteristics"
+        private const val houseClassLabel: String = "house"
+        private const val indexLabel: String = "index"
+        private const val addHouseLabel: String = "add-house"
     }
 }
