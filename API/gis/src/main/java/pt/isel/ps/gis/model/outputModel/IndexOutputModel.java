@@ -123,7 +123,7 @@ public class IndexOutputModel {
 
         return new ResourceObject(
                 null,
-                "/v1/users/{useraname}/houses",
+                "http://10.0.2.2:8081/v1/users/{username}/houses",
                 hrefVars,
                 new Hints(
                         new Method[]{Method.GET},
