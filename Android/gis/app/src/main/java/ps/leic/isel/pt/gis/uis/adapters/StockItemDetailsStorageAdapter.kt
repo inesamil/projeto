@@ -30,7 +30,7 @@ class StockItemDetailsStorageAdapter
         }
     }
 
-    fun setData(data: Array<String>) {
+    fun setData(data: Array<String>?) {
         this.data = data
         notifyDataSetChanged()
     }
