@@ -12,7 +12,6 @@ import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ListServiceImpl implements ListService {
@@ -58,12 +57,9 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public java.util.List<List> getListsByUsername(String username) throws EntityException {
+    public java.util.List<UserList> getListsByUsername(String username) throws EntityException {
         ValidationsUtils.validateUserUsername(username);
-        return userListRepository.findAllByUsersUsername(username)
-                .stream()
-                .map(UserList::getList)
-                .collect(Collectors.toList());
+        return userListRepository.findAllByUsersUsername(username);
     }
 
     @Override

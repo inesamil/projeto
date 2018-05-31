@@ -62,7 +62,7 @@ public interface ListService {
      * @return List<List>
      * @throws EntityException se od parâmetros recebeidos forem inválidos
      */
-    java.util.List<List> getListsByUsername(String username) throws EntityException;
+    java.util.List<UserList> getListsByUsername(String username) throws EntityException;
 
     /**
      * Adicionar uma lista a uma casa
