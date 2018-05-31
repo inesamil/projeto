@@ -1,7 +1,5 @@
 package pt.isel.ps.gis.utils;
 
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -249,8 +247,8 @@ public class UriBuilderUtils {
     /**
      * URI Template: http://10.0.2.2:8081/v1/houses/{house-id}/lists/{list-id}
      *
-     * @param houseId  The id of the house
-     * @param listId   The id of the list
+     * @param houseId The id of the house
+     * @param listId  The id of the list
      * @return URI to specific list of the house
      */
     public static String buildUserListUri(Long houseId, Short listId) {
@@ -275,5 +273,15 @@ public class UriBuilderUtils {
      */
     public static String buildUserHousesUri(String username) {
         return String.format("%s/%s/%s/%s/%s", HOST, VERSION, USERS, username, HOUSES);
+    }
+
+    /**
+     * URI Template: http://10.0.2.2:8081/v1/users/{username}/lists
+     *
+     * @param username The id of the user
+     * @return URI to user lists
+     */
+    public static String buildUserListsUri(String username) {
+        return String.format("%s/%s/%s/%s/%s", HOST, VERSION, USERS, username, LISTS);
     }
 }
