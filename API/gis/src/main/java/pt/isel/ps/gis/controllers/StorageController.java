@@ -25,6 +25,9 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 @RequestMapping("/v1/houses/{house-id}/storages")
 public class StorageController {
 
+    private static final String HOUSE_NOT_EXIST = "House does not exist.";
+    private static final String STORAGE_NOT_EXIST = "Storage does not exist.";
+
     private final StorageService storageService;
     private final HouseService houseService;
 
@@ -36,9 +39,14 @@ public class StorageController {
     @GetMapping("")
     public ResponseEntity<StoragesOutputModel> getStorages(
             @PathVariable("house-id") long houseId
-    ) throws EntityException, BadRequestException {
+    ) throws BadRequestException {
         checkHouse(houseId);
-        List<Storage> storages = storageService.getStorageByHouseId(houseId);
+        List<Storage> storages;
+        try {
+            storages = storageService.getStorageByHouseId(houseId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),
                 HttpStatus.OK);
@@ -48,8 +56,13 @@ public class StorageController {
     public ResponseEntity<StorageOutputModel> getStorage(
             @PathVariable("house-id") long houseId,
             @PathVariable("storage-id") short storageId
-    ) throws EntityException, NotFoundException, BadRequestException {
-        Optional<Storage> storageOptional = storageService.getStorageByStorageId(houseId, storageId);
+    ) throws NotFoundException, BadRequestException {
+        Optional<Storage> storageOptional;
+        try {
+            storageOptional = storageService.getStorageByStorageId(houseId, storageId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         Storage storage = storageOptional.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StorageOutputModel(storage), setSirenContentType(headers), HttpStatus.OK);
@@ -59,14 +72,19 @@ public class StorageController {
     public ResponseEntity<StoragesOutputModel> postStorage(
             @PathVariable("house-id") long houseId,
             @RequestBody StorageInputModel body
-    ) throws EntityException, BadRequestException {
+    ) throws BadRequestException {
         checkHouse(houseId);
-        storageService.addStorage(new Storage(
-                houseId,
-                body.getName(),
-                new Numrange(body.getMinimumTemperature(), body.getMaximumTemperature())
-        ));
-        List<Storage> storages = storageService.getStorageByHouseId(houseId);
+        List<Storage> storages;
+        try {
+            storageService.addStorage(new Storage(
+                    houseId,
+                    body.getName(),
+                    new Numrange(body.getMinimumTemperature(), body.getMaximumTemperature())
+            ));
+            storages = storageService.getStorageByHouseId(houseId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),
                 HttpStatus.CREATED);
@@ -77,27 +95,34 @@ public class StorageController {
             @PathVariable("house-id") long houseId,
             @PathVariable("storage-id") short storageId,
             @RequestBody StorageInputModel body
-    ) throws EntityException, BadRequestException, EntityNotFoundException {
+    ) throws BadRequestException, NotFoundException {
         checkHouse(houseId);
-        Storage storage = storageService.getStorageByStorageId(houseId, storageId)
-                .orElseThrow(() -> new BadRequestException("Storage does not exist."));
-        boolean toUpdate = false;
-        if (body.getName() != null && !storage.getStorageName().equals(body.getName())) {
-            storage.setStorageName(body.getName());
-            toUpdate = true;
-        }
-        if (body.getMinimumTemperature() != null && body.getMaximumTemperature() != null) {
-            Numrange storageTemperature = storage.getStorageTemperature();
-            if (!storageTemperature.getMinimum().equals(body.getMinimumTemperature())
-                    || storage.getStorageTemperature().getMaximum().equals(body.getMaximumTemperature())) {
-                Numrange numrange = new Numrange(body.getMinimumTemperature(), body.getMaximumTemperature());
-                storage.setStorageTemperature(numrange);
+        List<Storage> storages;
+        try {
+            Storage storage = storageService.getStorageByStorageId(houseId, storageId)
+                    .orElseThrow(() -> new BadRequestException(STORAGE_NOT_EXIST));
+            boolean toUpdate = false;
+            if (body.getName() != null && !storage.getStorageName().equals(body.getName())) {
+                storage.setStorageName(body.getName());
                 toUpdate = true;
             }
+            if (body.getMinimumTemperature() != null && body.getMaximumTemperature() != null) {
+                Numrange storageTemperature = storage.getStorageTemperature();
+                if (!storageTemperature.getMinimum().equals(body.getMinimumTemperature())
+                        || storage.getStorageTemperature().getMaximum().equals(body.getMaximumTemperature())) {
+                    Numrange numrange = new Numrange(body.getMinimumTemperature(), body.getMaximumTemperature());
+                    storage.setStorageTemperature(numrange);
+                    toUpdate = true;
+                }
+            }
+            if (toUpdate)
+                storageService.updateStorage(storage);
+            storages = storageService.getStorageByHouseId(houseId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
-        if (toUpdate)
-            storageService.updateStorage(storage);
-        List<Storage> storages = storageService.getStorageByHouseId(houseId);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),
                 HttpStatus.OK);
@@ -107,23 +132,38 @@ public class StorageController {
     public ResponseEntity<StoragesOutputModel> deleteStorage(
             @PathVariable("house-id") long houseId,
             @PathVariable("storage-id") short storageId
-    ) throws EntityException, BadRequestException, EntityNotFoundException {
+    ) throws BadRequestException, NotFoundException {
         checkHouse(houseId);
         checkStorage(houseId, storageId);
-        storageService.deleteStorageByStorageId(houseId, storageId);
-        List<Storage> storages = storageService.getStorageByHouseId(houseId);
+        List<Storage> storages;
+        try {
+            storageService.deleteStorageByStorageId(houseId, storageId);
+            storages = storageService.getStorageByHouseId(houseId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
-    private void checkHouse(long houseId) throws EntityException, BadRequestException {
-        if (!houseService.existsHouseByHouseId(houseId))
-            throw new BadRequestException("House does not exist.");
+    private void checkHouse(long houseId) throws BadRequestException {
+        try {
+            if (!houseService.existsHouseByHouseId(houseId))
+                throw new BadRequestException(HOUSE_NOT_EXIST);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 
-    private void checkStorage(long houseId, short storageId) throws EntityException, BadRequestException {
-        if (!storageService.existsStorageByStorageId(houseId, storageId))
-            throw new BadRequestException("Storage does not exist.");
+    private void checkStorage(long houseId, short storageId) throws BadRequestException {
+        try {
+            if (!storageService.existsStorageByStorageId(houseId, storageId))
+                throw new BadRequestException(STORAGE_NOT_EXIST);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 }
