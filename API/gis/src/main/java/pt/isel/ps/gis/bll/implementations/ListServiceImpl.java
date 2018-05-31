@@ -12,6 +12,7 @@ import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ListServiceImpl implements ListService {
@@ -44,7 +45,7 @@ public class ListServiceImpl implements ListService {
     @Override
     public Optional<List> getListByListId(long houseId, short listId) throws EntityException {
         Optional<List> optionalList = listRepository.findById(new ListId(houseId, listId));
-        if (!optionalList.isPresent())  return optionalList;
+        if (!optionalList.isPresent()) return optionalList;
         List list = optionalList.get();
         list.getListproducts().size();
         return optionalList;
@@ -54,6 +55,15 @@ public class ListServiceImpl implements ListService {
     public java.util.List<List> getListsByHouseIdFiltered(long houseId, ListFilters filters) throws EntityException {
         ValidationsUtils.validateHouseId(houseId);
         return listRepository.findListsFiltered(houseId, filters.systemLists, filters.listsFromUser, filters.sharedLists);
+    }
+
+    @Override
+    public java.util.List<List> getListsByUsername(String username) throws EntityException {
+        ValidationsUtils.validateUserUsername(username);
+        return userListRepository.findAllByUsersUsername(username)
+                .stream()
+                .map(UserList::getList)
+                .collect(Collectors.toList());
     }
 
     @Override
