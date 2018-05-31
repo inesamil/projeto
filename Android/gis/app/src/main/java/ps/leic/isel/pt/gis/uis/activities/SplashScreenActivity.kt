@@ -17,7 +17,6 @@ import ps.leic.isel.pt.gis.model.dtos.IndexDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.viewModel.SplashScreenViewModel
 
-
 class SplashScreenActivity : AppCompatActivity() {
 
     private var firstTime: Boolean? = null

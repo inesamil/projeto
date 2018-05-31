@@ -105,7 +105,7 @@ class BasicInformationFragment : Fragment() {
      * activity.
      */
     interface OnBasicInformationFragmentInteractionListener {
-        fun onBasicInformationUpdate(user: UserDTO)
+        fun onBasicInformationUpdate(user: UserDTO) // TODO é preciso para que interacao?
     }
 
     companion object {
