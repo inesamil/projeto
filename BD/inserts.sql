@@ -15,3 +15,24 @@ INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) 
 INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (2, 'ze', true);
 INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (2, 'joaquim', false);
 
+INSERT INTO public.category(category_name) VALUES ('Categoria1');
+INSERT INTO public.category(category_name) VALUES ('Categoria2');
+
+INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
+VALUES (1, 'Product 1', true, 1, 'day');
+INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
+VALUES (1, 'Product 2', true, 1, 'day');
+INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
+VALUES (1, 'Product 3', true, 1, 'year');
+
+INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
+VALUES (2, 'Product 1', true, 1, 'week');
+INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
+VALUES (2, 'Product 2', true, 1, 'day');
+INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
+VALUES (2, 'Product 3', true, 1, 'month');
+
+
+
+
+
