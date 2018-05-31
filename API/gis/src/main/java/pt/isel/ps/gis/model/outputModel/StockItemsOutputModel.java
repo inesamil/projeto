@@ -55,8 +55,9 @@ public class StockItemsOutputModel {
 
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("house-id", houseId);
-            properties.put("stock-item-id", stockItem.getId().getStockitemSku());
+            properties.put("stock-item-sku", stockItem.getId().getStockitemSku());
             properties.put("product-id", stockItem.getProductId());
+            properties.put("product-name", stockItem.getProduct().getProductName());
             properties.put("stock-item-brand", stockItem.getStockitemBrand());
             properties.put("stock-item-conservation-storage", stockItem.getStockitemConservationstorage());
             properties.put("stock-item-description", stockItem.getStockitemDescription());
