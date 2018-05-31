@@ -20,12 +20,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean existsProductByProductId(int productId) {
+    public boolean existsProductByProductId(int productId) throws EntityException {
+        ValidationsUtils.validateProductId(productId);
         return productRepository.existsById(productId);
     }
 
     @Override
-    public Optional<Product> getProductByProductId(int productId) {
+    public Optional<Product> getProductByProductId(int productId) throws EntityException {
+        ValidationsUtils.validateProductId(productId);
         return productRepository.findById(productId);
     }
 
