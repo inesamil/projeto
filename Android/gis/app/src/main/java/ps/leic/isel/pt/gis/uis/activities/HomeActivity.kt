@@ -71,8 +71,12 @@ class HomeActivity : AppCompatActivity(),
      */
     // Listener for HomePageFragment
     override fun onMyPantryInteraction() {
-        val url: String = ""   //TODO
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM_LIST, StockItemListFragment.Companion::newInstance, url)
+        val gisApplication = application as GisApplication
+        val index = gisApplication.index
+        //TODO: tirar ze
+        index.getHousesUrl("ze")?.let {
+            supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM_LIST, StockItemListFragment.Companion::newInstance, it)
+        }
     }
 
     // Listener for HomePageFragment
