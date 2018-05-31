@@ -41,6 +41,21 @@ class HouseDto(siren: Siren) {
         val indexLink: String? = links?.find {
             it.klass?.contains(indexLabel) ?: false
         }?.href
+        val storagesLink: String? = links?.find {
+            it.klass?.contains(storagesLabel) ?: false
+        }?.href
+        val houseAllergiesLink: String? = links?.find {
+            it.klass?.contains(houseAllergiesLabel) ?: false
+        }?.href
+        val stockItemsLink: String? = links?.find {
+            it.klass?.contains(stockItemsLabel) ?: false
+        }?.href
+        val movementsLink: String? = links?.find {
+            it.klass?.contains(movementsLabel) ?: false
+        }?.href
+        val listsLink: String? = links?.find {
+            it.klass?.contains(listsLabel) ?: false
+        }?.href
     }
 
     companion object {
@@ -50,6 +65,11 @@ class HouseDto(siren: Siren) {
         private const val houseCharacteristicsLabel = "house-characteristics"
         private const val houseClassLabel: String = "house"
         private const val indexLabel: String = "index"
+        private const val storagesLabel: String = "storages"
+        private const val houseAllergiesLabel: String = "house-allergies"
+        private const val stockItemsLabel: String = "items"
+        private const val movementsLabel: String = "movements"
+        private const val listsLabel: String = "lists"
         private const val addHouseLabel: String = "add-house"
     }
 }
