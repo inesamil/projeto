@@ -18,6 +18,7 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setProblemDetailContentType;
 public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
 
     private static final String ERROR_PATH = "/error";
+    private static final String MESSAGE_DETAIL = "Your request couldn't be processed.";
     private static final Logger log = LoggerFactory.getLogger(ErrorController.class);
 
     @Override
@@ -43,7 +44,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
         ProblemPlusJson problemPlusJson = new ProblemPlusJson(
                 httpStatus.getReasonPhrase(),
                 httpStatus.value(),
-                "Your request couldn't be processed."
+                MESSAGE_DETAIL
         );
         HttpHeaders httpHeaders = new HttpHeaders();
         return new ResponseEntity<>(problemPlusJson, setProblemDetailContentType(httpHeaders), httpStatus);
