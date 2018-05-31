@@ -5,16 +5,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.HouseService;
+import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.bll.UserService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.House;
+import pt.isel.ps.gis.model.UserList;
 import pt.isel.ps.gis.model.Users;
 import pt.isel.ps.gis.model.inputModel.UserInputModel;
 import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
 import pt.isel.ps.gis.model.outputModel.UserHousesOutputModel;
+import pt.isel.ps.gis.model.outputModel.UserListsOutputModel;
 import pt.isel.ps.gis.model.outputModel.UserOutputModel;
 
 import java.util.List;
@@ -31,10 +34,12 @@ public class UserController {
 
     private final UserService userService;
     private final HouseService houseService;
+    private final ListService listService;
 
-    public UserController(UserService userService, HouseService houseService) {
+    public UserController(UserService userService, HouseService houseService, ListService listService) {
         this.userService = userService;
         this.houseService = houseService;
+        this.listService = listService;
     }
 
     @GetMapping("")
@@ -65,6 +70,22 @@ public class UserController {
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserHousesOutputModel(username, userHouses), setSirenContentType(headers),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/lists")
+    public ResponseEntity<UserListsOutputModel> getUserLists(
+            @PathVariable("username") String username
+    ) throws BadRequestException {
+        checkUser(username);
+        List<UserList> userLists;
+        try {
+            userLists = listService.getListsByUsername(username);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
+        HttpHeaders httpHeaders = new HttpHeaders();
+        return new ResponseEntity<>(new UserListsOutputModel(username, userLists), setSirenContentType(httpHeaders),
                 HttpStatus.OK);
     }
 
