@@ -114,6 +114,11 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
         outState.putString(ExtraUtils.URL, url)
     }
 
+    override fun onStop() {
+        super.onStop()
+        allergiesViewModel.cancel()
+    }
+
     /***
      * Listeners
      ***/
