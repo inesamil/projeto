@@ -21,8 +21,8 @@ class ListDto(siren: Siren) {
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
         listId = (properties[listIdLabel] as Int).toLong()
         listName = properties[listNameLabel] as String
-        username = properties[usernameLabel] as String
-        shareable = properties[shareableLabel] as Boolean
+        username = properties[usernameLabel] as? String
+        shareable = properties[shareableLabel] as? Boolean
 
         val listProductsElements = siren.entities?.find {
             it.klass?.contains(listProductsLabel) ?: false
