@@ -36,8 +36,8 @@ class StockItemInnerListAdapter : RecyclerView.Adapter<StockItemInnerListAdapter
         return examplesLocal.size
     }
 
-    fun setData(data: Any) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    fun setData(data: Any?) {
+        // TODO To change body of created functions use File | Settings | File Templates.
     }
 
     // stores and recycles views as they are scrolled off screen
