@@ -29,10 +29,12 @@ import ps.leic.isel.pt.gis.viewModel.HousesViewModel
  */
 class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
 
+    private lateinit var housesViewModel: HousesViewModel
+    private lateinit var url: String
+
+    private var houses: HousesDto? = null
     private val adapter = HousesAdapter()
     private var listener: OnHousesFragmentInteractionListener? = null
-    private lateinit var housesVM: HousesViewModel
-    private lateinit var url: String
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -48,9 +50,9 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         arguments?.let {
             url = it.getString(ExtraUtils.URL)
         }
-        housesVM = ViewModelProviders.of(this).get(HousesViewModel::class.java)
-        housesVM.init(url)
-        housesVM.getHouses()?.observe(this, Observer {
+        housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
+        housesViewModel.init(url)
+        housesViewModel.getHouses()?.observe(this, Observer {
             if (it?.status == Status.SUCCESS)
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
@@ -59,6 +61,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     }
 
     private fun onSuccess(houses: HousesDto) {
+        this.houses = houses
         adapter.setData(houses.houses)
     }
 
@@ -76,7 +79,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         adapter.setOnItemClickListener(this)
         view.newHouseBtn.setOnClickListener {
             // TODO: get new House
-            // listener?.onNewHouseInteraction()
+            //listener?.onNewHouseInteraction()
         }
         return view
     }
@@ -95,7 +98,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
 
     override fun onStop() {
         super.onStop()
-        housesVM.cancel()
+        housesViewModel.cancel()
     }
 
     override fun onDetach() {
@@ -108,11 +111,15 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
      ***/
 
     override fun onStoragesClick(view: View, position: Int) {
-        // listener?.onStoragesInteraction() // TODO receber o link para storages
+        houses?.houses?.get(position)?.links?.storagesLink?.let {
+            listener?.onStoragesInteraction(it)
+        }
     }
 
     override fun onAllergiesClick(view: View, position: Int) {
-        // listener?.onAllergiesInteraction()
+        houses?.houses?.get(position)?.links?.houseAllergiesLink?.let {
+            listener?.onAllergiesInteraction(it)
+        }
     }
 
     /**
@@ -131,7 +138,6 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
      * HousesFragment Factory
      */
     companion object {
-
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
