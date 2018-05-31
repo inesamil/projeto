@@ -86,6 +86,14 @@ public class UriBuilderUtils {
     }
 
     /**
+     * URI Template: http://10.0.2.2:8081/v1/houses
+     * @return URI to houses
+     */
+    public static String buildHousesUri() {
+        return String.format("%s/%s/%s", HOST, VERSION, HOUSES);
+    }
+
+    /**
      * URI Template: http://10.0.2.2:8081/v1/houses/{house-id}
      *
      * @param houseId The id of the house
@@ -283,5 +291,29 @@ public class UriBuilderUtils {
      */
     public static String buildUserListsUri(String username) {
         return String.format("%s/%s/%s/%s/%s", HOST, VERSION, USERS, username, LISTS);
+    }
+
+    /**
+     * URI Template: http://10.0.2.2:8081/v1/users/{username}
+     * @return URI template to user
+     */
+    public static String buildUserUriTemplate() {
+        return String.format("%s/%s/%s/{username}", HOST, VERSION, USERS);
+    }
+
+    /**
+     * URI Template: http://10.0.2.2:8081/v1/users/{username}/lists
+     * @return URI template to user lists
+     */
+    public static String buildUserListsUriTemplate() {
+        return String.format("%s/%s/%s/{username}/%s", HOST, VERSION, USERS, LISTS);
+    }
+
+    /**
+     * URI Template: http://10.0.2.2:8081/v1/users/{username}/houses
+     * @return URI template to user houses
+     */
+    public static String buildUserHousesUriTemplate() {
+        return String.format("%s/%s/%s/{username}/%s", HOST, VERSION, USERS, HOUSES);
     }
 }
