@@ -32,6 +32,14 @@ VALUES (2, 'Product 2', true, 1, 'day');
 INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
 VALUES (2, 'Product 3', true, 1, 'month');
 
+SELECT insert_user_list(1, 'Lista 1', 'ze', false);
+SELECT insert_user_list(1, 'Lista 2', 'ze', true);
+SELECT insert_user_list(2, 'Lista 1', 'ze', true);
+SELECT insert_user_list(2, 'Lista 2', 'joaquim', true);
+
+SELECT insert_system_list(1, 'Lista sys');
+SELECT insert_system_list(2, 'Lista sys');
+
 
 
 
