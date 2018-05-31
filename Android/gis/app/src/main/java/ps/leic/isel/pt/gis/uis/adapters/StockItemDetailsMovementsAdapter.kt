@@ -31,7 +31,7 @@ class StockItemDetailsMovementsAdapter
         }
     }
 
-    fun setData(data: Array<MovementDto>) {
+    fun setData(data: Array<MovementDto>?) {
         this.data = data
         notifyDataSetChanged()
     }
