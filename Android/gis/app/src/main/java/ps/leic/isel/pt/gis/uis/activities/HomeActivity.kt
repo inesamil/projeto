@@ -88,6 +88,7 @@ class HomeActivity : AppCompatActivity(),
                         Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.Houses)
                 )
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PROFILE, ProfileFragment.Companion::newInstance, args)
+                return
             }
         }
         Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() //TODO put string in xml
@@ -107,6 +108,7 @@ class HomeActivity : AppCompatActivity(),
                         Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
                 )
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PROFILE, ProfileFragment.Companion::newInstance, args)
+                return
             }
         }
         Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() // TODO remove string. put in xml
@@ -124,8 +126,7 @@ class HomeActivity : AppCompatActivity(),
     }
 
     override fun onAllergiesInteraction(allergiesUrl: String) {
-        val url: String = ""   //TODO
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.ALLERGIES, AllergiesFragment.Companion::newInstance, url)
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.ALLERGIES, AllergiesFragment.Companion::newInstance, allergiesUrl)
     }
 
     override fun onNewHouseInteraction(houseUrl: String) {
@@ -272,7 +273,7 @@ class HomeActivity : AppCompatActivity(),
                 val url = ""    //TODO
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance, url)
             }
-            R.id.nav_profile -> {
+            R.id.nav_profile -> run {
                 val index = gisApplication.index
                 // TODO remover o ze em todo o lado
                 index.getUserUrl("ze")?.let {
@@ -284,6 +285,7 @@ class HomeActivity : AppCompatActivity(),
                                 Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
                         )
                         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PROFILE, ProfileFragment.Companion::newInstance, args)
+                        return@run
                     }
                 }
                 Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() // TODO remove string. put in xml
@@ -294,9 +296,5 @@ class HomeActivity : AppCompatActivity(),
         }
         homeDrawerLayout.closeDrawer(GravityCompat.START)
         return true
-    }
-
-    companion object {
-        private const val USERNAME_KEY = "username"
     }
 }
