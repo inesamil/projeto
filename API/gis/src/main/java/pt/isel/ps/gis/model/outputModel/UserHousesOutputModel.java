@@ -50,19 +50,25 @@ public class UserHousesOutputModel {
         Entity[] entities = new Entity[houses.size()];
         for (int i = 0; i < houses.size(); ++i) {
             House house = houses.get(i);
+            Long houseId = house.getHouseId();
 
             HashMap<String, Object> properties = new HashMap<>();
-            properties.put("house-id", house.getHouseId());
+            properties.put("house-id", houseId);
             properties.put("house-name", house.getHouseName());
             properties.put("house-characteristics", new CharacteristicsJsonObject(house.getHouseCharacteristics()));
 
-            String houseUri = UriBuilderUtils.buildHouseUri(house.getHouseId());
+            String houseUri = UriBuilderUtils.buildHouseUri(houseId);
+            String storagesUri = UriBuilderUtils.buildStoragesUri(houseId);
+            String allergiesUri = UriBuilderUtils.buildHouseAllergiesUri(houseId);
+
             entities[i] = new Entity(
                     new String[]{"house"},
                     new String[]{"item"},
                     properties,
                     null,
-                    new Link[]{new Link(new String[]{"related"}, new String[]{"house"}, houseUri)});
+                    new Link[]{new Link(new String[]{"related"}, new String[]{"house"}, houseUri),
+                            new Link(new String[]{"related"}, new String[]{"storages", "collection"}, storagesUri),
+                            new Link(new String[]{"related"}, new String[]{"house-allergies", "collection"}, allergiesUri)});
         }
         return entities;
     }
