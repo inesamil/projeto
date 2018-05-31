@@ -99,7 +99,7 @@ public class ListController {
             @PathVariable("list-id") short listId
     ) throws BadRequestException {
         checkList(houseId, listId);
-        java.util.List<ListProduct> listProducts = null;
+        java.util.List<ListProduct> listProducts;
         try {
             listProducts = listProductService.getListProductsByListId(houseId, listId);
         } catch (EntityException e) {
