@@ -9,6 +9,7 @@ import pt.isel.ps.gis.hypermedia.jsonHome.components.members.Hints;
 import pt.isel.ps.gis.hypermedia.jsonHome.components.members.Links;
 import pt.isel.ps.gis.hypermedia.jsonHome.components.members.Method;
 import pt.isel.ps.gis.hypermedia.jsonHome.components.members.ResourceObject;
+import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.HashMap;
 
@@ -47,13 +48,14 @@ public class IndexOutputModel {
         resources.put("rel/categories", createGetCategories());
         resources.put("rel/allergies", createGetAllergies());
         resources.put("rel/houses", createGetHouses());
+        resources.put("rel/lists", createGetUserLists());
         return resources;
     }
 
     // POST /houses
     private ResourceObject createPostHouses() {
         return new ResourceObject(
-                "/v1/houses",
+                UriBuilderUtils.buildHousesUri(),
                 null,
                 null,
                 new Hints(
@@ -73,7 +75,7 @@ public class IndexOutputModel {
 
         return new ResourceObject(
                 null,
-                "http://10.0.2.2:8081/v1/users/{username}",
+                UriBuilderUtils.buildUserUriTemplate(),
                 hrefVars,
                 new Hints(
                         new Method[]{Method.GET, Method.PUT},
@@ -88,7 +90,7 @@ public class IndexOutputModel {
     // GET /categories
     private ResourceObject createGetCategories() {
         return new ResourceObject(
-                "/v1/categories",
+                UriBuilderUtils.buildCategoriesUri(),
                 null,
                 null,
                 new Hints(
@@ -104,7 +106,7 @@ public class IndexOutputModel {
     // GET /allergies
     private ResourceObject createGetAllergies() {
         return new ResourceObject(
-                "/v1/allergies",
+                UriBuilderUtils.buildAllergiesUri(),
                 null,
                 null,
                 new Hints(
@@ -117,13 +119,14 @@ public class IndexOutputModel {
         );
     }
 
+    // GET /houses
     private ResourceObject createGetHouses() {
         HashMap<String, String> hrefVars = new HashMap<>();
         hrefVars.put("username", "String");
 
         return new ResourceObject(
                 null,
-                "http://10.0.2.2:8081/v1/users/{username}/houses",
+                UriBuilderUtils.buildUserHousesUriTemplate(),
                 hrefVars,
                 new Hints(
                         new Method[]{Method.GET},
@@ -133,5 +136,25 @@ public class IndexOutputModel {
                         null
                 )
         );
+    }
+
+    // GET /lists
+    private ResourceObject createGetUserLists() {
+        HashMap<String, String> hrefVars = new HashMap<>();
+        hrefVars.put("username", "String");
+
+        return new ResourceObject(
+                null,
+                UriBuilderUtils.buildUserListsUriTemplate(),
+                hrefVars,
+                new Hints(
+                        new Method[]{Method.GET},
+                        applicationJsonFormat,
+                        null,
+                        null,
+                        null
+                )
+        );
+
     }
 }
