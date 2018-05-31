@@ -29,7 +29,7 @@ class StockItemDetailsExpirationDateAdapter
         }
     }
 
-    fun setData(data: Array<ExpirationDateDto>) {
+    fun setData(data: Array<ExpirationDateDto>?) {
         this.data = data
         notifyDataSetChanged()
     }
