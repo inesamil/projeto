@@ -23,6 +23,9 @@ public class UserListId implements Serializable {
     /**
      * CONSTRUTORES
      */
+    protected UserListId() {
+    }
+
     public UserListId(Long houseId) throws EntityException {
         setHouseId(houseId);
     }
