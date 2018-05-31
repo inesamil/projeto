@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.CategoryService;
+import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.Category;
@@ -41,9 +42,15 @@ public class CategoryController {
     }
 
     @GetMapping("/{category-id}")
-    public ResponseEntity<CategoryOutputModel> getCategory(@PathVariable("category-id") int categoryId)
-            throws EntityException, NotFoundException {
-        Optional<Category> categoryOptional = categoryService.getCategoryByCategoryId(categoryId);
+    public ResponseEntity<CategoryOutputModel> getCategory(
+            @PathVariable("category-id") int categoryId
+    ) throws NotFoundException, BadRequestException {
+        Optional<Category> categoryOptional;
+        try {
+            categoryOptional = categoryService.getCategoryByCategoryId(categoryId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         Category category = categoryOptional.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new CategoryOutputModel(category), setSirenContentType(headers), HttpStatus.OK);
