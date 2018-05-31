@@ -58,6 +58,10 @@ public class ListsOutputModel {
             properties.put("house-id", houseId);
             properties.put("list-id", listId.getListId());
             properties.put("list-name", list.getListName());
+            if (list.getListType().equals("user")){
+                properties.put("user-username", list.getUserlist().getUsersUsername());
+                properties.put("list-shareable", list.getUserlist().getListShareable());
+            }
 
             String listUri = UriBuilderUtils.buildListUri(houseId, listId.getListId());
             entities[i] = new Entity(
