@@ -120,8 +120,7 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for HousesFragment interaction
     override fun onStoragesInteraction(storagesUrl: String) {
-        val url: String = ""    //TODO
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STORAGES, StoragesFragment.Companion::newInstance, url)
+        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STORAGES, StoragesFragment.Companion::newInstance, storagesUrl)
     }
 
     override fun onAllergiesInteraction(allergiesUrl: String) {
