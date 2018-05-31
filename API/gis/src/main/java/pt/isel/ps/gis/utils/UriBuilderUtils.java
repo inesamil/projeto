@@ -253,17 +253,6 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: http://10.0.2.2:8081/v1/houses/{house-id}/lists/{list-id}
-     *
-     * @param houseId The id of the house
-     * @param listId  The id of the list
-     * @return URI to specific list of the house
-     */
-    public static String buildUserListUri(Long houseId, Short listId) {
-        return String.format("%s/%s/%s/%d/%s/%d", HOST, VERSION, HOUSES, houseId, LISTS, listId);
-    }
-
-    /**
      * URI Template: http://10.0.2.2:8081/v1/users/{username}
      *
      * @param username The id of the user
