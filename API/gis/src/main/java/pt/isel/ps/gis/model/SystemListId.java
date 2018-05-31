@@ -17,6 +17,9 @@ public class SystemListId implements Serializable {
     @Column(name = "list_id", nullable = false)
     private Short listId;
 
+    protected SystemListId() {
+    }
+
     public SystemListId(Long houseId) throws EntityException {
         setHouseId(houseId);
     }
