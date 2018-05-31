@@ -29,6 +29,9 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 @RequestMapping("/v1/houses")
 public class HouseController {
 
+    private static final String HOUSE_NOT_EXIST = "House does not exist.";
+    private static final String MEMBER_NOT_EXIST = "Member does not exist.";
+
     private final HouseService houseService;
     private final HouseMemberService houseMemberService;
 
@@ -49,9 +52,14 @@ public class HouseController {
     @GetMapping("/{house-id}/users")
     public ResponseEntity<HouseMembersOutputModel> getHousehold(
             @PathVariable("house-id") long houseId
-    ) throws EntityException, BadRequestException {
+    ) throws BadRequestException {
         checkHouse(houseId);
-        List<UserHouse> household = houseMemberService.getMembersByHouseId(houseId);
+        List<UserHouse> household;
+        try {
+            household = houseMemberService.getMembersByHouseId(houseId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseMembersOutputModel(houseId, household), setSirenContentType(headers),
                 HttpStatus.OK);
@@ -60,14 +68,19 @@ public class HouseController {
     @PostMapping("")
     public ResponseEntity<HouseOutputModel> postHouse(
             @RequestBody HouseInputModel body
-    ) throws EntityException {
-        Characteristics characteristics = new Characteristics(
-                body.getBabiesNumber(),
-                body.getChildrenNumber(),
-                body.getAdultsNumber(),
-                body.getSeniorsNumber()
-        );
-        House house = houseService.addHouse(new House(body.getName(), characteristics));
+    ) throws BadRequestException {
+        House house;
+        try {
+            Characteristics characteristics = new Characteristics(
+                    body.getBabiesNumber(),
+                    body.getChildrenNumber(),
+                    body.getAdultsNumber(),
+                    body.getSeniorsNumber()
+            );
+            house = houseService.addHouse(new House(body.getName(), characteristics));
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseOutputModel(house), setSirenContentType(headers), HttpStatus.CREATED);
     }
@@ -76,15 +89,22 @@ public class HouseController {
     public ResponseEntity<HouseOutputModel> putHouse(
             @PathVariable("house-id") long houseId,
             @RequestBody HouseInputModel body
-    ) throws EntityException, BadRequestException, EntityNotFoundException {
+    ) throws BadRequestException, NotFoundException {
         checkHouse(houseId);
-        Characteristics characteristics = new Characteristics(
-                body.getBabiesNumber(),
-                body.getChildrenNumber(),
-                body.getAdultsNumber(),
-                body.getSeniorsNumber()
-        );
-        House house = houseService.updateHouse(new House(houseId, body.getName(), characteristics));
+        House house;
+        try {
+            Characteristics characteristics = new Characteristics(
+                    body.getBabiesNumber(),
+                    body.getChildrenNumber(),
+                    body.getAdultsNumber(),
+                    body.getSeniorsNumber()
+            );
+            house = houseService.updateHouse(new House(houseId, body.getName(), characteristics));
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseOutputModel(house), setSirenContentType(headers), HttpStatus.OK);
     }
@@ -94,13 +114,20 @@ public class HouseController {
             @PathVariable("house-id") long houseId,
             @PathVariable("username") String username,
             @RequestBody HouseholdInputModel body
-    ) throws EntityException, EntityNotFoundException {
-        UserHouse member = new UserHouse(houseId, username, body.getAdministrator());
-        if (houseMemberService.existsMemberByMemberId(houseId, username))
-            houseMemberService.updateMember(member);
-        else
-            houseMemberService.addMember(member);
-        List<UserHouse> household = houseMemberService.getMembersByHouseId(houseId);
+    ) throws BadRequestException, NotFoundException {
+        List<UserHouse> household;
+        try {
+            UserHouse member = new UserHouse(houseId, username, body.getAdministrator());
+            if (houseMemberService.existsMemberByMemberId(houseId, username))
+                houseMemberService.updateMember(member);
+            else
+                houseMemberService.addMember(member);
+            household = houseMemberService.getMembersByHouseId(houseId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseMembersOutputModel(houseId, household), setSirenContentType(headers),
                 HttpStatus.OK);
@@ -109,9 +136,13 @@ public class HouseController {
     @DeleteMapping("/{house-id}")
     public ResponseEntity<IndexOutputModel> deleteHouse(
             @PathVariable("house-id") long houseId
-    ) throws BadRequestException, EntityException, EntityNotFoundException {
+    ) throws BadRequestException, NotFoundException {
         checkHouse(houseId);
-        houseService.deleteHouseByHouseId(houseId);
+        try {
+            houseService.deleteHouseByHouseId(houseId);
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new IndexOutputModel(), setJsonHomeContentType(headers), HttpStatus.OK);
     }
@@ -120,22 +151,37 @@ public class HouseController {
     public ResponseEntity<HouseMembersOutputModel> deleteUser(
             @PathVariable("house-id") long houseId,
             @PathVariable("username") String username
-    ) throws BadRequestException, EntityException, EntityNotFoundException {
+    ) throws BadRequestException, NotFoundException {
         checkMember(houseId, username);
-        houseMemberService.deleteMemberByMemberId(houseId, username);
-        List<UserHouse> household = houseMemberService.getMembersByHouseId(houseId);
+        List<UserHouse> household;
+        try {
+            houseMemberService.deleteMemberByMemberId(houseId, username);
+            household = houseMemberService.getMembersByHouseId(houseId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseMembersOutputModel(houseId, household), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
-    private void checkHouse(long houseId) throws EntityException, BadRequestException {
-        if (!houseService.existsHouseByHouseId(houseId))
-            throw new BadRequestException("House does not exist.");
+    private void checkHouse(long houseId) throws BadRequestException {
+        try {
+            if (!houseService.existsHouseByHouseId(houseId))
+                throw new BadRequestException(HOUSE_NOT_EXIST);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 
-    private void checkMember(long houseId, String username) throws EntityException, BadRequestException {
-        if (!houseMemberService.existsMemberByMemberId(houseId, username))
-            throw new BadRequestException("Member does not exist.");
+    private void checkMember(long houseId, String username) throws BadRequestException {
+        try {
+            if (!houseMemberService.existsMemberByMemberId(houseId, username))
+                throw new BadRequestException(MEMBER_NOT_EXIST);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 }

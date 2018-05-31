@@ -25,6 +25,10 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 @RequestMapping("/v1/houses/{house-id}/allergies")
 public class AllergyController {
 
+    private static final String BODY_ERROR_MSG = "You must specify the body correctly.";
+    private static final String HOUSE_NOT_EXIST = "House does not exist.";
+    private static final String ALLERGEN_NOT_EXIST = "Allergen does not exist.";
+
     private final HouseAllergyService houseAllergyService;
     private final HouseService houseService;
     private final StockItemAllergenService stockItemAllergenService;
@@ -77,7 +81,7 @@ public class AllergyController {
     ) throws BadRequestException, NotFoundException {
         checkHouse(houseId);
         if (body.getAllergicsNum() == null)
-            throw new BadRequestException("You must specify the body correctly.");
+            throw new BadRequestException(BODY_ERROR_MSG);
         List<HouseAllergy> allergies;
         try {
             HouseAllergy houseAllergy = new HouseAllergy(houseId, allergen, body.getAllergicsNum());
@@ -120,7 +124,7 @@ public class AllergyController {
     private void checkHouse(long houseId) throws BadRequestException {
         try {
             if (!houseService.existsHouseByHouseId(houseId))
-                throw new BadRequestException("House does not exist.");
+                throw new BadRequestException(HOUSE_NOT_EXIST);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         }
@@ -129,7 +133,7 @@ public class AllergyController {
     private void checkAllergen(long houseId, String allergen) throws BadRequestException {
         try {
             if (!houseAllergyService.existsHouseAllergyByHouseAllergyId(houseId, allergen))
-                throw new BadRequestException("Allergen does not exist.");
+                throw new BadRequestException(ALLERGEN_NOT_EXIST);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         }
