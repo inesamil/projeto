@@ -11,14 +11,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.fragment_stock_item_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
+import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.model.dtos.StockItemDto
 import ps.leic.isel.pt.gis.model.dtos.StockItemsDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.StockItemListAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 import ps.leic.isel.pt.gis.viewModel.StockItemListViewModel
 
 /**
@@ -38,6 +41,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
 
     private var listener: OnStockItemListFragmentInteractionListener? = null
     private lateinit var stockItemListViewModel: StockItemListViewModel
+    private lateinit var housesViewModel: HousesViewModel
     private lateinit var url: String
 
     override fun onAttach(context: Context) {
@@ -54,6 +58,40 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         arguments?.let {
             url = it.getString(ExtraUtils.URL)
         }
+        getHouses(url)
+    }
+
+    private fun getHouses(url: String){
+        housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
+        housesViewModel.init(url)
+        housesViewModel.getHouses()?.observe(this, Observer {
+            if (it?.status == Status.SUCCESS)
+                onSuccess(it.data!!)
+            else if (it?.status == Status.ERROR)
+                onError(it.message)
+        })
+    }
+
+    private fun onSuccess(housesDto: HousesDto){
+        houses = housesDto.houses
+
+        houses?.let {
+            val spinnerAdapter = ArrayAdapter<String>(view?.context, android.R.layout.simple_spinner_item, it.map { house -> house.name })
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            view?.housesSpinner?.adapter = spinnerAdapter
+            view?.housesSpinner?.onItemSelectedListener = this
+            view?.housesSpinner?.setSelection(0)
+        }
+
+        val size = houses?.size ?: 0
+        if (size > 0){
+            houses?.get(0)?.links?.stockItemsLink?.let {
+                getHouseStockItemList(it)
+            }
+        }
+    }
+
+    private fun getHouseStockItemList(url: String) {
         stockItemListViewModel = ViewModelProviders.of(this).get(StockItemListViewModel::class.java)
         stockItemListViewModel.init(url)
         stockItemListViewModel.getStockItems()?.observe(this, Observer {
@@ -65,13 +103,6 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     }
 
     private fun onSuccess(stockItems: StockItemsDto) {
-        // Set spinner options
-        // TODO falta ir buscar as casas
-        /* val spinnerAdapter = ArrayAdapter<String>(view?.context, android.R.layout.simple_spinner_item, houses.map { house -> house.name })
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        view.housesSpinner.adapter = spinnerAdapter
-        view.housesSpinner.setSelection(first) */
-
         stockItemListAdapter.setData(stockItems.stockItems)
         this.stockItems = stockItems.stockItems
     }
@@ -141,10 +172,9 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         parent?.let {
             if (it.housesSpinner.selectedItem != position) {
                 houses?.let {
-                    val houseId = it[position].houseId
-                    //TODO: get data
-                    stockItemListAdapter.setData(/*stockItems*/arrayOf())
-                    stockItemListAdapter.notifyDataSetChanged()
+                    it[position].links.stockItemsLink?.let {
+                        getHouseStockItemList(it)
+                    }
                 }
             }
         }
