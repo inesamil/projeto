@@ -44,8 +44,8 @@ public class ProductController {
                 products = productService.getProductsByCategoryId(categoryId);
             else
                 products = productService.getProductsByCategoryIdFiltered(categoryId, new ProductService.ProductFilters(name));
-        } catch (EntityException ex) {
-            throw new BadRequestException(ex.getMessage());
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ProductsCategoryOutputModel(categoryId, products),
