@@ -25,4 +25,12 @@ public interface UserListRepository extends CrudRepository<UserList, UserListId>
      * @return List with all UserList associated with param houseId and filtered.
      */
     List<UserList> findAllById_HouseIdAndUsersUsername(Long houseId, String username);
+
+    /**
+     * Find all user lists associated with specific user.
+     *
+     * @param username The id of the user
+     * @return List with all UserList associated with param username.
+     */
+    List<UserList> findAllByUsersUsername(String username);
 }
