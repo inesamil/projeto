@@ -22,7 +22,7 @@ public class IndexOutputModel {
     @JsonProperty
     private final HashMap<String, ResourceObject> resources;
 
-    HashMap<String, Object> applicationJsonFormat = new HashMap<>();
+    private HashMap<String, Object> applicationJsonFormat = new HashMap<>();
 
     public IndexOutputModel() {
         applicationJsonFormat.put("application/json", new EmptyObject());
