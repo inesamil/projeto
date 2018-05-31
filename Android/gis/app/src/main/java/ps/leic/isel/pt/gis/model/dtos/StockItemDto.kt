@@ -16,9 +16,9 @@ class StockItemDto(siren: Siren) {
     val quantity: Short
     val variety: String
     val segment: String
-    val expirationDates: Array<ExpirationDateDto>
-    val storages: Array<String>
-    val movements: Array<MovementDto>
+    var expirationDates: Array<ExpirationDateDto>? = null
+    var storages: Array<String>? = null
+    var movements: Array<MovementDto>? = null
     val links: StockItemLinks
 
     init {
@@ -30,23 +30,30 @@ class StockItemDto(siren: Siren) {
         brand = properties[brandLabel] as String
         conservationStorage = properties[conservationStorageLabel] as String
         description = properties[descriptionLabel] as String
-        quantity = properties[quantityLabel] as Short
+        quantity = (properties[quantityLabel] as Int).toShort()
         variety = properties[varietyLabel] as String
         segment = properties[segmentLabel] as String
         val expirationDateElements = siren.entities?.find {
             it.klass?.contains(expirationDatesLabel) ?: false
         }?.properties?.get(elementsLabel)
-        expirationDates = mapper.convertValue<Array<ExpirationDateDto>>(expirationDateElements, Array<ExpirationDateDto>::class.java)
+        expirationDateElements?.let {
+            expirationDates = mapper.convertValue<Array<ExpirationDateDto>>(it, Array<ExpirationDateDto>::class.java)
+        }
 
         val storageElements = siren.entities?.find {
             it.klass?.contains(storagesLabel) ?: false
         }?.properties?.get(elementsLabel)
-        storages = mapper.convertValue<Array<String>>(storageElements, Array<String>::class.java)
+        storageElements?.let {
+            storages = mapper.convertValue<Array<String>>(it, Array<String>::class.java)
+        }
 
         val movementElements = siren.entities?.find {
             it.klass?.contains(movementsLabel) ?: false
         }?.properties?.get(elementsLabel)
-        movements = mapper.convertValue<Array<MovementDto>>(movementElements, Array<MovementDto>::class.java)
+        movementElements?.let {
+            movements = mapper.convertValue<Array<MovementDto>>(it, Array<MovementDto>::class.java)
+        }
+
         links = StockItemLinks(siren.links)
     }
 
