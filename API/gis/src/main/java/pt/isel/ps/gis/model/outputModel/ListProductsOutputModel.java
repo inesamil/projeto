@@ -54,17 +54,19 @@ public class ListProductsOutputModel {
         for (int i = 0; i < listProducts.size(); ++i) {
             ListProduct listProduct = listProducts.get(i);
             Product product = listProduct.getProduct();
+            int categoryId = product.getCategoryId();
+            int productId = product.getProductId();
 
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("house-id", houseId);
             properties.put("list-id", listId);
-            properties.put("category-id", product.getCategoryId());
-            properties.put("product-id", product.getProductId());
+            properties.put("category-id", categoryId);
+            properties.put("product-id", productId);
             properties.put("product-name", product.getProductName());
             properties.put("list-product-brand", listProduct.getListproductBrand());
             properties.put("list-product-quantity", listProduct.getListproductQuantity());
 
-            String productUri = UriBuilderUtils.buildProductUri((int) houseId, listId);
+            String productUri = UriBuilderUtils.buildProductUri(categoryId, productId);
 
             entities[i] = new Entity(
                     new String[]{"list-product"},
