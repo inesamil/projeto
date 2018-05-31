@@ -32,6 +32,19 @@ VALUES (2, 'Product 2', true, 1, 'day');
 INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
 VALUES (2, 'Product 3', true, 1, 'month');
 
+INSERT INTO public.stockitem(
+	house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
+	VALUES (1, 'SKU_1', 1, 'Mimosa', '1', 'Magro', 4, 'l', 'Leite Muita Bom', 'Fridge');
+INSERT INTO public.stockitem(
+	house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
+	VALUES (1, 'SKU_2', 2, 'Agros', '250', 'Magro', 6, 'ml', 'Iogurte Magro', 'Fridge');
+INSERT INTO public.stockitem(
+	house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
+	VALUES (2, 'SKU_3', 2, 'Agros', '250', 'Magro', 15, 'ml', 'Iogurte Magro', 'Fridge');
+INSERT INTO public.stockitem(
+	house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
+	VALUES (2, 'SKU_4', 3, 'Becel', '250', 'Vegetal', 15, 'g', 'Manteiga Vegetal', 'Fridge');
+
 SELECT insert_user_list(1, 'Lista 1', 'ze', false);
 SELECT insert_user_list(1, 'Lista 2', 'ze', true);
 SELECT insert_user_list(2, 'Lista 1', 'ze', true);
