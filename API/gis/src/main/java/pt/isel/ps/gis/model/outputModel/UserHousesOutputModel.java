@@ -58,17 +58,23 @@ public class UserHousesOutputModel {
             properties.put("house-characteristics", new CharacteristicsJsonObject(house.getHouseCharacteristics()));
 
             String houseUri = UriBuilderUtils.buildHouseUri(houseId);
-            String storagesUri = UriBuilderUtils.buildStoragesUri(houseId);
+            String itemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
+            String movementsUri = UriBuilderUtils.buildMovementsUri(houseId);
             String allergiesUri = UriBuilderUtils.buildHouseAllergiesUri(houseId);
+            String listsUri = UriBuilderUtils.buildListsUri(houseId);
+            String storagesUri = UriBuilderUtils.buildStoragesUri(houseId);
 
             entities[i] = new Entity(
                     new String[]{"house"},
                     new String[]{"item"},
                     properties,
                     null,
-                    new Link[]{new Link(new String[]{"related"}, new String[]{"house"}, houseUri),
-                            new Link(new String[]{"related"}, new String[]{"storages", "collection"}, storagesUri),
-                            new Link(new String[]{"related"}, new String[]{"house-allergies", "collection"}, allergiesUri)});
+                    new Link[]{new Link(new String[]{"self"}, new String[]{"house"}, houseUri),
+                            new Link(new String[]{"related"}, new String[]{"items", "collection"}, itemsUri),
+                            new Link(new String[]{"related"}, new String[]{"movements", "collection"}, movementsUri),
+                            new Link(new String[]{"related"}, new String[]{"house-allergies", "collection"}, allergiesUri),
+                            new Link(new String[]{"related"}, new String[]{"lists", "collection"}, listsUri),
+                            new Link(new String[]{"related"}, new String[]{"storages", "collection"}, storagesUri)});
         }
         return entities;
     }
