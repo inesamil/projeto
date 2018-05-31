@@ -92,7 +92,7 @@ public class ListOutputModel {
         String type = "application/json";
 
         // URIs
-        String userListUri = UriBuilderUtils.buildUserListUri(houseId, listId);
+        String userListUri = UriBuilderUtils.buildListUri(houseId, listId);
 
         // PUT List
         Action updateList = new Action(
