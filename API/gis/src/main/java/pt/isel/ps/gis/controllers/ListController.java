@@ -17,8 +17,8 @@ import pt.isel.ps.gis.model.UserList;
 import pt.isel.ps.gis.model.inputModel.ListInputModel;
 import pt.isel.ps.gis.model.inputModel.ListProductInputModel;
 import pt.isel.ps.gis.model.outputModel.ListOutputModel;
-import pt.isel.ps.gis.model.outputModel.ListsOutputModel;
 import pt.isel.ps.gis.model.outputModel.ListProductsOutputModel;
+import pt.isel.ps.gis.model.outputModel.ListsOutputModel;
 import pt.isel.ps.gis.model.requestParams.ListRequestParam;
 
 import java.util.Optional;
@@ -28,6 +28,11 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 @RestController
 @RequestMapping("/v1/houses/{house-id}/lists")
 public class ListController {
+
+    private static final String BODY_ERROR_MSG = "You must specify the body correctly.";
+    private static final String HOUSE_NOT_EXIST = "House does not exist.";
+    private static final String LIST_NOT_EXIST = "List does not exist.";
+    private static final String PRODUCT_NOT_EXIST = "Product in that list does not exist.";
 
     private final ListService listService;
     private final HouseService houseService;
@@ -45,7 +50,7 @@ public class ListController {
             // TODO change request header
             @RequestHeader(value = "authorization", required = false) String username,
             ListRequestParam param
-    ) throws EntityException, BadRequestException {
+    ) throws BadRequestException {
         checkHouse(houseId);
         ListService.ListFilters filters;
         if (param.isNull()) {
@@ -61,7 +66,12 @@ public class ListController {
                     param.getShareable()
             );
         }
-        java.util.List<List> lists = listService.getListsByHouseIdFiltered(houseId, filters);
+        java.util.List<List> lists;
+        try {
+            lists = listService.getListsByHouseIdFiltered(houseId, filters);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
                 HttpStatus.OK);
@@ -71,8 +81,13 @@ public class ListController {
     public ResponseEntity<ListOutputModel> getList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId
-    ) throws EntityException, NotFoundException, BadRequestException {
-        Optional<List> listOptional = listService.getListByListId(houseId, listId);
+    ) throws NotFoundException, BadRequestException {
+        Optional<List> listOptional;
+        try {
+            listOptional = listService.getListByListId(houseId, listId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         List list = listOptional.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListOutputModel(list), setSirenContentType(headers), HttpStatus.OK);
@@ -82,9 +97,14 @@ public class ListController {
     public ResponseEntity<ListProductsOutputModel> getProductsInList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId
-    ) throws EntityException, BadRequestException {
+    ) throws BadRequestException {
         checkList(houseId, listId);
-        java.util.List<ListProduct> listProducts = listProductService.getListProductsByListId(houseId, listId);
+        java.util.List<ListProduct> listProducts = null;
+        try {
+            listProducts = listProductService.getListProductsByListId(houseId, listId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListProductsOutputModel(houseId, listId, listProducts),
                 setSirenContentType(headers), HttpStatus.OK);
@@ -96,20 +116,25 @@ public class ListController {
             // TODO change request header
             @RequestHeader(value = "authorization", required = false) String username,
             @RequestBody ListInputModel body
-    ) throws BadRequestException, EntityException {
+    ) throws BadRequestException {
         checkHouse(houseId);
-        listService.addUserList(new UserList(
-                houseId,
-                body.getName(),
-                body.getUsername(),
-                body.getShareable()
-        ));
-        ListService.ListFilters filters = new ListService.ListFilters(
-                true,
-                username,
-                true
-        );
-        java.util.List<List> lists = listService.getListsByHouseIdFiltered(houseId, filters);
+        java.util.List<List> lists;
+        try {
+            listService.addUserList(new UserList(
+                    houseId,
+                    body.getName(),
+                    body.getUsername(),
+                    body.getShareable()
+            ));
+            ListService.ListFilters filters = new ListService.ListFilters(
+                    true,
+                    username,
+                    true
+            );
+            lists = listService.getListsByHouseIdFiltered(houseId, filters);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
                 HttpStatus.CREATED);
@@ -122,29 +147,36 @@ public class ListController {
             // TODO change request header
             @RequestHeader(value = "authorization", required = false) String username,
             @RequestBody ListInputModel body
-    ) throws BadRequestException, EntityException, EntityNotFoundException {
+    ) throws BadRequestException, NotFoundException {
         checkHouse(houseId);
-        List list = listService.getListByListId(houseId, listId)
-                .orElseThrow(() -> new BadRequestException("List does not exist."));
-        if (listService.isSystemListType(list))// TODO meter este if no serviço // Inês: Está bom ?
-            throw new BadRequestException("Invalid list.");
-        boolean toUpdate = false;
-        if (body.getName() != null && !list.getListName().equals(body.getName())) {
-            list.setListName(body.getName());
-            toUpdate = true;
+        java.util.List<List> lists;
+        try {
+            List list = listService.getListByListId(houseId, listId)
+                    .orElseThrow(() -> new BadRequestException("List does not exist."));
+            if (listService.isSystemListType(list))// TODO meter este if no serviço // Inês: Está bom ?
+                throw new BadRequestException("Invalid list.");
+            boolean toUpdate = false;
+            if (body.getName() != null && !list.getListName().equals(body.getName())) {
+                list.setListName(body.getName());
+                toUpdate = true;
+            }
+            if (body.getShareable() != null && !list.getUserlist().getListShareable().equals(body.getShareable())) {
+                list.getUserlist().setListShareable(body.getShareable());
+                toUpdate = true;
+            }
+            if (toUpdate)
+                listService.updateList(list);
+            ListService.ListFilters filters = new ListService.ListFilters(
+                    true,
+                    username,
+                    true
+            );
+            lists = listService.getListsByHouseIdFiltered(houseId, filters);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
-        if (body.getShareable() != null && !list.getUserlist().getListShareable().equals(body.getShareable())) {
-            list.getUserlist().setListShareable(body.getShareable());
-            toUpdate = true;
-        }
-        if (toUpdate)
-            listService.updateList(list);
-        ListService.ListFilters filters = new ListService.ListFilters(
-                true,
-                username,
-                true
-        );
-        java.util.List<List> lists = listService.getListsByHouseIdFiltered(houseId, filters);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
                 HttpStatus.OK);
@@ -158,27 +190,33 @@ public class ListController {
             // TODO change request header
             @RequestHeader(value = "authorization", required = false) String username,
             @RequestBody ListProductInputModel body
-    ) throws EntityException, BadRequestException, EntityNotFoundException {
+    ) throws BadRequestException, NotFoundException {
         checkHouse(houseId);
         checkList(houseId, listId);
         if (body.getBrand() == null || body.getQuantity() == null)
-            throw new BadRequestException("You must specify the body correctly.");
-        ListProduct listProduct = new ListProduct(houseId, listId, productId, body.getBrand(), body.getQuantity());
-        if (isToUpdateList(houseId, listId, productId))
-            listProductService.updateListProduct(listProduct);
-        else
-            listProductService.addListProduct(listProduct);
-        ListService.ListFilters filters = new ListService.ListFilters(
-                true,
-                username,
-                true
-        );
-        java.util.List<List> lists = listService.getListsByHouseIdFiltered(houseId, filters);
+            throw new BadRequestException(BODY_ERROR_MSG);
+        java.util.List<List> lists;
+        try {
+            ListProduct listProduct = new ListProduct(houseId, listId, productId, body.getBrand(), body.getQuantity());
+            if (isToUpdateList(houseId, listId, productId))
+                listProductService.updateListProduct(listProduct);
+            else
+                listProductService.addListProduct(listProduct);
+            ListService.ListFilters filters = new ListService.ListFilters(
+                    true,
+                    username,
+                    true
+            );
+            lists = listService.getListsByHouseIdFiltered(houseId, filters);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
                 HttpStatus.OK);
     }
-
 
     @DeleteMapping("/{list-id}")
     public ResponseEntity<ListsOutputModel> deleteList(
@@ -186,16 +224,23 @@ public class ListController {
             @PathVariable("list-id") short listId,
             // TODO change request header
             @RequestHeader(value = "authorization", required = false) String username
-    ) throws BadRequestException, EntityException, EntityNotFoundException {
+    ) throws BadRequestException, NotFoundException {
         checkHouse(houseId);
         checkList(houseId, listId);
-        listService.deleteUserListByListId(houseId, listId);
-        ListService.ListFilters filters = new ListService.ListFilters(
-                true,
-                username,
-                true
-        );
-        java.util.List<List> lists = listService.getListsByHouseIdFiltered(houseId, filters);
+        java.util.List<List> lists;
+        try {
+            listService.deleteUserListByListId(houseId, listId);
+            ListService.ListFilters filters = new ListService.ListFilters(
+                    true,
+                    username,
+                    true
+            );
+            lists = listService.getListsByHouseIdFiltered(houseId, filters);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
                 HttpStatus.OK);
@@ -208,45 +253,61 @@ public class ListController {
             @PathVariable("product-id") int productId,
             // TODO change request header
             @RequestHeader(value = "authorization", required = false) String username
-    ) throws BadRequestException, EntityException, EntityNotFoundException {
+    ) throws BadRequestException, NotFoundException {
         checkHouse(houseId);
         checkList(houseId, listId);
         checkProductInList(houseId, listId, productId);
-        listProductService.deleteListProductByListProductId(houseId, listId, productId);
-        ListService.ListFilters filters = new ListService.ListFilters(
-                true,
-                username,
-                true
-        );
-        java.util.List<List> lists = listService.getListsByHouseIdFiltered(houseId, filters);
+        java.util.List<List> lists;
+        try {
+            listProductService.deleteListProductByListProductId(houseId, listId, productId);
+            ListService.ListFilters filters = new ListService.ListFilters(
+                    true,
+                    username,
+                    true
+            );
+            lists = listService.getListsByHouseIdFiltered(houseId, filters);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
-    private void checkHouse(long houseId) throws EntityException, BadRequestException {
-        if (!houseService.existsHouseByHouseId(houseId))
-            throw new BadRequestException("House does not exist.");
+    private void checkHouse(long houseId) throws BadRequestException {
+        try {
+            if (!houseService.existsHouseByHouseId(houseId))
+                throw new BadRequestException(HOUSE_NOT_EXIST);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 
-    private void checkList(long houseId, short listId) throws EntityException, BadRequestException {
-        if (!listService.existsListByListId(houseId, listId))
-            throw new BadRequestException("List does not exist.");
+    private void checkList(long houseId, short listId) throws BadRequestException {
+        try {
+            if (!listService.existsListByListId(houseId, listId))
+                throw new BadRequestException(LIST_NOT_EXIST);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 
-    private void checkProductInList(long houseId, short listId, int productId) throws BadRequestException, EntityException {
-        if (listProductService.existsListProductByListProductId(houseId, listId, productId))
-            throw new BadRequestException("Product in that list does not exist.");
+    private void checkProductInList(long houseId, short listId, int productId) throws BadRequestException {
+        try {
+            if (listProductService.existsListProductByListProductId(houseId, listId, productId))
+                throw new BadRequestException(PRODUCT_NOT_EXIST);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 
-    private String[] extractCategoryIdAndProductId(String s) throws BadRequestException {
-        String[] ids = s.split("-");
-        if (ids.length != 2)
-            throw new BadRequestException("Invalid category - product id.");
-        return ids;
-    }
-
-    private boolean isToUpdateList(long houseId, short listId, int productId) throws EntityException {
-        return listProductService.existsListProductByListProductId(houseId, listId, productId);
+    private boolean isToUpdateList(long houseId, short listId, int productId) throws BadRequestException {
+        try {
+            return listProductService.existsListProductByListProductId(houseId, listId, productId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 }
