@@ -12,8 +12,8 @@ public interface ListService {
     /**
      * Verifica se uma dada lista existe através do seu ID
      *
-     * @param houseId  identificador da lista
-     * @param listId identificador da lista
+     * @param houseId identificador da lista
+     * @param listId  identificador da lista
      * @return true se a lista existir, false caso contrário
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
@@ -39,7 +39,7 @@ public interface ListService {
      * Obter uma lista através do seu ID
      *
      * @param houseId identificador da casa
-     * @param listId identificador da lista
+     * @param listId  identificador da lista
      * @return Optional<List>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
@@ -54,6 +54,15 @@ public interface ListService {
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
     java.util.List<List> getListsByHouseIdFiltered(long houseId, ListFilters filters) throws EntityException;
+
+    /**
+     * Listar as listas através do username do user
+     *
+     * @param username identificador do user
+     * @return List<List>
+     * @throws EntityException se od parâmetros recebeidos forem inválidos
+     */
+    java.util.List<List> getListsByUsername(String username) throws EntityException;
 
     /**
      * Adicionar uma lista a uma casa
@@ -76,8 +85,8 @@ public interface ListService {
      * Remover uma dada lista do sistema da casa
      *
      * @param houseId identificador da casa
-     * @param listId identificador da lista
-     * @throws EntityException se os parâmetros recebidos forem inválidos
+     * @param listId  identificador da lista
+     * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se a lista especificada não existir na casa particularizada
      */
     void deleteSystemListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException;
@@ -86,8 +95,8 @@ public interface ListService {
      * Remover uma dada lista de um utilizador
      *
      * @param houseId identificador da casa
-     * @param listId identificador da lista
-     * @throws EntityException se os parâmetros recebidos forem inválidos
+     * @param listId  identificador da lista
+     * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se a lista especificada não existir na casa particularizada
      */
     void deleteUserListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException;
