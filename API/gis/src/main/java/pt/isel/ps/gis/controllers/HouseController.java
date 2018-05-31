@@ -42,8 +42,13 @@ public class HouseController {
 
     @GetMapping("/{house-id}")
     public ResponseEntity<HouseOutputModel> getHouses(@PathVariable("house-id") long houseId)
-            throws EntityException, NotFoundException {
-        Optional<House> optionalHouse = houseService.getHouseByHouseId(houseId);
+            throws NotFoundException, BadRequestException {
+        Optional<House> optionalHouse;
+        try {
+            optionalHouse = houseService.getHouseByHouseId(houseId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         House house = optionalHouse.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseOutputModel(house), setSirenContentType(headers), HttpStatus.OK);
