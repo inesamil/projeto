@@ -27,6 +27,8 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 @RequestMapping("/v1/users/{username}")
 public class UserController {
 
+    private static final String USER_NOT_EXIST = "The user does not exist.";
+
     private final UserService userService;
     private final HouseService houseService;
 
@@ -38,8 +40,13 @@ public class UserController {
     @GetMapping("")
     public ResponseEntity<UserOutputModel> getUser(
             @PathVariable("username") String username
-    ) throws EntityException, NotFoundException {
-        Optional<Users> userOptional = userService.getUserByUserId(username);
+    ) throws NotFoundException, BadRequestException {
+        Optional<Users> userOptional;
+        try {
+            userOptional = userService.getUserByUserId(username);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         Users user = userOptional.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), HttpStatus.OK);
@@ -48,9 +55,14 @@ public class UserController {
     @GetMapping("/houses")
     public ResponseEntity<UserHousesOutputModel> getUserHouses(
             @PathVariable("username") String username
-    ) throws EntityException, BadRequestException {
+    ) throws BadRequestException {
         checkUser(username);
-        List<House> userHouses = houseService.getHousesByUserId(username);
+        List<House> userHouses;
+        try {
+            userHouses = houseService.getHousesByUserId(username);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserHousesOutputModel(username, userHouses), setSirenContentType(headers),
                 HttpStatus.OK);
@@ -60,15 +72,22 @@ public class UserController {
     public ResponseEntity<UserOutputModel> putUser(
             @PathVariable("username") String username,
             @RequestBody UserInputModel body
-    ) throws EntityException, EntityNotFoundException {
-        Users user = new Users(body.getUsername(), body.getEmail(), body.getAge(), body.getName(), body.getPassword());
+    ) throws BadRequestException, NotFoundException {
+        Users user;
         HttpStatus status;
-        if (userService.existsUserByUserId(username)) {
-            userService.updateUser(user);
-            status = HttpStatus.OK;
-        } else {
-            userService.addUser(user);
-            status = HttpStatus.CREATED;
+        try {
+            user = new Users(body.getUsername(), body.getEmail(), body.getAge(), body.getName(), body.getPassword());
+            if (userService.existsUserByUserId(username)) {
+                userService.updateUser(user);
+                status = HttpStatus.OK;
+            } else {
+                userService.addUser(user);
+                status = HttpStatus.CREATED;
+            }
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), status);
@@ -77,15 +96,25 @@ public class UserController {
     @DeleteMapping("")
     public ResponseEntity<IndexOutputModel> deleteUser(
             @PathVariable("username") String username
-    ) throws BadRequestException, EntityException, EntityNotFoundException {
+    ) throws BadRequestException, NotFoundException {
         checkUser(username);
-        userService.deleteUserByUserId(username);
+        try {
+            userService.deleteUserByUserId(username);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new IndexOutputModel(), setJsonHomeContentType(headers), HttpStatus.OK);
     }
 
-    private void checkUser(String username) throws EntityException, BadRequestException {
-        if (!userService.existsUserByUserId(username))
-            throw new BadRequestException("The user does not exist.");
+    private void checkUser(String username) throws BadRequestException {
+        try {
+            if (!userService.existsUserByUserId(username))
+                throw new BadRequestException(USER_NOT_EXIST);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 }
