@@ -165,10 +165,10 @@ class HomeActivity : AppCompatActivity(),
     }
 
     // Listener for ListsFragment interaction
-    override fun onListInteraction(list: ListDto) {
+    override fun onListInteraction(url: String, listName: String) {
         val args: Map<String, Any> = mapOf(
-                Pair(ListDetailFragment.URL_ARG, ""), //TODO
-                Pair(ListDetailFragment.LIST_NAME_ARG, "")   //TODO
+                Pair(ListDetailFragment.URL_ARG, url),
+                Pair(ListDetailFragment.LIST_NAME_ARG, listName)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LIST, ListDetailFragment.Companion::newInstance, args)
     }
