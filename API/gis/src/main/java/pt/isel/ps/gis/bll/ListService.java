@@ -62,7 +62,7 @@ public interface ListService {
      * @return List<List>
      * @throws EntityException se od parâmetros recebeidos forem inválidos
      */
-    java.util.List<UserList> getListsByUsername(String username) throws EntityException;
+    java.util.List<List> getAvailableListsByUserUsername(String username, AvailableListFilters filters) throws EntityException;
 
     /**
      * Adicionar uma lista a uma casa
@@ -110,6 +110,23 @@ public interface ListService {
         public final Boolean sharedLists;
 
         public ListFilters(Boolean systemLists, String listsFromUser, Boolean sharedLists) {
+            this.systemLists = systemLists;
+            this.listsFromUser = listsFromUser;
+            this.sharedLists = sharedLists;
+        }
+    }
+
+    /**
+     * Filtros - filtragem das listas
+     */
+    class AvailableListFilters {
+        public final Long[] houses;
+        public final Boolean systemLists;
+        public final String listsFromUser;
+        public final Boolean sharedLists;
+
+        public AvailableListFilters(Long[] houses, Boolean systemLists, String listsFromUser, Boolean sharedLists) {
+            this.houses = houses;
             this.systemLists = systemLists;
             this.listsFromUser = listsFromUser;
             this.sharedLists = sharedLists;

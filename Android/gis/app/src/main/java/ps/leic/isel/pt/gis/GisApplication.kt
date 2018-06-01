@@ -1,11 +1,11 @@
 package ps.leic.isel.pt.gis
 
-import android.app.Application
 import android.content.res.Configuration
+import android.support.multidex.MultiDexApplication
 import ps.leic.isel.pt.gis.model.dtos.IndexDto
 import java.util.*
 
-class GisApplication : Application() {
+class GisApplication : MultiDexApplication () {
 
     @Volatile
     lateinit var language: String

@@ -2,9 +2,7 @@ package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.ListService;
-import pt.isel.ps.gis.dal.repositories.ListRepository;
-import pt.isel.ps.gis.dal.repositories.SystemListRepository;
-import pt.isel.ps.gis.dal.repositories.UserListRepository;
+import pt.isel.ps.gis.dal.repositories.*;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.*;
@@ -19,11 +17,13 @@ public class ListServiceImpl implements ListService {
     private final ListRepository listRepository;
     private final UserListRepository userListRepository;
     private final SystemListRepository systemListRepository;
+    private final HouseRepository houseRepository;
 
-    public ListServiceImpl(ListRepository listRepository, UserListRepository userListRepository, SystemListRepository systemListRepository) {
+    public ListServiceImpl(ListRepository listRepository, UserListRepository userListRepository, SystemListRepository systemListRepository, HouseRepository houseRepository) {
         this.listRepository = listRepository;
         this.userListRepository = userListRepository;
         this.systemListRepository = systemListRepository;
+        this.houseRepository = houseRepository;
     }
 
     @Override
@@ -57,9 +57,10 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public java.util.List<UserList> getListsByUsername(String username) throws EntityException {
+    public java.util.List<List> getAvailableListsByUserUsername(String username, AvailableListFilters filters) throws EntityException {
         ValidationsUtils.validateUserUsername(username);
-        return userListRepository.findAllByUsersUsername(username);
+        //TODO: função abaixo
+        return listRepository.findAvailableListsByUserUsername(username, filters.houses, filters.systemLists, filters.listsFromUser, filters.sharedLists);
     }
 
     @Override
