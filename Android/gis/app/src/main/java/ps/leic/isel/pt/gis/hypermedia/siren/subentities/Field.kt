@@ -45,7 +45,7 @@ class Field(val name: String, val type: Type?, val value: Any?, var title: Strin
         Radio("radio"),
         @JsonProperty("file")
         File("file"),
-        @JsonProperty("boolean")
+        @JsonProperty("bool")
         Bool("boolean");
 
         override fun toString(): String {
