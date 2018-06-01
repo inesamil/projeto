@@ -125,7 +125,9 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     override fun onItemClick(view: View, position: Int) {
         lists?.let {
             val list = it[position]
-            listener?.onListInteraction(list)
+            list.links.listsLink?.let {
+                listener?.onListInteraction(it, list.listName)
+            }
         }
     }
 
@@ -136,7 +138,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
      * activity.
      */
     interface OnListsFragmentInteractionListener {
-        fun onListInteraction(list: ListDto)
+        fun onListInteraction(url: String, listName: String)
         fun onNewListInteraction()
     }
 
