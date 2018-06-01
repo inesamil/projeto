@@ -56,6 +56,7 @@ public class UserListsOutputModel {
             UserListId id = userList.getId();
 
             HashMap<String, Object> properties = new HashMap<>();
+            properties.put("house-id", id.getHouseId());
             properties.put("list-id", id.getListId());
             properties.put("list-name", userList.getList().getListName());
             properties.put("user-username", username);
