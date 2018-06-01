@@ -120,8 +120,11 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for HomePageFragment
     override fun onMyListsInteraction() {
-        val url = ""    //TODO
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance, url)
+        val gisApplication = application as GisApplication
+        val index = gisApplication.index
+        index.getUserListUrl("ze")?.let {
+            supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance, it)
+        }
     }
 
     // Listener for HousesFragment interaction
