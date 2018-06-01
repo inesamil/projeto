@@ -17,6 +17,7 @@ class IndexDto(jsonHome: JsonHome) {
         val getUser: ResourceObject? = resources[relUserLabel]  //TODO
         val getCategories: ResourceObject? = resources[relCategoriesLabel]
         val getAllergies: ResourceObject? = resources[relAllergiesLabel]
+        val getUserLists: ResourceObject? = resources[relUserListsLabel]
     }
 
     fun getHousesUrl(username: String): String? {
@@ -37,6 +38,15 @@ class IndexDto(jsonHome: JsonHome) {
         return null
     }
 
+    fun getUserListUrl(username: String): String? {
+        val userLists = resources.getUserLists
+        userLists?.hrefVars?.containsKey(USERNAME_LABEL)?.let {
+            if (!it) return@let
+            return UriTemplate.expand(userLists.hrefTemplate, mapOf(Pair(USERNAME_LABEL, username)))
+        }
+        return null
+    }
+
     companion object {
         private const val USERNAME_LABEL: String = "username"
         private const val relHouseLabel: String = "rel/house"
@@ -44,5 +54,6 @@ class IndexDto(jsonHome: JsonHome) {
         private const val relUserLabel: String = "rel/user"
         private const val relCategoriesLabel: String = "rel/categories"
         private const val relAllergiesLabel: String = "rel/allergies"
+        private const val relUserListsLabel: String = "rel/lists"
     }
 }
