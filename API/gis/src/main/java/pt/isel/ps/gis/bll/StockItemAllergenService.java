@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Allergy;
 import pt.isel.ps.gis.model.StockItem;
 
@@ -37,5 +38,5 @@ public interface StockItemAllergenService {
      * @return List<StockItem>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<StockItem> getStockItemsByHouseIdAndAllergenId(long houseId, String allergen) throws EntityException;
+    List<StockItem> getStockItemsByHouseIdAndAllergenId(long houseId, String allergen) throws EntityException, EntityNotFoundException;
 }

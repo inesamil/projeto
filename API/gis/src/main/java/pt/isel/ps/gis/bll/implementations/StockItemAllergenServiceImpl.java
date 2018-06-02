@@ -1,13 +1,15 @@
 package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
-import pt.isel.ps.gis.bll.HouseAllergyService;
 import pt.isel.ps.gis.bll.StockItemAllergenService;
 import pt.isel.ps.gis.dal.repositories.AllergyRepository;
+import pt.isel.ps.gis.dal.repositories.HouseAllergyRepository;
 import pt.isel.ps.gis.dal.repositories.StockItemAllergyRepository;
 import pt.isel.ps.gis.dal.repositories.StockItemRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Allergy;
+import pt.isel.ps.gis.model.HouseAllergyId;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemAllergyId;
 import pt.isel.ps.gis.utils.ValidationsUtils;
@@ -22,13 +24,13 @@ public class StockItemAllergenServiceImpl implements StockItemAllergenService {
     private final StockItemAllergyRepository stockItemAllergyRepository;
     private final AllergyRepository allergyRepository;
     private final StockItemRepository stockItemRepository;
-    private final HouseAllergyService houseAllergyService;
+    private final HouseAllergyRepository houseAllergyRepository;
 
-    public StockItemAllergenServiceImpl(StockItemAllergyRepository stockItemAllergyRepository, AllergyRepository allergyRepository, StockItemRepository stockItemRepository, HouseAllergyService houseAllergyService) {
+    public StockItemAllergenServiceImpl(StockItemAllergyRepository stockItemAllergyRepository, AllergyRepository allergyRepository, StockItemRepository stockItemRepository, HouseAllergyRepository houseAllergyRepository) {
         this.stockItemAllergyRepository = stockItemAllergyRepository;
         this.allergyRepository = allergyRepository;
         this.stockItemRepository = stockItemRepository;
-        this.houseAllergyService = houseAllergyService;
+        this.houseAllergyRepository = houseAllergyRepository;
     }
 
     @Override
@@ -44,15 +46,15 @@ public class StockItemAllergenServiceImpl implements StockItemAllergenService {
     }
 
     @Override
-    public List<StockItem> getStockItemsByHouseIdAndAllergenId(long houseId, String allergen) throws EntityException {
+    public List<StockItem> getStockItemsByHouseIdAndAllergenId(long houseId, String allergen) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
         ValidationsUtils.validateAllergyAllergen(allergen);
         checkAllergen(houseId, allergen);
         return stockItemRepository.findAllByHouseIdAndAllergyAllergen(houseId, allergen);
     }
 
-    private void checkAllergen(long houseId, String allergen) throws EntityException {
-        if (!houseAllergyService.existsHouseAllergyByHouseAllergyId(houseId, allergen))
-            throw new EntityException(ALLERGEN_NOT_EXIST);
+    private void checkAllergen(long houseId, String allergen) throws EntityException, EntityNotFoundException {
+        if (!houseAllergyRepository.existsById(new HouseAllergyId(houseId, allergen)))
+            throw new EntityNotFoundException(ALLERGEN_NOT_EXIST);
     }
 }
