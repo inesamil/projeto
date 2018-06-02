@@ -2,7 +2,6 @@ package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.ListService;
-import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.dal.repositories.ListRepository;
 import pt.isel.ps.gis.dal.repositories.SystemListRepository;
 import pt.isel.ps.gis.dal.repositories.UserListRepository;
@@ -20,13 +19,11 @@ public class ListServiceImpl implements ListService {
     private final ListRepository listRepository;
     private final UserListRepository userListRepository;
     private final SystemListRepository systemListRepository;
-    private final HouseRepository houseRepository;
 
-    public ListServiceImpl(ListRepository listRepository, UserListRepository userListRepository, SystemListRepository systemListRepository, HouseRepository houseRepository) {
+    public ListServiceImpl(ListRepository listRepository, UserListRepository userListRepository, SystemListRepository systemListRepository) {
         this.listRepository = listRepository;
         this.userListRepository = userListRepository;
         this.systemListRepository = systemListRepository;
-        this.houseRepository = houseRepository;
     }
 
     @Override
