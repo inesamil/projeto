@@ -15,7 +15,7 @@ class HouseAllergyDto(siren: Siren) {
         val properties = siren.properties
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
         allergen = properties[allergenLabel] as String
-        houseAllergiesNum = properties[houseAllergiesNumLabel] as Short
+        houseAllergiesNum = (properties[houseAllergiesNumLabel] as Int).toShort()
         actions = HouseAllergyActions(siren.actions)
         links = HouseAllergyLynks(siren.links)
     }
@@ -38,7 +38,7 @@ class HouseAllergyDto(siren: Siren) {
     companion object {
         const val houseIdLabel: String = "house-id"
         const val allergenLabel: String = "allergy-allergen"
-        const val houseAllergiesNumLabel: String = "house-allergies-Num"
+        const val houseAllergiesNumLabel: String = "allergics-number"
         const val stockItemAllergenLabel: String = "stock-items-allergen"
         const val updateHouseAllergyLabel: String = "update-house-allergy"
         const val deleteHouseAllergyLabel: String = "delete-house-allergy"
