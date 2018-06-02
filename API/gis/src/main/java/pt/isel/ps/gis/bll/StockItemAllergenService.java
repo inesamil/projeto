@@ -11,9 +11,9 @@ public interface StockItemAllergenService {
     /**
      * Verifica se um dado alergénio está presente num dado item em stock da casa através dos seus IDs
      *
-     * @param houseId identificador da casa
+     * @param houseId      identificador da casa
      * @param stockItemSku identificador do item
-     * @param allergen identificador do alergénio
+     * @param allergen     identificador do alergénio
      * @return true se o alergénio estiver presente no item em stock da casa, false caso contrário
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
@@ -22,7 +22,7 @@ public interface StockItemAllergenService {
     /**
      * Obter as alergias de um StockItem duma casa
      *
-     * @param houseId identificador da casa
+     * @param houseId      identificador da casa
      * @param stockItemSku identificador do item em stock
      * @return List<Allergy>
      * @throws EntityException se os parâmetros recebidos forem inválidos
