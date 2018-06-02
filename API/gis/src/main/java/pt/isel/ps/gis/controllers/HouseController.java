@@ -10,7 +10,6 @@ import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
-import pt.isel.ps.gis.model.Characteristics;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.model.inputModel.HouseInputModel;
@@ -28,9 +27,6 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 @RestController
 @RequestMapping("/v1/houses")
 public class HouseController {
-
-    private static final String HOUSE_NOT_EXIST = "House does not exist.";
-    private static final String MEMBER_NOT_EXIST = "Member does not exist.";
 
     private final HouseService houseService;
     private final HouseMemberService houseMemberService;
@@ -58,7 +54,6 @@ public class HouseController {
     public ResponseEntity<HouseMembersOutputModel> getHousehold(
             @PathVariable("house-id") long houseId
     ) throws BadRequestException {
-        checkHouse(houseId);
         List<UserHouse> household;
         try {
             household = houseMemberService.getMembersByHouseId(houseId);
@@ -76,13 +71,13 @@ public class HouseController {
     ) throws BadRequestException {
         House house;
         try {
-            Characteristics characteristics = new Characteristics(
+            house = houseService.addHouse(
+                    body.getName(),
                     body.getBabiesNumber(),
                     body.getChildrenNumber(),
                     body.getAdultsNumber(),
                     body.getSeniorsNumber()
             );
-            house = houseService.addHouse(new House(body.getName(), characteristics));
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         }
@@ -95,16 +90,16 @@ public class HouseController {
             @PathVariable("house-id") long houseId,
             @RequestBody HouseInputModel body
     ) throws BadRequestException, NotFoundException {
-        checkHouse(houseId);
         House house;
         try {
-            Characteristics characteristics = new Characteristics(
+            house = houseService.updateHouse(
+                    houseId,
+                    body.getName(),
                     body.getBabiesNumber(),
                     body.getChildrenNumber(),
                     body.getAdultsNumber(),
                     body.getSeniorsNumber()
             );
-            house = houseService.updateHouse(new House(houseId, body.getName(), characteristics));
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -122,11 +117,7 @@ public class HouseController {
     ) throws BadRequestException, NotFoundException {
         List<UserHouse> household;
         try {
-            UserHouse member = new UserHouse(houseId, username, body.getAdministrator());
-            if (houseMemberService.existsMemberByMemberId(houseId, username))
-                houseMemberService.updateMember(member);
-            else
-                houseMemberService.addMember(member);
+            houseMemberService.associateMember(houseId, username, body.getAdministrator());
             household = houseMemberService.getMembersByHouseId(houseId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
@@ -141,8 +132,7 @@ public class HouseController {
     @DeleteMapping("/{house-id}")
     public ResponseEntity<IndexOutputModel> deleteHouse(
             @PathVariable("house-id") long houseId
-    ) throws BadRequestException, NotFoundException {
-        checkHouse(houseId);
+    ) throws NotFoundException {
         try {
             houseService.deleteHouseByHouseId(houseId);
         } catch (EntityNotFoundException e) {
@@ -157,7 +147,6 @@ public class HouseController {
             @PathVariable("house-id") long houseId,
             @PathVariable("username") String username
     ) throws BadRequestException, NotFoundException {
-        checkMember(houseId, username);
         List<UserHouse> household;
         try {
             houseMemberService.deleteMemberByMemberId(houseId, username);
@@ -170,23 +159,5 @@ public class HouseController {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseMembersOutputModel(houseId, household), setSirenContentType(headers),
                 HttpStatus.OK);
-    }
-
-    private void checkHouse(long houseId) throws BadRequestException {
-        try {
-            if (!houseService.existsHouseByHouseId(houseId))
-                throw new BadRequestException(HOUSE_NOT_EXIST);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        }
-    }
-
-    private void checkMember(long houseId, String username) throws BadRequestException {
-        try {
-            if (!houseMemberService.existsMemberByMemberId(houseId, username))
-                throw new BadRequestException(MEMBER_NOT_EXIST);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        }
     }
 }
