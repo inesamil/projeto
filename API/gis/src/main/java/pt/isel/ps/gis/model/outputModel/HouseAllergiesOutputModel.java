@@ -61,7 +61,7 @@ public class HouseAllergiesOutputModel {
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("house-id", houseId);
             properties.put("allergy-allergen", allergen);
-            properties.put("house-allergies-num", houseAllergy.getHouseallergyAlergicsnum());
+            properties.put("allergics-number", houseAllergy.getHouseallergyAlergicsnum());//TODO allergics não alergics
 
             String houseAllergyUri = UriBuilderUtils.buildHouseAllergyUri(houseId, allergen);
 
@@ -73,7 +73,7 @@ public class HouseAllergiesOutputModel {
                     type,
                     new Field[]{
                             new Field("allergy-allergen", Field.Type.text, null, "Allergen Name"),
-                            new Field("house-allergies-num", Field.Type.number, null, "Allergies Number")
+                            new Field("allergics-number", Field.Type.number, null, "Allergics Number")
                     }
             );
             Action deleteHouseAllergy = new Action(
@@ -112,7 +112,7 @@ public class HouseAllergiesOutputModel {
                 type,
                 new Field[]{
                         new Field("allergy-allergen", Field.Type.text, null, "Allergen Name"),
-                        new Field("house-allergies-num", Field.Type.number, null, "Allergies Number")
+                        new Field("allergics-number", Field.Type.number, null, "Allergics Number")
                 }
         );
 
