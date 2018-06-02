@@ -13,20 +13,18 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.List;
 import pt.isel.ps.gis.model.ListProduct;
-import pt.isel.ps.gis.model.UserList;
 import pt.isel.ps.gis.model.inputModel.ListInputModel;
 import pt.isel.ps.gis.model.inputModel.ListProductInputModel;
 import pt.isel.ps.gis.model.outputModel.ListOutputModel;
 import pt.isel.ps.gis.model.outputModel.ListProductsOutputModel;
-import pt.isel.ps.gis.model.outputModel.ListsOutputModel;
-import pt.isel.ps.gis.model.requestParams.ListRequestParam;
+import pt.isel.ps.gis.model.outputModel.UserListsOutputModel;
 
 import java.util.Optional;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
-@RequestMapping("/v1/houses/{house-id}/lists")
+@RequestMapping("/v1/houses/{house-id}/lists/{list-id}")
 public class ListController {
 
     private static final String BODY_ERROR_MSG = "You must specify the body correctly.";
@@ -45,39 +43,6 @@ public class ListController {
     }
 
     @GetMapping("")
-    public ResponseEntity<ListsOutputModel> getLists(
-            @PathVariable("house-id") long houseId,
-            // TODO change request header
-            @RequestHeader(value = "authorization", required = false) String username,
-            ListRequestParam param
-    ) throws BadRequestException {
-        checkHouse(houseId);
-        ListService.ListFilters filters;
-        if (param.isNull()) {
-            filters = new ListService.ListFilters(
-                    true,
-                    username,
-                    true
-            );
-        } else {
-            filters = new ListService.ListFilters(
-                    param.getSystem(),
-                    param.getUser(),
-                    param.getShareable()
-            );
-        }
-        java.util.List<List> lists;
-        try {
-            lists = listService.getListsByHouseIdFiltered(houseId, filters);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        }
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
-                HttpStatus.OK);
-    }
-
-    @GetMapping("/{list-id}")
     public ResponseEntity<ListOutputModel> getList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId
@@ -93,7 +58,7 @@ public class ListController {
         return new ResponseEntity<>(new ListOutputModel(list), setSirenContentType(headers), HttpStatus.OK);
     }
 
-    @GetMapping("/{list-id}/products")
+    @GetMapping("/products")
     public ResponseEntity<ListProductsOutputModel> getProductsInList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId
@@ -110,50 +75,18 @@ public class ListController {
                 setSirenContentType(headers), HttpStatus.OK);
     }
 
-    @PostMapping("")
-    public ResponseEntity<ListsOutputModel> postList(
-            @PathVariable("house-id") long houseId,
-            // TODO change request header
-            @RequestHeader(value = "authorization", required = false) String username,
-            @RequestBody ListInputModel body
-    ) throws BadRequestException {
-        checkHouse(houseId);
-        java.util.List<List> lists;
-        try {
-            listService.addUserList(new UserList(
-                    houseId,
-                    body.getName(),
-                    body.getUsername(),
-                    body.getShareable()
-            ));
-            ListService.ListFilters filters = new ListService.ListFilters(
-                    true,
-                    username,
-                    true
-            );
-            lists = listService.getListsByHouseIdFiltered(houseId, filters);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        }
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
-                HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{list-id}")
-    public ResponseEntity<ListsOutputModel> putList(
+    @PutMapping("")
+    public ResponseEntity<ListOutputModel> putList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
-            // TODO change request header
-            @RequestHeader(value = "authorization", required = false) String username,
             @RequestBody ListInputModel body
     ) throws BadRequestException, NotFoundException {
         checkHouse(houseId);
-        java.util.List<List> lists;
+        List list;
         try {
-            List list = listService.getListByListId(houseId, listId)
+            list = listService.getListByListId(houseId, listId)
                     .orElseThrow(() -> new BadRequestException("List does not exist."));
-            if (listService.isSystemListType(list))// TODO meter este if no serviço // Inês: Está bom ?
+            if (listService.isSystemListType(list))
                 throw new BadRequestException("Invalid list.");
             boolean toUpdate = false;
             if (body.getName() != null && !list.getListName().equals(body.getName())) {
@@ -166,114 +99,89 @@ public class ListController {
             }
             if (toUpdate)
                 listService.updateList(list);
-            ListService.ListFilters filters = new ListService.ListFilters(
-                    true,
-                    username,
-                    true
-            );
-            lists = listService.getListsByHouseIdFiltered(houseId, filters);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
+        return new ResponseEntity<>(new ListOutputModel(list), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
-    @PutMapping("/{list-id}/products/{product-id}")
-    public ResponseEntity<ListsOutputModel> putProductInList(
+    @PutMapping("/products/{product-id}")
+    public ResponseEntity<ListProductsOutputModel> putProductInList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
             @PathVariable("product-id") int productId,
-            // TODO change request header
-            @RequestHeader(value = "authorization", required = false) String username,
             @RequestBody ListProductInputModel body
     ) throws BadRequestException, NotFoundException {
         checkHouse(houseId);
         checkList(houseId, listId);
         if (body.getBrand() == null || body.getQuantity() == null)
             throw new BadRequestException(BODY_ERROR_MSG);
-        java.util.List<List> lists;
+        java.util.List<ListProduct> listProducts;
         try {
             ListProduct listProduct = new ListProduct(houseId, listId, productId, body.getBrand(), body.getQuantity());
             if (isToUpdateList(houseId, listId, productId))
                 listProductService.updateListProduct(listProduct);
             else
                 listProductService.addListProduct(listProduct);
-            ListService.ListFilters filters = new ListService.ListFilters(
-                    true,
-                    username,
-                    true
-            );
-            lists = listService.getListsByHouseIdFiltered(houseId, filters);
+            listProducts = listProductService.getListProductsByListId(houseId, listId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
-                HttpStatus.OK);
+        return new ResponseEntity<>(new ListProductsOutputModel(houseId, listId, listProducts),
+                setSirenContentType(headers), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{list-id}")
-    public ResponseEntity<ListsOutputModel> deleteList(
+    @DeleteMapping("")
+    public ResponseEntity<UserListsOutputModel> deleteList(
             @PathVariable("house-id") long houseId,
-            @PathVariable("list-id") short listId,
-            // TODO change request header
-            @RequestHeader(value = "authorization", required = false) String username
+            @PathVariable("list-id") short listId
     ) throws BadRequestException, NotFoundException {
         checkHouse(houseId);
         checkList(houseId, listId);
-        java.util.List<List> lists;
+        java.util.List<List> lists = null;
         try {
             listService.deleteUserListByListId(houseId, listId);
-            ListService.ListFilters filters = new ListService.ListFilters(
-                    true,
-                    username,
-                    true
-            );
-            lists = listService.getListsByHouseIdFiltered(houseId, filters);
+            /* TODO verificar se o user qe ta a apagar é quem criou a lista para poder apagar.
+               Retornar a lista das listas do user que tá a fazer esta operação e passar a variavel username ao output model
+              */
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
+        return new ResponseEntity<>(new UserListsOutputModel("", lists), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
-    @DeleteMapping("/{list-id}/products/{product-id}")
-    public ResponseEntity<ListsOutputModel> deleteProductFromList(
+    @DeleteMapping("/products/{product-id}")
+    public ResponseEntity<ListProductsOutputModel> deleteProductFromList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
-            @PathVariable("product-id") int productId,
-            // TODO change request header
-            @RequestHeader(value = "authorization", required = false) String username
+            @PathVariable("product-id") int productId
     ) throws BadRequestException, NotFoundException {
         checkHouse(houseId);
         checkList(houseId, listId);
         checkProductInList(houseId, listId, productId);
-        java.util.List<List> lists;
+        java.util.List<ListProduct> listProducts;
         try {
             listProductService.deleteListProductByListProductId(houseId, listId, productId);
-            ListService.ListFilters filters = new ListService.ListFilters(
-                    true,
-                    username,
-                    true
-            );
-            lists = listService.getListsByHouseIdFiltered(houseId, filters);
+            listProducts = listProductService.getListProductsByListId(houseId, listId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers),
-                HttpStatus.OK);
+        return new ResponseEntity<>(new ListProductsOutputModel(houseId, listId, listProducts),
+                setSirenContentType(headers), HttpStatus.OK);
     }
 
     private void checkHouse(long houseId) throws BadRequestException {
