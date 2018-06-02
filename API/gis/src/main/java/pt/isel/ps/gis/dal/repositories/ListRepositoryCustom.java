@@ -7,11 +7,13 @@ public interface ListRepositoryCustom {
     /**
      * Finds all lists filtered by all parameters.
      *
-     * @param houseId  The id of the house
-     * @param system   If you wants to filter system list then pass true, otherwise false
-     * @param username Search by users lists.
-     * @param shared   Search by lists shareable
-     * @return java.util.List of List that match with filters
+     * @param username      The id of the user
+     * @param houses        Array with ids of the houses to be filter.
+     * @param systemLists   If you wants to filter system list then pass true, otherwise false
+     * @param listsFromUser If you wants to filter user list then pass true, otherwise false
+     * @param sharedLists   If you wants to see shareable lists then pass true, otherwise false
+     * @return java.util.List of list that match with filters
      */
-    java.util.List<List> findListsFiltered(Long houseId, Boolean system, String username, Boolean shared);
+    java.util.List<List> findAvailableListsByUserUsername(String username, Long[] houses, Boolean systemLists,
+                                                          Boolean listsFromUser, Boolean sharedLists);
 }
