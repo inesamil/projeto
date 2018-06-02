@@ -19,7 +19,6 @@ import pt.isel.ps.gis.model.outputModel.HouseOutputModel;
 import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
 
 import java.util.List;
-import java.util.Optional;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setJsonHomeContentType;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
@@ -39,13 +38,14 @@ public class HouseController {
     @GetMapping("/{house-id}")
     public ResponseEntity<HouseOutputModel> getHouses(@PathVariable("house-id") long houseId)
             throws NotFoundException, BadRequestException {
-        Optional<House> optionalHouse;
+        House house;
         try {
-            optionalHouse = houseService.getHouseByHouseId(houseId);
+            house = houseService.getHouseByHouseId(houseId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
-        House house = optionalHouse.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseOutputModel(house), setSirenContentType(headers), HttpStatus.OK);
     }
@@ -53,12 +53,14 @@ public class HouseController {
     @GetMapping("/{house-id}/users")
     public ResponseEntity<HouseMembersOutputModel> getHousehold(
             @PathVariable("house-id") long houseId
-    ) throws BadRequestException {
+    ) throws BadRequestException, NotFoundException {
         List<UserHouse> household;
         try {
             household = houseMemberService.getMembersByHouseId(houseId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseMembersOutputModel(houseId, household), setSirenContentType(headers),
@@ -132,11 +134,13 @@ public class HouseController {
     @DeleteMapping("/{house-id}")
     public ResponseEntity<IndexOutputModel> deleteHouse(
             @PathVariable("house-id") long houseId
-    ) throws NotFoundException {
+    ) throws NotFoundException, BadRequestException {
         try {
             houseService.deleteHouseByHouseId(houseId);
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new IndexOutputModel(), setJsonHomeContentType(headers), HttpStatus.OK);
