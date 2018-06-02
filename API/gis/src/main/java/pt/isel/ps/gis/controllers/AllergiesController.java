@@ -28,7 +28,6 @@ public class AllergiesController {
     public ResponseEntity<AllergiesOutputModel> getAllergies() {
         List<Allergy> allergies = allergyService.getAllergies();
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new AllergiesOutputModel(allergies), setSirenContentType(headers),
-                HttpStatus.OK);
+        return new ResponseEntity<>(new AllergiesOutputModel(allergies), setSirenContentType(headers), HttpStatus.OK);
     }
 }

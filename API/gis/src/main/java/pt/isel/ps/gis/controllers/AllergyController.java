@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.HouseAllergyService;
-import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.StockItemAllergenService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -26,17 +25,12 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 public class AllergyController {
 
     private static final String BODY_ERROR_MSG = "You must specify the body correctly.";
-    private static final String HOUSE_NOT_EXIST = "House does not exist.";
-    private static final String ALLERGEN_NOT_EXIST = "Allergen does not exist.";
 
     private final HouseAllergyService houseAllergyService;
-    private final HouseService houseService;
     private final StockItemAllergenService stockItemAllergenService;
 
-    public AllergyController(HouseAllergyService houseAllergyService, HouseService houseService,
-                             StockItemAllergenService stockItemAllergenService) {
+    public AllergyController(HouseAllergyService houseAllergyService, StockItemAllergenService stockItemAllergenService) {
         this.houseAllergyService = houseAllergyService;
-        this.houseService = houseService;
         this.stockItemAllergenService = stockItemAllergenService;
     }
 
@@ -44,7 +38,6 @@ public class AllergyController {
     public ResponseEntity<HouseAllergiesOutputModel> getHouseAllergies(
             @PathVariable("house-id") long houseId
     ) throws BadRequestException {
-        checkHouse(houseId);
         List<HouseAllergy> allergies;
         try {
             allergies = houseAllergyService.getAllergiesByHouseId(houseId);
@@ -61,7 +54,6 @@ public class AllergyController {
             @PathVariable("house-id") long houseId,
             @PathVariable("allergen") String allergen
     ) throws BadRequestException {
-        checkAllergen(houseId, allergen);
         List<StockItem> stockItemsAllergen;
         try {
             stockItemsAllergen = stockItemAllergenService.getStockItemsByHouseIdAndAllergenId(houseId, allergen);
@@ -79,16 +71,11 @@ public class AllergyController {
             @PathVariable("allergen") String allergen,
             @RequestBody AllergyInputModel body
     ) throws BadRequestException, NotFoundException {
-        checkHouse(houseId);
         if (body.getAllergicsNum() == null)
             throw new BadRequestException(BODY_ERROR_MSG);
         List<HouseAllergy> allergies;
         try {
-            HouseAllergy houseAllergy = new HouseAllergy(houseId, allergen, body.getAllergicsNum());
-            if (isToUpdateAllergen(houseId, allergen))
-                houseAllergyService.updateHouseAllergy(houseAllergy);
-            else
-                houseAllergyService.addHouseAllergy(houseAllergy);
+            houseAllergyService.putHouseAllergy(houseId, allergen, body.getAllergicsNum());
             allergies = houseAllergyService.getAllergiesByHouseId(houseId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
@@ -105,8 +92,6 @@ public class AllergyController {
             @PathVariable("house-id") long houseId,
             @PathVariable("allergen") String allergen
     ) throws BadRequestException, NotFoundException {
-        checkHouse(houseId);
-        checkAllergen(houseId, allergen);
         List<HouseAllergy> allergies;
         try {
             houseAllergyService.deleteHouseAllergyByHouseAllergyId(houseId, allergen);
@@ -119,31 +104,5 @@ public class AllergyController {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
                 HttpStatus.OK);
-    }
-
-    private void checkHouse(long houseId) throws BadRequestException {
-        try {
-            if (!houseService.existsHouseByHouseId(houseId))
-                throw new BadRequestException(HOUSE_NOT_EXIST);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        }
-    }
-
-    private void checkAllergen(long houseId, String allergen) throws BadRequestException {
-        try {
-            if (!houseAllergyService.existsHouseAllergyByHouseAllergyId(houseId, allergen))
-                throw new BadRequestException(ALLERGEN_NOT_EXIST);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        }
-    }
-
-    private boolean isToUpdateAllergen(long houseId, String allergen) throws BadRequestException {
-        try {
-            return houseAllergyService.existsHouseAllergyByHouseAllergyId(houseId, allergen);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        }
     }
 }
