@@ -82,7 +82,7 @@ INSERT INTO public.stockitem(house_id, stockitem_sku, product_id, stockitem_bran
 INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P1-Mimosa-Ligth-1l', to_date('2018-05-01', 'YYYY-MM-DD'), 2);
 INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P1-Mimosa-Ligth-1l', to_date('2018-09-01', 'YYYY-MM-DD'), 2);
 INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P2-Agros-Ligth-250ml', to_date('2019-01-15', 'YYYY-MM-DD'), 4);
-INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P2-Agros-Ligth-250ml', to_date('2019-01-15', 'YYYY-MM-DD'), 2);
+INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P2-Agros-Ligth-250ml', to_date('2019-06-01', 'YYYY-MM-DD'), 2);
 INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (2, 'P2-Agros-Ligth-250ml', to_date('2018-09-01', 'YYYY-MM-DD'), 10);
 INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (2, 'P2-Agros-Ligth-250ml', to_date('2018-05-01', 'YYYY-MM-DD'), 5);
 INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (2, 'P3-Becel-Vegetal-250ml', to_date('2019-06-01', 'YYYY-MM-DD'), 2);
@@ -129,31 +129,31 @@ INSERT INTO public.stockitemallergy(house_id, stockitem_sku, allergy_allergen)
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
 	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, true, '2017-10-20'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, true, '2017-10-20'::timestamp, 1);
+	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, true, '2017-10-22'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
 	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, true, '2018-03-14'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, true, '2018-03-14'::timestamp, 1);
+	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, true, '2018-03-16'::timestamp, 1);
 --House1-yogurt
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
 	VALUES (1, 'P2-Agros-Ligth-250ml', 1, true, '2018-03-14'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 1, true, '2018-03-14'::timestamp, 1);
+	VALUES (1, 'P2-Agros-Ligth-250ml', 1, true, '2018-03-16'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 1, true, '2018-03-14'::timestamp, 1);
+	VALUES (1, 'P2-Agros-Ligth-250ml', 1, false, '2018-03-14'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 1, true, '2018-03-14'::timestamp, 1);
+	VALUES (1, 'P2-Agros-Ligth-250ml', 1, false, '2018-03-17'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 1, true, '2018-03-14'::timestamp, 1);
+	VALUES (1, 'P2-Agros-Ligth-250ml', 1, true, '2018-03-17'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 1, true, '2018-03-14'::timestamp, 1);
+	VALUES (1, 'P2-Agros-Ligth-250ml', 1, false, '2018-03-20'::timestamp, 1);
 --House2-yogurt
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
 	VALUES (2, 'P2-Agros-Ligth-250ml', 1, true, '2018-06-01'::timestamp, 6);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (2, 'P2-Agros-Ligth-250ml', 1, true, '2018-06-01'::timestamp, 6);
+	VALUES (2, 'P2-Agros-Ligth-250ml', 1, false, '2018-06-01'::timestamp, 6);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (2, 'P2-Agros-Ligth-250ml', 1, true, '2018-06-01'::timestamp, 3);
+	VALUES (2, 'P2-Agros-Ligth-250ml', 1, false, '2018-06-02'::timestamp, 3);
 --House2-butter
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
 	VALUES (2, 'P3-Becel-Vegetal-250ml', 1, true, '2018-04-14'::timestamp, 1);
