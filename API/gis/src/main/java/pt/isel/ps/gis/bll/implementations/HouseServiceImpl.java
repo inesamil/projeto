@@ -5,6 +5,7 @@ import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.model.Characteristics;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -13,6 +14,8 @@ import java.util.Optional;
 
 @Service
 public class HouseServiceImpl implements HouseService {
+
+    private static final String HOUSE_NOT_EXIST = "House does not exist.";
 
     private final HouseRepository houseRepository;
 
@@ -39,22 +42,30 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public House addHouse(House house) throws EntityException {
-        House newHouse = house;
-        if (house.getHouseId() != null) {
-            if (houseRepository.existsById(house.getHouseId()))
-                throw new EntityException(String.format("House with ID %d already exists.", house.getHouseId()));
-            // É preciso garantir que houseId está a NULL, para ser feita inserção da nova casa.
-            // Caso contrário, poderia ser atualizada uma casa já existente.
-            newHouse = new House(house.getHouseName(), house.getHouseCharacteristics());
-        }
-        return houseRepository.save(newHouse);
+    public House addHouse(String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityException {
+        Characteristics characteristics = new Characteristics(
+                babiesNumber,
+                childrenNumber,
+                adultsNumber,
+                seniorsNumber
+        );
+        House house = new House(name, characteristics);
+        return houseRepository.save(house);
     }
 
     @Override
-    public House updateHouse(House house) throws EntityNotFoundException {
-        if (house.getHouseId() != null && !houseRepository.existsById(house.getHouseId()))
-            throw new EntityNotFoundException(String.format("House with ID %d does not exist.", house.getHouseId()));
+    public House updateHouse(
+            long houseId, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber
+    ) throws EntityNotFoundException, EntityException {
+        if (!houseRepository.existsById(houseId))
+            throw new EntityNotFoundException(String.format("House with ID %d does not exist.", houseId));
+        Characteristics characteristics = new Characteristics(
+                babiesNumber,
+                childrenNumber,
+                adultsNumber,
+                seniorsNumber
+        );
+        House house = new House(houseId, name, characteristics);
         return houseRepository.save(house);
     }
 

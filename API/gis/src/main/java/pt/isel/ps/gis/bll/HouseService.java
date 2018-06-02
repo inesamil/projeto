@@ -39,26 +39,36 @@ public interface HouseService {
     /**
      * Adicionar uma casa
      *
-     * @param house casa a adicionar
+     * @param name           nome da casa
+     * @param babiesNumber   número de bebes na casa
+     * @param childrenNumber número de crianças na casa
+     * @param adultsNumber   número de adultos na casa
+     * @param seniorsNumber  número de séniores na casa
      * @return House
      * @throws EntityException se os atributos especificados no parâmetro house forem inválidos
      */
-    House addHouse(House house) throws EntityException;
+    House addHouse(String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityException;
 
     /**
      * Atualizar uma casa
      *
-     * @param house casa atualizada
+     * @param houseId        identificador da casa
+     * @param name           nome da casa
+     * @param babiesNumber   número de bebes na casa
+     * @param childrenNumber número de crianças na casa
+     * @param adultsNumber   número de adultos na casa
+     * @param seniorsNumber  número de séniores na casa
      * @return House
      * @throws EntityNotFoundException se a casa especificada não existir
+     * @throws EntityException         se os atributos especificados no parâmetro house forem inválidos
      */
-    House updateHouse(House house) throws EntityNotFoundException;
+    House updateHouse(long houseId, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityNotFoundException, EntityException;
 
     /**
      * Remover uma casa
      *
      * @param houseId identificador da casa a remover
-     * @throws EntityNotFoundException  se a casa especificada não existir
+     * @throws EntityNotFoundException se a casa especificada não existir
      */
     void deleteHouseByHouseId(long houseId) throws EntityNotFoundException;
 }
