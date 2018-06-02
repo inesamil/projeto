@@ -36,43 +36,39 @@ class SplashScreenActivity : AppCompatActivity() {
         })
     }
 
-    private fun onCredentialsRetrieved(credential: Credential) {
-        // Credentials retrieved
-        Log.d(TAG, "Credentials retrieved.")
-        if (true) {    //TODO: validateCredentials
-            // Valid Credentials
-            finish()
-            startActivity(Intent(this, HomeActivity::class.java))
-        } else {
-            // Invalid Credentials
-            ServiceLocator.getSmartLock(applicationContext).deleteCredentials(credential)
-            Log.d(TAG, "Retrieved invalid credential, so delete retrieved credential.")
-            Toast.makeText(this, "Retrieved credentials are invalid.", Toast.LENGTH_SHORT).show()
-            // Wrong credentials
-            goToLoginActivity()
-        }
-    }
-
-    private fun goToLoginActivity() {
-        // No credentials retrieved
-        finish()
-        startActivity(Intent(this, LoginActivity::class.java))
-    }
-
     private fun onSuccess(index: IndexDto) {
         val gisApplication = application as GisApplication
         gisApplication.index = index
 
         if (isFirstTime()) {
+            // First time using the app
+            Log.i(TAG, "First time using the app.")
+            val mPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+            mPreferences.edit().putBoolean(FIRST_TIME_TAG, false).apply()
             finish()
             startActivity(Intent(this, RegisterActivity::class.java))
         } else {
+            // Already used the app
             Log.d(TAG, "Try to retrieve credentials.")
-            ServiceLocator
-                    .getSmartLock(applicationContext)
-                    .retrieveCredentials(::onCredentialsRetrieved, ::goToLoginActivity)
+            val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
+            credentials?.let {
+                Log.d(TAG, "Credentials retrieved.")
+                if (true) {   //TODO: validar credenciais
+                    // Valid Credentials
+                    Log.i(TAG, "Retrieved valid credentials, so login user.")
+                    finish()
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    return
+                } else {
+                    // Invalid Credentials
+                    Log.d(TAG, "Retrieved invalid credentials, so delete retrieved credential.")
+                    ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials(credentials)
+                }
+            }
+            // No credentials retrieved
+            finish()
+            startActivity(Intent(this, LoginActivity::class.java))
         }
-
     }
 
     private fun onError(message: String?) {
