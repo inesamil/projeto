@@ -3,6 +3,7 @@ package pt.isel.ps.gis.bll.implementations;
 import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.dal.repositories.HouseRepository;
+import pt.isel.ps.gis.dal.repositories.UsersRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Characteristics;
@@ -10,17 +11,19 @@ import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class HouseServiceImpl implements HouseService {
 
     private static final String HOUSE_NOT_EXIST = "House does not exist.";
+    private static final String USER_NOT_EXIST = "User does not exist.";
 
     private final HouseRepository houseRepository;
+    private final UsersRepository usersRepository;
 
-    public HouseServiceImpl(HouseRepository houseRepository) {
+    public HouseServiceImpl(HouseRepository houseRepository, UsersRepository usersRepository) {
         this.houseRepository = houseRepository;
+        this.usersRepository = usersRepository;
     }
 
     @Override
@@ -30,14 +33,16 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public Optional<House> getHouseByHouseId(long houseId) throws EntityException {
+    public House getHouseByHouseId(long houseId) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
-        return houseRepository.findById(houseId);
+        return houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException(HOUSE_NOT_EXIST));
     }
 
     @Override
-    public List<House> getHousesByUserId(String username) throws EntityException {
+    public List<House> getHousesByUserId(String username) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateUserUsername(username);
+        if (!usersRepository.existsById(username))
+            throw new EntityNotFoundException(USER_NOT_EXIST);
         return houseRepository.findAllByUsersUsername(username);
     }
 
@@ -57,7 +62,7 @@ public class HouseServiceImpl implements HouseService {
     public House updateHouse(
             long houseId, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber
     ) throws EntityNotFoundException, EntityException {
-        if (!houseRepository.existsById(houseId))
+        if (!existsHouseByHouseId(houseId))
             throw new EntityNotFoundException(String.format("House with ID %d does not exist.", houseId));
         Characteristics characteristics = new Characteristics(
                 babiesNumber,
@@ -70,8 +75,8 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public void deleteHouseByHouseId(long houseId) throws EntityNotFoundException {
-        if (!houseRepository.existsById(houseId))
+    public void deleteHouseByHouseId(long houseId) throws EntityNotFoundException, EntityException {
+        if (!existsHouseByHouseId(houseId))
             throw new EntityNotFoundException(String.format("House with ID %d does not exist.", houseId));
         // Remover a casa bem como todas as relações das quais a casa seja parte integrante
         houseRepository.deleteCascadeHouseById(houseId);
