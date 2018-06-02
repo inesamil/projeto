@@ -91,6 +91,7 @@ public class UserListsOutputModel {
                 userListsUri,
                 type,
                 new Field[]{
+                        new Field("house-id", Field.Type.number, null, "House ID"),
                         new Field("list-name", Field.Type.number, null, "Name"),
                         new Field("list-shareable", Field.Type.bool, null, "Shareable")
                 }
