@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.CategoryService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.Category;
 import pt.isel.ps.gis.model.outputModel.CategoriesOutputModel;
 import pt.isel.ps.gis.model.outputModel.CategoryOutputModel;
 
 import java.util.List;
-import java.util.Optional;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
@@ -45,13 +45,14 @@ public class CategoryController {
     public ResponseEntity<CategoryOutputModel> getCategory(
             @PathVariable("category-id") int categoryId
     ) throws NotFoundException, BadRequestException {
-        Optional<Category> categoryOptional;
+        Category category;
         try {
-            categoryOptional = categoryService.getCategoryByCategoryId(categoryId);
+            category = categoryService.getCategoryByCategoryId(categoryId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
-        Category category = categoryOptional.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new CategoryOutputModel(category), setSirenContentType(headers), HttpStatus.OK);
     }
