@@ -12,7 +12,7 @@ public interface HouseMemberService {
     /**
      * Verifica se um dado membro existe na casa através dos seus IDs
      *
-     * @param houseId identificador da casa
+     * @param houseId  identificador da casa
      * @param username identificador do utilizador
      * @return true se o membro existir na casa, false caso contrário
      * @throws EntityException se os parâmetros recebidos forem inválidos
@@ -22,7 +22,7 @@ public interface HouseMemberService {
     /**
      * Obter um membro da casa através dos seus IDs
      *
-     * @param houseId identificador da casa
+     * @param houseId  identificador da casa
      * @param username identificador do utilizador
      * @return Optional<UserHouse>
      * @throws EntityException se os parâmetros recebidos forem inválidos
@@ -57,11 +57,23 @@ public interface HouseMemberService {
     UserHouse updateMember(UserHouse member) throws EntityNotFoundException;
 
     /**
+     * Associar ou atualizar um membro de uma casa
+     *
+     * @param houseId       identificador da casa
+     * @param username      identificador do membro
+     * @param administrator se for administrador da casa passar true, senão false
+     * @return UserHouse
+     * @throws EntityException         se os parâmetros recebidos forem inválidos
+     * @throws EntityNotFoundException se o membro especificado não existir ou já estiver presente na casa particularizada
+     */
+    UserHouse associateMember(long houseId, String username, boolean administrator) throws EntityException, EntityNotFoundException;
+
+    /**
      * Remover um membro da casa
      *
-     * @param houseId identificador da casa
+     * @param houseId  identificador da casa
      * @param username identificador do utilizador
-     * @throws EntityException se os parâmetros recebidos forem inválidos
+     * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o membro especificado não existir na casa particularizada
      */
     void deleteMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException;
