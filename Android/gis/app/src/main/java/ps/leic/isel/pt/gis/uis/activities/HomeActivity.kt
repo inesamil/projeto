@@ -73,8 +73,8 @@ class HomeActivity : AppCompatActivity(),
     override fun onMyPantryInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        //TODO: tirar ze
-        index.getHousesUrl("ze")?.let {
+        //TODO: tirar alice
+        index.getHousesUrl("alice")?.let {
             supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM_LIST, StockItemListFragment.Companion::newInstance, it)
         }
     }
@@ -83,9 +83,9 @@ class HomeActivity : AppCompatActivity(),
     override fun onMyHousesInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        index.getHousesUrl("ze")?.let {
+        index.getHousesUrl("alice")?.let {
             val housesUrl = it
-            index.getUserUrl("ze")?.let {
+            index.getUserUrl("alice")?.let {
                 val args: Map<String, Any> = mapOf(
                         Pair(ProfileFragment.HOUSE_URL_ARG, housesUrl),
                         Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, it),
@@ -102,10 +102,10 @@ class HomeActivity : AppCompatActivity(),
     override fun onMyProfileInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        // TODO remover o ze em todo o lado
-        index.getUserUrl("ze")?.let {
+        // TODO remover o alice em todo o lado
+        index.getUserUrl("alice")?.let {
             val userUrl = it
-            index.getHousesUrl("ze")?.let {
+            index.getHousesUrl("alice")?.let {
                 val args: Map<String, Any> = mapOf(
                         Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, userUrl),
                         Pair(ProfileFragment.HOUSE_URL_ARG, it),
@@ -122,7 +122,7 @@ class HomeActivity : AppCompatActivity(),
     override fun onMyListsInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        index.getUserListUrl("ze")?.let {
+        index.getUserListUrl("alice")?.let {
             supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance, it)
         }
     }
@@ -273,19 +273,29 @@ class HomeActivity : AppCompatActivity(),
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.HOME_PAGE, HomePageFragment.Companion::newInstance)
             }
             R.id.nav_lists -> {
-                val url = ""    //TODO
-                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance, url)
+                val index = gisApplication.index
+                val url: String? = index.getUserListUrl("alice")//TODO: remover alice, obter username
+                if (url != null) {
+                    supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance, url)
+                } else {
+                    //TODO: error?
+                }
             }
             R.id.nav_products -> {
-                val url = ""    //TODO
-                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance, url)
+                val index = gisApplication.index
+                val url: String? = index.getCategoriesUrl()
+                if (url != null) {
+                    supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance, url)
+                } else {
+                    //TODO: error ?
+                }
             }
             R.id.nav_profile -> run {
                 val index = gisApplication.index
-                // TODO remover o ze em todo o lado
-                index.getUserUrl("ze")?.let {
+                // TODO remover o alice em todo o lado
+                index.getUserUrl("alice")?.let {
                     val userUrl = it
-                    index.getHousesUrl("ze")?.let {
+                    index.getHousesUrl("alice")?.let {
                         val args: Map<String, Any> = mapOf(
                                 Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, userUrl),
                                 Pair(ProfileFragment.HOUSE_URL_ARG, it),
