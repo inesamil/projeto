@@ -2,25 +2,31 @@ package pt.isel.ps.gis.model.requestParams;
 
 public class ListRequestParam {
 
+    private Long[] housesIds;
     private Boolean system;
-    private String user;
+    private Boolean user;
     private Boolean shareable;
 
-    public ListRequestParam(Boolean system, String user, Boolean shareable) {
+    public ListRequestParam(Long[] housesIds, Boolean system, Boolean user, Boolean shareable) {
+        this.housesIds = housesIds;
         this.system = system;
         this.user = user;
         this.shareable = shareable;
     }
 
     public boolean isNull() {
-        return system == null && user == null && shareable == null;
+        return housesIds == null && system == null && user == null && shareable == null;
+    }
+
+    public Long[] getHousesIds() {
+        return housesIds;
     }
 
     public Boolean getSystem() {
         return system;
     }
 
-    public String getUser() {
+    public Boolean getUser() {
         return user;
     }
 
