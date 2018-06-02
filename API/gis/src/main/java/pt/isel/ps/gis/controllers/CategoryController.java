@@ -35,7 +35,7 @@ public class CategoryController {
         if (name == null)
             categories = categoryService.getCategories();
         else
-            categories = categoryService.getCategoriesFiltered(new CategoryService.CategoryFilters(name));
+            categories = categoryService.getCategoriesFiltered(name);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new CategoriesOutputModel(categories), setSirenContentType(headers),
                 HttpStatus.OK);
