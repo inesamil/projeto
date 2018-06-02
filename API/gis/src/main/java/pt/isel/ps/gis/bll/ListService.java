@@ -100,6 +100,13 @@ public interface ListService {
         public final Boolean listsFromUser;
         public final Boolean sharedLists;
 
+        public AvailableListFilters(Long[] houses) {
+            this.houses = houses;
+            this.systemLists = true;
+            this.listsFromUser = true;
+            this.sharedLists = true;
+        }
+
         public AvailableListFilters(Long[] houses, Boolean systemLists, Boolean listsFromUser, Boolean sharedLists) {
             this.houses = houses;
             this.systemLists = systemLists;
