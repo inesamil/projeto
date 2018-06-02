@@ -34,10 +34,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getCategoriesFiltered(CategoryFilters categoryFilters) {
-        ArrayList<Category> categories = new ArrayList<>();
-        categoryRepository.findCategoriesByName(categoryFilters.name).forEach(categories::add);
-        return categories;
+    public List<Category> getCategoriesFiltered(String name) {
+        CategoryFilters categoryFilters = new CategoryFilters(name);
+        return new ArrayList<>(categoryRepository.findCategoriesByName(categoryFilters.name));
     }
 
     @Override

@@ -27,10 +27,10 @@ public interface CategoryService {
     /**
      * Listar as categorias filtradas
      *
-     * @param categoryFilters filtros para aplicar na filtragem dos resultados
+     * @param name filtros para aplicar na filtragem dos resultados
      * @return List<Category>
      */
-    List<Category> getCategoriesFiltered(CategoryFilters categoryFilters);
+    List<Category> getCategoriesFiltered(String name);
 
     /**
      * Obter uma categoria através do seu ID
