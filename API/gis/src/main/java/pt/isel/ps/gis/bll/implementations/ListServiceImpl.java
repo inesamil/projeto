@@ -2,7 +2,10 @@ package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.ListService;
-import pt.isel.ps.gis.dal.repositories.*;
+import pt.isel.ps.gis.dal.repositories.HouseRepository;
+import pt.isel.ps.gis.dal.repositories.ListRepository;
+import pt.isel.ps.gis.dal.repositories.SystemListRepository;
+import pt.isel.ps.gis.dal.repositories.UserListRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.*;
@@ -51,15 +54,8 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public java.util.List<List> getListsByHouseIdFiltered(long houseId, ListFilters filters) throws EntityException {
-        ValidationsUtils.validateHouseId(houseId);
-        return listRepository.findListsFiltered(houseId, filters.systemLists, filters.listsFromUser, filters.sharedLists);
-    }
-
-    @Override
     public java.util.List<List> getAvailableListsByUserUsername(String username, AvailableListFilters filters) throws EntityException {
         ValidationsUtils.validateUserUsername(username);
-        //TODO: função abaixo
         return listRepository.findAvailableListsByUserUsername(username, filters.houses, filters.systemLists, filters.listsFromUser, filters.sharedLists);
     }
 
