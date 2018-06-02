@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.model.UserDTO
 import ps.leic.isel.pt.gis.model.dtos.*
 import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
@@ -136,7 +137,7 @@ class HomeActivity : AppCompatActivity(),
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.ALLERGIES, AllergiesFragment.Companion::newInstance, allergiesUrl)
     }
 
-    override fun onNewHouseInteraction(houseUrl: String) {
+    override fun onNewHouseInteraction() {
         val fragment = NewHouseDialogFragment.newInstance()
         fragment.show(supportFragmentManager, ExtraUtils.NEW_HOUSE_DIALOG)
     }

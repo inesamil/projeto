@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_basic_information.*
 import kotlinx.android.synthetic.main.fragment_basic_information.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.UserDTO
@@ -57,6 +58,9 @@ class BasicInformationFragment : Fragment() {
     }
 
     private fun onSuccess(user: UserDto) {
+        // Hide progress bar
+        basicInformationProgressBar.visibility = View.GONE
+
         // Set info
         view?.let {
             it.fullnameText.text = user.name

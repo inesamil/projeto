@@ -10,8 +10,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_houses.*
 import kotlinx.android.synthetic.main.fragment_houses.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
@@ -61,6 +63,8 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     }
 
     private fun onSuccess(houses: HousesDto) {
+        // Hide progress bar
+        housesProgressBar.visibility = View.GONE
         this.houses = houses
         adapter.setData(houses.houses)
     }
@@ -78,8 +82,9 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         view.housesRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
         view.newHouseBtn.setOnClickListener {
-            // TODO: get new House
-            //listener?.onNewHouseInteraction()
+            houses?.actions?.addHouse?.let {
+                listener?.onNewHouseInteraction()
+            }
         }
         return view
     }
@@ -131,7 +136,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     interface OnHousesFragmentInteractionListener {
         fun onStoragesInteraction(storagesUrl: String)
         fun onAllergiesInteraction(allergiesUrl: String)
-        fun onNewHouseInteraction(houseUrl: String)
+        fun onNewHouseInteraction()
     }
 
     /**

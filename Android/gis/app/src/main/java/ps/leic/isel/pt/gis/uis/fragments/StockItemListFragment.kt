@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import kotlinx.android.synthetic.main.fragment_stock_item_list.*
 import kotlinx.android.synthetic.main.fragment_stock_item_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
@@ -73,6 +74,9 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     }
 
     private fun onSuccess(housesDto: HousesDto){
+        // Hide progress bar
+        stockItemListProgressBar.visibility = View.GONE
+
         houses = housesDto.houses
 
         houses?.let {

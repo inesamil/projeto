@@ -38,7 +38,7 @@ class HomePageFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         // Set on my pantry click listener
-        view.myPantryCardView.setOnClickListener {
+        view.myPantriesCardView.setOnClickListener {
             listener?.onMyPantryInteraction()
         }
 

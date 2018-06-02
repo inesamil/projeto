@@ -11,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import kotlinx.android.synthetic.main.fragment_categories.*
+import kotlinx.android.synthetic.main.fragment_category_products.*
 import kotlinx.android.synthetic.main.fragment_category_products.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.ProductDto
@@ -65,6 +67,9 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     }
 
     private fun onSuccess(products: ProductsDto) {
+        // Hide progress bar
+        categoryProductsProgressBar.visibility = View.GONE
+
         // Set Adapter
         adapter.setData(products.products)
         this.products = products.products

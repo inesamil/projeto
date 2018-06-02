@@ -54,6 +54,10 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
     }
 
     private fun onSuccess(allergies: HouseAllergiesDto) {
+        // Hide progress bar
+        allergiesProgressBar.visibility = View.GONE
+
+        // Set data to adapter
         adapter.setData(allergies.houseAllergies)
 
         // Show allergies or not

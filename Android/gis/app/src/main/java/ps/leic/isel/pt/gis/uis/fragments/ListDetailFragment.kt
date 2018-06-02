@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.ListProductDto
@@ -64,6 +65,8 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     }
 
     private fun onSuccess(productsList: ProductsListDto) {
+        // Hide progress bar
+        listProgressBar.visibility = View.GONE
         adapter.setData(productsList.productsListProduct)
         this.listProducts = productsList.productsListProduct
     }

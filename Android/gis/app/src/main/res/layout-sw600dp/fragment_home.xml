@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="40dp" />
+                app:layout_constraintGuide_begin="80dp" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                     android:text="@string/my_pantry"
                     android:textAllCaps="true"
                     android:textColor="@color/primaryTextColor"
-                    android:textSize="18sp"
+                    android:textSize="30sp"
                     android:textStyle="bold"
                     android:typeface="sans"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_end="40dp" />
+                app:layout_constraintGuide_end="80dp" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
@@ -112,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="20dp" />
+                app:layout_constraintGuide_begin="40dp" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="0dp"
@@ -139,7 +139,7 @@
                     android:text="@string/houses"
                     android:textAllCaps="true"
                     android:textColor="@color/primaryTextColor"
-                    android:textSize="18sp"
+                    android:textSize="30sp"
                     android:textStyle="bold"
                     android:typeface="sans"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -154,7 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_end="20dp" />
+                app:layout_constraintGuide_end="40dp" />
 
         </android.support.constraint.ConstraintLayout>
 
@@ -199,7 +199,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="20dp" />
+                app:layout_constraintGuide_begin="40dp" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="0dp"
@@ -226,7 +226,7 @@
                     android:text="@string/profile"
                     android:textAllCaps="true"
                     android:textColor="@color/primaryTextColor"
-                    android:textSize="18sp"
+                    android:textSize="30sp"
                     android:textStyle="bold"
                     android:typeface="sans"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -241,7 +241,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_end="20dp" />
+                app:layout_constraintGuide_end="40dp" />
 
         </android.support.constraint.ConstraintLayout>
 
@@ -272,7 +272,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="20dp" />
+                app:layout_constraintGuide_begin="40dp" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="0dp"
@@ -299,7 +299,7 @@
                     android:text="@string/lists"
                     android:textAllCaps="true"
                     android:textColor="@color/primaryTextColor"
-                    android:textSize="18sp"
+                    android:textSize="30sp"
                     android:textStyle="bold"
                     android:typeface="sans"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -314,7 +314,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_end="20dp" />
+                app:layout_constraintGuide_end="40dp" />
 
         </android.support.constraint.ConstraintLayout>
 

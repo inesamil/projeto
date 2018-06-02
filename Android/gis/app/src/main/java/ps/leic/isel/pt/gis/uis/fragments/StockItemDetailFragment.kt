@@ -73,6 +73,9 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
     }
 
     private fun onSuccess(stockItem: StockItemDto) {
+        // Hide progress bar
+        stockItemDetailProgressBar.visibility = View.GONE
+
         // Set Allergens
         //TODO allergensText.text = allergens.getElementsSeparatedBySemiColon()
 

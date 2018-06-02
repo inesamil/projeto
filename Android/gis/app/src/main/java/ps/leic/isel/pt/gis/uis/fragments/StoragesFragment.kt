@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_storages.*
 import kotlinx.android.synthetic.main.fragment_storages.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.StoragesDto
@@ -48,6 +49,9 @@ class StoragesFragment : Fragment() {
     }
 
     private fun onSuccess(storages: StoragesDto) {
+        // Hide progress bar
+        storagesProgressBar.visibility = View.GONE
+        
         adapter.setData(storages.storages)
     }
 
