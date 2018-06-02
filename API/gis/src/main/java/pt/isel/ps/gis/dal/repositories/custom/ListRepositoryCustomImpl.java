@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.dal.repositories.custom;
 
 import org.hibernate.Session;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.dal.repositories.ListRepositoryCustom;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.List;
@@ -18,13 +19,23 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     @Override
-    public java.util.List<List> findListsFiltered(final Long houseId, final Boolean system, final String username, final Boolean shared) {
+    public java.util.List<List> findAvailableListsByUserUsername(
+            final String username,
+            final Long[] houses,
+            final Boolean systemLists,
+            final Boolean listsFromUser,
+            final Boolean sharedLists
+    ) {
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
             try {
-                java.util.List<List> systemListsFiltered = findSystemListsFiltered(connection, houseId, system);
-                java.util.List<List> userListsFiltered = findUserListsFiltered(connection, houseId, username, shared);
+                Array housesArray = connection.createArrayOf("bigint", houses);
+                java.util.List<List> systemListsFiltered = findSystemListsFiltered(connection, username, housesArray,
+                        systemLists);
+                java.util.List<List> userListsFiltered = findUserListsFiltered(connection, housesArray, listsFromUser,
+                        username, sharedLists);
                 java.util.List<List> lists = new ArrayList<>();
                 Stream
                         .of(systemListsFiltered, userListsFiltered)
@@ -38,17 +49,22 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
 
     private java.util.List<List> findSystemListsFiltered(
             final Connection connection,
-            final Long houseId,
+            final String username,
+            final Array housesIds,
             final Boolean system
     ) throws SQLException, EntityException {
         String sql = "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, " +
-                "public.\"list\".list_type FROM public.\"list\" WHERE public.\"list\".house_id = ? AND " +
-                "list_type = CASE WHEN ? = true THEN 'system' ELSE null END;";
+                "public.\"list\".list_type FROM public.\"list\" JOIN (SELECT public.\"userhouse\".house_id FROM " +
+                "public.\"userhouse\" WHERE public.\"userhouse\".users_username = ? AND " +
+                "public.\"userhouse\".house_id = ANY (?)) AS UH ON public.\"list\".house_id = UH.house_id WHERE " +
+                "public.\"list\".list_type = CASE WHEN ? = true THEN 'system' ELSE null END;";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            if (isNotNull(ps, 1, houseId))
-                ps.setLong(1, houseId);
-            if (isNotNull(ps, 2, system))
-                ps.setBoolean(2, system);
+            if (isNotNull(ps, 1, username))
+                ps.setString(1, username);
+            if (isNotNull(ps, 2, housesIds))
+                ps.setArray(2, housesIds);
+            if (isNotNull(ps, 3, system))
+                ps.setBoolean(3, system);
             try (ResultSet resultSet = ps.executeQuery()) {
                 java.util.List<List> systemLists = new ArrayList<>();
                 while (resultSet.next()) {
@@ -67,26 +83,35 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
 
     private java.util.List<List> findUserListsFiltered(
             final Connection connection,
-            final Long houseId,
+            final Array housesIds,
+            final Boolean listsFromUser,
             final String username,
             final Boolean shared
     ) throws SQLException, EntityException {
-        String sql = "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, public.\"list\".list_type, public.\"userlist\".users_username, public.\"userlist\".list_shareable " +
-                "FROM public.\"list\" JOIN public.\"userlist\" ON (public.\"list\".house_id = public.\"userlist\".house_id AND public.\"list\".list_id = public.\"userlist\".list_id) " +
-                "WHERE public.\"list\".house_id = ? AND list_type = 'user' AND users_username = ? " +
+        String sql = "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, " +
+                "public.\"list\".list_type, public.\"userlist\".users_username, public.\"userlist\".list_shareable " +
+                "FROM public.\"list\" JOIN public.\"userlist\" ON (public.\"list\".house_id = public.\"userlist\".house_id " +
+                "AND public.\"list\".list_id = public.\"userlist\".list_id) " +
+                "WHERE public.\"list\".house_id = ANY (?) AND list_type = 'user' AND users_username = " +
+                "(CASE WHEN ? = true THEN ? ELSE null END) " +
                 "UNION " +
-                "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, public.\"list\".list_type, public.\"userlist\".users_username, public.\"userlist\".list_shareable " +
-                "FROM public.\"list\" JOIN public.\"userlist\" ON (public.\"list\".house_id = public.\"userlist\".house_id AND public.\"list\".list_id = public.\"userlist\".list_id) " +
-                "WHERE public.\"list\".house_id = ? AND list_type = 'user' AND list_shareable = (CASE WHEN ? = true THEN true ELSE null END);";
+                "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, " +
+                "public.\"list\".list_type, public.\"userlist\".users_username, public.\"userlist\".list_shareable " +
+                "FROM public.\"list\" JOIN public.\"userlist\" ON (public.\"list\".house_id = public.\"userlist\".house_id " +
+                "AND public.\"list\".list_id = public.\"userlist\".list_id) " +
+                "WHERE public.\"list\".house_id = ANY (?) AND list_type = 'user' AND " +
+                "list_shareable = (CASE WHEN ? = true THEN true ELSE null END);";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            if (isNotNull(ps, 1, houseId))
-                ps.setLong(1, houseId);
-            if (isNotNull(ps, 2, username))
-                ps.setString(2, username);
-            if (isNotNull(ps, 3, houseId))
-                ps.setLong(3, houseId);
-            if (isNotNull(ps, 4, shared))
-                ps.setBoolean(4, shared);
+            if (isNotNull(ps, 1, housesIds))
+                ps.setArray(1, housesIds);
+            if (isNotNull(ps, 2, listsFromUser))
+                ps.setBoolean(2, listsFromUser);
+            if (isNotNull(ps, 3, username))
+                ps.setString(3, username);
+            if (isNotNull(ps, 4, housesIds))
+                ps.setArray(4, housesIds);
+            if (isNotNull(ps, 5, shared))
+                ps.setBoolean(5, shared);
             try (ResultSet resultSet = ps.executeQuery()) {
                 java.util.List<List> userLists = new ArrayList<>();
                 while (resultSet.next()) {
