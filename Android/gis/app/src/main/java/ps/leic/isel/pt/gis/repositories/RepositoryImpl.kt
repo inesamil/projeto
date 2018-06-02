@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.content.Context
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.httpRequest.HttpWebService
+import ps.leic.isel.pt.gis.utils.CredentialsStore
 
 class RepositoryImpl(private val applicationContext: Context) : Repository {
 
@@ -13,7 +14,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()
         headers["Content-Type"] = "application/json" //TODO
-        val authorization = ServiceLocator.getUserCredentials(applicationContext)
+        val credentials: CredentialsStore.Credentials? = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
+        val authorization = ""  //TODO: construir authorization com as credenciais
         // headers.put("Authorization", authorization)
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.POST, url, body, headers, c, {
@@ -28,7 +30,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()
-        val authorization = ServiceLocator.getUserCredentials(applicationContext)
+        val credentials: CredentialsStore.Credentials? = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
+        val authorization = ""  //TODO: construir authorization com as credenciais
         // headers.put("Authorization", authorization)
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.GET, url, null, headers, c, {
@@ -44,7 +47,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()
         headers["Content-Type"] = "application/json" //TODO
-        val authorization = ServiceLocator.getUserCredentials(applicationContext)
+        val credentials: CredentialsStore.Credentials? = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
+        val authorization = ""  //TODO: construir authorization com as credenciais
         // headers.put("Authorization", authorization)
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.PUT, url, body, headers, c, {
@@ -59,7 +63,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()
-        val authorization = ServiceLocator.getUserCredentials(applicationContext)
+        val credentials: CredentialsStore.Credentials? = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
+        val authorization = ""  //TODO: construir authorization com as credenciais
         // headers.put("Authorization", authorization)
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.DELETE, url, null, headers, c, {
