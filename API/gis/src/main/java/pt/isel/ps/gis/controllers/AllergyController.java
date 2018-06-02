@@ -37,12 +37,14 @@ public class AllergyController {
     @GetMapping("")
     public ResponseEntity<HouseAllergiesOutputModel> getHouseAllergies(
             @PathVariable("house-id") long houseId
-    ) throws BadRequestException {
+    ) throws BadRequestException, NotFoundException {
         List<HouseAllergy> allergies;
         try {
             allergies = houseAllergyService.getAllergiesByHouseId(houseId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
@@ -53,12 +55,14 @@ public class AllergyController {
     public ResponseEntity<StockItemsAllergenOutputModel> getStockItemsAllergen(
             @PathVariable("house-id") long houseId,
             @PathVariable("allergen") String allergen
-    ) throws BadRequestException {
+    ) throws BadRequestException, NotFoundException {
         List<StockItem> stockItemsAllergen;
         try {
             stockItemsAllergen = stockItemAllergenService.getStockItemsByHouseIdAndAllergenId(houseId, allergen);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemsAllergenOutputModel(houseId, allergen, stockItemsAllergen),
@@ -75,7 +79,7 @@ public class AllergyController {
             throw new BadRequestException(BODY_ERROR_MSG);
         List<HouseAllergy> allergies;
         try {
-            houseAllergyService.putHouseAllergy(houseId, allergen, body.getAllergicsNum());
+            houseAllergyService.associateHouseAllergy(houseId, allergen, body.getAllergicsNum());
             allergies = houseAllergyService.getAllergiesByHouseId(houseId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
