@@ -57,6 +57,7 @@ public class StoragesOutputModel {
             properties.put("house-id", houseId);
             properties.put("storage-id", storage.getId().getStorageId());
             properties.put("storage-name", storage.getStorageName());
+            properties.put("storage-temperature", storage.getStorageTemperature().toString());//TODO temperature devia ser retornada como string
 
             String storageUri = UriBuilderUtils.buildStorageUri(houseId, storage.getId().getStorageId());
 
