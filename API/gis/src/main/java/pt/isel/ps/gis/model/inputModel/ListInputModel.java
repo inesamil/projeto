@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ListInputModel {
 
+    @JsonProperty("house-id")
+    private Long houseId;
+
     @JsonProperty("user-username")
     private String username;
 
@@ -12,6 +15,10 @@ public class ListInputModel {
 
     @JsonProperty("list-shareable")
     private Boolean shareable;
+
+    public Long getHouseId() {
+        return houseId;
+    }
 
     public String getUsername() {
         return username;
