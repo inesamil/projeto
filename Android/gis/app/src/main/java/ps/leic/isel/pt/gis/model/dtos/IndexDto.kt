@@ -47,6 +47,11 @@ class IndexDto(jsonHome: JsonHome) {
         return null
     }
 
+    fun getCategoriesUrl() : String? {
+        val categories = resources.getCategories
+        return categories?.href
+    }
+
     companion object {
         private const val USERNAME_LABEL: String = "username"
         private const val relHouseLabel: String = "rel/house"
