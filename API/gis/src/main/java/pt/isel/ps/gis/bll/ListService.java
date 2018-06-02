@@ -46,16 +46,6 @@ public interface ListService {
     Optional<List> getListByListId(long houseId, short listId) throws EntityException;
 
     /**
-     * Listar as listas filtradas de uma casa através do ID da casa
-     *
-     * @param houseId identificador da casa
-     * @param filters filtros para aplicar na filtragem dos resultados
-     * @return List<List>
-     * @throws EntityException se os parâmetros recebidos forem inválidos
-     */
-    java.util.List<List> getListsByHouseIdFiltered(long houseId, ListFilters filters) throws EntityException;
-
-    /**
      * Listar as listas através do username do user
      *
      * @param username identificador do user
@@ -104,28 +94,13 @@ public interface ListService {
     /**
      * Filtros - filtragem das listas
      */
-    class ListFilters {
-        public final Boolean systemLists;
-        public final String listsFromUser;
-        public final Boolean sharedLists;
-
-        public ListFilters(Boolean systemLists, String listsFromUser, Boolean sharedLists) {
-            this.systemLists = systemLists;
-            this.listsFromUser = listsFromUser;
-            this.sharedLists = sharedLists;
-        }
-    }
-
-    /**
-     * Filtros - filtragem das listas
-     */
     class AvailableListFilters {
         public final Long[] houses;
         public final Boolean systemLists;
-        public final String listsFromUser;
+        public final Boolean listsFromUser;
         public final Boolean sharedLists;
 
-        public AvailableListFilters(Long[] houses, Boolean systemLists, String listsFromUser, Boolean sharedLists) {
+        public AvailableListFilters(Long[] houses, Boolean systemLists, Boolean listsFromUser, Boolean sharedLists) {
             this.houses = houses;
             this.systemLists = systemLists;
             this.listsFromUser = listsFromUser;
