@@ -4,12 +4,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
-import pt.isel.ps.gis.model.UserList;
-import pt.isel.ps.gis.model.UserListId;
+import pt.isel.ps.gis.model.List;
+import pt.isel.ps.gis.model.ListId;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -29,10 +28,10 @@ public class UserListsOutputModel {
     @JsonProperty
     private final Link[] links;
 
-    public UserListsOutputModel(String username, List<UserList> lists) {
+    public UserListsOutputModel(String username, java.util.List<List> lists) {
         this.klass = initKlass();
         this.properties = initProperties(lists);
-        this.entities = initEntities(username, lists);
+        this.entities = initEntities(lists);
         this.actions = initActions(username);
         this.links = initLinks(username);
     }
@@ -42,33 +41,37 @@ public class UserListsOutputModel {
         return new String[]{ENTITY_CLASS, "collection"};
     }
 
-    private Map<String, Object> initProperties(java.util.List<UserList> userLists) {
+    private Map<String, Object> initProperties(java.util.List<List> lists) {
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("size", userLists.size());
+        properties.put("size", lists.size());
 
         return properties;
     }
 
-    private Entity[] initEntities(String username, List<UserList> userLists) {
-        Entity[] entities = new Entity[userLists.size()];
-        for (int i = 0; i < userLists.size(); ++i) {
-            UserList userList = userLists.get(i);
-            UserListId id = userList.getId();
+    private Entity[] initEntities(java.util.List<pt.isel.ps.gis.model.List> lists) {
+        Entity[] entities = new Entity[lists.size()];
+        for (int i = 0; i < lists.size(); ++i) {
+            List list = lists.get(i);
+            ListId id = list.getId();
+            Long houseId = id.getHouseId();
+            Short listId = id.getListId();
 
             HashMap<String, Object> properties = new HashMap<>();
-            properties.put("house-id", id.getHouseId());
-            properties.put("list-id", id.getListId());
-            properties.put("list-name", userList.getList().getListName());
-            properties.put("user-username", username);
-            properties.put("list-shareable", userList.getListShareable());
+            properties.put("house-id", houseId);
+            properties.put("list-id", listId);
+            properties.put("list-name", list.getListName());
+            if (list.getListType().equals("user")) {
+                properties.put("user-username", list.getUserlist().getUsersUsername());
+                properties.put("list-shareable", list.getUserlist().getListShareable());
+            }
 
-            String userListsUri = UriBuilderUtils.buildUserListsUri(username);
+            String listUri = UriBuilderUtils.buildListUri(houseId, listId);
             entities[i] = new Entity(
-                    new String[]{"user-list"},
+                    new String[]{"list"},
                     new String[]{"item"},
                     properties,
                     null,
-                    new Link[]{new Link(new String[]{"self"}, new String[]{"user-list"}, userListsUri)});
+                    new Link[]{new Link(new String[]{"self"}, new String[]{"list"}, listUri)});
         }
         return entities;
     }
@@ -104,8 +107,8 @@ public class UserListsOutputModel {
         // Link-self
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, listsUri);
         //Link-related-house
-        Link houseLink = new Link(new String[]{"related"}, new String[]{"user"}, userUri);
+        Link userLink = new Link(new String[]{"related"}, new String[]{"user"}, userUri);
 
-        return new Link[]{self, houseLink};
+        return new Link[]{self, userLink};
     }
 }
