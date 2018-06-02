@@ -14,11 +14,10 @@ import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.UserList;
 import pt.isel.ps.gis.model.Users;
+import pt.isel.ps.gis.model.inputModel.ListInputModel;
 import pt.isel.ps.gis.model.inputModel.UserInputModel;
-import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
-import pt.isel.ps.gis.model.outputModel.UserHousesOutputModel;
-import pt.isel.ps.gis.model.outputModel.UserListsOutputModel;
-import pt.isel.ps.gis.model.outputModel.UserOutputModel;
+import pt.isel.ps.gis.model.outputModel.*;
+import pt.isel.ps.gis.model.requestParams.ListRequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -75,18 +74,54 @@ public class UserController {
 
     @GetMapping("/lists")
     public ResponseEntity<UserListsOutputModel> getUserLists(
-            @PathVariable("username") String username
+            @PathVariable("username") String username,
+            ListRequestParam params
     ) throws BadRequestException {
         checkUser(username);
-        List<UserList> userLists;
+        List<pt.isel.ps.gis.model.List> lists;
         try {
-            userLists = listService.getListsByUsername(username);
+            ListService.AvailableListFilters filters;
+            if (params.isNull()) {
+                Long[] housesIds = houseService.getHousesByUserId(username)
+                        .stream()
+                        .map(House::getHouseId)
+                        .toArray(Long[]::new);
+                filters = new ListService.AvailableListFilters(housesIds);
+            } else
+                filters = new ListService.AvailableListFilters(
+                        params.getHousesIds(),
+                        params.getSystem(),
+                        params.getUser(),
+                        params.getShareable()
+                );
+            lists = listService.getAvailableListsByUserUsername(username, filters);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         }
         HttpHeaders httpHeaders = new HttpHeaders();
-        return new ResponseEntity<>(new UserListsOutputModel(username, userLists), setSirenContentType(httpHeaders),
+        return new ResponseEntity<>(new UserListsOutputModel(username, lists), setSirenContentType(httpHeaders),
                 HttpStatus.OK);
+    }
+
+    @PostMapping("/lists")
+    public ResponseEntity<ListOutputModel> postUserList(
+            @PathVariable("username") String username,
+            @RequestBody ListInputModel body
+    ) throws BadRequestException {
+        checkUser(username);
+        pt.isel.ps.gis.model.List list;
+        try {
+            list = listService.addUserList(new UserList(
+                    body.getHouseId(),
+                    body.getName(),
+                    username,
+                    body.getShareable()
+            )).getList();
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new ListOutputModel(list), setSirenContentType(headers), HttpStatus.CREATED);
     }
 
     @PutMapping("")
