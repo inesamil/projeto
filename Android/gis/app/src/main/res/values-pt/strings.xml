@@ -132,4 +132,5 @@
     <string name="private_list">Privada</string>
     <string name="shareable_list">Pública</string>
     <string name="secret_list">Lista secreta</string>
+    <string name="house">House</string>
 </resources>
