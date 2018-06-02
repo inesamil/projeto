@@ -1,11 +1,11 @@
 --HOUSE
-INSERT INTO public.house(house_name, house_characteristics) VALUES ('House1', '{
+INSERT INTO public.house(house_name, house_characteristics) VALUES ('Smith', '{
   "house_babiesNumber": 0,
   "house_childrenNumber": 2,
   "house_adultsNumber": 2,
   "house_seniorsNumber": 0
 }');
-INSERT INTO public.house(house_name, house_characteristics) VALUES ('House2', '{
+INSERT INTO public.house(house_name, house_characteristics) VALUES ('Jones', '{
   "house_babiesNumber": 1,
   "house_childrenNumber": 0,
   "house_adultsNumber": 2,
@@ -13,15 +13,15 @@ INSERT INTO public.house(house_name, house_characteristics) VALUES ('House2', '{
 }');
 
 --USERS
-INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('ze', 'ze@gmail.com', 21, 'ze', '123');
-INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('maria', 'maria@gmail.com', 21, 'maria', '123');
-INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('joaquim', 'joaquim@gmail.com', 21, 'joaquim', '123');
+INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('bob', 'bob@example.com', 21, 'bob', '123');
+INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('alice', 'alice@example.com', 21, 'alice', '123');
+INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('charles', 'charles@example.com', 21, 'charles', '123');
 
 --USER-HOUSE
-INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (1, 'ze', true);
-INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (1, 'maria', false);
-INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (2, 'ze', true);
-INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (2, 'joaquim', false);
+INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (1, 'bob', true);
+INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (1, 'alice', false);
+INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (2, 'bob', true);
+INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (2, 'charles', false);
 
 --Allergy
 INSERT INTO public.allergy(allergy_allergen) VALUES ('Milk');
@@ -44,7 +44,7 @@ INSERT INTO public.date(date_date) VALUES (to_date('2018-05-01', 'YYYY-MM-DD'));
 --CATEGORY
 INSERT INTO public.category(category_name) VALUES ('Dairy');
 INSERT INTO public.category(category_name) VALUES ('Fruits');
-INSERT INTO public.category(category_name) VALUES ('Grains, beans and legumes');
+INSERT INTO public.category(category_name) VALUES ('Grains, Beans and Legumes');
 INSERT INTO public.category(category_name) VALUES ('Meat');
 INSERT INTO public.category(category_name) VALUES ('Confections');
 INSERT INTO public.category(category_name) VALUES ('Vegetables');
@@ -93,10 +93,10 @@ INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_alergic
 INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_alergicsnum) VALUES (2, 'Fish', 2);
 
 --LISTS
-SELECT insert_user_list(1, 'Party', 'ze', false);
-SELECT insert_user_list(1, 'Dark List', 'ze', true);
-SELECT insert_user_list(2, 'Pool Day', 'ze', true);
-SELECT insert_user_list(2, 'New Products to Try', 'joaquim', true);
+SELECT insert_user_list(1, 'Party', 'bob', false);
+SELECT insert_user_list(1, 'Dark List', 'bob', true);
+SELECT insert_user_list(2, 'Pool Day', 'bob', true);
+SELECT insert_user_list(2, 'New Products to Try', 'charles', true);
 SELECT insert_system_list(1, 'Groceries List');
 SELECT insert_system_list(2, 'Groceries List');
 
