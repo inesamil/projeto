@@ -2,8 +2,9 @@ package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.HouseMemberService;
-import pt.isel.ps.gis.bll.HouseService;
+import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
+import pt.isel.ps.gis.dal.repositories.UsersRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.UserHouse;
@@ -17,13 +18,17 @@ import java.util.Optional;
 public class HouseMemberServiceImpl implements HouseMemberService {
 
     private static final String HOUSE_NOT_EXIST = "House does not exist.";
+    private static final String MEMBER_NOT_EXIST = "Member does not exist.";
+    private static final String USER_NOT_EXIST = "User does not exist.";
 
     private final UserHouseRepository userHouseRepository;
-    private final HouseService houseService;
+    private final HouseRepository houseRepository;
+    private final UsersRepository usersRepository;
 
-    public HouseMemberServiceImpl(UserHouseRepository userHouseRepository, HouseService houseService) {
+    public HouseMemberServiceImpl(UserHouseRepository userHouseRepository, HouseRepository houseRepository, UsersRepository usersRepository) {
         this.userHouseRepository = userHouseRepository;
-        this.houseService = houseService;
+        this.houseRepository = houseRepository;
+        this.usersRepository = usersRepository;
     }
 
     @Override
@@ -37,51 +42,36 @@ public class HouseMemberServiceImpl implements HouseMemberService {
     }
 
     @Override
-    public List<UserHouse> getMembersByHouseId(long houseId) throws EntityException {
+    public List<UserHouse> getMembersByHouseId(long houseId) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
         checkHouse(houseId);
         return userHouseRepository.findAllById_HouseId(houseId);
     }
 
     @Override
-    public UserHouse addMember(UserHouse member) throws EntityException {
-        if (member.getId() != null && userHouseRepository.existsById(member.getId()))
-            throw new EntityException(String.format("Member with username %s in the house with ID %d already exists.",
-                    member.getId().getUsersUsername(), member.getId().getHouseId()));
-        return userHouseRepository.save(member);
-    }
-
-    @Override
-    public UserHouse updateMember(UserHouse member) throws EntityNotFoundException {
-        UserHouseId id = member.getId();
-        if (userHouseRepository.existsById(id))
-            throw new EntityNotFoundException(String.format("Member with username %s does not exist in the house with ID %d",
-                    id.getUsersUsername(), id.getHouseId()));
-        return userHouseRepository.save(member);
-    }
-
-    @Override
     public UserHouse associateMember(long houseId, String username, boolean administrator) throws EntityException, EntityNotFoundException {
-        // TODO é preciso fazer alguma verificacao?
         UserHouse member = new UserHouse(houseId, username, administrator);
-        if (existsMemberByMemberId(houseId, username))
-            member = updateMember(member);
-        else
-            member = addMember(member);
+        checkHouse(houseId);
+        checkUser(username);
+        userHouseRepository.save(member);
         return member;
     }
 
     @Override
     public void deleteMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException {
+        if (!existsMemberByMemberId(houseId, username))
+            throw new EntityNotFoundException(MEMBER_NOT_EXIST);
         UserHouseId id = new UserHouseId(houseId, username);
-        if (!userHouseRepository.existsById(id))
-            throw new EntityNotFoundException(String.format("Member with username %s does not exist in the house with ID %d",
-                    username, houseId));
         userHouseRepository.deleteById(id);
     }
 
-    private void checkHouse(long houseId) throws EntityException {
-        if (!houseService.existsHouseByHouseId(houseId))
-            throw new EntityException(HOUSE_NOT_EXIST);
+    private void checkHouse(long houseId) throws EntityNotFoundException {
+        if (!houseRepository.existsById(houseId))
+            throw new EntityNotFoundException(HOUSE_NOT_EXIST);
+    }
+
+    private void checkUser(String username) throws EntityNotFoundException {
+        if (!usersRepository.existsById(username))
+            throw new EntityNotFoundException(USER_NOT_EXIST);
     }
 }

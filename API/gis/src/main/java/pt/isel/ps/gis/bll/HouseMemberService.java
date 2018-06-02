@@ -36,25 +36,7 @@ public interface HouseMemberService {
      * @return List<UserHouse>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<UserHouse> getMembersByHouseId(long houseId) throws EntityException;
-
-    /**
-     * Adicionar um membro à casa
-     *
-     * @param member membro a adicionar
-     * @return UserHouse
-     * @throws EntityException se o membro especificado já estiver presente na casa particularizada
-     */
-    UserHouse addMember(UserHouse member) throws EntityException;
-
-    /**
-     * Atualizar os atributos de um membro
-     *
-     * @param member membro a atualizar
-     * @return UserHouse
-     * @throws EntityNotFoundException se o membro especificado não existir na casa particularizada
-     */
-    UserHouse updateMember(UserHouse member) throws EntityNotFoundException;
+    List<UserHouse> getMembersByHouseId(long houseId) throws EntityException, EntityNotFoundException;
 
     /**
      * Associar ou atualizar um membro de uma casa
