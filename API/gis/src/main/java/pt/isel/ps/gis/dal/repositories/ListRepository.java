@@ -9,8 +9,8 @@ public interface ListRepository extends CrudRepository<List, ListId>, ListReposi
     /**
      * Finds all lists by house ID
      *
-     * @param houseId identificador da casa
+     * @param houseId The id of the house
      * @return java.util.List of list of the house with ID {houseId}
      */
-    java.util.List<List> findAllById_HouseId(long houseId); //TODO
+    java.util.List<List> findAllById_HouseId(long houseId);
 }
