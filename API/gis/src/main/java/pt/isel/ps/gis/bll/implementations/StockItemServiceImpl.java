@@ -117,7 +117,7 @@ public class StockItemServiceImpl implements StockItemService {
 
     private String[] splitSegment(String segment) throws EntityException {
         String[] segmentSplitted = InputUtils.splitNumbersFromLetters(segment);
-        if (segmentSplitted.length != 2) // TODO será esta excecao? ou outra?
+        if (segmentSplitted.length != 2)
             throw new EntityException(SEGMENT_INVALID);
         return segmentSplitted;
     }
