@@ -88,9 +88,9 @@ INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quant
 INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (2, 'P3-Becel-Vegetal-250ml', to_date('2019-06-01', 'YYYY-MM-DD'), 2);
 
 --HOUSE-ALLERGY
-INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_alergicsnum) VALUES (1, 'Milk', 1);
-INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_alergicsnum) VALUES (1, 'Cereals', 1);
-INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_alergicsnum) VALUES (2, 'Fish', 2);
+INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_allergicsnum) VALUES (1, 'Milk', 1);
+INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_allergicsnum) VALUES (1, 'Cereals', 1);
+INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_allergicsnum) VALUES (2, 'Fish', 2);
 
 --LISTS
 SELECT insert_user_list(1, 'Party', 'bob', false);

@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS public."stockitemmovement" (
 CREATE TABLE IF NOT EXISTS public."houseallergy" (
 	house_id bigint NOT NULL CHECK (house_id > 0) REFERENCES public."house" (house_id),
 	allergy_allergen character varying(75) NOT NULL REFERENCES public."allergy" (allergy_allergen),
-	houseallergy_alergicsNum smallint NOT NULL CHECK (houseallergy_alergicsNum > 0),
+	houseallergy_allergicsNum smallint NOT NULL CHECK (houseallergy_allergicsNum > 0),
 	PRIMARY KEY (house_id, allergy_allergen)
 );
 
