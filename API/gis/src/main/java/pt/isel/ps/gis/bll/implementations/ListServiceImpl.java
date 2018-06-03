@@ -12,8 +12,6 @@ import pt.isel.ps.gis.model.*;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
-import java.util.Optional;
-
 @Service
 public class ListServiceImpl implements ListService {
 
@@ -47,7 +45,7 @@ public class ListServiceImpl implements ListService {
         List list = listRepository
                 .findById(new ListId(houseId, listId))
                 .orElseThrow(() -> new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
-                listId, houseId)));
+                        listId, houseId)));
         list.getListproducts().size();
         return list;
     }
