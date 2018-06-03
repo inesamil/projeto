@@ -62,7 +62,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         getHouses(url)
     }
 
-    private fun getHouses(url: String){
+    private fun getHouses(url: String) {
         housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
         housesViewModel.init(url)
         housesViewModel.getHouses()?.observe(this, Observer {
@@ -73,7 +73,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         })
     }
 
-    private fun onSuccess(housesDto: HousesDto){
+    private fun onSuccess(housesDto: HousesDto) {
         // Hide progress bar
         stockItemListProgressBar.visibility = View.GONE
 
@@ -88,7 +88,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         }
 
         val size = houses?.size ?: 0
-        if (size > 0){
+        if (size > 0) {
             houses?.get(0)?.links?.stockItemsLink?.let {
                 getHouseStockItemList(it)
             }

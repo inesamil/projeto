@@ -42,7 +42,7 @@ class WritingNfcTagFragment : DialogFragment() {
      * WritingNfcTagFragment Factory
      */
     companion object {
-        val TAG = WritingNfcTagFragment::class.java.simpleName
+        val TAG: String = WritingNfcTagFragment::class.java.simpleName
 
         @JvmStatic
         fun newInstance(message: String) =
