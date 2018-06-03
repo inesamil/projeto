@@ -25,4 +25,9 @@
         <item name="android:textColor">@color/primaryTextColor</item>
     </style>
 
+    <style name="SmartStocksTheme.CardView" parent="CardView.Light">
+        <item name="cardBackgroundColor">@color/cardview_light_background</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
 </resources>
