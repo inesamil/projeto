@@ -3,21 +3,27 @@ package pt.isel.ps.gis.bll.implementations;
 import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.ListProductService;
 import pt.isel.ps.gis.dal.repositories.ListProductRepository;
+import pt.isel.ps.gis.dal.repositories.ListRepository;
+import pt.isel.ps.gis.dal.repositories.ProductRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.model.ListId;
 import pt.isel.ps.gis.model.ListProduct;
 import pt.isel.ps.gis.model.ListProductId;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ListProductServiceImpl implements ListProductService {
 
+    private final ListRepository listRepository;
+    private final ProductRepository productRepository;
     private final ListProductRepository listProductRepository;
 
-    public ListProductServiceImpl(ListProductRepository listProductRepository) {
+    public ListProductServiceImpl(ListRepository listRepository, ProductRepository productRepository, ListProductRepository listProductRepository) {
+        this.listRepository = listRepository;
+        this.productRepository = productRepository;
         this.listProductRepository = listProductRepository;
     }
 
@@ -27,8 +33,11 @@ public class ListProductServiceImpl implements ListProductService {
     }
 
     @Override
-    public Optional<ListProduct> getListProductByListProductId(long houseId, short listId, int productId) throws EntityException {
-        return listProductRepository.findById(new ListProductId(houseId, listId, productId));
+    public ListProduct getListProductByListProductId(long houseId, short listId, int productId) throws EntityException {
+        return listProductRepository
+                .findById(new ListProductId(houseId, listId, productId))
+                .orElseThrow(() -> new EntityException(String.format("Product with ID %d does not exist in the list with ID %d in the house with ID %d.",
+                        productId, listId, houseId)));
     }
 
     @Override
@@ -39,29 +48,33 @@ public class ListProductServiceImpl implements ListProductService {
     }
 
     @Override
-    public ListProduct addListProduct(ListProduct listProduct) {
-        //TODO
-        /*if (listProduct.getId() != null && listProductRepository.existsById(listProduct.getId()))
-            throw new EntityException(String.format("Product with ID %d in the house with ID %d already exists.",
-                    list.getId().getListId(), list.getId().getHouseId()))*/
-        return listProductRepository.save(listProduct);
-    }
-
-    @Override
-    public ListProduct updateListProduct(ListProduct listProduct) throws EntityNotFoundException {
-        ListProductId id = listProduct.getId();
-        if (!listProductRepository.existsById(id))
-            throw new EntityNotFoundException(String.format("Product with ID %d does not exist in the list with ID %d in the house with ID %d.",
-                    id.getProductId(), id.getListId(), id.getHouseId()));
+    public ListProduct associateListProduct(long houseId, short listId, int productId, String brand, short quantity) throws EntityException {
+        ListId listID = new ListId(houseId, listId);
+        checkListId(listID);
+        checkProductId(productId);
+        ListProduct listProduct = new ListProduct(houseId, listId, productId, brand, quantity);
         return listProductRepository.save(listProduct);
     }
 
     @Override
     public void deleteListProductByListProductId(long houseId, short listId, int productId) throws EntityException, EntityNotFoundException {
         ListProductId id = new ListProductId(houseId, listId, productId);
-        if (!listProductRepository.existsById(id))
-            throw new EntityNotFoundException(String.format("Product with ID %d does not exist in the list with ID %d in the house with ID %d.",
-                    productId, listId, houseId));
+        checkListProductId(id);
         listProductRepository.deleteById(id);
+    }
+
+    private void checkListProductId(ListProductId listProductId) throws EntityNotFoundException {
+        if (!listProductRepository.existsById(listProductId))
+            throw new EntityNotFoundException(String.format("Product with ID %d does not exist in the list with ID %d in the house with ID %d.",
+                    listProductId.getProductId(), listProductId.getListId(), listProductId.getHouseId()));
+    }
+
+    private void checkProductId(int productId) throws EntityException {
+        ValidationsUtils.validateProductId(productId);
+        productRepository.existsById(productId);
+    }
+
+    private void checkListId(ListId listId) {
+        listRepository.existsById(listId);
     }
 }

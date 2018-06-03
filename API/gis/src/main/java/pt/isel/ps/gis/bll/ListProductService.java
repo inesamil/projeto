@@ -5,15 +5,14 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.ListProduct;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ListProductService {
 
     /**
      * Verifica se um dado produto está presente num lista através dos seus IDs
      *
-     * @param houseId identificador da casa
-     * @param listId identificador da lista
+     * @param houseId   identificador da casa
+     * @param listId    identificador da lista
      * @param productId identificador do produto
      * @return true se o produto existir na lista, false caso contrário
      * @throws EntityException se os parâmetros recebidos forem inválidos
@@ -23,13 +22,13 @@ public interface ListProductService {
     /**
      * Obter um dado produto de uma lista através dos seus IDs
      *
-     * @param houseId identificador da casa
-     * @param listId identificador da lista
+     * @param houseId   identificador da casa
+     * @param listId    identificador da lista
      * @param productId identificador do produto
      * @return Optional<ListProduct>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Optional<ListProduct> getListProductByListProductId(long houseId, short listId, int productId) throws EntityException;
+    ListProduct getListProductByListProductId(long houseId, short listId, int productId) throws EntityException;
 
     /**
      * Listar os produtos de uma lista
@@ -42,27 +41,22 @@ public interface ListProductService {
     List<ListProduct> getListProductsByListId(long houseId, short listId) throws EntityException;
 
     /**
-     * Adicionar um produto a uma lista
+     * Adicionar ou Atualizar um produto a uma lista
      *
-     * @param listProduct produto a adicionar
+     * @param houseId   identificador da casa
+     * @param listId    identificador da lista
+     * @param productId identificador do produto
+     * @param brand     marca do produto
+     * @param quantity  quantidade do produto
      * @return ListProduct
      */
-    ListProduct addListProduct(ListProduct listProduct);
-
-    /**
-     * Atualizar um producto duma lista
-     *
-     * @param listProduct produto atualizado
-     * @return ListProduct
-     * @throws EntityNotFoundException se o produto especificado não existir na lista particularizada
-     */
-    ListProduct updateListProduct(ListProduct listProduct) throws EntityNotFoundException;
+    ListProduct associateListProduct(long houseId, short listId, int productId, String brand, short quantity) throws EntityException;
 
     /**
      * Remover um produto de uma lista
      *
      * @param productId identificador do produto
-     * @throws EntityException se os parâmetros recebidos forem inválidos
+     * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o produto especificado não existir na lista particularizada
      */
     void deleteListProductByListProductId(long houseId, short listId, int productId) throws EntityException, EntityNotFoundException;
