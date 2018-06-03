@@ -123,13 +123,12 @@ public class UserListOutputModel {
         Short listId = list.getId().getListId();
         String username = list.getUserlist().getUsersUsername();
 
-        // URIs
-        String listUri = UriBuilderUtils.buildListUri(houseId, listId);
-        String userListsUri = UriBuilderUtils.buildUserListsUri(username);
-
         // Link-self
+        String listUri = UriBuilderUtils.buildListUri(houseId, listId);
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS}, listUri);
+
         //Link-related-lists
+        String userListsUri = UriBuilderUtils.buildUserListsUri(username);
         Link listsLink = new Link(new String[]{"related"}, new String[]{"user-lists", "collection"}, userListsUri);
 
         return new Link[]{self, listsLink};
