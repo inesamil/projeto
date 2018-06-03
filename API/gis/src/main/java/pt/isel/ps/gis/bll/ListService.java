@@ -43,7 +43,7 @@ public interface ListService {
      * @return Optional<List>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Optional<List> getListByListId(long houseId, short listId) throws EntityException;
+    List getListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar as listas através do username do user
@@ -65,11 +65,14 @@ public interface ListService {
     /**
      * Atualizar uma lista duma casa
      *
-     * @param list lista atualizada
+     * @param houseId identificador da casa
+     * @param listId identificador da lista
+     * @param listName nome da lista
+     * @param listShareable indicador de lista partilhável
      * @return List
      * @throws EntityNotFoundException se a lista especificada não existir na casa particularizada
      */
-    List updateList(List list) throws EntityNotFoundException;
+    List updateList(long houseId, short listId, String listName, boolean listShareable) throws EntityException, EntityNotFoundException;
 
     /**
      * Remover uma dada lista do sistema da casa

@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.dal.repositories.ListRepository;
 import pt.isel.ps.gis.dal.repositories.SystemListRepository;
@@ -42,12 +43,13 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public Optional<List> getListByListId(long houseId, short listId) throws EntityException {
-        Optional<List> optionalList = listRepository.findById(new ListId(houseId, listId));
-        if (!optionalList.isPresent()) return optionalList;
-        List list = optionalList.get();
+    public List getListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
+        List list = listRepository
+                .findById(new ListId(houseId, listId))
+                .orElseThrow(() -> new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
+                listId, houseId)));
         list.getListproducts().size();
-        return optionalList;
+        return list;
     }
 
     @Override
@@ -64,21 +66,30 @@ public class ListServiceImpl implements ListService {
         return userListRepository.insertUserList(list);
     }
 
+    @Transactional
     @Override
-    public List updateList(List list) throws EntityNotFoundException {
-        ListId id = list.getId();
-        if (!listRepository.existsById(id))
-            throw new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
+    public List updateList(long houseId, short listId, String listName, boolean listShareable) throws EntityException, EntityNotFoundException {
+        ListId id = new ListId(houseId, listId);
+        // Verify list existence
+        List list = listRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
+                id.getListId(), id.getHouseId())));
+        // Verify list type - system lists cannot be updated
+        if (isSystemListType(list))
+            throw new UnsupportedOperationException(String.format("The list with ID %d in the house with ID %d cannot be updated.",
                     id.getListId(), id.getHouseId()));
-        return listRepository.save(list);
+        String username = list.getUserlist().getUsersUsername();
+        UserList userList = new UserList(houseId, listId, listName, username, listShareable);
+        // Update list
+        userListRepository.save(userList);//TODO: necessario guadar nos 2 repositórios?
+        list = listRepository.save(userList.getList());
+        list.getListproducts().size();
+        return list;
     }
 
     @Override
     public void deleteSystemListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
         ListId id = new ListId(houseId, listId);
-        if (!listRepository.existsById(id))
-            throw new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
-                    id.getListId(), id.getHouseId()));
+        checkListId(id);
         systemListRepository.deleteById(new SystemListId(houseId, listId));
         listRepository.deleteById(id);
     }
@@ -86,10 +97,13 @@ public class ListServiceImpl implements ListService {
     @Override
     public void deleteUserListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
         ListId id = new ListId(houseId, listId);
-        if (!listRepository.existsById(id))
-            throw new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
-                    id.getListId(), id.getHouseId()));
+        checkListId(id);
         userListRepository.deleteCascadeUserListById(new UserListId(houseId, listId));
     }
 
+    private void checkListId(ListId id) throws EntityNotFoundException {
+        if (!listRepository.existsById(id))
+            throw new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
+                    id.getListId(), id.getHouseId()));
+    }
 }
