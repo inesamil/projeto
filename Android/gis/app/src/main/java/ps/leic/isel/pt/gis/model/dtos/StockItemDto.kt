@@ -67,22 +67,22 @@ class StockItemDto(siren: Siren) {
     }
 
     companion object {
-        const val houseIdLabel: String = "house-id"
-        const val skuLabel: String = "stock-item-sku"
-        const val productIdLabel: String = "product-id"
-        const val productNameLabel: String = "product-name"
-        const val brandLabel: String = "stock-item-brand"
-        const val conservationStorageLabel: String = "stock-item-conservation-storage"
-        const val descriptionLabel: String = "stock-item-description"
-        const val quantityLabel: String = "stock-item-quantity"
-        const val segmentLabel: String = "stock-item-segment"
-        const val varietyLabel: String = "stock-item-variety"
-        const val expirationDatesLabel: String = "expiration-dates"
-        const val storagesLabel: String = "storages"
-        const val movementsLabel: String = "movements"
-        const val elementsLabel: String = "elements"
-        const val stockItemClassLabel: String = "stock-item"
-        const val stockItemsLabel: String = "stock-items"
+        private const val houseIdLabel: String = "house-id"
+        private const val skuLabel: String = "stock-item-sku"
+        private const val productIdLabel: String = "product-id"
+        private const val productNameLabel: String = "product-name"
+        private const val brandLabel: String = "stock-item-brand"
+        private const val conservationStorageLabel: String = "stock-item-conservation-storage"
+        private const val descriptionLabel: String = "stock-item-description"
+        private const val quantityLabel: String = "stock-item-quantity"
+        private const val segmentLabel: String = "stock-item-segment"
+        private const val varietyLabel: String = "stock-item-variety"
+        private const val expirationDatesLabel: String = "expiration-dates"
+        private const val storagesLabel: String = "storages"
+        private const val movementsLabel: String = "movements"
+        private const val elementsLabel: String = "elements"
+        private const val stockItemClassLabel: String = "stock-item"
+        private const val stockItemsLabel: String = "stock-items"
         val mapper: ObjectMapper = jacksonObjectMapper()
     }
 
