@@ -24,7 +24,7 @@ public interface ProductService {
      * @return Product
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Product getProductByProductId(int productId) throws EntityException, EntityNotFoundException;
+    Product getProductByCategoryIdAndProductId(int categoryId, int productId) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar os produtos de uma categoria através do ID da categoria
@@ -56,7 +56,7 @@ public interface ProductService {
      * @return Product
      * @throws EntityException se um produto com o ID incluído já existir
      */
-    Product addProduct(int categoryId, String productName, boolean productEdible, short productShelflife, String productShelflifeTimeunit) throws EntityException;
+    // Product addProduct(int categoryId, String productName, boolean productEdible, short productShelflife, String productShelflifeTimeunit) throws EntityException;
 
     /**
      * Filtros - filtragem das categorias

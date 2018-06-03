@@ -29,12 +29,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductByProductId(int productId) throws EntityException, EntityNotFoundException {
+    public Product getProductByCategoryIdAndProductId(int categoryId, int productId) throws EntityException, EntityNotFoundException {
+        ValidationsUtils.validateCategoryId(categoryId);
         ValidationsUtils.validateProductId(productId);
         return productRepository
-                .findById(productId)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("The product with ID %d does not exist.",
-                        productId)));
+                .findByCategoryIdAndProductId(categoryId, productId)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("The product with ID %d does not exist in category with ID %d.",
+                        productId, categoryId)));
     }
 
     @Override
@@ -50,10 +51,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findProductsByNameAndCategoryId(categoryId, filters.name);
     }
 
-    @Override
+    /* @Override
     public Product addProduct(int categoryId, String productName, boolean productEdible, short productShelflife, String productShelflifeTimeunit) throws EntityException {
         return productRepository.save(new Product(categoryId, productName, productEdible, productShelflife, productShelflifeTimeunit));
-    }
+    } */
 
     private void checkCategoryId(int categoryId) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateCategoryId(categoryId);
