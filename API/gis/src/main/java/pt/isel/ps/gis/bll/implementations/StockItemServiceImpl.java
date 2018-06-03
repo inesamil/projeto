@@ -18,7 +18,7 @@ import java.util.List;
 public class StockItemServiceImpl implements StockItemService {
 
     private static final String HOUSE_NOT_EXIST = "House does not exist.";
-    private static final String STOCK_ITEM_NOT_EXIST = "Stock item does not exist in this house";
+    private static final String STOCK_ITEM_NOT_EXIST = "Stock item does not exist in this house.";
     private static final String SEGMENT_INVALID = "Segment is invalid.";
 
     private final StockItemRepository stockItemRepository;
