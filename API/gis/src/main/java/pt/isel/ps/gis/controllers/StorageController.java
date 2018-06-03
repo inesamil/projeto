@@ -121,8 +121,6 @@ public class StorageController {
             @PathVariable("house-id") long houseId,
             @PathVariable("storage-id") short storageId
     ) throws BadRequestException, NotFoundException {
-        checkHouse(houseId);
-        checkStorage(houseId, storageId);
         List<Storage> storages;
         try {
             storageService.deleteStorageByStorageId(houseId, storageId);
@@ -135,23 +133,5 @@ public class StorageController {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),
                 HttpStatus.OK);
-    }
-
-    private void checkHouse(long houseId) throws BadRequestException {
-        try {
-            if (!houseService.existsHouseByHouseId(houseId))
-                throw new BadRequestException(HOUSE_NOT_EXIST);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        }
-    }
-
-    private void checkStorage(long houseId, short storageId) throws BadRequestException {
-        try {
-            if (!storageService.existsStorageByStorageId(houseId, storageId))
-                throw new BadRequestException(STORAGE_NOT_EXIST);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        }
     }
 }
