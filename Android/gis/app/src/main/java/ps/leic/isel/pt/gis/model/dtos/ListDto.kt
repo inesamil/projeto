@@ -20,7 +20,7 @@ class ListDto(siren: Siren) {
     init {
         val properties = siren.properties
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
-        houseName = "Smith"//properties[houseNameLabel] as String
+        houseName = "Smith"//properties[houseNameLabel] as String   //TODO
         listId = (properties[listIdLabel] as Int).toLong()
         listName = properties[listNameLabel] as String
         username = properties[usernameLabel] as? String

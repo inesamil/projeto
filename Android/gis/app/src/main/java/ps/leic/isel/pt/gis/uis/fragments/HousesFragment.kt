@@ -70,7 +70,9 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     }
 
     private fun onError(error: String?) {
-        Log.v("APP_GIS", error)
+        error?.let {
+            Log.v("APP_GIS", error)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -143,6 +145,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
      * HousesFragment Factory
      */
     companion object {
+        const val TAG: String = "HousesFragment"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

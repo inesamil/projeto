@@ -55,7 +55,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 Log.d(TAG, "Credentials retrieved.")
                 if (true) {   //TODO: validar credenciais
                     // Valid Credentials
-                    Log.i(TAG, "Retrieved valid credentials, so login user.")
+                    Log.i(TAG, "Retrieved valid credentials, so logged in user.")
                     finish()
                     startActivity(Intent(this, HomeActivity::class.java))
                     return
