@@ -26,7 +26,7 @@ class SplashScreenViewModel(private val app: Application) : AndroidViewModel(app
     }
 
     companion object {
-        private const val url: String = "http://192.168.1.76:8081/v1"
+        private val url: String = "http://192.168.1.76:8081/v1" //TODO: mudar isto para cada pc :/
         const val TAG: String = "SplashScreenViewModel"
     }
 }
