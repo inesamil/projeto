@@ -1,5 +1,6 @@
 package ps.leic.isel.pt.gis.uis.activities
 
+import android.app.Application
 import android.content.Intent
 import android.nfc.NfcAdapter
 import android.nfc.Tag
@@ -196,6 +197,16 @@ class HomeActivity : AppCompatActivity(),
     override fun onNewListInteraction() {
         val fragment = NewListDialogFragment.newInstance()
         fragment.show(supportFragmentManager, ExtraUtils.NEW_LIST_DIALOG)
+    }
+
+    // Listener for ListsFragment interaction
+    override fun onFiltersInteraction() {
+        val gisApplication = application as GisApplication
+        val index = gisApplication.index
+        index.getHousesUrl("alice")?.let {//TODO: retirar alice
+            val fragment = ListsFiltersDialogFragment.newInstance(it)
+            fragment.show(supportFragmentManager, ListsFiltersDialogFragment.TAG)
+        }
     }
 
     // Listener for ListDetailFragment interaction
