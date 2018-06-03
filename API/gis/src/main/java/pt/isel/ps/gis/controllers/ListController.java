@@ -25,11 +25,6 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 @RequestMapping("/v1/houses/{house-id}/lists")
 public class ListController {
 
-    private static final String BODY_ERROR_MSG = "You must specify the body correctly.";
-    private static final String HOUSE_NOT_EXIST = "House does not exist.";
-    private static final String LIST_NOT_EXIST = "List does not exist.";
-    private static final String PRODUCT_NOT_EXIST = "Product in that list does not exist.";
-
     private final ListService listService;
     private final ListProductService listProductService;
 
@@ -75,17 +70,20 @@ public class ListController {
     public ResponseEntity<ListProductsOutputModel> getProductsInList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId
-    ) throws BadRequestException {
+    ) throws BadRequestException, NotFoundException {
         java.util.List<ListProduct> listProducts;
         try {
             listProducts = listProductService.getListProductsByListId(houseId, listId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListProductsOutputModel(houseId, listId, listProducts),
                 setSirenContentType(headers), HttpStatus.OK);
     }
+
     @PostMapping("")
     public ResponseEntity<ListOutputModel> postUserList(
             @PathVariable("house-id") long houseId,
@@ -134,14 +132,14 @@ public class ListController {
             @PathVariable("product-id") int productId,
             @RequestBody ListProductInputModel body
     ) throws BadRequestException, NotFoundException {
-        if (body.getBrand() == null && body.getQuantity() == null)
-            throw new BadRequestException(BODY_ERROR_MSG);
         java.util.List<ListProduct> listProducts;
         try {
             listProductService.associateListProduct(houseId, listId, productId, body.getBrand(), body.getQuantity());
             listProducts = listProductService.getListProductsByListId(houseId, listId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListProductsOutputModel(houseId, listId, listProducts),
