@@ -5,12 +5,11 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
-import ps.leic.isel.pt.gis.model.CharacteristicsDTO
 
 class HouseDto(siren: Siren) {
     val houseId: Long
     val name: String?
-    val characteristics: CharacteristicsDTO?
+    val characteristics: CharacteristicsDto?
     val members: Array<MemberDto>
     val actions: HousesActions
     val links: HouseLinks
@@ -20,7 +19,7 @@ class HouseDto(siren: Siren) {
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
         name = properties[houseNameLabel] as String
         val characteristics = properties[houseCharacteristicsLabel]
-        this.characteristics = mapper.convertValue<CharacteristicsDTO>(characteristics, CharacteristicsDTO::class.java)
+        this.characteristics = mapper.convertValue<CharacteristicsDto>(characteristics, CharacteristicsDto::class.java)
         members = siren.entities?.map {
             MemberDto(Siren(it.klass, it.properties, null, null, null))
         }.orEmpty().toTypedArray()
