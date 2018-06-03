@@ -1,6 +1,5 @@
 package ps.leic.isel.pt.gis.uis.activities
 
-import android.app.Application
 import android.content.Intent
 import android.nfc.NfcAdapter
 import android.nfc.Tag
@@ -19,7 +18,8 @@ import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.UserDTO
-import ps.leic.isel.pt.gis.model.dtos.*
+import ps.leic.isel.pt.gis.model.dtos.ListProductDto
+import ps.leic.isel.pt.gis.model.dtos.StorageDto
 import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
 import ps.leic.isel.pt.gis.uis.fragments.*
 import ps.leic.isel.pt.gis.utils.ExtraUtils
@@ -53,7 +53,7 @@ class HomeActivity : AppCompatActivity(),
 
         // Init
         savedInstanceState?.let {
-            val fragment: Fragment = getSupportFragmentManager().getFragment(it, "FRAGMENT")
+            val fragment: Fragment = supportFragmentManager.getFragment(it, "FRAGMENT")
                     ?: HomePageFragment.newInstance()  //TODO: extrair tag
             val fragmentTag: String = fragment.tag ?: HomePageFragment.TAG
             supportFragmentManager.beginTransaction()
@@ -163,23 +163,23 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for BasicInformationFragment interaction
     override fun onBasicInformationUpdate(user: UserDTO) {
-        //TODO
+        // TODO atualizar info do user
     }
 
     // Listener for CategoriesFragement interaction
-    override fun onCategoryInteraction(category: CategoryDto) {
+    override fun onCategoryInteraction(url: String, categoryName: String) {
         val args: Map<String, Any> = mapOf(
-                Pair(ProductDetailFragment.URL_ARG, ""), //TODO
-                Pair(CategoryProductsFragment.CATEGORY_NAME_ARG, "")   //TODO
+                Pair(ProductDetailFragment.URL_ARG, url),
+                Pair(CategoryProductsFragment.CATEGORY_NAME_ARG, categoryName)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCTS, CategoryProductsFragment.Companion::newInstance, args)
     }
 
     // Listener for CategoryProductsFragement interaction
-    override fun onProductInteraction(product: ProductDto) {
+    override fun onProductInteraction(url: String, productName: String) {
         val args: Map<String, Any> = mapOf(
-                Pair(ProductDetailFragment.URL_ARG, ""), //TODO
-                Pair(ProductDetailFragment.PRODUCT_NAME_ARG, "")   //TODO
+                Pair(ProductDetailFragment.URL_ARG, url),
+                Pair(ProductDetailFragment.PRODUCT_NAME_ARG, productName)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCT, ProductDetailFragment.Companion::newInstance, args)
     }
@@ -203,7 +203,8 @@ class HomeActivity : AppCompatActivity(),
     override fun onFiltersInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        index.getHousesUrl("alice")?.let {//TODO: retirar alice
+        index.getHousesUrl("alice")?.let {
+            //TODO: retirar alice
             val fragment = ListsFiltersDialogFragment.newInstance(it)
             fragment.show(supportFragmentManager, ListsFiltersDialogFragment.TAG)
         }
@@ -216,11 +217,11 @@ class HomeActivity : AppCompatActivity(),
     }
 
     // Listener for StockItemListFragment interaction
-    override fun onStockItemInteraction(stockItem: StockItemDto) {
+    override fun onStockItemInteraction(url: String, productName: String, stockItemVariety: String) {
         val args: Map<String, Any> = mapOf(
-                Pair(StockItemDetailFragment.URL_ARG, ""), //TODO
-                Pair(StockItemDetailFragment.PRODUCT_NAME_ARG, ""),   //TODO
-                Pair(StockItemDetailFragment.STOCK_ITEM_VARIETY_ARG, "")    //TODO
+                Pair(StockItemDetailFragment.URL_ARG, url),
+                Pair(StockItemDetailFragment.PRODUCT_NAME_ARG, productName),
+                Pair(StockItemDetailFragment.STOCK_ITEM_VARIETY_ARG, stockItemVariety)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM, StockItemDetailFragment.Companion::newInstance, args)
     }
@@ -275,7 +276,7 @@ class HomeActivity : AppCompatActivity(),
         when (item.itemId) {
             R.id.invitationsItem -> {
                 val url: String = ""    //TODO
-                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.INVITATIONS, InvitationsFragment.Companion::newInstance, url)
+                // supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.INVITATIONS, InvitationsFragment.Companion::newInstance, url)
                 return true
             }
             R.id.preferencesItem -> {
@@ -297,23 +298,23 @@ class HomeActivity : AppCompatActivity(),
             R.id.nav_homePage -> {
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.HOME_PAGE, HomePageFragment.Companion::newInstance)
             }
-            R.id.nav_lists -> {
+            R.id.nav_lists -> run {
                 val index = gisApplication.index
                 val url: String? = index.getUserListUrl("alice")//TODO: remover alice, obter username
-                if (url != null) {
+                url?.let {
                     supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance, url)
-                } else {
-                    //TODO: error?
+                    return@run
                 }
+                Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() // TODO remove string. put in xml
             }
-            R.id.nav_products -> {
+            R.id.nav_products -> run {
                 val index = gisApplication.index
                 val url: String? = index.getCategoriesUrl()
-                if (url != null) {
+                url?.let {
                     supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance, url)
-                } else {
-                    //TODO: error ?
+                    return@run
                 }
+                Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() // TODO remove string. put in xml
             }
             R.id.nav_profile -> run {
                 val index = gisApplication.index
