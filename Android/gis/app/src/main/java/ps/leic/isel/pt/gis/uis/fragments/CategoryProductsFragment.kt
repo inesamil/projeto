@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.android.synthetic.main.fragment_category_products.*
 import kotlinx.android.synthetic.main.fragment_category_products.view.*
 import ps.leic.isel.pt.gis.R
@@ -126,7 +125,9 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     override fun onTextClick(view: View, position: Int) {
         products?.let {
             val product: ProductDto = it[position]
-            listener?.onProductInteraction(product)
+            product.links.selfLink?.let {
+                listener?.onProductInteraction(it, product.productName)
+            }
         }
     }
 
@@ -148,7 +149,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      * activity.
      */
     interface OnCategoryProductsFragmentInteractionListener {
-        fun onProductInteraction(product: ProductDto)
+        fun onProductInteraction(url: String, productName: String)
     }
 
     /**
