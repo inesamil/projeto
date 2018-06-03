@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import pt.isel.ps.gis.model.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository extends CrudRepository<Product, Integer> {
 
@@ -37,4 +38,13 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
             "WHERE public.\"product\".category_id = :categoryId AND public.\"product\".product_name LIKE :name || '%';",
             nativeQuery = true)
     List<Product> findProductsByNameAndCategoryId(@Param("categoryId") Integer categoryId, @Param("name") String name);
+
+    /**
+     * Find specific product in specific category
+     *
+     * @param categoryId The id of the category
+     * @param productId  The id of the product
+     * @return Optional<Product> with productId in category with categoryId if isPresent() returns true
+     */
+    Optional<Product> findByCategoryIdAndProductId(Integer categoryId, Integer productId);
 }
