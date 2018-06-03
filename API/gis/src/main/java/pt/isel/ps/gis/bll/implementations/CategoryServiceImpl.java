@@ -36,10 +36,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getCategoriesFiltered(String name) throws EntityException {
+    public List<Category> getCategoriesFiltered(CategoryFilters filters) throws EntityException {
+        String name = filters.name;
         ValidationsUtils.validateCategoryName(name);
-        CategoryFilters categoryFilters = new CategoryFilters(name);
-        return categoryRepository.findCategoriesByName(categoryFilters.name);
+        return categoryRepository.findCategoriesByName(name);
     }
 
     @Override
