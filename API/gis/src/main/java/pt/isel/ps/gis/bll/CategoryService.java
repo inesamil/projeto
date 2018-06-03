@@ -30,7 +30,7 @@ public interface CategoryService {
      * @param name filtros para aplicar na filtragem dos resultados
      * @return List<Category>
      */
-    List<Category> getCategoriesFiltered(String name);
+    List<Category> getCategoriesFiltered(String name) throws EntityException;
 
     /**
      * Obter uma categoria através do seu ID
