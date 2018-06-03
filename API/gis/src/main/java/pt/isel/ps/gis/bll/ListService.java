@@ -33,12 +33,23 @@ public interface ListService {
     boolean isUserListType(List list);
 
     /**
+     * Obter as listas de uma casa através do seu ID
+     *
+     * @param houseId identificador da casa
+     * @return List<List>
+     * @throws EntityException         se os parâmetros recebidos forem inválidos
+     * @throws EntityNotFoundException se a casa com ID {houseId} não existir
+     */
+    java.util.List<List> getListsByHouseId(long houseId) throws EntityException, EntityNotFoundException;
+
+    /**
      * Obter uma lista através do seu ID
      *
      * @param houseId identificador da casa
      * @param listId  identificador da lista
-     * @return Optional<List>
-     * @throws EntityException se os parâmetros recebidos forem inválidos
+     * @return List
+     * @throws EntityException         se os parâmetros recebidos forem inválidos
+     * @throws EntityNotFoundException se a lista especificada não existir
      */
     List getListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException;
 

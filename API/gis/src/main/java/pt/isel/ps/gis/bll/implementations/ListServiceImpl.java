@@ -43,6 +43,12 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
+    public java.util.List<List> getListsByHouseId(long houseId) throws EntityException, EntityNotFoundException {
+        checkHouseId(houseId);
+        return listRepository.findAllById_HouseId(houseId);
+    }
+
+    @Override
     public List getListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
         List list = listRepository
                 .findById(new ListId(houseId, listId))
