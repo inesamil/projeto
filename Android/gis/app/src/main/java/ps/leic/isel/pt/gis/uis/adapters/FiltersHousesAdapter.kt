@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.CompoundButton
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 
 class FiltersHousesAdapter : RecyclerView.Adapter<FiltersHousesAdapter.ViewHolder>() {
 
-    private var data: Array<HouseDto>? = null
+    private var data: List<SelectedItem>? = null
 
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,7 +25,10 @@ class FiltersHousesAdapter : RecyclerView.Adapter<FiltersHousesAdapter.ViewHolde
         data?.let {
             val item = it[position]
             // Fill ViewHolder
-            holder.houseCheckBox.text = item.name
+            holder.houseCheckBox.text = item.house.name
+            holder.houseCheckBox.setOnCheckedChangeListener { _, isChecked ->
+                item.selected = isChecked
+            }
         }
     }
 
@@ -32,13 +36,21 @@ class FiltersHousesAdapter : RecyclerView.Adapter<FiltersHousesAdapter.ViewHolde
     override fun getItemCount(): Int = data?.size ?: 0
 
     fun setData(data: Array<HouseDto>) {
-        this.data = data
+        this.data = data.map { SelectedItem(it, false) }
         notifyDataSetChanged()
+    }
+
+    // Return an array of the selected houses
+    fun getSelectedItems() : Array<HouseDto>? {
+        return data?.filter { it.selected }?.map { it.house }?.toTypedArray()
     }
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val houseCheckBox: CheckBox = itemView.findViewById(R.id.houseCheckbox)
     }
+
+    // Stored the data and selection state
+    private data class SelectedItem (val house: HouseDto, var selected: Boolean)
 
 }
