@@ -145,12 +145,12 @@ class ListsFiltersDialogFragment : DialogFragment() {
     private fun onSharedListClick(view: View?) {
         view?.let {
             if (listsFiltersState.sharedListsSelected) {
-                sharedListImageView.setImageResource(R.drawable.ic_person_outline_grey_24dp)
+                sharedListImageView.setImageResource(R.drawable.ic_people_outline_grey_24dp)
                 it.context?.let {
                     sharedListsTextView.setTextColor(ContextCompat.getColor(it, R.color.empress))
                 }
             } else {
-                sharedListImageView.setImageResource(R.drawable.ic_person_outline_black_24dp)
+                sharedListImageView.setImageResource(R.drawable.ic_people_outline_black_24dp)
                 it.context?.let {
                     sharedListsTextView.setTextColor(ContextCompat.getColor(it, R.color.primaryTextColor))
                 }
