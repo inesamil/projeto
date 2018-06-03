@@ -35,7 +35,7 @@ public interface UserService {
      * @return User
      * @throws EntityException se os atributos especificados no parâmetro user forem inválidos
      */
-    Users addUser(String username, String email, short age, String name, String password) throws EntityException;
+    Users addUser(String username, String email, Short age, String name, String password) throws EntityException;
 
     /**
      * Atualizar um utilizador
@@ -49,7 +49,7 @@ public interface UserService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador especificado não existir
      */
-    Users updateUser(String username, String email, short age, String name, String password) throws EntityException, EntityNotFoundException;
+    Users updateUser(String username, String email, Short age, String name, String password) throws EntityException, EntityNotFoundException;
 
     /**
      * Remover um utilizador

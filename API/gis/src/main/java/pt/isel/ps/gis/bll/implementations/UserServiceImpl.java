@@ -32,15 +32,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users addUser(String username, String email, short age, String name, String password) throws EntityException {
-        if (existsUserByUserId(username)) {
+    public Users addUser(String username, String email, Short age, String name, String password) throws EntityException {
+        if (existsUserByUserId(username))
             throw new EntityException(String.format("Username %s is already in use.", username));
-        }
         return usersRepository.save(new Users(username, email, age, name, password));
     }
 
     @Override
-    public Users updateUser(String username, String email, short age, String name, String password) throws EntityException, EntityNotFoundException {
+    public Users updateUser(String username, String email, Short age, String name, String password) throws EntityException, EntityNotFoundException {
         checkUserUsername(username);
         return usersRepository.save(new Users(username, email, age, name, password));
     }
