@@ -33,6 +33,12 @@ class ListsFiltersDialogFragment : DialogFragment() {
     private lateinit var systemListsTextView: TextView
     private lateinit var systemListImageView: ImageView
 
+    private lateinit var userListsTextView: TextView
+    private lateinit var userListImageView: ImageView
+
+    private lateinit var sharedListsTextView: TextView
+    private lateinit var sharedListImageView: ImageView
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         val builder = AlertDialog.Builder(activity!!)
@@ -69,11 +75,21 @@ class ListsFiltersDialogFragment : DialogFragment() {
         view.housesFiltersRecyclerView.setHasFixedSize(true)
         view.housesFiltersRecyclerView.adapter = adapter
 
-        // Set listeners
+        // Set listeners - System Lists
         systemListImageView = view.systemListsIcon
         systemListImageView.setOnClickListener(::onSystemsListClick)
         systemListsTextView = view.systemListsText
         systemListsTextView.setOnClickListener(::onSystemsListClick)
+        // Set listeners - User Lists
+        userListImageView = view.userListsIcon
+        userListImageView.setOnClickListener(::onUserListClick)
+        userListsTextView = view.userListsText
+        userListsTextView.setOnClickListener(::onUserListClick)
+        // Set listeners - Shared Lists
+        sharedListImageView = view.sharedListsIcon
+        sharedListImageView.setOnClickListener(::onSharedListClick)
+        sharedListsTextView = view.sharedListsText
+        sharedListsTextView.setOnClickListener(::onSharedListClick)
 
         return builder.create()
     }
@@ -109,6 +125,39 @@ class ListsFiltersDialogFragment : DialogFragment() {
         listsFiltersState.systemListsSelected = !listsFiltersState.systemListsSelected
     }
 
+    private fun onUserListClick(view: View?) {
+        view?.let {
+            if (listsFiltersState.userListsSelected) {
+                userListImageView.setImageResource(R.drawable.ic_person_outline_grey_24dp)
+                it.context?.let {
+                    userListsTextView.setTextColor(ContextCompat.getColor(it, R.color.empress))
+                }
+            } else {
+                userListImageView.setImageResource(R.drawable.ic_person_outline_black_24dp)
+                it.context?.let {
+                    userListsTextView.setTextColor(ContextCompat.getColor(it, R.color.primaryTextColor))
+                }
+            }
+        }
+        listsFiltersState.userListsSelected = !listsFiltersState.userListsSelected
+    }
+
+    private fun onSharedListClick(view: View?) {
+        view?.let {
+            if (listsFiltersState.sharedListsSelected) {
+                sharedListImageView.setImageResource(R.drawable.ic_person_outline_grey_24dp)
+                it.context?.let {
+                    sharedListsTextView.setTextColor(ContextCompat.getColor(it, R.color.empress))
+                }
+            } else {
+                sharedListImageView.setImageResource(R.drawable.ic_person_outline_black_24dp)
+                it.context?.let {
+                    sharedListsTextView.setTextColor(ContextCompat.getColor(it, R.color.primaryTextColor))
+                }
+            }
+        }
+        listsFiltersState.sharedListsSelected = !listsFiltersState.sharedListsSelected
+    }
     /**
      * ListsFiltersDialogFragment Factory
      */
