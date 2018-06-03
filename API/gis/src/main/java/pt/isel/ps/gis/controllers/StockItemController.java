@@ -4,11 +4,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.StockItemAllergenService;
 import pt.isel.ps.gis.bll.StockItemService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.Allergy;
 import pt.isel.ps.gis.model.StockItem;
@@ -17,10 +17,8 @@ import pt.isel.ps.gis.model.outputModel.AllergiesStockItemOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemsOutputModel;
 import pt.isel.ps.gis.model.requestParams.StockItemRequestParam;
-import pt.isel.ps.gis.utils.InputUtils;
 
 import java.util.List;
-import java.util.Optional;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
@@ -28,18 +26,11 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 @RequestMapping("/v1/houses/{house-id}/items")
 public class StockItemController {
 
-    private static final String SEGMENT_INVALID = "Segment is invalid.";
-    private static final String HOUSE_NOT_EXIST = "House does not exist.";
-    private static final String STOCK_ITEM_NOT_EXIST = "Stock Item does not exist.";
-
     private final StockItemService stockItemService;
-    private final HouseService houseService;
     private final StockItemAllergenService stockItemAllergenService;
 
-    public StockItemController(StockItemService stockItemService, HouseService houseService,
-                               StockItemAllergenService stockItemAllergenService) {
+    public StockItemController(StockItemService stockItemService, StockItemAllergenService stockItemAllergenService) {
         this.stockItemService = stockItemService;
-        this.houseService = houseService;
         this.stockItemAllergenService = stockItemAllergenService;
     }
 
@@ -47,8 +38,7 @@ public class StockItemController {
     public ResponseEntity<StockItemsOutputModel> getStockItems(
             @PathVariable("house-id") long houseId,
             StockItemRequestParam params
-    ) throws BadRequestException {
-        checkHouse(houseId);
+    ) throws BadRequestException, NotFoundException {
         List<StockItem> stockItems;
         try {
             if (params.isNull())
@@ -65,6 +55,8 @@ public class StockItemController {
             }
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemsOutputModel(houseId, stockItems), setSirenContentType(headers),
@@ -76,13 +68,14 @@ public class StockItemController {
             @PathVariable("house-id") long houseId,
             @PathVariable("stock-item-id") String sku
     ) throws NotFoundException, BadRequestException {
-        Optional<StockItem> stockItemOptional;
+        StockItem stockItem;
         try {
-            stockItemOptional = stockItemService.getStockItemByStockItemId(houseId, sku);
+            stockItem = stockItemService.getStockItemByStockItemId(houseId, sku);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
-        StockItem stockItem = stockItemOptional.orElseThrow(NotFoundException::new);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemOutputModel(stockItem), setSirenContentType(headers), HttpStatus.OK);
     }
@@ -91,13 +84,14 @@ public class StockItemController {
     public ResponseEntity<AllergiesStockItemOutputModel> getAllergiesFromStockItem(
             @PathVariable("house-id") long houseId,
             @PathVariable("stock-item-id") String sku
-    ) throws BadRequestException {
-        checkStockItem(houseId, sku);
+    ) throws BadRequestException, NotFoundException {
         List<Allergy> allergens;
         try {
             allergens = stockItemAllergenService.getAllergensByStockItemId(houseId, sku);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new AllergiesStockItemOutputModel(houseId, sku, allergens),
@@ -105,51 +99,29 @@ public class StockItemController {
     }
 
     @PostMapping("")
-    public ResponseEntity<StockItemsOutputModel> postItem(
+    public ResponseEntity<StockItemOutputModel> postItem(
             @PathVariable("house-id") long houseId,
             @RequestBody StockItemInputModel body
-    ) throws BadRequestException {
-        checkHouse(houseId);
-        String[] segmentSplitted = InputUtils.splitNumbersFromLetters(body.getSegment());
-        if (segmentSplitted.length != 2)
-            throw new BadRequestException(SEGMENT_INVALID);
-        List<StockItem> items;
+    ) throws BadRequestException, NotFoundException {
+        StockItem stockItem;
         try {
-            stockItemService.addStockItem(new StockItem(
+            stockItem = stockItemService.addStockItem(
                     houseId,
                     body.getProductId(),
                     body.getBrand(),
-                    Float.parseFloat(segmentSplitted[0]),
+                    body.getSegment(),
                     body.getVariety(),
                     body.getQuantity(),
-                    segmentSplitted[1],
                     body.getDescription(),
                     body.getConservationStorage()
-            ));
-            items = stockItemService.getStockItemsByHouseId(houseId);
+            );
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new StockItemsOutputModel(houseId, items), setSirenContentType(headers),
+        return new ResponseEntity<>(new StockItemOutputModel(stockItem), setSirenContentType(headers),
                 HttpStatus.CREATED);
-    }
-
-    private void checkHouse(long houseId) throws BadRequestException {
-        try {
-            if (!houseService.existsHouseByHouseId(houseId))
-                throw new BadRequestException(HOUSE_NOT_EXIST);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        }
-    }
-
-    private void checkStockItem(long houseId, String sku) throws BadRequestException {
-        try {
-            if (!stockItemService.existsStockItemByStockItemId(houseId, sku))
-                throw new BadRequestException(STOCK_ITEM_NOT_EXIST);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        }
     }
 }
