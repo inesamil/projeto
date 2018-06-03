@@ -59,7 +59,7 @@ public class Product {
     protected Product() {
     }
 
-    private Product(Integer categoryId, String productName, Boolean productEdible, Short productShelflife, String productShelflifeTimeunit) throws EntityException {
+    public Product(Integer categoryId, String productName, Boolean productEdible, Short productShelflife, String productShelflifeTimeunit) throws EntityException {
         setCategoryId(categoryId);
         setProductName(productName);
         setProductEdible(productEdible);
