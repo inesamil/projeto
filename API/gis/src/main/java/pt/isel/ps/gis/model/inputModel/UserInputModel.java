@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserInputModel {
 
-    @JsonProperty("username")
-    private String username;
-
     @JsonProperty("email")
     private String email;
 
@@ -18,10 +15,6 @@ public class UserInputModel {
 
     @JsonProperty("password")
     private String password;
-
-    public String getUsername() {
-        return username;
-    }
 
     public String getEmail() {
         return email;
