@@ -48,6 +48,7 @@ public class ListServiceImpl implements ListService {
         return listRepository.findAllById_HouseId(houseId);
     }
 
+    @Transactional
     @Override
     public List getListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
         List list = listRepository
@@ -64,11 +65,9 @@ public class ListServiceImpl implements ListService {
         return listRepository.findAvailableListsByUserUsername(username, filters.houses, filters.systemLists, filters.listsFromUser, filters.sharedLists);
     }
 
-    @Transactional
     @Override
     public List addUserList(long houseId, String listName, String username, boolean listShareable) throws EntityException, EntityNotFoundException {
         checkHouseId(houseId);
-        checkUserUsername(username);
         UserList list = new UserList(houseId, listName, username, listShareable);
         return userListRepository.insertUserList(list).getList();
     }
@@ -78,8 +77,10 @@ public class ListServiceImpl implements ListService {
     public List updateList(long houseId, short listId, String listName, boolean listShareable) throws EntityException, EntityNotFoundException {
         ListId id = new ListId(houseId, listId);
         // Verify list existence
-        List list = listRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
-                id.getListId(), id.getHouseId())));
+        List list = listRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
+                        id.getListId(), id.getHouseId())));
         // Verify list type - system lists cannot be updated
         if (isSystemListType(list))
             throw new UnsupportedOperationException(String.format("The list with ID %d in the house with ID %d cannot be updated.",
@@ -110,16 +111,14 @@ public class ListServiceImpl implements ListService {
 
     private void checkHouseId(long houseId) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
-        if (!houseRepository.existsById(houseId)) {
+        if (!houseRepository.existsById(houseId))
             throw new EntityNotFoundException(String.format("The house with ID %d does not exist.", houseId));
-        }
     }
 
     private void checkUserUsername(String username) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateUserUsername(username);
-        if (!usersRepository.existsById(username)) {
+        if (!usersRepository.existsById(username))
             throw new EntityNotFoundException(String.format("The user with username %s does not exist.", username));
-        }
     }
 
     private void checkListId(ListId id) throws EntityNotFoundException {
