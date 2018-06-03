@@ -27,8 +27,8 @@ class StoragesDto(siren: Siren) {
     }
 
     companion object {
-        const val addStorageLabel: String = "add-storage"
-        const val storagesClassLabel: String = "storages"
-        const val houseLabel: String = "house"
+        private const val addStorageLabel: String = "add-storage"
+        private const val storagesClassLabel: String = "storages"
+        private const val houseLabel: String = "house"
     }
 }

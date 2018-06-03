@@ -19,7 +19,7 @@ class UserHousesDto(siren: Siren) {
     }
 
     companion object {
-        const val userHousesClassLabel: String = "user-houses"
-        const val userLabel: String = "user"
+        private const val userHousesClassLabel: String = "user-houses"
+        private const val userLabel: String = "user"
     }
 }

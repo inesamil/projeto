@@ -51,6 +51,6 @@ class StorageDto(siren: Siren) {
         private const val storagesLabel: String = "storages"
         private const val updateStorageLabel: String = "update-storage"
         private const val deleteStorageLabel: String = "delete-storage"
-        val mapper: ObjectMapper = jacksonObjectMapper()
+        private val mapper: ObjectMapper = jacksonObjectMapper()
     }
 }

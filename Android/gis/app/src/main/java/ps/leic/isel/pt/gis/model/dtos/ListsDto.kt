@@ -27,8 +27,8 @@ class ListsDto(siren: Siren) {
     }
 
     companion object {
-        const val listsClassLabel: String = "lists"
-        const val houseLabel: String = "house"
-        const val addListLabel: String = "add-list"
+        private const val listsClassLabel: String = "lists"
+        private const val houseLabel: String = "house"
+        private const val addListLabel: String = "add-list"
     }
 }

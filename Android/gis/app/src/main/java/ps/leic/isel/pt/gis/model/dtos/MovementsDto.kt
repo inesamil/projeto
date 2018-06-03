@@ -27,8 +27,8 @@ class MovementsDto(siren: Siren) {
     }
 
     companion object {
-        const val movementsClassLabel: String = "movements"
-        const val houseLabel: String = "house"
-        const val addMovementLabel: String = "add-movement"
+        private const val movementsClassLabel: String = "movements"
+        private const val houseLabel: String = "house"
+        private const val addMovementLabel: String = "add-movement"
     }
 }

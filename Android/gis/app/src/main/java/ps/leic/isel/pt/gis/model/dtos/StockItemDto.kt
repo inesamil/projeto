@@ -83,7 +83,7 @@ class StockItemDto(siren: Siren) {
         private const val elementsLabel: String = "elements"
         private const val stockItemClassLabel: String = "stock-item"
         private const val stockItemsLabel: String = "stock-items"
-        val mapper: ObjectMapper = jacksonObjectMapper()
+        private val mapper: ObjectMapper = jacksonObjectMapper()
     }
 
 }

@@ -30,9 +30,9 @@ class ProductsListDto(siren: Siren) {
     }
 
     companion object {
-        const val productsListClassLabel: String = "products-list"
-        const val listLabel: String = "list"
-        const val updateProductLabel: String = "update-product"
-        const val deleteListProductsLabel: String = "delete-list-products"
+        private const val productsListClassLabel: String = "products-list"
+        private const val listLabel: String = "list"
+        private const val updateProductLabel: String = "update-product"
+        private const val deleteListProductsLabel: String = "delete-list-products"
     }
 }

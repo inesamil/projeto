@@ -25,8 +25,8 @@ class AllergiesStockItemDto(siren: Siren) {
     }
 
     companion object {
-        const val allergenLabel: String = "allergy-allergen"
-        const val allergyStockItemClassLabel: String = "allergies-stock-item"
-        const val stockItemLabel: String = "stock-item"
+        private const val allergenLabel: String = "allergy-allergen"
+        private const val allergyStockItemClassLabel: String = "allergies-stock-item"
+        private const val stockItemLabel: String = "stock-item"
     }
 }

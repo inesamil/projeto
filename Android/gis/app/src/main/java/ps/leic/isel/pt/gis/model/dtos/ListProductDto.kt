@@ -30,13 +30,13 @@ class ListProductDto(siren: Siren) {
     }
 
     companion object {
-        const val houseIdLabel: String = "house-id"
-        const val listIdLabel: String = "list-id"
-        const val productIdLabel: String = "product-id"
-        const val productNameLabel: String = "product-name"
-        const val productListBrandLabel: String = "list-product-brand"
-        const val productsListQuantityLabel: String = "list-product-quantity"
-        const val productLabel: String = "product"
+        private const val houseIdLabel: String = "house-id"
+        private const val listIdLabel: String = "list-id"
+        private const val productIdLabel: String = "product-id"
+        private const val productNameLabel: String = "product-name"
+        private const val productListBrandLabel: String = "list-product-brand"
+        private const val productsListQuantityLabel: String = "list-product-quantity"
+        private const val productLabel: String = "product"
     }
 
 }

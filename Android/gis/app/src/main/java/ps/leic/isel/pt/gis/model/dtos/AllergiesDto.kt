@@ -25,8 +25,8 @@ class AllergiesDto(siren: Siren) {
     }
 
     companion object {
-        const val allergenLabel: String = "allergy-allergen"
-        const val allergyClassLabel: String = "allergy"
-        const val indexLabel: String = "index"
+        private const val allergenLabel: String = "allergy-allergen"
+        private const val allergyClassLabel: String = "allergy"
+        private const val indexLabel: String = "index"
     }
 }

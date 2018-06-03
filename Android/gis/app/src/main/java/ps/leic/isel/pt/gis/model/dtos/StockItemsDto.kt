@@ -27,8 +27,8 @@ class StockItemsDto(siren: Siren) {
     }
 
     companion object {
-        const val addStockItemLabel: String = "add-stock-item"
-        const val stockItemsClassLabel: String = "stock-items"
-        const val houseLabel: String = "house"
+        private const val addStockItemLabel: String = "add-stock-item"
+        private const val stockItemsClassLabel: String = "stock-items"
+        private const val houseLabel: String = "house"
     }
 }

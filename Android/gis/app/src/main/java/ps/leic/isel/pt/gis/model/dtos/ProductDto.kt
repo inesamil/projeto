@@ -32,12 +32,12 @@ class ProductDto(siren: Siren) {
     }
 
     companion object {
-        const val categoryIdLabel: String = "category-id"
-        const val productIdLabel: String = "product-id"
-        const val productNameLabel: String = "product-name"
-        const val productEdibleLabel: String = "product-edible"
-        const val productShellifetimeLabel: String = "product-shelflifetime"
-        const val productClassLabel: String = "product"
-        const val productCategoryLabel: String = "products-category"
+        private const val categoryIdLabel: String = "category-id"
+        private const val productIdLabel: String = "product-id"
+        private const val productNameLabel: String = "product-name"
+        private const val productEdibleLabel: String = "product-edible"
+        private const val productShellifetimeLabel: String = "product-shelflifetime"
+        private const val productClassLabel: String = "product"
+        private const val productCategoryLabel: String = "products-category"
     }
 }

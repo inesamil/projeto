@@ -24,9 +24,9 @@ class MemberDto(siren: Siren) {
     }
 
     companion object {
-        const val houseIdLabel: String = "house-id"
-        const val usernameLabel: String = "user-username"
-        const val adminstratorLabel: String = "household-administrator"
-        const val userLabel: String = "user"
+        private const val houseIdLabel: String = "house-id"
+        private const val usernameLabel: String = "user-username"
+        private const val adminstratorLabel: String = "household-administrator"
+        private const val userLabel: String = "user"
     }
 }

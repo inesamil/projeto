@@ -19,8 +19,8 @@ class MembersDto(siren: Siren) {
     }
 
     companion object {
-        const val houseHoldClassLabel: String = "household"
-        const val houseLabel: String = "house"
-        const val addHouseLabel: String = "add-house"
+        private const val houseHoldClassLabel: String = "household"
+        private const val houseLabel: String = "house"
+        private const val addHouseLabel: String = "add-house"
     }
 }

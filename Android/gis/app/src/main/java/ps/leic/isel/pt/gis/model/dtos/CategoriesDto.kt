@@ -25,7 +25,7 @@ class CategoriesDto(siren: Siren) {
     }
 
     companion object {
-        const val categoriesClassLabel: String = "categories"
-        const val indexLabel: String = "index"
+        private const val categoriesClassLabel: String = "categories"
+        private const val indexLabel: String = "index"
     }
 }

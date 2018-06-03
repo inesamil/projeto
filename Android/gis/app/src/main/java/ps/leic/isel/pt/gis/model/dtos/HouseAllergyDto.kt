@@ -36,11 +36,11 @@ class HouseAllergyDto(siren: Siren) {
     }
 
     companion object {
-        const val houseIdLabel: String = "house-id"
-        const val allergenLabel: String = "allergy-allergen"
-        const val houseAllergiesNumLabel: String = "allergics-number"
-        const val stockItemAllergenLabel: String = "stock-items-allergen"
-        const val updateHouseAllergyLabel: String = "update-house-allergy"
-        const val deleteHouseAllergyLabel: String = "delete-house-allergy"
+        private const val houseIdLabel: String = "house-id"
+        private const val allergenLabel: String = "allergy-allergen"
+        private const val houseAllergiesNumLabel: String = "allergics-number"
+        private const val stockItemAllergenLabel: String = "stock-items-allergen"
+        private const val updateHouseAllergyLabel: String = "update-house-allergy"
+        private const val deleteHouseAllergyLabel: String = "delete-house-allergy"
     }
 }

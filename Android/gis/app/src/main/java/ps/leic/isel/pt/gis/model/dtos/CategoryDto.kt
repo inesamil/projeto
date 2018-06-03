@@ -25,9 +25,9 @@ class CategoryDto(siren: Siren) {
     }
 
     companion object {
-        const val categoryIdLabel: String = "category-id"
-        const val categoryNameLabel: String = "category-name"
-        const val categoryClassLabel: String = "category"
-        const val productsCategoryLabel: String = "products-category"
+        private const val categoryIdLabel: String = "category-id"
+        private const val categoryNameLabel: String = "category-name"
+        private const val categoryClassLabel: String = "category"
+        private const val productsCategoryLabel: String = "products-category"
     }
 }

@@ -19,7 +19,7 @@ class ProductsDto(siren: Siren) {
     }
 
     companion object {
-        const val productsLabel: String = "products"
-        const val categoryLabel: String = "category"
+        private const val productsLabel: String = "products"
+        private const val categoryLabel: String = "category"
     }
 }

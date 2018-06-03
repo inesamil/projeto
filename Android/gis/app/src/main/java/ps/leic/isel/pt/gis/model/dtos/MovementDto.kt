@@ -21,12 +21,12 @@ class MovementDto(siren: Siren) {
     }
 
     companion object {
-        const val houseIdLabel: String = "house-id"
-        const val storageIdLabel: String = "storage-id"
-        const val stockItemSkuLabel: String = "stock-item-sku"
-        const val movementDateTimeLabel: String = "movement-datetime"
-        const val movementTypeLabel: String = "movement-type"
-        const val quantityLabel: String = "movement-quantity"
+        private const val houseIdLabel: String = "house-id"
+        private const val storageIdLabel: String = "storage-id"
+        private const val stockItemSkuLabel: String = "stock-item-sku"
+        private const val movementDateTimeLabel: String = "movement-datetime"
+        private const val movementTypeLabel: String = "movement-type"
+        private const val quantityLabel: String = "movement-quantity"
     }
 
 }
