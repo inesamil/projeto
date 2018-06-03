@@ -36,7 +36,8 @@ public class CategoryController {
             categories = categoryService.getCategories();
         else {
             try {
-                categories = categoryService.getCategoriesFiltered(name);
+                CategoryService.CategoryFilters filters = new CategoryService.CategoryFilters(name);
+                categories = categoryService.getCategoriesFiltered(filters);
             } catch (EntityException e) {
                 throw new BadRequestException(e.getMessage());
             }
