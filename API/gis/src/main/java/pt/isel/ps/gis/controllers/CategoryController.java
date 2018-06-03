@@ -30,12 +30,17 @@ public class CategoryController {
     @GetMapping("")
     public ResponseEntity<CategoriesOutputModel> getCategories(
             @RequestParam(value = "name", required = false) String name
-    ) {
+    ) throws BadRequestException {
         List<Category> categories;
         if (name == null)
             categories = categoryService.getCategories();
-        else
-            categories = categoryService.getCategoriesFiltered(name);
+        else {
+            try {
+                categories = categoryService.getCategoriesFiltered(name);
+            } catch (EntityException e) {
+                throw new BadRequestException(e.getMessage());
+            }
+        }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new CategoriesOutputModel(categories), setSirenContentType(headers),
                 HttpStatus.OK);
