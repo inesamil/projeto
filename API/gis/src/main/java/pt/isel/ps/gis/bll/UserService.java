@@ -4,8 +4,6 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Users;
 
-import java.util.Optional;
-
 public interface UserService {
 
     /**
@@ -24,32 +22,40 @@ public interface UserService {
      * @return User
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Optional<Users> getUserByUserId(String username) throws EntityException;
+    Users getUserByUserId(String username) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar um utilizador
      *
-     * @param user utilizador a adicionar
+     * @param username identificador do utilizador
+     * @param email    email do utilizador
+     * @param age      idade do utilizador
+     * @param name     nome do utilizador
+     * @param password password do utilizador
      * @return User
      * @throws EntityException se os atributos especificados no parâmetro user forem inválidos
      */
-    Users addUser(Users user) throws EntityException;
+    Users addUser(String username, String email, short age, String name, String password) throws EntityException;
 
     /**
      * Atualizar um utilizador
      *
-     * @param user utilizador a atualizar
+     * @param username identificador do utilizador
+     * @param email    email do utilizador
+     * @param age      idade do utilizador
+     * @param name     nome do utilizador
+     * @param password password do utilizador
      * @return User
-     * @throws EntityException se os parâmetros recebidos forem inválidos
+     * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador especificado não existir
      */
-    Users updateUser(Users user) throws EntityException, EntityNotFoundException;
+    Users updateUser(String username, String email, short age, String name, String password) throws EntityException, EntityNotFoundException;
 
     /**
      * Remover um utilizador
      *
      * @param username identificador do utilizador
-     * @throws EntityException se os parâmetros recebidos forem inválidos
+     * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador especificado não existir
      */
     void deleteUserByUserId(String username) throws EntityException, EntityNotFoundException;
