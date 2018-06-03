@@ -4,7 +4,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.ListProductService;
 import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
@@ -13,20 +12,16 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.List;
 import pt.isel.ps.gis.model.ListProduct;
-import pt.isel.ps.gis.model.UserList;
 import pt.isel.ps.gis.model.inputModel.ListInputModel;
 import pt.isel.ps.gis.model.inputModel.ListProductInputModel;
 import pt.isel.ps.gis.model.outputModel.ListOutputModel;
 import pt.isel.ps.gis.model.outputModel.ListProductsOutputModel;
-import pt.isel.ps.gis.model.outputModel.UserListOutputModel;
 import pt.isel.ps.gis.model.outputModel.UserListsOutputModel;
-
-import java.util.Optional;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
-@RequestMapping("/v1/houses/{house-id}/lists/{list-id}")
+@RequestMapping("/v1/houses/{house-id}/lists")
 public class ListController {
 
     private static final String BODY_ERROR_MSG = "You must specify the body correctly.";
@@ -42,7 +37,7 @@ public class ListController {
         this.listProductService = listProductService;
     }
 
-    @GetMapping("")
+    @GetMapping("/{list-id}")
     public ResponseEntity<ListOutputModel> getList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId
@@ -59,7 +54,7 @@ public class ListController {
         return new ResponseEntity<>(new ListOutputModel(list), setSirenContentType(headers), HttpStatus.OK);
     }
 
-    @GetMapping("/products")
+    @GetMapping("/{list-id}/products")
     public ResponseEntity<ListProductsOutputModel> getProductsInList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId
@@ -75,7 +70,29 @@ public class ListController {
                 setSirenContentType(headers), HttpStatus.OK);
     }
 
-    @PutMapping("")
+    @PostMapping("")
+    public ResponseEntity<ListOutputModel> postUserList(
+            @PathVariable("house-id") long houseId,
+            @RequestBody ListInputModel body
+    ) throws BadRequestException, NotFoundException {
+        List list;
+        try {
+            list = listService.addUserList(
+                    houseId,
+                    body.getName(),
+                    "",//TODO: obter username da autorização
+                    body.getShareable()
+            );
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new ListOutputModel(list), setSirenContentType(headers), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{list-id}")
     public ResponseEntity<ListOutputModel> putList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
@@ -94,7 +111,7 @@ public class ListController {
                 HttpStatus.OK);
     }
 
-    @PutMapping("/products/{product-id}")
+    @PutMapping("/{list-id}/products/{product-id}")
     public ResponseEntity<ListProductsOutputModel> putProductInList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
@@ -115,7 +132,7 @@ public class ListController {
                 setSirenContentType(headers), HttpStatus.OK);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping("/{list-id}")
     public ResponseEntity<UserListsOutputModel> deleteList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId
@@ -136,7 +153,7 @@ public class ListController {
                 HttpStatus.OK);
     }
 
-    @DeleteMapping("/products/{product-id}")
+    @DeleteMapping("/{list-id}/products/{product-id}")
     public ResponseEntity<ListProductsOutputModel> deleteProductFromList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
