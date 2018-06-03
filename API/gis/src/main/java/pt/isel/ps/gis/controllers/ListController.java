@@ -16,6 +16,7 @@ import pt.isel.ps.gis.model.inputModel.ListInputModel;
 import pt.isel.ps.gis.model.inputModel.ListProductInputModel;
 import pt.isel.ps.gis.model.outputModel.ListOutputModel;
 import pt.isel.ps.gis.model.outputModel.ListProductsOutputModel;
+import pt.isel.ps.gis.model.outputModel.ListsOutputModel;
 import pt.isel.ps.gis.model.outputModel.UserListsOutputModel;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
@@ -35,6 +36,22 @@ public class ListController {
     public ListController(ListService listService, ListProductService listProductService) {
         this.listService = listService;
         this.listProductService = listProductService;
+    }
+
+    @GetMapping("")
+    public ResponseEntity<ListsOutputModel> geHouseLists(
+            @PathVariable("house-id") long houseId
+    ) throws NotFoundException, BadRequestException {
+        java.util.List<List> lists;
+        try {
+            lists = listService.getListsByHouseId(houseId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers), HttpStatus.OK);
     }
 
     @GetMapping("/{list-id}")
