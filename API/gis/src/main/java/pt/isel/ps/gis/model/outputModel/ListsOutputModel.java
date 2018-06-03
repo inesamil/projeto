@@ -58,7 +58,7 @@ public class ListsOutputModel {
             properties.put("house-id", houseId);
             properties.put("list-id", listId.getListId());
             properties.put("list-name", list.getListName());
-            if (list.getListType().equals("user")){
+            if (list.getListType().equals("user")) {
                 properties.put("user-username", list.getUserlist().getUsersUsername());
                 properties.put("list-shareable", list.getUserlist().getListShareable());
             }
@@ -98,13 +98,12 @@ public class ListsOutputModel {
     }
 
     private Link[] initLinks(long houseId) {
-        // URIs
-        String houseUri = UriBuilderUtils.buildHouseUri(houseId);
-        String listsUri = UriBuilderUtils.buildListsUri(houseId);
-
         // Link-self
+        String listsUri = UriBuilderUtils.buildListsUri(houseId);
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, listsUri);
+
         //Link-related-house
+        String houseUri = UriBuilderUtils.buildHouseUri(houseId);
         Link houseLink = new Link(new String[]{"related"}, new String[]{"house"}, houseUri);
 
         return new Link[]{self, houseLink};
