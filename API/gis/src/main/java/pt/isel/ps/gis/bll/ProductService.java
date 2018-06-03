@@ -1,10 +1,10 @@
 package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Product;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductService {
 
@@ -21,10 +21,10 @@ public interface ProductService {
      * Obter um produto através do seu ID
      *
      * @param productId identificador do produto
-     * @return Optional<Product>
+     * @return Product
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Optional<Product> getProductByProductId(int productId) throws EntityException;
+    Product getProductByProductId(int productId) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar os produtos de uma categoria através do ID da categoria
@@ -33,7 +33,7 @@ public interface ProductService {
      * @return List<Product>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<Product> getProductsByCategoryId(int categoryId) throws EntityException;
+    List<Product> getProductsByCategoryId(int categoryId) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar os produtos filtrados de uma categoria através do ID da categoria
@@ -43,16 +43,20 @@ public interface ProductService {
      * @return List<ProductService>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<Product> getProductsByCategoryIdFiltered(int categoryId, ProductFilters filters) throws EntityException;
+    List<Product> getProductsByCategoryIdFiltered(int categoryId, ProductFilters filters) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar um produto
      *
-     * @param product producto a inseir
+     * @param categoryId               identificador da categoria
+     * @param productName              nome do produto
+     * @param productEdible            indicador de produto comestível
+     * @param productShelflife         tempo médio de vida do produto
+     * @param productShelflifeTimeunit unidade do tempo médio de vida do produto
      * @return Product
      * @throws EntityException se um produto com o ID incluído já existir
      */
-    Product addProduct(Product product) throws EntityException;
+    Product addProduct(int categoryId, String productName, boolean productEdible, short productShelflife, String productShelflifeTimeunit) throws EntityException;
 
     /**
      * Filtros - filtragem das categorias
