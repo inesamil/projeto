@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.StockItemMovement;
 
 import java.sql.Timestamp;
@@ -11,12 +12,12 @@ public interface StockItemMovementService {
     /**
      * Verifica se um dado movimento existe através do seu ID
      *
-     * @param houseId identificador da casa
+     * @param houseId      identificador da casa
      * @param stockItemSku identificador do item
-     * @param storageId identificador do local de armazenamento
-     * @param type tipo do movimento
-     * @param dateTime data do movimento
-     * @param quantity quantidade
+     * @param storageId    identificador do local de armazenamento
+     * @param type         tipo do movimento
+     * @param dateTime     data do movimento
+     * @param quantity     quantidade
      * @return true se o movimento existir, false caso contrário
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
@@ -29,7 +30,7 @@ public interface StockItemMovementService {
      * @return List<StockItemMovement>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<StockItemMovement> getStockItemMovementsByHouseId(long houseId) throws EntityException;
+    List<StockItemMovement> getStockItemMovementsByHouseId(long houseId) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar os movimentos filtrados dos itens de uma casa
@@ -39,7 +40,7 @@ public interface StockItemMovementService {
      * @return List<StockItemMovement>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters) throws EntityException;
+    List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar um movimento à casa
@@ -47,7 +48,7 @@ public interface StockItemMovementService {
      * @param stockItemMovement movimento a adicionar
      * @return StockItemMovement
      */
-    StockItemMovement addStockItemMovement(StockItemMovement stockItemMovement);
+    StockItemMovement addStockItemMovement(long houseId, String sku, short storageId, boolean movementType, String movementDatetime, short movementQuantity) throws EntityException, EntityNotFoundException;
 
     /**
      * Filtros - filtragem dos movimentos
