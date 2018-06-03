@@ -8,6 +8,7 @@ import pt.isel.ps.gis.bll.CategoryService;
 import pt.isel.ps.gis.bll.ProductService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.Product;
 import pt.isel.ps.gis.model.outputModel.ProductOutputModel;
@@ -36,7 +37,7 @@ public class ProductController {
     public ResponseEntity<ProductsCategoryOutputModel> getProducts(
             @PathVariable("category-id") int categoryId,
             @RequestParam(value = "name", required = false) String name
-    ) throws BadRequestException {
+    ) throws BadRequestException, NotFoundException {
         checkCategory(categoryId);
         List<Product> products;
         try {
@@ -46,6 +47,8 @@ public class ProductController {
                 products = productService.getProductsByCategoryIdFiltered(categoryId, new ProductService.ProductFilters(name));
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ProductsCategoryOutputModel(categoryId, products),
@@ -57,15 +60,14 @@ public class ProductController {
             @PathVariable("category-id") int categoryId,
             @PathVariable("product-id") int productId
     ) throws NotFoundException, BadRequestException {
-        Optional<Product> productOptional;
+        Product product;
         try {
-            productOptional = productService.getProductByProductId(productId);
+            product = productService.getProductByProductId(productId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
-        Product product = productOptional.orElseThrow(NotFoundException::new);
-        if (!product.getCategoryId().equals(categoryId))
-            throw new BadRequestException(CATEGORY_NOT_EXIST);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ProductOutputModel(product), setSirenContentType(headers), HttpStatus.OK);
     }
