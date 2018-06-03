@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/OrangeTheme">
+        android:theme="@style/SmartStocksTheme">
         <activity android:name=".uis.activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,13 +27,13 @@
         </activity>
         <activity
             android:name=".uis.activities.LoginActivity"
-            android:theme="@style/OrangeTheme" />
+            android:theme="@style/SmartStocksTheme" />
         <activity android:name=".uis.activities.RegisterActivity" />
         <activity android:name=".uis.activities.InitialSetupActivity" />
         <activity
             android:name=".uis.activities.RecipesActivity"
             android:label="@string/recipesLabel"
-            android:theme="@style/OrangeTheme" />
+            android:theme="@style/SmartStocksTheme" />
         <activity android:name=".uis.activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />

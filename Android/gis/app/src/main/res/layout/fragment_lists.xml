@@ -71,7 +71,7 @@
         android:textAlignment="center"
         android:textColor="@color/cardview_light_background"
         android:textSize="18sp"
-        android:theme="@style/OrangeTheme.Button"
+        android:theme="@style/SmartStocksTheme.Button"
         app:layout_constraintBottom_toTopOf="@+id/horizontalTopGuideline"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/guideline"

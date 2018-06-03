@@ -81,7 +81,7 @@
         android:text="@string/save"
         android:textColor="@color/primaryTextColor"
         android:textStyle="bold"
-        android:theme="@style/OrangeTheme.Button"
+        android:theme="@style/SmartStocksTheme.Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

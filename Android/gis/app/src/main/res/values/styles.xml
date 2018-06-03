@@ -2,18 +2,26 @@
 <resources>
 
     <style name="OrangeTheme" parent="Theme.AppCompat.Light.NoActionBar" >
-        <item name="android:colorPrimary">@color/primaryColor</item>
-        <item name="android:colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="android:colorAccent">@color/primaryLightColor</item>
-        <item name="android:textColorPrimary">@color/primaryTextColor</item>
-        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/primaryLightColor</item>
+        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
     </style>
 
     <style name="OrangeTheme.Button" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/primaryColor</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="SmartStocksTheme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="colorPrimary">@color/sunglow</item>
+        <item name="colorPrimaryDark">@color/port_gore</item>
+        <item name="colorAccent">@color/sunset_orange</item>
+    </style>
+
+    <style name="SmartStocksTheme.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/sunglow</item>
         <item name="android:textColor">@color/primaryTextColor</item>
     </style>
 

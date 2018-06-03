@@ -10,12 +10,14 @@
     <color name="secondaryTextColor">#000000</color>
 
     <color name="sunglow">#ffd13d</color>
+    <color name="sunglow_opacity_200">#c8ffd13d</color>
+    <color name="orange_peel_opacity_200">#c8ff9800</color>
     <color name="sunset_orange">#fd4952</color>
-    <color name="mint_green">#c9ff9a</color>
-    <color name="primary_color_opacity_200">#c8ff9800</color>
     <color name="sunset_orange_opacity_200">#c8fd4952</color>
+    <color name="mint_green">#c9ff9a</color>
     <color name="mint_green_opacity_200">#c8c9ff9a</color>
     <color name="iris_blue">#00bcbe</color>
     <color name="iris_blue_opacity_200">#c800bcbe</color>
-    <color name="sunglow_opacity_200">#c8ffd13d</color>
+    <color name="port_gore">#385170</color>
+
 </resources>

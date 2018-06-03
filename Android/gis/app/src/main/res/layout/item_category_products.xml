@@ -48,7 +48,7 @@
                 android:textColor="@color/cardview_light_background"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:theme="@style/OrangeTheme.Button"
+                android:theme="@style/SmartStocksTheme.Button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/productDiaryItemMinusBtn"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -66,7 +66,7 @@
                 android:textColor="@color/cardview_light_background"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:theme="@style/OrangeTheme.Button"
+                android:theme="@style/SmartStocksTheme.Button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

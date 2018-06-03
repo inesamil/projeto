@@ -123,7 +123,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         view.stockItemListRecyclerView.setHasFixedSize(true)
         view.stockItemListRecyclerView.adapter = stockItemListAdapter
         // Set listener for add stock item
-        view.addStockItemBtn.setOnClickListener {
+        view.writeInTagButton.setOnClickListener {
             listener?.onNewStockItemIteraction()
         }
         stockItemListAdapter.setOnItemClickListener(this)
