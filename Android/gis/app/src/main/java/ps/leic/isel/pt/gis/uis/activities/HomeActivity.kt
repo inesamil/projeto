@@ -12,13 +12,11 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.FrameLayout
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.model.UserDTO
 import ps.leic.isel.pt.gis.model.dtos.*
 import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
@@ -38,8 +36,7 @@ class HomeActivity : AppCompatActivity(),
         ListsFragment.OnListsFragmentInteractionListener,
         ListDetailFragment.OnListDetailFragmentInteractionListener,
         StockItemListFragment.OnStockItemListFragmentInteractionListener,
-        StockItemDetailFragment.OnStockItemDetailFragmentInteractionListener,
-        WriteNfcTagFragment.OnWriteNfcTagFragmentInteractionListener {
+        StockItemDetailFragment.OnStockItemDetailFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +52,8 @@ class HomeActivity : AppCompatActivity(),
 
         // Init
         savedInstanceState?.let {
-            val fragment: Fragment = getSupportFragmentManager().getFragment(it, "FRAGMENT") ?:  HomePageFragment.newInstance()  //TODO: extrair tag
+            val fragment: Fragment = getSupportFragmentManager().getFragment(it, "FRAGMENT")
+                    ?: HomePageFragment.newInstance()  //TODO: extrair tag
             val fragmentTag: String = fragment.tag ?: HomePageFragment.TAG
             supportFragmentManager.beginTransaction()
                     .replace(R.id.content, fragment, fragmentTag)
@@ -218,7 +216,7 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for StockItemListFragment interaction
     override fun onNewStockItemIteraction() {
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.WRITE_NFC_TAG, WriteNfcTagFragment.Companion::newInstance)
+        supportFragmentManager.replaceCurrentFragmentWith(WriteNfcTagFragment.TAG, WriteNfcTagFragment.Companion::newInstance)
     }
 
     override fun onStorageInteraction(storage: StorageDto) {
@@ -226,19 +224,14 @@ class HomeActivity : AppCompatActivity(),
         Toast.makeText(this, "Specific Storage", Toast.LENGTH_SHORT).show()
     }
 
-    // Listener for WriteNfcTagFragment
-    override fun onWriteNfcTagInteraction(tagContent: String) {
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.NFC_MESSAGE, WritingNfcTagFragment.Companion::newInstance, tagContent)
-    }
-
     // Listener for new intents (NFC tag intents)
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         val tag = intent?.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
-        if (tag != null) {
+        tag?.let {
             Toast.makeText(this, getString(R.string.message_tag_detected), Toast.LENGTH_SHORT).show()
-            val writingNfcTagFragment = supportFragmentManager.findFragmentByTag(ExtraUtils.WRITING_NFC_TAG) as? WritingNfcTagFragment
-            writingNfcTagFragment?.let {
+            val writeNfcTagFragment = supportFragmentManager.findFragmentByTag(WriteNfcTagFragment.TAG) as? WriteNfcTagFragment
+            writeNfcTagFragment?.let {
                 if (it.isVisible)
                     it.onNfcDetected(intent)
             }
