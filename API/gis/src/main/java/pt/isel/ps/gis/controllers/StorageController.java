@@ -4,7 +4,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.StorageService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -23,15 +22,10 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 @RequestMapping("/v1/houses/{house-id}/storages")
 public class StorageController {
 
-    private static final String HOUSE_NOT_EXIST = "House does not exist.";
-    private static final String STORAGE_NOT_EXIST = "Storage does not exist.";
-
     private final StorageService storageService;
-    private final HouseService houseService;
 
-    public StorageController(StorageService storageService, HouseService houseService) {
+    public StorageController(StorageService storageService) {
         this.storageService = storageService;
-        this.houseService = houseService;
     }
 
     @GetMapping("")
