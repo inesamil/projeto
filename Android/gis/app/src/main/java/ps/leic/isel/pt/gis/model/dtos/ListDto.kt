@@ -8,6 +8,7 @@ import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 
 class ListDto(siren: Siren) {
     val houseId: Long
+    val houseName: String
     val listId: Long
     val listName: String
     var username: String? = null
@@ -19,6 +20,7 @@ class ListDto(siren: Siren) {
     init {
         val properties = siren.properties
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
+        houseName = "Smith"//properties[houseNameLabel] as String
         listId = (properties[listIdLabel] as Int).toLong()
         listName = properties[listNameLabel] as String
         username = properties[usernameLabel] as? String
@@ -54,6 +56,7 @@ class ListDto(siren: Siren) {
     companion object {
         private val mapper: ObjectMapper = jacksonObjectMapper()
         private const val houseIdLabel: String = "house-id"
+        private const val houseNameLabel: String = "house-name"
         private const val listIdLabel: String = "list-id"
         private const val listNameLabel = "list-name"
         private const val usernameLabel: String = "username"

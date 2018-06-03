@@ -27,7 +27,7 @@ class ListsAdapter : RecyclerView.Adapter<ListsAdapter.ViewHolder>() {
             // Fill ViewHolder
             //holder.itemsText.text =
             holder.listNameText.text = item.listName
-
+            holder.houseNameText.text = item.houseName
         }
     }
 
@@ -42,7 +42,7 @@ class ListsAdapter : RecyclerView.Adapter<ListsAdapter.ViewHolder>() {
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         internal val listNameText: TextView = view.findViewById(R.id.listNameEditText)
-        internal val itemsText: TextView = view.findViewById(R.id.totalItemsText)
+        internal val houseNameText: TextView = view.findViewById(R.id.houseNameText)
 
         init {
             view.setOnClickListener {
