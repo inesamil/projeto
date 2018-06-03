@@ -164,7 +164,9 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     override fun onItemClick(view: View, position: Int) {
         stockItems?.let {
             val stockItem: StockItemDto = it[position]
-            listener?.onStockItemInteraction(stockItem)
+            stockItem.links.selfLink?.let {
+                listener?.onStockItemInteraction(it, stockItem.productName, stockItem.variety)
+            }
         }
     }
 
@@ -191,7 +193,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
      * activity.
      */
     interface OnStockItemListFragmentInteractionListener {
-        fun onStockItemInteraction(stockItem: StockItemDto)
+        fun onStockItemInteraction(url: String, productName: String, stockItemVariety: String)
         fun onNewStockItemIteraction()
     }
 
