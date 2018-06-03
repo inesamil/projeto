@@ -17,6 +17,10 @@ import java.util.List;
 @Service
 public class ListProductServiceImpl implements ListProductService {
 
+    private static final String HOUSE_NOT_EXIST = "House does not exist.";
+    private static final String LIST_NOT_EXIST = "List does not exist in this house.";
+    private static final String PRODUCT_NOT_EXIST = "Product does not exist.";
+
     private final ListRepository listRepository;
     private final ProductRepository productRepository;
     private final ListProductRepository listProductRepository;
@@ -41,14 +45,13 @@ public class ListProductServiceImpl implements ListProductService {
     }
 
     @Override
-    public List<ListProduct> getListProductsByListId(long houseId, short listId) throws EntityException {
-        ValidationsUtils.validateHouseId(houseId);
-        ValidationsUtils.validateListId(listId);
+    public List<ListProduct> getListProductsByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
+        checkListId(new ListId(houseId, listId));
         return listProductRepository.findAllById_HouseIdAndId_ListId(houseId, listId);
     }
 
     @Override
-    public ListProduct associateListProduct(long houseId, short listId, int productId, String brand, short quantity) throws EntityException {
+    public ListProduct associateListProduct(long houseId, short listId, int productId, String brand, Short quantity) throws EntityException, EntityNotFoundException {
         ListId listID = new ListId(houseId, listId);
         checkListId(listID);
         checkProductId(productId);
@@ -69,12 +72,14 @@ public class ListProductServiceImpl implements ListProductService {
                     listProductId.getProductId(), listProductId.getListId(), listProductId.getHouseId()));
     }
 
-    private void checkProductId(int productId) throws EntityException {
+    private void checkProductId(int productId) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateProductId(productId);
-        productRepository.existsById(productId);
+        if (!productRepository.existsById(productId))
+            throw new EntityNotFoundException(PRODUCT_NOT_EXIST);
     }
 
-    private void checkListId(ListId listId) {
-        listRepository.existsById(listId);
+    private void checkListId(ListId listId) throws EntityNotFoundException {
+        if (!listRepository.existsById(listId))
+            throw new EntityNotFoundException(LIST_NOT_EXIST);
     }
 }

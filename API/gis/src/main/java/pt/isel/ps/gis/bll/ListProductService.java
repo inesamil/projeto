@@ -38,7 +38,7 @@ public interface ListProductService {
      * @return List<ListProduct>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<ListProduct> getListProductsByListId(long houseId, short listId) throws EntityException;
+    List<ListProduct> getListProductsByListId(long houseId, short listId) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar ou Atualizar um produto a uma lista
@@ -50,7 +50,7 @@ public interface ListProductService {
      * @param quantity  quantidade do produto
      * @return ListProduct
      */
-    ListProduct associateListProduct(long houseId, short listId, int productId, String brand, short quantity) throws EntityException;
+    ListProduct associateListProduct(long houseId, short listId, int productId, String brand, Short quantity) throws EntityException, EntityNotFoundException;
 
     /**
      * Remover um produto de uma lista
