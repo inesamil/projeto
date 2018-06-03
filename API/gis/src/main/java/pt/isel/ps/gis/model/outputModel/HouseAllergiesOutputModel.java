@@ -61,7 +61,7 @@ public class HouseAllergiesOutputModel {
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("house-id", houseId);
             properties.put("allergy-allergen", allergen);
-            properties.put("allergics-number", houseAllergy.getHouseallergyAlergicsnum());//TODO allergics não alergics
+            properties.put("allergics-number", houseAllergy.getHouseallergyAllergicsnum());
 
             String houseAllergyUri = UriBuilderUtils.buildHouseAllergyUri(houseId, allergen);
 

@@ -73,7 +73,7 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
     private HouseAllergy addHouseAllergy(HouseAllergy houseAllergy) throws EntityException {
         // Total Membros na casa
         int totalMembers = membersRepository.findAllById_HouseId(houseAllergy.getId().getHouseId()).size();
-        if (houseAllergy.getHouseallergyAlergicsnum() > totalMembers)
+        if (houseAllergy.getHouseallergyAllergicsnum() > totalMembers)
             throw new EntityException(String.format("Cannot add allergy in the house wih ID %d, there are more allergics than members in the house.",
                     houseAllergy.getId().getHouseId()));
         return houseAllergyRepository.save(houseAllergy);

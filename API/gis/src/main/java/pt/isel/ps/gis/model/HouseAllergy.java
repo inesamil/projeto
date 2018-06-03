@@ -17,8 +17,8 @@ public class HouseAllergy {
     private HouseAllergyId id;
 
     @Basic
-    @Column(name = "houseallergy_alergicsnum", nullable = false)
-    private Short houseallergyAlergicsnum;
+    @Column(name = "houseallergy_allergicsnum", nullable = false)
+    private Short houseallergyAllergicsnum;
 
     /**
      * ASSOCIAÇÕES
@@ -39,12 +39,12 @@ public class HouseAllergy {
 
     public HouseAllergy(HouseAllergyId id, Short alergicsNum) throws EntityException {
         this.id = id;
-        setHouseallergyAlergicsnum(alergicsNum);
+        setHouseallergyAllergicsnum(alergicsNum);
     }
 
     public HouseAllergy(Long houseId, String allergy, Short alergicsNum) throws EntityException {
         setId(houseId, allergy);
-        setHouseallergyAlergicsnum(alergicsNum);
+        setHouseallergyAllergicsnum(alergicsNum);
     }
 
     /**
@@ -62,13 +62,13 @@ public class HouseAllergy {
         setId(new HouseAllergyId(houseId, allergy));
     }
 
-    public Short getHouseallergyAlergicsnum() {
-        return houseallergyAlergicsnum;
+    public Short getHouseallergyAllergicsnum() {
+        return houseallergyAllergicsnum;
     }
 
-    public void setHouseallergyAlergicsnum(Short alergicsNum) throws EntityException {
+    public void setHouseallergyAllergicsnum(Short alergicsNum) throws EntityException {
         ValidationsUtils.validateHouseAllergyAllergicsNum(alergicsNum);
-        this.houseallergyAlergicsnum = alergicsNum;
+        this.houseallergyAllergicsnum = alergicsNum;
     }
 
     public House getHouseByHouseId() {
@@ -93,11 +93,11 @@ public class HouseAllergy {
         if (obj == null || getClass() != obj.getClass()) return false;
         HouseAllergy that = (HouseAllergy) obj;
         return Objects.equals(id, that.id) &&
-                Objects.equals(houseallergyAlergicsnum, that.houseallergyAlergicsnum);
+                Objects.equals(houseallergyAllergicsnum, that.houseallergyAllergicsnum);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, houseallergyAlergicsnum);
+        return Objects.hash(id, houseallergyAllergicsnum);
     }
 }
