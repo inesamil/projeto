@@ -2,6 +2,7 @@ package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.HouseAllergyService;
+import pt.isel.ps.gis.dal.repositories.AllergyRepository;
 import pt.isel.ps.gis.dal.repositories.HouseAllergyRepository;
 import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
@@ -18,15 +19,18 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     private static final String HOUSE_NOT_EXIST = "House does not exist.";
     private static final String ALLERGEN_NOT_EXIST = "Allergen does not exist.";
+    private static final String ALLERGY_NOT_EXIST = "Allergy does not exist.";
 
     private final HouseAllergyRepository houseAllergyRepository;
     private final UserHouseRepository membersRepository;
     private final HouseRepository houseRepository;
+    private final AllergyRepository allergyRepository;
 
-    public HouseAllergyServiceImpl(HouseAllergyRepository houseAllergyRepository, UserHouseRepository membersRepository, HouseRepository houseService) {
+    public HouseAllergyServiceImpl(HouseAllergyRepository houseAllergyRepository, UserHouseRepository membersRepository, HouseRepository houseService, AllergyRepository allergyRepository) {
         this.houseAllergyRepository = houseAllergyRepository;
         this.membersRepository = membersRepository;
         this.houseRepository = houseService;
+        this.allergyRepository = allergyRepository;
     }
 
     @Override
@@ -43,8 +47,9 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     @Override
     public HouseAllergy associateHouseAllergy(long houseId, String allergen, short allergicsNum) throws EntityNotFoundException, EntityException {
-        checkAllergen(houseId, allergen);
         HouseAllergy houseAllergy = new HouseAllergy(houseId, allergen, allergicsNum);
+        checkHouse(houseId);
+        checkAllergy(allergen);
         if (existsHouseAllergyByHouseAllergyId(houseId, allergen))
             houseAllergy = updateHouseAllergy(houseAllergy);
         else
@@ -54,13 +59,14 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     @Override
     public void deleteHouseAllergyByHouseAllergyId(long houseId, String allergen) throws EntityException, EntityNotFoundException {
+        HouseAllergyId id = new HouseAllergyId(houseId, allergen);
         checkAllergen(houseId, allergen);
-        houseAllergyRepository.deleteById(new HouseAllergyId(houseId, allergen));
+        houseAllergyRepository.deleteById(id);
     }
 
     @Override
     public HouseAllergy increaseHouseAllergyAllergicsNumber(long houseId, String allergen, short numberOfAllergics) {
-        // TODO
+        // TODO falta fazer este metodo
         return null;
     }
 
@@ -80,6 +86,11 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
     private void checkHouse(long houseId) throws EntityNotFoundException {
         if (!houseRepository.existsById(houseId))
             throw new EntityNotFoundException(HOUSE_NOT_EXIST);
+    }
+
+    private void checkAllergy(String allergy) throws EntityNotFoundException {
+        if (!allergyRepository.existsById(allergy))
+            throw new EntityNotFoundException(ALLERGY_NOT_EXIST);
     }
 
     private void checkAllergen(long houseId, String allergen) throws EntityException, EntityNotFoundException {
