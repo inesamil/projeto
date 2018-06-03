@@ -5,7 +5,6 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.UserHouse;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface HouseMemberService {
 
@@ -27,7 +26,7 @@ public interface HouseMemberService {
      * @return Optional<UserHouse>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Optional<UserHouse> getMemberByMemberId(long houseId, String username) throws EntityException;
+    UserHouse getMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar os membros de uma casa através do ID da casa
