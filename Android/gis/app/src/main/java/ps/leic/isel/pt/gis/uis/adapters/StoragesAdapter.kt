@@ -25,7 +25,7 @@ class StoragesAdapter : RecyclerView.Adapter<StoragesAdapter.ViewHolder>() {
             val item = it[position]
             // Fill ViewHolder
             holder.storageName.text = item.name
-            holder.storageTemperature.text = item.temperature
+            holder.storageTemperature.text = item.temperature.toString()
         }
     }
 
