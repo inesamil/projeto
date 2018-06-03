@@ -1,5 +1,7 @@
 package ps.leic.isel.pt.gis.model.dtos
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
@@ -8,7 +10,7 @@ class StorageDto(siren: Siren) {
     val houseId: Long
     val storageId: Short
     val name: String
-    val temperature: String? //TODO: problem?
+    val temperature: TemperatureStorageDto
     val actions: StorageActions
     val links: StorageLinks
 
@@ -17,7 +19,7 @@ class StorageDto(siren: Siren) {
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
         storageId = (properties[storageIdLabel] as Int).toShort()
         name = properties[nameLabel] as String
-        temperature = properties[temperatureLabel] as String    //TODO: problem?
+        temperature = mapper.convertValue<TemperatureStorageDto>(properties[temperatureLabel], TemperatureStorageDto::class.java)
         actions = StorageActions(siren.actions)
         links = StorageLinks(siren.links)
     }
@@ -41,13 +43,14 @@ class StorageDto(siren: Siren) {
     }
 
     companion object {
-        const val houseIdLabel: String = "house-id"
-        const val storageIdLabel: String = "storage-id"
-        const val nameLabel = "storage-name"
-        const val temperatureLabel = "storage-temperature"
-        const val storageClassLabel: String = "storage"
-        const val storagesLabel: String = "storages"
-        const val updateStorageLabel: String = "update-storage"
-        const val deleteStorageLabel: String = "delete-storage"
+        private const val houseIdLabel: String = "house-id"
+        private const val storageIdLabel: String = "storage-id"
+        private const val nameLabel = "storage-name"
+        private const val temperatureLabel = "storage-temperature"
+        private const val storageClassLabel: String = "storage"
+        private const val storagesLabel: String = "storages"
+        private const val updateStorageLabel: String = "update-storage"
+        private const val deleteStorageLabel: String = "delete-storage"
+        val mapper: ObjectMapper = jacksonObjectMapper()
     }
 }
