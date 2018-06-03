@@ -124,13 +124,12 @@ public class ListOutputModel {
         Long houseId = list.getId().getHouseId();
         Short listId = list.getId().getListId();
 
-        // URIs
-        String listUri = UriBuilderUtils.buildListUri(houseId, listId);
-        String listsUri = UriBuilderUtils.buildListsUri(houseId);
-
         // Link-self
+        String listUri = UriBuilderUtils.buildListUri(houseId, listId);
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS}, listUri);
+
         //Link-related-lists
+        String listsUri = UriBuilderUtils.buildListsUri(houseId);
         Link listsLink = new Link(new String[]{"related"}, new String[]{"lists", "collection"}, listsUri);
 
         return new Link[]{self, listsLink};
