@@ -54,7 +54,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/filter"
+        android:text="@string/filters"
         android:textColor="@color/primaryTextColor"
         android:textSize="18sp"
         android:textStyle="bold"

@@ -101,7 +101,7 @@
     <string name="aboutLabel">About</string>
 
     <!-- content_stock_item_list_item -->
-    <string name="filter">Filter</string>
+    <string name="filters">Filters</string>
     <string name="details">Details</string>
 
     <!-- StockItemList Activity -->
@@ -173,4 +173,9 @@
     <string name="date">Date</string>
     <string name="item">Item</string>
     <string name="house">House</string>
+    <string name="system_lists">System Lists</string>
+    <string name="sharedLists">Shared Lists</string>
+    <string name="userLists">My Lists</string>
+    <string name="select">Select</string>
+    <string name="apply">Apply</string>
 </resources>

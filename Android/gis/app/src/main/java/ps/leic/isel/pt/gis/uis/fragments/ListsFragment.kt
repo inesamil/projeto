@@ -89,6 +89,10 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
             // Listener for new list creation
             listener?.onNewListInteraction()
         }
+        view.filtersText.setOnClickListener {
+            // Listener for filters
+            listener?.onFiltersInteraction()
+        }
         adapter.setOnItemClickListener(this)
         return view
     }
@@ -143,6 +147,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     interface OnListsFragmentInteractionListener {
         fun onListInteraction(url: String, listName: String)
         fun onNewListInteraction()
+        fun onFiltersInteraction()
     }
 
     /**

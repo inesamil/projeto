@@ -7,6 +7,25 @@
 
     <!-- A RecyclerView with some commonly used attributes -->
     <TextView
+        android:id="@+id/filtersText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/filters"
+        android:textColor="@color/primaryTextColor"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/createNewListText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/createNewListText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

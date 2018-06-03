@@ -73,7 +73,7 @@
     <!-- About Activity -->
     <string name="aboutLabel">Sobre</string>
     <!-- content_stock_item_list_item -->
-    <string name="filter">Filtro</string>
+    <string name="filters">Filtros</string>
     <string name="details">Detalhes</string>
     <!-- StockItemList Activity -->
     <string name="stockItemListLabel">Lista</string>
@@ -133,4 +133,9 @@
     <string name="shareable_list">Pública</string>
     <string name="secret_list">Lista secreta</string>
     <string name="house">House</string>
+    <string name="system_lists">Listas do Sistema</string>
+    <string name="sharedLists">Listas Partilhadas</string>
+    <string name="userLists">As Minhas Listas</string>
+    <string name="select">Select</string>
+    <string name="apply">Aplicar</string>
 </resources>
