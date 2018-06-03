@@ -90,7 +90,7 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
         // Set Adapter (Movements)
         movementsAdapter.setData(stockItem.movements)
 
-        // Set Description TODO verificar se a kotlin extension funciona senão é precisar adicionar view?.
+        // Set Description
         descriptionText.text = stockItem.description
     }
 
