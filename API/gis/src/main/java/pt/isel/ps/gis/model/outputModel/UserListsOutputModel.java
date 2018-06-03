@@ -101,13 +101,12 @@ public class UserListsOutputModel {
     }
 
     private Link[] initLinks(String username) {
-        // URIs
-        String userUri = UriBuilderUtils.buildUserUri(username);
-        String listsUri = UriBuilderUtils.buildUserListsUri(username);
-
         // Link-self
+        String listsUri = UriBuilderUtils.buildUserListsUri(username);
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, listsUri);
+
         //Link-related-house
+        String userUri = UriBuilderUtils.buildUserUri(username);
         Link userLink = new Link(new String[]{"related"}, new String[]{"user"}, userUri);
 
         return new Link[]{self, userLink};
