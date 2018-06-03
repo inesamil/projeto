@@ -28,7 +28,7 @@ public interface StockItemAllergenService {
      * @return List<Allergy>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<Allergy> getAllergensByStockItemId(long houseId, String stockItemSku) throws EntityException;
+    List<Allergy> getAllergensByStockItemId(long houseId, String stockItemSku) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar os itens com um determinado alergénio
