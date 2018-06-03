@@ -4,18 +4,15 @@ import android.app.Dialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.DialogInterface
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import kotlinx.android.synthetic.main.layout_filters_dialog.*
 import kotlinx.android.synthetic.main.layout_filters_dialog.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
@@ -34,6 +31,7 @@ class ListsFiltersDialogFragment : DialogFragment() {
     private val listsFiltersState: ListsFilters = ListsFilters()
 
     private lateinit var systemListsTextView: TextView
+    private lateinit var systemListImageView: ImageView
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -63,7 +61,8 @@ class ListsFiltersDialogFragment : DialogFragment() {
                     // TODO: apply filters
                 })
                 .setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { dialog, id ->
-                    this@ListsFiltersDialogFragment.dialog.cancel() })
+                    this@ListsFiltersDialogFragment.dialog.cancel()
+                })
 
         // Set RecyclerView
         view.housesFiltersRecyclerView.layoutManager = LinearLayoutManager(view.context)
@@ -71,8 +70,9 @@ class ListsFiltersDialogFragment : DialogFragment() {
         view.housesFiltersRecyclerView.adapter = adapter
 
         // Set listeners
-        view.systemListsIcon.setOnClickListener(::onSystemsListClick)
-        systemListsTextView = view.findViewById(R.id.systemListsText)
+        systemListImageView = view.systemListsIcon
+        systemListImageView.setOnClickListener(::onSystemsListClick)
+        systemListsTextView = view.systemListsText
         systemListsTextView.setOnClickListener(::onSystemsListClick)
 
         return builder.create()
@@ -92,17 +92,15 @@ class ListsFiltersDialogFragment : DialogFragment() {
         var userListsSelected: Boolean = false
     }
 
-
-
     private fun onSystemsListClick(view: View?) {
         view?.let {
             if (listsFiltersState.systemListsSelected) {
-                it.systemListsIcon.setImageResource(R.drawable.ic_computer_grey_24dp)
+                systemListImageView.setImageResource(R.drawable.ic_computer_grey_24dp)
                 it.context?.let {
                     systemListsTextView.setTextColor(ContextCompat.getColor(it, R.color.empress))
                 }
             } else {
-                it.systemListsIcon.setImageResource(R.drawable.ic_computer_black_24dp)
+                systemListImageView.setImageResource(R.drawable.ic_computer_black_24dp)
                 it.context?.let {
                     systemListsTextView.setTextColor(ContextCompat.getColor(it, R.color.primaryTextColor))
                 }
@@ -129,6 +127,6 @@ class ListsFiltersDialogFragment : DialogFragment() {
                     arguments = Bundle().apply {
                         putString(ExtraUtils.URL, url)
                     }
-        }
+                }
     }
 }
