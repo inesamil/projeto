@@ -5,14 +5,13 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.StockItem;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface StockItemService {
 
     /**
      * Verifica se um dado item existe em stock na casa através dos seus IDs
      *
-     * @param houseId identificador da casa
+     * @param houseId      identificador da casa
      * @param stockItemSku identificador do item
      * @return true se o item em stock existir na casa, false caso contrário
      * @throws EntityException se os parâmetros forem inválidos
@@ -22,12 +21,12 @@ public interface StockItemService {
     /**
      * Obter um item em stock através do seu ID
      *
-     * @param houseId identificador da casa
+     * @param houseId      identificador da casa
      * @param stockItemSku identificador do item
      * @return Optional<StockItem>
      * @throws EntityException se os parâmetros forem inválidos
      */
-    Optional<StockItem> getStockItemByStockItemId(long houseId, String stockItemSku) throws EntityException;
+    StockItem getStockItemByStockItemId(long houseId, String stockItemSku) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar todos os itens em stock duma casa através do ID da casa
@@ -35,7 +34,7 @@ public interface StockItemService {
      * @param houseId identificador da casa
      * @return List<StockItem>
      */
-    List<StockItem> getStockItemsByHouseId(long houseId) throws EntityException;
+    List<StockItem> getStockItemsByHouseId(long houseId) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar todos os itens em stock filtrados duma casa através do ID da casa
@@ -45,7 +44,7 @@ public interface StockItemService {
      * @return List<StockItem>
      * @throws EntityException se os parâmetros forem inválidos
      */
-    List<StockItem> getStockItemsByHouseIdFiltered(long houseId, StockItemFilters filters) throws EntityException;
+    List<StockItem> getStockItemsByHouseIdFiltered(long houseId, StockItemFilters filters) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar um item ao stock duma casa
@@ -54,14 +53,14 @@ public interface StockItemService {
      * @return StockItem
      * @throws EntityException se o item em stock já existir na casa
      */
-    StockItem addStockItem(StockItem stockItem) throws EntityException;
+    StockItem addStockItem(long houseId, Integer productId, String brand, String segment, String variety, Short quantity, String description, String conservationStorage) throws EntityException, EntityNotFoundException;
 
     /**
      * Remover um item duma casa
      *
-     * @param houseId identificador da casa
+     * @param houseId      identificador da casa
      * @param stockItemSku identificador do item em stock
-     * @throws EntityException se os parâmetros forem inválidos
+     * @throws EntityException         se os parâmetros forem inválidos
      * @throws EntityNotFoundException se item especificado não existir
      */
     void deleteStockItem(long houseId, String stockItemSku) throws EntityException, EntityNotFoundException;
@@ -69,10 +68,10 @@ public interface StockItemService {
     /**
      * Reduzir a quantidade em stock de um item em stock
      *
-     * @param houseId identificador da casa
-     * @param stockItemSku identificador do item em stock
+     * @param houseId            identificador da casa
+     * @param stockItemSku       identificador do item em stock
      * @param decreasingQuantity quantidade a reduzir
-     * @throws EntityException se os parâmetros forem inválidos
+     * @throws EntityException         se os parâmetros forem inválidos
      * @throws EntityNotFoundException se item especificado não existir
      */
     void decreaseStockItemQuantity(long houseId, String stockItemSku, short decreasingQuantity) throws EntityException, EntityNotFoundException;
@@ -80,14 +79,13 @@ public interface StockItemService {
     /**
      * Reduzir a quantidade em stock de um item em stock
      *
-     * @param houseId identificador da casa
-     * @param stockItemSku identificador do item em stock
+     * @param houseId            identificador da casa
+     * @param stockItemSku       identificador do item em stock
      * @param increasingQuantity quantidade a incrementar
-     * @throws EntityException se os parâmetros forem inválidos
+     * @throws EntityException         se os parâmetros forem inválidos
      * @throws EntityNotFoundException se item especificado não existir
      */
     void increaseStockItemQuantity(long houseId, String stockItemSku, short increasingQuantity) throws EntityException, EntityNotFoundException;
-
 
     /**
      * Filtros - filtragem dos itens em stock
