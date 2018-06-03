@@ -4,12 +4,15 @@ import android.content.Intent
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.FrameLayout
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -21,6 +24,7 @@ import ps.leic.isel.pt.gis.model.dtos.*
 import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
 import ps.leic.isel.pt.gis.uis.fragments.*
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.getCurrentFragment
 import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
 
 class HomeActivity : AppCompatActivity(),
@@ -50,10 +54,26 @@ class HomeActivity : AppCompatActivity(),
         homeNavView.setNavigationItemSelectedListener(this)
 
         // Init
+        savedInstanceState?.let {
+            val fragment: Fragment = getSupportFragmentManager().getFragment(it, "FRAGMENT") ?:  HomePageFragment.newInstance()  //TODO: extrair tag
+            val fragmentTag: String = fragment.tag ?: HomePageFragment.TAG
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.content, fragment, fragmentTag)
+                    .addToBackStack(fragmentTag)
+                    .commit()
+            return
+        }
         supportFragmentManager.beginTransaction()
-                .replace(R.id.content, HomePageFragment.newInstance(), ExtraUtils.HOME_PAGE)
-                .addToBackStack(ExtraUtils.HOME_PAGE)
+                .replace(R.id.content, HomePageFragment.newInstance(), HomePageFragment.TAG)
+                .addToBackStack(HomePageFragment.TAG)
                 .commit()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState?.let {
+            supportFragmentManager.putFragment(it, "FRAGMENT", supportFragmentManager.getCurrentFragment()) //TODO: extrair tag
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

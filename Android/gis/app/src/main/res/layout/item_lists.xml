@@ -68,7 +68,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/houseNameText"
                 app:layout_constraintStart_toEndOf="@+id/listNameEditText"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_house_sunset_mint_green_round" />
+                app:srcCompat="@mipmap/ic_house_sunset_orange_round" />
 
             <TextView
                 android:id="@+id/houseNameText"

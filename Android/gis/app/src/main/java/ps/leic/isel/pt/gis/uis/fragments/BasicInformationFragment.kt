@@ -71,7 +71,9 @@ class BasicInformationFragment : Fragment() {
     }
 
     private fun onError(error: String?) {
-        Log.v("APP_GIS", error)
+        error?.let {
+            Log.v("APP_GIS", it)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

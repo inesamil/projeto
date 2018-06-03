@@ -4,6 +4,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import ps.leic.isel.pt.gis.R
 
+fun FragmentManager.getCurrentFragment(): Fragment {
+    return findFragmentById(R.id.content)
+}
+
 fun FragmentManager.replaceCurrentFragmentWith(tag: String, newInstance: () -> Fragment) {
     var fragment = findFragmentByTag(tag)
     if (fragment == null) {

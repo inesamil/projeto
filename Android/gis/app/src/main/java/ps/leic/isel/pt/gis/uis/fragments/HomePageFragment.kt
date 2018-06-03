@@ -91,6 +91,7 @@ class HomePageFragment : Fragment() {
      * HousesFragment Factory
      */
     companion object {
+        const val TAG: String = "HomePageFrgament"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
