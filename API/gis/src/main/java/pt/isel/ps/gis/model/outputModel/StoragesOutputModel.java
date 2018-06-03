@@ -41,7 +41,7 @@ public class StoragesOutputModel {
         return new String[]{ENTITY_CLASS, "collection"};
     }
 
-    private Map<String,Object> initProperties(List<Storage> storages) {
+    private Map<String, Object> initProperties(List<Storage> storages) {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("size", storages.size());
 
@@ -57,7 +57,7 @@ public class StoragesOutputModel {
             properties.put("house-id", houseId);
             properties.put("storage-id", storage.getId().getStorageId());
             properties.put("storage-name", storage.getStorageName());
-            properties.put("storage-temperature", storage.getStorageTemperature().toString());//TODO temperature devia ser retornada como string
+            properties.put("storage-temperature", storage.getStorageTemperature());
 
             String storageUri = UriBuilderUtils.buildStorageUri(houseId, storage.getId().getStorageId());
 
