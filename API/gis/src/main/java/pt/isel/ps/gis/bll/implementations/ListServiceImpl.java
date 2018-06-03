@@ -3,9 +3,7 @@ package pt.isel.ps.gis.bll.implementations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.ListService;
-import pt.isel.ps.gis.dal.repositories.ListRepository;
-import pt.isel.ps.gis.dal.repositories.SystemListRepository;
-import pt.isel.ps.gis.dal.repositories.UserListRepository;
+import pt.isel.ps.gis.dal.repositories.*;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.*;
@@ -15,14 +13,18 @@ import pt.isel.ps.gis.utils.ValidationsUtils;
 @Service
 public class ListServiceImpl implements ListService {
 
+    private final HouseRepository houseRepository;
     private final ListRepository listRepository;
     private final UserListRepository userListRepository;
     private final SystemListRepository systemListRepository;
+    private final UsersRepository usersRepository;
 
-    public ListServiceImpl(ListRepository listRepository, UserListRepository userListRepository, SystemListRepository systemListRepository) {
+    public ListServiceImpl(HouseRepository houseRepository, ListRepository listRepository, UserListRepository userListRepository, SystemListRepository systemListRepository, UsersRepository usersRepository) {
+        this.houseRepository = houseRepository;
         this.listRepository = listRepository;
         this.userListRepository = userListRepository;
         this.systemListRepository = systemListRepository;
+        this.usersRepository = usersRepository;
     }
 
     @Override
@@ -51,17 +53,18 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public java.util.List<List> getAvailableListsByUserUsername(String username, AvailableListFilters filters) throws EntityException {
-        ValidationsUtils.validateUserUsername(username);
+    public java.util.List<List> getAvailableListsByUserUsername(String username, AvailableListFilters filters) throws EntityException, EntityNotFoundException {
+        checkUserUsername(username);
         return listRepository.findAvailableListsByUserUsername(username, filters.houses, filters.systemLists, filters.listsFromUser, filters.sharedLists);
     }
 
+    @Transactional
     @Override
-    public UserList addUserList(UserList list) throws EntityException {
-        if (userListRepository.existsById(list.getId()))
-            throw new EntityException(String.format("List with ID %d in the house with ID %d already exists.",
-                    list.getId().getListId(), list.getId().getHouseId()));
-        return userListRepository.insertUserList(list);
+    public List addUserList(long houseId, String listName, String username, boolean listShareable) throws EntityException, EntityNotFoundException {
+        checkHouseId(houseId);
+        checkUserUsername(username);
+        UserList list = new UserList(houseId, listName, username, listShareable);
+        return userListRepository.insertUserList(list).getList();
     }
 
     @Transactional
@@ -97,6 +100,20 @@ public class ListServiceImpl implements ListService {
         ListId id = new ListId(houseId, listId);
         checkListId(id);
         userListRepository.deleteCascadeUserListById(new UserListId(houseId, listId));
+    }
+
+    private void checkHouseId(long houseId) throws EntityException, EntityNotFoundException {
+        ValidationsUtils.validateHouseId(houseId);
+        if (!houseRepository.existsById(houseId)) {
+            throw new EntityNotFoundException(String.format("The house with ID %d does not exist.", houseId));
+        }
+    }
+
+    private void checkUserUsername(String username) throws EntityException, EntityNotFoundException {
+        ValidationsUtils.validateUserUsername(username);
+        if (!usersRepository.existsById(username)) {
+            throw new EntityNotFoundException(String.format("The user with username %s does not exist.", username));
+        }
     }
 
     private void checkListId(ListId id) throws EntityNotFoundException {

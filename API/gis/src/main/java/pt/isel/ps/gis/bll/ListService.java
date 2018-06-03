@@ -3,9 +3,6 @@ package pt.isel.ps.gis.bll;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.List;
-import pt.isel.ps.gis.model.UserList;
-
-import java.util.Optional;
 
 public interface ListService {
 
@@ -50,24 +47,29 @@ public interface ListService {
      *
      * @param username identificador do user
      * @return List<List>
-     * @throws EntityException se od parâmetros recebeidos forem inválidos
+     * @throws EntityException         se os parâmetros recebeidos forem inválidos
+     * @throws EntityNotFoundException se o utilizador não existir
      */
-    java.util.List<List> getAvailableListsByUserUsername(String username, AvailableListFilters filters) throws EntityException;
+    java.util.List<List> getAvailableListsByUserUsername(String username, AvailableListFilters filters) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar uma lista a uma casa
      *
-     * @param list lista a adicionar
+     * @param houseId       identificador da casa
+     * @param listName      nome da lista
+     * @param username      nome de utilizador do autor da lista
+     * @param listShareable indicador de lista partilhável
      * @return UserList
+     * @throws EntityException se os parâmetros recebeidos forem inválidos
      */
-    UserList addUserList(UserList list) throws EntityException;
+    List addUserList(long houseId, String listName, String username, boolean listShareable) throws EntityException, EntityNotFoundException;
 
     /**
      * Atualizar uma lista duma casa
      *
-     * @param houseId identificador da casa
-     * @param listId identificador da lista
-     * @param listName nome da lista
+     * @param houseId       identificador da casa
+     * @param listId        identificador da lista
+     * @param listName      nome da lista
      * @param listShareable indicador de lista partilhável
      * @return List
      * @throws EntityNotFoundException se a lista especificada não existir na casa particularizada
