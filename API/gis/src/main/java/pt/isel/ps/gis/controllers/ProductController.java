@@ -4,7 +4,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pt.isel.ps.gis.bll.CategoryService;
 import pt.isel.ps.gis.bll.ProductService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -15,7 +14,6 @@ import pt.isel.ps.gis.model.outputModel.ProductOutputModel;
 import pt.isel.ps.gis.model.outputModel.ProductsCategoryOutputModel;
 
 import java.util.List;
-import java.util.Optional;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
@@ -23,14 +21,10 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 @RequestMapping("/v1/categories/{category-id}/products")
 public class ProductController {
 
-    private static final String CATEGORY_NOT_EXIST = "Category does not exist.";
-
     private final ProductService productService;
-    private final CategoryService categoryService;
 
-    public ProductController(ProductService productService, CategoryService categoryService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
-        this.categoryService = categoryService;
     }
 
     @GetMapping("")
@@ -38,7 +32,6 @@ public class ProductController {
             @PathVariable("category-id") int categoryId,
             @RequestParam(value = "name", required = false) String name
     ) throws BadRequestException, NotFoundException {
-        checkCategory(categoryId);
         List<Product> products;
         try {
             if (name == null)
@@ -62,7 +55,7 @@ public class ProductController {
     ) throws NotFoundException, BadRequestException {
         Product product;
         try {
-            product = productService.getProductByProductId(productId);
+            product = productService.getProductByCategoryIdAndProductId(categoryId, productId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -70,14 +63,5 @@ public class ProductController {
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ProductOutputModel(product), setSirenContentType(headers), HttpStatus.OK);
-    }
-
-    private void checkCategory(int categoryId) throws BadRequestException {
-        try {
-            if (!categoryService.existsCategoryByCategoryId(categoryId))
-                throw new BadRequestException(CATEGORY_NOT_EXIST);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        }
     }
 }

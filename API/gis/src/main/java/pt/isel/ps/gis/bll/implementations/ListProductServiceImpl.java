@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 public class ListProductServiceImpl implements ListProductService {
 
-    private static final String HOUSE_NOT_EXIST = "House does not exist.";
     private static final String LIST_NOT_EXIST = "List does not exist in this house.";
     private static final String PRODUCT_NOT_EXIST = "Product does not exist.";
 
