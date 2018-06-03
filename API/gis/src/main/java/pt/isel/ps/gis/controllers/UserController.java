@@ -27,8 +27,6 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 @RequestMapping("/v1/users/{username}")
 public class UserController {
 
-    private static final String USER_NOT_EXIST = "The user with username %s does not exist.";
-
     private final UserService userService;
     private final HouseService houseService;
     private final ListService listService;
