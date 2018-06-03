@@ -1,6 +1,6 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
-import android.content.Context
+import android.content.Intent
 import android.nfc.NfcAdapter
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import kotlinx.android.synthetic.main.fragment_write_nfc_tag.*
 import kotlinx.android.synthetic.main.fragment_write_nfc_tag.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.CategoryDTO
@@ -28,13 +27,12 @@ import ps.leic.isel.pt.gis.utils.NFCUtils
 class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var nfcAdapter: NfcAdapter? = null
+    private var writingFragment: WritingNfcTagFragment? = null
 
     private val first: Int = 0
 
     private lateinit var categories: Array<CategoryDTO>
     private lateinit var products: Array<ProductDTO>
-
-    private var listener: OnWriteNfcTagFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,9 +60,7 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         view.categorySpinner.setSelection(first)
 
         // Set write button listener
-        view.writeBtn.setOnClickListener {
-            onWriteClick(it)
-        }
+        view.writeBtn.setOnClickListener(::onWriteClick)
 
         return view
     }
@@ -93,28 +89,25 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnWriteNfcTagFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnWriteNfcTagFragmentInteractionListener")
+    fun onNfcDetected(intent: Intent?) {
+        writingFragment?.let {
+            if (it.isVisible)
+                writingFragment?.onNfcDetected(intent)
         }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
     }
 
     /***
      * Listeners
      ***/
-    fun onWriteClick(v: View?) {
+    private fun onWriteClick(v: View?) {
         //TODO: collect data
-        val tagContent: String = conservationStorageText.text.toString()
+        /* val tagContent: String = conservationStorageText.text.toString()
         if (tagContent.isNotEmpty())
-            listener?.onWriteNfcTagInteraction(tagContent)
+            listener?.onWriteNfcTagInteraction(tagContent) */
+        writingFragment = fragmentManager?.findFragmentByTag(WritingNfcTagFragment.TAG) as? WritingNfcTagFragment
+        if (writingFragment == null)
+            writingFragment = WritingNfcTagFragment.newInstance("ola"); // TODO passar o que for para escrever aqui
+        writingFragment?.show(fragmentManager, WritingNfcTagFragment.TAG)
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -139,19 +132,11 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     */
-    interface OnWriteNfcTagFragmentInteractionListener {
-        fun onWriteNfcTagInteraction(tagContent: String)
-    }
-
-    /**
      * WriteNfcTagFragment Factory
      */
     companion object {
+        val TAG: String = WriteNfcTagFragment::class.java.simpleName
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
