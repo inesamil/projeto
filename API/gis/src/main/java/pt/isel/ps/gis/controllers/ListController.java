@@ -86,13 +86,12 @@ public class ListController {
         return new ResponseEntity<>(new ListProductsOutputModel(houseId, listId, listProducts),
                 setSirenContentType(headers), HttpStatus.OK);
     }
-
     @PostMapping("")
     public ResponseEntity<ListOutputModel> postUserList(
             @PathVariable("house-id") long houseId,
             @RequestBody ListInputModel body
     ) throws BadRequestException, NotFoundException {
-        List list;
+        pt.isel.ps.gis.model.List list;
         try {
             list = listService.addUserList(
                     houseId,
