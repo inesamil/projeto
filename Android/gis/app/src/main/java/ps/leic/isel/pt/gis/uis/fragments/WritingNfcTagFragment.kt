@@ -28,14 +28,14 @@ class WritingNfcTagFragment : DialogFragment() {
 
     // When NFC tag is detected call this method
     fun onNfcDetected(intent: Intent?) {
-        progress.visibility = View.VISIBLE
+        writingNfcTagProgressBar.visibility = View.VISIBLE
         tv_message.text = getString(R.string.message_write_progress)
         val messageWrittenSuccessfully = NFCUtils.createNFCMessage(messageToWrite, intent)
         if (messageWrittenSuccessfully)
             tv_message.text = getString(R.string.message_write_success)
         else
             tv_message.text = getString(R.string.message_write_error)
-        progress.visibility = View.GONE
+        writingNfcTagProgressBar.visibility = View.GONE
     }
 
     /**
