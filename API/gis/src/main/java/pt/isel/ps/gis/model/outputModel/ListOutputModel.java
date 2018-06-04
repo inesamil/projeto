@@ -61,7 +61,7 @@ public class ListOutputModel {
         ListProductJsonObject[] products = new ListProductJsonObject[list.getListproducts().size()];
         int i = 0;
         for (ListProduct listProduct : list.getListproducts()) {
-            products[i] = new ListProductJsonObject(
+            products[i++] = new ListProductJsonObject(
                     listProduct.getId().getHouseId(),
                     listProduct.getId().getListId(),
                     listProduct.getId().getProductId(),
