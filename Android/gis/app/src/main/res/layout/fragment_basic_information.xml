@@ -46,7 +46,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_user_round_hi_res_512" />
+            app:srcCompat="@mipmap/ic_person_hi_res_512" />
 
         <android.support.constraint.Guideline
             android:id="@+id/HorizontalGuideline1"
@@ -157,6 +157,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/ageLayout"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fullnameLayout">
 
@@ -194,6 +195,7 @@
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
