@@ -132,7 +132,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     override fun onItemClick(view: View, position: Int) {
         lists?.let {
             val list = it[position]
-            list.links.listsLink?.let {
+            list.links.selfLink?.let {
                 listener?.onListInteraction(it, list.listName)
             }
         }

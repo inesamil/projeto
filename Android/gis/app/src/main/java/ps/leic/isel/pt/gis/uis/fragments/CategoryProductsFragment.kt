@@ -132,12 +132,12 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     }
 
     override fun onPlusClick(view: View, position: Int) {
-        Toast.makeText(view.context, "Add Product to a List.", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Add Product to a List.", Toast.LENGTH_LONG).show()
         //TODO
     }
 
     override fun onMinusClick(view: View, position: Int) {
-        Toast.makeText(view.context, "Remove Product from a List.", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Remove Product from a List.", Toast.LENGTH_LONG).show()
         //TODO
     }
 
