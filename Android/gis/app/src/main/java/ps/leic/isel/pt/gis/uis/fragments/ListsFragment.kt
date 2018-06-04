@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_lists.*
 import kotlinx.android.synthetic.main.fragment_lists.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.ServiceLocator
+import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.model.dtos.ListsDto
 import ps.leic.isel.pt.gis.repositories.Status
@@ -55,13 +57,13 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         listsViewModel = ViewModelProviders.of(this).get(ListsViewModel::class.java)
         listsViewModel.init(url)
         listsViewModel.getLists()?.observe(this, Observer {
-            if (it?.status == Status.SUCCESS)
-                onSuccess(it.data!!)
-            else if (it?.status == Status.ERROR)
-                onError(it.message)
-            else if (it?.status == Status.LOADING){
-                listsProgressBar.visibility = View.VISIBLE
-                listsLayout.visibility = View.INVISIBLE
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.LOADING -> {
+                    listsProgressBar.visibility = View.VISIBLE
+                    listsLayout.visibility = View.INVISIBLE
+                }
             }
         })
     }
@@ -140,6 +142,24 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
             val list = it[position]
             list.links.selfLink?.let {
                 listener?.onListInteraction(it, list.listName)
+            }
+        }
+    }
+
+    fun onFiltersApplied(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?) {
+        activity?.applicationContext?.let {
+            val loggedInUser = ServiceLocator.getCredentialsStore(it).getUsername()
+            lists?.filter {
+                val houseId = it.houseId
+                val listInHouse = houses?.any { it.houseId == houseId }
+                listInHouse?.let { if (!it) return@filter false }
+                var user = false
+                if (userLists)
+                    user = it.username == loggedInUser
+                var system = false
+                if (!user && systemLists)
+                    system = it.listType == ListDto.SYSTEM_TYPE
+                return@filter user || system || it.shareable == sharedLists
             }
         }
     }
