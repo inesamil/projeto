@@ -11,6 +11,7 @@ class ListDto(siren: Siren) {
     val houseName: String
     val listId: Long
     val listName: String
+    val listType: String
     var username: String? = null
     var shareable: Boolean? = null
     var listProducts: Array<ListProductDto>? = null
@@ -23,6 +24,7 @@ class ListDto(siren: Siren) {
         houseName = "Smith"//properties[houseNameLabel] as String   //TODO
         listId = (properties[listIdLabel] as Int).toLong()
         listName = properties[listNameLabel] as String
+        listType = properties[listTypeLabel] as String
         username = properties[usernameLabel] as? String
         shareable = properties[shareableLabel] as? Boolean
 
@@ -59,6 +61,7 @@ class ListDto(siren: Siren) {
         private const val houseNameLabel: String = "house-name"
         private const val listIdLabel: String = "list-id"
         private const val listNameLabel = "list-name"
+        private const val listTypeLabel = "list-type"
         private const val usernameLabel: String = "username"
         private const val shareableLabel: String = "shareable"
         private const val listProductsLabel: String = "list-products"

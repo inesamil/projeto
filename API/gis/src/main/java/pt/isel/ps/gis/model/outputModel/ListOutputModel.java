@@ -45,11 +45,13 @@ public class ListOutputModel {
 
     private HashMap<String, Object> initProperties(List list) {
         HashMap<String, Object> properties = new HashMap<>();
+        String listType = list.getListType();
         properties.put("house-id", list.getId().getHouseId());
         properties.put("house-name", list.getHouseByHouseId().getHouseName());
         properties.put("list-id", list.getId().getListId());
         properties.put("list-name", list.getListName());
-        if (list.getListType().equals("system"))
+        properties.put("list-type", listType);
+        if (listType.equals("system"))
             return properties;
         properties.put("user-username", list.getUserlist().getUsersUsername());
         properties.put("list-shareable", list.getUserlist().getListShareable());
