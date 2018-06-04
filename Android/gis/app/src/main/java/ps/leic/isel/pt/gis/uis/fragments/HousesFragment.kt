@@ -59,12 +59,18 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
+            else if (it?.status == Status.LOADING){
+                housesProgressBar.visibility = View.VISIBLE
+                housesLayout.visibility = View.INVISIBLE
+            }
         })
     }
 
     private fun onSuccess(houses: HousesDto) {
         // Hide progress bar
         housesProgressBar.visibility = View.GONE
+        housesLayout.visibility = View.VISIBLE
+
         this.houses = houses
         adapter.setData(houses.houses)
     }
