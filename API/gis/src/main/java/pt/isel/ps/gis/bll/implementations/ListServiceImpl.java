@@ -56,6 +56,7 @@ public class ListServiceImpl implements ListService {
                 .orElseThrow(() -> new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.",
                         listId, houseId)));
         list.getListproducts().size();
+        list.getHouseByHouseId().getHouseName();
         return list;
     }
 
