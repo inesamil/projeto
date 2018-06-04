@@ -41,13 +41,13 @@ class StoragesFragment : Fragment() {
         storagesViewModel = ViewModelProviders.of(this).get(StoragesViewModel::class.java)
         storagesViewModel.init(url)
         storagesViewModel.getStorages()?.observe(this, Observer {
-            if (it?.status == Status.SUCCESS)
-                onSuccess(it.data!!)
-            else if (it?.status == Status.ERROR)
-                onError(it.message)
-            else if (it?.status == Status.LOADING){
-                storagesProgressBar.visibility = View.VISIBLE
-                storagesLayout.visibility = View.INVISIBLE
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.LOADING -> {
+                    storagesProgressBar.visibility = View.VISIBLE
+                    storagesLayout.visibility = View.INVISIBLE
+                }
             }
         })
     }

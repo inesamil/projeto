@@ -50,10 +50,10 @@ class BasicInformationFragment : Fragment() {
         basicInfoVM = ViewModelProviders.of(this).get(BasicInformationViewModel::class.java)
         basicInfoVM.init(url)
         basicInfoVM.getUser()?.observe(this, Observer {
-            if (it?.status == Status.SUCCESS)
-                onSuccess(it.data!!)
-            else if (it?.status == Status.ERROR)
-                onError(it.message)
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+            }
         })
     }
 

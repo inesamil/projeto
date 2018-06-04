@@ -59,13 +59,13 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
         categoryProductsViewModel = ViewModelProviders.of(this).get(CategoryProductsViewModel::class.java)
         categoryProductsViewModel.init(url)
         categoryProductsViewModel.getProducts()?.observe(this, Observer {
-            if (it?.status == Status.SUCCESS)
-                onSuccess(it.data!!)
-            else if (it?.status == Status.ERROR)
-                onError(it.message)
-            else if (it?.status == Status.LOADING){
-                categoryProductsProgressBar.visibility = View.VISIBLE
-                categoriesLayout.visibility = View.INVISIBLE
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.LOADING -> {
+                    categoryProductsProgressBar.visibility = View.VISIBLE
+                    categoriesLayout.visibility = View.INVISIBLE
+                }
             }
         })
     }

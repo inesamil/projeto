@@ -1,7 +1,6 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
@@ -22,10 +21,10 @@ class NewHouseDialogFragment : DialogFragment() {
         val view = inflater.inflate(R.layout.layout_new_house_dialog, null)
         builder.setView(view)
                 // Add action buttons
-                .setPositiveButton(R.string.add, DialogInterface.OnClickListener { dialog, id ->
+                .setPositiveButton(R.string.add, { _, _ ->
                     // TODO: add house
                 })
-                .setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { dialog, id -> this@NewHouseDialogFragment.getDialog().cancel() })
+                .setNegativeButton(R.string.cancel, { _, _ -> this@NewHouseDialogFragment.getDialog().cancel() })
 
         // Set Plus buttons listeners
         view.babiesPlusBtn.setOnClickListener {

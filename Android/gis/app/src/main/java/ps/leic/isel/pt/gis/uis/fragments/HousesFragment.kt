@@ -55,13 +55,13 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
         housesViewModel.init(url)
         housesViewModel.getHouses()?.observe(this, Observer {
-            if (it?.status == Status.SUCCESS)
-                onSuccess(it.data!!)
-            else if (it?.status == Status.ERROR)
-                onError(it.message)
-            else if (it?.status == Status.LOADING){
-                housesProgressBar.visibility = View.VISIBLE
-                housesLayout.visibility = View.INVISIBLE
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.LOADING -> {
+                    housesProgressBar.visibility = View.VISIBLE
+                    housesLayout.visibility = View.INVISIBLE
+                }
             }
         })
     }

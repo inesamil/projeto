@@ -46,13 +46,13 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
             allergiesViewModel.init(it)
         }
         allergiesViewModel.getAllergies()?.observe(this, Observer {
-            if (it?.status == Status.SUCCESS)
-                onSuccess(it.data!!)
-            else if (it?.status == Status.ERROR)
-                onError(it.message)
-            else if (it?.status == Status.LOADING){
-                allergiesProgressBar.visibility = View.VISIBLE
-                allergiesLayout.visibility = View.INVISIBLE
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.LOADING -> {
+                    allergiesProgressBar.visibility = View.VISIBLE
+                    allergiesLayout.visibility = View.INVISIBLE
+                }
             }
         })
     }

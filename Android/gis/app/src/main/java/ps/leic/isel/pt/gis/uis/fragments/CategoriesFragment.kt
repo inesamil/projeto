@@ -54,13 +54,13 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
         categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
         categoriesViewModel.init(url)
         categoriesViewModel.getCategories()?.observe(this, Observer {
-            if (it?.status == Status.SUCCESS)
-                onSuccess(it.data!!)
-            else if (it?.status == Status.ERROR)
-                onError(it.message)
-            else if (it?.status == Status.LOADING){
-                categoriesProgressBar.visibility = View.VISIBLE
-                categoriesLayout.visibility = View.INVISIBLE
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.LOADING -> {
+                    categoriesProgressBar.visibility = View.VISIBLE
+                    categoriesLayout.visibility = View.INVISIBLE
+                }
             }
         })
     }

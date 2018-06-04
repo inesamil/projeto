@@ -66,13 +66,13 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
         stockItemDetailViewModel = ViewModelProviders.of(this).get(StockItemDetailViewModel::class.java)
         stockItemDetailViewModel.init(url)
         stockItemDetailViewModel.getStockItem()?.observe(this, Observer {
-            if (it?.status == Status.SUCCESS)
-                onSuccess(it.data!!)
-            else if (it?.status == Status.ERROR)
-                onError(it.message)
-            else if (it?.status == Status.LOADING) {
-                stockItemDetailProgressBar.visibility = View.VISIBLE
-                stockItemDetailLayout.visibility = View.INVISIBLE
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.LOADING -> {
+                    stockItemDetailProgressBar.visibility = View.VISIBLE
+                    stockItemDetailLayout.visibility = View.INVISIBLE
+                }
             }
         })
     }

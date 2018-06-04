@@ -57,13 +57,13 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         listDetailViewModel = ViewModelProviders.of(this).get(ListDetailViewModel::class.java)
         listDetailViewModel.init(url)
         listDetailViewModel.getListDetail()?.observe(this, Observer {
-            if (it?.status == Status.SUCCESS)
-                onSuccess(it.data!!)
-            else if (it?.status == Status.ERROR)
-                onError(it.message)
-            else if (it?.status == Status.LOADING){
-                listProgressBar.visibility = View.VISIBLE
-                listLayout.visibility = View.INVISIBLE
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.LOADING -> {
+                    listProgressBar.visibility = View.VISIBLE
+                    listLayout.visibility = View.INVISIBLE
+                }
             }
         })
         transferToOfflineLayout.setOnClickListener {

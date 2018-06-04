@@ -39,10 +39,10 @@ class ProductDetailFragment : Fragment() {
         productDetailViewModel = ViewModelProviders.of(this).get(ProductDetailViewModel::class.java)
         productDetailViewModel.init(url)
         productDetailViewModel.getProduct()?.observe(this, Observer {
-            if (it?.status == Status.SUCCESS)
-                onSuccess(it.data!!)
-            else if (it?.status == Status.ERROR)
-                onError(it.message)
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+            }
         })
     }
 

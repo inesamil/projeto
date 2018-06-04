@@ -1,7 +1,6 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
@@ -18,10 +17,10 @@ class NewListDialogFragment : DialogFragment() {
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(inflater.inflate(R.layout.layout_new_list_dialog, null))
                 // Add action buttons
-                .setPositiveButton(R.string.add, DialogInterface.OnClickListener { dialog, id ->
+                .setPositiveButton(R.string.add, { _, _ ->
                     // TODO: add list
                 })
-                .setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { dialog, id -> this@NewListDialogFragment.getDialog().cancel() })
+                .setNegativeButton(R.string.cancel, { _, _ -> this@NewListDialogFragment.getDialog().cancel() })
         return builder.create()
     }
 
