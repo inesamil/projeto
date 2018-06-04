@@ -15,4 +15,9 @@
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
         <item name="android:textColor">@color/primaryTextColor</item>
     </style>
+
+    <style name="SmartStocksTheme.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlActivated">@color/sunglow</item>
+    </style>
 </resources>
