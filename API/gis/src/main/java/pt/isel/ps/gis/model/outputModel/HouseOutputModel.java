@@ -7,6 +7,7 @@ import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.model.outputModel.jsonObjects.CharacteristicsJsonObject;
+import pt.isel.ps.gis.model.outputModel.jsonObjects.MemberJsonObject;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.HashMap;
@@ -23,8 +24,6 @@ public class HouseOutputModel {
     @JsonProperty
     private final Map<String, Object> properties;
     @JsonProperty
-    private final Entity[] entities;
-    @JsonProperty
     private final Action[] actions;
     @JsonProperty
     private final Link[] links;
@@ -33,7 +32,6 @@ public class HouseOutputModel {
     public HouseOutputModel(House house) {
         this.klass = initKlass();
         this.properties = initProperties(house);
-        this.entities = initEntities(house);
         this.actions = initActions(house);
         this.links = initLinks(house);
     }
@@ -48,29 +46,14 @@ public class HouseOutputModel {
         properties.put("house-id", house.getHouseId());
         properties.put("house-name", house.getHouseName());
         properties.put("house-characteristics", new CharacteristicsJsonObject(house.getHouseCharacteristics()));
+        properties.put("house-members",
+                house.getUserhousesByHouseId()
+                        .stream()
+                        .map(member -> new MemberJsonObject(
+                                member.getId().getHouseId(),
+                                member.getId().getUsersUsername(),
+                                member.getUserhouseAdministrator())));
         return properties;
-    }
-
-    private Entity[] initEntities(House house) {
-        Entity[] entities = new Entity[house.getUserhousesByHouseId().size()];
-        int i = 0;
-        //Subentities
-        for (UserHouse member : house.getUserhousesByHouseId()) {
-            //Properties
-            HashMap<String, Object> properties = new HashMap<>();
-            properties.put("house-id", member.getId().getHouseId());
-            properties.put("user-username", member.getId().getUsersUsername());
-            properties.put("household-administrator", member.getUserhouseAdministrator());
-
-            String userUri = UriBuilderUtils.buildUserUri(member.getId().getUsersUsername());
-            entities[i++] = new Entity(
-                    new String[]{"house-member"},
-                    new String[]{"item"},
-                    properties,
-                    null,
-                    new Link[]{new Link(new String[]{"related"},  new String[]{"user"}, userUri)});
-        }
-        return entities;
     }
 
     private Action[] initActions(House house) {

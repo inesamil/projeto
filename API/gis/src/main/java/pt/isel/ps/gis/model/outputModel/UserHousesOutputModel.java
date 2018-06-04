@@ -7,6 +7,7 @@ import pt.isel.ps.gis.hypermedia.siren.components.subentities.Entity;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Link;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.outputModel.jsonObjects.CharacteristicsJsonObject;
+import pt.isel.ps.gis.model.outputModel.jsonObjects.MemberJsonObject;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.HashMap;
@@ -31,7 +32,7 @@ public class UserHousesOutputModel {
     public UserHousesOutputModel(String username, List<House> houses) {
         this.klass = initKlass();
         this.properties = initProperties(houses);
-        this.entities = initEntities(username, houses);
+        this.entities = initEntities(houses);
         this.links = initLinks(username);
     }
 
@@ -46,7 +47,7 @@ public class UserHousesOutputModel {
         return properties;
     }
 
-    private Entity[] initEntities(String username, List<House> houses) {
+    private Entity[] initEntities(List<House> houses) {
         Entity[] entities = new Entity[houses.size()];
         for (int i = 0; i < houses.size(); ++i) {
             House house = houses.get(i);
@@ -56,6 +57,13 @@ public class UserHousesOutputModel {
             properties.put("house-id", houseId);
             properties.put("house-name", house.getHouseName());
             properties.put("house-characteristics", new CharacteristicsJsonObject(house.getHouseCharacteristics()));
+            properties.put("house-members",
+                    house.getUserhousesByHouseId()
+                            .stream()
+                            .map(member -> new MemberJsonObject(
+                                    member.getId().getHouseId(),
+                                    member.getId().getUsersUsername(),
+                                    member.getUserhouseAdministrator())));
 
             String houseUri = UriBuilderUtils.buildHouseUri(houseId);
             String itemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
