@@ -85,5 +85,4 @@ class StockItemDto(siren: Siren) {
         private const val stockItemsLabel: String = "stock-items"
         private val mapper: ObjectMapper = jacksonObjectMapper()
     }
-
 }

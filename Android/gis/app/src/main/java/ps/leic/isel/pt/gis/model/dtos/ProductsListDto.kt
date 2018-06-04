@@ -1,15 +1,22 @@
 package ps.leic.isel.pt.gis.model.dtos
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 
 class ProductsListDto(siren: Siren) {
-    val productsListProduct: Array<ListProductDto> = siren.entities?.map {
-        ListProductDto(Siren(it.klass, it.properties, null, null, it.links))
-    }.orEmpty().toTypedArray()
+    val productsListProduct: Array<ListProductDto>
     val actions: ProductsListActions = ProductsListActions(siren.actions)
     val links: ProductsListLink = ProductsListLink(siren.links)
+
+    init {
+        val elements = siren.entities?.find {
+            it.klass?.contains(listProductsEntityLabel) ?: false
+        }?.properties?.get("elements")
+        productsListProduct = mapper.convertValue<Array<ListProductDto>>(elements, Array<ListProductDto>::class.java)
+    }
 
     class ProductsListActions(actions: Array<Action>?) {
         val updateProduc: Action? = actions?.find {
@@ -34,5 +41,7 @@ class ProductsListDto(siren: Siren) {
         private const val listLabel: String = "list"
         private const val updateProductLabel: String = "update-product"
         private const val deleteListProductsLabel: String = "delete-list-products"
+        private const val listProductsEntityLabel: String = "list-products"
+        private val mapper: ObjectMapper = jacksonObjectMapper()
     }
 }
