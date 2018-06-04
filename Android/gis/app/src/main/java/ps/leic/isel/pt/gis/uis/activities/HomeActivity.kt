@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.UserDTO
+import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.ListProductDto
 import ps.leic.isel.pt.gis.model.dtos.StorageDto
 import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
@@ -37,7 +38,8 @@ class HomeActivity : AppCompatActivity(),
         ListsFragment.OnListsFragmentInteractionListener,
         ListDetailFragment.OnListDetailFragmentInteractionListener,
         StockItemListFragment.OnStockItemListFragmentInteractionListener,
-        StockItemDetailFragment.OnStockItemDetailFragmentInteractionListener {
+        StockItemDetailFragment.OnStockItemDetailFragmentInteractionListener,
+        ListsFiltersDialogFragment.OnListsFiltersDialogFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -219,6 +221,11 @@ class HomeActivity : AppCompatActivity(),
     override fun onListProductInteraction(listProduct: ListProductDto) {
         //TODO: expand
         Toast.makeText(this, "Specific List-Product", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onFiltersApply(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?) {
+        val listsFragment = supportFragmentManager.findFragmentByTag(ExtraUtils.LISTS) as? ListsFragment
+        listsFragment?.onFiltersApplied(systemLists, userLists, sharedLists, houses)
     }
 
     // Listener for StockItemListFragment interaction

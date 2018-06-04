@@ -3,7 +3,7 @@ package ps.leic.isel.pt.gis.uis.fragments
 import android.app.Dialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.DialogInterface
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.content.ContextCompat
@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.layout_filters_dialog.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.FiltersHousesAdapter
@@ -25,8 +26,9 @@ class ListsFiltersDialogFragment : DialogFragment() {
 
     private lateinit var url: String
     private lateinit var housesViewModel: HousesViewModel
+    private var listener: OnListsFiltersDialogFragmentInteractionListener? = null
 
-    private val adapter: FiltersHousesAdapter = FiltersHousesAdapter()
+    private val filtersHousesAdapter: FiltersHousesAdapter = FiltersHousesAdapter()
 
     private val listsFiltersState: ListsFilters = ListsFilters()
 
@@ -38,6 +40,15 @@ class ListsFiltersDialogFragment : DialogFragment() {
 
     private lateinit var sharedListsTextView: TextView
     private lateinit var sharedListImageView: ImageView
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnListsFiltersDialogFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnListsFiltersDialogFragmentInteractionListener")
+        }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -63,17 +74,22 @@ class ListsFiltersDialogFragment : DialogFragment() {
         val view: View = inflater.inflate(R.layout.layout_filters_dialog, null)
         builder.setView(view)
                 // Add action buttons
-                .setPositiveButton(R.string.apply, DialogInterface.OnClickListener { dialog, id ->
-                    // TODO: apply filters
+                .setPositiveButton(R.string.apply, { _, _ ->
+                    listener?.onFiltersApply(
+                            listsFiltersState.systemListsSelected,
+                            listsFiltersState.userListsSelected,
+                            listsFiltersState.sharedListsSelected,
+                            filtersHousesAdapter.getSelectedItems()
+                    )
                 })
-                .setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { dialog, id ->
+                .setNegativeButton(R.string.cancel, { _, _ ->
                     this@ListsFiltersDialogFragment.dialog.cancel()
                 })
 
         // Set RecyclerView
         view.housesFiltersRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.housesFiltersRecyclerView.setHasFixedSize(true)
-        view.housesFiltersRecyclerView.adapter = adapter
+        view.housesFiltersRecyclerView.adapter = filtersHousesAdapter
 
         // Set listeners - System Lists
         systemListImageView = view.systemListsIcon
@@ -94,15 +110,20 @@ class ListsFiltersDialogFragment : DialogFragment() {
         return builder.create()
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
     private fun onSuccess(housesDto: HousesDto) {
-        adapter.setData(housesDto.houses)
+        filtersHousesAdapter.setData(housesDto.houses)
     }
 
     private fun onError(message: String?) {
         //TODO. smthg
     }
 
-    inner class ListsFilters {
+    private inner class ListsFilters {
         var systemListsSelected: Boolean = false
         var sharedListsSelected: Boolean = false
         var userListsSelected: Boolean = false
@@ -158,6 +179,14 @@ class ListsFiltersDialogFragment : DialogFragment() {
         }
         listsFiltersState.sharedListsSelected = !listsFiltersState.sharedListsSelected
     }
+
+    /**
+     * Listener
+     */
+    interface OnListsFiltersDialogFragmentInteractionListener {
+        fun onFiltersApply(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?)
+    }
+
     /**
      * ListsFiltersDialogFragment Factory
      */
