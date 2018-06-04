@@ -31,7 +31,7 @@ public class ProductsCategoryOutputModel {
     public ProductsCategoryOutputModel(int categoryId, List<Product> products) {
         this.klass = initKlass();
         this.properties = initProperties(products);
-        this.entities = initEntities(products);
+        this.entities = initEntities(categoryId, products);
         this.links = initLinks(categoryId);
     }
 
@@ -40,20 +40,21 @@ public class ProductsCategoryOutputModel {
         return new String[]{ENTITY_CLASS, "collection"};
     }
 
-    private Map<String,Object> initProperties(List<Product> products) {
+    private Map<String, Object> initProperties(List<Product> products) {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("size", products.size());
 
         return properties;
     }
 
-    private Entity[] initEntities(List<Product> products) {
+    private Entity[] initEntities(int categoryId, List<Product> products) {
         Entity[] entities = new Entity[products.size()];
         for (int i = 0; i < products.size(); ++i) {
             Product productsCategory = products.get(i);
             int productId = productsCategory.getProductId();
 
             HashMap<String, Object> properties = new HashMap<>();
+            properties.put("category-id", categoryId);
             properties.put("product-id", productId);
             properties.put("product-name", productsCategory.getProductName());
             properties.put("product-edible", productsCategory.getProductEdible());
@@ -66,7 +67,7 @@ public class ProductsCategoryOutputModel {
                     new String[]{"item"},
                     properties,
                     null,
-                    new Link[]{new Link(new String[]{"self"},  new String[]{"product"}, productUri)});
+                    new Link[]{new Link(new String[]{"self"}, new String[]{"product"}, productUri)});
         }
         return entities;
     }
