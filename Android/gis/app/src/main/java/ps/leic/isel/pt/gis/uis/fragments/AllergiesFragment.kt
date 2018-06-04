@@ -50,12 +50,17 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
+            else if (it?.status == Status.LOADING){
+                allergiesProgressBar.visibility = View.VISIBLE
+                allergiesLayout.visibility = View.INVISIBLE
+            }
         })
     }
 
     private fun onSuccess(allergies: HouseAllergiesDto) {
         // Hide progress bar
         allergiesProgressBar.visibility = View.GONE
+        allergiesLayout.visibility = View.VISIBLE
 
         // Set data to adapter
         adapter.setData(allergies.houseAllergies)
