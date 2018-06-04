@@ -38,7 +38,7 @@ public class CategoriesOutputModel {
         return new String[]{ENTITY_CLASS, "collection"};
     }
 
-    private Map<String,Object> initProperties(List<Category> categories) {
+    private Map<String, Object> initProperties(List<Category> categories) {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("size", categories.size());
 
@@ -49,7 +49,9 @@ public class CategoriesOutputModel {
         Entity[] entities = new Entity[categories.size()];
         for (int i = 0; i < categories.size(); ++i) {
             Category category = categories.get(i);
-            String categoryUri = UriBuilderUtils.buildCategoryUri(category.getCategoryId());
+            Integer categoryId = category.getCategoryId();
+            String categoryUri = UriBuilderUtils.buildCategoryUri(categoryId);
+            String productsCategoryUri = UriBuilderUtils.buildProductsCategoryUri(categoryId);
 
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("category-id", category.getCategoryId());
@@ -60,7 +62,10 @@ public class CategoriesOutputModel {
                     new String[]{"item"},
                     properties,
                     null,
-                    new Link[]{new Link(new String[]{"self"}, new String[]{"category", "item"}, categoryUri)});
+                    new Link[]{
+                            new Link(new String[]{"self"}, new String[]{"category", "item"}, categoryUri),
+                            new Link(new String[]{"related"}, new String[]{"products-category", "collection"}, productsCategoryUri)
+                    });
         }
         return entities;
     }
