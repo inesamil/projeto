@@ -45,13 +45,18 @@ class StoragesFragment : Fragment() {
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
+            else if (it?.status == Status.LOADING){
+                storagesProgressBar.visibility = View.VISIBLE
+                storagesLayout.visibility = View.INVISIBLE
+            }
         })
     }
 
     private fun onSuccess(storages: StoragesDto) {
         // Hide progress bar
         storagesProgressBar.visibility = View.GONE
-        
+        storagesLayout.visibility = View.VISIBLE
+
         adapter.setData(storages.storages)
     }
 
