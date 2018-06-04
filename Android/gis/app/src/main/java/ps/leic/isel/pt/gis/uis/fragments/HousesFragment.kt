@@ -89,7 +89,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         view.housesRecyclerView.setHasFixedSize(true)
         view.housesRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
-        view.newHouseButton.setOnClickListener {
+        view.housesLayout.newHouseButton.setOnClickListener {
             houses?.actions?.addHouse?.let {
                 listener?.onNewHouseInteraction()
             }
