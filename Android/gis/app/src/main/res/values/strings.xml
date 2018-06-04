@@ -178,4 +178,5 @@
     <string name="userLists">My Lists</string>
     <string name="select">Select</string>
     <string name="apply">Apply</string>
+    <string name="tags">Tags</string>
 </resources>

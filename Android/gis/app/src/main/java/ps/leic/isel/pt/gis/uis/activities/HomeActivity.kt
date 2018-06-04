@@ -147,6 +147,11 @@ class HomeActivity : AppCompatActivity(),
         }
     }
 
+    // Listener for HomPageFragment interaction
+    override fun onMyTagsInteraction() {
+        supportFragmentManager.replaceCurrentFragmentWith(WriteNfcTagFragment.TAG, WriteNfcTagFragment.Companion::newInstance)
+    }
+
     // Listener for HousesFragment interaction
     override fun onStoragesInteraction(storagesUrl: String) {
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STORAGES, StoragesFragment.Companion::newInstance, storagesUrl)
@@ -224,11 +229,6 @@ class HomeActivity : AppCompatActivity(),
                 Pair(StockItemDetailFragment.STOCK_ITEM_VARIETY_ARG, stockItemVariety)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM, StockItemDetailFragment.Companion::newInstance, args)
-    }
-
-    // Listener for StockItemListFragment interaction
-    override fun onNewStockItemIteraction() {
-        supportFragmentManager.replaceCurrentFragmentWith(WriteNfcTagFragment.TAG, WriteNfcTagFragment.Companion::newInstance)
     }
 
     override fun onStorageInteraction(storage: StorageDto) {

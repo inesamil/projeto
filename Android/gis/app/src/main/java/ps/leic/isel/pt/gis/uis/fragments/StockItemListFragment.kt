@@ -70,12 +70,17 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
+            else if (it?.status == Status.LOADING) {
+                stockItemListProgressBar.visibility = View.VISIBLE
+                stockItemListLayout.visibility = View.INVISIBLE
+            }
         })
     }
 
     private fun onSuccess(housesDto: HousesDto) {
         // Hide progress bar
         stockItemListProgressBar.visibility = View.GONE
+        stockItemListLayout.visibility = View.VISIBLE
 
         houses = housesDto.houses
 
@@ -122,10 +127,6 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         view.stockItemListRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.stockItemListRecyclerView.setHasFixedSize(true)
         view.stockItemListRecyclerView.adapter = stockItemListAdapter
-        // Set listener for add stock item
-        view.writeInTagButton.setOnClickListener {
-            listener?.onNewStockItemIteraction()
-        }
         stockItemListAdapter.setOnItemClickListener(this)
         return view
     }
@@ -194,7 +195,6 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
      */
     interface OnStockItemListFragmentInteractionListener {
         fun onStockItemInteraction(url: String, productName: String, stockItemVariety: String)
-        fun onNewStockItemIteraction()
     }
 
     /**

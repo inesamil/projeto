@@ -57,6 +57,11 @@ class HomePageFragment : Fragment() {
             listener?.onMyListsInteraction()
         }
 
+        // Set on tags click listener
+        view.myTagsCardView.setOnClickListener {
+            listener?.onMyTagsInteraction()
+        }
+
         return view
     }
 
@@ -85,6 +90,7 @@ class HomePageFragment : Fragment() {
         fun onMyHousesInteraction()
         fun onMyProfileInteraction()
         fun onMyListsInteraction()
+        fun onMyTagsInteraction()
     }
 
     /**
