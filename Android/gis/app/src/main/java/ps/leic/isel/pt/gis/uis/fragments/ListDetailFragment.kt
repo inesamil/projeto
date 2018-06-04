@@ -61,12 +61,18 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
+            else if (it?.status == Status.LOADING){
+                listProgressBar.visibility = View.VISIBLE
+                listLayout.visibility = View.INVISIBLE
+            }
         })
     }
 
     private fun onSuccess(productsList: ProductsListDto) {
         // Hide progress bar
         listProgressBar.visibility = View.GONE
+        listLayout.visibility = View.VISIBLE
+
         adapter.setData(productsList.productsListProduct)
         this.listProducts = productsList.productsListProduct
     }
