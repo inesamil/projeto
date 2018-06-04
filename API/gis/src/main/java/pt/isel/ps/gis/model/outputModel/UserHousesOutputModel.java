@@ -3,8 +3,7 @@ package pt.isel.ps.gis.model.outputModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import pt.isel.ps.gis.hypermedia.siren.components.subentities.Entity;
-import pt.isel.ps.gis.hypermedia.siren.components.subentities.Link;
+import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.outputModel.jsonObjects.CharacteristicsJsonObject;
 import pt.isel.ps.gis.model.outputModel.jsonObjects.MemberJsonObject;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"class", "properties", "entities", "links"})
+@JsonPropertyOrder({"class", "properties", "entities", "actions", "links"})
 public class UserHousesOutputModel {
 
     private final static String ENTITY_CLASS = "user-houses";
@@ -27,12 +26,15 @@ public class UserHousesOutputModel {
     @JsonProperty
     private final Entity[] entities;
     @JsonProperty
+    private final Action[] actions;
+    @JsonProperty
     private final Link[] links;
 
     public UserHousesOutputModel(String username, List<House> houses) {
         this.klass = initKlass();
         this.properties = initProperties(houses);
         this.entities = initEntities(houses);
+        this.actions = initActions();
         this.links = initLinks(username);
     }
 
@@ -85,6 +87,32 @@ public class UserHousesOutputModel {
                             new Link(new String[]{"related"}, new String[]{"storages", "collection"}, storagesUri)});
         }
         return entities;
+    }
+
+    private Action[] initActions() {
+        // Type
+        String type = "application/json";
+
+        // URIs
+        String housesUri = UriBuilderUtils.buildHousesUri();
+
+        // POST house
+        Action addHouse = new Action(
+                "add-house",
+                "Add House",
+                Method.POST,
+                housesUri,
+                type,
+                new Field[]{
+                        new Field("name", Field.Type.text, null, "Name"),
+                        new Field("babies-number", Field.Type.number, null, "Number of Babies"),
+                        new Field("children-number", Field.Type.number, null, "Number of Children"),
+                        new Field("adults-number", Field.Type.number, null, "Number of Adults"),
+                        new Field("seniors-number", Field.Type.number, null, "Number of Seniors")
+                }
+        );
+
+        return new Action[]{addHouse};
     }
 
     private Link[] initLinks(String username) {
