@@ -114,6 +114,7 @@
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/shareableListSwitch"
+        style="@style/SmartStocksTheme.Switch.Blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -145,7 +146,7 @@
         app:layout_constraintEnd_toStartOf="@+id/verticalGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_list_iris_blue_orange_round" />
+        app:srcCompat="@mipmap/ic_list_hi_res_512" />
 
     <android.support.constraint.Guideline
         android:id="@+id/verticalGuideline"
