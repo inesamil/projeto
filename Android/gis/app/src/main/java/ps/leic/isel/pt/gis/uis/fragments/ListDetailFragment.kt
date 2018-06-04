@@ -66,6 +66,9 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
                 listLayout.visibility = View.INVISIBLE
             }
         })
+        transferToOfflineLayout.setOnClickListener {
+            listener?.onListDownload()
+        }
     }
 
     private fun onSuccess(productsList: ProductsListDto) {
@@ -143,6 +146,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
      */
     interface OnListDetailFragmentInteractionListener {
         fun onListProductInteraction(listProduct: ListProductDto)
+        fun onListDownload()    //TODO: o que é preciso passar?
     }
 
     /**
