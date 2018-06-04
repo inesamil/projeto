@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_stock_item_detail.*
 import kotlinx.android.synthetic.main.fragment_stock_item_detail.view.*
+import kotlinx.android.synthetic.main.fragment_stock_item_list.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.StockItemDto
 import ps.leic.isel.pt.gis.model.dtos.StorageDto
@@ -69,13 +70,17 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
+            else if (it?.status == Status.LOADING) {
+                stockItemDetailProgressBar.visibility = View.VISIBLE
+                stockItemDetailLayout.visibility = View.INVISIBLE
+            }
         })
     }
 
     private fun onSuccess(stockItem: StockItemDto) {
         // Hide progress bar
         stockItemDetailProgressBar.visibility = View.GONE
-
+        stockItemDetailLayout.visibility = View.VISIBLE
         // Set Allergens
         //TODO allergensText.text = allergens.getElementsSeparatedBySemiColon()
 
