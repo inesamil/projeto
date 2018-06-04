@@ -58,12 +58,17 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
+            else if (it?.status == Status.LOADING){
+                categoriesProgressBar.visibility = View.VISIBLE
+                categoriesLayout.visibility = View.INVISIBLE
+            }
         })
     }
 
     private fun onSuccess(categories: CategoriesDto) {
         // Hide progress bar
         categoriesProgressBar.visibility = View.GONE
+        categoriesLayout.visibility = View.VISIBLE
 
         // Set Adapter
         adapter.setData(categories.categories)
