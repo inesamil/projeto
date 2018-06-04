@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.android.synthetic.main.fragment_category_products.*
 import kotlinx.android.synthetic.main.fragment_category_products.view.*
 import ps.leic.isel.pt.gis.R
@@ -62,12 +63,17 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
                 onSuccess(it.data!!)
             else if (it?.status == Status.ERROR)
                 onError(it.message)
+            else if (it?.status == Status.LOADING){
+                categoryProductsProgressBar.visibility = View.VISIBLE
+                categoriesLayout.visibility = View.INVISIBLE
+            }
         })
     }
 
     private fun onSuccess(products: ProductsDto) {
         // Hide progress bar
         categoryProductsProgressBar.visibility = View.GONE
+        categoriesLayout.visibility = View.VISIBLE
 
         // Set Adapter
         adapter.setData(products.products)
