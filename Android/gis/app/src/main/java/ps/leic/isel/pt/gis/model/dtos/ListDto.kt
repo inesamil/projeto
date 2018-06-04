@@ -56,6 +56,8 @@ class ListDto(siren: Siren) {
     }
 
     companion object {
+        const val SYSTEM_TYPE = "system"
+        const val USER_TYPE = "user"
         private val mapper: ObjectMapper = jacksonObjectMapper()
         private const val houseIdLabel: String = "house-id"
         private const val houseNameLabel: String = "house-name"
