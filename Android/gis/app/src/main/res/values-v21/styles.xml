@@ -14,6 +14,6 @@
     </style>
 
     <style name="SmartStocksTheme.ProgressBar" parent="Widget.AppCompat.ProgressBar">
-        <item name="android:progressTint">@color/primaryColor</item>
+        <item name="android:indeterminateTint">@color/primaryColor</item>
     </style>
 </resources>

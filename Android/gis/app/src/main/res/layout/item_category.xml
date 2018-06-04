@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
                 android:background="@drawable/square"
+                android:gravity="center_horizontal|clip_vertical"
                 android:textColor="@color/primaryTextColor"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
