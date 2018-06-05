@@ -229,6 +229,7 @@ class HomeActivity : AppCompatActivity(),
         Toast.makeText(this, "This functionality is not available", Toast.LENGTH_LONG).show()
     }
 
+    // Listener for ListsFiltersDialogFragment interaction
     override fun onFiltersApply(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?) {
         val listsFragment = supportFragmentManager.findFragmentByTag(ExtraUtils.LISTS) as? ListsFragment
         listsFragment?.onFiltersApplied(systemLists, userLists, sharedLists, houses)

@@ -88,20 +88,15 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         view.listsRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.listsRecyclerView.setHasFixedSize(true)
         view.listsRecyclerView.adapter = adapter
-        // Set new lists listener
+        adapter.setOnItemClickListener(this)
+        // Listener for new list creation
         view.newListButton.setOnClickListener {
-            // Listener for new list creation
             listener?.onNewListInteraction()
         }
-        view.newListButton.setOnClickListener {
-            // Listener for new list creation
-            listener?.onNewListInteraction()
-        }
+        // Listener for filters
         view.filtersText.setOnClickListener {
-            // Listener for filters
             listener?.onFiltersInteraction()
         }
-        adapter.setOnItemClickListener(this)
         return view
     }
 
