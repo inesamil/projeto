@@ -89,11 +89,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         view.listsRecyclerView.setHasFixedSize(true)
         view.listsRecyclerView.adapter = adapter
         // Set new lists listener
-        view.createNewListBtn.setOnClickListener {
-            // Listener for new list creation
-            listener?.onNewListInteraction()
-        }
-        view.createNewListText.setOnClickListener {
+        view.newListButton.setOnClickListener {
             // Listener for new list creation
             listener?.onNewListInteraction()
         }
