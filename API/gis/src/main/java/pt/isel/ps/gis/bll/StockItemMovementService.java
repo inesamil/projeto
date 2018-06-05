@@ -45,10 +45,18 @@ public interface StockItemMovementService {
     /**
      * Adicionar um movimento à casa
      *
-     * @param stockItemMovement movimento a adicionar
-     * @return StockItemMovement
+     * @param houseId
+     * @param storageId
+     * @param productName
+     * @param brand
+     * @param variety
+     * @param segment
+     * @param quantity
+     * @return
+     * @throws EntityException
+     * @throws EntityNotFoundException
      */
-    StockItemMovement addStockItemMovement(long houseId, String sku, short storageId, boolean movementType, String movementDatetime, short movementQuantity) throws EntityException, EntityNotFoundException;
+    StockItemMovement addStockItemMovement(long houseId, short storageId, String productName, String brand, String variety, String segment, String date, boolean movementType, short quantity) throws EntityException, EntityNotFoundException;
 
     /**
      * Filtros - filtragem dos movimentos
