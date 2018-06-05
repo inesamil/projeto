@@ -7,16 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.dtos.StorageDto
 
 class StockItemInnerListAdapter : RecyclerView.Adapter<StockItemInnerListAdapter.ViewHolder>() {
 
-    private val examplesLocal = arrayOf("Fridge", "Cabinet1")
-    private val examplesUnit = arrayOf("2 units", "4 units")
-
-    fun setLocalItems(localItems: Array<Any>) {
-        //mLocalItems = localItems
-        //notifyDataSetChanged()
-    }
+    private var data: Array<String>? = null
 
     // inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,17 +22,20 @@ class StockItemInnerListAdapter : RecyclerView.Adapter<StockItemInnerListAdapter
 
     // binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.localItemText.text = examplesLocal[position]
-        holder.unitsItemText.text = examplesUnit[position]
+        data?.let {
+            val item = it[position]
+            holder.localItemText.text = item
+            holder.unitsItemText.text = "0" //TODO: get Stock Item quantity
+        }
     }
 
     // total number of cells
     override fun getItemCount(): Int {
-        return examplesLocal.size
+        return data?.size ?: 0
     }
 
-    fun setData(data: Any?) {
-        // TODO To change body of created functions use File | Settings | File Templates.
+    fun setData(data: Array<String>) {
+        this.data = data
     }
 
     // stores and recycles views as they are scrolled off screen

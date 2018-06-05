@@ -30,7 +30,9 @@ class StockItemListAdapter : RecyclerView.Adapter<StockItemListAdapter.ViewHolde
             holder.brandText.text = item.brand
             holder.qntItemText.text = item.quantity.toString()
             // If the inner adapter needs data pass here the data
-            holder.innerAdapter.setData(item.storages)
+            item.storages?.let {
+                holder.innerAdapter.setData(it)
+            }
         }
     }
 
