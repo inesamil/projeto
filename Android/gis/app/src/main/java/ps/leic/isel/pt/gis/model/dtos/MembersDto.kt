@@ -2,11 +2,11 @@ package ps.leic.isel.pt.gis.model.dtos
 
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
+import ps.leic.isel.pt.gis.utils.Requester.Companion.mapper
 
 class MembersDto(siren: Siren) {
-    val houseHold: Array<MemberDto> = siren.entities?.map {
-        MemberDto(Siren(it.klass, it.properties, null, it.actions, it.links))
-    }.orEmpty().toTypedArray()
+    val members = siren.properties?.get("house-members");
+    val houseHold: Array<MemberDto> = mapper.convertValue<Array<MemberDto>>(members, Array<MemberDto>::class.java)
     val links: HouseHoldLink = HouseHoldLink(siren.links)
 
     class HouseHoldLink(links: Array<Link>?) {
