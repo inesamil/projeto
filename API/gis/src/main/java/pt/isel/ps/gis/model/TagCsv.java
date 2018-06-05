@@ -13,7 +13,7 @@ public class TagCsv {
     @CsvBindByPosition(position = 3, required = true)
     private String segment;
     @CsvBindByPosition(position = 4, required = true)
-    private String quantity;
+    private short quantity;
     @CsvBindByPosition(position = 5, required = true)
     private String date;
     @CsvBindByPosition(position = 6)
@@ -51,11 +51,11 @@ public class TagCsv {
         this.segment = segment;
     }
 
-    public String getQuantity() {
+    public short getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(short quantity) {
         this.quantity = quantity;
     }
 

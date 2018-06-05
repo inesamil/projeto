@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.controllers;
 
+import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,12 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.StockItemMovement;
+import pt.isel.ps.gis.model.TagCsv;
+import pt.isel.ps.gis.model.inputModel.MovementInputModel;
 import pt.isel.ps.gis.model.outputModel.MovementsOutputModel;
 import pt.isel.ps.gis.model.requestParams.StockItemMovementRequestParam;
 
+import java.io.StringReader;
 import java.util.List;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
@@ -57,11 +61,26 @@ public class StockItemMovementController {
 
     @PostMapping("")
     public ResponseEntity<MovementsOutputModel> postMovement(
-            @PathVariable("house-id") long houseId
+            @PathVariable("house-id") long houseId,
+            @RequestBody MovementInputModel body
     ) throws BadRequestException, NotFoundException {
-        // TODO falta definir o body
+        CsvToBeanBuilder<TagCsv> builder = new CsvToBeanBuilder<>(new StringReader(body.getTag()));
+        List<TagCsv> tagCsvList = builder.build().parse();
+        if (tagCsvList.size() <= 0) throw new BadRequestException(""); // TODO ver a mensagem da excecao
+        TagCsv tag = tagCsvList.get(0);
         List<StockItemMovement> movements;
         try {
+            stockItemMovementService.addStockItemMovement(
+                    houseId,
+                    body.getStorageId(),
+                    tag.getProductName(),
+                    tag.getBrand(),
+                    tag.getVariety(),
+                    tag.getSegment(),
+                    tag.getDate(),
+                    body.getType(),
+                    tag.getQuantity()
+            );
             movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
@@ -70,6 +89,6 @@ public class StockItemMovementController {
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new MovementsOutputModel(houseId, movements), setSirenContentType(headers),
-                HttpStatus.OK);
+                HttpStatus.CREATED);
     }
 }
