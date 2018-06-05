@@ -40,9 +40,9 @@ class CategoryProductsAdapter : RecyclerView.Adapter<CategoryProductsAdapter.Vie
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val productText: TextView = itemView.findViewById(R.id.productDiaryItemText)
-        internal val productPlusBtn: Button = itemView.findViewById(R.id.productDiaryItemPlusBtn)
-        internal val productMinusBtn: Button = itemView.findViewById(R.id.productDiaryItemMinusBtn)
+        internal val productText: TextView = itemView.findViewById(R.id.productItemText)
+        internal val productMinusBtn: Button = itemView.findViewById(R.id.productItemMinusButton)
+        internal val productPlusBtn: Button = itemView.findViewById(R.id.productItemPlusButton)
 
         init {
             productText.setOnClickListener {

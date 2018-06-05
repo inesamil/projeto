@@ -93,6 +93,10 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
             // Listener for new list creation
             listener?.onNewListInteraction()
         }
+        view.newListButton.setOnClickListener {
+            // Listener for new list creation
+            listener?.onNewListInteraction()
+        }
         view.filtersText.setOnClickListener {
             // Listener for filters
             listener?.onFiltersInteraction()

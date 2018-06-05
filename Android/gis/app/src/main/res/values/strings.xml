@@ -180,4 +180,5 @@
     <string name="apply">Apply</string>
     <string name="tags">Tags</string>
     <string name="nfc_icon_description">NFC Icon</string>
+    <string name="add_list_product">Add product to</string>
 </resources>

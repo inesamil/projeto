@@ -76,7 +76,9 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
     }
 
     private fun onError(error: String?) {
-        Log.v("APP_GIS", error)
+        error?.let{
+            Log.v("APP_GIS", error)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -21,7 +21,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/productDiaryItemText"
+                android:id="@+id/productItemText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -31,12 +31,33 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/productDiaryItemPlusBtn"
+                app:layout_constraintEnd_toStartOf="@+id/productItemMinusButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/productDiaryItemPlusBtn"
+                android:id="@+id/productItemMinusButton"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/orange_circle"
+                android:text="@string/minus"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:theme="@style/SmartStocksTheme.Button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/productItemPlusButton"
+                app:layout_constraintStart_toEndOf="@+id/productItemText"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/productItemPlusButton"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginBottom="8dp"
@@ -50,25 +71,8 @@
                 android:textStyle="bold"
                 android:theme="@style/SmartStocksTheme.Button"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/productDiaryItemMinusBtn"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/productDiaryItemMinusBtn"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/orange_circle"
-                android:text="@string/minus"
-                android:textColor="@color/cardview_light_background"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:theme="@style/SmartStocksTheme.Button"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/productItemMinusButton"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
         </android.support.constraint.ConstraintLayout>

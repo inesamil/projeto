@@ -55,14 +55,17 @@ public class ListsOutputModel {
             ListId listId = list.getId();
 
             HashMap<String, Object> properties = new HashMap<>();
+            String listType = list.getListType();
             properties.put("house-id", houseId);
             properties.put("house-name", list.getHouseByHouseId().getHouseName());
             properties.put("list-id", listId.getListId());
             properties.put("list-name", list.getListName());
-            if (list.getListType().equals("user")) {
+            properties.put("list-type", listType);
+            if (listType.equals("user")) {
                 properties.put("user-username", list.getUserlist().getUsersUsername());
                 properties.put("list-shareable", list.getUserlist().getListShareable());
             }
+
 
             String listUri = UriBuilderUtils.buildListUri(houseId, listId.getListId());
             entities[i] = new Entity(

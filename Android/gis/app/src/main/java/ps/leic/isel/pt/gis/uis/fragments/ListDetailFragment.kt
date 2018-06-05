@@ -66,9 +66,6 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
                 }
             }
         })
-        transferToOfflineLayout.setOnClickListener {
-            listener?.onListDownload()
-        }
     }
 
     private fun onSuccess(productsList: ProductsListDto) {
@@ -90,10 +87,18 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_list, container, false)
+
+        // Set Adapter to Recycler View
         view.listRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.listRecyclerView.setHasFixedSize(true)
         view.listRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
+
+        // Set listener to transferToOfflineLayout clicks
+        view.transferToOfflineLayout.setOnClickListener {
+            listener?.onListDownload()
+        }
+
         return view
     }
 

@@ -132,7 +132,7 @@
                 <EditText
                     android:id="@+id/babiesNumEditText"
                     android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/default_number"
                     android:inputType="number"
@@ -141,6 +141,7 @@
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/babiesText"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
@@ -221,7 +222,7 @@
                 <EditText
                     android:id="@+id/childrenNumEditText"
                     android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/default_number"
                     android:inputType="number"
@@ -230,6 +231,7 @@
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/childrenText"
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
@@ -308,7 +310,7 @@
                 <EditText
                     android:id="@+id/adultsNumEditText"
                     android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/default_number"
                     android:inputType="number"
@@ -316,6 +318,7 @@
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/adultsText"
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
