@@ -13,9 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.android.synthetic.main.fragment_categories.view.*
-import kotlinx.android.synthetic.main.fragment_category_products.*
 import kotlinx.android.synthetic.main.fragment_category_products.view.*
 import kotlinx.android.synthetic.main.layout_add_list_product_popup.*
 import kotlinx.android.synthetic.main.layout_add_list_product_popup.view.*
@@ -29,7 +27,6 @@ import ps.leic.isel.pt.gis.uis.adapters.ListsPopupAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.CategoryProductsViewModel
-import ps.leic.isel.pt.gis.viewModel.ListsViewModel
 
 
 /**
@@ -49,7 +46,6 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     private var listener: OnCategoryProductsFragmentInteractionListener? = null
     private val adapter = CategoryProductsAdapter()
 
-    private lateinit var listsViewModel: ListsViewModel
     private lateinit var categoryProductsViewModel: CategoryProductsViewModel
     private lateinit var url: String
 
@@ -159,6 +155,8 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
 
     private fun showAddPopup(v: View, lists: Array<ListDto>) {
         val location = IntArray(2)
+        val popupWidth = 600
+        val popupHeight = 550
 
         v.getLocationOnScreen(location)
 
@@ -173,6 +171,8 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
         // Creating the PopupWindow
         val popup = PopupWindow(context)
         popup.contentView = layout
+        popup.width = popupWidth
+        popup.height = popupHeight
         popup.isFocusable = true
 
         // Some offset to align the popup a bit to the right, and a bit down, relative to button's position.
