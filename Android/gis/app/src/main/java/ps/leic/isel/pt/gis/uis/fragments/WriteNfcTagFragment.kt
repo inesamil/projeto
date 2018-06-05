@@ -59,6 +59,13 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         view.categorySpinner.onItemSelectedListener = this
         view.categorySpinner.setSelection(first)
 
+        //Set product spinner options
+        val productSpinnerAdapter = ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_item, products.map { product -> product.name })
+        productSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        view.productSpinner.adapter = productSpinnerAdapter
+        view.productSpinner.onItemSelectedListener = this
+        view.productSpinner.setSelection(first)
+
         // Set write button listener
         view.writeBtn.setOnClickListener(::onWriteClick)
 
