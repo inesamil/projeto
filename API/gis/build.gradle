@@ -33,4 +33,5 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile group: 'org.springframework', name: 'spring-test', version: '2.5'	// https://mvnrepository.com/artifact/org.springframework/spring-test
 	compile('org.postgresql:postgresql')
+	compile('com.opencsv:opencsv:4.2')
 }
