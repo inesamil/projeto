@@ -25,7 +25,7 @@ public class Product {
     private Integer categoryId;
 
     @Basic
-    @Column(name = "product_name", length = RestrictionsUtils.PRODUCT_NAME_MAX_LENGTH, nullable = false)
+    @Column(name = "product_name", length = RestrictionsUtils.PRODUCT_NAME_MAX_LENGTH, nullable = false, unique = true)
     private String productName;
 
     @Basic
