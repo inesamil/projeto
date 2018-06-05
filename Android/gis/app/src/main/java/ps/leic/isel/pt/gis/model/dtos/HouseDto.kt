@@ -10,7 +10,7 @@ class HouseDto(siren: Siren) {
     val houseId: Long
     val name: String?
     val characteristics: CharacteristicsDto?
-    val members: Array<MemberDto>
+    val members: Array<MemberDto>?
     val actions: HousesActions
     val links: HouseLinks
 
@@ -20,9 +20,8 @@ class HouseDto(siren: Siren) {
         name = properties[houseNameLabel] as String
         val characteristics = properties[houseCharacteristicsLabel]
         this.characteristics = mapper.convertValue<CharacteristicsDto>(characteristics, CharacteristicsDto::class.java)
-        members = siren.entities?.map {
-            MemberDto(Siren(it.klass, it.properties, null, null, null))
-        }.orEmpty().toTypedArray()
+        val members = properties["house-members"]
+        this.members = mapper.convertValue<Array<MemberDto>>(members, Array<MemberDto>::class.java)
         actions = HousesActions(siren.actions)
         links = HouseLinks(siren.links)
     }
