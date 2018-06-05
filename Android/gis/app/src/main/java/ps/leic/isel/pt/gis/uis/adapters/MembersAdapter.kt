@@ -10,30 +10,32 @@ import ps.leic.isel.pt.gis.model.dtos.MemberDto
 
 class MembersAdapter : RecyclerView.Adapter<MembersAdapter.ViewHolder>() {
 
-    private lateinit var data: Array<MemberDto>
+    private var data: Array<MemberDto>? = null
 
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_member, parent, false) as View
-
         return ViewHolder(view)
     }
 
     // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
-        // Fill ViewHolder
-        holder.member.text = item.username
-        holder.admin.visibility = if (item.administrator) View.VISIBLE else View.INVISIBLE
+        data?.let {
+            val item = it[position]
+            // Fill ViewHolder
+            holder.member.text = item.username
+            holder.admin.visibility = if (item.administrator) View.VISIBLE else View.INVISIBLE
+        }
     }
 
-    override fun getItemCount() = data.size
-
-    fun setData(data: Array<MemberDto>) {
+    fun setData(data: Array<MemberDto>?) {
         this.data = data
         notifyDataSetChanged()
     }
+
+    override fun getItemCount() = data?.size ?: 0
+
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
