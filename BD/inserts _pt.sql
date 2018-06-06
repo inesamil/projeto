@@ -13,21 +13,25 @@ INSERT INTO public.house(house_name, house_characteristics) VALUES ('Jones', '{
 }');
 
 --USERS
-INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('bob', 'bob@example.com', 21, 'bob', '123');
-INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('alice', 'alice@example.com', 21, 'alice', '123');
-INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('charles', 'charles@example.com', 21, 'charles', '123');
+INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('pedro', 'pedro@example.com', 21, 'Pedro Oliveira', '123');
+INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('alice', 'alice@example.com', 21, 'Alice', '123');
+INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('xavier', 'xavier@example.com', 21, 'Xavier', '123');
 
 --USER-HOUSE
-INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (1, 'bob', true);
+INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (1, 'pedro', true);
 INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (1, 'alice', false);
-INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (2, 'bob', true);
-INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (2, 'charles', false);
+INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (2, 'pedro', true);
+INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (2, 'xavier', false);
 
 --Allergy
-INSERT INTO public.allergy(allergy_allergen) VALUES ('Milk');
-INSERT INTO public.allergy(allergy_allergen) VALUES ('Eggs');
-INSERT INTO public.allergy(allergy_allergen) VALUES ('Cereals');
-INSERT INTO public.allergy(allergy_allergen) VALUES ('Fish');
+INSERT INTO public.allergy(allergy_allergen) VALUES ('Leite');
+INSERT INTO public.allergy(allergy_allergen) VALUES ('Ovo');
+INSERT INTO public.allergy(allergy_allergen) VALUES ('Trigo');
+INSERT INTO public.allergy(allergy_allergen) VALUES ('Amendoim');
+INSERT INTO public.allergy(allergy_allergen) VALUES ('Marisco');
+INSERT INTO public.allergy(allergy_allergen) VALUES ('Peixe');
+INSERT INTO public.allergy(allergy_allergen) VALUES ('Soja');
+INSERT INTO public.allergy(allergy_allergen) VALUES ('Glúten');
 
 --STORAGES
 INSERT INTO public.storage(house_id, storage_id, storage_name, storage_temperature)
@@ -42,41 +46,46 @@ INSERT INTO public.date(date_date) VALUES (to_date('2019-01-15', 'YYYY-MM-DD'));
 INSERT INTO public.date(date_date) VALUES (to_date('2018-05-01', 'YYYY-MM-DD'));
 
 --CATEGORY
-INSERT INTO public.category(category_name) VALUES ('Dairy');
-INSERT INTO public.category(category_name) VALUES ('Fruits');
-INSERT INTO public.category(category_name) VALUES ('Grains, Beans and Legumes');
-INSERT INTO public.category(category_name) VALUES ('Meat');
-INSERT INTO public.category(category_name) VALUES ('Confections');
-INSERT INTO public.category(category_name) VALUES ('Vegetables');
-INSERT INTO public.category(category_name) VALUES ('Water');
-INSERT INTO public.category(category_name) VALUES ('Alcohol');
-INSERT INTO public.category(category_name) VALUES ('Pasta');
-INSERT INTO public.category(category_name) VALUES ('Salads');
+INSERT INTO public.category(category_name) VALUES ('Laticínios');
+INSERT INTO public.category(category_name) VALUES ('Frutas');
+INSERT INTO public.category(category_name) VALUES ('Legumes');
+INSERT INTO public.category(category_name) VALUES ('Bebidas');
+INSERT INTO public.category(category_name) VALUES ('Congelados');
+INSERT INTO public.category(category_name) VALUES ('Frescos');
+INSERT INTO public.category(category_name) VALUES ('Marisco');
+INSERT INTO public.category(category_name) VALUES ('Peixe');
+INSERT INTO public.category(category_name) VALUES ('Carne');
+INSERT INTO public.category(category_name) VALUES ('Massas');
+INSERT INTO public.category(category_name) VALUES ('Snacks');
+INSERT INTO public.category(category_name) VALUES ('Enlatados');
+INSERT INTO public.category(category_name) VALUES ('Condimentos e Molhos');
+INSERT INTO public.category(category_name) VALUES ('Ervas e Especiarias');
+
 
 --PRODUCT
 INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
-	VALUES (1, 'Milk', true, 1, 'day');
+	VALUES (1, 'Leite', true, 1, 'day');
 INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
-	VALUES (1, 'Yogurt', true, 1, 'day');
+	VALUES (1, 'Iogurte', true, 1, 'day');
 INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
-	VALUES (1, 'Butter', true, 1, 'year');
+	VALUES (1, 'Manteiga', true, 1, 'year');
 
 INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
-	VALUES (2, 'Apple', true, 1, 'week');
+	VALUES (2, 'Maçã', true, 1, 'week');
 INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
-	VALUES (2, 'strawberry', true, 1, 'week');
+	VALUES (2, 'Morango', true, 1, 'week');
 INSERT INTO public.product(category_id, product_name, product_edible, product_shelflife, product_shelflifetimeunit) 
-	VALUES (2, 'Orange', true, 1, 'month');
+	VALUES (2, 'Laranja', true, 1, 'month');
 
 --STOCKITEM
 INSERT INTO public.stockitem(house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
-	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, 'Mimosa', '1', 'Ligth', 4, 'l', 'Very good milk', 'Fridge');
+	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, 'Mimosa', '1', 'UHT Magro', 4, 'l', 'Leite UHT Magro Bem Essencial', 'Não necessita de frigorífico antes de abrir. ');
 INSERT INTO public.stockitem(house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 2, 'Agros', '250', 'Ligth', 6, 'ml', 'yogurt ligth', 'Fridge');
+	VALUES (1, 'P2-Agros-Ligth-250ml', 2, 'Agros', '250', 'Iogurte Natural', 6, 'ml', 'Sem corantes nem conservantes.', 'Conservar entre 0ºC e 6ºC.');
 INSERT INTO public.stockitem(house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
-	VALUES (2, 'P2-Agros-Ligth-250ml', 2, 'Agros', '250', 'Ligth', 15, 'ml', 'yogurt ligth', 'Fridge');
+	VALUES (2, 'P2-Agros-Ligth-250ml', 2, 'Agros', '250', 'Iogurte Natural', 15, 'ml', 'Sem corantes nem conservantes.', 'Conservar entre 0ºC e 6ºC.');
 INSERT INTO public.stockitem(house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
-	VALUES (2, 'P3-Becel-Vegetal-250ml', 3, 'Becel', '250', 'Vegetal', 1, 'g', 'Vegetal Butter', 'Fridge');
+	VALUES (2, 'P3-Becel-Vegetal-250ml', 3, 'Becel', '250', 'Manteiga Vegetal', 1, 'kg', 'Menos 50% de gordura. Sem sal adicionado.', 'Fridge');
 	
 --EXPIRATION-DATE
 INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P1-Mimosa-Ligth-1l', to_date('2018-05-01', 'YYYY-MM-DD'), 2);
@@ -88,17 +97,17 @@ INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quant
 INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (2, 'P3-Becel-Vegetal-250ml', to_date('2019-06-01', 'YYYY-MM-DD'), 2);
 
 --HOUSE-ALLERGY
-INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_allergicsnum) VALUES (1, 'Milk', 1);
-INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_allergicsnum) VALUES (1, 'Cereals', 1);
-INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_allergicsnum) VALUES (2, 'Fish', 2);
+INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_allergicsnum) VALUES (1, 'Leite', 1);
+INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_allergicsnum) VALUES (1, 'Trigo', 1);
+INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_allergicsnum) VALUES (2, 'Peixe', 2);
 
 --LISTS
-SELECT insert_user_list(1, 'Birthday Party', 'bob', false);
-SELECT insert_user_list(1, 'Black List', 'bob', true);
-SELECT insert_user_list(2, 'Pool Day', 'bob', true);
-SELECT insert_user_list(2, 'New Products to Try', 'charles', true);
-SELECT insert_system_list(1, 'Groceries List');
-SELECT insert_system_list(2, 'Groceries List');
+SELECT insert_user_list(1, 'Festa de Aniversário do Xavier', 'pedro', false);
+SELECT insert_user_list(1, 'Lista Negra', 'pedro', true);
+SELECT insert_user_list(2, 'Dia na Piscina', 'pedro', true);
+SELECT insert_user_list(2, 'Produtos para Experimentar', 'xavier', true);
+SELECT insert_system_list(1, 'Lista de Compras');
+SELECT insert_system_list(2, 'Lista de Compras');
 
 --LIST-PRODUCT
 INSERT INTO public.listproduct(house_id, list_id, product_id, listproduct_brand, listproduct_quantity) 
@@ -116,13 +125,13 @@ INSERT INTO public.listproduct(house_id, list_id, product_id, listproduct_brand,
 	
 --STOCKITEM-ALLERGY
 INSERT INTO public.stockitemallergy(house_id, stockitem_sku, allergy_allergen)
-	VALUES (1, 'P1-Mimosa-Ligth-1l', 'Milk');
+	VALUES (1, 'P1-Mimosa-Ligth-1l', 'Leite');
 INSERT INTO public.stockitemallergy(house_id, stockitem_sku, allergy_allergen)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 'Milk');
+	VALUES (1, 'P2-Agros-Ligth-250ml', 'Leite');
 INSERT INTO public.stockitemallergy(house_id, stockitem_sku, allergy_allergen)
-	VALUES (2, 'P2-Agros-Ligth-250ml', 'Milk');
+	VALUES (2, 'P2-Agros-Ligth-250ml', 'Leite');
 INSERT INTO public.stockitemallergy(house_id, stockitem_sku, allergy_allergen)
-	VALUES (2, 'P3-Becel-Vegetal-250ml', 'Milk');
+	VALUES (2, 'P3-Becel-Vegetal-250ml', 'Leite');
 
 --STOCKITEM-MOVEMENT
 --House1-Milk
