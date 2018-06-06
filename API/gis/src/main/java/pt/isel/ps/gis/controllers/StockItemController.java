@@ -98,7 +98,7 @@ public class StockItemController {
                 setSirenContentType(headers), HttpStatus.OK);
     }
 
-    @PostMapping("")
+    /*@PostMapping("")
     public ResponseEntity<StockItemOutputModel> postItem(
             @PathVariable("house-id") long houseId,
             @RequestBody StockItemInputModel body
@@ -123,5 +123,5 @@ public class StockItemController {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemOutputModel(stockItem), setSirenContentType(headers),
                 HttpStatus.CREATED);
-    }
+    }*/
 }

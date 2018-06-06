@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Entity;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.Link;
-import pt.isel.ps.gis.model.ExpirationDate;
-import pt.isel.ps.gis.model.StockItem;
-import pt.isel.ps.gis.model.StockItemMovement;
-import pt.isel.ps.gis.model.StockItemStorage;
+import pt.isel.ps.gis.model.*;
 import pt.isel.ps.gis.model.outputModel.jsonObjects.ExpirationDateJsonObject;
 import pt.isel.ps.gis.model.outputModel.jsonObjects.MovementJsonObject;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
@@ -61,9 +58,25 @@ public class StockItemOutputModel {
 
     private Entity[] initEntities(StockItem stockItem) {
 
+        // Allergens
+        String[] allergens = new String[stockItem.getStockitemallergies().size()];
+        int i = 0;
+        for (StockItemAllergy stockItemAllergy : stockItem.getStockitemallergies()) {
+            allergens[i++] = stockItemAllergy.getId().getAllergyAllergen();
+        }
+        HashMap<String, Object> allergensProperties = new HashMap<>();
+        allergensProperties.put("elements", allergens);
+
+        Entity allergensEntity = new Entity(
+                new String[]{"allergens", "collection"},
+                new String[]{"collection"},
+                allergensProperties,
+                null,
+                null);
+
         // Expiration Dates
         ExpirationDateJsonObject[] expirationDates = new ExpirationDateJsonObject[stockItem.getExpirationdates().size()];
-        int i = 0;
+        i = 0;
         for (ExpirationDate expirationDate : stockItem.getExpirationdates()) {
             expirationDates[i++] = new ExpirationDateJsonObject(expirationDate.getId().getDateString(), expirationDate.getDateQuantity());
         }
@@ -103,13 +116,13 @@ public class StockItemOutputModel {
         movementProperties.put("elements", movements);
 
         Entity movementsEntity = new Entity(
-                new String[]{"movements, collection"},
+                new String[]{"movements", "collection"},
                 new String[]{"collection"},
                 movementProperties,
                 null,
                 null);
 
-        return new Entity[]{expirationDatesEntity, storagesEntity, movementsEntity};
+        return new Entity[]{allergensEntity, expirationDatesEntity, storagesEntity, movementsEntity};
     }
 
     private Link[] initLinks(StockItem stockItem) {

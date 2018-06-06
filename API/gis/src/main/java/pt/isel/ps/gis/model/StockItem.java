@@ -54,7 +54,7 @@ public class StockItem {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "stockitem")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockitem")
     private Collection<ExpirationDate> expirationdates;
 
     @ManyToOne(fetch = FetchType.LAZY)

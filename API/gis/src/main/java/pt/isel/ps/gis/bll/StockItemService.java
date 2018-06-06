@@ -53,7 +53,7 @@ public interface StockItemService {
      * @return StockItem
      * @throws EntityException se o item em stock já existir na casa
      */
-    StockItem addStockItem(long houseId, Integer productId, String brand, String segment, String variety, Short quantity, String description, String conservationStorage) throws EntityException, EntityNotFoundException;
+    //StockItem addStockItem(long houseId, Integer productId, String brand, String segment, String variety, Short quantity, String description, String conservationStorage) throws EntityException, EntityNotFoundException;
 
     /**
      * Remover um item duma casa

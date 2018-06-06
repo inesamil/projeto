@@ -40,6 +40,8 @@ public class StockItemServiceImpl implements StockItemService {
         StockItem stockItem = stockItemRepository
                 .findById(new StockItemId(houseId, stockItemSku))
                 .orElseThrow(() -> new EntityNotFoundException(STOCK_ITEM_NOT_EXIST));
+        stockItem.getStockitemallergies().size();
+        stockItem.getExpirationdates().size();
         stockItem.getStockitemstorages().size();
         stockItem.getStockitemmovements().size();
         return stockItem;
@@ -60,7 +62,7 @@ public class StockItemServiceImpl implements StockItemService {
                 filters.segment, filters.storage);
     }
 
-    @Override
+    /*@Override
     public StockItem addStockItem(long houseId, Integer productId, String brand, String segment, String variety,
                                   Short quantity, String description, String conservationStorage
     ) throws EntityException, EntityNotFoundException {
@@ -78,7 +80,7 @@ public class StockItemServiceImpl implements StockItemService {
         );
         checkHouse(houseId);
         return stockItemRepository.insertStockItem(stockItem);
-    }
+    }*/
 
     @Override
     public void deleteStockItem(long houseId, String stockItemSku) throws EntityException, EntityNotFoundException {
