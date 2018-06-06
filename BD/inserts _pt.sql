@@ -1,11 +1,11 @@
 --HOUSE
-INSERT INTO public.house(house_name, house_characteristics) VALUES ('Smith', '{
+INSERT INTO public.house(house_name, house_characteristics) VALUES ('Oliveira', '{
   "house_babiesNumber": 0,
   "house_childrenNumber": 2,
   "house_adultsNumber": 2,
   "house_seniorsNumber": 0
 }');
-INSERT INTO public.house(house_name, house_characteristics) VALUES ('Jones', '{
+INSERT INTO public.house(house_name, house_characteristics) VALUES ('Santos', '{
   "house_babiesNumber": 1,
   "house_childrenNumber": 0,
   "house_adultsNumber": 2,
@@ -14,8 +14,8 @@ INSERT INTO public.house(house_name, house_characteristics) VALUES ('Jones', '{
 
 --USERS
 INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('pedro', 'pedro@example.com', 21, 'Pedro Oliveira', '123');
-INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('alice', 'alice@example.com', 21, 'Alice', '123');
-INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('xavier', 'xavier@example.com', 21, 'Xavier', '123');
+INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('alice', 'alice@example.com', 21, 'Alice Oliveira', '123');
+INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('xavier', 'xavier@example.com', 21, 'Xavier Santos', '123');
 
 --USER-HOUSE
 INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (1, 'pedro', true);
@@ -35,9 +35,9 @@ INSERT INTO public.allergy(allergy_allergen) VALUES ('Glúten');
 
 --STORAGES
 INSERT INTO public.storage(house_id, storage_id, storage_name, storage_temperature)
-	VALUES (1, 1, 'Fridge', '[1,5]');
+	VALUES (1, 1, 'Frigorífico', '[1,5]');
 INSERT INTO public.storage(house_id, storage_id, storage_name, storage_temperature)
-	VALUES (2, 1, 'Fridge', '[1,5]');
+	VALUES (2, 1, 'Frigorífico', '[1,5]');
 
 --DATE
 INSERT INTO public.date(date_date) VALUES (to_date('2019-06-01', 'YYYY-MM-DD'));
