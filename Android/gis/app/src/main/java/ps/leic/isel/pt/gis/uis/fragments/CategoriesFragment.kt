@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.android.synthetic.main.fragment_categories.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.CategoriesDto
@@ -142,7 +141,7 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
     override fun onItemClick(view: View, position: Int) {
         categories?.let {
             val category = it[position]
-            category.links.productCategoryLink?.let {
+            category.links.productsCategoryLink?.let {
                 listener?.onCategoryInteraction(it, category.categoryName)
             }
         }

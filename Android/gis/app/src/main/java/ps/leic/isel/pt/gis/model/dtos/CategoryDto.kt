@@ -19,7 +19,7 @@ class CategoryDto(siren: Siren) {
         val selfLink: String? = links?.find {
             it.klass?.contains(categoryClassLabel) ?: false
         }?.href
-        val productCategoryLink: String? = links?.find {
+        val productsCategoryLink: String? = links?.find {
             it.klass?.contains(productsCategoryLabel) ?: false
         }?.href
     }
