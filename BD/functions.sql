@@ -216,18 +216,21 @@ $$ LANGUAGE plpgsql;
 
 -------------------------------------------------------------------------------------------
 
--- Procedure to insert a StockItem
--- DROP FUNCTION insert_stock_item
-CREATE OR REPLACE FUNCTION insert_stock_item(
-	houseID bigint,
-	productID integer,
-	brand character varying(35),
-	variety character varying(35),
-	segment real,
-	segmentUnit character varying(5),
+-- Procedure to insert a Movement
+-- DROP FUNCTION insert_movement
+CREATE OR REPLACE FUNCTION insert_movement(
+	houseId bigint,
+	storageId smallint,
+	movementType bool,
 	quantity smallint,
-	description text,
-	conservationStorage character varying(128)) 
+	productName integer,	-- Tag Info
+	brand character varying(35),	-- Tag Info
+	variety character varying(35),	-- Tag Info
+	segment real,	-- Tag Info
+	segmentUnit character varying(5),	-- Tag Info
+	description text,	-- Tag Info
+	conservationStorage character varying(128),	-- Tag Info
+	expirationDate date)	-- Tag Info
 RETURNS TABLE(
 	house_id bigint,
 	stockitem_sku character varying(128),
@@ -241,17 +244,59 @@ RETURNS TABLE(
 	stockitem_conservationstorage character varying(128)
 ) AS $$
 DECLARE 
+	productId integer;
 	sku character varying(128) = 0;
 BEGIN
-	-- Generate SKU
-	sku := generate_sku(productID, brand, variety, segment, segmentUnit);
+	-- Get product ID
+	SELECT product_id INTO productId FROM public."product" WHERE public."product".product_name = productName;
 	
+	-- Generate SKU
+	sku := generate_sku(productId, brand, variety, segment, segmentUnit);
+	
+	IF EXISTS (SELECT 1 FROM public."stockitem" WHERE public."stockitem".house_id = houseId AND public."stockitem".stockitem_sku = sku) THEN
+		-- StockItem exists in the house
+		-- Update StockItem quantity
+		IF movementType = false THEN
+			quantity = quantity * -1;
+		END IF;
+		UPDATE public."stockitem" SET public."stockitem".quantity = quantity WHERE public."stockitem".house_id = houseId AND public."stockitem".stockitem_sku = sku;
 		
-	-- Add StockItem
-	INSERT INTO public."stockitem" (house_id, stockitem_sku, product_id, stockitem_brand, stockitem_variety, stockitem_segment,
+		-- Update StockItemQuantity in Storage
+		UPDATE public."stockitemstorage" SET public."stockitemstorage".quantity = public."stockitemstorage".quantity + quantity;
+	ELSE
+		-- StockItem does not exist in the house
+		-- Add StockItem
+		INSERT INTO public."stockitem" (house_id, stockitem_sku, product_id, stockitem_brand, stockitem_variety, stockitem_segment,
 										stockitem_segmentUnit, stockitem_quantity, stockitem_description, stockitem_conservationStorage) 
-		VALUES (houseID, sku, productID, brand, variety, segment, segmentUnit, quantity, description, conservationStorage);
+			VALUES (houseId, sku, productId, brand, variety, segment, segmentUnit, quantity, description, conservationStorage);
+			
+		-- Add StockItem in Storage
+		INSERT INTO public."stockitemstorage" (house_id, stockitem_sku, storage_id, stockitemstorage_quantity) 
+			VALUES (houseId, sku, storageId, quantity);
+	END IF;
+	
+	-- Insert Movement
+	INSERT INTO public."stockitemmovement" (house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_dateTime, stockitemmovement_quantity)
+		VALUES (houseId, sku, storageId, movementType, CURRENT_TIMESTAMP, quantity);
 		
+	IF NOT EXISTS (SELECT 1 FROM public."date" WHERE public."date".date_date = expirationDate) THEN
+		-- Insert Date
+		INSERT INTO public."date" (date_date)
+			VALUES (expirationDate);
+	END IF;
+	
+	IF EXISTS (SELECT 1 FROM public."expirationdate" WHERE public."expirationdate".house_id = houseId AND public."expirationdate".stockitem_sku = sku AND
+			   public."expirationdate".date_date = expirationDate) THEN
+		-- Update quantity expiring
+		UPDATE public."expirationdate" SET public."expirationdate".date_quantity = public."expirationdate".date_quantity + quantity 
+			WHERE public."expirationdate".house_id = houseId AND public."expirationdate".stockitem_sku = sku AND
+			   public."expirationdate".date_date = expirationDate;
+	ELSE
+		-- Insert Expiration Date 
+		INSERT INTO public."expirationdate" (house_id, stockitem_sku, date_date, date_quantity)
+			VALUES (houseId, sku, expirationdate, quantity);
+	END IF;
+
 	RETURN query
 	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".product_id, public."stockitem".stockitem_brand,
 			public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit,
