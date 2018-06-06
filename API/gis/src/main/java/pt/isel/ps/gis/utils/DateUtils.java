@@ -55,6 +55,19 @@ public class DateUtils {
     }
 
     /**
+     * Converte uma string num objeto Date
+     *
+     * @param date data a converter
+     * @return Date correspondente à data no formato yyyy-MM-dd
+     * @throws ParseException
+     */
+    public static Date convertStringToDate(String date) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        java.util.Date parsedDate = dateFormat.parse(date);
+        return new Date(parsedDate.getTime());
+    }
+
+    /**
      * Converte um objeto Timestamp numa String
      *
      * @param timestamp data a converter
