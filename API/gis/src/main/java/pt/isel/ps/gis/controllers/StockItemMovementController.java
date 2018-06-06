@@ -65,7 +65,7 @@ public class StockItemMovementController {
             @RequestBody MovementInputModel body
     ) throws BadRequestException, NotFoundException {
         CsvToBeanBuilder<TagCsv> builder = new CsvToBeanBuilder<>(new StringReader(body.getTag()));
-        List<TagCsv> tagCsvList = builder.build().parse();
+        List<TagCsv> tagCsvList = builder.withType(TagCsv.class).build().parse();
         if (tagCsvList.size() <= 0) throw new BadRequestException(""); // TODO ver a mensagem da excecao
         TagCsv tag = tagCsvList.get(0);
         List<StockItemMovement> movements;

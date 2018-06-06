@@ -62,7 +62,7 @@ public class DateUtils {
      * @throws ParseException
      */
     public static Date convertStringToDate(String date) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
         java.util.Date parsedDate = dateFormat.parse(date);
         return new Date(parsedDate.getTime());
     }
