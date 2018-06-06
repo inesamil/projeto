@@ -210,8 +210,12 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for ListsFragment interaction
     override fun onNewListInteraction() {
-        val fragment = NewListDialogFragment.newInstance()
-        fragment.show(supportFragmentManager, ExtraUtils.NEW_LIST_DIALOG)
+        val gisApplication = application as GisApplication
+        val index = gisApplication.index
+        index.getHousesUrl("alice")?.let {
+            val fragment = NewListDialogFragment.newInstance(it)
+            fragment.show(supportFragmentManager, ExtraUtils.NEW_LIST_DIALOG)
+        }
     }
 
     // Listener for ListsFragment interaction

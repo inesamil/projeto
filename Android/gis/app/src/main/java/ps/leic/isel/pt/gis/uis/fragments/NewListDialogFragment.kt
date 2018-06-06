@@ -83,6 +83,10 @@ class NewListDialogFragment : DialogFragment() {
          * @return A new instance of fragment NewListDialogFragment.
          */
         @JvmStatic
-        fun newInstance() = NewListDialogFragment()
+        fun newInstance(url: String) = NewListDialogFragment().apply {
+            arguments = Bundle().apply {
+                putString(ExtraUtils.URL, url)
+            }
+        }
     }
 }
