@@ -3,26 +3,37 @@ package pt.isel.ps.gis.bll.implementations;
 import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.StockItemMovementService;
 import pt.isel.ps.gis.dal.repositories.HouseRepository;
+import pt.isel.ps.gis.dal.repositories.ProductRepository;
 import pt.isel.ps.gis.dal.repositories.StockItemMovementRepository;
+import pt.isel.ps.gis.dal.repositories.StorageRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.StockItemMovementId;
+import pt.isel.ps.gis.model.StorageId;
 import pt.isel.ps.gis.utils.ValidationsUtils;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
 @Service
 public class StockItemMovementServiceImpl implements StockItemMovementService {
 
-    private static final String HOUSE_NOT_EXIST = "House does not exist.";
+    private static final String HOUSE_DOES_NOT_EXIST = "House does not exist.";
+    private static final String PRODUCT_DOES_NOT_EXISTS = "Product does not exist.";
+    private static final String STORAGE_DOES_NOT_EXIST = "Storage does not exist.";
 
     private final StockItemMovementRepository stockItemMovementRepository;
     private final HouseRepository houseRepository;
+    private final StorageRepository storageRepository;
+    private final ProductRepository productRepository;
 
-    public StockItemMovementServiceImpl(StockItemMovementRepository stockItemMovementRepository, HouseRepository houseRepository) {
+    public StockItemMovementServiceImpl(StockItemMovementRepository stockItemMovementRepository, HouseRepository houseRepository, StorageRepository storageRepository, ProductRepository productRepository) {
         this.stockItemMovementRepository = stockItemMovementRepository;
         this.houseRepository = houseRepository;
+        this.storageRepository = storageRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -33,36 +44,47 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
     @Override
     public List<StockItemMovement> getStockItemMovementsByHouseId(long houseId) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
-        checkHouse(houseId);
+        checkHouseId(houseId);
         return stockItemMovementRepository.findAllById_HouseId(houseId);
     }
 
     @Override
     public List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
-        checkHouse(houseId);
+        checkHouseId(houseId);
         return stockItemMovementRepository.findMovementsFiltered(houseId, filters.item, filters.type, filters.dateTime, filters.storage);
     }
 
     @Override
-    public StockItemMovement addStockItemMovement(long houseId, String sku, short storageId, boolean movementType,
-                                                  String movementDatetime, short movementQuantity) throws EntityException, EntityNotFoundException {
-        StockItemMovement stockItemMovement = new StockItemMovement(
-                houseId,
-                sku,
-                storageId,
-                movementType,
-                movementDatetime,
-                movementQuantity
-        );
-        checkHouse(houseId);
-        // TODO é preciso verificar se o sku existe nesta casa e se o storage tmb existe na casa houseId?
-        // TODO
-        return stockItemMovementRepository.save(stockItemMovement);
+    public StockItem addStockItemMovement(long houseId, short storageId, boolean movementType, short quantity, String productName, String brand, String variety, String segment, String conservationConditions, String description, String date) throws EntityException, EntityNotFoundException {
+        checkHouseId(houseId);
+        checkStorageId(houseId, storageId);
+        checkProductName(productName);
+        //TODO: verificar movimento de saída de stock item que não existe ou que tem quantidade a 0
+        // Split segmento
+        String[] segmentSplitted = segment.split(" ");
+        float segm = Float.parseFloat(segmentSplitted[0]);
+        String segmUnit = segmentSplitted[1];
+        throw new NotImplementedException();
+        //TODO: return stockItemMovementRepository.save(houseId, storageId, movementType, quantity, productName, brand, variety, segm, segmUnit, description, conservationConditions, date);
+        //TODO: Preciso desta função (é a que está na BD)
     }
 
-    private void checkHouse(long houseId) throws EntityNotFoundException {
+    private void checkHouseId(long houseId) throws EntityException, EntityNotFoundException {
+        ValidationsUtils.validateHouseId(houseId);
         if (!houseRepository.existsById(houseId))
-            throw new EntityNotFoundException(HOUSE_NOT_EXIST);
+            throw new EntityNotFoundException(HOUSE_DOES_NOT_EXIST);
+    }
+
+    private void checkProductName(String productName) throws EntityException, EntityNotFoundException {
+        ValidationsUtils.validateProductName(productName);
+        /*TODO: if (!productRepository.existsByName(productName)) //Preciso desta função no repositório dos produtos
+            throw new EntityNotFoundException(PRODUCT_DOES_NOT_EXISTS);*/
+    }
+
+    private void checkStorageId(long houseId, short storageId) throws EntityException, EntityNotFoundException {
+        StorageId id = new StorageId(houseId, storageId);
+        if (!storageRepository.existsById(id))
+            throw new EntityNotFoundException(STORAGE_DOES_NOT_EXIST);
     }
 }
