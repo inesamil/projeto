@@ -73,13 +73,15 @@ public class StockItemMovementController {
             stockItemMovementService.addStockItemMovement(
                     houseId,
                     body.getStorageId(),
+                    body.getType(),
+                    body.getQuantity(),
                     tag.getProductName(),
                     tag.getBrand(),
                     tag.getVariety(),
                     tag.getSegment(),
-                    tag.getDate(),
-                    body.getType(),
-                    tag.getQuantity()
+                    tag.getConditions(),
+                    tag.getDescription(),
+                    tag.getDate()
             );
             movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId);
         } catch (EntityException e) {
