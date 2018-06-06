@@ -67,16 +67,8 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
                 try (ResultSet resultSet = ps.executeQuery()) {
                     List<StockItemMovement> stockItemMovements = new ArrayList<>();
                     while (resultSet.next()) {
-                        long house_id = resultSet.getLong(1);
-                        String stockitem_sku = resultSet.getString(2);
-                        short storage_id = resultSet.getShort(3);
-                        boolean stockitemmovement_type = resultSet.getBoolean(4);
-                        String stockitemmovement_datetime = DateUtils.convertTimestampFormat(resultSet.getTimestamp(5));
-                        short stockitemmovement_quantity = resultSet.getShort(6);
                         try {
-                            StockItemMovement stockItemMovement = new StockItemMovement(house_id, stockitem_sku, storage_id, stockitemmovement_type,
-                                    stockitemmovement_datetime, stockitemmovement_quantity);
-                            stockItemMovements.add(stockItemMovement);
+                            stockItemMovements.add(extractStockItemMovementFromResultSet(resultSet));
                         } catch (EntityException e) {
                             throw new SQLException(e.getMessage());
                         }
@@ -85,6 +77,61 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
                 }
             }
         });
+    }
+
+    @Override
+    public StockItemMovement insertStockItemMovement(final long houseId, final short storageId, final boolean movementType,
+                                                     final short quantity, final String productName, final String brand,
+                                                     final String variety, final float segment, final String segmentUnit,
+                                                     final String conservationConditions, final String description,
+                                                     final Date date
+    ) {
+        Session session = entityManager.unwrap(Session.class);
+        return session.doReturningWork(connection -> {
+            try (CallableStatement function = connection.prepareCall(
+                    "{call insert_movement(?,?,?,?,?,?,?,?,?,?,?,?)}"
+            )) {
+                function.setLong(1, houseId);
+                function.setShort(2, storageId);
+                function.setBoolean(3, movementType);
+                function.setShort(4, quantity);
+                function.setString(5, productName);
+                function.setString(6, brand);
+                function.setString(7, variety);
+                function.setFloat(8, segment);
+                function.setString(9, segmentUnit);
+                function.setString(10, description);
+                function.setString(11, conservationConditions);
+                function.setDate(12, date);
+                try (ResultSet resultSet = function.executeQuery()) {
+                    if (!resultSet.next()) throw new SQLException("Result set is empty.");
+                    try {
+                        return extractStockItemMovementFromResultSet(resultSet);
+                    } catch (EntityException e) {
+                        throw new SQLException(e.getMessage());
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * Extract StockItemMovement from ResultSet
+     *
+     * @param resultSet instance of ResultSet
+     * @return instance of StockItemMovement
+     * @throws SQLException    throw by ResultSet
+     * @throws EntityException throw if cannot create instance of StockItem
+     */
+    private StockItemMovement extractStockItemMovementFromResultSet(ResultSet resultSet) throws SQLException, EntityException {
+        long house_id = resultSet.getLong(1);
+        String stockitem_sku = resultSet.getString(2);
+        short storage_id = resultSet.getShort(3);
+        boolean stockitemmovement_type = resultSet.getBoolean(4);
+        String stockitemmovement_datetime = DateUtils.convertTimestampFormat(resultSet.getTimestamp(5));
+        short stockitemmovement_quantity = resultSet.getShort(6);
+        return new StockItemMovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime,
+                stockitemmovement_quantity);
     }
 
     /**

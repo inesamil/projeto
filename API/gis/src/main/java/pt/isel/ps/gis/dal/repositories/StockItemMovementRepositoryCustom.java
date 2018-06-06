@@ -2,6 +2,7 @@ package pt.isel.ps.gis.dal.repositories;
 
 import pt.isel.ps.gis.model.StockItemMovement;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -19,4 +20,26 @@ public interface StockItemMovementRepositoryCustom {
      * @return List with all movements filtered associated with param houseId
      */
     List<StockItemMovement> findMovementsFiltered(Long houseId, String sku, Boolean type, Timestamp date, Short storageId);
+
+    /**
+     * Insert stock item movement
+     *
+     * @param houseId The id of the house
+     * @param storageId The id of the storage
+     * @param movementType The movement type
+     * @param quantity The stock item quantity of movement
+     * @param productName
+     * @param brand
+     * @param variety
+     * @param segment
+     * @param segmentUnit
+     * @param conservationConditions
+     * @param description
+     * @param date
+     * @return the stock item movement inserted
+     */
+    StockItemMovement insertStockItemMovement(long houseId, short storageId, boolean movementType, short quantity,
+                                              String productName, String brand, String variety, float segment,
+                                              String segmentUnit, String conservationConditions, String description,
+                                              Date date);
 }
