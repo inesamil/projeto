@@ -22,14 +22,6 @@ public interface StockItemRepositoryCustom {
     List<StockItem> findStockItemsFiltered(Long houseId, String productName, String brand, String variety, String segment, Short storageId);
 
     /**
-     * Insert stock item
-     *
-     * @param stockItem instance of StockItem to insert.
-     * @return inserted stock item with sku set.
-     */
-    StockItem insertStockItem(StockItem stockItem);
-
-    /**
      * Decrement stock item quantity and return stock item updated.
      *
      * @param stockItemId         The id of the stock item

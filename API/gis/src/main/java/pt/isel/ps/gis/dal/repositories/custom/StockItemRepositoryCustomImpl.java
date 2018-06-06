@@ -96,27 +96,6 @@ public class StockItemRepositoryCustomImpl implements StockItemRepositoryCustom 
     }
 
     @Override
-    public StockItem insertStockItem(final StockItem stockItem) {
-        Session session = entityManager.unwrap(Session.class);
-        return session.doReturningWork(connection -> {
-            try (CallableStatement function = connection.prepareCall(
-                    "{call insert_stock_item(?,?,?,?,?,?,?,?,?)}"
-            )) {
-                function.setLong(1, stockItem.getId().getHouseId());
-                function.setInt(2, stockItem.getProductId());
-                function.setString(3, stockItem.getStockitemBrand());
-                function.setString(4, stockItem.getStockitemVariety());
-                function.setFloat(5, stockItem.getStockitemSegment());
-                function.setString(6, stockItem.getStockitemSegmentunit());
-                function.setShort(7, stockItem.getStockitemQuantity());
-                function.setString(8, stockItem.getStockitemDescription());
-                function.setString(9, stockItem.getStockitemConservationstorage());
-                return executeUpdate(function);
-            }
-        });
-    }
-
-    @Override
     public StockItem decrementStockitemQuantity(StockItemId stockItemId, Short quantityToDecrement) {
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
