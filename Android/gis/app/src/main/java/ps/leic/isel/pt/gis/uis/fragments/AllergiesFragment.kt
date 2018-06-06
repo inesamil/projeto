@@ -19,6 +19,7 @@ import ps.leic.isel.pt.gis.model.dtos.HouseAllergiesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.AllergiesTableAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.AllergiesViewModel
 
 /**
@@ -36,6 +37,8 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
     private lateinit var url: String
     private val adapter = AllergiesTableAdapter()
 
+    private var state: State = State.LOADING;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -50,17 +53,17 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
                 it?.status == Status.SUCCESS -> onSuccess(it.data!!)
                 it?.status == Status.ERROR -> onError(it.message)
                 it?.status == Status.LOADING -> {
-                    allergiesProgressBar.visibility = View.VISIBLE
-                    allergiesLayout.visibility = View.INVISIBLE
+                    state = State.LOADING
                 }
             }
         })
     }
 
     private fun onSuccess(allergies: HouseAllergiesDto) {
+        state = State.SUCCESS
+
         // Hide progress bar
-        allergiesProgressBar.visibility = View.GONE
-        allergiesLayout.visibility = View.VISIBLE
+        showProgressBarOrContent()
 
         // Set data to adapter
         adapter.setData(allergies.houseAllergies)
@@ -85,8 +88,18 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
         }
     }
 
+    private fun showProgressBarOrContent() {
+        view?.let {
+            it.allergiesProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+            it.allergiesLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+        }
+    }
+
     private fun onError(error: String?) {
-        Log.v("APP_GIS", error)
+        state = State.ERROR
+        error?.let {
+            Log.v("APP_GIS", it)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -97,6 +110,10 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
         view.allergiesRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.allergiesRecyclerView.setHasFixedSize(true)
         view.allergiesRecyclerView.adapter = adapter
+
+        //Show progress bar or content
+        showProgressBarOrContent()
+
         return view
     }
 

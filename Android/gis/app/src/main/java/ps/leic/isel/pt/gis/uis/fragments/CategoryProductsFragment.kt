@@ -148,8 +148,8 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
 
     private fun showProgressBarOrContent() {
         view?.let {
-            it.categoryProductsProgressBar?.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-            it.categoriesLayout?.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+            it.categoryProductsProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+            it.categoryProductsLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
         }
     }
 

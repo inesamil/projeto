@@ -17,6 +17,7 @@ import ps.leic.isel.pt.gis.model.dtos.CategoryDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.CategoriesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
 
 /**
@@ -36,6 +37,8 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
     private lateinit var categoriesViewModel: CategoriesViewModel
     private val adapter = CategoriesAdapter()
     private lateinit var url: String
+
+    private var state: State = State.LOADING;
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -58,17 +61,17 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
                 it?.status == Status.SUCCESS -> onSuccess(it.data!!)
                 it?.status == Status.ERROR -> onError(it.message)
                 it?.status == Status.LOADING -> {
-                    categoriesProgressBar.visibility = View.VISIBLE
-                    categoriesLayout.visibility = View.INVISIBLE
+                    state = State.LOADING
                 }
             }
         })
     }
 
     private fun onSuccess(categories: CategoriesDto) {
-        // Hide progress bar
-        categoriesProgressBar.visibility = View.GONE
-        categoriesLayout.visibility = View.VISIBLE
+        state = State.SUCCESS
+
+        // Show progress bar or content
+        showProgressBarOrContent()
 
         // Set Adapter
         adapter.setData(categories.categories)
@@ -76,8 +79,16 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
     }
 
     private fun onError(error: String?) {
+        state = State.ERROR
         error?.let{
             Log.v("APP_GIS", error)
+        }
+    }
+
+    private fun showProgressBarOrContent() {
+        view?.let {
+            it.categoriesProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+            it.categoriesLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
         }
     }
 
@@ -88,6 +99,10 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
         view.categoryRecyclerView.setHasFixedSize(true)
         view.categoryRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
         return view
     }
 

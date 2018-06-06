@@ -16,6 +16,7 @@ import ps.leic.isel.pt.gis.model.dtos.StoragesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.StoragesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.StoragesViewModel
 
 /**
@@ -33,6 +34,8 @@ class StoragesFragment : Fragment() {
     private lateinit var url: String
     private lateinit var storagesViewModel: StoragesViewModel
 
+    private var state: State = State.LOADING;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -45,24 +48,37 @@ class StoragesFragment : Fragment() {
                 it?.status == Status.SUCCESS -> onSuccess(it.data!!)
                 it?.status == Status.ERROR -> onError(it.message)
                 it?.status == Status.LOADING -> {
-                    storagesProgressBar.visibility = View.VISIBLE
-                    storagesLayout.visibility = View.INVISIBLE
+                    state = State.LOADING
                 }
             }
         })
     }
 
     private fun onSuccess(storages: StoragesDto) {
-        // Hide progress bar
-        storagesProgressBar.visibility = View.GONE
+        state = State.SUCCESS
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
         storagesLayout.visibility = View.VISIBLE
 
         adapter.setData(storages.storages)
     }
 
     private fun onError(error: String?) {
-        Log.v("APP_GIS", error)
+        state = State.ERROR
+        error?.let {
+            Log.v("APP_GIS", it)
+        }
     }
+
+    private fun showProgressBarOrContent() {
+        view?.let {
+            it.storagesProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+            it.storagesLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+        }
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -71,6 +87,10 @@ class StoragesFragment : Fragment() {
         view.storagesRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.storagesRecyclerView.setHasFixedSize(true)
         view.storagesRecyclerView.adapter = adapter
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
         return view
     }
 

@@ -20,6 +20,7 @@ import ps.leic.isel.pt.gis.model.dtos.ListsDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.ListsAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.ListsViewModel
 
 /**
@@ -39,6 +40,8 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     private var listener: OnListsFragmentInteractionListener? = null
     private lateinit var listsViewModel: ListsViewModel
     private lateinit var url: String
+
+    private var state: State = State.LOADING;
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -61,24 +64,34 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
                 it?.status == Status.SUCCESS -> onSuccess(it.data!!)
                 it?.status == Status.ERROR -> onError(it.message)
                 it?.status == Status.LOADING -> {
-                    listsProgressBar.visibility = View.VISIBLE
-                    listsLayout.visibility = View.INVISIBLE
+                    state = State.LOADING
                 }
             }
         })
     }
 
     private fun onSuccess(lists: ListsDto) {
-        // Hide progress bar
-        listsProgressBar.visibility = View.GONE
-        listsLayout.visibility = View.VISIBLE
+        state = State.SUCCESS
+
+        // Show progress bar or content
+        showProgressBarOrContent()
 
         adapter.setData(lists.lists)
         this.lists = lists.lists
     }
 
     private fun onError(error: String?) {
-        Log.v("APP_GIS", error)
+        state = State.ERROR
+        error?.let {
+            Log.v("APP_GIS", it)
+        }
+    }
+
+    private fun showProgressBarOrContent() {
+        view?.let {
+            it.listsProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+            it.listsLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -97,6 +110,10 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         view.listsLayout.filtersText.setOnClickListener {
             listener?.onFiltersInteraction()
         }
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
         return view
     }
 

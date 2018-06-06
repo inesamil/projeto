@@ -18,6 +18,7 @@ import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 
 /**
@@ -37,6 +38,8 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     private var houses: HousesDto? = null
     private val adapter = HousesAdapter()
     private var listener: OnHousesFragmentInteractionListener? = null
+
+    private var state: State = State.LOADING;
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -59,25 +62,33 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
                 it?.status == Status.SUCCESS -> onSuccess(it.data!!)
                 it?.status == Status.ERROR -> onError(it.message)
                 it?.status == Status.LOADING -> {
-                    housesProgressBar.visibility = View.VISIBLE
-                    housesLayout.visibility = View.INVISIBLE
+                    state = State.LOADING
                 }
             }
         })
     }
 
     private fun onSuccess(houses: HousesDto) {
-        // Hide progress bar
-        housesProgressBar.visibility = View.GONE
-        housesLayout.visibility = View.VISIBLE
+        state = State.SUCCESS
+
+        // Show progress bar or content
+        showProgressBarOrContent()
 
         this.houses = houses
         adapter.setData(houses.houses)
     }
 
     private fun onError(error: String?) {
+        state = State.ERROR
         error?.let {
             Log.v("APP_GIS", error)
+        }
+    }
+
+    private fun showProgressBarOrContent() {
+        view?.let {
+            it.housesProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+            it.housesLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
         }
     }
 
@@ -94,6 +105,10 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
                 listener?.onNewHouseInteraction()
             }
         }
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
         return view
     }
 

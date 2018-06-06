@@ -21,6 +21,7 @@ import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsExpirationDateAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsMovementsAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsStorageAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.StockItemDetailViewModel
 
 /**
@@ -47,6 +48,8 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
     private lateinit var productName: String
     private lateinit var variety: String
 
+    private var state: State = State.LOADING;
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnStockItemDetailFragmentInteractionListener) {
@@ -70,17 +73,18 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
                 it?.status == Status.SUCCESS -> onSuccess(it.data!!)
                 it?.status == Status.ERROR -> onError(it.message)
                 it?.status == Status.LOADING -> {
-                    stockItemDetailProgressBar.visibility = View.VISIBLE
-                    stockItemDetailLayout.visibility = View.INVISIBLE
+                    state = State.LOADING
                 }
             }
         })
     }
 
     private fun onSuccess(stockItem: StockItemDto) {
-        // Hide progress bar
-        stockItemDetailProgressBar.visibility = View.GONE
-        stockItemDetailLayout.visibility = View.VISIBLE
+        state = State.SUCCESS
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
         // Set Allergens
         //TODO allergensText.text = allergens.getElementsSeparatedBySemiColon()
 
@@ -100,7 +104,17 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
     }
 
     private fun onError(error: String?) {
-        Log.v("APP_GIS", error)
+        state = State.ERROR
+        error?.let {
+            Log.v("APP_GIS", it)
+        }
+    }
+
+    private fun showProgressBarOrContent() {
+        view?.let {
+            it.stockItemDetailProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+            it.stockItemDetailLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -124,6 +138,10 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
         view.movementsRecyclerView.adapter = movementsAdapter
 
         storagesAdapter.setOnItemClickListener(this)
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
         return view
     }
 

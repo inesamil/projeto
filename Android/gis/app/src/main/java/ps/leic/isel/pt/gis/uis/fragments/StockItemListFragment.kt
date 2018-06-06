@@ -22,6 +22,7 @@ import ps.leic.isel.pt.gis.model.dtos.StockItemsDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.StockItemListAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 import ps.leic.isel.pt.gis.viewModel.StockItemListViewModel
 
@@ -44,6 +45,8 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     private lateinit var stockItemListViewModel: StockItemListViewModel
     private lateinit var housesViewModel: HousesViewModel
     private lateinit var url: String
+
+    private var state: State = State.LOADING;
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -70,17 +73,17 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
                 it?.status == Status.SUCCESS -> onSuccess(it.data!!)
                 it?.status == Status.ERROR -> onError(it.message)
                 it?.status == Status.LOADING -> {
-                    stockItemListProgressBar.visibility = View.VISIBLE
-                    stockItemListLayout.visibility = View.INVISIBLE
+                    state = State.LOADING
                 }
             }
         })
     }
 
     private fun onSuccess(housesDto: HousesDto) {
-        // Hide progress bar
-        stockItemListProgressBar.visibility = View.GONE
-        stockItemListLayout.visibility = View.VISIBLE
+        state = State.SUCCESS
+
+        // Show progress bar or content
+        showProgressBarOrContent()
 
         houses = housesDto.houses
 
@@ -117,7 +120,17 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     }
 
     private fun onError(error: String?) {
-        Log.v("APP_GIS", error)
+        state = State.ERROR
+        error?.let {
+            Log.v("APP_GIS", it)
+        }
+    }
+
+    private fun showProgressBarOrContent() {
+        view?.let {
+            it.stockItemListProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+            it.stockItemListLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -128,6 +141,10 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         view.stockItemListRecyclerView.setHasFixedSize(true)
         view.stockItemListRecyclerView.adapter = stockItemListAdapter
         stockItemListAdapter.setOnItemClickListener(this)
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
         return view
     }
 
@@ -135,6 +152,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
             url = it.getString(ExtraUtils.URL)
+
         }
     }
 

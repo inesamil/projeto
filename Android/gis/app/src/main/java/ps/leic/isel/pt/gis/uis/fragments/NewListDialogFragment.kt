@@ -16,7 +16,8 @@ class NewListDialogFragment : DialogFragment() {
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.layout_new_list_dialog, null))
+        val view = inflater.inflate(R.layout.layout_new_list_dialog, null)
+        builder.setView(view)
                 // Add action buttons
                 .setPositiveButton(R.string.add, { _, _ ->
                     // TODO: add list

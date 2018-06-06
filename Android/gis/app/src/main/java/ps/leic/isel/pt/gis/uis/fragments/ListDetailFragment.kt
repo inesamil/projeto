@@ -18,6 +18,7 @@ import ps.leic.isel.pt.gis.model.dtos.ProductsListDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.ListDetailAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.ListDetailViewModel
 
 /**
@@ -38,6 +39,8 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     private lateinit var listDetailViewModel: ListDetailViewModel
     private lateinit var url: String
     private val adapter = ListDetailAdapter()
+
+    private var state: State = State.LOADING;
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -61,25 +64,33 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
                 it?.status == Status.SUCCESS -> onSuccess(it.data!!)
                 it?.status == Status.ERROR -> onError(it.message)
                 it?.status == Status.LOADING -> {
-                    listProgressBar.visibility = View.VISIBLE
-                    listLayout.visibility = View.INVISIBLE
+                    state = State.LOADING
                 }
             }
         })
     }
 
     private fun onSuccess(productsList: ProductsListDto) {
-        // Hide progress bar
-        listProgressBar.visibility = View.GONE
-        listLayout.visibility = View.VISIBLE
+        state = State.SUCCESS
+
+        // Show progress bar or content
+        showProgressBarOrContent()
 
         adapter.setData(productsList.productsListProduct)
         this.listProducts = productsList.productsListProduct
     }
 
     private fun onError(error: String?) {
+        state = State.ERROR
         error?.let {
             Log.v("APP_GIS", error)
+        }
+    }
+
+    private fun showProgressBarOrContent() {
+        view?.let {
+            it.listProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+            it.listLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
         }
     }
 
@@ -98,6 +109,9 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         view.transferToOfflineLayout.setOnClickListener {
             listener?.onListDownload()
         }
+
+        // Show progress bar or content
+        showProgressBarOrContent()
 
         return view
     }
