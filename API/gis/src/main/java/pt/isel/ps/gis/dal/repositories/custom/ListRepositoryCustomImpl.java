@@ -1,20 +1,22 @@
 package pt.isel.ps.gis.dal.repositories.custom;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.dal.repositories.ListRepositoryCustom;
 import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.model.List;
-import pt.isel.ps.gis.model.SystemList;
-import pt.isel.ps.gis.model.UserList;
+import pt.isel.ps.gis.model.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class ListRepositoryCustomImpl implements ListRepositoryCustom {
+
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -39,9 +41,10 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
                 java.util.List<List> lists = new ArrayList<>();
                 Stream
                         .of(systemListsFiltered, userListsFiltered)
+                        .distinct()
                         .forEach(lists::addAll);
                 return lists;
-            } catch (EntityException e) {
+            } catch (EntityException | IOException e) {
                 throw new SQLException(e.getMessage());
             }
         });
@@ -52,11 +55,13 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
             final String username,
             final Array housesIds,
             final Boolean system
-    ) throws SQLException, EntityException {
-        String sql = "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, " +
-                "public.\"list\".list_type FROM public.\"list\" JOIN (SELECT public.\"userhouse\".house_id FROM " +
+    ) throws SQLException, EntityException, IOException {
+        String sql = "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, public.\"list\".list_type, " +
+                "public.\"house\".house_name, public.\"house\".house_characteristics " +
+                "FROM public.\"list\" JOIN (SELECT public.\"userhouse\".house_id FROM " +
                 "public.\"userhouse\" WHERE public.\"userhouse\".users_username = ? AND " +
-                "public.\"userhouse\".house_id = ANY (?)) AS UH ON public.\"list\".house_id = UH.house_id WHERE " +
+                "public.\"userhouse\".house_id = ANY (?)) AS UH ON public.\"list\".house_id = UH.house_id " +
+                "JOIN public.\"house\" ON public.\"house\".house_id = public.\"list\".house_id WHERE " +
                 "public.\"list\".list_type = CASE WHEN ? = true THEN 'system' ELSE null END;";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             if (isNotNull(ps, 1, username))
@@ -72,8 +77,11 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
                     short list_id = resultSet.getShort(2);
                     String list_name = resultSet.getString(3);
                     String list_type = resultSet.getString(4);
+                    String house_name = resultSet.getString(5);
+                    Characteristics characteristics = mapper.readValue(resultSet.getString(6), Characteristics.class);
                     List list = new List(house_id, list_id, list_name, list_type);
                     list.setSystemlist(new SystemList(house_id, list_id, list_name));
+                    list.setHouseByHouseId(new House(house_id, house_name, characteristics));
                     systemLists.add(list);
                 }
                 return systemLists;
@@ -87,18 +95,22 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
             final Boolean listsFromUser,
             final String username,
             final Boolean shared
-    ) throws SQLException, EntityException {
+    ) throws SQLException, EntityException, IOException {
         String sql = "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, " +
-                "public.\"list\".list_type, public.\"userlist\".users_username, public.\"userlist\".list_shareable " +
+                "public.\"list\".list_type, public.\"userlist\".users_username, public.\"userlist\".list_shareable, " +
+                "public.\"house\".house_name, public.\"house\".house_characteristics " +
                 "FROM public.\"list\" JOIN public.\"userlist\" ON (public.\"list\".house_id = public.\"userlist\".house_id " +
-                "AND public.\"list\".list_id = public.\"userlist\".list_id) " +
+                "AND public.\"list\".list_id = public.\"userlist\".list_id)" +
+                "JOIN public.\"house\" ON public.\"house\".house_id = public.\"list\".house_id " +
                 "WHERE public.\"list\".house_id = ANY (?) AND list_type = 'user' AND users_username = " +
                 "(CASE WHEN ? = true THEN ? ELSE null END) " +
-                "UNION " +
+                "UNION ALL " +
                 "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, " +
-                "public.\"list\".list_type, public.\"userlist\".users_username, public.\"userlist\".list_shareable " +
+                "public.\"list\".list_type, public.\"userlist\".users_username, public.\"userlist\".list_shareable, " +
+                "public.\"house\".house_name, public.\"house\".house_characteristics " +
                 "FROM public.\"list\" JOIN public.\"userlist\" ON (public.\"list\".house_id = public.\"userlist\".house_id " +
                 "AND public.\"list\".list_id = public.\"userlist\".list_id) " +
+                "JOIN public.\"house\" ON public.\"house\".house_id = public.\"list\".house_id " +
                 "WHERE public.\"list\".house_id = ANY (?) AND list_type = 'user' AND " +
                 "list_shareable = (CASE WHEN ? = true THEN true ELSE null END);";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -121,8 +133,11 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
                     String list_type = resultSet.getString(4);
                     String list_username = resultSet.getString(5);
                     boolean list_shareable = resultSet.getBoolean(6);
+                    String house_name = resultSet.getString(7);
+                    Characteristics characteristics = mapper.readValue(resultSet.getString(8), Characteristics.class);
                     List list = new List(house_id, list_id, list_name, list_type);
                     list.setUserlist(new UserList(house_id, list_id, list_name, list_username, list_shareable));
+                    list.setHouseByHouseId(new House(house_id, house_name, characteristics));
                     userLists.add(list);
                 }
                 return userLists;
