@@ -156,7 +156,7 @@ class HomeActivity : AppCompatActivity(),
         val url: String? = index.getCategoriesUrl()
         url?.let {
             supportFragmentManager.replaceCurrentFragmentWith(WriteNfcTagFragment.TAG, WriteNfcTagFragment.Companion::newInstance, it)
-            return@let
+            return
         }
         Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() // TODO remove string. put in xml
     }

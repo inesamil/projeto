@@ -8,8 +8,10 @@ import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_write_nfc_tag.view.*
+import kotlinx.android.synthetic.main.layout_new_list_dialog.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
@@ -20,6 +22,7 @@ import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 
 class NewListDialogFragment : DialogFragment() {
 
+    private lateinit var housesSpinner: Spinner
     private lateinit var url: String
     private lateinit var housesViewModel: HousesViewModel
 
@@ -34,6 +37,15 @@ class NewListDialogFragment : DialogFragment() {
             url = it.getString(ExtraUtils.URL)
         }
 
+        housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
+        housesViewModel.init(url)
+        housesViewModel.getHouses()?.observe(this, Observer {
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+            }
+        })
+
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         val view = inflater.inflate(R.layout.layout_new_list_dialog, null)
@@ -45,14 +57,7 @@ class NewListDialogFragment : DialogFragment() {
                 })
                 .setNegativeButton(R.string.cancel, { _, _ -> this@NewListDialogFragment.getDialog().cancel() })
 
-        housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
-        housesViewModel.init(url)
-        housesViewModel.getHouses()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-            }
-        })
+        housesSpinner = view.newListHousesSpinner
 
         return builder.create()
     }
@@ -65,10 +70,10 @@ class NewListDialogFragment : DialogFragment() {
         houses = housesDto.houses
 
         houses?.let {
-            val spinnerAdapter = ArrayAdapter<String>(view?.context, android.R.layout.simple_spinner_item, it.map { house -> house.name })
+            val spinnerAdapter = ArrayAdapter<String>(housesSpinner.context, android.R.layout.simple_spinner_item, it.map { house -> house.name })
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            view?.productSpinner?.adapter = spinnerAdapter
-            view?.productSpinner?.setSelection(0)
+            housesSpinner.adapter = spinnerAdapter
+            housesSpinner.setSelection(0)
         }
     }
 

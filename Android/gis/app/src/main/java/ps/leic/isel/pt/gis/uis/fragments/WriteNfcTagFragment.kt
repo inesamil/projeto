@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
+import kotlinx.android.synthetic.main.fragment_write_nfc_tag.*
 import kotlinx.android.synthetic.main.fragment_write_nfc_tag.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.CategoriesDto
@@ -44,6 +46,9 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var state: State = State.LOADING;
     private lateinit var url: String
 
+    private lateinit var categorySpinner: Spinner
+    private lateinit var productSpinner: Spinner
+    private lateinit var segmentUnitSpinner: Spinner
     private lateinit var categoriesViewModel: CategoriesViewModel
     private lateinit var categoryProductsViewModel: CategoryProductsViewModel
 
@@ -74,19 +79,14 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun onSuccess(categoriesDto: CategoriesDto) {
-        state = State.LOADING
-
-        // Show progress bar or content
-        showProgressBarOrContent()
-
         categories = categoriesDto.categories
 
         categories?.let {
-            val spinnerAdapter = ArrayAdapter<String>(view?.context, android.R.layout.simple_spinner_item, it.map { category -> category.categoryName })
+            val spinnerAdapter = ArrayAdapter<String>(categorySpinner.context, android.R.layout.simple_spinner_item, it.map { category -> category.categoryName })
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            view?.categorySpinner?.adapter = spinnerAdapter
-            view?.categorySpinner?.onItemSelectedListener = this
-            view?.categorySpinner?.setSelection(first)
+            categorySpinner.adapter = spinnerAdapter
+            categorySpinner.onItemSelectedListener = this
+            categorySpinner.setSelection(first)
         }
 
         val size = categories?.size ?: 0
@@ -101,10 +101,13 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         categoryProductsViewModel = ViewModelProviders.of(this).get(CategoryProductsViewModel::class.java)
         categoryProductsViewModel.init(url)
         categoryProductsViewModel.getProducts()?.observe(this, Observer {
-            if (it?.status == Status.SUCCESS)
-                onSuccess(it.data!!)
-            else if (it?.status == Status.ERROR)
-                onError(it.message)
+            when(it?.status) {
+                Status.SUCCESS -> onSuccess(it.data!!)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
+                    this.state = State.LOADING
+                }
+            }
         })
     }
 
@@ -131,11 +134,11 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         products = productsDto.products
 
         products?.let {
-            val spinnerAdapter = ArrayAdapter<String>(view?.context, android.R.layout.simple_spinner_item, it.map { product -> product.productName })
+            val spinnerAdapter = ArrayAdapter<String>(productSpinner.context, android.R.layout.simple_spinner_item, it.map { product -> product.productName })
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            view?.productSpinner?.adapter = spinnerAdapter
-            view?.productSpinner?.onItemSelectedListener = this
-            view?.productSpinner?.setSelection(first)
+            productSpinner.adapter = spinnerAdapter
+            productSpinner.onItemSelectedListener = this
+            productSpinner.setSelection(first)
         }
     }
 
@@ -146,6 +149,18 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         // Set write button listener
         view.writeBtn.setOnClickListener(::onWriteClick)
+
+        var units = arrayOf("kg", "dag", "hg", "g", "dg", "cg", "mg", "kl", "hl", "dal", "l", "dl", "cl", "ml", "oz", "lb", "pt", "fl oz", "units")
+
+        categorySpinner = view.categorySpinner
+        productSpinner = view.productSpinner
+        segmentUnitSpinner = view.segmentUnitSpinner
+
+        val spinnerAdapter = ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_item, units)
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        segmentUnitSpinner.adapter = spinnerAdapter
+
+        showProgressBarOrContent()
 
         return view
     }
@@ -189,15 +204,16 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         /* val tagContent: String = conservationStorageText.text.toString()
         if (tagContent.isNotEmpty())
             listener?.onWriteNfcTagInteraction(tagContent) */
+        val data = "\"${productSpinner.selectedItem}\",\"${brandEditText.text}\",\"${varietyEditText.text}\",\"${segmentNumberEditText.text} ${segmentUnitSpinner.selectedItem}\",${dateEditText.text}"
         writingFragment = fragmentManager?.findFragmentByTag(WritingNfcTagFragment.TAG) as? WritingNfcTagFragment
         if (writingFragment == null)
-            writingFragment = WritingNfcTagFragment.newInstance("ola"); // TODO passar o que for para escrever aqui
+            writingFragment = WritingNfcTagFragment.newInstance(data)
         writingFragment?.show(fragmentManager, WritingNfcTagFragment.TAG)
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         parent?.let {
-            if (it.categorySpinner.selectedItem != position) {
+            if (categorySpinner.selectedItem != position) {
                 categories?.let {
                     it[position].links.productsCategoryLink?.let {
                         getProductsCategory(it)
