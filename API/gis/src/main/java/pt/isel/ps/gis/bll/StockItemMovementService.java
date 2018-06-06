@@ -2,7 +2,6 @@ package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
-import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemMovement;
 
 import java.sql.Timestamp;
@@ -57,12 +56,12 @@ public interface StockItemMovementService {
      * @param conservationConditions condições de conservação (Opcional)
      * @param description            descrição (Opcional)
      * @param date                   data de validade
-     * @return StockItem
+     * @return StockItemMovement
      * @throws EntityException
      * @throws EntityNotFoundException
      */
-    StockItem addStockItemMovement(long houseId, short storageId, boolean movementType, short quantity, String productName, String brand, String variety, String segment,
-                                   String conservationConditions, String description, String date) throws EntityException, EntityNotFoundException;
+    StockItemMovement addStockItemMovement(long houseId, short storageId, boolean movementType, short quantity, String productName, String brand, String variety, String segment,
+                                           String conservationConditions, String description, String date) throws EntityException, EntityNotFoundException;
 
     /**
      * Filtros - filtragem dos movimentos

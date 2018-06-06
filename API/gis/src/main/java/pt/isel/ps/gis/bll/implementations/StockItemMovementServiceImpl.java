@@ -8,12 +8,11 @@ import pt.isel.ps.gis.dal.repositories.StockItemMovementRepository;
 import pt.isel.ps.gis.dal.repositories.StorageRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
-import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.StockItemMovementId;
 import pt.isel.ps.gis.model.StorageId;
+import pt.isel.ps.gis.utils.InputUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
@@ -23,6 +22,7 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
     private static final String HOUSE_DOES_NOT_EXIST = "House does not exist.";
     private static final String PRODUCT_DOES_NOT_EXISTS = "Product does not exist.";
     private static final String STORAGE_DOES_NOT_EXIST = "Storage does not exist.";
+    private static final String SEGMENT_INVALID = "Segment is invalid.";
 
     private final StockItemMovementRepository stockItemMovementRepository;
     private final HouseRepository houseRepository;
@@ -56,18 +56,29 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
     }
 
     @Override
-    public StockItem addStockItemMovement(long houseId, short storageId, boolean movementType, short quantity, String productName, String brand, String variety, String segment, String conservationConditions, String description, String date) throws EntityException, EntityNotFoundException {
+    public StockItemMovement addStockItemMovement(long houseId, short storageId, boolean movementType, short quantity, String productName, String brand, String variety, String segment, String conservationConditions, String description, String date) throws EntityException, EntityNotFoundException {
         checkHouseId(houseId);
         checkStorageId(houseId, storageId);
         checkProductName(productName);
         //TODO: verificar movimento de saída de stock item que não existe ou que tem quantidade a 0
         // Split segmento
-        String[] segmentSplitted = segment.split(" ");
+        String[] segmentSplitted = splitSegment(segment);
         float segm = Float.parseFloat(segmentSplitted[0]);
         String segmUnit = segmentSplitted[1];
-        throw new NotImplementedException();
-        //TODO: return stockItemMovementRepository.save(houseId, storageId, movementType, quantity, productName, brand, variety, segm, segmUnit, description, conservationConditions, date);
-        //TODO: Preciso desta função (é a que está na BD)
+        return stockItemMovementRepository.insertStockItemMovement(
+                houseId,
+                storageId,
+                movementType,
+                quantity,
+                productName,
+                brand,
+                variety,
+                segm,
+                segmUnit,
+                description,
+                conservationConditions,
+                date
+        );
     }
 
     private void checkHouseId(long houseId) throws EntityException, EntityNotFoundException {
@@ -86,5 +97,12 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
         StorageId id = new StorageId(houseId, storageId);
         if (!storageRepository.existsById(id))
             throw new EntityNotFoundException(STORAGE_DOES_NOT_EXIST);
+    }
+
+    private String[] splitSegment(String segment) throws EntityException {
+        String[] segmentSplitted = InputUtils.splitNumbersFromLetters(segment);
+        if (segmentSplitted.length != 2)
+            throw new EntityException(SEGMENT_INVALID);
+        return segmentSplitted;
     }
 }
