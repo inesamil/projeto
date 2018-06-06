@@ -10,6 +10,7 @@ public class MovementInputModel {
     private Short storageId;
     @JsonProperty(value = "movement-type", required = true)
     private Boolean type;
+    private Short quantity;
 
     public String getTag() {
         return tag;
@@ -21,5 +22,9 @@ public class MovementInputModel {
 
     public Boolean getType() {
         return type;
+    }
+
+    public Short getQuantity() {
+        return quantity;
     }
 }
