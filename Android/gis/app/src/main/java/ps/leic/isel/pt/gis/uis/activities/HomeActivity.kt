@@ -221,7 +221,7 @@ class HomeActivity : AppCompatActivity(),
     // Listener for ListDetailFragment interaction
     override fun onListProductInteraction(listProduct: ListProductDto) {
         //TODO: expand
-        Toast.makeText(this, "Specific List-Product", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Specific List-Product", Toast.LENGTH_SHORT).show()
     }
 
     // Listener for ListDetailFragment interaction
@@ -293,10 +293,12 @@ class HomeActivity : AppCompatActivity(),
             R.id.invitationsItem -> {
                 val url: String = ""    //TODO
                 // supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.INVITATIONS, InvitationsFragment.Companion::newInstance, url)
+                Toast.makeText(this, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.preferencesItem -> {
                 //TODO
+                Toast.makeText(this, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.aboutItem -> {
