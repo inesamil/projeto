@@ -24,18 +24,18 @@ public interface StockItemMovementRepositoryCustom {
     /**
      * Insert stock item movement
      *
-     * @param houseId The id of the house
-     * @param storageId The id of the storage
-     * @param movementType The movement type
-     * @param quantity The stock item quantity of movement
-     * @param productName
-     * @param brand
-     * @param variety
-     * @param segment
-     * @param segmentUnit
-     * @param conservationConditions
-     * @param description
-     * @param date
+     * @param houseId                The id of the house
+     * @param storageId              The id of the storage
+     * @param movementType           The movement type
+     * @param quantity               The stock item quantity of movement
+     * @param productName            The name of the product
+     * @param brand                  The brand of stock item
+     * @param variety                The variety of stock item
+     * @param segment                The segment of stock item
+     * @param segmentUnit            The segment unit of stock item
+     * @param conservationConditions Simple string with conservation conditions
+     * @param description            Description of the stock item
+     * @param date                   Expiration date of the stock item
      * @return the stock item movement inserted
      */
     StockItemMovement insertStockItemMovement(long houseId, short storageId, boolean movementType, short quantity,
