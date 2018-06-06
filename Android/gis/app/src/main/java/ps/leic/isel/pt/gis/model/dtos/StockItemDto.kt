@@ -16,6 +16,7 @@ class StockItemDto(siren: Siren) {
     val quantity: Short
     val variety: String
     val segment: String
+    var allergens: Array<String>? = null
     var expirationDates: Array<ExpirationDateDto>? = null
     var storages: Array<String>? = null
     var movements: Array<MovementDto>? = null
@@ -33,6 +34,12 @@ class StockItemDto(siren: Siren) {
         quantity = (properties[quantityLabel] as Int).toShort()
         variety = properties[varietyLabel] as String
         segment = properties[segmentLabel] as String
+        val allergensElements = siren.entities?.find {
+            it.klass?.contains(allergensLabel) ?: false
+        }?.properties?.get(elementsLabel)
+        allergensElements?.let {
+            allergens = mapper.convertValue<Array<String>>(it, Array<String>::class.java)
+        }
         val expirationDateElements = siren.entities?.find {
             it.klass?.contains(expirationDatesLabel) ?: false
         }?.properties?.get(elementsLabel)
@@ -77,6 +84,7 @@ class StockItemDto(siren: Siren) {
         private const val quantityLabel: String = "stock-item-quantity"
         private const val segmentLabel: String = "stock-item-segment"
         private const val varietyLabel: String = "stock-item-variety"
+        private const val allergensLabel: String = "allergens"
         private const val expirationDatesLabel: String = "expiration-dates"
         private const val storagesLabel: String = "storages"
         private const val movementsLabel: String = "movements"

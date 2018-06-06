@@ -22,6 +22,7 @@ import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsMovementsAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsStorageAdapter
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.State
+import ps.leic.isel.pt.gis.utils.getElementsSeparatedBySemiColon
 import ps.leic.isel.pt.gis.viewModel.StockItemDetailViewModel
 
 /**
@@ -85,8 +86,12 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
         // Show progress bar or content
         showProgressBarOrContent()
 
+        brandText.text = stockItem.brand
+        quantityText.text = stockItem.quantity.toString()
+        unitText.text = stockItem.segment
+
         // Set Allergens
-        //TODO allergensText.text = allergens.getElementsSeparatedBySemiColon()
+        allergensText.text = stockItem.allergens?.joinToString(";")
 
         // Set Adapters (Expiration dates)
         expirationDatesAdapter.setData(stockItem.expirationDates)

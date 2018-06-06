@@ -1,32 +1,13 @@
 package ps.leic.isel.pt.gis.model.dtos
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 
-class MovementDto(siren: Siren) {
-    val houseId: Long
-    val storageId: Long
-    val stockItemSku: String
-    val movementDateTime: String
-    val movementType: String
-    val quantity: Int
-
-    init {
-        val properties = siren.properties
-        houseId = (properties?.get(houseIdLabel) as Int).toLong()
-        storageId = (properties[storageIdLabel] as Int).toLong()
-        stockItemSku = properties[stockItemSkuLabel] as String
-        movementDateTime = properties[movementDateTimeLabel] as String
-        movementType = properties[movementTypeLabel] as String
-        quantity = properties[quantityLabel] as Int
-    }
-
-    companion object {
-        private const val houseIdLabel: String = "house-id"
-        private const val storageIdLabel: String = "storage-id"
-        private const val stockItemSkuLabel: String = "stock-item-sku"
-        private const val movementDateTimeLabel: String = "movement-datetime"
-        private const val movementTypeLabel: String = "movement-type"
-        private const val quantityLabel: String = "movement-quantity"
-    }
-
-}
+data class MovementDto (
+        @field:JsonProperty(value = "house-id") val houseId: Long,
+        @field:JsonProperty(value = "storage-id") val storageId: Short,
+        @field:JsonProperty(value = "stock-item-sku") val stockItemSku: String,
+        @field:JsonProperty(value = "movement-datetime") val movementDateTime: String,
+        @field:JsonProperty(value = "movement-type") val movementType: String,
+        @field:JsonProperty(value = "movement-quantity") val quantity: Int
+)
