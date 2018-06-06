@@ -79,22 +79,22 @@ INSERT INTO public.product(category_id, product_name, product_edible, product_sh
 
 --STOCKITEM
 INSERT INTO public.stockitem(house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
-	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, 'Mimosa', '1', 'UHT Magro', 4, 'l', 'Leite UHT Magro Bem Essencial', 'Não necessita de frigorífico antes de abrir. ');
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, 'Mimosa', '1', 'UHT Magro', 4, 'l', 'Leite UHT Magro Bem Essencial', 'Não necessita de frigorífico antes de abrir. ');
 INSERT INTO public.stockitem(house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 2, 'Agros', '250', 'Iogurte Natural', 6, 'ml', 'Sem corantes nem conservantes.', 'Conservar entre 0ºC e 6ºC.');
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 2, 'Agros', '250', 'Iogurte Natural', 6, 'ml', 'Sem corantes nem conservantes.', 'Conservar entre 0ºC e 6ºC.');
 INSERT INTO public.stockitem(house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
-	VALUES (2, 'P2-Agros-Ligth-250ml', 2, 'Agros', '250', 'Iogurte Natural', 15, 'ml', 'Sem corantes nem conservantes.', 'Conservar entre 0ºC e 6ºC.');
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 2, 'Agros', '250', 'Iogurte Natural', 15, 'ml', 'Sem corantes nem conservantes.', 'Conservar entre 0ºC e 6ºC.');
 INSERT INTO public.stockitem(house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
-	VALUES (2, 'P3-Becel-Vegetal-250ml', 3, 'Becel', '250', 'Manteiga Vegetal', 1, 'kg', 'Menos 50% de gordura. Sem sal adicionado.', 'Fridge');
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 3, 'Becel', '250', 'Manteiga Vegetal', 1, 'kg', 'Menos 50% de gordura. Sem sal adicionado.', 'Fridge');
 	
 --EXPIRATION-DATE
-INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P1-Mimosa-Ligth-1l', to_date('2018-05-01', 'YYYY-MM-DD'), 2);
-INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P1-Mimosa-Ligth-1l', to_date('2018-09-01', 'YYYY-MM-DD'), 2);
-INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P2-Agros-Ligth-250ml', to_date('2019-01-15', 'YYYY-MM-DD'), 4);
-INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P2-Agros-Ligth-250ml', to_date('2019-06-01', 'YYYY-MM-DD'), 2);
-INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (2, 'P2-Agros-Ligth-250ml', to_date('2018-09-01', 'YYYY-MM-DD'), 10);
-INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (2, 'P2-Agros-Ligth-250ml', to_date('2018-05-01', 'YYYY-MM-DD'), 5);
-INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (2, 'P3-Becel-Vegetal-250ml', to_date('2019-06-01', 'YYYY-MM-DD'), 2);
+INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P1-Mimosa-UHT Magro-1l', to_date('2018-05-01', 'YYYY-MM-DD'), 2);
+INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P1-Mimosa-UHT Magro-1l', to_date('2018-09-01', 'YYYY-MM-DD'), 2);
+INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P2-Agros-Iogurte Natural-250ml', to_date('2019-01-15', 'YYYY-MM-DD'), 4);
+INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P2-Agros-Iogurte Natural-250ml', to_date('2019-06-01', 'YYYY-MM-DD'), 2);
+INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (2, 'P2-Agros-Iogurte Natural-250ml', to_date('2018-09-01', 'YYYY-MM-DD'), 10);
+INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (2, 'P2-Agros-Iogurte Natural-250ml', to_date('2018-05-01', 'YYYY-MM-DD'), 5);
+INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', to_date('2019-06-01', 'YYYY-MM-DD'), 2);
 
 --HOUSE-ALLERGY
 INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_allergicsnum) VALUES (1, 'Leite', 1);
@@ -125,56 +125,56 @@ INSERT INTO public.listproduct(house_id, list_id, product_id, listproduct_brand,
 	
 --STOCKITEM-ALLERGY
 INSERT INTO public.stockitemallergy(house_id, stockitem_sku, allergy_allergen)
-	VALUES (1, 'P1-Mimosa-Ligth-1l', 'Leite');
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 'Leite');
 INSERT INTO public.stockitemallergy(house_id, stockitem_sku, allergy_allergen)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 'Leite');
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 'Leite');
 INSERT INTO public.stockitemallergy(house_id, stockitem_sku, allergy_allergen)
-	VALUES (2, 'P2-Agros-Ligth-250ml', 'Leite');
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 'Leite');
 INSERT INTO public.stockitemallergy(house_id, stockitem_sku, allergy_allergen)
-	VALUES (2, 'P3-Becel-Vegetal-250ml', 'Leite');
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 'Leite');
 
 --STOCKITEM-MOVEMENT
 --House1-Milk
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, true, '2017-10-20'::timestamp, 1);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2017-10-20'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, true, '2017-10-22'::timestamp, 1);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2017-10-22'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, true, '2018-03-14'::timestamp, 1);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-03-14'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, true, '2018-03-16'::timestamp, 1);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-03-16'::timestamp, 1);
 --House1-yogurt
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 1, true, '2018-03-14'::timestamp, 1);
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-03-14'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 1, true, '2018-03-16'::timestamp, 1);
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-03-16'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 1, false, '2018-03-14'::timestamp, 1);
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-03-14'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 1, false, '2018-03-17'::timestamp, 1);
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-03-17'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 1, true, '2018-03-17'::timestamp, 1);
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-03-17'::timestamp, 1);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 1, false, '2018-03-20'::timestamp, 1);
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-03-20'::timestamp, 1);
 --House2-yogurt
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (2, 'P2-Agros-Ligth-250ml', 1, true, '2018-06-01'::timestamp, 6);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-01'::timestamp, 6);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (2, 'P2-Agros-Ligth-250ml', 1, false, '2018-06-01'::timestamp, 6);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-01'::timestamp, 6);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (2, 'P2-Agros-Ligth-250ml', 1, false, '2018-06-02'::timestamp, 3);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-02'::timestamp, 3);
 --House2-butter
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
-	VALUES (2, 'P3-Becel-Vegetal-250ml', 1, true, '2018-04-14'::timestamp, 1);
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-04-14'::timestamp, 1);
 	
 --STOCKITEM-STORAGE
 INSERT INTO public.stockitemstorage(house_id, stockitem_sku, storage_id, stockitemstorage_quantity)
-	VALUES (1, 'P1-Mimosa-Ligth-1l', 1, 4);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, 4);
 INSERT INTO public.stockitemstorage(house_id, stockitem_sku, storage_id, stockitemstorage_quantity)
-	VALUES (1, 'P2-Agros-Ligth-250ml', 1, 6);
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, 6);
 INSERT INTO public.stockitemstorage(house_id, stockitem_sku, storage_id, stockitemstorage_quantity)
-	VALUES (2, 'P2-Agros-Ligth-250ml', 1, 15);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 1, 15);
 INSERT INTO public.stockitemstorage(house_id, stockitem_sku, storage_id, stockitemstorage_quantity)
-	VALUES (2, 'P3-Becel-Vegetal-250ml', 1, 1);
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, 1);
 
 

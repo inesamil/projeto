@@ -123,3 +123,13 @@ SELECT get_movements_filtered (1, null, null, '2018-04-18', null);	-- EXPECTED: 
 SELECT get_movements_filtered (1, null, null, null, 1::int2);	-- EXPECTED: Todos os movimentos relacionados com o local de armazenamento com ID = 1
 SELECT get_movements_filtered (1, 'SKU 2', false, null, null);	-- EXPECTED: Todos os movimentos do item com sku = 'SKU 2' e de saída
 
+-------------- TEST get_movements_filtered (houseID bigint, item_sku character varying(128), type boolean, date date, storageID smallint) --------------
+--drops.sql
+--creates.sql
+--functions.sql
+
+--"\"Leite\",\"Mimosa\",\"UHT Magro\",\"1 l\",07/10/2018",
+SELECT * FROM public."stockitem" WHERE public."stockitem".house_id = 1 AND public."stockitem".stockitem_sku = 'P1-Mimosa-UHT Magro-1l'
+
+SELECT insert_movement(1::int8, 1::int2, false, 1::int2, 'Leite'::varchar(35), 'Mimosa'::varchar(35), 'UHT Magro'::varchar(35), 1::real, 'l'::varchar(5), null::text,	null::varchar(128), '2018-06-07'::date);
+
