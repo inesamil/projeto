@@ -15,6 +15,7 @@ import pt.isel.ps.gis.utils.DateUtils;
 import pt.isel.ps.gis.utils.InputUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Service
@@ -66,20 +67,24 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
         String[] segmentSplitted = splitSegment(segment);
         float segm = Float.parseFloat(segmentSplitted[0]);
         String segmUnit = segmentSplitted[1];
-        return stockItemMovementRepository.insertStockItemMovement(
-                houseId,
-                storageId,
-                movementType,
-                quantity,
-                productName,
-                brand,
-                variety,
-                segm,
-                segmUnit,
-                description,
-                conservationConditions,
-                DateUtils.convertStringToDate(date)
-        );
+        try {
+            return stockItemMovementRepository.insertStockItemMovement(
+                    houseId,
+                    storageId,
+                    movementType,
+                    quantity,
+                    productName,
+                    brand,
+                    variety,
+                    segm,
+                    segmUnit,
+                    description,
+                    conservationConditions,
+                    DateUtils.convertStringToDate(date)
+            );
+        } catch (ParseException e) {
+            throw new EntityException("Wrong date format.");
+        }
     }
 
     private void checkHouseId(long houseId) throws EntityException, EntityNotFoundException {
