@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS public."stockitem" (
 	stockitem_quantity smallint NOT NULL CHECK (stockitem_quantity > 0),
 	stockitem_segmentUnit character varying(5) NOT NULL CHECK (stockitem_segmentUnit IN ('kg', 'dag', 'hg', 'g', 'dg', 'cg', 'mg', 'kl', 'hl', 'dal', 'l', 'dl', 'cl', 'ml', 'oz', 'lb', 'pt', 'fl oz', 'units')),
 	stockitem_description text,
-	stockitem_conservationstorage character varying(128) NOT NULL,
+	stockitem_conservationstorage character varying(128),
 	PRIMARY KEY (house_id, stockitem_sku),
 	UNIQUE (house_id, product_id, stockitem_brand, stockitem_segment, stockitem_variety),
 	FOREIGN KEY (product_id) REFERENCES public."product" (product_id)
