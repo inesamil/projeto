@@ -223,7 +223,7 @@ CREATE OR REPLACE FUNCTION insert_movement(
 	storageId smallint,
 	movementType bool,
 	quantity smallint,
-	productName integer,	-- Tag Info
+	productName character varying(35),	-- Tag Info
 	brand character varying(35),	-- Tag Info
 	variety character varying(35),	-- Tag Info
 	segment real,	-- Tag Info
