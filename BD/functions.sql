@@ -266,39 +266,35 @@ BEGIN
 		-- Update StockItemQuantity in Storage
 		UPDATE public."stockitemstorage" SET stockitemstorage_quantity = public."stockitemstorage".stockitemstorage_quantity + quantity
 			WHERE public."stockitemstorage".house_id = houseId AND public."stockitemstorage".storage_id = storageId;
+			
+		-- Update quantity expiring
+		UPDATE public."expirationdate" SET date_quantity = public."expirationdate".date_quantity + quantity 
+			WHERE public."expirationdate".house_id = houseId AND public."expirationdate".stockitem_sku = sku
+				AND public."expirationdate".date_date = expirationDatexpto;
 	ELSE
 		-- StockItem does not exist in the house
 		-- Add StockItem
 		INSERT INTO public."stockitem" (house_id, stockitem_sku, product_id, stockitem_brand, stockitem_variety, stockitem_segment,
 										stockitem_segmentUnit, stockitem_quantity, stockitem_description, stockitem_conservationStorage) 
 			VALUES (houseId, sku, productId, brand, variety, segment, segmentUnit, movementQuantity, description, conservationStorage);
-			
+	
 		-- Add StockItem in Storage
 		INSERT INTO public."stockitemstorage" (house_id, stockitem_sku, storage_id, stockitemstorage_quantity) 
 			VALUES (houseId, sku, storageId, quantity);
+		
+	   	IF NOT EXISTS (SELECT * FROM public."date" WHERE public."date".date_date = expirationDatexpto) THEN
+		-- Insert Date
+			INSERT INTO public."date" (date_date)
+				VALUES (expirationDatexpto);
+		END IF;
+		-- Insert Expiration Date 
+		INSERT INTO public."expirationdate" (house_id, stockitem_sku, date_date, date_quantity)
+			VALUES (houseId, sku, expirationDatexpto, movementQuantity);
 	END IF;
 	
 	-- Insert Movement
 	INSERT INTO public."stockitemmovement" (house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_dateTime, stockitemmovement_quantity)
 		VALUES (houseId, sku, storageId, movementType, CURRENT_TIMESTAMP, movementQuantity);
-		
-	IF NOT EXISTS (SELECT * FROM public."date" WHERE public."date".date_date = expirationDatexpto) THEN
-		-- Insert Date
-		INSERT INTO public."date" (date_date)
-			VALUES (expirationDatexpto);
-	END IF;
-	
-	IF EXISTS (SELECT * FROM public."expirationdate" WHERE public."expirationdate".house_id = houseId AND public."expirationdate".stockitem_sku = sku AND
-			   public."expirationdate".date_date = expirationDatexpto) THEN
-		-- Update quantity expiring
-		UPDATE public."expirationdate" SET public."expirationdate".date_quantity = public."expirationdate".date_quantity + quantity 
-			WHERE public."expirationdate".house_id = houseId AND public."expirationdate".stockitem_sku = sku AND
-			   public."expirationdate".date_date = expirationDatexpto;
-	ELSE
-		-- Insert Expiration Date 
-		INSERT INTO public."expirationdate" (house_id, stockitem_sku, date_date, date_quantity)
-			VALUES (houseId, sku, expirationDatexpto, movementQuantity);
-	END IF;
 
 	RETURN query
 	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".product_id, public."stockitem".stockitem_brand,

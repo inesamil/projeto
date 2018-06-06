@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS public."stockitem" (
 	stockitem_brand character varying(35) NOT NULL,
 	stockitem_segment real NOT NULL,
 	stockitem_variety character varying(35) NOT NULL,
-	stockitem_quantity smallint NOT NULL CHECK (stockitem_quantity > 0),
+	stockitem_quantity smallint NOT NULL CHECK (stockitem_quantity >= 0),
 	stockitem_segmentUnit character varying(5) NOT NULL CHECK (stockitem_segmentUnit IN ('kg', 'dag', 'hg', 'g', 'dg', 'cg', 'mg', 'kl', 'hl', 'dal', 'l', 'dl', 'cl', 'ml', 'oz', 'lb', 'pt', 'fl oz', 'units')),
 	stockitem_description text,
 	stockitem_conservationstorage character varying(128),
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS public."stockitemstorage" (
 	house_id bigint NOT NULL CHECK (house_id > 0),
 	stockitem_sku character varying(128) NOT NULL,
 	storage_id smallint NOT NULL CHECK (storage_id > 0),
-	stockitemstorage_quantity smallint NOT NULL CHECK (stockitemstorage_quantity > 0),
+	stockitemstorage_quantity smallint NOT NULL CHECK (stockitemstorage_quantity >= 0),
 	PRIMARY KEY (house_id, stockitem_sku, storage_id),
 	FOREIGN KEY (house_id, stockitem_sku) REFERENCES public."stockitem" (house_id, stockitem_sku),
 	FOREIGN KEY (house_id, storage_id) REFERENCES public."storage" (house_id, storage_id)
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS public."expirationdate" (
 	house_id bigint NOT NULL CHECK (house_id > 0),
 	stockitem_sku character varying(128) NOT NULL,
 	date_date date NOT NULL REFERENCES public."date" (date_date),
-	date_quantity smallint NOT NULL CHECK (date_quantity > 0),
+	date_quantity smallint NOT NULL CHECK (date_quantity >= 0),
 	PRIMARY KEY (house_id, stockitem_sku, date_date),
 	FOREIGN KEY (house_id, stockitem_sku) REFERENCES public."stockitem" (house_id, stockitem_sku)
 );
