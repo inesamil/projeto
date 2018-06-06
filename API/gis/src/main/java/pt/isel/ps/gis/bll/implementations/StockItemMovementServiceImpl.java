@@ -11,6 +11,7 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.StockItemMovementId;
 import pt.isel.ps.gis.model.StorageId;
+import pt.isel.ps.gis.utils.DateUtils;
 import pt.isel.ps.gis.utils.InputUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -77,7 +78,7 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
                 segmUnit,
                 description,
                 conservationConditions,
-                date
+                DateUtils.convertStringToDate(date)
         );
     }
 
