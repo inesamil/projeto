@@ -13,11 +13,11 @@ public class TagCsv {
     @CsvBindByPosition(position = 3, required = true)
     private String segment;
     @CsvBindByPosition(position = 4, required = true)
-    private short quantity;
-    @CsvBindByPosition(position = 5, required = true)
     private String date;
-    @CsvBindByPosition(position = 6)
+    @CsvBindByPosition(position = 5)
     private String conditions;
+    @CsvBindByPosition(position = 6)
+    private String description;
 
     public String getProductName() {
         return productName;
@@ -51,14 +51,6 @@ public class TagCsv {
         this.segment = segment;
     }
 
-    public short getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(short quantity) {
-        this.quantity = quantity;
-    }
-
     public String getDate() {
         return date;
     }
@@ -73,5 +65,13 @@ public class TagCsv {
 
     public void setConditions(String conditions) {
         this.conditions = conditions;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
