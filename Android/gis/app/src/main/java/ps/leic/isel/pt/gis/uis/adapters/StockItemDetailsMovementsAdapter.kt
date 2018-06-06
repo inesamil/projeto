@@ -26,7 +26,8 @@ class StockItemDetailsMovementsAdapter
         data?.let {
             val item: MovementDto = it[position]
             // Fill View Holder
-            holder.movementsItemText.text = item.movementType
+            holder.movementDatetimeText.text = item.movementDateTime
+            holder.movementsTypeText.text = if (item.movementType) "Entrada" else "Saída"
             //TODO
         }
     }
@@ -41,7 +42,8 @@ class StockItemDetailsMovementsAdapter
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val movementsItemText: TextView = itemView.findViewById(R.id.movementsItemText)
+        internal val movementDatetimeText: TextView = itemView.findViewById(R.id.movementDatetimeText)
+        internal val movementsTypeText: TextView = itemView.findViewById(R.id.movementsTypeText)
 
         //TODO
         init {
