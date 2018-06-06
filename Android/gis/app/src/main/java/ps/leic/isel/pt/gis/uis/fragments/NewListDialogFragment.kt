@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
+import android.widget.Toast
 import ps.leic.isel.pt.gis.R
 
 class NewListDialogFragment : DialogFragment() {
@@ -19,6 +20,7 @@ class NewListDialogFragment : DialogFragment() {
                 // Add action buttons
                 .setPositiveButton(R.string.add, { _, _ ->
                     // TODO: add list
+                    Toast.makeText(view?.context, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
                 })
                 .setNegativeButton(R.string.cancel, { _, _ -> this@NewListDialogFragment.getDialog().cancel() })
         return builder.create()

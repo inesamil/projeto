@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
+import android.widget.Toast
 import kotlinx.android.synthetic.main.layout_new_house_dialog.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.utils.EditTextUtils
@@ -23,6 +24,7 @@ class NewHouseDialogFragment : DialogFragment() {
                 // Add action buttons
                 .setPositiveButton(R.string.add, { _, _ ->
                     // TODO: add house
+                    Toast.makeText(view?.context, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
                 })
                 .setNegativeButton(R.string.cancel, { _, _ -> this@NewHouseDialogFragment.getDialog().cancel() })
 

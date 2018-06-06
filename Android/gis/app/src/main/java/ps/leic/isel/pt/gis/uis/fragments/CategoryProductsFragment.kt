@@ -207,14 +207,16 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
 
     override fun onPlusClick(view: View, position: Int) {
         val lists: Array<ListDto> = arrayOf()
-        showAddPopup(view, lists)
-        Toast.makeText(context, "Add Product to a List.", Toast.LENGTH_LONG).show()
+        //showAddPopup(view, lists)
+        //Toast.makeText(context, "Add Product to a List.", Toast.LENGTH_LONG).show()
         //TODO
+        Toast.makeText(view?.context, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
     }
 
     override fun onMinusClick(view: View, position: Int) {
-        Toast.makeText(context, "Remove Product from a List.", Toast.LENGTH_LONG).show()
+        //Toast.makeText(context, "Remove Product from a List.", Toast.LENGTH_LONG).show()
         //TODO
+        Toast.makeText(view?.context, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
     }
 
     /**

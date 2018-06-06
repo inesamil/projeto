@@ -151,7 +151,8 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
     // NfcListener for save button clicks
     override fun onClick(v: View?) {
         // TODO: save allergies
-        Toast.makeText(view?.context, "Saved Allergies", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(view?.context, "Saved Allergies", Toast.LENGTH_SHORT).show()
+        Toast.makeText(view?.context, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
     }
 
     companion object {

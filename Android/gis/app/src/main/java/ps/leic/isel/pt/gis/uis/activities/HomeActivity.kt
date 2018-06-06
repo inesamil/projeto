@@ -170,6 +170,7 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for BasicInformationFragment interaction
     override fun onBasicInformationUpdate(user: UserDTO) {
+        Toast.makeText(this, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
         // TODO atualizar info do user
     }
 
@@ -232,7 +233,8 @@ class HomeActivity : AppCompatActivity(),
     // Listener for ListsFiltersDialogFragment interaction
     override fun onFiltersApply(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?) {
         val listsFragment = supportFragmentManager.findFragmentByTag(ExtraUtils.LISTS) as? ListsFragment
-        listsFragment?.onFiltersApplied(systemLists, userLists, sharedLists, houses)
+        //listsFragment?.onFiltersApplied(systemLists, userLists, sharedLists, houses)
+        Toast.makeText(this, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
     }
 
     // Listener for StockItemListFragment interaction

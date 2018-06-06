@@ -94,7 +94,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
             listener?.onNewListInteraction()
         }
         // Listener for filters
-        view.filtersText.setOnClickListener {
+        view.listsLayout.filtersText.setOnClickListener {
             listener?.onFiltersInteraction()
         }
         return view
