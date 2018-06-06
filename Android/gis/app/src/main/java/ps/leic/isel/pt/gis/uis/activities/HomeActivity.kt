@@ -151,7 +151,14 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for HomPageFragment interaction
     override fun onMyTagsInteraction() {
-        supportFragmentManager.replaceCurrentFragmentWith(WriteNfcTagFragment.TAG, WriteNfcTagFragment.Companion::newInstance)
+        val gisApplication = application as GisApplication
+        val index = gisApplication.index
+        val url: String? = index.getCategoriesUrl()
+        url?.let {
+            supportFragmentManager.replaceCurrentFragmentWith(WriteNfcTagFragment.TAG, WriteNfcTagFragment.Companion::newInstance, it)
+            return@let
+        }
+        Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() // TODO remove string. put in xml
     }
 
     // Listener for HousesFragment interaction
