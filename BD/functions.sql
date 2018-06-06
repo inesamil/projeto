@@ -234,19 +234,16 @@ CREATE OR REPLACE FUNCTION insert_movement(
 RETURNS TABLE(
 	house_id bigint,
 	stockitem_sku character varying(128),
-	product_id integer,
-	stockitem_brand character varying(35),
-	stockitem_segment real,
-	stockitem_variety character varying(35),
-	stockitem_quantity smallint,
-	stockitem_segmentunit character varying(5),
-	stockitem_description text,
-	stockitem_conservationstorage character varying(128)
+	storage_id smallint,
+	stockitemmovement_type boolean,
+	stockitemmovement_dateTime timestamp,
+	stockitemmovement_quantity smallint 
 ) AS $$
 DECLARE 
 	productId integer;
 	quantity smallint;
 	sku character varying(128) = 0;
+	movementDatetime timestamp;
 BEGIN
 	-- Get product ID
 	SELECT public."product".product_id INTO productId FROM public."product" WHERE public."product".product_name = productName;
@@ -292,16 +289,17 @@ BEGIN
 			VALUES (houseId, sku, expirationDatexpto, movementQuantity);
 	END IF;
 	
+	movementDatetime := CURRENT_TIMESTAMP;
+	
 	-- Insert Movement
 	INSERT INTO public."stockitemmovement" (house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_dateTime, stockitemmovement_quantity)
-		VALUES (houseId, sku, storageId, movementType, CURRENT_TIMESTAMP, movementQuantity);
+		VALUES (houseId, sku, storageId, movementType, movementDatetime, movementQuantity);
 
 	RETURN query
-	SELECT public."stockitem".house_id, public."stockitem".stockitem_sku, public."stockitem".product_id, public."stockitem".stockitem_brand,
-			public."stockitem".stockitem_segment, public."stockitem".stockitem_variety, public."stockitem".stockitem_quantity, public."stockitem".stockitem_segmentunit,
-			public."stockitem".stockitem_description, public."stockitem".stockitem_conservationstorage
-	FROM public."stockitem"
-	WHERE public."stockitem".house_id = houseID AND public."stockitem".stockitem_sku = sku;
+	SELECT house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_dateTime, stockitemmovement_quantity
+	FROM public."stockitemmovement"
+	WHERE house_id = houseId AND stockitem_sku = sku AND storage_id = storageId AND stockitemmovement_type = movementType 
+		AND stockitemmovement_dateTime = movementDatetime AND stockitemmovement_quantity = movementQuantity;
 END;
 $$ LANGUAGE plpgsql;
 
