@@ -31,16 +31,11 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private val first: Int = 0
 
-    private lateinit var categories: Array<CategoryDTO>
     private lateinit var products: Array<ProductDTO>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //TODO: get categories
-        categories = arrayOf(
-                CategoryDTO(1, "Laticínios"),
-                CategoryDTO(2, "Carne"),
-                CategoryDTO(3, "Peixe"))
+        //TODO: get products
         products = arrayOf(
                 ProductDTO(1, 1, "Leite", true, "3dias"),
                 ProductDTO(1, 2, "Queijo", true, "7dias"),
@@ -51,13 +46,6 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_write_nfc_tag, container, false)
-
-        // Set category spinner options
-        val categorySpinnerAdapter = ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_item, categories.map { category -> category.categoryName })
-        categorySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        view.categorySpinner.adapter = categorySpinnerAdapter
-        view.categorySpinner.onItemSelectedListener = this
-        view.categorySpinner.setSelection(first)
 
         //Set product spinner options
         val productSpinnerAdapter = ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_item, products.map { product -> product.name })
