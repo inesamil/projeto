@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.dal.repositories.custom;
 
 import org.hibernate.Session;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.dal.repositories.StockItemMovementRepositoryCustom;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.StockItemMovement;
@@ -79,6 +80,7 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
         });
     }
 
+    @Transactional
     @Override
     public StockItemMovement insertStockItemMovement(final long houseId, final short storageId, final boolean movementType,
                                                      final short quantity, final String productName, final String brand,
@@ -89,7 +91,7 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
             try (CallableStatement function = connection.prepareCall(
-                    "{call insert_movement(?,?,?,?,?,?,?,?,?,?,?,?)}"
+                    "{call insert_movement(?,?,?,?,?,?,?,?,?,?,?,?::date)}"
             )) {
                 function.setLong(1, houseId);
                 function.setShort(2, storageId);
