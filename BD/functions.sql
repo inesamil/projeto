@@ -296,10 +296,11 @@ BEGIN
 		VALUES (houseId, sku, storageId, movementType, movementDatetime, movementQuantity);
 
 	RETURN query
-	SELECT house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_dateTime, stockitemmovement_quantity
+	SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, public."stockitemmovement".storage_id, public."stockitemmovement".stockitemmovement_type, 
+		public."stockitemmovement".stockitemmovement_dateTime, public."stockitemmovement".stockitemmovement_quantity
 	FROM public."stockitemmovement"
-	WHERE house_id = houseId AND stockitem_sku = sku AND storage_id = storageId AND stockitemmovement_type = movementType 
-		AND stockitemmovement_dateTime = movementDatetime AND stockitemmovement_quantity = movementQuantity;
+	WHERE public."stockitemmovement".house_id = houseId AND public."stockitemmovement".stockitem_sku = sku AND public."stockitemmovement".storage_id = storageId AND public."stockitemmovement".stockitemmovement_type = movementType 
+		AND public."stockitemmovement".stockitemmovement_dateTime = movementDatetime AND public."stockitemmovement".stockitemmovement_quantity = movementQuantity;
 END;
 $$ LANGUAGE plpgsql;
 
