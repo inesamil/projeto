@@ -61,9 +61,14 @@ class NFCActivity : AppCompatActivity(), Listener {
         val tag = intent?.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
         if (tag != null) {
             Toast.makeText(this, getString(R.string.message_tag_detected), Toast.LENGTH_SHORT).show()
-            if (isDialogDisplayed) {
-                readFragment = supportFragmentManager.findFragmentByTag(ReadFragment.TAG) as? ReadFragment
-                readFragment?.onNfcDetected(intent)
+            readFragment = supportFragmentManager.findFragmentByTag(ReadFragment.TAG) as? ReadFragment
+            readFragment?.isVisible?.let {
+                if (it) {
+                    val type = switchBtn.isChecked
+                    // val storageId = storagesSpinner.selectedItem as Short
+                    // val houseId = housesSpinner.selectedItem as Long
+                    readFragment?.onNfcDetected(intent, 1, type, 1)
+                }
             }
         }
     }
