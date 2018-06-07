@@ -254,8 +254,9 @@ BEGIN
 	IF EXISTS (SELECT * FROM public."stockitem" WHERE public."stockitem".house_id = houseId AND public."stockitem".stockitem_sku = sku) THEN
 		-- StockItem exists in the house
 		-- Update StockItem quantity
+		quantity := movementQuantity;
 		IF movementType = false THEN
-			quantity = movementQuantity * -1;
+			quantity = quantity * -1;
 		END IF;
 		UPDATE public."stockitem" SET stockitem_quantity = public."stockitem".stockitem_quantity + quantity 
 			WHERE public."stockitem".house_id = houseId AND public."stockitem".stockitem_sku = sku;
