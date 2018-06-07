@@ -204,7 +204,7 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         /* val tagContent: String = conservationStorageText.text.toString()
         if (tagContent.isNotEmpty())
             listener?.onWriteNfcTagInteraction(tagContent) */
-        val data = "\"${productSpinner.selectedItem}\",\"${brandEditText.text}\",\"${varietyEditText.text}\",\"${segmentNumberEditText.text} ${segmentUnitSpinner.selectedItem}\",${dateEditText.text}"
+        val data = "\"${productSpinner.selectedItem}\",\"${brandEditText.text}\",\"${varietyEditText.text}\",\"${segmentNumberEditText.text}${segmentUnitSpinner.selectedItem}\",${dateEditText.text}"
         writingFragment = fragmentManager?.findFragmentByTag(WritingNfcTagFragment.TAG) as? WritingNfcTagFragment
         if (writingFragment == null)
             writingFragment = WritingNfcTagFragment.newInstance(data)
