@@ -277,7 +277,7 @@ BEGIN
 	
 		-- Add StockItem in Storage
 		INSERT INTO public."stockitemstorage" (house_id, stockitem_sku, storage_id, stockitemstorage_quantity) 
-			VALUES (houseId, sku, storageId, quantity);
+			VALUES (houseId, sku, storageId, movementQuantity);
 		
 	   	IF NOT EXISTS (SELECT * FROM public."date" WHERE public."date".date_date = expirationDatexpto) THEN
 		-- Insert Date
