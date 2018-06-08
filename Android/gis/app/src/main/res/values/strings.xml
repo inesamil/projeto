@@ -186,4 +186,5 @@
     <string name="mentors_Names">Orientadores: Matilde Pato e Nuno Datia</string>
     <string name="remove">Remove</string>
     <string name="remove_list_product">Remove product from</string>
+    <string name="quantity_abbreviation">Qty.</string>
 </resources>
