@@ -10,10 +10,11 @@ import ps.leic.isel.pt.gis.hypermedia.jsonHome.subentities.JsonHome
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 import java.io.IOException
 
+
 class Requester<DTO>(method: Int, url: String, body: Any?, private val headers: MutableMap<String, String>,
                      private val dtoType: Class<DTO>, onSuccess: (DTO) -> Unit,
                      onError: (VolleyError?) -> Unit, private val tag: String)
-    : JsonRequest<DTO>(method, url, mapper.writeValueAsString(body), onSuccess, onError) {
+    : JsonRequest<DTO>(method, UrlUtils.parseUrl(url), mapper.writeValueAsString(body), onSuccess, onError) {
 
     companion object {
         val mapper: ObjectMapper = jacksonObjectMapper()
@@ -21,6 +22,7 @@ class Requester<DTO>(method: Int, url: String, body: Any?, private val headers: 
                 Pair("application/vnd.siren+json", Siren::class.java),
                 Pair("application/home+json", JsonHome::class.java)
         )
+        val encoding: String = "UTF-8"
     }
 
     /**
