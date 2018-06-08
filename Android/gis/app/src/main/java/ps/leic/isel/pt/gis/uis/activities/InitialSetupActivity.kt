@@ -52,28 +52,24 @@ class InitialSetupActivity : AppCompatActivity() {
         babiesMinusBtn.setOnClickListener {
             EditTextUtils.decNumberText(
                     babiesNumEditText,
-                    RestrictionsUtils.characteristicsMinValue,
-                    RestrictionsUtils.characteristicsMaxValue)
+                    RestrictionsUtils.characteristicsMinValue)
         }
         childrenMinusBtn.setOnClickListener {
             EditTextUtils.decNumberText(
                     childrenNumEditText,
-                    RestrictionsUtils.characteristicsMinValue,
-                    RestrictionsUtils.characteristicsMaxValue)
+                    RestrictionsUtils.characteristicsMinValue)
         }
 
         adultsMinusBtn.setOnClickListener {
             EditTextUtils.decNumberText(
                     adultsNumEditText,
-                    RestrictionsUtils.characteristicsMinValue,
-                    RestrictionsUtils.characteristicsMaxValue)
+                    RestrictionsUtils.characteristicsMinValue)
         }
 
         seniorsMinusBtn.setOnClickListener {
             EditTextUtils.decNumberText(
                     seniorNumEditText,
-                    RestrictionsUtils.characteristicsMinValue,
-                    RestrictionsUtils.characteristicsMaxValue)
+                    RestrictionsUtils.characteristicsMinValue)
         }
         // Set start button listener
         startBtn.setOnClickListener {

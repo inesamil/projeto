@@ -27,7 +27,7 @@ class ListsAdapter : RecyclerView.Adapter<ListsAdapter.ViewHolder>() {
             // Fill ViewHolder
             //holder.itemsText.text =
             holder.listNameText.text = item.listName
-            holder.houseNameText.text = item.houseName
+            //TODO: holder.houseNameText.text = item.houseName
         }
     }
 

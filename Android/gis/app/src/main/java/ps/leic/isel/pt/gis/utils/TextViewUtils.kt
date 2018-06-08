@@ -1,11 +1,11 @@
 package ps.leic.isel.pt.gis.utils
 
-import android.widget.EditText
+import android.widget.TextView
 
-object EditTextUtils {
+object TextViewUtils {
 
-    fun incNumberText(editText: EditText, min: Int, max: Int) {
-        val countText = editText.text.toString()
+    fun incNumberText(textView: TextView, min: Int, max: Int) {
+        val countText = textView.text.toString()
         var count: Int
         if (countText.isEmpty()) {
             count = min + 1
@@ -14,11 +14,11 @@ object EditTextUtils {
             if (count < max)
                 count += 1
         }
-        editText.setText(count.toString())
+        textView.setText(count.toString())
     }
 
-    fun decNumberText(editText: EditText, min: Int) {
-        val countText = editText.text.toString()
+    fun decNumberText(textView: TextView, min: Int) {
+        val countText = textView.text.toString()
         var count: Int
         if (countText.isEmpty()) {
             count = min
@@ -27,6 +27,6 @@ object EditTextUtils {
             if (count > min)
                 count -= 1
         }
-        editText.setText(count.toString())
+        textView.setText(count.toString())
     }
 }

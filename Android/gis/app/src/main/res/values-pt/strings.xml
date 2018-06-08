@@ -141,4 +141,6 @@
     <string name="tags">Tags</string>
     <string name="nfc_icon_description">Ícone de NFC</string>
     <string name="add_list_product">Add product to</string>
+    <string name="remove">Remove</string>
+    <string name="remove_list_product">Remove product from</string>
 </resources>

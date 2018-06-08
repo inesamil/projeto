@@ -183,11 +183,15 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for CategoriesFragement interaction
     override fun onCategoryInteraction(url: String, categoryName: String) {
-        val args: Map<String, Any> = mapOf(
-                Pair(ProductDetailFragment.URL_ARG, url),
-                Pair(CategoryProductsFragment.CATEGORY_NAME_ARG, categoryName)
-        )
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCTS, CategoryProductsFragment.Companion::newInstance, args)
+        val gisApplication = application as GisApplication
+        val index = gisApplication.index
+        index.getUserListUrl("pedro")?.let {
+            val args: Map<String, Any> = mapOf(
+                    Pair(CategoryProductsFragment.URL_ARG, url),
+                    Pair(CategoryProductsFragment.CATEGORY_NAME_ARG, categoryName)
+            )
+            supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCTS, CategoryProductsFragment.Companion::newInstance, args)
+        }
     }
 
     // Listener for CategoryProductsFragement interaction
@@ -197,6 +201,34 @@ class HomeActivity : AppCompatActivity(),
                 Pair(ProductDetailFragment.PRODUCT_NAME_ARG, productName)
         )
         supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCT, ProductDetailFragment.Companion::newInstance, args)
+    }
+
+    // Listener for CategoryProductsFragement interaction
+    override fun onAddProductToListInteraction() {
+        val gisApplication = application as GisApplication
+        val index = gisApplication.index
+        index.getUserListUrl("pedro")?.let {
+            val args: Map<String, Any> = mapOf(
+                    Pair(AddOrRemoveProductToListDialogFragment.URL_ARG, it),
+                    Pair(AddOrRemoveProductToListDialogFragment.ADD_ACTION_ARG, true)
+            )
+            val fragment = AddOrRemoveProductToListDialogFragment.newInstance(args)
+            fragment.show(supportFragmentManager, AddOrRemoveProductToListDialogFragment.TAG)
+        }
+    }
+
+    // Listener for CategoryProductsFragement interaction
+    override fun onRemoveProductFromListInteraction() {
+        val gisApplication = application as GisApplication
+        val index = gisApplication.index
+        index.getUserListUrl("pedro")?.let {
+            val args: Map<String, Any> = mapOf(
+                    Pair(AddOrRemoveProductToListDialogFragment.URL_ARG, it),
+                    Pair(AddOrRemoveProductToListDialogFragment.ADD_ACTION_ARG, false)
+            )
+            val fragment = AddOrRemoveProductToListDialogFragment.newInstance(args)
+            fragment.show(supportFragmentManager, AddOrRemoveProductToListDialogFragment.TAG)
+        }
     }
 
     // Listener for ListsFragment interaction

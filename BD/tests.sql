@@ -132,4 +132,23 @@ SELECT get_movements_filtered (1, 'SKU 2', false, null, null);	-- EXPECTED: Todo
 SELECT * FROM public."stockitem" WHERE public."stockitem".house_id = 1 AND public."stockitem".stockitem_sku = 'P1-Mimosa-UHT Magro-1l';
 SELECT * FROM public."expirationdate"
 SELECT insert_movement(1::int8, 1::int2, false, 1::int2, 'Leite'::varchar(35), 'Mimosa'::varchar(35), 'UHT Magro'::varchar(35), 1::real, 'l'::varchar(5), null::text,	null::varchar(128), '2018-09-01'::date);
+SELECT insert_movement(1::int8, 1::int2, false, 1::int2, 'Leite'::varchar(35), 'Mimosa'::varchar(35), 'UHT Magro'::varchar(35), 250::real, 'ml'::varchar(5), null::text,	null::varchar(128), '2018-12-20'::date);
 
+
+SELECT public."list".house_id, public."list".list_id, public."list".list_name,
+                public."list".list_type, public."userlist".users_username, public."userlist".list_shareable,
+                public."house".house_name
+                FROM public."list" JOIN public."userlist" ON (public."list".house_id = public."userlist".house_id
+                AND public."list".list_id = public."userlist".list_id)
+                JOIN public."house" ON public."house".house_id = public."list".house_id
+                WHERE public."list".house_id = ANY (array[1, 2]) AND list_type = 'user' AND users_username = 'pedro'
+                --(CASE WHEN ? = true THEN ? ELSE null END)
+                UNION
+                SELECT public."list".house_id, public."list".list_id, public."list".list_name,
+                public."list".list_type, public."userlist".users_username, public."userlist".list_shareable,
+                public."house".house_name
+                FROM public."list" JOIN public."userlist" ON (public."list".house_id = public."userlist".house_id
+                AND public."list".list_id = public."userlist".list_id)
+                JOIN public."house" ON public."house".house_id = public."list".house_id
+                WHERE public."list".house_id = ANY (array[1, 2]) AND list_type = 'user' AND
+                list_shareable = true--(CASE WHEN ? = true THEN true ELSE null END);"

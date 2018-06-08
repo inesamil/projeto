@@ -61,28 +61,24 @@ class NewHouseDialogFragment : DialogFragment() {
         view.babiesMinusBtn.setOnClickListener {
             EditTextUtils.decNumberText(
                     view.babiesNumEditText,
-                    RestrictionsUtils.characteristicsMinValue,
-                    RestrictionsUtils.characteristicsMaxValue)
+                    RestrictionsUtils.characteristicsMinValue)
         }
         view.childrenMinusBtn.setOnClickListener {
             EditTextUtils.decNumberText(
                     view.childrenNumEditText,
-                    RestrictionsUtils.characteristicsMinValue,
-                    RestrictionsUtils.characteristicsMaxValue)
+                    RestrictionsUtils.characteristicsMinValue)
         }
 
         view.adultsMinusBtn.setOnClickListener {
             EditTextUtils.decNumberText(
                     view.adultsNumEditText,
-                    RestrictionsUtils.characteristicsMinValue,
-                    RestrictionsUtils.characteristicsMaxValue)
+                    RestrictionsUtils.characteristicsMinValue)
         }
 
         view.seniorsMinusBtn.setOnClickListener {
             EditTextUtils.decNumberText(
                     view.seniorNumEditText,
-                    RestrictionsUtils.characteristicsMinValue,
-                    RestrictionsUtils.characteristicsMaxValue)
+                    RestrictionsUtils.characteristicsMinValue)
         }
         return builder.create()
     }
