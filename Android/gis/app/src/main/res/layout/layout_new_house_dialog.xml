@@ -65,7 +65,7 @@
             app:layout_constraintGuide_percent="0.4" />
 
         <EditText
-            android:id="@+id/housesnameEditText2"
+            android:id="@+id/housesnameEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"

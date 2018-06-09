@@ -10,23 +10,25 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_write_nfc_tag.view.*
 import kotlinx.android.synthetic.main.layout_new_list_dialog.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.utils.ExtraUtils
-import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
+import ps.leic.isel.pt.gis.viewModel.ListsViewModel
 
 class NewListDialogFragment : DialogFragment() {
 
-    private lateinit var housesSpinner: Spinner
     private lateinit var url: String
+
     private lateinit var housesViewModel: HousesViewModel
+    private var listsViewModel: ListsViewModel? = null
 
     private var houses: Array<HouseDto>? = null
+
+    private lateinit var housesSpinner: Spinner
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity!!)
@@ -37,14 +39,7 @@ class NewListDialogFragment : DialogFragment() {
             url = it.getString(ExtraUtils.URL)
         }
 
-        housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
-        housesViewModel.init(url)
-        housesViewModel.getHouses()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-            }
-        })
+        getHouses()
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -52,7 +47,7 @@ class NewListDialogFragment : DialogFragment() {
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton(R.string.add, { _, _ ->
-                    // TODO: add list
+                    addList(view)
                     Toast.makeText(view?.context, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
                 })
                 .setNegativeButton(R.string.cancel, { _, _ -> this@NewListDialogFragment.getDialog().cancel() })
@@ -62,8 +57,27 @@ class NewListDialogFragment : DialogFragment() {
         return builder.create()
     }
 
-    private fun onError(error: String?) {
+    private fun addList(view: View) {
+        houses?.get(housesSpinner.selectedItemPosition)?.let {
+            val listName: String = view.listNameEditText.text.toString()
+            val username: String = ""   //TODO: get username
+            val shareable: Boolean = !view.shareableListSwitch.isChecked
 
+            listsViewModel = ViewModelProviders.of(this).get(ListsViewModel::class.java)
+            listsViewModel?.addList(it.houseId, listName, username, shareable)
+        }
+
+    }
+
+    private fun getHouses() {
+        housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
+        housesViewModel.init(url)
+        housesViewModel.getHouses()?.observe(this, Observer {
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+            }
+        })
     }
 
     private fun onSuccess(housesDto: HousesDto) {
@@ -75,6 +89,11 @@ class NewListDialogFragment : DialogFragment() {
             housesSpinner.adapter = spinnerAdapter
             housesSpinner.setSelection(0)
         }
+    }
+
+
+    private fun onError(error: String?) {
+        //TODO
     }
 
     /**

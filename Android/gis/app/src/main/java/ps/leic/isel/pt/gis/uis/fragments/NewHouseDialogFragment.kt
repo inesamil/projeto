@@ -1,16 +1,26 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.app.Dialog
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
-import android.widget.Toast
+import android.view.View
 import kotlinx.android.synthetic.main.layout_new_house_dialog.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
+import ps.leic.isel.pt.gis.model.dtos.CharacteristicsDto
+import ps.leic.isel.pt.gis.model.dtos.HouseDto
+import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.utils.EditTextUtils
 import ps.leic.isel.pt.gis.utils.RestrictionsUtils
+import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 
 class NewHouseDialogFragment : DialogFragment() {
+
+    private var housesViewModel: HousesViewModel? = null
+    private lateinit var action: Action
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity!!)
@@ -23,11 +33,17 @@ class NewHouseDialogFragment : DialogFragment() {
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton(R.string.add, { _, _ ->
-                    // TODO: add house
-                    Toast.makeText(view?.context, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
+                    addHouse(view)
                 })
                 .setNegativeButton(R.string.cancel, { _, _ -> this@NewHouseDialogFragment.getDialog().cancel() })
 
+        // Set listeners
+        setButtonsListeners(view)
+
+        return builder.create()
+    }
+
+    private fun setButtonsListeners(view: View) {
         // Set Plus buttons listeners
         view.babiesPlusBtn.setOnClickListener {
             EditTextUtils.incNumberText(
@@ -80,9 +96,32 @@ class NewHouseDialogFragment : DialogFragment() {
                     view.seniorNumEditText,
                     RestrictionsUtils.characteristicsMinValue)
         }
-        return builder.create()
     }
 
+    private fun addHouse(view: View) {
+        val houseName: String = view.housesnameEditText.text.toString()
+        val characteristics = CharacteristicsDto(
+                view.babiesNumEditText.text.toString().toShortOrNull() ?: 0,
+                view.childrenNumEditText.text.toString().toShortOrNull() ?: 0,
+                view.adultsNumEditText.text.toString().toShortOrNull() ?: 0,
+                view.seniorNumEditText.text.toString().toShortOrNull() ?: 0)
+
+        housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
+        housesViewModel?.addHouse(houseName, characteristics)?.observe(this, Observer {
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+            }
+        })
+    }
+
+    private fun onSuccess(house: HouseDto) {
+        //TODO: o que fazer em caso de sucesso
+    }
+
+    private fun onError(message: String?) {
+        //TODO: o que fazer em caso de erro
+    }
 
     /**
      * NewHouseDialogFragment Factory
