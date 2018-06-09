@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.dal.repositories.UsersRepository;
@@ -32,20 +33,27 @@ public class HouseServiceImpl implements HouseService {
         return houseRepository.existsById(houseId);
     }
 
+    @Transactional
     @Override
     public House getHouseByHouseId(long houseId) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
-        return houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException(HOUSE_NOT_EXIST));
+        House house =  houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException(HOUSE_NOT_EXIST));
+        house.getUserhousesByHouseId().size();
+        return house;
     }
 
+    @Transactional
     @Override
     public List<House> getHousesByUserId(String username) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateUserUsername(username);
         if (!usersRepository.existsById(username))
             throw new EntityNotFoundException(USER_NOT_EXIST);
-        return houseRepository.findAllByUsersUsername(username);
+        List<House> houses =  houseRepository.findAllByUsersUsername(username);
+        houses.parallelStream().forEach(house -> house.getUserhousesByHouseId().size());
+        return houses;
     }
 
+    @Transactional
     @Override
     public House addHouse(String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityException {
         Characteristics characteristics = new Characteristics(
@@ -54,10 +62,13 @@ public class HouseServiceImpl implements HouseService {
                 adultsNumber,
                 seniorsNumber
         );
-        House house = new House(name, characteristics);
-        return houseRepository.save(house);
+        House houseToAdd = new House(name, characteristics);
+        House house = houseRepository.save(houseToAdd);
+        house.getUserhousesByHouseId().size();
+        return house;
     }
 
+    @Transactional
     @Override
     public House updateHouse(
             long houseId, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber
@@ -71,7 +82,9 @@ public class HouseServiceImpl implements HouseService {
                 seniorsNumber
         );
         House house = new House(houseId, name, characteristics);
-        return houseRepository.save(house);
+        house = houseRepository.save(house);
+        house.getUserhousesByHouseId().size();
+        return house;
     }
 
     @Override
