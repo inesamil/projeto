@@ -195,15 +195,6 @@ class HomeActivity : AppCompatActivity(),
     }
 
     // Listener for CategoryProductsFragement interaction
-    override fun onProductInteraction(url: String, productName: String) {
-        val args: Map<String, Any> = mapOf(
-                Pair(ProductDetailFragment.URL_ARG, url),
-                Pair(ProductDetailFragment.PRODUCT_NAME_ARG, productName)
-        )
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCT, ProductDetailFragment.Companion::newInstance, args)
-    }
-
-    // Listener for CategoryProductsFragement interaction
     override fun onAddProductToListInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index

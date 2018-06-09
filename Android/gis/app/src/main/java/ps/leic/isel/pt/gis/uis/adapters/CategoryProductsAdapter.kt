@@ -45,10 +45,6 @@ class CategoryProductsAdapter : RecyclerView.Adapter<CategoryProductsAdapter.Vie
         internal val productPlusBtn: Button = itemView.findViewById(R.id.productItemPlusButton)
 
         init {
-            productText.setOnClickListener {
-                mOnItemClickListener?.onTextClick(it, adapterPosition)
-            }
-
             productPlusBtn.setOnClickListener {
                 mOnItemClickListener?.onPlusClick(it, adapterPosition)
             }
@@ -66,7 +62,6 @@ class CategoryProductsAdapter : RecyclerView.Adapter<CategoryProductsAdapter.Vie
 
     // Parent activity will implement this method to respond to click events
     interface OnItemClickListener {
-        fun onTextClick(view: View, position: Int)
         fun onPlusClick(view: View, position: Int)
         fun onMinusClick(view: View, position: Int)
     }

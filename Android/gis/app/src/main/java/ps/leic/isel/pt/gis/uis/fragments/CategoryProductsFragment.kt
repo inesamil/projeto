@@ -148,15 +148,6 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      * Listeners
      ***/
 
-    override fun onTextClick(view: View, position: Int) {
-        products?.let {
-            val product: ProductDto = it[position]
-            product.links.selfLink?.let {
-                listener?.onProductInteraction(it, product.productName)
-            }
-        }
-    }
-
     override fun onPlusClick(view: View, position: Int) {
         listener?.onAddProductToListInteraction()
     }
@@ -172,7 +163,6 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      * activity.
      */
     interface OnCategoryProductsFragmentInteractionListener {
-        fun onProductInteraction(url: String, productName: String)
         fun onAddProductToListInteraction()
         fun onRemoveProductFromListInteraction()
     }
