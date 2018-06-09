@@ -28,11 +28,7 @@ class StockItemListAdapter : RecyclerView.Adapter<StockItemListAdapter.ViewHolde
             val item: StockItemDto = it[position]
             holder.stockItemText.text = item.productName
             holder.brandText.text = item.brand
-            holder.qntItemText.text = item.quantity.toString()
-            // If the inner adapter needs data pass here the data
-            item.storages?.let {
-                holder.innerAdapter.setData(it)
-            }
+            holder.quantityText.text = item.quantity.toString()
         }
     }
 
@@ -49,17 +45,9 @@ class StockItemListAdapter : RecyclerView.Adapter<StockItemListAdapter.ViewHolde
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val stockItemText: TextView = itemView.findViewById(R.id.stockItemText)
         internal val brandText: TextView = itemView.findViewById(R.id.brandText)
-        internal val qntItemText: TextView = itemView.findViewById(R.id.qntText)
-        internal val innerAdapter: StockItemInnerListAdapter
+        internal val quantityText: TextView = itemView.findViewById(R.id.quantityText)
 
         init {
-            val context: Context = itemView.context
-            // Set inner list Adapter
-            val stockItemInnerListRecyclerView: RecyclerView = itemView.findViewById(R.id.stockItemInnerListRecyclerView)
-            stockItemInnerListRecyclerView.layoutManager = LinearLayoutManager(context)
-            innerAdapter = StockItemInnerListAdapter()
-            stockItemInnerListRecyclerView.adapter = innerAdapter
-
             itemView.setOnClickListener {
                 mOnItemClickListener.onItemClick(it, adapterPosition)
             }
