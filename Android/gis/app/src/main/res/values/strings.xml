@@ -187,4 +187,5 @@
     <string name="remove">Remove</string>
     <string name="remove_list_product">Remove product from</string>
     <string name="quantity_abbreviation">Qty.</string>
+    <string name="initial_setup">Initial Setup</string>
 </resources>

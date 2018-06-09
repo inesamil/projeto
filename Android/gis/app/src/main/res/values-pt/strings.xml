@@ -136,12 +136,22 @@
     <string name="system_lists">Listas do Sistema</string>
     <string name="sharedLists">Listas Partilhadas</string>
     <string name="userLists">As Minhas Listas</string>
-    <string name="select">Select</string>
+    <string name="select">Selecionar</string>
     <string name="apply">Aplicar</string>
     <string name="tags">Tags</string>
     <string name="nfc_icon_description">Ícone de NFC</string>
-    <string name="add_list_product">Add product to</string>
-    <string name="remove">Remove</string>
-    <string name="remove_list_product">Remove product from</string>
-    <string name="quantity_abbreviation">Qty.</string>
+    <string name="remove">Remover</string>
+    <string name="remove_list_product">Remover produto de</string>
+    <string name="quantity_abbreviation">Qtd.</string>
+    <string name="list_icon_description">Ícone da Lista</string>
+    <string name="members">Membros</string>
+    <string name="list_name">Nome da Lista</string>
+    <string name="add_new_house">Adicionar uma nova casa</string>
+    <string name="characteristics">Caraterísticas</string>
+    <string name="brand">Marca</string>
+    <string name="variety">Variedade</string>
+    <string name="conservation_storage">Condições de Conservação</string>
+    <string name="date">Data</string>
+    <string name="item">Item</string>
+    <string name="add_list_product">Adicionar produto a</string>
 </resources>
