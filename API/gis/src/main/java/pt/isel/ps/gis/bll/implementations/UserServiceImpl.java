@@ -1,6 +1,8 @@
 package pt.isel.ps.gis.bll.implementations;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.UserService;
 import pt.isel.ps.gis.dal.repositories.UsersRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -12,9 +14,11 @@ import pt.isel.ps.gis.utils.ValidationsUtils;
 public class UserServiceImpl implements UserService {
 
     private final UsersRepository usersRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UsersRepository usersRepository) {
+    public UserServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
         this.usersRepository = usersRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -35,13 +39,18 @@ public class UserServiceImpl implements UserService {
     public Users addUser(String username, String email, Short age, String name, String password) throws EntityException {
         if (existsUserByUserId(username))
             throw new EntityException(String.format("Username %s is already in use.", username));
-        return usersRepository.save(new Users(username, email, age, name, password));
+        return usersRepository.save(new Users(username, email, age, name, passwordEncoder.encode(password)));
     }
 
+    @Transactional
     @Override
     public Users updateUser(String username, String email, Short age, String name, String password) throws EntityException, EntityNotFoundException {
-        checkUserUsername(username);
-        return usersRepository.save(new Users(username, email, age, name, password));
+        Users user = getUserByUserId(username);
+        user.setUsersEmail(email);
+        user.setUsersAge(age);
+        user.setUsersName(name);
+        user.setUsersPassword(passwordEncoder.encode(password));
+        return user;
     }
 
     @Override
