@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS public."users" (
 	users_email character varying(254) NOT NULL UNIQUE,
 	users_age smallint NOT NULL CHECK (users_age BETWEEN 0 AND 150),
 	users_name character varying(70) NOT NULL,
-	users_password character varying(50) NOT NULL
+	users_password character varying(60) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."allergy" (

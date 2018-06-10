@@ -19,7 +19,7 @@ public class RestrictionsUtils {
     public static final short USER_AGE_MIN = 0;
     public static final short USER_AGE_MAX = 150;
     public static final int USER_NAME_MAX_LENGTH = 70;
-    public static final int USER_PASSWORD_MAX_LENGTH = 50;
+    public static final int USER_PASSWORD_MAX_LENGTH = 60;
 
     /// Allergy
     public static final int ALLERGY_ALLERGEN_MAX_LENGTH = 75;
