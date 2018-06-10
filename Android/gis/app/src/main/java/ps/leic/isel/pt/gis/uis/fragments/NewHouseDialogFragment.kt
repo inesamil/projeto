@@ -10,6 +10,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.layout_new_house_dialog.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
+import ps.leic.isel.pt.gis.model.body.HouseBody
 import ps.leic.isel.pt.gis.model.dtos.CharacteristicsDto
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.repositories.Status
@@ -100,14 +101,15 @@ class NewHouseDialogFragment : DialogFragment() {
 
     private fun addHouse(view: View) {
         val houseName: String = view.housesnameEditText.text.toString()
-        val characteristics = CharacteristicsDto(
-                view.babiesNumEditText.text.toString().toShortOrNull() ?: 0,
-                view.childrenNumEditText.text.toString().toShortOrNull() ?: 0,
-                view.adultsNumEditText.text.toString().toShortOrNull() ?: 0,
-                view.seniorNumEditText.text.toString().toShortOrNull() ?: 0)
+        val babiesNumber: Short = view.babiesNumEditText.text.toString().toShortOrNull() ?: 0
+        val childrenNumber: Short = view.childrenNumEditText.text.toString().toShortOrNull() ?: 0
+        val adultsNumber: Short = view.adultsNumEditText.text.toString().toShortOrNull() ?: 0
+        val seniorsNumber: Short = view.seniorNumEditText.text.toString().toShortOrNull() ?: 0
+
+        val house: HouseBody = HouseBody(houseName, babiesNumber, childrenNumber, adultsNumber, seniorsNumber)
 
         housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
-        housesViewModel?.addHouse(houseName, characteristics)?.observe(this, Observer {
+        housesViewModel?.addHouse(house)?.observe(this, Observer {
             when {
                 it?.status == Status.SUCCESS -> onSuccess(it.data!!)
                 it?.status == Status.ERROR -> onError(it.message)

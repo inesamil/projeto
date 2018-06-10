@@ -12,6 +12,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import kotlinx.android.synthetic.main.layout_new_list_dialog.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.body.ListBody
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
@@ -59,12 +60,14 @@ class NewListDialogFragment : DialogFragment() {
 
     private fun addList(view: View) {
         houses?.get(housesSpinner.selectedItemPosition)?.let {
+            val houseId: Long = it.houseId
             val listName: String = view.listNameEditText.text.toString()
-            val username: String = ""   //TODO: get username
             val shareable: Boolean = !view.shareableListSwitch.isChecked
 
+            val list: ListBody = ListBody(houseId, listName, shareable)
+
             listsViewModel = ViewModelProviders.of(this).get(ListsViewModel::class.java)
-            listsViewModel?.addList(it.houseId, listName, username, shareable)
+            listsViewModel?.addList(list)
         }
 
     }
