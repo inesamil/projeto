@@ -84,28 +84,6 @@ public class ListController {
                 setSirenContentType(headers), HttpStatus.OK);
     }
 
-    @PostMapping("")
-    public ResponseEntity<ListOutputModel> postUserList(
-            @PathVariable("house-id") long houseId,
-            @RequestBody ListInputModel body
-    ) throws BadRequestException, NotFoundException {
-        pt.isel.ps.gis.model.List list;
-        try {
-            list = listService.addUserList(
-                    houseId,
-                    body.getName(),
-                    "",//TODO: obter username da autorização
-                    body.getShareable()
-            );
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
-        }
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListOutputModel(list), setSirenContentType(headers), HttpStatus.CREATED);
-    }
-
     @PutMapping("/{list-id}")
     public ResponseEntity<ListOutputModel> putList(
             @PathVariable("house-id") long houseId,

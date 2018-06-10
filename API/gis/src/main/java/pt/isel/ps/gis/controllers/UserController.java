@@ -13,11 +13,9 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.Users;
+import pt.isel.ps.gis.model.inputModel.ListInputModel;
 import pt.isel.ps.gis.model.inputModel.UserInputModel;
-import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
-import pt.isel.ps.gis.model.outputModel.UserHousesOutputModel;
-import pt.isel.ps.gis.model.outputModel.UserListsOutputModel;
-import pt.isel.ps.gis.model.outputModel.UserOutputModel;
+import pt.isel.ps.gis.model.outputModel.*;
 import pt.isel.ps.gis.model.requestParams.ListRequestParam;
 
 import java.util.List;
@@ -102,6 +100,29 @@ public class UserController {
         HttpHeaders httpHeaders = new HttpHeaders();
         return new ResponseEntity<>(new UserListsOutputModel(username, lists), setSirenContentType(httpHeaders),
                 HttpStatus.OK);
+    }
+
+
+    @PostMapping("/lists")
+    public ResponseEntity<ListOutputModel> postUserList(
+            @PathVariable("username") String username,
+            @RequestBody ListInputModel body
+    ) throws BadRequestException, NotFoundException {
+        pt.isel.ps.gis.model.List list;
+        try {
+            list = listService.addUserList(
+                    body.getHouseId(),
+                    body.getName(),
+                    username,
+                    body.getShareable()
+            );
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new ListOutputModel(list), setSirenContentType(headers), HttpStatus.CREATED);
     }
 
     @PutMapping("")
