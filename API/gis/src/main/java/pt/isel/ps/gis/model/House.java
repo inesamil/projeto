@@ -8,6 +8,7 @@ import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -37,19 +38,19 @@ public class House {
      * COLEÇÕES
      */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
-    private Collection<HouseAllergy> houseallergiesByHouseId;
+    private Collection<HouseAllergy> houseallergiesByHouseId = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
-    private Collection<List> listsByHouseId;
+    private Collection<List> listsByHouseId = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
-    private Collection<StockItem> stockitemsByHouseId;
+    private Collection<StockItem> stockitemsByHouseId = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
-    private Collection<Storage> storagesByHouseId;
+    private Collection<Storage> storagesByHouseId = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
-    private Collection<UserHouse> userhousesByHouseId;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "houseByHouseId")
+    private Collection<UserHouse> userhousesByHouseId = new ArrayList<>();
 
     /**
      * CONSTRUTORES
