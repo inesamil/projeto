@@ -49,7 +49,6 @@ class NewListDialogFragment : DialogFragment() {
                 // Add action buttons
                 .setPositiveButton(R.string.add, { _, _ ->
                     addList(view)
-                    Toast.makeText(view?.context, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
                 })
                 .setNegativeButton(R.string.cancel, { _, _ -> this@NewListDialogFragment.getDialog().cancel() })
 
@@ -64,12 +63,20 @@ class NewListDialogFragment : DialogFragment() {
             val listName: String = view.listNameEditText.text.toString()
             val shareable: Boolean = !view.shareableListSwitch.isChecked
 
-            val list: ListBody = ListBody(houseId, listName, shareable)
+            val list = ListBody(houseId, listName, shareable)
 
             listsViewModel = ViewModelProviders.of(this).get(ListsViewModel::class.java)
-            listsViewModel?.addList(list)
+            listsViewModel?.addList(list)?.observe(this, Observer {
+                when {
+                    it?.status == Status.SUCCESS -> {
+                        Toast.makeText(context, getString(R.string.Authores_Names), Toast.LENGTH_SHORT).show()
+                    }
+                    it?.status == Status.ERROR -> {
+                        Toast.makeText(context, getString(R.string.please_fill_in_all_required_fields), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
         }
-
     }
 
     private fun getHouses() {

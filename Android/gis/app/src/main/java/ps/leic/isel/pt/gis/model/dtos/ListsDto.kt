@@ -3,6 +3,7 @@ package ps.leic.isel.pt.gis.model.dtos
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
+import ps.leic.isel.pt.gis.model.ActionDto
 
 class ListsDto(siren: Siren) {
     val lists: Array<ListDto> = siren.entities?.map {
@@ -12,8 +13,12 @@ class ListsDto(siren: Siren) {
     val links: HousesLink = HousesLink(siren.links)
 
     class ListsActions(actions: Array<Action>?) {
-        val addList: Action? = actions?.find {
-            it.name == addListLabel
+        var addList: ActionDto? = null
+
+        init {
+            actions?.find { it.name == addListLabel }?.let {
+                addList = ActionDto(it.name, it.href, it.type)
+            }
         }
     }
 

@@ -55,7 +55,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         arguments?.let {
             url = it.getString(ExtraUtils.URL)
         }
-        housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
+        housesViewModel = ViewModelProviders.of(activity!!).get(HousesViewModel::class.java)
         housesViewModel.init(url)
         housesViewModel.getHouses()?.observe(this, Observer {
             when {

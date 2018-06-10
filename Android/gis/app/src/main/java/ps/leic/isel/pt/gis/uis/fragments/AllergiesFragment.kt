@@ -59,49 +59,6 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
         })
     }
 
-    private fun onSuccess(allergies: HouseAllergiesDto) {
-        state = State.SUCCESS
-
-        // Hide progress bar
-        showProgressBarOrContent()
-
-        // Set data to adapter
-        adapter.setData(allergies.houseAllergies)
-
-        // Show allergies or not
-        view?.let {
-            val mPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
-            val showAllergies = mPreferences.getBoolean(SHOW_ALLERGIES_TAG, true)
-            if (showAllergies) {
-                it.allergiesRecyclerView.visibility = View.VISIBLE
-                it.allergiesRadioGroup.check(R.id.allergiesYesRadioBtn)
-            } else {
-                it.allergiesRecyclerView.visibility = View.INVISIBLE
-                it.allergiesRadioGroup.check(R.id.allergiesNoRadioBtn)
-            }
-
-            // Radio Group Buttons listener
-            it.allergiesRadioGroup.setOnCheckedChangeListener(this)
-
-            // Save button listener
-            it.allergiesSaveBtn.setOnClickListener(this)
-        }
-    }
-
-    private fun showProgressBarOrContent() {
-        view?.let {
-            it.allergiesProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-            it.allergiesLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
-        }
-    }
-
-    private fun onError(error: String?) {
-        state = State.ERROR
-        error?.let {
-            Log.v("APP_GIS", it)
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -110,6 +67,11 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
         view.allergiesRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.allergiesRecyclerView.setHasFixedSize(true)
         view.allergiesRecyclerView.adapter = adapter
+
+        // Set save button listener
+        view.allergiesSaveBtn.setOnClickListener {
+            saveAllergies(view)
+        }
 
         //Show progress bar or content
         showProgressBarOrContent()
@@ -143,6 +105,63 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
     override fun onStop() {
         super.onStop()
         allergiesViewModel.cancel()
+    }
+
+    /***
+     * Auxiliary Methods
+     ***/
+
+    private fun onSuccess(allergies: HouseAllergiesDto) {
+        state = State.SUCCESS
+
+        // Hide progress bar
+        showProgressBarOrContent()
+
+        // Set data to adapter
+        adapter.setData(allergies.houseAllergies)
+
+        // Show allergies or not
+        view?.let {
+            val mPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+            val showAllergies = mPreferences.getBoolean(SHOW_ALLERGIES_TAG, true)
+            if (showAllergies) {
+                it.allergiesRecyclerView.visibility = View.VISIBLE
+                it.allergiesRadioGroup.check(R.id.allergiesYesRadioBtn)
+            } else {
+                it.allergiesRecyclerView.visibility = View.INVISIBLE
+                it.allergiesRadioGroup.check(R.id.allergiesNoRadioBtn)
+            }
+
+            // Radio Group Buttons listener
+            it.allergiesRadioGroup.setOnCheckedChangeListener(this)
+
+            // Save button listener
+            it.allergiesSaveBtn.setOnClickListener(this)
+        }
+    }
+
+    private fun onError(error: String?) {
+        state = State.ERROR
+        error?.let {
+            Log.v("APP_GIS", it)
+        }
+    }
+
+    private fun showProgressBarOrContent() {
+        view?.let {
+            it.allergiesProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+            it.allergiesLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+        }
+    }
+
+
+    private fun saveAllergies(view: View) {
+        if (view.allergiesNoRadioBtn.isChecked) {
+            //TODO: apagar todas as alergias
+        } else {
+            //TODO: por cada alergia fazer um pedido de update??
+            adapter.getUpdatedItems()
+        }
     }
 
     /***

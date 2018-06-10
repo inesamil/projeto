@@ -59,13 +59,18 @@ class AllergiesTableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
+    // Total number of cells
+    override fun getItemCount() = data?.size?.plus(1) ?: 0
+
     fun setData(data: Array<HouseAllergyDto>) {
         this.data = data
         notifyDataSetChanged()
     }
 
-    // Total number of cells
-    override fun getItemCount() = data?.size?.plus(1) ?: 0
+    // Return an array of the allergens
+    fun getUpdatedItems() : Array<HouseAllergyDto>? {
+        TODO()
+    }
 
     // Stores and recycles views as they are scrolled off screen (HEADER TYPE)
     class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {

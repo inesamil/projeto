@@ -30,8 +30,9 @@ class ListsViewModel(private val app: Application) : AndroidViewModel(app) {
 
     fun addList(list: ListBody): LiveData<Resource<ListDto>>? {
         lists?.value?.data?.actions?.addList?.let {
-            return ServiceLocator.getRepository(app.applicationContext).create(ListDto::class.java, it.href, mapper.writeValueAsString(list), HousesViewModel.TAG)
-            //TODO: como adicionar esta nova lista ao lists ou forçar o refresh ? Igual ao houses view model
+            return ServiceLocator
+                    .getRepository(app.applicationContext)
+                    .create(ListDto::class.java, it.url, it.contentType, mapper.writeValueAsString(list), HousesViewModel.TAG)
         }
         return null
     }

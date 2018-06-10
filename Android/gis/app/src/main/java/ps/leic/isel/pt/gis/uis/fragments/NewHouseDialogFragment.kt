@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
+import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.layout_new_house_dialog.view.*
 import ps.leic.isel.pt.gis.R
@@ -108,7 +109,7 @@ class NewHouseDialogFragment : DialogFragment() {
 
         val house: HouseBody = HouseBody(houseName, babiesNumber, childrenNumber, adultsNumber, seniorsNumber)
 
-        housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
+        housesViewModel = ViewModelProviders.of(activity!!).get(HousesViewModel::class.java)
         housesViewModel?.addHouse(house)?.observe(this, Observer {
             when {
                 it?.status == Status.SUCCESS -> onSuccess(it.data!!)
