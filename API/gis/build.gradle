@@ -28,7 +28,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter')
     compile("org.springframework.boot:spring-boot-starter-web")
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+	compile('org.springframework.security:spring-security-crypto:5.0.5.RELEASE')
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
 	compile group: 'javax.mail', name: 'javax.mail-api', version: '1.5.1' // https://mvnrepository.com/artifact/javax.mail/javax.mail-api
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile group: 'org.springframework', name: 'spring-test', version: '2.5'	// https://mvnrepository.com/artifact/org.springframework/spring-test
