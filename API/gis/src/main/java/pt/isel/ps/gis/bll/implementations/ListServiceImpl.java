@@ -66,6 +66,7 @@ public class ListServiceImpl implements ListService {
         return listRepository.findAvailableListsByUserUsername(username, filters.houses, filters.systemLists, filters.listsFromUser, filters.sharedLists);
     }
 
+    @Transactional
     @Override
     public List addUserList(long houseId, String listName, String username, boolean listShareable) throws EntityException, EntityNotFoundException {
         checkHouseId(houseId);
