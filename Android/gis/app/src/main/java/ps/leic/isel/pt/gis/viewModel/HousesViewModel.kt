@@ -3,7 +3,10 @@ package ps.leic.isel.pt.gis.viewModel
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import ps.leic.isel.pt.gis.ServiceLocator
+import ps.leic.isel.pt.gis.model.body.HouseBody
 import ps.leic.isel.pt.gis.model.dtos.CharacteristicsDto
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
@@ -22,9 +25,9 @@ class HousesViewModel(private val app: Application) : AndroidViewModel(app) {
         return houses
     }
 
-    fun addHouse(houseName: String, characteristics: CharacteristicsDto): LiveData<Resource<HouseDto>>? {
+    fun addHouse(house: HouseBody): LiveData<Resource<HouseDto>>? {
         houses?.value?.data?.actions?.addHouse?.let {
-            return ServiceLocator.getRepository(app.applicationContext).create(HouseDto::class.java, it.url, it.getBody(houseName, characteristics), TAG)
+            return ServiceLocator.getRepository(app.applicationContext).create(HouseDto::class.java, it.url, mapper.writeValueAsString(house), TAG)
             //TODO: como adicionar esta nova casa ao houses ou forçar o refresh ?
         }
         return null
@@ -37,5 +40,6 @@ class HousesViewModel(private val app: Application) : AndroidViewModel(app) {
 
     companion object {
         const val TAG: String = "HousesViewModel"
+        private val mapper: ObjectMapper = jacksonObjectMapper()
     }
 }

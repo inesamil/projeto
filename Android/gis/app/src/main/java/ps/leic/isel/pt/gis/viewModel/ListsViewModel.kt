@@ -3,7 +3,12 @@ package ps.leic.isel.pt.gis.viewModel
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import org.json.JSONObject
+import org.json.JSONStringer
 import ps.leic.isel.pt.gis.ServiceLocator
+import ps.leic.isel.pt.gis.model.body.ListBody
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.model.dtos.ListsDto
@@ -23,10 +28,10 @@ class ListsViewModel(private val app: Application) : AndroidViewModel(app) {
         return lists
     }
 
-    fun addList(houseId: Long, listName: String, username: String, shareable: Boolean): LiveData<Resource<ListDto>>? {
+    fun addList(list: ListBody): LiveData<Resource<ListDto>>? {
         lists?.value?.data?.actions?.addList?.let {
-            //TODO: return ServiceLocator.getRepository(app.applicationContext).create(ListDto::class.java, it.url, it.getBo, HousesViewModel.TAG)
-            //TODO: como adicionar esta nova casa ao houses ou forçar o refresh ?
+            return ServiceLocator.getRepository(app.applicationContext).create(ListDto::class.java, it.href, mapper.writeValueAsString(list), HousesViewModel.TAG)
+            //TODO: como adicionar esta nova lista ao lists ou forçar o refresh ?
         }
         return null
     }
@@ -38,5 +43,6 @@ class ListsViewModel(private val app: Application) : AndroidViewModel(app) {
 
     companion object {
         private const val TAG = "ListsViewModel"
+        private val mapper: ObjectMapper = jacksonObjectMapper()
     }
 }
