@@ -4,11 +4,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ListInputModel {
 
+    @JsonProperty("house-id")
+    private Long houseId;
+
     @JsonProperty("list-name")
     private String name;
 
     @JsonProperty("list-shareable")
     private Boolean shareable;
+
+    public Long getHouseId() {
+        return houseId;
+    }
 
     public String getName() {
         return name;
