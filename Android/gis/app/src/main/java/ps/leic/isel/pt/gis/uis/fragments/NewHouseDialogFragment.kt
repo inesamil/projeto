@@ -118,11 +118,11 @@ class NewHouseDialogFragment : DialogFragment() {
     }
 
     private fun onSuccess(house: HouseDto) {
-        //TODO: o que fazer em caso de sucesso
+        //TODO: o que fazer em caso de sucesso. Voltar para o fragmento qe lancou este dialog e atualizar com a casa qe foi inserida
     }
 
     private fun onError(message: String?) {
-        //TODO: o que fazer em caso de erro
+        //TODO: o que fazer em caso de erro. Mensagem a dizer que nao foi possivel inserir, ou então ver qual a excecao e se for de autenticacao por exemplo dizer qe n ta autenticado, cenas do genero
     }
 
     /**

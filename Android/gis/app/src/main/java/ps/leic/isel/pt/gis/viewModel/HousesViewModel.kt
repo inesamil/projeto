@@ -28,7 +28,7 @@ class HousesViewModel(private val app: Application) : AndroidViewModel(app) {
     fun addHouse(house: HouseBody): LiveData<Resource<HouseDto>>? {
         houses?.value?.data?.actions?.addHouse?.let {
             return ServiceLocator.getRepository(app.applicationContext).create(HouseDto::class.java, it.url, mapper.writeValueAsString(house), TAG)
-            //TODO: como adicionar esta nova casa ao houses ou forçar o refresh ?
+            //TODO: como adicionar esta nova casa ao houses ou forçar o refresh ?. Isto é o modelo observer. no lado do fragmento ficas a espera qe de succes, qnd der fazes set do houses ao adapter.
         }
         return null
     }

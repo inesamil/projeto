@@ -8,6 +8,6 @@ class AddHouseAction(action: Action) {
     val url: String = action.href
 
     fun getBody(houseName: String, characteristics: CharacteristicsDto): String {
-        return ""   //TODO: construir o body
+        return ""   //TODO: construir o body. Contruir o body? n percebo. Para fazer o post tens de mandar um objeto no parametro body.
     }
 }
