@@ -3,11 +3,13 @@ package pt.isel.ps.gis.bll.implementations;
 import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.dal.repositories.HouseRepository;
+import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
 import pt.isel.ps.gis.dal.repositories.UsersRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Characteristics;
 import pt.isel.ps.gis.model.House;
+import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
@@ -20,10 +22,12 @@ public class HouseServiceImpl implements HouseService {
 
     private final HouseRepository houseRepository;
     private final UsersRepository usersRepository;
+    private final UserHouseRepository userHouseRepository;
 
-    public HouseServiceImpl(HouseRepository houseRepository, UsersRepository usersRepository) {
+    public HouseServiceImpl(HouseRepository houseRepository, UsersRepository usersRepository, UserHouseRepository userHouseRepository) {
         this.houseRepository = houseRepository;
         this.usersRepository = usersRepository;
+        this.userHouseRepository = userHouseRepository;
     }
 
     @Override
@@ -47,7 +51,7 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public House addHouse(String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityException {
+    public House addHouse(String username, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityException {
         Characteristics characteristics = new Characteristics(
                 babiesNumber,
                 childrenNumber,
@@ -55,7 +59,10 @@ public class HouseServiceImpl implements HouseService {
                 seniorsNumber
         );
         House house = new House(name, characteristics);
-        return houseRepository.save(house);
+        house = houseRepository.save(house);
+        UserHouse userHouse = userHouseRepository.save(new UserHouse(house.getHouseId(), username, true));
+        house.getUserhousesByHouseId().add(userHouse);
+        return house;
     }
 
     @Override

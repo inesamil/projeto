@@ -74,6 +74,7 @@ public class HouseController {
         House house;
         try {
             house = houseService.addHouse(
+                    "", // TODO ir buscar o username autenticado
                     body.getName(),
                     body.getBabiesNumber(),
                     body.getChildrenNumber(),

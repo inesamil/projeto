@@ -38,6 +38,7 @@ public interface HouseService {
     /**
      * Adicionar uma casa
      *
+     * @param username       nome do utilizador
      * @param name           nome da casa
      * @param babiesNumber   número de bebes na casa
      * @param childrenNumber número de crianças na casa
@@ -46,7 +47,7 @@ public interface HouseService {
      * @return House
      * @throws EntityException se os atributos especificados no parâmetro house forem inválidos
      */
-    House addHouse(String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityException;
+    House addHouse(String username, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityException;
 
     /**
      * Atualizar uma casa
