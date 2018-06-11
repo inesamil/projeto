@@ -32,7 +32,7 @@ class ListsViewModel(private val app: Application) : AndroidViewModel(app) {
         lists?.value?.data?.actions?.addList?.let {
             return ServiceLocator
                     .getRepository(app.applicationContext)
-                    .create(ListDto::class.java, it.url, it.contentType, mapper.writeValueAsString(list), HousesViewModel.TAG)
+                    .create(ListDto::class.java, it.url, it.contentType, list, HousesViewModel.TAG)
         }
         return null
     }

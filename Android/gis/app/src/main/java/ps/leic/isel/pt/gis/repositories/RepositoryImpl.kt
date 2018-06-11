@@ -9,7 +9,7 @@ import ps.leic.isel.pt.gis.utils.CredentialsStore
 
 class RepositoryImpl(private val applicationContext: Context) : Repository {
 
-    override fun <T> create(c: Class<T>, url: String, contentType: String?, body: String, tag: String): LiveData<Resource<T>> {
+    override fun <T> create(c: Class<T>, url: String, contentType: String?, body: Any?, tag: String): LiveData<Resource<T>> {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
 
@@ -46,7 +46,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         return data
     }
 
-    override fun <T> update(c: Class<T>, url: String, contentType: String?, body: String, tag: String): LiveData<Resource<T>> {
+    override fun <T> update(c: Class<T>, url: String, contentType: String?, body: Any?, tag: String): LiveData<Resource<T>> {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
 

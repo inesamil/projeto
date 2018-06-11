@@ -16,7 +16,7 @@ class HttpWebServiceImpl(private val applicationContext: Context) : HttpWebServi
         methodsMapper[HttpWebService.Method.DELETE] = Request.Method.DELETE
     }
 
-    override fun <T> fetch(method: HttpWebService.Method, url: String, body: String?, headers: MutableMap<String, String>,
+    override fun <T> fetch(method: HttpWebService.Method, url: String, body: Any?, headers: MutableMap<String, String>,
                            dtoType: Class<T>, onSuccess: (T) -> Unit, onError: (String?) -> Unit,
                            tag: String) {
         methodsMapper[method]?.let {

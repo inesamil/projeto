@@ -27,10 +27,9 @@ class HousesViewModel(private val app: Application) : AndroidViewModel(app) {
 
     fun addHouse(house: HouseBody): LiveData<Resource<HouseDto>>? {
         houses?.value?.data?.actions?.addHouse?.let {
-            val str = mapper.writeValueAsString(house)
             return ServiceLocator
                     .getRepository(app.applicationContext)
-                    .create(HouseDto::class.java, it.url, it.contentType, str, TAG)
+                    .create(HouseDto::class.java, it.url, it.contentType, house, TAG)
         }
         return null
     }
