@@ -19,12 +19,6 @@ public class HouseInputModel {
     @JsonProperty("seniors-number")
     private Short seniorsNumber;
 
-    HouseInputModel() {}
-
-    HouseInputModel(String str) {
-        System.out.println(str);
-    }
-
     public String getName() {
         return name;
     }

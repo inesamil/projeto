@@ -34,8 +34,7 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
         return session.doReturningWork(connection -> {
             try {
                 Array housesArray = connection.createArrayOf("bigint", houses);
-                java.util.List<List> systemListsFiltered = findSystemListsFiltered(connection, username, housesArray,
-                        systemLists);
+                java.util.List<List> systemListsFiltered = findSystemListsFiltered(connection, housesArray, systemLists);
                 java.util.List<List> userListsFiltered = findUserListsFiltered(connection, housesArray, listsFromUser,
                         username, sharedLists);
                 java.util.List<List> lists = new ArrayList<>();
@@ -52,7 +51,6 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
 
     private java.util.List<List> findSystemListsFiltered(
             final Connection connection,
-            final String username,
             final Array housesIds,
             final Boolean system
     ) throws SQLException, EntityException, IOException {
