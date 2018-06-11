@@ -4,12 +4,14 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_stock_item_detail.*
 import kotlinx.android.synthetic.main.fragment_stock_item_detail.view.*
 import kotlinx.android.synthetic.main.fragment_stock_item_list.*
@@ -49,7 +51,9 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
     private lateinit var productName: String
     private lateinit var variety: String
 
-    private var state: State = State.LOADING;
+    private var state: State = State.LOADING
+    private lateinit var progressBar: ProgressBar
+    private lateinit var content: ConstraintLayout
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -79,6 +83,72 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
             }
         })
     }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_stock_item_detail, container, false)
+
+        // Set Adapters (Expiration dates)
+        view.expirationDateRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.expirationDateRecyclerView.setHasFixedSize(true)
+        view.expirationDateRecyclerView.adapter = expirationDatesAdapter
+
+        // Set Adapter (Storages)
+        view.storageRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.storageRecyclerView.setHasFixedSize(true)
+        view.storageRecyclerView.adapter = storagesAdapter
+
+        // Set Adapter (Movements)
+        view.movementsRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.movementsRecyclerView.setHasFixedSize(true)
+        view.movementsRecyclerView.adapter = movementsAdapter
+
+        storagesAdapter.setOnItemClickListener(this)
+
+        progressBar = view.stockItemDetailProgressBar
+        content = view.stockItemDetailLayout
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        savedInstanceState?.let {
+            url = it.getString(ExtraUtils.URL)
+            productName = it.getString(ExtraUtils.PRODUCT_NAME)
+            variety = it.getString(ExtraUtils.VARIETY)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.title = "$productName $variety"
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ExtraUtils.URL, url)
+        outState.putString(ExtraUtils.PRODUCT_NAME, productName)
+        outState.putString(ExtraUtils.VARIETY, variety)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stockItemDetailViewModel.cancel()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    /***
+     * Auxiliary Methods
+     ***/
 
     private fun onSuccess(stockItem: StockItemDto) {
         state = State.SUCCESS
@@ -120,65 +190,6 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
             it.stockItemDetailProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
             it.stockItemDetailLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
         }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_stock_item_detail, container, false)
-
-        // Set Adapters (Expiration dates)
-        view.expirationDateRecyclerView.layoutManager = LinearLayoutManager(view.context)
-        view.expirationDateRecyclerView.setHasFixedSize(true)
-        view.expirationDateRecyclerView.adapter = expirationDatesAdapter
-
-        // Set Adapter (Storages)
-        view.storageRecyclerView.layoutManager = LinearLayoutManager(view.context)
-        view.storageRecyclerView.setHasFixedSize(true)
-        view.storageRecyclerView.adapter = storagesAdapter
-
-        // Set Adapter (Movements)
-        view.movementsRecyclerView.layoutManager = LinearLayoutManager(view.context)
-        view.movementsRecyclerView.setHasFixedSize(true)
-        view.movementsRecyclerView.adapter = movementsAdapter
-
-        storagesAdapter.setOnItemClickListener(this)
-
-        // Show progress bar or content
-        showProgressBarOrContent()
-
-        return view
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        savedInstanceState?.let {
-            url = it.getString(ExtraUtils.URL)
-            productName = it.getString(ExtraUtils.PRODUCT_NAME)
-            variety = it.getString(ExtraUtils.VARIETY)
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        activity?.title = "$productName $variety"
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.URL, url)
-        outState.putString(ExtraUtils.PRODUCT_NAME, productName)
-        outState.putString(ExtraUtils.VARIETY, variety)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        stockItemDetailViewModel.cancel()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
     }
 
     /***

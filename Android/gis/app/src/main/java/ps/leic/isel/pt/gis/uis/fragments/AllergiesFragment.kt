@@ -4,12 +4,14 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.RadioGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_allergies.*
@@ -37,7 +39,9 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
     private lateinit var url: String
     private val adapter = AllergiesTableAdapter()
 
-    private var state: State = State.LOADING;
+    private var state: State = State.LOADING
+    private lateinit var progressBar: ProgressBar
+    private lateinit var content: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +76,9 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
         view.allergiesSaveBtn.setOnClickListener {
             saveAllergies(view)
         }
+
+        progressBar = view.allergiesProgressBar
+        content = view.allergiesLayout
 
         //Show progress bar or content
         showProgressBarOrContent()
@@ -148,12 +155,9 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
     }
 
     private fun showProgressBarOrContent() {
-        view?.let {
-            it.allergiesProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-            it.allergiesLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
-        }
+        progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+        content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
     }
-
 
     private fun saveAllergies(view: View) {
         if (view.allergiesNoRadioBtn.isChecked) {
@@ -168,7 +172,7 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
      * Listeners
      ***/
 
-    // NfcListener for radio group buttons clicks
+    // Listener for radio group buttons clicks
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
         view?.let {
             when (checkedId) {
@@ -184,13 +188,15 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
         }
     }
 
-    // NfcListener for save button clicks
+    // Listener for save button clicks
     override fun onClick(v: View?) {
         // TODO: save allergies
-        //Toast.makeText(view?.context, "Saved Allergies", Toast.LENGTH_SHORT).show()
         Toast.makeText(view?.context, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
     }
 
+    /**
+     * AllergiesFragment Factory
+     */
     companion object {
         private const val SHOW_ALLERGIES_TAG = "SHOW_ALLERGIES_TAG"
 

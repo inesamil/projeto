@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.nfc.NfcAdapter
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ProgressBar
 import android.widget.Spinner
 import kotlinx.android.synthetic.main.fragment_write_nfc_tag.*
 import kotlinx.android.synthetic.main.fragment_write_nfc_tag.view.*
@@ -43,17 +45,20 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private val first: Int = 0
 
-    private var state: State = State.LOADING;
     private lateinit var url: String
-
-    private lateinit var categorySpinner: Spinner
-    private lateinit var productSpinner: Spinner
-    private lateinit var segmentUnitSpinner: Spinner
     private lateinit var categoriesViewModel: CategoriesViewModel
     private lateinit var categoryProductsViewModel: CategoryProductsViewModel
 
     private var categories: Array<CategoryDto>? = null
     private var products: Array<ProductDto>? = null
+
+    private var state: State = State.LOADING
+    private lateinit var progressBar: ProgressBar
+    private lateinit var content: ConstraintLayout
+
+    private lateinit var categorySpinner: Spinner
+    private lateinit var productSpinner: Spinner
+    private lateinit var segmentUnitSpinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,70 +83,6 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     }
 
-    private fun onSuccess(categoriesDto: CategoriesDto) {
-        categories = categoriesDto.categories
-
-        categories?.let {
-            val spinnerAdapter = ArrayAdapter<String>(categorySpinner.context, android.R.layout.simple_spinner_item, it.map { category -> category.categoryName })
-            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            categorySpinner.adapter = spinnerAdapter
-            categorySpinner.onItemSelectedListener = this
-            categorySpinner.setSelection(first)
-        }
-
-        val size = categories?.size ?: 0
-        if (size > 0) {
-            categories?.get(first)?.links?.productsCategoryLink?.let {
-                getProductsCategory(it)
-            }
-        }
-    }
-
-    private fun getProductsCategory(url: String) {
-        categoryProductsViewModel = ViewModelProviders.of(this).get(CategoryProductsViewModel::class.java)
-        categoryProductsViewModel.init(url)
-        categoryProductsViewModel.getProducts()?.observe(this, Observer {
-            when(it?.status) {
-                Status.SUCCESS -> onSuccess(it.data!!)
-                Status.ERROR -> onError(it.message)
-                Status.LOADING -> {
-                    this.state = State.LOADING
-                }
-            }
-        })
-    }
-
-    private fun showProgressBarOrContent() {
-        view?.let {
-            it.writeNfcTagProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-            it.writeNfcTagLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
-        }
-    }
-
-    private fun onError(error: String?) {
-        state = State.ERROR
-        error?.let {
-            Log.v("APP_GIS", it)
-        }
-    }
-
-    private fun onSuccess(productsDto: ProductsDto) {
-        state = State.SUCCESS
-
-        // Show progress bar or content
-        showProgressBarOrContent()
-
-        products = productsDto.products
-
-        products?.let {
-            val spinnerAdapter = ArrayAdapter<String>(productSpinner.context, android.R.layout.simple_spinner_item, it.map { product -> product.productName })
-            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            productSpinner.adapter = spinnerAdapter
-            productSpinner.onItemSelectedListener = this
-            productSpinner.setSelection(first)
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -150,7 +91,8 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         // Set write button listener
         view.writeBtn.setOnClickListener(::onWriteClick)
 
-        var units = arrayOf("kg", "dag", "hg", "g", "dg", "cg", "mg", "kl", "hl", "dal", "l", "dl", "cl", "ml", "oz", "lb", "pt", "fl oz", "units")
+        //TODO: get units from API
+        val units = arrayOf("kg", "dag", "hg", "g", "dg", "cg", "mg", "kl", "hl", "dal", "l", "dl", "cl", "ml", "oz", "lb", "pt", "fl oz", "units")
 
         categorySpinner = view.categorySpinner
         productSpinner = view.productSpinner
@@ -159,6 +101,9 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val spinnerAdapter = ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_item, units)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         segmentUnitSpinner.adapter = spinnerAdapter
+
+        progressBar = view.writeNfcTagProgressBar
+        content = view.writeNfcTagLayout
 
         showProgressBarOrContent()
 
@@ -189,6 +134,79 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
+    /***
+     * Auxiliary Methods
+     ***/
+
+    private fun onSuccess(categoriesDto: CategoriesDto) {
+        categories = categoriesDto.categories
+
+        categories?.let {
+            val spinnerAdapter = ArrayAdapter<String>(categorySpinner.context, android.R.layout.simple_spinner_item, it.map { category -> category.categoryName })
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            categorySpinner.adapter = spinnerAdapter
+            categorySpinner.onItemSelectedListener = this
+            categorySpinner.setSelection(first)
+        }
+
+        val size = categories?.size ?: 0
+        if (size > 0) {
+            categories?.get(first)?.links?.productsCategoryLink?.let {
+                getProductsCategory(it)
+            }
+        }
+    }
+
+    private fun onError(error: String?) {
+        state = State.ERROR
+        error?.let {
+            Log.v("APP_GIS", it)
+        }
+    }
+
+    private fun getProductsCategory(url: String) {
+        categoryProductsViewModel = ViewModelProviders.of(this).get(CategoryProductsViewModel::class.java)
+        categoryProductsViewModel.init(url)
+        categoryProductsViewModel.getProducts()?.observe(this, Observer {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data!!)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
+                    this.state = State.LOADING
+                }
+            }
+        })
+    }
+
+    private fun onSuccess(productsDto: ProductsDto) {
+        state = State.SUCCESS
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
+        products = productsDto.products
+
+        products?.let {
+            val spinnerAdapter = ArrayAdapter<String>(productSpinner.context, android.R.layout.simple_spinner_item, it.map { product -> product.productName })
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerAdapter.notifyDataSetChanged()
+            productSpinner.adapter = spinnerAdapter
+            productSpinner.onItemSelectedListener = this
+            productSpinner.setSelection(first)
+
+
+        }
+    }
+
+    private fun showProgressBarOrContent() {
+        progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+        content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+    }
+
+    /***
+     * Listeners
+     ***/
+
     fun onNfcDetected(intent: Intent?) {
         writingFragment?.let {
             if (it.isVisible)
@@ -196,14 +214,7 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    /***
-     * Listeners
-     ***/
     private fun onWriteClick(v: View?) {
-        //TODO: collect data
-        /* val tagContent: String = conservationStorageText.text.toString()
-        if (tagContent.isNotEmpty())
-            listener?.onWriteNfcTagInteraction(tagContent) */
         val data = "\"${productSpinner.selectedItem}\",\"${brandEditText.text}\",\"${varietyEditText.text}\",\"${segmentNumberEditText.text}${segmentUnitSpinner.selectedItem}\",${dateEditText.text}"
         writingFragment = fragmentManager?.findFragmentByTag(WritingNfcTagFragment.TAG) as? WritingNfcTagFragment
         if (writingFragment == null)

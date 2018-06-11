@@ -4,11 +4,13 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_basic_information.*
 import kotlinx.android.synthetic.main.fragment_basic_information.view.*
 import ps.leic.isel.pt.gis.R
@@ -16,6 +18,7 @@ import ps.leic.isel.pt.gis.model.UserDTO
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.utils.ExtraUtils
+import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.BasicInformationViewModel
 
 /**
@@ -32,6 +35,10 @@ class BasicInformationFragment : Fragment() {
     private var listener: OnBasicInformationFragmentInteractionListener? = null
     private lateinit var basicInfoVM: BasicInformationViewModel
     private lateinit var url: String
+
+    private var state: State = State.LOADING
+    private lateinit var progressBar: ProgressBar
+    private lateinit var content: ConstraintLayout
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -53,33 +60,25 @@ class BasicInformationFragment : Fragment() {
             when {
                 it?.status == Status.SUCCESS -> onSuccess(it.data!!)
                 it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.LOADING -> {
+                    state = State.LOADING
+                }
             }
         })
-    }
-
-    private fun onSuccess(user: UserDto) {
-        // Hide progress bar
-        basicInformationProgressBar.visibility = View.GONE
-
-        // Set info
-        view?.let {
-            it.fullnameText.text = user.name
-            it.emailText.text = user.email
-            it.requesterUserText.text = user.username
-            it.ageText.text = user.age.toString()
-        }
-    }
-
-    private fun onError(error: String?) {
-        error?.let {
-            Log.v("APP_GIS", it)
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_basic_information, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_basic_information, container, false)
+
+        progressBar = view.basicInformationProgressBar
+        content = view.basicInformationLayout
+
+        //Show progress bar or content
+        showProgressBarOrContent()
+
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -104,6 +103,39 @@ class BasicInformationFragment : Fragment() {
         listener = null
     }
 
+    /***
+     * Auxiliary Methods
+     ***/
+
+    private fun onSuccess(user: UserDto) {
+        state = State.SUCCESS
+
+        showProgressBarOrContent()
+
+        // Set info
+        view?.let {
+            it.fullnameText.text = user.name
+            it.emailText.text = user.email
+            it.requesterUserText.text = user.username
+            it.ageText.text = user.age.toString()
+        }
+    }
+
+    private fun onError(error: String?) {
+        error?.let {
+            Log.v("APP_GIS", it)
+        }
+    }
+
+    private fun showProgressBarOrContent() {
+        progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+        content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+    }
+
+    /***
+     * Listeners
+     ***/
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -111,7 +143,7 @@ class BasicInformationFragment : Fragment() {
      * activity.
      */
     interface OnBasicInformationFragmentInteractionListener {
-        fun onBasicInformationUpdate(user: UserDTO) // TODO é preciso para que interacao?
+        fun onBasicInformationUpdate(user: UserDTO)
     }
 
     companion object {

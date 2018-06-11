@@ -4,13 +4,14 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_list.*
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.ListProductDto
@@ -40,7 +41,9 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     private lateinit var url: String
     private val adapter = ListDetailAdapter()
 
-    private var state: State = State.LOADING;
+    private var state: State = State.LOADING
+    private lateinit var progressBar: ProgressBar
+    private lateinit var content: ConstraintLayout
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -70,30 +73,6 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         })
     }
 
-    private fun onSuccess(productsList: ProductsListDto) {
-        state = State.SUCCESS
-
-        // Show progress bar or content
-        showProgressBarOrContent()
-
-        adapter.setData(productsList.productsListProduct)
-        this.listProducts = productsList.productsListProduct
-    }
-
-    private fun onError(error: String?) {
-        state = State.ERROR
-        error?.let {
-            Log.v("APP_GIS", error)
-        }
-    }
-
-    private fun showProgressBarOrContent() {
-        view?.let {
-            it.listProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-            it.listLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -109,6 +88,9 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         view.transferToOfflineLayout.setOnClickListener {
             listener?.onListDownload()
         }
+
+        progressBar = view.listProgressBar
+        content = view.listLayout
 
         // Show progress bar or content
         showProgressBarOrContent()
@@ -143,6 +125,32 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    /***
+     * Auxiliary Methods
+     ***/
+
+    private fun onSuccess(productsList: ProductsListDto) {
+        state = State.SUCCESS
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
+        adapter.setData(productsList.productsListProduct)
+        this.listProducts = productsList.productsListProduct
+    }
+
+    private fun onError(error: String?) {
+        state = State.ERROR
+        error?.let {
+            Log.v("APP_GIS", error)
+        }
+    }
+
+    private fun showProgressBarOrContent() {
+        progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+        content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
     }
 
     /***

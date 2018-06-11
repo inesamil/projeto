@@ -1,5 +1,6 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -13,7 +14,18 @@ import ps.leic.isel.pt.gis.utils.NFCUtils
 
 class WritingNfcTagFragment : DialogFragment() {
 
+    private var listener: OnWritingNfcTagFragmentListener? = null
+
     private lateinit var messageToWrite: String
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnWritingNfcTagFragmentListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnWritingNfcTagFragmentListener")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,18 +43,39 @@ class WritingNfcTagFragment : DialogFragment() {
         writingNfcTagProgressBar.visibility = View.VISIBLE
         tv_message.text = getString(R.string.message_write_progress)
         val messageWrittenSuccessfully = NFCUtils.createNFCMessage(messageToWrite, intent)
-        if (messageWrittenSuccessfully)
+        if (messageWrittenSuccessfully) {
             tv_message.text = getString(R.string.message_write_success)
+
+        }
         else
             tv_message.text = getString(R.string.message_write_error)
         writingNfcTagProgressBar.visibility = View.GONE
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    /***
+     * Listeners
+     ***/
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     */
+    interface OnWritingNfcTagFragmentListener {
+        fun onWriteNfcTagSuccessful()
     }
 
     /**
      * WritingNfcTagFragment Factory
      */
     companion object {
-        val TAG: String = WritingNfcTagFragment::class.java.simpleName
+        val TAG: String = "WritingNfcTagFragment"
 
         @JvmStatic
         fun newInstance(message: String) =

@@ -4,16 +4,16 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_houses.*
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_houses.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
@@ -39,7 +39,9 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     private val adapter = HousesAdapter()
     private var listener: OnHousesFragmentInteractionListener? = null
 
-    private var state: State = State.LOADING;
+    private var state: State = State.LOADING
+    private lateinit var progressBar: ProgressBar
+    private lateinit var content: ConstraintLayout
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -68,30 +70,6 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         })
     }
 
-    private fun onSuccess(houses: HousesDto) {
-        state = State.SUCCESS
-
-        // Show progress bar or content
-        showProgressBarOrContent()
-
-        this.houses = houses
-        adapter.setData(houses.houses)
-    }
-
-    private fun onError(error: String?) {
-        state = State.ERROR
-        error?.let {
-            Log.v("APP_GIS", error)
-        }
-    }
-
-    private fun showProgressBarOrContent() {
-        view?.let {
-            it.housesProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-            it.housesLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -105,6 +83,9 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
                 listener?.onNewHouseInteraction()
             }
         }
+
+        progressBar = view.housesProgressBar
+        content = view.housesLayout
 
         // Show progress bar or content
         showProgressBarOrContent()
@@ -132,6 +113,32 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    /***
+     * Auxiliary Methods
+     ***/
+
+    private fun onSuccess(houses: HousesDto) {
+        state = State.SUCCESS
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
+        this.houses = houses
+        adapter.setData(houses.houses)
+    }
+
+    private fun onError(error: String?) {
+        state = State.ERROR
+        error?.let {
+            Log.v("APP_GIS", error)
+        }
+    }
+
+    private fun showProgressBarOrContent() {
+        progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+        content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
     }
 
     /***

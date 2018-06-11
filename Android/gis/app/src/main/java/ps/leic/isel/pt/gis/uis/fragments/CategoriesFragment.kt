@@ -4,11 +4,13 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_categories.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.CategoriesDto
@@ -38,6 +40,8 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
     private lateinit var url: String
 
     private var state: State = State.LOADING;
+    private lateinit var progressBar: ProgressBar
+    private lateinit var content: ConstraintLayout
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -64,31 +68,6 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
                 }
             }
         })
-    }
-
-    private fun onSuccess(categories: CategoriesDto) {
-        state = State.SUCCESS
-
-        // Show progress bar or content
-        showProgressBarOrContent()
-
-        // Set Adapter
-        adapter.setData(categories.categories)
-        this.categories = categories.categories
-    }
-
-    private fun onError(error: String?) {
-        state = State.ERROR
-        error?.let{
-            Log.v("APP_GIS", error)
-        }
-    }
-
-    private fun showProgressBarOrContent() {
-        view?.let {
-            it.categoriesProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-            it.categoriesLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -131,6 +110,33 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    /***
+     * Auxiliary Methods
+     ***/
+
+    private fun onSuccess(categories: CategoriesDto) {
+        state = State.SUCCESS
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
+        // Set Adapter
+        adapter.setData(categories.categories)
+        this.categories = categories.categories
+    }
+
+    private fun onError(error: String?) {
+        state = State.ERROR
+        error?.let {
+            Log.v("APP_GIS", error)
+        }
+    }
+
+    private fun showProgressBarOrContent() {
+        progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+        content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
     }
 
     /***

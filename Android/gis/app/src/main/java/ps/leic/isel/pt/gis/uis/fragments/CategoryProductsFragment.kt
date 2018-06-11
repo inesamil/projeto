@@ -4,12 +4,14 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_category_products.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.ProductDto
@@ -41,6 +43,8 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     private lateinit var url: String
 
     private var state: State = State.LOADING
+    private lateinit var progressBar: ProgressBar
+    private lateinit var content: ConstraintLayout
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -80,6 +84,9 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
         view.categoryProductsRecyclerView.setHasFixedSize(true)
         view.categoryProductsRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
+
+        progressBar = view.categoryProductsProgressBar
+        content = view.categoryProductsLayout
 
         // Show progress bar or content
         showProgressBarOrContent()
@@ -122,7 +129,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     private fun onSuccess(products: ProductsDto) {
         state = State.SUCCESS
 
-        // Show progress bar or content
+        // Hide progress bar
         showProgressBarOrContent()
 
         // Set Adapter
@@ -138,10 +145,8 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     }
 
     private fun showProgressBarOrContent() {
-        view?.let {
-            it.categoryProductsProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-            it.categoryProductsLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
-        }
+        progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+        content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
     }
 
     /***

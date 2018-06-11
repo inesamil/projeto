@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -12,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import kotlinx.android.synthetic.main.fragment_stock_item_list.*
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_stock_item_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
@@ -46,7 +47,9 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     private lateinit var housesViewModel: HousesViewModel
     private lateinit var url: String
 
-    private var state: State = State.LOADING;
+    private var state: State = State.LOADING
+    private lateinit var progressBar: ProgressBar
+    private lateinit var content: ConstraintLayout
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -78,6 +81,56 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
             }
         })
     }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_stock_item_list, container, false)
+        view.stockItemListRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.stockItemListRecyclerView.setHasFixedSize(true)
+        view.stockItemListRecyclerView.adapter = stockItemListAdapter
+        stockItemListAdapter.setOnItemClickListener(this)
+
+        progressBar = view.stockItemListProgressBar
+        content = view.stockItemListLayout
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        savedInstanceState?.let {
+            url = it.getString(ExtraUtils.URL)
+
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.title = getString(R.string.in_stock)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ExtraUtils.URL, url)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stockItemListViewModel.cancel()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    /***
+     * Auxiliary Methods
+     ***/
 
     private fun onSuccess(housesDto: HousesDto) {
         state = State.SUCCESS
@@ -127,53 +180,8 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     }
 
     private fun showProgressBarOrContent() {
-        view?.let {
-            it.stockItemListProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-            it.stockItemListLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
-        }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_stock_item_list, container, false)
-        view.stockItemListRecyclerView.layoutManager = LinearLayoutManager(view.context)
-        view.stockItemListRecyclerView.setHasFixedSize(true)
-        view.stockItemListRecyclerView.adapter = stockItemListAdapter
-        stockItemListAdapter.setOnItemClickListener(this)
-
-        // Show progress bar or content
-        showProgressBarOrContent()
-
-        return view
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        savedInstanceState?.let {
-            url = it.getString(ExtraUtils.URL)
-
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        activity?.title = getString(R.string.in_stock)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.URL, url)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        stockItemListViewModel.cancel()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
+        progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+        content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
     }
 
     /***
