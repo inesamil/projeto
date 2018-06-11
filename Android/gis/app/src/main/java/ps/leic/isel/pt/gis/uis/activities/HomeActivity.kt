@@ -1,5 +1,7 @@
 package ps.leic.isel.pt.gis.uis.activities
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.nfc.NfcAdapter
 import android.nfc.Tag
@@ -19,8 +21,11 @@ import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.UserDTO
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
+import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.model.dtos.ListProductDto
 import ps.leic.isel.pt.gis.model.dtos.StorageDto
+import ps.leic.isel.pt.gis.repositories.Resource
+import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
 import ps.leic.isel.pt.gis.uis.fragments.*
 import ps.leic.isel.pt.gis.utils.ExtraUtils
@@ -33,11 +38,13 @@ class HomeActivity : AppCompatActivity(),
         SettingsFragment.OnSettingsFragmentInteractionListener,
         HomePageFragment.OnHomeFragmentInteractionListener,
         HousesFragment.OnHousesFragmentInteractionListener,
+        NewHouseDialogFragment.OnNewHouseDialogFragmentInteractionListener,
         BasicInformationFragment.OnBasicInformationFragmentInteractionListener,
         CategoriesFragment.OnCategoriesFragmentInteractionListener,
         CategoryProductsFragment.OnCategoryProductsFragmentInteractionListener,
         ListsFragment.OnListsFragmentInteractionListener,
         ListDetailFragment.OnListDetailFragmentInteractionListener,
+        NewListDialogFragment.OnNewListDialogFragmentInteractionListener,
         StockItemListFragment.OnStockItemListFragmentInteractionListener,
         StockItemDetailFragment.OnStockItemDetailFragmentInteractionListener,
         ListsFiltersDialogFragment.OnListsFiltersDialogFragmentInteractionListener,
@@ -177,6 +184,20 @@ class HomeActivity : AppCompatActivity(),
         fragment.show(supportFragmentManager, ExtraUtils.NEW_HOUSE_DIALOG)
     }
 
+    override fun onAddHouse(liveData: LiveData<Resource<HouseDto>>?) {
+        liveData?.observe(this, Observer {
+            when{
+                it?.status == Status.SUCCESS -> {
+                    Toast.makeText(this, getString(R.string.house_added_successfully), Toast.LENGTH_SHORT).show()
+                }
+                it?.status == Status.ERROR -> {
+                    Toast.makeText(this, getString(R.string.could_not_add_house), Toast.LENGTH_SHORT).show()
+                    onNewListInteraction()
+                }
+            }
+        })
+    }
+
     // Listener for BasicInformationFragment interaction
     override fun onBasicInformationUpdate(user: UserDTO) {
         Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
@@ -239,8 +260,22 @@ class HomeActivity : AppCompatActivity(),
         val index = gisApplication.index
         index.getHousesUrl("pedro")?.let {
             val fragment = NewListDialogFragment.newInstance(it)
-            fragment.show(supportFragmentManager, ExtraUtils.NEW_LIST_DIALOG)
+            fragment.show(supportFragmentManager, NewListDialogFragment.TAG)
         }
+    }
+
+    override fun onAddList(liveData: LiveData<Resource<ListDto>>?) {
+        liveData?.observe(this, Observer {
+            when {
+                it?.status == Status.SUCCESS -> {
+                    Toast.makeText(this, getString(R.string.list_added_successfully), Toast.LENGTH_SHORT).show()
+                }
+                it?.status == Status.ERROR -> {
+                    Toast.makeText(this, getString(R.string.could_not_add_list), Toast.LENGTH_LONG).show()
+                    onNewListInteraction()
+                }
+            }
+        })
     }
 
     // Listener for ListsFragment interaction

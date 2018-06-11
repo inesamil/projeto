@@ -1,8 +1,10 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.app.Dialog
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
@@ -14,6 +16,8 @@ import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.model.body.HouseBody
 import ps.leic.isel.pt.gis.model.dtos.CharacteristicsDto
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
+import ps.leic.isel.pt.gis.model.dtos.ListDto
+import ps.leic.isel.pt.gis.repositories.Resource
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.utils.EditTextUtils
 import ps.leic.isel.pt.gis.utils.RestrictionsUtils
@@ -22,7 +26,17 @@ import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 class NewHouseDialogFragment : DialogFragment() {
 
     private var housesViewModel: HousesViewModel? = null
-    private lateinit var action: Action
+
+    private var listener: OnNewHouseDialogFragmentInteractionListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnNewHouseDialogFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnNewHouseDialogFragmentInteractionListener")
+        }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity!!)
@@ -44,6 +58,15 @@ class NewHouseDialogFragment : DialogFragment() {
 
         return builder.create()
     }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    /***
+     * Auxiliary Methods
+     ***/
 
     private fun setButtonsListeners(view: View) {
         // Set Plus buttons listeners
@@ -110,20 +133,21 @@ class NewHouseDialogFragment : DialogFragment() {
         val house: HouseBody = HouseBody(houseName, babiesNumber, childrenNumber, adultsNumber, seniorsNumber)
 
         housesViewModel = ViewModelProviders.of(activity!!).get(HousesViewModel::class.java)
-        housesViewModel?.addHouse(house)?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-            }
-        })
+        housesViewModel?.addHouse(house)
     }
 
-    private fun onSuccess(house: HouseDto) {
-        //TODO: o que fazer em caso de sucesso. Voltar para o fragmento qe lancou este dialog e atualizar com a casa qe foi inserida
-    }
+    /***
+     * Auxiliary Methods
+     ***/
 
-    private fun onError(message: String?) {
-        //TODO: o que fazer em caso de erro. Mensagem a dizer que nao foi possivel inserir, ou então ver qual a excecao e se for de autenticacao por exemplo dizer qe n ta autenticado, cenas do genero
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     */
+    interface OnNewHouseDialogFragmentInteractionListener {
+        fun onAddHouse(liveData: LiveData<Resource<HouseDto>>?)
     }
 
     /**

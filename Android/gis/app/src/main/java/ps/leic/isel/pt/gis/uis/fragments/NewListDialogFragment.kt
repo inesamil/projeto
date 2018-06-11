@@ -1,11 +1,14 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.app.Dialog
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -15,6 +18,8 @@ import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.body.ListBody
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
+import ps.leic.isel.pt.gis.model.dtos.ListDto
+import ps.leic.isel.pt.gis.repositories.Resource
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
@@ -30,6 +35,17 @@ class NewListDialogFragment : DialogFragment() {
     private var houses: Array<HouseDto>? = null
 
     private lateinit var housesSpinner: Spinner
+
+    private var listener: OnNewListDialogFragmentInteractionListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnNewListDialogFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnNewListDialogFragmentInteractionListener")
+        }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity!!)
@@ -57,6 +73,14 @@ class NewListDialogFragment : DialogFragment() {
         return builder.create()
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    /***
+     * Auxiliary Methods
+     ***/
     private fun addList(view: View) {
         houses?.get(housesSpinner.selectedItemPosition)?.let {
             val houseId: Long = it.houseId
@@ -65,17 +89,8 @@ class NewListDialogFragment : DialogFragment() {
 
             val list = ListBody(houseId, listName, shareable)
 
-            listsViewModel = ViewModelProviders.of(this).get(ListsViewModel::class.java)
-            listsViewModel?.addList(list)?.observe(this, Observer {
-                when {
-                    it?.status == Status.SUCCESS -> {
-                        Toast.makeText(context, getString(R.string.Authores_Names), Toast.LENGTH_SHORT).show()
-                    }
-                    it?.status == Status.ERROR -> {
-                        Toast.makeText(context, getString(R.string.please_fill_in_all_required_fields), Toast.LENGTH_SHORT).show()
-                    }
-                }
-            })
+            listsViewModel = ViewModelProviders.of(activity!!).get(ListsViewModel::class.java)
+        listener?.onAddList(listsViewModel?.addList(list))
         }
     }
 
@@ -107,9 +122,21 @@ class NewListDialogFragment : DialogFragment() {
     }
 
     /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     */
+    interface OnNewListDialogFragmentInteractionListener {
+        fun onAddList(liveData: LiveData<Resource<ListDto>>?)
+    }
+
+
+    /**
      * NewListDialogFragment Factory
      */
     companion object {
+        const val TAG: String = "NewListDialogFragment"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
