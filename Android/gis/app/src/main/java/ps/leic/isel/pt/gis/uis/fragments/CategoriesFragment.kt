@@ -78,6 +78,9 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
         view.categoryRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
 
+        progressBar = view.categoriesProgressBar
+        content = view.categoriesLayout
+
         // Show progress bar or content
         showProgressBarOrContent()
 
