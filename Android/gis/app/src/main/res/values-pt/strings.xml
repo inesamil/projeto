@@ -155,4 +155,7 @@
     <string name="item">Item</string>
     <string name="add_list_product">Adicionar produto a</string>
     <string name="please_fill_in_all_required_fields">Por favor, preencha todos os campos obrigatórios</string>
+    <string name="functionality_not_available">Funcionalidade não disponível</string>
+    <string name="wrong_credentials">Credenciais erradas</string>
+    <string name="could_not_connect_to_server">Não foi possível conectar ao SmartStocksServer</string>
 </resources>

@@ -117,7 +117,7 @@ class HomeActivity : AppCompatActivity(),
                 return
             }
         }
-        Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() //TODO put string in xml
+        Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
     }
 
     // Listener for HomePageFragment
@@ -137,7 +137,7 @@ class HomeActivity : AppCompatActivity(),
                 return
             }
         }
-        Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() // TODO remove string. put in xml
+        Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
     }
 
     // Listener for HomePageFragment
@@ -158,7 +158,7 @@ class HomeActivity : AppCompatActivity(),
             supportFragmentManager.replaceCurrentFragmentWith(WriteNfcTagFragment.TAG, WriteNfcTagFragment.Companion::newInstance, it)
             return
         }
-        Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() // TODO remove string. put in xml
+        Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
     }
 
     // Listener for HousesFragment interaction
@@ -177,7 +177,7 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for BasicInformationFragment interaction
     override fun onBasicInformationUpdate(user: UserDTO) {
-        Toast.makeText(this, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
         // TODO atualizar info do user
     }
 
@@ -261,14 +261,14 @@ class HomeActivity : AppCompatActivity(),
     // Listener for ListDetailFragment interaction
     override fun onListDownload() {
         //TODO: download
-        Toast.makeText(this, "This functionality is not available", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_LONG).show()
     }
 
     // Listener for ListsFiltersDialogFragment interaction
     override fun onFiltersApply(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?) {
         val listsFragment = supportFragmentManager.findFragmentByTag(ExtraUtils.LISTS) as? ListsFragment
         //listsFragment?.onFiltersApplied(systemLists, userLists, sharedLists, houses)
-        Toast.makeText(this, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
     }
 
     // Listener for StockItemListFragment interaction
@@ -283,7 +283,7 @@ class HomeActivity : AppCompatActivity(),
 
     override fun onStorageInteraction(storage: StorageDto) {
         //TODO
-        Toast.makeText(this, "Specific Storage", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
     }
 
     // Listener for new intents (NFC tag intents)
@@ -327,12 +327,12 @@ class HomeActivity : AppCompatActivity(),
             R.id.invitationsItem -> {
                 val url: String = ""    //TODO
                 // supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.INVITATIONS, InvitationsFragment.Companion::newInstance, url)
-                Toast.makeText(this, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.preferencesItem -> {
                 //TODO
-                Toast.makeText(this, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.aboutItem -> {
@@ -357,7 +357,7 @@ class HomeActivity : AppCompatActivity(),
                     supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance, url)
                     return@run
                 }
-                Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() // TODO remove string. put in xml
+                Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
             }
             R.id.nav_products -> run {
                 val index = gisApplication.index
@@ -366,7 +366,7 @@ class HomeActivity : AppCompatActivity(),
                     supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance, url)
                     return@run
                 }
-                Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() // TODO remove string. put in xml
+                Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
             }
             R.id.nav_profile -> run {
                 val index = gisApplication.index
@@ -383,7 +383,7 @@ class HomeActivity : AppCompatActivity(),
                         return@run
                     }
                 }
-                Toast.makeText(this, "This functionality is not available", Toast.LENGTH_SHORT).show() // TODO remove string. put in xml
+                Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
             }
             R.id.nav_settings -> {
                 supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.SETTINGS, SettingsFragment.Companion::newInstance)

@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         val password = passwordEditText.text.toString()
 
         if (username.isEmpty() || password.isEmpty()){
-            Toast.makeText(this, "Please fill in the required fields", Toast.LENGTH_LONG).show()    //TODO: msg nas strings
+            Toast.makeText(this, getString(R.string.please_fill_in_all_required_fields), Toast.LENGTH_LONG).show()
             return
         }
 
@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, HomeActivity::class.java))
         } else {
             Log.i(TAG, "Wrong credentials.")
-            Toast.makeText(this, "Wrong Credentials", Toast.LENGTH_SHORT).show()    //TODO: msg nas strings
+            Toast.makeText(this, getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show()
         }
     }
 

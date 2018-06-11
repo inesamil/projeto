@@ -70,7 +70,7 @@ class AddOrRemoveProductToListDialogFragment : DialogFragment() {
                 // Add action buttons
                 .setPositiveButton(if (toAdd) R.string.add else R.string.remove, { _, _ ->
                     // TODO: add list
-                    Toast.makeText(view?.context, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(view?.context, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
                 })
                 .setNegativeButton(R.string.cancel, { _, _ -> this@AddOrRemoveProductToListDialogFragment.getDialog().cancel() })
 

@@ -188,7 +188,7 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
     override fun onClick(v: View?) {
         // TODO: save allergies
         //Toast.makeText(view?.context, "Saved Allergies", Toast.LENGTH_SHORT).show()
-        Toast.makeText(view?.context, "Functionality Not Yet Available", Toast.LENGTH_SHORT).show()
+        Toast.makeText(view?.context, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
     }
 
     companion object {

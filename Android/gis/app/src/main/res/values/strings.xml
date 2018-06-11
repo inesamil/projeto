@@ -189,4 +189,7 @@
     <string name="quantity_abbreviation">Qty.</string>
     <string name="initial_setup">Initial Setup</string>
     <string name="please_fill_in_all_required_fields">Please, fill in all required fields</string>
+    <string name="functionality_not_available">Functionality not available</string>
+    <string name="wrong_credentials">Wrong credentials</string>
+    <string name="could_not_connect_to_server">Couldn\'t connect to SmartStocksServer</string>
 </resources>

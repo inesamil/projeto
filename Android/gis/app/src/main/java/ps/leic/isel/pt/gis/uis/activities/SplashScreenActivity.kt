@@ -75,7 +75,7 @@ class SplashScreenActivity : AppCompatActivity() {
         message?.let {
             Log.i(TAG, it)
         }
-        Toast.makeText(this, "Couldn't connect to server", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.could_not_connect_to_server), Toast.LENGTH_SHORT).show()
         finish()    //TODO: kill app
     }
 
