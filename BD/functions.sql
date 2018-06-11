@@ -147,8 +147,11 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION insert_user_list(houseID bigint, listName character varying(35), username character varying(30), shareable boolean) 
 RETURNS TABLE(
 	house_id bigint,
+	house_name character varying(35),
+	house_characteristics json,
 	list_id smallint,
 	list_name character varying(35),
+	list_type character varying(7),
 	users_username character varying(30),
 	list_shareable boolean
 ) AS $$
@@ -170,9 +173,10 @@ BEGIN
 	INSERT INTO public."userlist" (house_id, list_id, users_username, list_shareable) VALUES (houseID, listID, username, shareable);
 	
 	RETURN query
-	SELECT public."userlist".house_id, public."userlist".list_id, public."list".list_name, public."userlist".users_username, public."userlist".list_shareable FROM public."list"
-	JOIN public."userlist" ON public."list".house_id = public."userlist".house_id AND public."list".list_id = public."userlist".list_id
-	WHERE public."list".house_id = houseID AND public."list".list_id = listID;
+	SELECT public."userlist".house_id, public."house".house_name, public."house".house_characteristics , public."userlist".list_id, public."list".list_name, public."list".list_type, public."userlist".users_username, public."userlist".list_shareable 
+		FROM public."list" JOIN public."userlist" ON public."list".house_id = public."userlist".house_id AND public."list".list_id = public."userlist".list_id
+			JOIN public."house" ON public."list".house_id = public."house".house_id
+		WHERE public."list".house_id = houseID AND public."list".list_id = listID;
 END;
 $$ LANGUAGE plpgsql;
 
