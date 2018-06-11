@@ -25,9 +25,8 @@ class ListsAdapter : RecyclerView.Adapter<ListsAdapter.ViewHolder>() {
         data?.let {
             val item = it[position]
             // Fill ViewHolder
-            //holder.itemsText.text =
             holder.listNameText.text = item.listName
-            //TODO: holder.houseNameText.text = item.houseName
+            holder.houseNameText.text = item.houseName
         }
     }
 

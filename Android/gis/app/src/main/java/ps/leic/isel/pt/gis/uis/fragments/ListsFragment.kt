@@ -60,7 +60,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         arguments?.let {
             url = it.getString(URL_TAG)
         }
-        listsViewModel = ViewModelProviders.of(this).get(ListsViewModel::class.java)
+        listsViewModel = ViewModelProviders.of(activity!!).get(ListsViewModel::class.java)
         listsViewModel.init(url)
         listsViewModel.getLists()?.observe(this, Observer {
             when {
@@ -85,6 +85,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         view.newListButton.setOnClickListener {
             listener?.onNewListInteraction()
         }
+        view.newListButton.bringToFront()
         // Listener for filters
         view.listsLayout.filtersText.setOnClickListener {
             listener?.onFiltersInteraction()
