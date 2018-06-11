@@ -4,13 +4,14 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_lists.*
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_lists.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
@@ -41,7 +42,9 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     private lateinit var listsViewModel: ListsViewModel
     private lateinit var url: String
 
-    private var state: State = State.LOADING;
+    private var state: State = State.LOADING
+    private lateinit var progressBar: ProgressBar
+    private lateinit var content: ConstraintLayout
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -55,7 +58,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_TAG)
         }
         listsViewModel = ViewModelProviders.of(this).get(ListsViewModel::class.java)
         listsViewModel.init(url)
@@ -69,6 +72,63 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
             }
         })
     }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the content for this fragment
+        val view = inflater.inflate(R.layout.fragment_lists, container, false)
+        view.listsRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        view.listsRecyclerView.setHasFixedSize(true)
+        view.listsRecyclerView.adapter = adapter
+        adapter.setOnItemClickListener(this)
+        // Listener for new list creation
+        view.newListButton.setOnClickListener {
+            listener?.onNewListInteraction()
+        }
+        // Listener for filters
+        view.listsLayout.filtersText.setOnClickListener {
+            listener?.onFiltersInteraction()
+        }
+
+        progressBar = view.listsProgressBar
+        content = view.listsLayout
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        savedInstanceState?.let {
+            url = it.getString(URL_TAG)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.title = getString(R.string.lists)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(URL_TAG, url)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        listsViewModel.cancel()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    /***
+     * Auxiliary Methods
+     ***/
 
     private fun onSuccess(lists: ListsDto) {
         state = State.SUCCESS
@@ -88,60 +148,8 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     }
 
     private fun showProgressBarOrContent() {
-        view?.let {
-            it.listsProgressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-            it.listsLayout.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
-        }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_lists, container, false)
-        view.listsRecyclerView.layoutManager = LinearLayoutManager(view.context)
-        view.listsRecyclerView.setHasFixedSize(true)
-        view.listsRecyclerView.adapter = adapter
-        adapter.setOnItemClickListener(this)
-        // Listener for new list creation
-        view.newListButton.setOnClickListener {
-            listener?.onNewListInteraction()
-        }
-        // Listener for filters
-        view.listsLayout.filtersText.setOnClickListener {
-            listener?.onFiltersInteraction()
-        }
-
-        // Show progress bar or content
-        showProgressBarOrContent()
-
-        return view
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        savedInstanceState?.let {
-            url = it.getString(ExtraUtils.URL)
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        activity?.title = getString(R.string.lists)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.URL, url)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        listsViewModel.cancel()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
+        progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+        content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
     }
 
     /***
@@ -162,16 +170,17 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         activity?.applicationContext?.let {
             val loggedInUser = ServiceLocator.getCredentialsStore(it).getUsername()
             lists?.filter {
+                // List in the house
                 val houseId = it.houseId
-                val listInHouse = houses?.any { it.houseId == houseId }
-                listInHouse?.let { if (!it) return@filter false }
-                var user = false
-                if (userLists)
-                    user = it.username == loggedInUser
-                var system = false
-                if (!user && systemLists)
-                    system = it.listType == ListDto.SYSTEM_TYPE
-                return@filter user || system || it.shareable == sharedLists
+                if (houses == null) return
+                val listInHouse: Boolean = houses.any { it.houseId == houseId }
+                if (!listInHouse) return@filter false
+
+                return@filter (systemLists && it.listType == ListDto.SYSTEM_TYPE)    // System lists
+                        || (userLists && it.listType == ListDto.USER_TYPE && it.username == loggedInUser)  // From the logged in user lists
+                        || (it.username != loggedInUser && it.listType == ListDto.USER_TYPE && it.shareable == sharedLists) // Lists shared by other members
+            }?.let {
+                adapter.setData(it.toTypedArray())
             }
         }
     }
@@ -192,6 +201,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
      * ListsFragment Factory
      */
     companion object {
+        private const val URL_TAG: String = "URL"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

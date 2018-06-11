@@ -42,7 +42,13 @@ class FiltersHousesAdapter : RecyclerView.Adapter<FiltersHousesAdapter.ViewHolde
 
     // Return an array of the selected houses
     fun getSelectedItems() : Array<HouseDto>? {
-        return data?.filter { it.selected }?.map { it.house }?.toTypedArray()
+        val selectedItems = data?.filter { it.selected }?.map { it.house }?.toTypedArray()
+        selectedItems?.let {
+            if (it.isEmpty())
+                return data?.map { it.house }?.toTypedArray()
+            return selectedItems
+        }
+        return null
     }
 
     // Stores and recycles views as they are scrolled off screen
