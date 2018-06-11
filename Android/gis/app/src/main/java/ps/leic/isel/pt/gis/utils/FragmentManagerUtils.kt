@@ -52,3 +52,12 @@ fun FragmentManager.replaceCurrentFragmentWith(tag: String, newInstance: (args: 
         popBackStack(tag, 0)
     }
 }
+
+fun FragmentManager.removeFragmentByTag(tag: String) {
+    val fragment = findFragmentByTag(tag)
+    if (fragment != null) {
+        beginTransaction()
+                .remove(fragment)
+                .commit()
+    }
+}
