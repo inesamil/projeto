@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
@@ -50,6 +51,7 @@ public class HouseServiceImpl implements HouseService {
         return houseRepository.findAllByUsersUsername(username);
     }
 
+    @Transactional
     @Override
     public House addHouse(String username, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityException {
         Characteristics characteristics = new Characteristics(

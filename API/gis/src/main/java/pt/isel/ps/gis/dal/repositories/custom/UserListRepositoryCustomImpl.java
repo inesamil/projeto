@@ -1,18 +1,23 @@
 package pt.isel.ps.gis.dal.repositories.custom;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.Session;
 import pt.isel.ps.gis.dal.repositories.UserListRepositoryCustom;
 import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.model.UserList;
-import pt.isel.ps.gis.model.UserListId;
+import pt.isel.ps.gis.model.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserListRepositoryCustomImpl implements UserListRepositoryCustom {
+
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -31,18 +36,26 @@ public class UserListRepositoryCustomImpl implements UserListRepositoryCustom {
                 try (ResultSet resultSet = function.executeQuery()) {
                     if (!resultSet.next()) throw new SQLException("Result set is empty.");
                     long house_id = resultSet.getLong(1);
-                    short list_id = resultSet.getShort(2);
-                    String list_name = resultSet.getString(3);
-                    String users_username = resultSet.getString(4);
-                    boolean list_shareable = resultSet.getBoolean(5);
-                    try {
-                        return new UserList(house_id, list_id, list_name, users_username, list_shareable);
-                    } catch (EntityException e) {
-                        throw new SQLException(e.getMessage());
-                    }
+                    String house_name = resultSet.getString(2);
+                    Characteristics characteristics = mapper.readValue(resultSet.getString(3), Characteristics.class);
+                    short list_id = resultSet.getShort(4);
+                    String list_name = resultSet.getString(5);
+                    String list_type = resultSet.getString(6);
+                    String users_username = resultSet.getString(7);
+                    boolean list_shareable = resultSet.getBoolean(8);
+
+                    UserList userListInserted =  new UserList(house_id, list_id, list_name, users_username, list_shareable);
+                    // Set List
+                    List list = new List(house_id, list_id, list_name, list_type);
+                    list.setHouseByHouseId(new House(house_id, house_name, characteristics));
+                    list.setUserlist(userListInserted);
+                    userListInserted.setList(list);
+
+                    return userListInserted;
+                } catch (EntityException | IOException e) {
+                    throw new SQLException(e.getMessage());
                 }
-            }
-        });
+        }});
     }
 
     @Override

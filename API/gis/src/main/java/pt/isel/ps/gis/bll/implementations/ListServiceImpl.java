@@ -18,13 +18,15 @@ public class ListServiceImpl implements ListService {
     private final UserListRepository userListRepository;
     private final SystemListRepository systemListRepository;
     private final UsersRepository usersRepository;
+    private final ListProductRepository listProductRepository;
 
-    public ListServiceImpl(HouseRepository houseRepository, ListRepository listRepository, UserListRepository userListRepository, SystemListRepository systemListRepository, UsersRepository usersRepository) {
+    public ListServiceImpl(HouseRepository houseRepository, ListRepository listRepository, UserListRepository userListRepository, SystemListRepository systemListRepository, UsersRepository usersRepository, ListProductRepository listProductRepository) {
         this.houseRepository = houseRepository;
         this.listRepository = listRepository;
         this.userListRepository = userListRepository;
         this.systemListRepository = systemListRepository;
         this.usersRepository = usersRepository;
+        this.listProductRepository = listProductRepository;
     }
 
     @Override
@@ -70,8 +72,10 @@ public class ListServiceImpl implements ListService {
     @Override
     public List addUserList(long houseId, String listName, String username, boolean listShareable) throws EntityException, EntityNotFoundException {
         checkHouseId(houseId);
-        UserList list = new UserList(houseId, listName, username, listShareable);
-        return userListRepository.insertUserList(list).getList();
+        UserList userList = userListRepository.insertUserList(new UserList(houseId, listName, username, listShareable));
+        List list = userList.getList();
+        list.setListproducts(listProductRepository.findAllById_HouseIdAndId_ListId(list.getId().getHouseId(), list.getId().getListId()));
+        return list;
     }
 
     @Transactional
