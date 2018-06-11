@@ -10,9 +10,12 @@ import ps.leic.isel.pt.gis.repositories.Resource
 class CategoryProductsViewModel(private val app: Application) : AndroidViewModel(app) {
 
     private var products: LiveData<Resource<ProductsDto>>? = null
+    private lateinit var url: String
 
     fun init(url: String) {
-        if (products != null) return
+        if (products != null && this.url == url) return
+        if (products != null) cancel()
+        this.url = url
         products = ServiceLocator.getRepository(app.applicationContext)
                 .get(ProductsDto::class.java, url, TAG)
     }

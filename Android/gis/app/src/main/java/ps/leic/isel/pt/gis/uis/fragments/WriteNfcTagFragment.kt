@@ -44,6 +44,7 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var writingFragment: WritingNfcTagFragment? = null
 
     private val first: Int = 0
+    private var previousSelectedCategoryPosition: Int = first
 
     private lateinit var url: String
     private lateinit var categoriesViewModel: CategoriesViewModel
@@ -189,12 +190,8 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         products?.let {
             val spinnerAdapter = ArrayAdapter<String>(productSpinner.context, android.R.layout.simple_spinner_item, it.map { product -> product.productName })
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerAdapter.notifyDataSetChanged()
             productSpinner.adapter = spinnerAdapter
-            productSpinner.onItemSelectedListener = this
             productSpinner.setSelection(first)
-
-
         }
     }
 
@@ -224,7 +221,8 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         parent?.let {
-            if (categorySpinner.selectedItem != position) {
+            if (previousSelectedCategoryPosition != position) {
+                previousSelectedCategoryPosition = position
                 categories?.let {
                     it[position].links.productsCategoryLink?.let {
                         getProductsCategory(it)
