@@ -25,6 +25,7 @@ import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
 import ps.leic.isel.pt.gis.uis.fragments.*
 import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.getCurrentFragment
+import ps.leic.isel.pt.gis.utils.removeFragmentByTag
 import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
 
 class HomeActivity : AppCompatActivity(),
@@ -39,7 +40,8 @@ class HomeActivity : AppCompatActivity(),
         ListDetailFragment.OnListDetailFragmentInteractionListener,
         StockItemListFragment.OnStockItemListFragmentInteractionListener,
         StockItemDetailFragment.OnStockItemDetailFragmentInteractionListener,
-        ListsFiltersDialogFragment.OnListsFiltersDialogFragmentInteractionListener {
+        ListsFiltersDialogFragment.OnListsFiltersDialogFragmentInteractionListener,
+        WritingNfcTagFragment.OnWritingNfcTagFragmentListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -267,8 +269,8 @@ class HomeActivity : AppCompatActivity(),
     // Listener for ListsFiltersDialogFragment interaction
     override fun onFiltersApply(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?) {
         val listsFragment = supportFragmentManager.findFragmentByTag(ExtraUtils.LISTS) as? ListsFragment
-        //listsFragment?.onFiltersApplied(systemLists, userLists, sharedLists, houses)
-        Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
+        listsFragment?.onFiltersApplied(systemLists, userLists, sharedLists, houses)
+        //Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
     }
 
     // Listener for StockItemListFragment interaction
@@ -298,6 +300,10 @@ class HomeActivity : AppCompatActivity(),
                     it.onNfcDetected(intent)
             }
         }
+    }
+
+    override fun onWriteNfcTagSuccessful() {
+        supportFragmentManager.removeFragmentByTag(WritingNfcTagFragment.TAG)
     }
 
     /**
