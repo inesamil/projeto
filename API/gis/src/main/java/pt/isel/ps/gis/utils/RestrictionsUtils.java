@@ -14,12 +14,17 @@ public class RestrictionsUtils {
     public static final short CHARACTERISTICS_AGE_GROUP_MAX = 100;
 
     /// User
+    public static final short USER_ID_MIN = 1;
     public static final int USER_USERNAME_MAX_LENGTH = 30;
     public static final int USER_EMAIL_MAX_LENGTH = 254;
     public static final short USER_AGE_MIN = 0;
     public static final short USER_AGE_MAX = 150;
     public static final int USER_NAME_MAX_LENGTH = 70;
     public static final int USER_PASSWORD_MAX_LENGTH = 60;
+
+    /// Role
+    public static final short ROLE_ID_MIN = 1;
+    public static final short ROLE_NAME_MAX_LENGTH = 50;
 
     /// Allergy
     public static final int ALLERGY_ALLERGEN_MAX_LENGTH = 75;

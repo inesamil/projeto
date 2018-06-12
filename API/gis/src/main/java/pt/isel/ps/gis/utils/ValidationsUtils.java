@@ -129,6 +129,19 @@ public class ValidationsUtils {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
+     * Validates the id
+     *
+     * @param id id to validate
+     * @throws EntityException if id is not valid
+     */
+    public static void validateUserId(Long id) throws EntityException {
+        if (id == null)
+            throw new EntityException("User id is required.");
+        if (id < RestrictionsUtils.USER_ID_MIN)
+            throw new EntityException("Invalid user id.");
+    }
+
+    /**
      * Valida username
      *
      * @param username username a validar
@@ -211,6 +224,38 @@ public class ValidationsUtils {
     public static void validateUserHouseAdministrator(Boolean userhouseAdministrator) throws EntityException {
         if (userhouseAdministrator == null)
             throw new EntityException("Administrator is required.");
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////                                            Role                                                            ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Validates the id
+     *
+     * @param roleId id to validate
+     * @throws EntityException if id is not valid
+     */
+    public static void validateRoleId(Short roleId) throws EntityException {
+        if (roleId == null)
+            throw new EntityException("Role id is required.");
+        if (roleId < RestrictionsUtils.ROLE_ID_MIN)
+            throw new EntityException("Invalid role id.");
+    }
+
+    /**
+     * Validates the name
+     *
+     * @param roleName name to validate
+     * @throws EntityException if name is not valid
+     */
+    public static void validateRoleName(String roleName) throws EntityException {
+        if (roleName == null)
+            throw new EntityException("Role name is required.");
+        if (roleName.length() > RestrictionsUtils.ROLE_NAME_MAX_LENGTH)
+            throw new EntityException(String.format("Invalid role name. Role name must contain a maximum of %d characters.",
+                    RestrictionsUtils.ROLE_NAME_MAX_LENGTH));
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -466,7 +511,7 @@ public class ValidationsUtils {
      * Valida intervalo de temperaturas
      *
      * @param minimum temperatura mínima
-     * @param maximum  temperatura máxima
+     * @param maximum temperatura máxima
      * @throws EntityException se a temperatura não for válida
      */
     public static void validateRangeTemperature(Float minimum, Float maximum) throws EntityException {
