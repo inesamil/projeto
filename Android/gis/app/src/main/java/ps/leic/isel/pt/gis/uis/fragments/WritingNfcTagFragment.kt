@@ -14,18 +14,7 @@ import ps.leic.isel.pt.gis.utils.NFCUtils
 
 class WritingNfcTagFragment : DialogFragment() {
 
-    private var listener: OnWritingNfcTagFragmentListener? = null
-
     private lateinit var messageToWrite: String
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnWritingNfcTagFragmentListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnWritingNfcTagFragmentListener")
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,30 +34,9 @@ class WritingNfcTagFragment : DialogFragment() {
         val messageWrittenSuccessfully = NFCUtils.createNFCMessage(messageToWrite, intent)
         if (messageWrittenSuccessfully) {
             tv_message.text = getString(R.string.message_write_success)
-
-        }
-        else
+        } else
             tv_message.text = getString(R.string.message_write_error)
         writingNfcTagProgressBar.visibility = View.GONE
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    /***
-     * Listeners
-     ***/
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     */
-    interface OnWritingNfcTagFragmentListener {
-        fun onWriteNfcTagSuccessful()
     }
 
     /**

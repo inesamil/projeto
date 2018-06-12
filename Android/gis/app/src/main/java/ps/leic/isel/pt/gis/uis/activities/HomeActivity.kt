@@ -47,8 +47,7 @@ class HomeActivity : AppCompatActivity(),
         NewListDialogFragment.OnNewListDialogFragmentInteractionListener,
         StockItemListFragment.OnStockItemListFragmentInteractionListener,
         StockItemDetailFragment.OnStockItemDetailFragmentInteractionListener,
-        ListsFiltersDialogFragment.OnListsFiltersDialogFragmentInteractionListener,
-        WritingNfcTagFragment.OnWritingNfcTagFragmentListener {
+        ListsFiltersDialogFragment.OnListsFiltersDialogFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -335,10 +334,6 @@ class HomeActivity : AppCompatActivity(),
                     it.onNfcDetected(intent)
             }
         }
-    }
-
-    override fun onWriteNfcTagSuccessful() {
-        supportFragmentManager.removeFragmentByTag(WritingNfcTagFragment.TAG)
     }
 
     /**
