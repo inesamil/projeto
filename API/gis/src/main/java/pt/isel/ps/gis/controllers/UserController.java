@@ -14,6 +14,7 @@ import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.Users;
 import pt.isel.ps.gis.model.inputModel.ListInputModel;
+import pt.isel.ps.gis.model.inputModel.RegisterUserInputModel;
 import pt.isel.ps.gis.model.inputModel.UserInputModel;
 import pt.isel.ps.gis.model.outputModel.*;
 import pt.isel.ps.gis.model.requestParams.ListRequestParam;
@@ -24,7 +25,7 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setJsonHomeContentType;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
-@RequestMapping("/v1/users/{username}")
+@RequestMapping("/v1/users")
 public class UserController {
 
     private final UserService userService;
@@ -37,13 +38,13 @@ public class UserController {
         this.listService = listService;
     }
 
-    @GetMapping("")
+    @GetMapping("/{username}")
     public ResponseEntity<UserOutputModel> getUser(
             @PathVariable("username") String username
     ) throws NotFoundException, BadRequestException {
         Users user;
         try {
-            user = userService.getUserByUserId(username);
+            user = userService.getUserByUserUsername(username);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -53,7 +54,7 @@ public class UserController {
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), HttpStatus.OK);
     }
 
-    @GetMapping("/houses")
+    @GetMapping("/{username}/houses")
     public ResponseEntity<UserHousesOutputModel> getUserHouses(
             @PathVariable("username") String username
     ) throws BadRequestException, NotFoundException {
@@ -70,7 +71,7 @@ public class UserController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/lists")
+    @GetMapping("/{username}/lists")
     public ResponseEntity<UserListsOutputModel> getUserLists(
             @PathVariable("username") String username,
             ListRequestParam params
@@ -102,8 +103,21 @@ public class UserController {
                 HttpStatus.OK);
     }
 
+    @PostMapping("")
+    public ResponseEntity<UserOutputModel> registerUser(
+            @RequestBody RegisterUserInputModel body
+    ) throws BadRequestException {
+        Users user;
+        try {
+            user = userService.addUser(body.getUsername(), body.getEmail(), body.getAge(), body.getName(), body.getPassword());
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        }
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), HttpStatus.CREATED);
+    }
 
-    @PostMapping("/lists")
+    @PostMapping("/{username}/lists")
     public ResponseEntity<ListOutputModel> postUserList(
             @PathVariable("username") String username,
             @RequestBody ListInputModel body
@@ -125,7 +139,7 @@ public class UserController {
         return new ResponseEntity<>(new ListOutputModel(list), setSirenContentType(headers), HttpStatus.CREATED);
     }
 
-    @PutMapping("")
+    @PutMapping("/{username}")
     public ResponseEntity<UserOutputModel> putUser(
             @PathVariable("username") String username,
             @RequestBody UserInputModel body
@@ -134,7 +148,7 @@ public class UserController {
         HttpStatus status;
         try {
             //TODO: como sei se é insert ou update?
-            if (userService.existsUserByUserId(username)) {
+            if (userService.existsUserByUserUsername(username)) {
                 user = userService.updateUser(username, body.getEmail(), body.getAge(), body.getName(), body.getPassword());
                 status = HttpStatus.OK;
             } else {
@@ -150,12 +164,12 @@ public class UserController {
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), status);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping("/{username}")
     public ResponseEntity<IndexOutputModel> deleteUser(
             @PathVariable("username") String username
     ) throws BadRequestException, NotFoundException {
         try {
-            userService.deleteUserByUserId(username);
+            userService.deleteUserByUserUsername(username);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
