@@ -12,6 +12,7 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.HouseAllergy;
 import pt.isel.ps.gis.model.StockItem;
+import pt.isel.ps.gis.model.inputModel.AllergiesInputModel;
 import pt.isel.ps.gis.model.inputModel.AllergyInputModel;
 import pt.isel.ps.gis.model.outputModel.HouseAllergiesOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemsAllergenOutputModel;
@@ -67,6 +68,28 @@ public class AllergyController {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemsAllergenOutputModel(houseId, allergen, stockItemsAllergen),
                 setSirenContentType(headers), HttpStatus.OK);
+    }
+
+    @PutMapping("")
+    public ResponseEntity<HouseAllergiesOutputModel> putAllergens(
+            @PathVariable("house-id") long houseId,
+            @RequestBody AllergiesInputModel body
+    ) throws BadRequestException, NotFoundException {
+        //TODO: fazer este controller e o serviço
+        if (body.getAllergies() == null)
+            throw new BadRequestException(BODY_ERROR_MSG);
+        List<HouseAllergy> allergies;
+        try {
+            houseAllergyService.associateHouseAllergies(houseId);
+            allergies = houseAllergyService.getAllergiesByHouseId(houseId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
+                HttpStatus.OK);
     }
 
     @PutMapping("/{allergen}")

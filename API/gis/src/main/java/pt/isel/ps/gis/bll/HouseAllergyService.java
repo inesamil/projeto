@@ -38,6 +38,19 @@ public interface HouseAllergyService {
      * @throws EntityNotFoundException se não encontrar a alergia especificada na casa particularizada
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      */
+    HouseAllergy[] associateHouseAllergies(long houseId) throws EntityNotFoundException, EntityException;
+
+
+    /**
+     * Atualizar ou associar uma alergia a uma casa
+     *
+     * @param houseId      identificador da casa
+     * @param allergen     identificador da alergia
+     * @param allergicsNum número de pessoas com a alergia identificada pelo parametro allergen
+     * @return HouseAllergy
+     * @throws EntityNotFoundException se não encontrar a alergia especificada na casa particularizada
+     * @throws EntityException         se os parâmetros recebidos forem inválidos
+     */
     HouseAllergy associateHouseAllergy(long houseId, String allergen, short allergicsNum) throws EntityNotFoundException, EntityException;
 
     /**

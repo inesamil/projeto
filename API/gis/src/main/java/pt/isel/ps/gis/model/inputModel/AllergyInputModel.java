@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AllergyInputModel {
 
-    @JsonProperty(value = "house-allergies-num")
+    @JsonProperty(value = "allergics-number")
     private Short allergicsNum;
 
     public Short getAllergicsNum() {
