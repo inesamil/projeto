@@ -13,7 +13,7 @@ public interface UserService {
      * @return true se a casa existir, false caso contrário
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    boolean existsUserByUserId(String username) throws EntityException;
+    boolean existsUserByUserUsername(String username) throws EntityException;
 
     /**
      * Obter um utilizador através do ser nome de utilizador
@@ -22,7 +22,7 @@ public interface UserService {
      * @return User
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Users getUserByUserId(String username) throws EntityException, EntityNotFoundException;
+    Users getUserByUserUsername(String username) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar um utilizador
@@ -58,5 +58,5 @@ public interface UserService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador especificado não existir
      */
-    void deleteUserByUserId(String username) throws EntityException, EntityNotFoundException;
+    void deleteUserByUserUsername(String username) throws EntityException, EntityNotFoundException;
 }

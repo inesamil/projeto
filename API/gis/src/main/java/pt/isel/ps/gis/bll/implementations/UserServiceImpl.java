@@ -1,51 +1,77 @@
 package pt.isel.ps.gis.bll.implementations;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.UserService;
+import pt.isel.ps.gis.dal.repositories.RoleRepository;
+import pt.isel.ps.gis.dal.repositories.UserRoleRepository;
 import pt.isel.ps.gis.dal.repositories.UsersRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.model.Role;
+import pt.isel.ps.gis.model.UserRole;
 import pt.isel.ps.gis.model.Users;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
+
+    private final static String ROLE_USER = "ROLE_USER";
 
     private final UsersRepository usersRepository;
+    private final RoleRepository roleRepository;
+    private final UserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UsersRepository usersRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository, PasswordEncoder passwordEncoder) {
         this.usersRepository = usersRepository;
+        this.roleRepository = roleRepository;
+        this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public boolean existsUserByUserId(String username) throws EntityException {
+    public boolean existsUserByUserUsername(String username) throws EntityException {
         ValidationsUtils.validateUserUsername(username);
-        return usersRepository.existsById(username);
+        return usersRepository.existsByUsersUsername(username);
     }
 
     @Override
-    public Users getUserByUserId(String username) throws EntityException, EntityNotFoundException {
+    public Users getUserByUserUsername(String username) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateUserUsername(username);
         return usersRepository
-                .findById(username)
+                .findByUsersUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("User with username %s does not exist.", username)));
     }
 
+    @Transactional
     @Override
     public Users addUser(String username, String email, Short age, String name, String password) throws EntityException {
-        if (existsUserByUserId(username))
+        if (existsUserByUserUsername(username))
             throw new EntityException(String.format("Username %s is already in use.", username));
-        return usersRepository.save(new Users(username, email, age, name, passwordEncoder.encode(password)));
+        Users users = new Users(username, email, age, name, passwordEncoder.encode(password));
+        users = usersRepository.save(users);
+        // TODO se o email tambem é unique é preciso fazer essa verificao em todo o sitio que seja necessario
+        Role userRole = roleRepository.findByRoleName(ROLE_USER).orElseThrow(() -> new IllegalStateException("Role " + ROLE_USER + " not found."));
+        userRoleRepository.save(new UserRole(users.getUsersId(), userRole.getRoleId()));
+        return users;
     }
 
     @Transactional
     @Override
     public Users updateUser(String username, String email, Short age, String name, String password) throws EntityException, EntityNotFoundException {
-        Users user = getUserByUserId(username);
+        Users user = getUserByUserUsername(username);
         user.setUsersEmail(email);
         user.setUsersAge(age);
         user.setUsersName(name);
@@ -54,7 +80,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUserByUserId(String username) throws EntityException, EntityNotFoundException {
+    public void deleteUserByUserUsername(String username) throws EntityException, EntityNotFoundException {
         checkUserUsername(username);
         // Remover o utilizador bem como todas as relações das quais o utilizador seja parte integrante
         usersRepository.deleteCascadeUserById(username);
@@ -62,8 +88,24 @@ public class UserServiceImpl implements UserService {
 
     private void checkUserUsername(String username) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateUserUsername(username);
-        if (!usersRepository.existsById(username))
+        if (!usersRepository.existsByUsersUsername(username))
             throw new EntityNotFoundException(String.format("User with username %s does not exist.", username));
 
+    }
+
+    @Transactional
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Users user;
+        try {
+            user = getUserByUserUsername(username);
+        } catch (EntityException | EntityNotFoundException e) {
+            throw new UsernameNotFoundException(e.getMessage());
+        }
+        List<GrantedAuthority> authorities = user.getUsersrolesByUsersId()
+                .stream()
+                .map(userRole -> new SimpleGrantedAuthority(userRole.getRoleByRoleId().getRoleName()))
+                .collect(Collectors.toList());
+        return new User(user.getUsersUsername(), user.getUsersPassword(), authorities);
     }
 }
