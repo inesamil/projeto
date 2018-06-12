@@ -1,7 +1,6 @@
 package pt.isel.ps.gis.model;
 
 import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
@@ -20,8 +19,8 @@ public class UserList {
     private UserListId id;
 
     @Basic
-    @Column(name = "users_username", length = RestrictionsUtils.USER_USERNAME_MAX_LENGTH, nullable = false)
-    private String usersUsername;
+    @Column(name = "users_id", nullable = false)
+    private Long usersId;
 
     @Basic
     @Column(name = "list_shareable")
@@ -39,8 +38,8 @@ public class UserList {
     private List list;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_username", referencedColumnName = "users_username", nullable = false, insertable = false, updatable = false)
-    private Users usersByUsersUsername;
+    @JoinColumn(name = "users_id", referencedColumnName = "users_id", nullable = false, insertable = false, updatable = false)
+    private Users usersByUsersId;
 
     /**
      * CONSTRUTORES
@@ -48,17 +47,17 @@ public class UserList {
     protected UserList() {
     }
 
-    public UserList(Long houseId, String listName, String usersUsername, Boolean listShareable) throws EntityException {
+    public UserList(Long houseId, String listName, Long usersId, Boolean listShareable) throws EntityException {
         setId(houseId);
         this.list = new List(houseId, listName, TYPE);
-        setUsersUsername(usersUsername);
+        setUsersId(usersId);
         setListShareable(listShareable);
     }
 
-    public UserList(Long houseId, Short listId, String listName, String usersUsername, Boolean listShareable) throws EntityException {
+    public UserList(Long houseId, Short listId, String listName, Long usersId, Boolean listShareable) throws EntityException {
         setId(houseId, listId);
         this.list = new List(houseId, listId, listName, TYPE);
-        setUsersUsername(usersUsername);
+        setUsersId(usersId);
         setListShareable(listShareable);
     }
 
@@ -81,13 +80,13 @@ public class UserList {
         setId(new UserListId(houseId, listId));
     }
 
-    public String getUsersUsername() {
-        return usersUsername;
+    public Long getUsersId() {
+        return usersId;
     }
 
-    public void setUsersUsername(String usersUsername) throws EntityException {
-        ValidationsUtils.validateUserUsername(usersUsername);
-        this.usersUsername = usersUsername;
+    public void setUsersId(Long usersId) throws EntityException {
+        ValidationsUtils.validateUserId(usersId);
+        this.usersId = usersId;
     }
 
     public Boolean getListShareable() {
@@ -107,12 +106,12 @@ public class UserList {
         this.list = list;
     }
 
-    public Users getUsersByUsersUsername() {
-        return usersByUsersUsername;
+    public Users getUsersByUsersId() {
+        return usersByUsersId;
     }
 
-    public void setUsersByUsersUsername(Users usersByUsersUsername) {
-        this.usersByUsersUsername = usersByUsersUsername;
+    public void setUsersByUsersId(Users usersByUsersId) {
+        this.usersByUsersId = usersByUsersId;
     }
 
     @Override
@@ -121,12 +120,12 @@ public class UserList {
         if (obj == null || getClass() != obj.getClass()) return false;
         UserList that = (UserList) obj;
         return Objects.equals(id, that.id) &&
-                Objects.equals(usersUsername, that.usersUsername) &&
+                Objects.equals(usersId, that.usersId) &&
                 Objects.equals(listShareable, that.listShareable);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, usersUsername, listShareable);
+        return Objects.hash(id, usersId, listShareable);
     }
 }

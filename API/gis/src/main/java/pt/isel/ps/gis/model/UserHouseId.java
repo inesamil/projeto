@@ -1,7 +1,6 @@
 package pt.isel.ps.gis.model;
 
 import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.Column;
@@ -18,8 +17,8 @@ public class UserHouseId implements Serializable {
     @Column(name = "house_id", nullable = false)
     private Long houseId;
 
-    @Column(name = "users_username", length = RestrictionsUtils.USER_USERNAME_MAX_LENGTH, nullable = false)
-    private String usersUsername;
+    @Column(name = "users_id", nullable = false)
+    private Long usersId;
 
     /**
      * CONSTRUTORES
@@ -27,9 +26,9 @@ public class UserHouseId implements Serializable {
     protected UserHouseId() {
     }
 
-    public UserHouseId(Long houseId, String username) throws EntityException {
+    public UserHouseId(Long houseId, Long userId) throws EntityException {
         setHouseId(houseId);
-        setUsersUsername(username);
+        setUsersId(userId);
     }
 
     /**
@@ -44,13 +43,13 @@ public class UserHouseId implements Serializable {
         this.houseId = houseId;
     }
 
-    public String getUsersUsername() {
-        return usersUsername;
+    public Long getUsersId() {
+        return usersId;
     }
 
-    public void setUsersUsername(String usersUsername) throws EntityException {
-        ValidationsUtils.validateHouseId(houseId);
-        this.usersUsername = usersUsername;
+    public void setUsersId(Long usersId) throws EntityException {
+        ValidationsUtils.validateUserId(usersId);
+        this.usersId = usersId;
     }
 
     @Override
@@ -59,11 +58,11 @@ public class UserHouseId implements Serializable {
         if (obj == null || getClass() != obj.getClass()) return false;
         UserHouseId that = (UserHouseId) obj;
         return Objects.equals(houseId, that.houseId) &&
-                Objects.equals(usersUsername, that.usersUsername);
+                Objects.equals(usersId, that.usersId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(houseId, usersUsername);
+        return Objects.hash(houseId, usersId);
     }
 }

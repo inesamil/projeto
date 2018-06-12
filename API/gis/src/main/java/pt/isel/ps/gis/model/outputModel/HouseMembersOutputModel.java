@@ -52,7 +52,7 @@ public class HouseMembersOutputModel {
 
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("house-id", houseId);
-            properties.put("user-username", member.getId().getUsersUsername());
+            properties.put("user-username", member.getId().getUsersId());
             properties.put("household-administrator", member.getUserhouseAdministrator());
 
             String userUri = UriBuilderUtils.buildUserUri(member.getId().getUsersUsername());

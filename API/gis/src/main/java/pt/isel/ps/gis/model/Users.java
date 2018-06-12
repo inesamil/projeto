@@ -16,7 +16,12 @@ public class Users {
      * COLUNAS
      */
     @Id
-    @Column(name = "users_username", length = RestrictionsUtils.USER_USERNAME_MAX_LENGTH, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "users_id", nullable = false)
+    private Long usersId;
+
+    @Basic
+    @Column(name = "users_username", length = RestrictionsUtils.USER_USERNAME_MAX_LENGTH, nullable = false, unique = true)
     private String usersUsername;
 
     @Basic
@@ -38,16 +43,28 @@ public class Users {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUsersUsername")
-    private Collection<UserHouse> userhousesByUsersUsername;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUsersId")
+    private Collection<UserHouse> userhousesByUsersId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUsersUsername")
-    private Collection<UserList> userlistsByUsersUsername;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUsersId")
+    private Collection<UserList> userlistsByUsersId;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUsersId")
+    private Collection<UserRole> usersrolesByUsersId;
 
     /**
      * CONSTRUTORES
      */
     protected Users() {
+    }
+
+    public Users(Long id, String username, String email, Short age, String name, String password) throws EntityException {
+        setUsersId(id);
+        setUsersUsername(username);
+        setUsersEmail(email);
+        setUsersAge(age);
+        setUsersName(name);
+        setUsersPassword(password);
     }
 
     public Users(String username, String email, Short age, String name, String password) throws EntityException {
@@ -61,6 +78,15 @@ public class Users {
     /**
      * GETTERS E SETTERS
      */
+    public Long getUsersId() {
+        return usersId;
+    }
+
+    public void setUsersId(Long usersId) throws EntityException {
+        ValidationsUtils.validateUserId(usersId);
+        this.usersId = usersId;
+    }
+
     public String getUsersUsername() {
         return usersUsername;
     }
@@ -106,20 +132,28 @@ public class Users {
         this.usersPassword = usersPassword;
     }
 
-    public Collection<UserHouse> getUserhousesByUsersUsername() {
-        return userhousesByUsersUsername;
+    public Collection<UserHouse> getUserhousesByUsersId() {
+        return userhousesByUsersId;
     }
 
-    public void setUserhousesByUsersUsername(Collection<UserHouse> userhousesByUsersUsername) {
-        this.userhousesByUsersUsername = userhousesByUsersUsername;
+    public void setUserhousesByUsersId(Collection<UserHouse> userhousesByUsersId) {
+        this.userhousesByUsersId = userhousesByUsersId;
     }
 
-    public Collection<UserList> getUserlistsByUsersUsername() {
-        return userlistsByUsersUsername;
+    public Collection<UserList> getUserlistsByUsersId() {
+        return userlistsByUsersId;
     }
 
-    public void setUserlistsByUsersUsername(Collection<UserList> userlistsByUsersUsername) {
-        this.userlistsByUsersUsername = userlistsByUsersUsername;
+    public void setUserlistsByUsersId(Collection<UserList> userlistsByUsersId) {
+        this.userlistsByUsersId = userlistsByUsersId;
+    }
+
+    public Collection<UserRole> getUsersrolesByUsersId() {
+        return usersrolesByUsersId;
+    }
+
+    public void setUsersrolesByUsersId(Collection<UserRole> usersrolesByUsersId) {
+        this.usersrolesByUsersId = usersrolesByUsersId;
     }
 
     @Override

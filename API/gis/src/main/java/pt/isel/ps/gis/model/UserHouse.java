@@ -28,8 +28,8 @@ public class UserHouse {
     private House houseByHouseId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_username", referencedColumnName = "users_username", nullable = false, insertable = false, updatable = false)
-    private Users usersByUsersUsername;
+    @JoinColumn(name = "users_id", referencedColumnName = "users_id", nullable = false, insertable = false, updatable = false)
+    private Users usersByUsersId;
 
     /**
      * CONSTRUTORES
@@ -37,8 +37,8 @@ public class UserHouse {
     protected UserHouse() {
     }
 
-    public UserHouse(Long houseId, String username, Boolean userhouseAdministrator) throws EntityException {
-        setId(houseId, username);
+    public UserHouse(Long houseId, Long userId, Boolean userhouseAdministrator) throws EntityException {
+        setId(houseId, userId);
         setUserhouseAdministrator(userhouseAdministrator);
     }
 
@@ -53,8 +53,8 @@ public class UserHouse {
         this.id = id;
     }
 
-    public void setId(Long houseId, String username) throws EntityException {
-        setId(new UserHouseId(houseId, username));
+    public void setId(Long houseId, Long userId) throws EntityException {
+        setId(new UserHouseId(houseId, userId));
     }
 
     public Boolean getUserhouseAdministrator() {
@@ -74,12 +74,12 @@ public class UserHouse {
         this.houseByHouseId = houseByHouseId;
     }
 
-    public Users getUsersByUsersUsername() {
-        return usersByUsersUsername;
+    public Users getUsersByUsersId() {
+        return usersByUsersId;
     }
 
-    public void setUsersByUsersUsername(Users usersByUsersUsername) {
-        this.usersByUsersUsername = usersByUsersUsername;
+    public void setUsersByUsersId(Users usersByUsersId) {
+        this.usersByUsersId = usersByUsersId;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package pt.isel.ps.gis.dal.repositories.custom;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.Session;
 import pt.isel.ps.gis.dal.repositories.UserListRepositoryCustom;
@@ -31,7 +29,7 @@ public class UserListRepositoryCustomImpl implements UserListRepositoryCustom {
             )) {
                 function.setLong(1, userList.getId().getHouseId());
                 function.setString(2, userList.getList().getListName());
-                function.setString(3, userList.getUsersUsername());
+                function.setString(3, userList.getUsersId());
                 function.setBoolean(4, userList.getListShareable());
                 try (ResultSet resultSet = function.executeQuery()) {
                     if (!resultSet.next()) throw new SQLException("Result set is empty.");

@@ -20,17 +20,17 @@ public interface UserListRepository extends CrudRepository<UserList, UserListId>
     /**
      * Find all user lists associated with specific house and filtered by user id.
      *
-     * @param houseId  The id of the house
-     * @param username Search for user id
+     * @param houseId The id of the house
+     * @param userId  Search for user id
      * @return List with all UserList associated with param houseId and filtered.
      */
-    List<UserList> findAllById_HouseIdAndUsersUsername(Long houseId, String username);
+    List<UserList> findAllById_HouseIdAndUsersId(Long houseId, Long userId);
 
     /**
      * Find all user lists associated with specific user.
      *
-     * @param username The id of the user
-     * @return List with all UserList associated with param username.
+     * @param userId The id of the user
+     * @return List with all UserList associated with param userId.
      */
-    List<UserList> findAllByUsersUsername(String username);
+    List<UserList> findAllByUsersId(Long userId);
 }
