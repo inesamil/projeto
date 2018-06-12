@@ -12,16 +12,20 @@ INSERT INTO public.house(house_name, house_characteristics) VALUES ('Jones', '{
   "house_seniorsNumber": 1
 }');
 
+--ROLE
+INSERT INTO public.role(role_name) VALUES ('ROLE_ADMIN');
+INSERT INTO public.role(role_name) VALUES ('ROLE_USER');
+
 --USERS
 INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('bob', 'bob@example.com', 21, 'bob', '123');
 INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('alice', 'alice@example.com', 21, 'alice', '123');
 INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('charles', 'charles@example.com', 21, 'charles', '123');
 
 --USER-HOUSE
-INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (1, 'bob', true);
-INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (1, 'alice', false);
-INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (2, 'bob', true);
-INSERT INTO public.userhouse(house_id, users_username, userhouse_administrator) VALUES (2, 'charles', false);
+INSERT INTO public.userhouse(house_id, users_id, userhouse_administrator) VALUES (1, 1, true);
+INSERT INTO public.userhouse(house_id, users_id, userhouse_administrator) VALUES (1, 2, false);
+INSERT INTO public.userhouse(house_id, users_id, userhouse_administrator) VALUES (2, 1, true);
+INSERT INTO public.userhouse(house_id, users_id, userhouse_administrator) VALUES (2, 3, false);
 
 --Allergy
 INSERT INTO public.allergy(allergy_allergen) VALUES ('Milk');

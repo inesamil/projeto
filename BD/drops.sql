@@ -27,6 +27,8 @@ DROP TABLE IF EXISTS public."userlist";
 DROP TABLE IF EXISTS public."systemlist";
 DROP TABLE IF EXISTS public."list";
 DROP TABLE IF EXISTS public."allergy";
+DROP TABLE IF EXISTS public."usersrole";
+DROP TABLE IF EXISTS public."role";
 DROP TABLE IF EXISTS public."users";
 DROP TABLE IF EXISTS public."house";
 

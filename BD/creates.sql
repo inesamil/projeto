@@ -11,11 +11,23 @@ CREATE TABLE IF NOT EXISTS public."house" (
 );
 
 CREATE TABLE IF NOT EXISTS public."users" (
-	users_username character varying(30) NOT NULL PRIMARY KEY,
+	users_id bigserial NOT NULL PRIMARY KEY,
+	users_username character varying(30) NOT NULL UNIQUE,
 	users_email character varying(254) NOT NULL UNIQUE,
 	users_age smallint NOT NULL CHECK (users_age BETWEEN 0 AND 150),
 	users_name character varying(70) NOT NULL,
 	users_password character varying(60) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS public."role" (
+	role_id smallserial NOT NULL PRIMARY KEY,
+	role_name character varying(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS public."usersrole" (
+	users_id bigint NOT NULL CHECK (users_id > 0) REFERENCES public."users" (users_id),
+	role_id smallint NOT NULL CHECK (role_id > 0) REFERENCES public."role" (role_id),
+	PRIMARY KEY (users_id, role_id)
 );
 
 CREATE TABLE IF NOT EXISTS public."allergy" (
@@ -40,7 +52,7 @@ CREATE TABLE IF NOT EXISTS public."systemlist" (
 CREATE TABLE IF NOT EXISTS public."userlist" (
 	house_id bigint NOT NULL CHECK (house_id > 0),
 	list_id smallint NOT NULL CHECK (list_id > 0),
-	users_username character varying(30) NOT NULL REFERENCES public."users" (users_username),
+	users_id bigint NOT NULL CHECK (users_id > 0) REFERENCES public."users" (users_id),
 	list_shareable boolean,
 	PRIMARY KEY (house_id, list_id),
 	FOREIGN KEY (house_id, list_id) REFERENCES public."list" (house_id, list_id)
@@ -87,9 +99,9 @@ CREATE TABLE IF NOT EXISTS public."storage" (
 
 CREATE TABLE IF NOT EXISTS public."userhouse" (
 	house_id bigint NOT NULL CHECK (house_id > 0) REFERENCES public."house" (house_id),
-	users_username character varying(30) NOT NULL REFERENCES public."users" (users_username),
+	users_id bigint NOT NULL CHECK (users_id > 0) REFERENCES public."users" (users_id),
 	userhouse_administrator boolean,
-	PRIMARY KEY (house_id, users_username)
+	PRIMARY KEY (house_id, users_id)
 );
 
 CREATE TABLE IF NOT EXISTS public."stockitemstorage" (
