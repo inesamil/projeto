@@ -1,6 +1,7 @@
 package ps.leic.isel.pt.gis.uis.adapters
 
 import android.support.v7.widget.RecyclerView
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +9,13 @@ import android.widget.EditText
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseAllergyDto
+import android.text.Editable
+import ps.leic.isel.pt.gis.model.body.AllergyBody
+
 
 class AllergiesTableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var data: Array<HouseAllergyDto>? = null
+    private var data: Array<AllergyBody>? = null
 
     // View Holder Types
     private val HEADER: Int = 0
@@ -49,11 +53,12 @@ class AllergiesTableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 // - get element from your dataset at this position
                 // - replace the contents of the view with that element
                 data?.let {
-                    val item: HouseAllergyDto = it[position - 1]
+                    val item: AllergyBody = it[position - 1]
                     holder as RowViewHolder
                     // Fill ViewHolder
                     holder.allergensText.text = item.allergen
-                    holder.allergicsText.setText(item.houseAllergiesNum.toString())
+                    holder.allergicsText.setText(item.allergics.toString())
+                    holder.allergicsText.addTextChangedListener(MyTextWatcher(position))
                 }
             }
         }
@@ -63,13 +68,13 @@ class AllergiesTableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount() = data?.size?.plus(1) ?: 0
 
     fun setData(data: Array<HouseAllergyDto>) {
-        this.data = data
+        this.data = data.map { houseAllergyDto -> AllergyBody(houseAllergyDto.allergen, houseAllergyDto.houseAllergiesNum) }.toTypedArray()
         notifyDataSetChanged()
     }
 
     // Return an array of the allergens
-    fun getUpdatedItems() : Array<HouseAllergyDto>? {
-        TODO()
+    fun getUpdatedItems() : Array<AllergyBody>? {
+        return data
     }
 
     // Stores and recycles views as they are scrolled off screen (HEADER TYPE)
@@ -82,5 +87,25 @@ class AllergiesTableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class RowViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var allergensText: TextView = view.findViewById(R.id.allergensText)
         var allergicsText: EditText = view.findViewById(R.id.allergicsNumEditText)
+    }
+
+    /***
+     * TextWatcher
+     ***/
+    inner class  MyTextWatcher(val idx: Int) : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            // Nothing to do here
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            // Nothing to do here
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            data?.let {
+               it[idx].allergics = s?.toString()?.toShort() ?: 0
+            }
+        }
+
     }
 }
