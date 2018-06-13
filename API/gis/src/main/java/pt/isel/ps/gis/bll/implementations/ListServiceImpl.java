@@ -71,10 +71,10 @@ public class ListServiceImpl implements ListService {
     @Transactional
     @Override
     public List addUserList(long houseId, String listName, String username, boolean listShareable) throws EntityException, EntityNotFoundException {
-        checkHouseId(houseId);
-        checkUserUsername(username);
         ValidationsUtils.validateListName(listName);
         ValidationsUtils.validateListShareable(listShareable);
+        checkHouseId(houseId);
+        checkUserUsername(username);
         UserList userList = userListRepository.insertUserList(houseId, listName, username, listShareable);
         List list = userList.getList();
         list.setListproducts(listProductRepository.findAllById_HouseIdAndId_ListId(list.getId().getHouseId(), list.getId().getListId()));
