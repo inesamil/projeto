@@ -133,7 +133,7 @@ class NewHouseDialogFragment : DialogFragment() {
         val house: HouseBody = HouseBody(houseName, babiesNumber, childrenNumber, adultsNumber, seniorsNumber)
 
         housesViewModel = ViewModelProviders.of(activity!!).get(HousesViewModel::class.java)
-        housesViewModel?.addHouse(house)
+        listener?.onAddHouse(housesViewModel?.addHouse(house))
     }
 
     /***
