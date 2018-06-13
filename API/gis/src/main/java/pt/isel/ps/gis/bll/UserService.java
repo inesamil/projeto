@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll;
 
+import pt.isel.ps.gis.exceptions.EntityAlreadyExistsException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Users;
@@ -46,7 +47,7 @@ public interface UserService {
      * @return User
      * @throws EntityException se os atributos especificados no parâmetro user forem inválidos
      */
-    Users addUser(String username, String email, Short age, String name, String password) throws EntityException;
+    Users addUser(String username, String email, Short age, String name, String password) throws EntityException, EntityAlreadyExistsException;
 
     /**
      * Atualizar um utilizador

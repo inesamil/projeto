@@ -13,6 +13,7 @@ import pt.isel.ps.gis.bll.UserService;
 import pt.isel.ps.gis.dal.repositories.RoleRepository;
 import pt.isel.ps.gis.dal.repositories.UserRoleRepository;
 import pt.isel.ps.gis.dal.repositories.UsersRepository;
+import pt.isel.ps.gis.exceptions.EntityAlreadyExistsException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Role;
@@ -64,12 +65,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public Users addUser(String username, String email, Short age, String name, String password) throws EntityException {
+    public Users addUser(String username, String email, Short age, String name, String password) throws EntityException, EntityAlreadyExistsException {
         if (existsUserByUserUsername(username))
-            throw new EntityException(String.format("Username %s is already in use.", username));
+            throw new EntityAlreadyExistsException(String.format("Username %s is already in use.", username));
+        ValidationsUtils.validateUserEmail(email);
+        if (!usersRepository.existsByUsersEmail(email))
+            throw new EntityAlreadyExistsException(String.format("Already exists a user with email: %s", email));
         Users users = new Users(username, email, age, name, passwordEncoder.encode(password));
         users = usersRepository.save(users);
-        // TODO se o email tambem é unique é preciso fazer essa verificao em todo o sitio que seja necessario
         Role userRole = roleRepository.findByRoleName(ROLE_USER).orElseThrow(() -> new IllegalStateException("Role " + ROLE_USER + " not found."));
         userRoleRepository.save(new UserRole(users.getUsersId(), userRole.getRoleId()));
         return users;

@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.bll.UserService;
-import pt.isel.ps.gis.exceptions.BadRequestException;
-import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.exceptions.EntityNotFoundException;
-import pt.isel.ps.gis.exceptions.NotFoundException;
+import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.Users;
 import pt.isel.ps.gis.model.inputModel.ListInputModel;
@@ -106,12 +103,14 @@ public class UserController {
     @PostMapping("")
     public ResponseEntity<UserOutputModel> registerUser(
             @RequestBody RegisterUserInputModel body
-    ) throws BadRequestException {
+    ) throws BadRequestException, ConflictException {
         Users user;
         try {
             user = userService.addUser(body.getUsername(), body.getEmail(), body.getAge(), body.getName(), body.getPassword());
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityAlreadyExistsException e) {
+            throw new ConflictException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), HttpStatus.CREATED);
@@ -143,7 +142,7 @@ public class UserController {
     public ResponseEntity<UserOutputModel> putUser(
             @PathVariable("username") String username,
             @RequestBody UserInputModel body
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ConflictException {
         Users user;
         HttpStatus status;
         try {
@@ -159,6 +158,8 @@ public class UserController {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
+        } catch (EntityAlreadyExistsException e) {
+            throw new ConflictException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), status);
