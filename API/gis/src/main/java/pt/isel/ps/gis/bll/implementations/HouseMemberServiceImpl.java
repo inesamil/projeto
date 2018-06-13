@@ -1,7 +1,7 @@
 package pt.isel.ps.gis.bll.implementations;
 
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.HouseMemberService;
 import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
@@ -9,12 +9,10 @@ import pt.isel.ps.gis.dal.repositories.UsersRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.UserHouse;
-import pt.isel.ps.gis.model.UserHouseId;
 import pt.isel.ps.gis.model.Users;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class HouseMemberServiceImpl implements HouseMemberService {
@@ -34,14 +32,16 @@ public class HouseMemberServiceImpl implements HouseMemberService {
     }
 
     @Override
-    public boolean existsMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException {
-        checkUserUsername(username);
+    public boolean existsMemberByMemberId(long houseId, String username) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
+        ValidationsUtils.validateUserUsername(username);
         return userHouseRepository.existsById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username);
     }
 
     @Override
     public UserHouse getMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException {
-        checkUserUsername(username);
+        ValidationsUtils.validateHouseId(houseId);
+        ValidationsUtils.validateUserUsername(username);
         return userHouseRepository
                 .findById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username)
                 .orElseThrow(() -> new EntityNotFoundException(MEMBER_NOT_EXIST));
@@ -56,37 +56,23 @@ public class HouseMemberServiceImpl implements HouseMemberService {
 
     @Override
     public UserHouse associateMember(long houseId, String username, boolean administrator) throws EntityException, EntityNotFoundException {
-        checkUserUsername(username);
-        Optional<Users> user = usersRepository.findByUsersUsername(username);
-        UserHouse member = new UserHouse(houseId, user.get().getUsersId(), administrator);
+        ValidationsUtils.validateUserUsername(username);
+        Users user = usersRepository.findByUsersUsername(username).orElseThrow(() -> new EntityNotFoundException(USER_NOT_EXIST));
+        UserHouse member = new UserHouse(houseId, user.getUsersId(), administrator);
         checkHouse(houseId);
-        checkUser(username);
         userHouseRepository.save(member);
         return member;
     }
 
+    @Transactional
     @Override
     public void deleteMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException {
-        if (!existsMemberByMemberId(houseId, username))
-            throw new EntityNotFoundException(MEMBER_NOT_EXIST);
-        Optional<Users> user = usersRepository.findByUsersUsername(username);
-        UserHouseId id = new UserHouseId(houseId, user.get().getUsersId());
-        userHouseRepository.deleteById(id);
+        UserHouse member = getMemberByMemberId(houseId, username);
+        userHouseRepository.deleteById(member.getId());
     }
 
     private void checkHouse(long houseId) throws EntityNotFoundException {
         if (!houseRepository.existsById(houseId))
             throw new EntityNotFoundException(HOUSE_NOT_EXIST);
-    }
-
-    private void checkUser(String username) throws EntityNotFoundException {
-        if (!usersRepository.existsByUsersUsername(username))
-            throw new EntityNotFoundException(USER_NOT_EXIST);
-    }
-
-    private void checkUserUsername(String username) throws EntityException, EntityNotFoundException {
-        ValidationsUtils.validateUserUsername(username);
-        if (!usersRepository.existsByUsersUsername(username))
-            throw new EntityNotFoundException(String.format("The user with username %s does not exist.", username));
     }
 }

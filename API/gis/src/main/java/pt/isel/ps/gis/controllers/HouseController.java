@@ -70,7 +70,7 @@ public class HouseController {
     @PostMapping("")
     public ResponseEntity<HouseOutputModel> postHouse(
             @RequestBody HouseInputModel body
-    ) throws BadRequestException, EntityNotFoundException {
+    ) throws BadRequestException, NotFoundException {
         House house;
         try {
             house = houseService.addHouse(
@@ -83,6 +83,8 @@ public class HouseController {
             );
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseOutputModel(house), setSirenContentType(headers), HttpStatus.CREATED);

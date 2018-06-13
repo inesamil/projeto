@@ -30,6 +30,4 @@ public class AllergiesController {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new AllergiesOutputModel(allergies), setSirenContentType(headers), HttpStatus.OK);
     }
-
-
 }

@@ -57,7 +57,7 @@ public class UserController {
     ) throws BadRequestException, NotFoundException {
         List<House> userHouses;
         try {
-            userHouses = houseService.getHousesByUserId(username);
+            userHouses = houseService.getHousesByUserUsername(username);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -77,7 +77,7 @@ public class UserController {
         try {
             ListService.AvailableListFilters filters;
             if (params.isNull()) {
-                Long[] housesIds = houseService.getHousesByUserId(username)
+                Long[] housesIds = houseService.getHousesByUserUsername(username)
                         .stream()
                         .map(House::getHouseId)
                         .toArray(Long[]::new);

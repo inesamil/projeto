@@ -16,7 +16,7 @@ public interface HouseMemberService {
      * @return true se o membro existir na casa, false caso contrário
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    boolean existsMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException;
+    boolean existsMemberByMemberId(long houseId, String username) throws EntityException;
 
     /**
      * Obter um membro da casa através dos seus IDs

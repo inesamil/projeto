@@ -33,7 +33,7 @@ public interface HouseService {
      * @return List<House>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<House> getHousesByUserId(String username) throws EntityException, EntityNotFoundException;
+    List<House> getHousesByUserUsername(String username) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar uma casa
