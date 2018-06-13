@@ -15,4 +15,11 @@ public interface HouseAllergyRepository extends CrudRepository<HouseAllergy, Hou
      * @return List with all allergies of the house
      */
     List<HouseAllergy> findAllById_HouseId(Long houseId);
+
+    /**
+     * Delete all allergies associated with specific house
+     *
+     * @param houseId The id of the house
+     */
+    void deleteAllById_HouseId(Long houseId);
 }
