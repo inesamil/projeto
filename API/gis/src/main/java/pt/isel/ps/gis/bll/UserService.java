@@ -61,7 +61,7 @@ public interface UserService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador especificado não existir
      */
-    Users updateUser(String username, String email, Short age, String name, String password) throws EntityException, EntityNotFoundException;
+    Users updateUser(String username, String email, Short age, String name, String password) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException;
 
     /**
      * Remover um utilizador

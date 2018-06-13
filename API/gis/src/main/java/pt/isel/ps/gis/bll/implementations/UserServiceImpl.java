@@ -80,8 +80,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public Users updateUser(String username, String email, Short age, String name, String password) throws EntityException, EntityNotFoundException {
+    public Users updateUser(String username, String email, Short age, String name, String password) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException {
         Users user = getUserByUserUsername(username);
+        ValidationsUtils.validateUserEmail(email);
+        if (!user.getUsersEmail().equals(email) && !usersRepository.existsByUsersEmail(email))
+            throw new EntityAlreadyExistsException(String.format("Already exists a user with email: %s", email));
         user.setUsersEmail(email);
         user.setUsersAge(age);
         user.setUsersName(name);
