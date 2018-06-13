@@ -14,9 +14,9 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.RadioGroup
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_allergies.*
-import kotlinx.android.synthetic.main.fragment_allergies.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.body.HouseAllergiesBody
+import ps.leic.isel.pt.gis.model.body.HouseAllergyBody
 import ps.leic.isel.pt.gis.model.dtos.HouseAllergiesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.AllergiesTableAdapter
@@ -161,10 +161,29 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
 
     private fun saveAllergies(view: View) {
         if (view.allergiesNoRadioBtn.isChecked) {
-            //TODO: apagar todas as alergias
+            allergiesViewModel.deleteAllHouseAllergies()?.observe(this, Observer {
+                when {
+                    it?.status == Status.SUCCESS -> {
+                        Toast.makeText(context, getString(R.string.allergies_saved_successfully), Toast.LENGTH_SHORT).show()
+                    }
+                    it?.status == Status.ERROR -> {
+                        Toast.makeText(context, getString(R.string.could_not_save_allergies), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
         } else {
-            //TODO: por cada alergia fazer um pedido de update??
-            adapter.getUpdatedItems()
+            adapter.getHouseAllergyItems()?.map { houseAllergy -> HouseAllergyBody(houseAllergy.allergy, houseAllergy.allergics) }?.let {
+                allergiesViewModel.addHouseAllergies(HouseAllergiesBody(it.toTypedArray()))?.observe(this, Observer {
+                    when {
+                        it?.status == Status.SUCCESS -> {
+                            Toast.makeText(context, getString(R.string.allergies_saved_successfully), Toast.LENGTH_SHORT).show()
+                        }
+                        it?.status == Status.ERROR -> {
+                            Toast.makeText(context, getString(R.string.could_not_save_allergies), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+            }
         }
     }
 
