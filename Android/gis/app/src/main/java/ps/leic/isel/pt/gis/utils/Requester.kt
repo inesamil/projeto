@@ -6,6 +6,8 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonRequest
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import ps.leic.isel.pt.gis.GisApplication
+import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.hypermedia.jsonHome.subentities.JsonHome
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 import java.io.IOException
@@ -18,7 +20,7 @@ class Requester<DTO>(method: Int, url: String, body: Any?, private val headers: 
 
     companion object {
         val mapper: ObjectMapper = jacksonObjectMapper()
-        val classes: HashMap<String, Class<*>> = hashMapOf(
+        val hypermediaClasses: HashMap<String, Class<*>> = hashMapOf(
                 Pair("application/vnd.siren+json", Siren::class.java),
                 Pair("application/home+json", JsonHome::class.java)
         )
@@ -30,10 +32,13 @@ class Requester<DTO>(method: Int, url: String, body: Any?, private val headers: 
      */
     override fun parseNetworkResponse(response: NetworkResponse): Response<DTO> {
         return try {
-            val key = response.headers["content-type"]
-            val siren = mapper.readValue(response.data, classes[key])
-            val constructor = dtoType.getConstructor(classes[key])
-            val dto = constructor.newInstance(siren)
+            val cookies = response.headers["set-cookie"]
+
+
+            val hypermediaType = response.headers["content-type"]
+            val hypermedia = mapper.readValue(response.data, hypermediaClasses[hypermediaType])
+            val constructor = dtoType.getConstructor(hypermediaClasses[hypermediaType])
+            val dto = constructor.newInstance(hypermedia)
             setTag(tag)
             Response.success(dto, null)
         } catch (e: IOException) {
