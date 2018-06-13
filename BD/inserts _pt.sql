@@ -106,10 +106,10 @@ INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_allergi
 INSERT INTO public.houseallergy(house_id, allergy_allergen, houseallergy_allergicsnum) VALUES (2, 'Peixe', 2);
 
 --LISTS
-SELECT insert_user_list(1, 'Festa de Aniversário do Xavier', 'pedro', false);
-SELECT insert_user_list(1, 'Lista Negra', 'pedro', true);
-SELECT insert_user_list(2, 'Dia na Piscina', 'pedro', true);
-SELECT insert_user_list(2, 'Produtos para Experimentar', 'xavier', true);
+SELECT insert_user_list(1, 'Festa de Aniversário do Xavier', 1, false);
+SELECT insert_user_list(1, 'Lista Negra', 1, true);
+SELECT insert_user_list(2, 'Dia na Piscina', 1, true);
+SELECT insert_user_list(2, 'Produtos para Experimentar', 3, true);
 SELECT insert_system_list(1, 'Lista de Compras');
 SELECT insert_system_list(2, 'Lista de Compras');
 

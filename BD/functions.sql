@@ -1,24 +1,24 @@
 -- Procedure to delete a User
 -- DROP FUNCTION delete_user
-CREATE OR REPLACE FUNCTION delete_user(username character varying(35))
+CREATE OR REPLACE FUNCTION delete_user(userId bigint)
 RETURNS VOID AS $$
 DECLARE
 	ids_array integer[];
 BEGIN
 	-- Save list IDs to remove
-	ids_array := ARRAY(SELECT public."userlist".list_id FROM public."userlist" WHERE public."userlist".users_username = username);
+	ids_array := ARRAY(SELECT public."userlist".list_id FROM public."userlist" WHERE public."userlist".users_id = userId);
 	
 	-- Remove UserLists
-	DELETE FROM public."userlist" WHERE users_username = username;
+	DELETE FROM public."userlist" WHERE public."userlist".users_id = userId;
 	
 	-- Remove Lists
 	DELETE FROM public."list" WHERE list_id IN (select(unnest(ids_array)));
 	
 	-- Remove User From Houses	
-	DELETE FROM public."userhouse" WHERE users_username = username;
+	DELETE FROM public."userhouse" WHERE public."userlist".users_id = userId;
 
 	-- Remove User
-	DELETE FROM public."users" WHERE users_username = username;
+	DELETE FROM public."users" WHERE public."userlist".users_id = userId;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -144,7 +144,7 @@ $$ LANGUAGE plpgsql;
 
  -- Procedure to insert a UserList
  -- DROP FUNCTION insert_user_list
-CREATE OR REPLACE FUNCTION insert_user_list(houseID bigint, listName character varying(35), username character varying(30), shareable boolean) 
+CREATE OR REPLACE FUNCTION insert_user_list(houseID bigint, listName character varying(35), userId bigint, shareable boolean) 
 RETURNS TABLE(
 	house_id bigint,
 	house_name character varying(35),
@@ -152,6 +152,7 @@ RETURNS TABLE(
 	list_id smallint,
 	list_name character varying(35),
 	list_type character varying(7),
+	user_id bigint,
 	users_username character varying(30),
 	list_shareable boolean
 ) AS $$
@@ -170,12 +171,13 @@ BEGIN
 	INSERT INTO public."list" (house_id, list_id, list_name, list_type) VALUES (houseId, listID, listName, 'user');
 
 	-- Add UserList
-	INSERT INTO public."userlist" (house_id, list_id, users_username, list_shareable) VALUES (houseID, listID, username, shareable);
+	INSERT INTO public."userlist" (house_id, list_id, users_id, list_shareable) VALUES (houseID, listID, userId, shareable);
 	
 	RETURN query
-	SELECT public."userlist".house_id, public."house".house_name, public."house".house_characteristics , public."userlist".list_id, public."list".list_name, public."list".list_type, public."userlist".users_username, public."userlist".list_shareable 
+	SELECT public."userlist".house_id, public."house".house_name, public."house".house_characteristics , public."userlist".list_id, public."list".list_name, public."list".list_type, public."userlist".users_id, public."users".users_username, public."userlist".list_shareable 
 		FROM public."list" JOIN public."userlist" ON public."list".house_id = public."userlist".house_id AND public."list".list_id = public."userlist".list_id
 			JOIN public."house" ON public."list".house_id = public."house".house_id
+			JOIN public."users" ON public."userlist".users_id = public."users".users_id
 		WHERE public."list".house_id = houseID AND public."list".list_id = listID;
 END;
 $$ LANGUAGE plpgsql;
