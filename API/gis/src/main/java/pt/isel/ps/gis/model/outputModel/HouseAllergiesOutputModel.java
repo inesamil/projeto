@@ -103,16 +103,15 @@ public class HouseAllergiesOutputModel {
         //URIs
         String houseAllergiesUri = UriBuilderUtils.buildHouseAllergiesUri(houseId);
 
-        // POST house allergy
-        Action putHouseAllergy = new Action(
-                "update-house-allergy",
-                "Update House Allergy",
+        // PUT house allergies
+        Action putHouseAllergies = new Action(
+                "update-house-allergies",
+                "Update House Allergies",
                 Method.PUT,
                 houseAllergiesUri,
                 type,
                 new Field[]{
-                        new Field("allergy-allergen", Field.Type.text, null, "Allergen Name"),
-                        new Field("allergics-number", Field.Type.number, null, "Allergics Number")
+                        new Field("allergies", Field.Type., null, "Allergies")  //TODO: tipo do array --> isto refere-se a receber um AllergiesInputModel
                 }
         );
 
@@ -126,7 +125,7 @@ public class HouseAllergiesOutputModel {
                 null
         );
 
-        return new Action[]{putHouseAllergy, deleteHouseAllergies};
+        return new Action[]{putHouseAllergies, deleteHouseAllergies};
     }
 
     private Link[] initLinks(long houseId) {
