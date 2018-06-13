@@ -144,7 +144,7 @@ $$ LANGUAGE plpgsql;
 
  -- Procedure to insert a UserList
  -- DROP FUNCTION insert_user_list
-CREATE OR REPLACE FUNCTION insert_user_list(houseID bigint, listName character varying(35), userId bigint, shareable boolean) 
+CREATE OR REPLACE FUNCTION insert_user_list(houseID bigint, listName character varying(35), username character varying(30), shareable boolean) 
 RETURNS TABLE(
 	house_id bigint,
 	house_name character varying(35),
@@ -158,6 +158,7 @@ RETURNS TABLE(
 ) AS $$
 DECLARE
 	listID smallint;
+	userId bigint;
 BEGIN
 	-- Get last id
 	SELECT public."list".list_id FROM public."list" WHERE public."list".house_id = houseID ORDER BY public."list".list_id DESC LIMIT 1 INTO listID;
@@ -166,6 +167,9 @@ BEGIN
 	ELSE
 		listID := listID + 1;	-- Increment
 	END IF;
+	
+	-- Get user id
+	SELECT public."users".users_id INTO userId FROM public."users" WHERE public."users".users_username = username;
 	
 	-- Add List
 	INSERT INTO public."list" (house_id, list_id, list_name, list_type) VALUES (houseId, listID, listName, 'user');
