@@ -75,6 +75,12 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
         houseAllergyRepository.deleteById(id);
     }
 
+    @Override
+    public void deleteAllHouseAllergiesByHouseId(long houseId) throws EntityNotFoundException {
+        checkHouse(houseId);
+        houseAllergyRepository.deleteAllByHouseId(houseId);
+    }
+
     private HouseAllergy addHouseAllergy(HouseAllergy houseAllergy) throws EntityException {
         // Total Membros na casa
         int totalMembers = membersRepository.findAllById_HouseId(houseAllergy.getId().getHouseId()).size();
