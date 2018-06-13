@@ -193,7 +193,9 @@
     <string name="wrong_credentials">Wrong credentials</string>
     <string name="could_not_connect_to_server">Couldn\'t connect to SmartStocksServer</string>
     <string name="list_added_successfully">List added successfully</string>
-    <string name="could_not_add_list">Could not add playlist, please try again</string>
+    <string name="could_not_add_list">Could not add list, please try again</string>
     <string name="house_added_successfully">House added successfully</string>
     <string name="could_not_add_house">Could not add house, please try again</string>
+    <string name="allergies_saved_successfully">Allergies saved successfully</string>
+    <string name="could_not_save_allergies">Could not save allergies, please try again</string>
 </resources>

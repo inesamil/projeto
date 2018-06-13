@@ -162,4 +162,6 @@
     <string name="could_not_add_list">Não foi possível adicionar a lista, por favor tente novamente</string>
     <string name="house_added_successfully">Casa adicionada com sucesso</string>
     <string name="could_not_add_house">Não foi possível adicionar a casa, por favor tente novamente</string>
+    <string name="allergies_saved_successfully">Alergias guardadas com sucesso</string>
+    <string name="could_not_save_allergies">Não foi possível guardar as alergies, por favor tente novamente</string>
 </resources>
