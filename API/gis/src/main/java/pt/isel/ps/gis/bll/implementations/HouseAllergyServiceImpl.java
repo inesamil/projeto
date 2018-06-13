@@ -13,7 +13,6 @@ import pt.isel.ps.gis.model.HouseAllergyId;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -78,7 +77,7 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
     @Override
     public void deleteAllHouseAllergiesByHouseId(long houseId) throws EntityNotFoundException {
         checkHouse(houseId);
-        houseAllergyRepository.deleteAllByHouseId(houseId);
+        houseAllergyRepository.deleteAllById_HouseId(houseId);
     }
 
     private HouseAllergy addHouseAllergy(HouseAllergy houseAllergy) throws EntityException {
