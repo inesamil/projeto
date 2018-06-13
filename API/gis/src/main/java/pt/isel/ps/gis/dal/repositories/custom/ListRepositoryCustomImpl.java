@@ -55,9 +55,9 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
             final Boolean system
     ) throws SQLException, EntityException, IOException {
         String sql = "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, " +
-                            "public.\"list\".list_type, public.\"house\".house_name, public.\"house\".house_characteristics " +
-                        "FROM public.\"list\" JOIN public.\"house\" ON (public.\"house\".house_id = public.\"list\".house_id) " +
-                        "WHERE public.\"list\".house_id = ANY (?) AND public.\"list\".list_type = (CASE WHEN ? = true THEN 'system' ELSE null END);";
+                "public.\"list\".list_type, public.\"house\".house_name, public.\"house\".house_characteristics " +
+                "FROM public.\"list\" JOIN public.\"house\" ON (public.\"house\".house_id = public.\"list\".house_id) " +
+                "WHERE public.\"list\".house_id = ANY (?) AND public.\"list\".list_type = (CASE WHEN ? = true THEN 'system' ELSE null END);";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             if (isNotNull(ps, 1, housesIds))
                 ps.setArray(1, housesIds);
@@ -90,13 +90,13 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
             final Boolean shared
     ) throws SQLException, EntityException, IOException {
         String sql = "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, " +
-                            "public.\"list\".list_type, public.\"house\".house_name, public.\"house\".house_characteristics, " +
-                            "public.\"userlist\".users_username, public.\"userlist\".list_shareable " +
-                        "FROM public.\"list\" JOIN public.\"userlist\" ON (public.\"list\".house_id = public.\"userlist\".house_id " +
-                            "AND public.\"list\".list_id = public.\"userlist\".list_id) " +
-                            "JOIN public.\"house\" ON (public.\"house\".house_id = public.\"list\".house_id) " +
-                        "WHERE public.\"list\".house_id = ANY (?) AND public.\"list\".list_type = 'user' AND ((? = true AND public.\"userlist\".users_username = ?) OR " +
-                            "(public.\"userlist\".users_username != ? AND public.\"userlist\".list_shareable = CASE WHEN ? = false THEN null ELSE true END))";
+                "public.\"list\".list_type, public.\"house\".house_name, public.\"house\".house_characteristics, " +
+                "public.\"userlist\".users_username, public.\"userlist\".list_shareable " +
+                "FROM public.\"list\" JOIN public.\"userlist\" ON (public.\"list\".house_id = public.\"userlist\".house_id " +
+                "AND public.\"list\".list_id = public.\"userlist\".list_id) " +
+                "JOIN public.\"house\" ON (public.\"house\".house_id = public.\"list\".house_id) " +
+                "WHERE public.\"list\".house_id = ANY (?) AND public.\"list\".list_type = 'user' AND ((? = true AND public.\"userlist\".users_username = ?) OR " +
+                "(public.\"userlist\".users_username != ? AND public.\"userlist\".list_shareable = CASE WHEN ? = false THEN null ELSE true END))";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             if (isNotNull(ps, 1, housesIds))
                 ps.setArray(1, housesIds);
