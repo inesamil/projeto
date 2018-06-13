@@ -62,26 +62,6 @@ public class StockItemServiceImpl implements StockItemService {
                 filters.segment, filters.storage);
     }
 
-    /*@Override
-    public StockItem addStockItem(long houseId, Integer productId, String brand, String segment, String variety,
-                                  Short quantity, String description, String conservationStorage
-    ) throws EntityException, EntityNotFoundException {
-        String[] segmentSplitted = splitSegment(segment);
-        StockItem stockItem = new StockItem(
-                houseId,
-                productId,
-                brand,
-                Float.parseFloat(segmentSplitted[0]),
-                variety,
-                quantity,
-                segmentSplitted[1],
-                description,
-                conservationStorage
-        );
-        checkHouse(houseId);
-        return stockItemRepository.insertStockItem(stockItem);
-    }*/
-
     @Override
     public void deleteStockItem(long houseId, String stockItemSku) throws EntityException, EntityNotFoundException {
         StockItemId id = new StockItemId(houseId, stockItemSku);
