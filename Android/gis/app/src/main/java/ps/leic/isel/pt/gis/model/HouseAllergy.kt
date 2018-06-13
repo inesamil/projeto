@@ -1,8 +1,8 @@
-package ps.leic.isel.pt.gis.model.body
+package ps.leic.isel.pt.gis.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class AllergyBody(
-        @field:JsonProperty(value = "allergy") val allergen: String,
-        @field:JsonProperty(value = "allergics-number") var allergics: Short
+data class HouseAllergy(
+        val allergy: String,
+        var allergics: Short
 )

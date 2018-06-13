@@ -10,12 +10,12 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseAllergyDto
 import android.text.Editable
-import ps.leic.isel.pt.gis.model.body.AllergyBody
+import ps.leic.isel.pt.gis.model.HouseAllergy
 
 
 class AllergiesTableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var data: Array<AllergyBody>? = null
+    private var data: Array<HouseAllergy>? = null
 
     // View Holder Types
     private val HEADER: Int = 0
@@ -53,10 +53,10 @@ class AllergiesTableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 // - get element from your dataset at this position
                 // - replace the contents of the view with that element
                 data?.let {
-                    val item: AllergyBody = it[position - 1]
+                    val item: HouseAllergy = it[position - 1]
                     holder as RowViewHolder
                     // Fill ViewHolder
-                    holder.allergensText.text = item.allergen
+                    holder.allergensText.text = item.allergy
                     holder.allergicsText.setText(item.allergics.toString())
                     holder.allergicsText.addTextChangedListener(MyTextWatcher(position))
                 }
@@ -68,12 +68,12 @@ class AllergiesTableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount() = data?.size?.plus(1) ?: 0
 
     fun setData(data: Array<HouseAllergyDto>) {
-        this.data = data.map { houseAllergyDto -> AllergyBody(houseAllergyDto.allergen, houseAllergyDto.houseAllergiesNum) }.toTypedArray()
+        this.data = data.map { houseAllergyDto -> HouseAllergy(houseAllergyDto.allergen, houseAllergyDto.houseAllergiesNum) }.toTypedArray()
         notifyDataSetChanged()
     }
 
     // Return an array of the allergens
-    fun getUpdatedItems() : Array<AllergyBody>? {
+    fun getHouseAllergyItems() : Array<HouseAllergy>? {
         return data
     }
 
