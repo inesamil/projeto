@@ -16,11 +16,22 @@ public interface UserService {
     boolean existsUserByUserUsername(String username) throws EntityException;
 
     /**
+     * Obter um utilizador através do ser ID de utilizador
+     *
+     * @param userId identificador do utilizador
+     * @return User
+     * @throws EntityException         se os parâmetros recebidos forem inválidos
+     * @throws EntityNotFoundException se o utilizador com o ID especificado não existir
+     */
+    Users getUserByUserId(Long userId) throws EntityException, EntityNotFoundException;
+
+    /**
      * Obter um utilizador através do ser nome de utilizador
      *
      * @param username identificador do utilizador
      * @return User
-     * @throws EntityException se os parâmetros recebidos forem inválidos
+     * @throws EntityException         se os parâmetros recebidos forem inválidos
+     * @throws EntityNotFoundException se o utilizador com o ID especificado não existir
      */
     Users getUserByUserUsername(String username) throws EntityException, EntityNotFoundException;
 

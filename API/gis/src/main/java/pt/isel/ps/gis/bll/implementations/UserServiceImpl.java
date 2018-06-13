@@ -48,6 +48,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public Users getUserByUserId(Long userId) throws EntityException, EntityNotFoundException {
+        ValidationsUtils.validateUserId(userId);
+        return usersRepository
+                .findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("User with ID %d does not exist.", userId)));
+    }
+
+    @Override
     public Users getUserByUserUsername(String username) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateUserUsername(username);
         return usersRepository
