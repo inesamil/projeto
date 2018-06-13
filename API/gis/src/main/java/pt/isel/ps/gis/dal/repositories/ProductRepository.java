@@ -11,6 +11,14 @@ import java.util.Optional;
 public interface ProductRepository extends CrudRepository<Product, Integer> {
 
     /**
+     * Verify if product with param productName exists
+     *
+     * @param productName name of the product to verify
+     * @return true if product exists, otherwise false
+     */
+    boolean existsByProductName(String productName);
+
+    /**
      * Find products by name that starts with param name
      *
      * @param name name of the product to search
