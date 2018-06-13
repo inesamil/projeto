@@ -1,10 +1,14 @@
 -- Procedure to delete a User
 -- DROP FUNCTION delete_user
-CREATE OR REPLACE FUNCTION delete_user(userId bigint)
+CREATE OR REPLACE FUNCTION delete_user(username character varying(30))
 RETURNS VOID AS $$
 DECLARE
 	ids_array integer[];
+	userId bigint;
 BEGIN
+	-- Get userId
+	SELECT public."users".users_id INTO userId FROM public."users" WHERE public."users".users_username = username;
+	
 	-- Save list IDs to remove
 	ids_array := ARRAY(SELECT public."userlist".list_id FROM public."userlist" WHERE public."userlist".users_id = userId);
 	
@@ -154,6 +158,10 @@ RETURNS TABLE(
 	list_type character varying(7),
 	user_id bigint,
 	users_username character varying(30),
+	users_email character varying(254),
+	users_age smallint,
+	users_name character varying(70),
+	users_password character varying(60),
 	list_shareable boolean
 ) AS $$
 DECLARE
@@ -178,7 +186,10 @@ BEGIN
 	INSERT INTO public."userlist" (house_id, list_id, users_id, list_shareable) VALUES (houseID, listID, userId, shareable);
 	
 	RETURN query
-	SELECT public."userlist".house_id, public."house".house_name, public."house".house_characteristics , public."userlist".list_id, public."list".list_name, public."list".list_type, public."userlist".users_id, public."users".users_username, public."userlist".list_shareable 
+	SELECT public."userlist".house_id, public."house".house_name, public."house".house_characteristics , 
+			public."userlist".list_id, public."list".list_name, public."list".list_type, 
+			public."userlist".users_id, public."users".users_username, public."users".users_email, public."users".users_age, public."users".users_name, public."users".users_password,
+			public."userlist".list_shareable 
 		FROM public."list" JOIN public."userlist" ON public."list".house_id = public."userlist".house_id AND public."list".list_id = public."userlist".list_id
 			JOIN public."house" ON public."list".house_id = public."house".house_id
 			JOIN public."users" ON public."userlist".users_id = public."users".users_id
