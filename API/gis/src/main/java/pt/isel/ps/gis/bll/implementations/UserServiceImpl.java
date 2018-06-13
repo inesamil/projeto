@@ -20,7 +20,6 @@ import pt.isel.ps.gis.model.UserRole;
 import pt.isel.ps.gis.model.Users;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,7 +90,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void deleteUserByUserUsername(String username) throws EntityException, EntityNotFoundException {
         checkUserUsername(username);
         // Remover o utilizador bem como todas as relações das quais o utilizador seja parte integrante
-        usersRepository.deleteCascadeUserById(username);
+        usersRepository.deleteCascadeUserByUsername(username);
     }
 
     private void checkUserUsername(String username) throws EntityException, EntityNotFoundException {

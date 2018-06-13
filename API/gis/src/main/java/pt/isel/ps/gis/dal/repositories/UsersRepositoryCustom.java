@@ -7,5 +7,5 @@ public interface UsersRepositoryCustom {
      *
      * @param username The id of the user
      */
-    void deleteCascadeUserById(String username);
+    void deleteCascadeUserByUsername(String username);
 }
