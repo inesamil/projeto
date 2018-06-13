@@ -89,14 +89,15 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
             final String username,
             final Boolean shared
     ) throws SQLException, EntityException, IOException {
-        String sql = "SELECT public.\"list\".house_id, public.\"list\".list_id, public.\"list\".list_name, " +
-                            "public.\"list\".list_type, public.\"house\".house_name, public.\"house\".house_characteristics, " +
-                            "public.\"userlist\".users_username, public.\"userlist\".list_shareable " +
+        String sql = "SELECT public.\"list\".house_id, public.\"house\".house_name, public.\"house\".house_characteristics, " +
+                            "public.\"list\".list_id, public.\"list\".list_name, public.\"list\".list_type, public.\"userlist\".list_shareable, " +
+                            "public.\"userlist\".users_id, public.\"users\".users_username, public.\"users\".users_email, public.\"users\".users_age, public.\"users\".users_name, public.\"users\".users_password " +
                         "FROM public.\"list\" JOIN public.\"userlist\" ON (public.\"list\".house_id = public.\"userlist\".house_id " +
                             "AND public.\"list\".list_id = public.\"userlist\".list_id) " +
                             "JOIN public.\"house\" ON (public.\"house\".house_id = public.\"list\".house_id) " +
-                        "WHERE public.\"list\".house_id = ANY (?) AND public.\"list\".list_type = 'user' AND ((? = true AND public.\"userlist\".users_username = ?) OR " +
-                            "(public.\"userlist\".users_username != ? AND public.\"userlist\".list_shareable = CASE WHEN ? = false THEN null ELSE true END))";
+                            "JOIN public.\"users\" ON (public.\"userlist\".users_id = public.\"users\".users_id) " +
+                        "WHERE public.\"list\".house_id = ANY (?) AND public.\"list\".list_type = 'user' AND ((? = true AND public.\"users\".users_username = ?) OR " +
+                            "(public.\"users\".users_username != ? AND public.\"userlist\".list_shareable = CASE WHEN ? = false THEN null ELSE true END))";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             if (isNotNull(ps, 1, housesIds))
                 ps.setArray(1, housesIds);
@@ -109,22 +110,35 @@ public class ListRepositoryCustomImpl implements ListRepositoryCustom {
             if (isNotNull(ps, 5, shared))
                 ps.setBoolean(5, shared);
             try (ResultSet resultSet = ps.executeQuery()) {
-                java.util.List<List> userLists = new ArrayList<>();
+                java.util.List<List> lists = new ArrayList<>();
                 while (resultSet.next()) {
+                    // House
                     long house_id = resultSet.getLong(1);
-                    short list_id = resultSet.getShort(2);
-                    String list_name = resultSet.getString(3);
-                    String list_type = resultSet.getString(4);
-                    String house_name = resultSet.getString(5);
-                    Characteristics characteristics = mapper.readValue(resultSet.getString(6), Characteristics.class);
-                    String list_username = resultSet.getString(7);
-                    boolean list_shareable = resultSet.getBoolean(8);
+                    String house_name = resultSet.getString(2);
+                    Characteristics characteristics = mapper.readValue(resultSet.getString(3), Characteristics.class);
+                    // List
+                    short list_id = resultSet.getShort(4);
+                    String list_name = resultSet.getString(5);
+                    String list_type = resultSet.getString(6);
+                    boolean list_shareable = resultSet.getBoolean(7);
+                    // User
+                    long userId = resultSet.getLong(8);
+                    String userUsername = resultSet.getString(9);
+                    String userEmail = resultSet.getString(10);
+                    short userAge = resultSet.getShort(11);
+                    String userName = resultSet.getString(12);
+                    String userPassword = resultSet.getString(13);
+                    // UserList
+                    UserList userList = new UserList(house_id, list_id, list_name, userId, list_shareable);
+                    userList.setUsersByUsersId(new Users(userId, userUsername, userEmail, userAge, userName, userPassword));
+                    // List
                     List list = new List(house_id, list_id, list_name, list_type);
-                    list.setUserlist(new UserList(house_id, list_id, list_name, list_username, list_shareable));
+                    list.setUserlist(userList);
                     list.setHouseByHouseId(new House(house_id, house_name, characteristics));
-                    userLists.add(list);
+
+                    lists.add(list);
                 }
-                return userLists;
+                return lists;
             }
         }
     }
