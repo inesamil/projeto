@@ -4,16 +4,11 @@ interface CredentialsStore {
 
     fun getUsername() : String?
 
-    fun getCredentials() : Credentials?
+    fun storeUsername(username: String)
 
-    fun storeCredentials(credentials: Credentials) : Boolean
-
-    fun deleteCredentials(credentials: Credentials) : Boolean
-
-    data class Credentials (val username: String, val password: String)
+    fun deleteUsername()
 
     companion object {
         const val USERNAME: String = "USERNAME"
-        const val PASSWORD: String = "PASSWORD"
     }
 }
