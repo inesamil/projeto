@@ -8,10 +8,13 @@ public interface UserListRepositoryCustom {
     /**
      * Insert user list.
      *
-     * @param userList instance of UserList to be inserted.
+     * @param houseId   The id of the house
+     * @param listName  The name of the list
+     * @param username  The username of the user
+     * @param shareable True means that this list is shareable, false is not shareable
      * @return UserList inserted and with id setted up.
      */
-    UserList insertUserList(UserList userList);
+    UserList insertUserList(Long houseId, String listName, String username, Boolean shareable);
 
     /**
      * Delete user list and all associated entities
