@@ -43,7 +43,7 @@ public class HouseMemberServiceImpl implements HouseMemberService {
     public UserHouse getMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException {
         checkUserUsername(username);
         return userHouseRepository
-                .findById(new UserHouseId(houseId, username))
+                .findById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username)
                 .orElseThrow(() -> new EntityNotFoundException(MEMBER_NOT_EXIST));
     }
 
