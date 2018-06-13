@@ -6,6 +6,7 @@ import android.content.Context
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.httpRequest.HttpWebService
 import ps.leic.isel.pt.gis.utils.CredentialsStore
+import ps.leic.isel.pt.gis.utils.HeadersUtils
 
 class RepositoryImpl(private val applicationContext: Context) : Repository {
 
@@ -14,12 +15,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         data.value = Resource.loading()
 
         val headers = mutableMapOf<String, String>()
-        contentType?.let {
-            headers["Content-Type"] = it
-        }
-        val credentials: CredentialsStore.Credentials? = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
-        val authorization = ""  //TODO: construir authorization com as credenciais
-        // headers.put("Authorization", authorization)
+        HeadersUtils.setContentTypeHeader(headers, contentType)
+        //TODO: se necessario adicionar cookies aqui
 
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.POST, url, body, headers, c, {
@@ -34,9 +31,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()
-        val credentials: CredentialsStore.Credentials? = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
-        val authorization = ""  //TODO: construir authorization com as credenciais
-        // headers.put("Authorization", authorization)
+
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.GET, url, null, headers, c, {
             data.value = Resource.success(it)
@@ -51,13 +46,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         data.value = Resource.loading()
 
         val headers = mutableMapOf<String, String>()
-        contentType?.let {
-            headers["Content-Type"] = it
-        }
-
-        val credentials: CredentialsStore.Credentials? = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
-        val authorization = ""  //TODO: construir authorization com as credenciais
-        // headers.put("Authorization", authorization)
+        HeadersUtils.setContentTypeHeader(headers, contentType)
+        //TODO: se necessario adicionar cookies aqui
 
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.PUT, url, body, headers, c, {
@@ -72,9 +62,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
         val headers = mutableMapOf<String, String>()
-        val credentials: CredentialsStore.Credentials? = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
-        val authorization = ""  //TODO: construir authorization com as credenciais
-        // headers.put("Authorization", authorization)
+
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.DELETE, url, null, headers, c, {
             data.value = Resource.success(it)
