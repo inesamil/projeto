@@ -70,7 +70,7 @@ public class HouseController {
     @PostMapping("")
     public ResponseEntity<HouseOutputModel> postHouse(
             @RequestBody HouseInputModel body
-    ) throws BadRequestException {
+    ) throws BadRequestException, EntityNotFoundException {
         House house;
         try {
             house = houseService.addHouse(
