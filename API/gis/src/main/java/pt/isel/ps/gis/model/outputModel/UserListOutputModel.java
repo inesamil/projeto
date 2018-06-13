@@ -123,7 +123,7 @@ public class UserListOutputModel {
     private Link[] initLinks(List list) {
         Long houseId = list.getId().getHouseId();
         Short listId = list.getId().getListId();
-        String username = list.getUserlist().getUsersUsername();
+        String username = list.getUserlist().getUsersByUsersId().getUsersUsername();
 
         // Link-self
         String listUri = UriBuilderUtils.buildListUri(houseId, listId);

@@ -51,7 +51,7 @@ public class HouseOutputModel {
                         .stream()
                         .map(member -> new MemberJsonObject(
                                 member.getId().getHouseId(),
-                                member.getId().getUsersUsername(),
+                                member.getUsersByUsersId().getUsersUsername(),
                                 member.getUserhouseAdministrator())));
         return properties;
     }
