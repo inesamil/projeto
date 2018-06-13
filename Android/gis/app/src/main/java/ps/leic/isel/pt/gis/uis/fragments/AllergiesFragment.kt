@@ -12,8 +12,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
+import kotlinx.android.synthetic.main.fragment_allergies.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.body.HouseAllergiesBody
 import ps.leic.isel.pt.gis.model.body.HouseAllergyBody
@@ -33,7 +35,7 @@ import ps.leic.isel.pt.gis.viewModel.AllergiesViewModel
  * create an instance of this fragment.
  *
  */
-class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+class AllergiesFragment : Fragment() {
 
     private lateinit var allergiesViewModel: AllergiesViewModel
     private lateinit var url: String
@@ -42,6 +44,10 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
     private var state: State = State.LOADING
     private lateinit var progressBar: ProgressBar
     private lateinit var content: ConstraintLayout
+
+    // Buttons
+    private lateinit var yesRadioButton: RadioButton
+    private lateinit var noRadioButton: RadioButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,11 +80,17 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
 
         // Set save button listener
         view.allergiesSaveBtn.setOnClickListener {
-            saveAllergies(view)
+            saveAllergies()
         }
+
+        // Radio Group Buttons listener
+        view.allergiesRadioGroup.setOnCheckedChangeListener(::onCheckedChanged)
 
         progressBar = view.allergiesProgressBar
         content = view.allergiesLayout
+
+        yesRadioButton = view.allergiesYesRadioBtn
+        noRadioButton = view.allergiesNoRadioBtn
 
         //Show progress bar or content
         showProgressBarOrContent()
@@ -101,7 +113,7 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
     override fun onPause() {
         super.onPause()
         val mPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
-        mPreferences.edit().putBoolean(SHOW_ALLERGIES_TAG, allergiesYesRadioBtn.isChecked).apply()
+        mPreferences.edit().putBoolean(SHOW_ALLERGIES_TAG, yesRadioButton.isChecked).apply()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -138,12 +150,6 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
                 it.allergiesRecyclerView.visibility = View.INVISIBLE
                 it.allergiesRadioGroup.check(R.id.allergiesNoRadioBtn)
             }
-
-            // Radio Group Buttons listener
-            it.allergiesRadioGroup.setOnCheckedChangeListener(this)
-
-            // Save button listener
-            it.allergiesSaveBtn.setOnClickListener(this)
         }
     }
 
@@ -159,8 +165,12 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
         content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
     }
 
-    private fun saveAllergies(view: View) {
-        if (view.allergiesNoRadioBtn.isChecked) {
+    /***
+     * Listeners
+     ***/
+
+    private fun saveAllergies() {
+        if (noRadioButton.isChecked) {
             allergiesViewModel.deleteAllHouseAllergies()?.observe(this, Observer {
                 when {
                     it?.status == Status.SUCCESS -> {
@@ -187,12 +197,8 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
         }
     }
 
-    /***
-     * Listeners
-     ***/
-
     // Listener for radio group buttons clicks
-    override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+    private fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
         view?.let {
             when (checkedId) {
                 R.id.allergiesYesRadioBtn -> {
@@ -205,12 +211,6 @@ class AllergiesFragment : Fragment(), View.OnClickListener, RadioGroup.OnChecked
                 }
             }
         }
-    }
-
-    // Listener for save button clicks
-    override fun onClick(v: View?) {
-        // TODO: save allergies
-        Toast.makeText(view?.context, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
     }
 
     /**
