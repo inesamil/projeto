@@ -37,7 +37,7 @@ public class UserList {
     })
     private List list;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "users_id", referencedColumnName = "users_id", nullable = false, insertable = false, updatable = false)
     private Users usersByUsersId;
 

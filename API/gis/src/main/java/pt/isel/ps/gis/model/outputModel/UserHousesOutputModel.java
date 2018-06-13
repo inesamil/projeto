@@ -64,7 +64,7 @@ public class UserHousesOutputModel {
                             .stream()
                             .map(member -> new MemberJsonObject(
                                     member.getId().getHouseId(),
-                                    member.getId().getUsersUsername(),
+                                    member.getUsersByUsersId().getUsersUsername(),
                                     member.getUserhouseAdministrator())));
 
             String houseUri = UriBuilderUtils.buildHouseUri(houseId);

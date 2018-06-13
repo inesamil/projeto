@@ -64,7 +64,7 @@ public class UserListsOutputModel {
             properties.put("list-name", list.getListName());
             properties.put("list-type", listType);
             if (listType.equals("user")) {
-                properties.put("user-username", list.getUserlist().getUsersId());
+                properties.put("user-username", list.getUserlist().getUsersByUsersId().getUsersUsername());
                 properties.put("list-shareable", list.getUserlist().getListShareable());
             }
 
