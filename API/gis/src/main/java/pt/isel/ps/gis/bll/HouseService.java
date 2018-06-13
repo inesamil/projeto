@@ -47,7 +47,7 @@ public interface HouseService {
      * @return House
      * @throws EntityException se os atributos especificados no parâmetro house forem inválidos
      */
-    House addHouse(String username, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityException;
+    House addHouse(String username, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityException, EntityNotFoundException;
 
     /**
      * Atualizar uma casa
