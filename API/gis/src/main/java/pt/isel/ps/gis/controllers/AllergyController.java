@@ -17,6 +17,7 @@ import pt.isel.ps.gis.model.inputModel.AllergyInputModel;
 import pt.isel.ps.gis.model.outputModel.HouseAllergiesOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemsAllergenOutputModel;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
@@ -80,8 +81,16 @@ public class AllergyController {
             throw new BadRequestException(BODY_ERROR_MSG);
         List<HouseAllergy> allergies;
         try {
-            houseAllergyService.associateHouseAllergies(houseId);
-            allergies = houseAllergyService.getAllergiesByHouseId(houseId);
+            allergies = houseAllergyService.associateHouseAllergies(
+                    houseId,
+                    Arrays.stream(body.getAllergies()).map(allergy -> {
+                        try {
+                            return new HouseAllergy(houseId, allergy.getAllergy(), allergy.getAllergicsNum());
+                        } catch (EntityException e) {
+                            throw e;
+                        }
+                    })
+            );
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
