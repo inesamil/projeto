@@ -12,6 +12,7 @@ import pt.isel.ps.gis.model.HouseAllergy;
 import pt.isel.ps.gis.model.HouseAllergyId;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -46,6 +47,15 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
     }
 
     @Override
+    public List<HouseAllergy> associateHouseAllergies(long houseId, HouseAllergy[] allergies) throws EntityNotFoundException, EntityException {
+        List<HouseAllergy> houseAllergies = new LinkedList<>();
+        for (HouseAllergy houseAllergy : allergies) {
+            houseAllergies.add(associateHouseAllergy(houseId, houseAllergy.getId().getAllergyAllergen(), houseAllergy.getHouseallergyAllergicsnum()));
+        }
+        return houseAllergies;
+    }
+
+    @Override
     public HouseAllergy associateHouseAllergy(long houseId, String allergen, short allergicsNum) throws EntityNotFoundException, EntityException {
         HouseAllergy houseAllergy = new HouseAllergy(houseId, allergen, allergicsNum);
         checkHouse(houseId);
@@ -62,12 +72,6 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
         HouseAllergyId id = new HouseAllergyId(houseId, allergen);
         checkAllergen(houseId, allergen);
         houseAllergyRepository.deleteById(id);
-    }
-
-    @Override
-    public HouseAllergy increaseHouseAllergyAllergicsNumber(long houseId, String allergen, short numberOfAllergics) {
-        // TODO falta fazer este metodo
-        return null;
     }
 
     private HouseAllergy addHouseAllergy(HouseAllergy houseAllergy) throws EntityException {

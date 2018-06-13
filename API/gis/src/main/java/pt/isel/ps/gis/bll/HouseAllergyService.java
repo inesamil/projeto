@@ -31,13 +31,13 @@ public interface HouseAllergyService {
     /**
      * Atualizar ou associar uma alergia a uma casa
      *
-     * @param houseId      identificador da casa
+     * @param houseId   identificador da casa
      * @param allergies alergias a adicionar ou atualizar
-     * @return HouseAllergy
+     * @return List<HouseAllergy>
      * @throws EntityNotFoundException se não encontrar a alergia especificada na casa particularizada
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      */
-    HouseAllergy[] associateHouseAllergies(long houseId, HouseAllergy[] allergies) throws EntityNotFoundException, EntityException;
+    List<HouseAllergy> associateHouseAllergies(long houseId, HouseAllergy[] allergies) throws EntityNotFoundException, EntityException;
 
 
     /**
