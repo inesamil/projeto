@@ -72,7 +72,10 @@ public class ListServiceImpl implements ListService {
     @Override
     public List addUserList(long houseId, String listName, String username, boolean listShareable) throws EntityException, EntityNotFoundException {
         checkHouseId(houseId);
-        UserList userList = userListRepository.insertUserList(new UserList(houseId, listName, username, listShareable));
+        checkUserUsername(username);
+        ValidationsUtils.validateListName(listName);
+        ValidationsUtils.validateListShareable(listShareable);
+        UserList userList = userListRepository.insertUserList(houseId, listName, username, listShareable);
         List list = userList.getList();
         list.setListproducts(listProductRepository.findAllById_HouseIdAndId_ListId(list.getId().getHouseId(), list.getId().getListId()));
         return list;
@@ -91,8 +94,7 @@ public class ListServiceImpl implements ListService {
         if (isSystemListType(list))
             throw new UnsupportedOperationException(String.format("The list with ID %d in the house with ID %d cannot be updated.",
                     id.getListId(), id.getHouseId()));
-        String username = list.getUserlist().getUsersUsername();
-        UserList userList = new UserList(houseId, listId, listName, username, listShareable);
+        UserList userList = new UserList(houseId, listId, listName, list.getUserlist().getUsersId(), listShareable);
         // Update list
         userListRepository.save(userList);//TODO: necessario guadar nos 2 repositórios?
         list = listRepository.save(userList.getList());
@@ -123,7 +125,7 @@ public class ListServiceImpl implements ListService {
 
     private void checkUserUsername(String username) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateUserUsername(username);
-        if (!usersRepository.existsById(username))
+        if (!usersRepository.existsByUsersUsername(username))
             throw new EntityNotFoundException(String.format("The user with username %s does not exist.", username));
     }
 
