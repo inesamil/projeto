@@ -26,7 +26,7 @@ class AllergiesViewModel(private val app: Application) : AndroidViewModel(app) {
         allergies?.value?.data?.actions?.updateHouseAllergies?.let {
             return ServiceLocator
                     .getRepository(app.applicationContext)
-                    .create(HouseAllergyDto::class.java, it.url, it.contentType, houseAllergies, TAG)
+                    .update(HouseAllergyDto::class.java, it.url, it.contentType, houseAllergies, TAG)
         }
         return null
     }
