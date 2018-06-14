@@ -162,16 +162,6 @@ public class House {
         this.userhousesByHouseId = userhousesByHouseId;
     }
 
-    public void addHouseAllergy(HouseAllergy houseAllergy) {
-        houseallergiesByHouseId.add(houseAllergy);
-        houseAllergy.setHouseByHouseId(this);
-    }
-
-    public void removeHouseAllergy(HouseAllergy houseAllergy) {
-        houseallergiesByHouseId.remove(houseAllergy);
-        houseAllergy.setHouseByHouseId(null);
-    }
-
     public void addList(List list) {
         listsByHouseId.add(list);
         list.setHouseByHouseId(this);
@@ -180,6 +170,23 @@ public class House {
     public void removeList(List list) {
         listsByHouseId.remove(list);
         list.setHouseByHouseId(null);
+    }
+
+    public void addHouseAllergy(Allergy allergy, Short allergicsNum) throws EntityException {
+        HouseAllergy houseAllergy = new HouseAllergy(houseId, allergy.getAllergyAllergen(), allergicsNum);
+        houseallergiesByHouseId.add(houseAllergy);
+        allergy.getHouseallergiesByAllergyAllergen().add(houseAllergy);
+    }
+
+    public void removeHouseAllergy(Allergy allergy) {
+        for (HouseAllergy houseAllergy : houseallergiesByHouseId) {
+            if (houseAllergy.getHouseByHouseId().equals(this) && houseAllergy.getAllergyByAllergyAllergen().equals(allergy)) {
+                houseallergiesByHouseId.remove(houseAllergy);
+                houseAllergy.getAllergyByAllergyAllergen().getHouseallergiesByAllergyAllergen().remove(houseAllergy);
+                houseAllergy.setHouseByHouseId(null);
+                houseAllergy.setAllergyByAllergyAllergen(null);
+            }
+        }
     }
 
     public void addStockItem(StockItem stockItem) {
@@ -202,14 +209,21 @@ public class House {
         storage.setHouseByHouseId(null);
     }
 
-    public void addUserHouse(UserHouse userHouse) {
+    public void addUserHouse(Users user, Boolean administrator) throws EntityException {
+        UserHouse userHouse = new UserHouse(houseId, user.getUsersId(), administrator);
         userhousesByHouseId.add(userHouse);
-        userHouse.setHouseByHouseId(this);
+        user.getUserhousesByUsersId().add(userHouse);
     }
 
-    public void removeUserHouse(UserHouse userHouse) {
-        userhousesByHouseId.remove(userHouse);
-        userHouse.setHouseByHouseId(null);
+    public void removeUserHouse(Users user) {
+        for (UserHouse userHouse : userhousesByHouseId) {
+            if (userHouse.getHouseByHouseId().equals(this) && userHouse.getUsersByUsersId().equals(user)) {
+                userhousesByHouseId.remove(userHouse);
+                userHouse.getHouseByHouseId().getUserhousesByHouseId().remove(userHouse);
+                userHouse.setHouseByHouseId(null);
+                userHouse.setUsersByUsersId(null);
+            }
+        }
     }
 
     @Override

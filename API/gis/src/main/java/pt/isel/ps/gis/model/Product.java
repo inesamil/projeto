@@ -165,16 +165,6 @@ public class Product {
         this.stockitems = stockitems;
     }
 
-    public void addListProduct(ListProduct listProduct) {
-        listproducts.add(listProduct);
-        listProduct.setProduct(this);
-    }
-
-    public void removeListProduct(ListProduct listProduct) {
-        listproducts.remove(listProduct);
-        listProduct.setProduct(null);
-    }
-
     public void addStockItem(StockItem stockItem) {
         stockitems.add(stockItem);
         stockItem.setProduct(this);

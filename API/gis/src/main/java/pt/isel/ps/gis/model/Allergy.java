@@ -77,26 +77,6 @@ public class Allergy {
         this.stockitemallergiesByAllergyAllergen = stockitemallergiesByAllergyAllergen;
     }
 
-    public void addHouseAllergy(HouseAllergy houseAllergy) {
-        houseallergiesByAllergyAllergen.add(houseAllergy);
-        houseAllergy.setAllergyByAllergyAllergen(this);
-    }
-
-    public void removeHouseAllergy(HouseAllergy houseAllergy) {
-        houseallergiesByAllergyAllergen.remove(houseAllergy);
-        houseAllergy.setAllergyByAllergyAllergen(null);
-    }
-
-    public void addStockItemAllergy(StockItemAllergy stockItemAllergy) {
-        stockitemallergiesByAllergyAllergen.add(stockItemAllergy);
-        stockItemAllergy.setAllergyByAllergyAllergen(this);
-    }
-
-    public void removeStockItemAllergy(StockItemAllergy stockItemAllergy) {
-        stockitemallergiesByAllergyAllergen.remove(stockItemAllergy);
-        stockItemAllergy.setAllergyByAllergyAllergen(null);
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

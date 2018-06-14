@@ -172,16 +172,6 @@ public class Users {
         this.usersrolesByUsersId = usersrolesByUsersId;
     }
 
-    public void addUserHouse(UserHouse userHouse) {
-        userhousesByUsersId.add(userHouse);
-        userHouse.setUsersByUsersId(this);
-    }
-
-    public void removeUserHouse(UserHouse userHouse) {
-        userhousesByUsersId.remove(userHouse);
-        userHouse.setUsersByUsersId(null);
-    }
-
     public void addUserList(UserList userList) {
         userlistsByUsersId.add(userList);
         userList.setUsersByUsersId(this);
@@ -192,14 +182,21 @@ public class Users {
         userList.setUsersByUsersId(null);
     }
 
-    public void addUserRole(UserRole userRole) {
+    public void addUserRole(Role role) throws EntityException {
+        UserRole userRole = new UserRole(usersId, role.getRoleId());
         usersrolesByUsersId.add(userRole);
-        userRole.setUsersByUsersId(this);
+        role.getUsersroleByRoleId().add(userRole);
     }
 
-    public void removeUserRole(UserRole userRole) {
-        usersrolesByUsersId.remove(userRole);
-        userRole.setUsersByUsersId(null);
+    public void removeUserRole(Role role) {
+        for (UserRole userRole : usersrolesByUsersId) {
+            if (userRole.getUsersByUsersId().equals(this) && userRole.getRoleByRoleId().equals(role)) {
+                usersrolesByUsersId.remove(userRole);
+                userRole.getRoleByRoleId().getUsersroleByRoleId().remove(userRole);
+                userRole.setUsersByUsersId(null);
+                userRole.setRoleByRoleId(null);
+            }
+        }
     }
 
     @Override

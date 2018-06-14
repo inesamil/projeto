@@ -80,16 +80,6 @@ public class Role {
         this.usersroleByRoleId = usersroleByRoleId;
     }
 
-    public void addUserRole(UserRole userRole) {
-        usersroleByRoleId.add(userRole);
-        userRole.setRoleByRoleId(this);
-    }
-
-    public void removeUserRole(UserRole userRole) {
-        usersroleByRoleId.remove(userRole);
-        userRole.setRoleByRoleId(null);
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

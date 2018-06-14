@@ -277,24 +277,38 @@ public class StockItem {
         this.stockitemstorages = stockitemstorages;
     }
 
-    public void addExpirationDate(ExpirationDate expirationDate) {
+    public void addExpirationDate(Date date, Short quantity) throws EntityException {
+        ExpirationDate expirationDate = new ExpirationDate(id.getHouseId(), id.getStockitemSku(), date.getDateDate(), quantity);
         expirationdates.add(expirationDate);
-        expirationDate.setStockitem(this);
+        date.getExpirationdatesByDateDate().add(expirationDate);
     }
 
-    public void removeExpirationDate(ExpirationDate expirationDate) {
-        expirationdates.remove(expirationDate);
-        expirationDate.setStockitem(null);
+    public void removeExpirationDate(Date date) {
+        for (ExpirationDate expirationDate : expirationdates) {
+            if (expirationDate.getStockitem().equals(this) && expirationDate.getDateByDateDate().equals(date)) {
+                expirationdates.remove(expirationDate);
+                expirationDate.getDateByDateDate().getExpirationdatesByDateDate().remove(expirationDate);
+                expirationDate.setStockitem(null);
+                expirationDate.setDateByDateDate(null);
+            }
+        }
     }
 
-    public void addStockItemAllergy(StockItemAllergy stockItemAllergy) {
+    public void addStockItemAllergy(Allergy allergy) throws EntityException {
+        StockItemAllergy stockItemAllergy = new StockItemAllergy(id.getHouseId(), id.getStockitemSku(), allergy.getAllergyAllergen());
         stockitemallergies.add(stockItemAllergy);
-        stockItemAllergy.setStockitem(this);
+        allergy.getStockitemallergiesByAllergyAllergen().add(stockItemAllergy);
     }
 
-    public void removeStockItemAllergy(StockItemAllergy stockItemAllergy) {
-        stockitemallergies.remove(stockItemAllergy);
-        stockItemAllergy.setStockitem(null);
+    public void removeStockItemAllergy(Allergy allergy) {
+        for (StockItemAllergy stockItemAllergy : stockitemallergies) {
+            if (stockItemAllergy.getStockitem().equals(this) && stockItemAllergy.getAllergyByAllergyAllergen().equals(allergy)) {
+                stockitemallergies.remove(stockItemAllergy);
+                stockItemAllergy.getAllergyByAllergyAllergen().getStockitemallergiesByAllergyAllergen().remove(stockItemAllergy);
+                stockItemAllergy.setStockitem(null);
+                stockItemAllergy.setAllergyByAllergyAllergen(null);
+            }
+        }
     }
 
     public void addStockItemMovement(StockItemMovement stockItemMovement) {
@@ -305,16 +319,6 @@ public class StockItem {
     public void removeStockItemMovement(StockItemMovement stockItemMovement) {
         stockitemmovements.remove(stockItemMovement);
         stockItemMovement.setStockitem(null);
-    }
-
-    public void addStockItemStorage(StockItemStorage stockItemStorage) {
-        stockitemstorages.add(stockItemStorage);
-        stockItemStorage.setStockitem(this);
-    }
-
-    public void removeStockItemStorage(StockItemStorage stockItemStorage) {
-        stockitemstorages.remove(stockItemStorage);
-        stockItemStorage.setStockitem(null);
     }
 
     @Override

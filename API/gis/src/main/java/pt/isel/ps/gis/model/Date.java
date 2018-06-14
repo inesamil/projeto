@@ -61,16 +61,6 @@ public class Date {
         this.expirationdatesByDateDate = expirationdatesByDateDate;
     }
 
-    public void addExpirationDate(ExpirationDate expirationDate) {
-        expirationdatesByDateDate.add(expirationDate);
-        expirationDate.setDateByDateDate(this);
-    }
-
-    public void removeExpirationDate(ExpirationDate expirationDate) {
-        expirationdatesByDateDate.remove(expirationDate);
-        expirationDate.setDateByDateDate(null);
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

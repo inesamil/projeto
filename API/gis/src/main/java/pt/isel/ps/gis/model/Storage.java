@@ -152,14 +152,21 @@ public class Storage {
         stockItemMovement.setStorage(null);
     }
 
-    public void addStockItemStorage(StockItemStorage stockItemStorage) {
+    public void addStockItemStorage(StockItem stockItem, Short quantity) throws EntityException {
+        StockItemStorage stockItemStorage = new StockItemStorage(id.getHouseId(), stockItem.getId().getStockitemSku(), id.getStorageId(), quantity);
         stockitemstorages.add(stockItemStorage);
-        stockItemStorage.setStorage(this);
+        stockItem.getStockitemstorages().add(stockItemStorage);
     }
 
-    public void removeStockItemStorage(StockItemStorage stockItemStorage) {
-        stockitemstorages.remove(stockItemStorage);
-        stockItemStorage.setStorage(null);
+    public void removeStockItemStorage(StockItem stockItem) {
+        for (StockItemStorage stockItemStorage : stockitemstorages) {
+            if (stockItemStorage.getStorage().equals(this) && stockItemStorage.getStockitem().equals(stockItem)) {
+                stockitemstorages.remove(stockItemStorage);
+                stockItemStorage.getStockitem().getStockitemstorages().remove(stockItemStorage);
+                stockItemStorage.setStorage(null);
+                stockItemStorage.setStockitem(null);
+            }
+        }
     }
 
     @Override

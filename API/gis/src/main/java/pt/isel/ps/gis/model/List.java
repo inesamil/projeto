@@ -161,14 +161,21 @@ public class List {
         this.userlist = userlist;
     }
 
-    public void addListProduct(ListProduct listProduct) {
+    public void addListProduct(Product product, String brand, Short quantity) throws EntityException {
+        ListProduct listProduct = new ListProduct(id.getHouseId(), id.getListId(), product.getProductId(), brand, quantity);
         listproducts.add(listProduct);
-        listProduct.setList(this);
+        product.getListproducts().add(listProduct);
     }
 
-    public void removeListProduct(ListProduct listProduct) {
-        listproducts.remove(listProduct);
-        listProduct.setList(null);
+    public void removeListProduct(Product product) {
+        for (ListProduct listProduct : listproducts) {
+            if (listProduct.getList().equals(this) && listProduct.getProduct().equals(product)) {
+                listproducts.remove(listProduct);
+                listProduct.getProduct().getListproducts().remove(listProduct);
+                listProduct.setList(null);
+                listProduct.setProduct(null);
+            }
+        }
     }
 
     @Override
