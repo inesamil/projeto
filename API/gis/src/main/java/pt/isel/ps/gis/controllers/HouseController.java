@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.HouseMemberService;
 import pt.isel.ps.gis.bll.HouseService;
+import pt.isel.ps.gis.config.AuthenticationFacade;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
@@ -29,16 +30,19 @@ public class HouseController {
 
     private final HouseService houseService;
     private final HouseMemberService houseMemberService;
+    private final AuthenticationFacade authenticationFacade;
 
-    public HouseController(HouseService houseService, HouseMemberService houseMemberService) {
+    public HouseController(HouseService houseService, HouseMemberService houseMemberService, AuthenticationFacade authenticationFacade) {
         this.houseService = houseService;
         this.houseMemberService = houseMemberService;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @GetMapping("/{house-id}")
     public ResponseEntity<HouseOutputModel> getHouse(@PathVariable("house-id") long houseId)
             throws NotFoundException, BadRequestException {
         House house;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
             house = houseService.getHouseByHouseId(houseId);
         } catch (EntityException e) {
@@ -47,7 +51,7 @@ public class HouseController {
             throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseOutputModel(house), setSirenContentType(headers), HttpStatus.OK);
+        return new ResponseEntity<>(new HouseOutputModel(username, house), setSirenContentType(headers), HttpStatus.OK);
     }
 
     @GetMapping("/{house-id}/users")
@@ -72,9 +76,10 @@ public class HouseController {
             @RequestBody HouseInputModel body
     ) throws BadRequestException, NotFoundException {
         House house;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
             house = houseService.addHouse(
-                    "pedro", // TODO ir buscar o username autenticado
+                    username,
                     body.getName(),
                     body.getBabiesNumber(),
                     body.getChildrenNumber(),
@@ -87,7 +92,7 @@ public class HouseController {
             throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseOutputModel(house), setSirenContentType(headers), HttpStatus.CREATED);
+        return new ResponseEntity<>(new HouseOutputModel(username, house), setSirenContentType(headers), HttpStatus.CREATED);
     }
 
     @PutMapping("/{house-id}")
@@ -96,6 +101,7 @@ public class HouseController {
             @RequestBody HouseInputModel body
     ) throws BadRequestException, NotFoundException {
         House house;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
             house = houseService.updateHouse(
                     houseId,
@@ -111,7 +117,7 @@ public class HouseController {
             throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseOutputModel(house), setSirenContentType(headers), HttpStatus.OK);
+        return new ResponseEntity<>(new HouseOutputModel(username, house), setSirenContentType(headers), HttpStatus.OK);
     }
 
     @PutMapping("/{house-id}/users/{username}")
