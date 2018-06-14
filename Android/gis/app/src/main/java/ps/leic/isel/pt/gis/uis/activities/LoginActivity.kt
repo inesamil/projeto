@@ -53,16 +53,16 @@ class LoginActivity : AppCompatActivity() {
             basicInformationViewModel?.init(it)
             basicInformationViewModel?.getUser()?.observe(this, Observer {
                 when {
-                    it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                    it?.status == Status.SUCCESS -> onSuccess(it.data!!, password)
                     it?.status == Status.ERROR -> onError(it.message!!)
                 }
             })
         }
     }
 
-    private fun onSuccess(user: UserDto) {
-        if (user.username != null && user.password != null) {
-            ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(user.username, user.password))
+    private fun onSuccess(user: UserDto, password: String) {
+        if (user.username != null) {
+            ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(user.username, password))
             Log.i(TAG, "Credentials stored. Login succeeded.")
             finish()
             startActivity(Intent(this, HomeActivity::class.java))

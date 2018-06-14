@@ -9,7 +9,6 @@ class UserDto(siren: Siren) {
     val name: String?
     val email: String?
     val age: Short
-    val password: String?
     val actions: UserActions
     val links: UserLinks
 
@@ -19,7 +18,6 @@ class UserDto(siren: Siren) {
         name = properties[nameLabel] as String
         email = properties[emailLabel] as String
         age = (properties[ageLabel] as Int).toShort()
-        password = properties[passwordLabel] as String
         actions = UserActions(siren.actions)
         links = UserLinks(siren.links)
     }
@@ -47,7 +45,6 @@ class UserDto(siren: Siren) {
         private const val nameLabel: String = "user-name"
         private const val emailLabel: String = "user-email"
         private const val ageLabel: String = "user-age"
-        private const val passwordLabel: String = "user-password"
         private const val updateUserLabel: String = "update-user"
         private const val deleteUserLabel: String = "delete-user"
         private const val indexLabel: String = "index"

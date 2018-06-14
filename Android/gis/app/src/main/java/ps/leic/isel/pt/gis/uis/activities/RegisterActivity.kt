@@ -20,8 +20,7 @@ import ps.leic.isel.pt.gis.utils.SmartLock
 import ps.leic.isel.pt.gis.viewModel.BasicInformationViewModel
 
 class RegisterActivity : AppCompatActivity() {
-
-    private var url: String? = null
+    
     private var basicInformationViewModel: BasicInformationViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,16 +50,16 @@ class RegisterActivity : AppCompatActivity() {
         basicInformationViewModel = ViewModelProviders.of(this).get(BasicInformationViewModel::class.java)
         basicInformationViewModel?.addUser(UserBody(username, name, email, age, password))?.observe(this, Observer {
             when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!, password)
                 it?.status == Status.ERROR -> onError(it.message!!)
             }
         })
     }
 
-    private fun onSuccess(user: UserDto) {
+    private fun onSuccess(user: UserDto, password: String) {
         Log.i(TAG, "Registe user with success")
-        if (user.username != null && user.password != null) {
-            ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(user.username, user.password))
+        if (user.username != null) {
+            ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(user.username, password))
             Log.i(TAG, "Credentials stored. Login succeeded.")
             finish()
             startActivity(Intent(this, InitialSetupActivity::class.java))
