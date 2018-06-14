@@ -4,19 +4,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RegisterUserInputModel {
 
-    @JsonProperty("username")
+    @JsonProperty("user-username")
     private String username;
 
-    @JsonProperty("email")
+    @JsonProperty("user-email")
     private String email;
 
-    @JsonProperty("age")
+    @JsonProperty("user-age")
     private Short age;
 
-    @JsonProperty("name")
+    @JsonProperty("user-name")
     private String name;
 
-    @JsonProperty("password")
+    @JsonProperty("user-password")
     private String password;
 
     public String getUsername() {
