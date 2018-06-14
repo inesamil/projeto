@@ -75,7 +75,6 @@ public class AllergyController {
             @PathVariable("house-id") long houseId,
             @RequestBody AllergiesInputModel body
     ) throws BadRequestException, NotFoundException {
-        //TODO: fazer este controller e o serviço
         if (body.getAllergies() == null)
             throw new BadRequestException(BODY_ERROR_MSG);
         List<HouseAllergy> allergies;
