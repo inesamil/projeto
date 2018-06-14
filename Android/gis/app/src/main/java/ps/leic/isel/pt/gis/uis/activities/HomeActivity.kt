@@ -217,7 +217,7 @@ class HomeActivity : AppCompatActivity(),
                 }
                 it?.status == Status.ERROR -> {
                     Toast.makeText(this, getString(R.string.could_not_add_house), Toast.LENGTH_SHORT).show()
-                    onNewListInteraction()
+                    onNewHouseInteraction()
                 }
             }
         })
