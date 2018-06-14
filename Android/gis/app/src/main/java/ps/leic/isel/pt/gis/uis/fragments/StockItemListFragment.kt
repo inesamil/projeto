@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ProgressBar
+import android.widget.Spinner
 import kotlinx.android.synthetic.main.fragment_stock_item_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
@@ -49,6 +50,8 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     private var state: State = State.LOADING
     private lateinit var progressBar: ProgressBar
     private lateinit var content: ConstraintLayout
+
+    private lateinit var housesSpinner: Spinner
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -89,6 +92,10 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         view.stockItemListRecyclerView.setHasFixedSize(true)
         view.stockItemListRecyclerView.adapter = stockItemListAdapter
         stockItemListAdapter.setOnItemClickListener(this)
+
+        housesSpinner = view.housesSpinner
+
+        setSpinnerData()
 
         progressBar = view.stockItemListProgressBar
         content = view.stockItemListLayout
@@ -139,13 +146,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
 
         houses = housesDto.houses
 
-        houses?.let {
-            val spinnerAdapter = ArrayAdapter<String>(view?.context, android.R.layout.simple_spinner_item, it.map { house -> house.name })
-            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            view?.housesSpinner?.adapter = spinnerAdapter
-            view?.housesSpinner?.onItemSelectedListener = this
-            view?.housesSpinner?.setSelection(0)
-        }
+        setSpinnerData()
 
         val size = houses?.size ?: 0
         if (size > 0) {
@@ -181,6 +182,16 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     private fun showProgressBarOrContent() {
         progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
         content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+    }
+
+    private fun setSpinnerData() {
+        houses?.let {
+            val spinnerAdapter = ArrayAdapter<String>(housesSpinner.context, android.R.layout.simple_spinner_item, it.map { house -> house.name })
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            housesSpinner.adapter = spinnerAdapter
+            housesSpinner.onItemSelectedListener = this
+            housesSpinner.setSelection(0)
+        }
     }
 
     /***
