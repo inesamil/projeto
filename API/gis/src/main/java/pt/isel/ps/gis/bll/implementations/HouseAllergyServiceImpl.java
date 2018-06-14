@@ -49,9 +49,9 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
         return houseAllergyRepository.findAllById_HouseId(houseId);
     }
 
+    @Transactional
     @Override
     public List<HouseAllergy> associateHouseAllergies(long houseId, HouseAllergy[] allergies) throws EntityNotFoundException, EntityException {
-        // TODO transacional?
         List<HouseAllergy> houseAllergies = new ArrayList<>();
         for (HouseAllergy houseAllergy : allergies) {
             houseAllergies.add(associateHouseAllergy(houseId, houseAllergy.getId().getAllergyAllergen(), houseAllergy.getHouseallergyAllergicsnum()));
@@ -84,15 +84,14 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     @Override
     public void deleteHouseAllergyByHouseAllergyId(long houseId, String allergen) throws EntityException, EntityNotFoundException {
-        // TODO Transacional?
         HouseAllergyId id = new HouseAllergyId(houseId, allergen);
         checkAllergen(houseId, allergen);
         houseAllergyRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAllHouseAllergiesByHouseId(long houseId) throws EntityNotFoundException {
-        // TODO transacional?
         checkHouse(houseId);
         houseAllergyRepository.deleteAllById_HouseId(houseId);
     }
