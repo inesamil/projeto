@@ -43,6 +43,9 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
+        ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(username, password))
+        Log.i(TAG, "Credentials stored.")
+
         val gisApplication = application as GisApplication
         gisApplication.index
 
@@ -53,24 +56,24 @@ class LoginActivity : AppCompatActivity() {
             basicInformationViewModel?.init(it)
             basicInformationViewModel?.getUser()?.observe(this, Observer {
                 when {
-                    it?.status == Status.SUCCESS -> onSuccess(it.data!!, password)
+                    it?.status == Status.SUCCESS -> onSuccess(it.data!!)
                     it?.status == Status.ERROR -> onError(it.message!!)
                 }
             })
         }
     }
 
-    private fun onSuccess(user: UserDto, password: String) {
-        if (user.username != null) {
-            ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(user.username, password))
-            Log.i(TAG, "Credentials stored. Login succeeded.")
-            finish()
-            startActivity(Intent(this, HomeActivity::class.java))
-        }
+    private fun onSuccess(user: UserDto) {
+        Log.i(TAG, "Login succeeded.")
+        finish()
+        startActivity(Intent(this, HomeActivity::class.java))
     }
 
     private fun onError(message: String) {
         //TODO: pode não ter sido wrong credentials é preciso verificar
+        ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials()
+        Log.i(TAG, "Credentials deleted.")
+
         Log.i(TAG, "Wrong credentials.")
         Toast.makeText(this, getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show()
     }
