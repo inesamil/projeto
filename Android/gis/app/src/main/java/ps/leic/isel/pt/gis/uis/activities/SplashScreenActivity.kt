@@ -50,8 +50,8 @@ class SplashScreenActivity : AppCompatActivity() {
         } else {
             // Already used the app
             Log.d(TAG, "Try to retrieve credentials.")
-            val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
-            credentials?.let {
+            val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
+            username?.let {
                 Log.d(TAG, "Credentials retrieved.")
                 if (true) {   //TODO: validar credenciais
                     // Valid Credentials
@@ -62,7 +62,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 } else {
                     // Invalid Credentials
                     Log.d(TAG, "Retrieved invalid credentials, so delete retrieved credential.")
-                    ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials(credentials)
+                    ServiceLocator.getCredentialsStore(applicationContext).deleteUsername()
                 }
             }
             // No credentials retrieved
