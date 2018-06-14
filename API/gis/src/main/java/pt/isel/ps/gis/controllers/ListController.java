@@ -4,10 +4,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.ListProductService;
 import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.config.AuthenticationFacade;
 import pt.isel.ps.gis.exceptions.*;
+import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.List;
 import pt.isel.ps.gis.model.ListProduct;
 import pt.isel.ps.gis.model.inputModel.ListInputModel;
@@ -25,11 +27,13 @@ public class ListController {
 
     private final ListService listService;
     private final ListProductService listProductService;
+    private final HouseService houseService;
     private final AuthenticationFacade authenticationFacade;
 
-    public ListController(ListService listService, ListProductService listProductService, AuthenticationFacade authenticationFacade) {
+    public ListController(ListService listService, ListProductService listProductService, HouseService houseService, AuthenticationFacade authenticationFacade) {
         this.listService = listService;
         this.listProductService = listProductService;
+        this.houseService = houseService;
         this.authenticationFacade = authenticationFacade;
     }
 
@@ -131,10 +135,22 @@ public class ListController {
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId
     ) throws BadRequestException, NotFoundException, ForbiddenException {
-        java.util.List<List> lists = null;
+        java.util.List<List> lists;
         String username = authenticationFacade.getAuthentication().getName();
         try {
             listService.deleteUserListByListId(username, houseId, listId);
+            Long[] housesIds = houseService.getHousesByUserUsername(username)
+                    .stream()
+                    .map(House::getHouseId)
+                    .toArray(Long[]::new);
+            lists = listService.getAvailableListsByUserUsername(
+                    username,
+                    new ListService.AvailableListFilters(
+                            housesIds,
+                            false,
+                            true,
+                            false
+                    ));
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
