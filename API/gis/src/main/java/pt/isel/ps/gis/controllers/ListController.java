@@ -94,7 +94,7 @@ public class ListController {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
-        } catch (UnsupportedOperationException e) {
+        } catch (InsufficientPrivilegesException e) {
             throw new ForbiddenException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
