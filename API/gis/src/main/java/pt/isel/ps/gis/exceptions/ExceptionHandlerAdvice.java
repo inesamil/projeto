@@ -30,7 +30,8 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler({
             BadRequestException.class,
             NotFoundException.class,
-            ConflictException.class
+            ConflictException.class,
+            ForbiddenException.class
     })
     public final ResponseEntity<ProblemPlusJson> handleProblemDetailsException(ProblemDetailsException ex) {
         log.warn(ex.getTitle());
