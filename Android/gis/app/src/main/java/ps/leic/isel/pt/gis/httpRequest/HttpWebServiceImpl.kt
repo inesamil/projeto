@@ -20,10 +20,9 @@ class HttpWebServiceImpl(private val applicationContext: Context) : HttpWebServi
                            dtoType: Class<T>, onSuccess: (T) -> Unit, onError: (String?) -> Unit,
                            tag: String) {
         methodsMapper[method]?.let {
-            RequestQueue.getInstance(applicationContext).addToRequestQueue(
-                    Requester(it, url, body, headers, dtoType, onSuccess, {
-                        onError(it?.message)
-                    }, tag))
+            val requester = Requester(it, url, body, headers, dtoType, onSuccess, { onError(it?.message) })
+            RequestQueue.getInstance(applicationContext).addToRequestQueue(requester)
+            requester.tag = tag
             return
         }
         onError("HttpWebServiceImpl does not support $method")
