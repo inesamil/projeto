@@ -67,7 +67,8 @@ public class ListController {
             throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListOutputModel(list), setSirenContentType(headers), HttpStatus.OK);
+        String username = authenticationFacade.getAuthentication().getName();
+        return new ResponseEntity<>(new ListOutputModel(username, list), setSirenContentType(headers), HttpStatus.OK);
     }
 
     @GetMapping("/{list-id}/products")
@@ -105,7 +106,8 @@ public class ListController {
             throw new ForbiddenException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListOutputModel(list), setSirenContentType(headers),
+        String username = authenticationFacade.getAuthentication().getName();
+        return new ResponseEntity<>(new ListOutputModel(username, list), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 

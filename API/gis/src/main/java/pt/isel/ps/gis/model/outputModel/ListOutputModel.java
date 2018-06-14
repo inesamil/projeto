@@ -30,12 +30,12 @@ public class ListOutputModel {
     private final Link[] links;
 
     // Ctor
-    public ListOutputModel(List list) {
+    public ListOutputModel(String username, List list) {
         this.klass = initKlass();
         this.properties = initProperties(list);
         this.entities = initEntities(list);
         this.actions = initActions(list);
-        this.links = initLinks(list);
+        this.links = initLinks(username, list);
     }
 
     // Initters
@@ -138,7 +138,7 @@ public class ListOutputModel {
         return new Action[]{updateListProducts, updateList, deleteList};
     }
 
-    private Link[] initLinks(List list) {
+    private Link[] initLinks(String username, List list) {
         Long houseId = list.getId().getHouseId();
         Short listId = list.getId().getListId();
 
@@ -147,7 +147,7 @@ public class ListOutputModel {
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS}, listUri);
 
         //Link-related-lists
-        String listsUri = UriBuilderUtils.buildListsUri(houseId);
+        String listsUri = UriBuilderUtils.buildUserListsUri(username);
         Link listsLink = new Link(new String[]{"related"}, new String[]{"lists", "collection"}, listsUri);
 
         return new Link[]{self, listsLink};

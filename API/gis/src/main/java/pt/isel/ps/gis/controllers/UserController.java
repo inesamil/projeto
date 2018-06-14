@@ -135,7 +135,7 @@ public class UserController {
             throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListOutputModel(list), setSirenContentType(headers), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ListOutputModel(username, list), setSirenContentType(headers), HttpStatus.CREATED);
     }
 
     @PutMapping("/{username}")
