@@ -111,7 +111,7 @@ public class HouseAllergiesOutputModel {
                 houseAllergiesUri,
                 type,
                 new Field[]{
-                        new Field("allergies", Field.Type., null, "Allergies")  //TODO: tipo do array --> isto refere-se a receber um AllergiesInputModel
+                        new Field("allergies", Field.Type.checkbox, null, "Allergies")  //TODO: tipo do array --> isto refere-se a receber um AllergiesInputModel
                 }
         );
 
