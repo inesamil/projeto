@@ -265,6 +265,15 @@ public class UriBuilderUtils {
     }
 
     /**
+     * URI Template: http://10.0.2.2:8081/v1/users
+     *
+     * @return The specific user
+     */
+    public static String buildUsersUri() {
+        return String.format("%s/%s/%s", HOST, VERSION, USERS);
+    }
+
+    /**
      * URI Template: http://10.0.2.2:8081/v1/users/{username}/houses
      *
      * @param username The id of the user
