@@ -23,6 +23,7 @@ class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um 
     private lateinit var housesUrl: String
     private lateinit var userUrl: String
     private lateinit var page: PageTabsAdapter.ProfilePage
+    private lateinit var adapter: PageTabsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,7 @@ class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um 
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
         // Set Adapter
-        val adapter = PageTabsAdapter(userUrl, housesUrl, childFragmentManager)
+        adapter = PageTabsAdapter(userUrl, housesUrl, childFragmentManager)
         view.viewPager.adapter = adapter
         view.viewPager.currentItem = page.ordinal
         view.viewPager.offscreenPageLimit = 1
@@ -67,6 +68,14 @@ class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um 
         super.onSaveInstanceState(outState)
         outState.putString(HOUSE_URL_KEY, housesUrl)
         outState.putString(BASIC_INFO_URL_KEY, userUrl)
+    }
+
+    fun getHousesFragment() : HousesFragment {
+        return adapter.getItem(PageTabsAdapter.ProfilePage.Houses.ordinal) as HousesFragment
+    }
+
+    fun getBasicInformationFragment() : BasicInformationFragment {
+        return adapter.getItem(PageTabsAdapter.ProfilePage.BasicInfo.ordinal) as BasicInformationFragment
     }
 
     /**

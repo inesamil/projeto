@@ -123,6 +123,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
      ***/
     fun refresh(url: String){
         this.url = url
+        listsViewModel = ViewModelProviders.of(activity!!).get(ListsViewModel::class.java)
         listsViewModel.reload(url)
         getLists()
     }

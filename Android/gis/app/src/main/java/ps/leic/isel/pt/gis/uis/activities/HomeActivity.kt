@@ -209,11 +209,11 @@ class HomeActivity : AppCompatActivity(),
             when{
                 it?.status == Status.SUCCESS -> {
                     Toast.makeText(this, getString(R.string.house_added_successfully), Toast.LENGTH_SHORT).show()
-                    val house: HouseDto = it.data!!
-                    val fragment = supportFragmentManager.findFragmentByTag(HousesFragment.TAG) as? HousesFragment
+                    /*val house: HouseDto = it.data!!
+                    val fragment = supportFragmentManager.findFragmentByTag(ProfileFragment.TAG) as? ProfileFragment
                     house.links.housesLink?.let {
-                        fragment?.refresh(it)
-                    }
+                        fragment?.getHousesFragment()?.refresh(it)
+                    }*/
                 }
                 it?.status == Status.ERROR -> {
                     Toast.makeText(this, getString(R.string.could_not_add_house), Toast.LENGTH_SHORT).show()
@@ -320,11 +320,11 @@ class HomeActivity : AppCompatActivity(),
             when {
                 it?.status == Status.SUCCESS -> {
                     Toast.makeText(this, getString(R.string.list_added_successfully), Toast.LENGTH_SHORT).show()
-                    val list: ListDto = it.data!!
+                    /*val list: ListDto = it.data!!
                     val fragment = supportFragmentManager.findFragmentByTag(ListsFragment.TAG) as? ListsFragment
                     list.links.listsLink?.let {
                         fragment?.refresh(it)
-                    }
+                    }*/
                 }
                 it?.status == Status.ERROR -> {
                     Toast.makeText(this, getString(R.string.could_not_add_list), Toast.LENGTH_LONG).show()

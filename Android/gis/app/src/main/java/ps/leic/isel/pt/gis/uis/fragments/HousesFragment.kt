@@ -111,8 +111,10 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
      */
     fun refresh(url: String) {
         this.url = url
+        housesViewModel = ViewModelProviders.of(activity!!).get(HousesViewModel::class.java)
         housesViewModel.reload(url)
         getHouses()
+
     }
 
     /***
