@@ -50,7 +50,7 @@ public interface ListProductService {
      * @param quantity  quantidade do produto
      * @return ListProduct
      */
-    ListProduct associateListProduct(long houseId, short listId, int productId, String brand, Short quantity) throws EntityException, EntityNotFoundException;
+    ListProduct associateListProduct(long houseId, short listId, Integer productId, String brand, Short quantity) throws EntityException, EntityNotFoundException;
 
     /**
      * Remover um produto de uma lista

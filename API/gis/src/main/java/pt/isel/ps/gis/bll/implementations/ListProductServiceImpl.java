@@ -51,7 +51,7 @@ public class ListProductServiceImpl implements ListProductService {
     }
 
     @Override
-    public ListProduct associateListProduct(long houseId, short listId, int productId, String brand, Short quantity) throws EntityException, EntityNotFoundException {
+    public ListProduct associateListProduct(long houseId, short listId, Integer productId, String brand, Short quantity) throws EntityException, EntityNotFoundException {
         // TODO transacional?
         checkListId(new ListId(houseId, listId));
         checkProductId(productId);

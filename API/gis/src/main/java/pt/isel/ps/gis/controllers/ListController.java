@@ -109,16 +109,15 @@ public class ListController {
                 HttpStatus.OK);
     }
 
-    @PutMapping("/{list-id}/products/{product-id}")
+    @PostMapping("/{list-id}/products")
     public ResponseEntity<ListProductsOutputModel> putProductInList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
-            @PathVariable("product-id") int productId,
             @RequestBody ListProductInputModel body
     ) throws BadRequestException, NotFoundException {
         java.util.List<ListProduct> listProducts;
         try {
-            listProductService.associateListProduct(houseId, listId, productId, body.getBrand(), body.getQuantity());
+            listProductService.associateListProduct(houseId, listId, body.getProductId(), body.getBrand(), body.getQuantity());
             listProducts = listProductService.getListProductsByListId(houseId, listId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
