@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_stock_item_detail.*
 import kotlinx.android.synthetic.main.fragment_stock_item_detail.view.*
-import kotlinx.android.synthetic.main.fragment_stock_item_list.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.StockItemDto
 import ps.leic.isel.pt.gis.model.dtos.StorageDto
@@ -22,9 +21,7 @@ import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsExpirationDateAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsMovementsAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsStorageAdapter
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.State
-import ps.leic.isel.pt.gis.utils.getElementsSeparatedBySemiColon
 import ps.leic.isel.pt.gis.viewModel.StockItemDetailViewModel
 
 /**
@@ -67,9 +64,9 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            url = it.getString(ExtraUtils.URL)
-            productName = it.getString(ExtraUtils.PRODUCT_NAME)
-            variety = it.getString(ExtraUtils.VARIETY)
+            url = it.getString(URL_KEY)
+            productName = it.getString(PRODUCT_NAME_KEY)
+            variety = it.getString(STOCK_ITEM_VARIETY_KEY)
         }
         stockItemDetailViewModel = ViewModelProviders.of(this).get(StockItemDetailViewModel::class.java)
         stockItemDetailViewModel.init(url)
@@ -118,9 +115,9 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
-            url = it.getString(ExtraUtils.URL)
-            productName = it.getString(ExtraUtils.PRODUCT_NAME)
-            variety = it.getString(ExtraUtils.VARIETY)
+            url = it.getString(URL_KEY)
+            productName = it.getString(PRODUCT_NAME_KEY)
+            variety = it.getString(STOCK_ITEM_VARIETY_KEY)
         }
     }
 
@@ -131,9 +128,9 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.URL, url)
-        outState.putString(ExtraUtils.PRODUCT_NAME, productName)
-        outState.putString(ExtraUtils.VARIETY, variety)
+        outState.putString(URL_KEY, url)
+        outState.putString(PRODUCT_NAME_KEY, productName)
+        outState.putString(STOCK_ITEM_VARIETY_KEY, variety)
     }
 
     override fun onStop() {
@@ -218,8 +215,12 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
      * StockItemDetailFragment Factory
      */
     companion object {
+        const val TAG: String = "StockItemDetailFragment"
+        private const val URL_KEY: String = "URL"
         const val URL_ARG = "url"
+        private const val PRODUCT_NAME_KEY: String = "PRODUCT_NAME"
         const val PRODUCT_NAME_ARG = "product-name"
+        private const val STOCK_ITEM_VARIETY_KEY: String = "VARIETY"
         const val STOCK_ITEM_VARIETY_ARG = "variety"
 
         /**
@@ -233,9 +234,9 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
         fun newInstance(args: Map<String, Any>) =
                 StockItemDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, args[URL_ARG] as String)
-                        putString(ExtraUtils.PRODUCT_NAME, args[PRODUCT_NAME_ARG] as String)
-                        putString(ExtraUtils.VARIETY, args[STOCK_ITEM_VARIETY_ARG] as String)
+                        putString(URL_KEY, args[URL_ARG] as String)
+                        putString(PRODUCT_NAME_KEY, args[PRODUCT_NAME_ARG] as String)
+                        putString(STOCK_ITEM_VARIETY_KEY, args[STOCK_ITEM_VARIETY_ARG] as String)
                     }
                 }
     }

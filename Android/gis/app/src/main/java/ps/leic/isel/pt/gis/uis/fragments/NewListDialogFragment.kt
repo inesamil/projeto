@@ -8,11 +8,9 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import kotlinx.android.synthetic.main.layout_new_list_dialog.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.body.ListBody
@@ -21,7 +19,6 @@ import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.repositories.Resource
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 import ps.leic.isel.pt.gis.viewModel.ListsViewModel
 
@@ -53,7 +50,7 @@ class NewListDialogFragment : DialogFragment() {
         val inflater = activity!!.layoutInflater
 
         arguments?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_KEY)
         }
 
         getHouses()
@@ -90,7 +87,7 @@ class NewListDialogFragment : DialogFragment() {
             val list = ListBody(houseId, listName, shareable)
 
             listsViewModel = ViewModelProviders.of(activity!!).get(ListsViewModel::class.java)
-        listener?.onAddList(listsViewModel?.addList(list))
+            listener?.onAddList(listsViewModel?.addList(list))
         }
     }
 
@@ -137,6 +134,7 @@ class NewListDialogFragment : DialogFragment() {
      */
     companion object {
         const val TAG: String = "NewListDialogFragment"
+        private const val URL_KEY: String = "URL"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -146,7 +144,7 @@ class NewListDialogFragment : DialogFragment() {
         @JvmStatic
         fun newInstance(url: String) = NewListDialogFragment().apply {
             arguments = Bundle().apply {
-                putString(ExtraUtils.URL, url)
+                putString(URL_KEY, url)
             }
         }
     }

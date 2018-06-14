@@ -22,7 +22,6 @@ import ps.leic.isel.pt.gis.model.dtos.StockItemDto
 import ps.leic.isel.pt.gis.model.dtos.StockItemsDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.StockItemListAdapter
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 import ps.leic.isel.pt.gis.viewModel.StockItemListViewModel
@@ -63,7 +62,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_KEY)
         }
         getHouses(url)
     }
@@ -103,7 +102,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_KEY)
 
         }
     }
@@ -115,7 +114,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.URL, url)
+        outState.putString(URL_KEY, url)
     }
 
     override fun onStop() {
@@ -224,9 +223,11 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     }
 
     /**
-     * StcokItemListFragment Factory
+     * StockItemListFragment Factory
      */
     companion object {
+        const val TAG: String = "StockItemListFragment"
+        private const val URL_KEY: String = "URL"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -238,7 +239,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         fun newInstance(url: String) =
                 StockItemListFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, url)
+                        putString(URL_KEY, url)
                     }
                 }
     }

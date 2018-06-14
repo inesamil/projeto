@@ -39,6 +39,9 @@ class HouseDto(siren: Siren) {
         val indexLink: String? = links?.find {
             it.klass?.contains(indexLabel) ?: false
         }?.href
+        val housesLink: String? = links?.find {
+            it.klass?.contains(housesClassLabel) ?: false
+        }?.href
         val storagesLink: String? = links?.find {
             it.klass?.contains(storagesLabel) ?: false
         }?.href
@@ -62,6 +65,7 @@ class HouseDto(siren: Siren) {
         private const val houseNameLabel: String = "house-name"
         private const val houseCharacteristicsLabel = "house-characteristics"
         private const val houseClassLabel: String = "house"
+        private const val housesClassLabel: String = "houses"
         private const val indexLabel: String = "index"
         private const val storagesLabel: String = "storages"
         private const val houseAllergiesLabel: String = "house-allergies"

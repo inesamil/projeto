@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.fragment_invitations.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.InvitationDTO
 import ps.leic.isel.pt.gis.uis.adapters.InvitationsAdapter
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 
 /**
  * A simple [Fragment] subclass.
@@ -23,13 +22,13 @@ import ps.leic.isel.pt.gis.utils.ExtraUtils
  */
 class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
 
-    private lateinit var username: String
+    private lateinit var url: String
     private lateinit var invitations: Array<InvitationDTO>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            username = it.getString(ExtraUtils.USER_USERNAME)
+            url = it.getString(URL_TAG)
         }
         //TODO: get Data
         invitations = arrayOf(InvitationDTO("bob", 1, "Smith"))
@@ -78,6 +77,8 @@ class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
      * InvitationsFragment Factory
      */
     companion object {
+        const val TAG: String = "InvitationsFragment"
+        private const val URL_TAG: String = "URL"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -89,7 +90,7 @@ class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
         fun newInstance(url: String) =
                 InvitationsFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, url)
+                        putString(URL_TAG, url)
                     }
                 }
     }

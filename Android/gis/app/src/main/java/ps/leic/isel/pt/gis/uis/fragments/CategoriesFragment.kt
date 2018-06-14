@@ -17,7 +17,6 @@ import ps.leic.isel.pt.gis.model.dtos.CategoriesDto
 import ps.leic.isel.pt.gis.model.dtos.CategoryDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.CategoriesAdapter
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
 
@@ -55,7 +54,7 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_TAG)
         }
         categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
         categoriesViewModel.init(url)
@@ -90,7 +89,7 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_TAG)
         }
     }
 
@@ -102,7 +101,7 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.URL, url)
+        outState.putString(URL_TAG, url)
     }
 
     override fun onStop() {
@@ -170,7 +169,8 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
      * CategoriesFragment Factory
      */
     companion object {
-
+        const val TAG: String = "CategoriesFragment"
+        private const val URL_TAG: String = "URL"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -181,7 +181,7 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
         @JvmStatic
         fun newInstance(url: String) = CategoriesFragment().apply {
             arguments = Bundle().apply {
-                putString(ExtraUtils.URL, url)
+                putString(URL_TAG, url)
             }
         }
     }

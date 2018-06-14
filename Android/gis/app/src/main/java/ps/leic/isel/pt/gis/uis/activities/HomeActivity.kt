@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.UserDTO
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.ListDto
@@ -28,9 +29,7 @@ import ps.leic.isel.pt.gis.repositories.Resource
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
 import ps.leic.isel.pt.gis.uis.fragments.*
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.getCurrentFragment
-import ps.leic.isel.pt.gis.utils.removeFragmentByTag
 import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
 
 class HomeActivity : AppCompatActivity(),
@@ -103,9 +102,14 @@ class HomeActivity : AppCompatActivity(),
     override fun onMyPantryInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        //TODO: tirar pedro
-        index.getHousesUrl("pedro")?.let {
-            supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM_LIST, StockItemListFragment.Companion::newInstance, it)
+        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
+        if (username == null) {
+            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+            //TODO: logout
+            return
+        }
+        index.getHousesUrl(username)?.let {
+            supportFragmentManager.replaceCurrentFragmentWith(StockItemListFragment.TAG, StockItemListFragment.Companion::newInstance, it)
         }
     }
 
@@ -113,15 +117,21 @@ class HomeActivity : AppCompatActivity(),
     override fun onMyHousesInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        index.getHousesUrl("pedro")?.let {
+        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
+        if (username == null) {
+            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+            //TODO: logout
+            return
+        }
+        index.getHousesUrl(username)?.let {
             val housesUrl = it
-            index.getUserUrl("pedro")?.let {
+            index.getUserUrl(username)?.let {
                 val args: Map<String, Any> = mapOf(
                         Pair(ProfileFragment.HOUSE_URL_ARG, housesUrl),
-                        Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, it),
+                        Pair(ProfileFragment.BASIC_INFO_URL_ARG, it),
                         Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.Houses)
                 )
-                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PROFILE, ProfileFragment.Companion::newInstance, args)
+                supportFragmentManager.replaceCurrentFragmentWith(ProfileFragment.TAG, ProfileFragment.Companion::newInstance, args)
                 return
             }
         }
@@ -132,16 +142,21 @@ class HomeActivity : AppCompatActivity(),
     override fun onMyProfileInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        // TODO remover o pedro em todo o lado
-        index.getUserUrl("pedro")?.let {
+        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
+        if (username == null) {
+            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+            //TODO: logout
+            return
+        }
+        index.getUserUrl(username)?.let {
             val userUrl = it
-            index.getHousesUrl("pedro")?.let {
+            index.getHousesUrl(username)?.let {
                 val args: Map<String, Any> = mapOf(
-                        Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, userUrl),
+                        Pair(ProfileFragment.BASIC_INFO_URL_ARG, userUrl),
                         Pair(ProfileFragment.HOUSE_URL_ARG, it),
                         Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
                 )
-                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PROFILE, ProfileFragment.Companion::newInstance, args)
+                supportFragmentManager.replaceCurrentFragmentWith(ProfileFragment.TAG, ProfileFragment.Companion::newInstance, args)
                 return
             }
         }
@@ -152,8 +167,14 @@ class HomeActivity : AppCompatActivity(),
     override fun onMyListsInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        index.getUserListUrl("pedro")?.let {
-            supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance, it)
+        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
+        if (username == null) {
+            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+            //TODO: logout
+            return
+        }
+        index.getUserListUrl(username)?.let {
+            supportFragmentManager.replaceCurrentFragmentWith(ListsFragment.TAG, ListsFragment.Companion::newInstance, it)
         }
     }
 
@@ -171,16 +192,16 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for HousesFragment interaction
     override fun onStoragesInteraction(storagesUrl: String) {
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STORAGES, StoragesFragment.Companion::newInstance, storagesUrl)
+        supportFragmentManager.replaceCurrentFragmentWith(StoragesFragment.TAG, StoragesFragment.Companion::newInstance, storagesUrl)
     }
 
     override fun onAllergiesInteraction(allergiesUrl: String) {
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.ALLERGIES, AllergiesFragment.Companion::newInstance, allergiesUrl)
+        supportFragmentManager.replaceCurrentFragmentWith(AllergiesFragment.TAG, AllergiesFragment.Companion::newInstance, allergiesUrl)
     }
 
     override fun onNewHouseInteraction() {
         val fragment = NewHouseDialogFragment.newInstance()
-        fragment.show(supportFragmentManager, ExtraUtils.NEW_HOUSE_DIALOG)
+        fragment.show(supportFragmentManager, NewHouseDialogFragment.TAG)
     }
 
     override fun onAddHouse(liveData: LiveData<Resource<HouseDto>>?) {
@@ -188,6 +209,11 @@ class HomeActivity : AppCompatActivity(),
             when{
                 it?.status == Status.SUCCESS -> {
                     Toast.makeText(this, getString(R.string.house_added_successfully), Toast.LENGTH_SHORT).show()
+                    val house: HouseDto = it.data!!
+                    val fragment = supportFragmentManager.findFragmentByTag(HousesFragment.TAG) as? HousesFragment
+                    house.links.housesLink?.let {
+                        fragment?.refresh(it)
+                    }
                 }
                 it?.status == Status.ERROR -> {
                     Toast.makeText(this, getString(R.string.could_not_add_house), Toast.LENGTH_SHORT).show()
@@ -207,12 +233,18 @@ class HomeActivity : AppCompatActivity(),
     override fun onCategoryInteraction(url: String, categoryName: String) {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        index.getUserListUrl("pedro")?.let {
+        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
+        if (username == null) {
+            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+            //TODO: logout
+            return
+        }
+        index.getUserListUrl(username)?.let {
             val args: Map<String, Any> = mapOf(
                     Pair(CategoryProductsFragment.URL_ARG, url),
                     Pair(CategoryProductsFragment.CATEGORY_NAME_ARG, categoryName)
             )
-            supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PRODUCTS, CategoryProductsFragment.Companion::newInstance, args)
+            supportFragmentManager.replaceCurrentFragmentWith(CategoryProductsFragment.TAG, CategoryProductsFragment.Companion::newInstance, args)
         }
     }
 
@@ -220,7 +252,13 @@ class HomeActivity : AppCompatActivity(),
     override fun onAddProductToListInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        index.getUserListUrl("pedro")?.let {
+        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
+        if (username == null) {
+            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+            //TODO: logout
+            return
+        }
+        index.getUserListUrl(username)?.let {
             val args: Map<String, Any> = mapOf(
                     Pair(AddOrRemoveProductToListDialogFragment.URL_ARG, it),
                     Pair(AddOrRemoveProductToListDialogFragment.ADD_ACTION_ARG, true)
@@ -234,7 +272,13 @@ class HomeActivity : AppCompatActivity(),
     override fun onRemoveProductFromListInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        index.getUserListUrl("pedro")?.let {
+        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
+        if (username == null) {
+            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+            //TODO: logout
+            return
+        }
+        index.getUserListUrl(username)?.let {
             val args: Map<String, Any> = mapOf(
                     Pair(AddOrRemoveProductToListDialogFragment.URL_ARG, it),
                     Pair(AddOrRemoveProductToListDialogFragment.ADD_ACTION_ARG, false)
@@ -250,14 +294,20 @@ class HomeActivity : AppCompatActivity(),
                 Pair(ListDetailFragment.URL_ARG, url),
                 Pair(ListDetailFragment.LIST_NAME_ARG, listName)
         )
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LIST, ListDetailFragment.Companion::newInstance, args)
+        supportFragmentManager.replaceCurrentFragmentWith(ListDetailFragment.TAG, ListDetailFragment.Companion::newInstance, args)
     }
 
     // Listener for ListsFragment interaction
     override fun onNewListInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        index.getHousesUrl("pedro")?.let {
+        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
+        if (username == null) {
+            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+            //TODO: logout
+            return
+        }
+        index.getHousesUrl(username)?.let {
             val fragment = NewListDialogFragment.newInstance(it)
             fragment.show(supportFragmentManager, NewListDialogFragment.TAG)
         }
@@ -268,6 +318,11 @@ class HomeActivity : AppCompatActivity(),
             when {
                 it?.status == Status.SUCCESS -> {
                     Toast.makeText(this, getString(R.string.list_added_successfully), Toast.LENGTH_SHORT).show()
+                    val list: ListDto = it.data!!
+                    val fragment = supportFragmentManager.findFragmentByTag(ListsFragment.TAG) as? ListsFragment
+                    list.links.listsLink?.let {
+                        fragment?.refresh(it)
+                    }
                 }
                 it?.status == Status.ERROR -> {
                     Toast.makeText(this, getString(R.string.could_not_add_list), Toast.LENGTH_LONG).show()
@@ -281,8 +336,13 @@ class HomeActivity : AppCompatActivity(),
     override fun onFiltersInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        index.getHousesUrl("pedro")?.let {
-            //TODO: retirar pedro
+        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
+        if (username == null) {
+            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+            //TODO: logout
+            return
+        }
+        index.getHousesUrl(username)?.let {
             val fragment = ListsFiltersDialogFragment.newInstance(it)
             fragment.show(supportFragmentManager, ListsFiltersDialogFragment.TAG)
         }
@@ -291,7 +351,6 @@ class HomeActivity : AppCompatActivity(),
     // Listener for ListDetailFragment interaction
     override fun onListProductInteraction(listProduct: ListProductDto) {
         //TODO: expand
-        //Toast.makeText(this, "Specific List-Product", Toast.LENGTH_SHORT).show()
     }
 
     // Listener for ListDetailFragment interaction
@@ -302,9 +361,8 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for ListsFiltersDialogFragment interaction
     override fun onFiltersApply(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?) {
-        val listsFragment = supportFragmentManager.findFragmentByTag(ExtraUtils.LISTS) as? ListsFragment
+        val listsFragment = supportFragmentManager.findFragmentByTag(ListsFragment.TAG) as? ListsFragment
         listsFragment?.onFiltersApplied(systemLists, userLists, sharedLists, houses)
-        //Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
     }
 
     // Listener for StockItemListFragment interaction
@@ -314,7 +372,7 @@ class HomeActivity : AppCompatActivity(),
                 Pair(StockItemDetailFragment.PRODUCT_NAME_ARG, productName),
                 Pair(StockItemDetailFragment.STOCK_ITEM_VARIETY_ARG, stockItemVariety)
         )
-        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.STOCK_ITEM, StockItemDetailFragment.Companion::newInstance, args)
+        supportFragmentManager.replaceCurrentFragmentWith(StockItemDetailFragment.TAG, StockItemDetailFragment.Companion::newInstance, args)
     }
 
     override fun onStorageInteraction(storage: StorageDto) {
@@ -372,7 +430,7 @@ class HomeActivity : AppCompatActivity(),
                 return true
             }
             R.id.aboutItem -> {
-                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.ABOUT, AboutFragment.Companion::newInstance)
+                supportFragmentManager.replaceCurrentFragmentWith(AboutFragment.TAG, AboutFragment.Companion::newInstance)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -384,13 +442,19 @@ class HomeActivity : AppCompatActivity(),
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_homePage -> {
-                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.HOME_PAGE, HomePageFragment.Companion::newInstance)
+                supportFragmentManager.replaceCurrentFragmentWith(HomePageFragment.TAG, HomePageFragment.Companion::newInstance)
             }
             R.id.nav_lists -> run {
                 val index = gisApplication.index
-                val url: String? = index.getUserListUrl("pedro")//TODO: remover pedro, obter username
+                val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
+                if (username == null) {
+                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+                    //TODO: logout
+                    return true
+                }
+                val url: String? = index.getUserListUrl(username)
                 url?.let {
-                    supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.LISTS, ListsFragment.Companion::newInstance, url)
+                    supportFragmentManager.replaceCurrentFragmentWith(ListsFragment.TAG, ListsFragment.Companion::newInstance, url)
                     return@run
                 }
                 Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
@@ -399,30 +463,35 @@ class HomeActivity : AppCompatActivity(),
                 val index = gisApplication.index
                 val url: String? = index.getCategoriesUrl()
                 url?.let {
-                    supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.CATEGORIES, CategoriesFragment.Companion::newInstance, url)
+                    supportFragmentManager.replaceCurrentFragmentWith(CategoriesFragment.TAG, CategoriesFragment.Companion::newInstance, url)
                     return@run
                 }
                 Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
             }
             R.id.nav_profile -> run {
                 val index = gisApplication.index
-                // TODO remover o pedro em todo o lado
-                index.getUserUrl("pedro")?.let {
+                val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
+                if (username == null) {
+                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+                    //TODO: logout
+                    return true
+                }
+                index.getUserUrl(username)?.let {
                     val userUrl = it
-                    index.getHousesUrl("pedro")?.let {
+                    index.getHousesUrl(username)?.let {
                         val args: Map<String, Any> = mapOf(
-                                Pair(ProfileFragment.BASIC_INFORMATION_URL_ARG, userUrl),
+                                Pair(ProfileFragment.BASIC_INFO_URL_ARG, userUrl),
                                 Pair(ProfileFragment.HOUSE_URL_ARG, it),
                                 Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
                         )
-                        supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.PROFILE, ProfileFragment.Companion::newInstance, args)
+                        supportFragmentManager.replaceCurrentFragmentWith(ProfileFragment.TAG, ProfileFragment.Companion::newInstance, args)
                         return@run
                     }
                 }
                 Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
             }
             R.id.nav_settings -> {
-                supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.SETTINGS, SettingsFragment.Companion::newInstance)
+                supportFragmentManager.replaceCurrentFragmentWith(SettingsFragment.TAG, SettingsFragment.Companion::newInstance)
             }
         }
         homeDrawerLayout.closeDrawer(GravityCompat.START)

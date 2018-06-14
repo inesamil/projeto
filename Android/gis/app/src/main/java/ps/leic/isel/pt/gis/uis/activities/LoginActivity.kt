@@ -35,8 +35,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         if (true) { //TODO: validate credentials
-            val credentials: CredentialsStore.Credentials = CredentialsStore.Credentials(username, password)
-            ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(credentials)
+            ServiceLocator.getCredentialsStore(applicationContext).storeUsername(username)
             Log.i(TAG, "Credentials stored. Login succeeded.")
             finish()
             startActivity(Intent(this, HomeActivity::class.java))

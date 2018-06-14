@@ -73,7 +73,7 @@ class ReadFragment : DialogFragment() {
 
     companion object {
         private const val HOUSE_ID = "house_id"
-        private const val URL_TEMPLATE = "http://192.168.1.19:8081/v1/houses/{$HOUSE_ID}/movements"
+        private const val URL_TEMPLATE = "http://192.168.1.76:8081/v1/houses/{$HOUSE_ID}/movements"
         val TAG: String = ReadFragment::class.java.simpleName
 
         @JvmStatic

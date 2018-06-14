@@ -60,6 +60,7 @@ class SettingsFragment : Fragment() {
      * SettingsFragment Factory
      */
     companion object {
+        const val TAG: String = "SettingsFragment"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

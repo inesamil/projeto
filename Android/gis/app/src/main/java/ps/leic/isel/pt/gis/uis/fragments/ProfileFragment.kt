@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 
 /**
  * A simple [Fragment] subclass.
@@ -28,9 +27,9 @@ class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            housesUrl = it.getString(ExtraUtils.HOUSE_URL)
-            userUrl = it.getString(ExtraUtils.BASIC_INFORMATION_URL)
-            page = PageTabsAdapter.ProfilePage.values()[it.getInt(ExtraUtils.PROFILE_PAGE)]
+            housesUrl = it.getString(HOUSE_URL_KEY)
+            userUrl = it.getString(BASIC_INFO_URL_KEY)
+            page = PageTabsAdapter.ProfilePage.values()[it.getInt(PAGE_KEY)]
         }
     }
 
@@ -54,8 +53,8 @@ class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
-            it.getString(ExtraUtils.HOUSE_URL, housesUrl)
-            it.getString(ExtraUtils.BASIC_INFORMATION_URL, userUrl)
+            it.getString(HOUSE_URL_KEY, housesUrl)
+            it.getString(BASIC_INFO_URL_KEY, userUrl)
         }
     }
 
@@ -66,17 +65,20 @@ class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um 
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.HOUSE_URL, housesUrl)
-        outState.putString(ExtraUtils.BASIC_INFORMATION_URL, userUrl)
+        outState.putString(HOUSE_URL_KEY, housesUrl)
+        outState.putString(BASIC_INFO_URL_KEY, userUrl)
     }
 
     /**
      * ProfileFragment Factory
      */
     companion object {
-
+        const val TAG: String = "ProfileFragment"
+        private const val PAGE_KEY: String = "PROFILE_PAGE"
         const val PAGE_ARG: String = "page"
-        const val BASIC_INFORMATION_URL_ARG: String = "basic_information_url"
+        private const val BASIC_INFO_URL_KEY: String = "BASIC_INFO_URL"
+        const val BASIC_INFO_URL_ARG: String = "basic_information_url"
+        private const val HOUSE_URL_KEY: String = "HOUSE_URL"
         const val HOUSE_URL_ARG: String = "house_url"
 
         /**
@@ -90,9 +92,9 @@ class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um 
         fun newInstance(args: Map<String, Any>) =
                 ProfileFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.BASIC_INFORMATION_URL, args[BASIC_INFORMATION_URL_ARG] as String)
-                        putString(ExtraUtils.HOUSE_URL, args[HOUSE_URL_ARG] as String)
-                        putInt(ExtraUtils.PROFILE_PAGE, (args[PAGE_ARG] as PageTabsAdapter.ProfilePage).ordinal)
+                        putString(BASIC_INFO_URL_KEY, args[BASIC_INFO_URL_ARG] as String)
+                        putString(HOUSE_URL_KEY, args[HOUSE_URL_ARG] as String)
+                        putInt(PAGE_KEY, (args[PAGE_ARG] as PageTabsAdapter.ProfilePage).ordinal)
                     }
                 }
     }

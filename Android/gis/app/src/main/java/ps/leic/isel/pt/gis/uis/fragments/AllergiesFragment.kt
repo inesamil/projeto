@@ -22,7 +22,6 @@ import ps.leic.isel.pt.gis.model.body.HouseAllergyBody
 import ps.leic.isel.pt.gis.model.dtos.HouseAllergiesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.AllergiesTableAdapter
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.AllergiesViewModel
 
@@ -52,7 +51,7 @@ class AllergiesFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_TAG)
         }
         allergiesViewModel = ViewModelProviders.of(this).get(AllergiesViewModel::class.java)
         url.let {
@@ -101,7 +100,7 @@ class AllergiesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_TAG)
         }
     }
 
@@ -118,7 +117,7 @@ class AllergiesFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.URL, url)
+        outState.putString(URL_TAG, url)
     }
 
     override fun onStop() {
@@ -217,7 +216,9 @@ class AllergiesFragment : Fragment() {
      * AllergiesFragment Factory
      */
     companion object {
+        const val TAG: String = "AllergiesFragment"
         private const val SHOW_ALLERGIES_TAG = "SHOW_ALLERGIES_TAG"
+        private const val URL_TAG: String = "URL"
 
         /**
          * Use this factory method to create a new instance of
@@ -230,7 +231,7 @@ class AllergiesFragment : Fragment() {
         fun newInstance(url: String) =
                 AllergiesFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, url)
+                        putString(URL_TAG, url)
                     }
                 }
     }

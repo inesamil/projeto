@@ -1,6 +1,5 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_writing_nfc_tag.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.NFCUtils
 
 class WritingNfcTagFragment : DialogFragment() {
@@ -19,7 +17,7 @@ class WritingNfcTagFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            messageToWrite = it.getString(ExtraUtils.NFC_MESSAGE)
+            messageToWrite = it.getString(NFC_MESSAGE_KEY)
         }
     }
 
@@ -44,12 +42,13 @@ class WritingNfcTagFragment : DialogFragment() {
      */
     companion object {
         val TAG: String = "WritingNfcTagFragment"
+        private const val NFC_MESSAGE_KEY: String = "NFC_MESSAGE"
 
         @JvmStatic
         fun newInstance(message: String) =
                 WritingNfcTagFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.NFC_MESSAGE, message)
+                        putString(NFC_MESSAGE_KEY, message)
                     }
                 }
     }

@@ -23,7 +23,6 @@ import ps.leic.isel.pt.gis.model.dtos.CategoryDto
 import ps.leic.isel.pt.gis.model.dtos.ProductDto
 import ps.leic.isel.pt.gis.model.dtos.ProductsDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.NFCUtils
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
@@ -64,7 +63,7 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_KEY)
         }
         getCategories(url)
     }
@@ -241,7 +240,7 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
      */
     companion object {
         val TAG: String = WriteNfcTagFragment::class.java.simpleName
-
+        private const val URL_KEY: String = "URL"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -252,7 +251,7 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         @JvmStatic
         fun newInstance(url: String) = WriteNfcTagFragment().apply {
             arguments = Bundle().apply {
-                putString(ExtraUtils.URL, url)
+                putString(URL_KEY, url)
             }
         }
     }

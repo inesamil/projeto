@@ -34,6 +34,7 @@ class AboutFragment : Fragment() {
      * AboutFragment Factory
      */
     companion object {
+        const val TAG: String = "AboutFragment"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

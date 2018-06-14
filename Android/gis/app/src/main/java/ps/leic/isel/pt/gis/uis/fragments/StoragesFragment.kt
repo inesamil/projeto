@@ -17,7 +17,6 @@ import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.StoragesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.StoragesAdapter
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.StoragesViewModel
 
@@ -43,7 +42,7 @@ class StoragesFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_KEY)
         }
         storagesViewModel = ViewModelProviders.of(this).get(StoragesViewModel::class.java)
         storagesViewModel.init(url)
@@ -78,7 +77,7 @@ class StoragesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_KEY)
         }
     }
 
@@ -89,7 +88,7 @@ class StoragesFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.URL, url)
+        outState.putString(URL_KEY, url)
     }
 
     override fun onStop() {
@@ -128,6 +127,8 @@ class StoragesFragment : Fragment() {
      * StoragesFragment Factory
      */
     companion object {
+        const val TAG: String = "StoragesFragment"
+        private const val URL_KEY: String = "URL"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -139,7 +140,7 @@ class StoragesFragment : Fragment() {
         fun newInstance(url: String) =
                 StoragesFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, url)
+                        putString(URL_KEY, url)
                     }
                 }
     }

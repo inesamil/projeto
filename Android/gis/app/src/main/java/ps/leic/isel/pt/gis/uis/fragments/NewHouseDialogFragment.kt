@@ -154,6 +154,7 @@ class NewHouseDialogFragment : DialogFragment() {
      * NewHouseDialogFragment Factory
      */
     companion object {
+        const val TAG: String = "NewHouseDialogFragment"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

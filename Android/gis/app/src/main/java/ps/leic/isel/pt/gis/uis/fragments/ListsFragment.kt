@@ -20,7 +20,6 @@ import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.model.dtos.ListsDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.ListsAdapter
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.ListsViewModel
 
@@ -58,19 +57,11 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            url = it.getString(URL_TAG)
+            url = it.getString(URL_KEY)
         }
         listsViewModel = ViewModelProviders.of(activity!!).get(ListsViewModel::class.java)
         listsViewModel.init(url)
-        listsViewModel.getLists()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-                it?.status == Status.LOADING -> {
-                    state = State.LOADING
-                }
-            }
-        })
+        getLists()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -103,7 +94,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
-            url = it.getString(URL_TAG)
+            url = it.getString(URL_KEY)
         }
     }
 
@@ -114,7 +105,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(URL_TAG, url)
+        outState.putString(URL_KEY, url)
     }
 
     override fun onStop() {
@@ -128,8 +119,29 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     }
 
     /***
-     * Auxiliary Methods
+     * Methods
      ***/
+    fun refresh(url: String){
+        this.url = url
+        listsViewModel.reload(url)
+        getLists()
+    }
+
+    /***
+     * Private Methods
+     ***/
+
+    private fun getLists() {
+        listsViewModel.getLists()?.observe(this, Observer {
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.LOADING -> {
+                    state = State.LOADING
+                }
+            }
+        })
+    }
 
     private fun onSuccess(lists: ListsDto) {
         state = State.SUCCESS
@@ -202,7 +214,8 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
      * ListsFragment Factory
      */
     companion object {
-        private const val URL_TAG: String = "URL"
+        const val TAG: String = "ListsFragment"
+        private const val URL_KEY: String = "URL"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -213,7 +226,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         fun newInstance(url: String) =
                 ListsFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, url)
+                        putString(URL_KEY, url)
                     }
                 }
     }

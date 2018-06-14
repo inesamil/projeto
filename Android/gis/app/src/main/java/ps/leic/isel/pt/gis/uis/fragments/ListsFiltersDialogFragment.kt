@@ -19,7 +19,6 @@ import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.FiltersHousesAdapter
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 
 class ListsFiltersDialogFragment : DialogFragment() {
@@ -57,7 +56,7 @@ class ListsFiltersDialogFragment : DialogFragment() {
         val inflater = activity!!.layoutInflater
 
         arguments?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_KEY)
         }
 
         housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
@@ -192,7 +191,7 @@ class ListsFiltersDialogFragment : DialogFragment() {
      */
     companion object {
         const val TAG: String = "ListsFiltersDialogFragment"
-
+        private const val URL_KEY: String = "URL"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -203,7 +202,7 @@ class ListsFiltersDialogFragment : DialogFragment() {
         fun newInstance(url: String) =
                 ListsFiltersDialogFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, url)
+                        putString(URL_KEY, url)
                     }
                 }
     }

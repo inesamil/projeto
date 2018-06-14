@@ -11,13 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import kotlinx.android.synthetic.main.fragment_basic_information.*
 import kotlinx.android.synthetic.main.fragment_basic_information.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.UserDTO
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.BasicInformationViewModel
 
@@ -52,7 +50,7 @@ class BasicInformationFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_TAG)
         }
         basicInfoVM = ViewModelProviders.of(this).get(BasicInformationViewModel::class.java)
         basicInfoVM.init(url)
@@ -84,13 +82,13 @@ class BasicInformationFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_TAG)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.URL, url)
+        outState.putString(URL_TAG, url)
     }
 
     override fun onStop() {
@@ -147,7 +145,8 @@ class BasicInformationFragment : Fragment() {
     }
 
     companion object {
-
+        const val TAG: String = "BasicInformationFragment"
+        private const val URL_TAG: String = "URL"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -159,7 +158,7 @@ class BasicInformationFragment : Fragment() {
         fun newInstance(url: String) =
                 BasicInformationFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, url)
+                        putString(URL_TAG, url)
                     }
                 }
     }

@@ -18,7 +18,6 @@ import ps.leic.isel.pt.gis.model.dtos.ListProductDto
 import ps.leic.isel.pt.gis.model.dtos.ProductsListDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.ListDetailAdapter
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.ListDetailViewModel
 
@@ -57,8 +56,8 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            url = it.getString(ExtraUtils.URL)
-            listName = it.getString(ExtraUtils.LIST_NAME)
+            url = it.getString(URL_KEY)
+            listName = it.getString(LIST_NAME_KEY)
         }
         listDetailViewModel = ViewModelProviders.of(this).get(ListDetailViewModel::class.java)
         listDetailViewModel.init(url)
@@ -101,8 +100,8 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
-            url = it.getString(ExtraUtils.URL)
-            listName = it.getString(ExtraUtils.LIST_NAME)
+            url = it.getString(URL_KEY)
+            listName = it.getString(LIST_NAME_KEY)
         }
     }
 
@@ -113,8 +112,8 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.URL, url)
-        outState.putString(ExtraUtils.LIST_NAME, listName)
+        outState.putString(URL_KEY, url)
+        outState.putString(LIST_NAME_KEY, listName)
     }
 
     override fun onStop() {
@@ -180,8 +179,10 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
      * ListDetailFragment Factory
      */
     companion object {
-
+        const val TAG: String = "ListDetailFragment"
+        private const val URL_KEY: String = "URL"
         const val URL_ARG = "url"
+        private const val LIST_NAME_KEY: String = "LIST_NAME"
         const val LIST_NAME_ARG = "list-name"
 
         /**
@@ -195,8 +196,8 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         fun newInstance(args: Map<String, Any>) =
                 ListDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, args[URL_ARG] as String)
-                        putString(ExtraUtils.LIST_NAME, args[LIST_NAME_ARG] as String)
+                        putString(URL_KEY, args[URL_ARG] as String)
+                        putString(LIST_NAME_KEY, args[LIST_NAME_ARG] as String)
                     }
                 }
     }

@@ -17,7 +17,6 @@ import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 
@@ -55,19 +54,11 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_TAG)
         }
         housesViewModel = ViewModelProviders.of(activity!!).get(HousesViewModel::class.java)
         housesViewModel.init(url)
-        housesViewModel.getHouses()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-                it?.status == Status.LOADING -> {
-                    state = State.LOADING
-                }
-            }
-        })
+        getHouses()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -96,13 +87,13 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
-            url = it.getString(ExtraUtils.URL)
+            url = it.getString(URL_TAG)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(ExtraUtils.URL, url)
+        outState.putString(URL_TAG, url)
     }
 
     override fun onStop() {
@@ -115,9 +106,30 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         listener = null
     }
 
+    /**
+     * Methods
+     */
+    fun refresh(url: String) {
+        this.url = url
+        housesViewModel.reload(url)
+        getHouses()
+    }
+
     /***
      * Auxiliary Methods
      ***/
+
+    private fun getHouses() {
+        housesViewModel.getHouses()?.observe(this, Observer {
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.LOADING -> {
+                    state = State.LOADING
+                }
+            }
+        })
+    }
 
     private fun onSuccess(houses: HousesDto) {
         state = State.SUCCESS
@@ -174,6 +186,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
      */
     companion object {
         const val TAG: String = "HousesFragment"
+        private const val URL_TAG: String = "URL"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -185,7 +198,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         fun newInstance(url: String) =
                 HousesFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ExtraUtils.URL, url)
+                        putString(URL_TAG, url)
                     }
                 }
     }

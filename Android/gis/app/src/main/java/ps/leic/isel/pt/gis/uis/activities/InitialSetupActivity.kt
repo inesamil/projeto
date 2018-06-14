@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_initial_setup.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.utils.EditTextUtils
-import ps.leic.isel.pt.gis.utils.ExtraUtils
 import ps.leic.isel.pt.gis.utils.RestrictionsUtils
 
 class InitialSetupActivity : AppCompatActivity() {
@@ -17,7 +16,7 @@ class InitialSetupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_initial_setup)
 
-        houseName = intent.getStringExtra(ExtraUtils.HOUSE_NAME)
+        //houseName = intent.getStringExtra(ExtraUtils.HOUSE_NAME)
 
         // Set Plus buttons listener
         babiesPlusBtn.setOnClickListener {

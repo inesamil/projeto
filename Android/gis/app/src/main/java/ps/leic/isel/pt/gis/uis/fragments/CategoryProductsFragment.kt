@@ -176,6 +176,7 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      * CategoryProductsFragment Factory
      */
     companion object {
+        const val TAG: String = "CategoryProductsFragment"
         private const val URL_TAG = "URL"
         private const val CATEGORY_NAME_TAG = "CATEGORY-NAME"
         const val URL_ARG = "url"
