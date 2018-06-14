@@ -3,6 +3,7 @@ package ps.leic.isel.pt.gis.model.dtos
 import com.damnhandy.uri.template.UriTemplate
 import ps.leic.isel.pt.gis.hypermedia.jsonHome.subentities.JsonHome
 import ps.leic.isel.pt.gis.hypermedia.jsonHome.subentities.ResourceObject
+import ps.leic.isel.pt.gis.model.ActionDto
 
 class IndexDto(jsonHome: JsonHome) {
     val title: String? = jsonHome.api?.title
@@ -14,7 +15,8 @@ class IndexDto(jsonHome: JsonHome) {
     class Resources(resources: HashMap<String, ResourceObject>) {
         val getHouses: ResourceObject? = resources[relHousesLabel]
         val postHouse: ResourceObject? = resources[relHouseLabel]
-        val getUser: ResourceObject? = resources[relUserLabel]  //TODO
+        val getUser: ResourceObject? = resources[relUserLabel]
+        val postUser: ResourceObject? = resources[relUsersLabel]
         val getCategories: ResourceObject? = resources[relCategoriesLabel]
         val getAllergies: ResourceObject? = resources[relAllergiesLabel]
         val getUserLists: ResourceObject? = resources[relUserListsLabel]
@@ -25,6 +27,14 @@ class IndexDto(jsonHome: JsonHome) {
         houses?.hrefVars?.containsKey(USERNAME_LABEL)?.let {
             if (!it) return@let
             return UriTemplate.expand(houses.hrefTemplate, mapOf(Pair(USERNAME_LABEL, username)))
+        }
+        return null
+    }
+
+    fun getUsersAction() : ActionDto? {
+        val users = resources.postUser
+        users?.let {
+            return it.href?.let { url -> it.hints?.acceptPost?.let { types -> ActionDto("add-user", url, types[0]) }}
         }
         return null
     }
@@ -57,6 +67,7 @@ class IndexDto(jsonHome: JsonHome) {
         private const val relHouseLabel: String = "rel/house"
         private const val relHousesLabel: String = "rel/houses"
         private const val relUserLabel: String = "rel/user"
+        private const val relUsersLabel: String = "rel/users"
         private const val relCategoriesLabel: String = "rel/categories"
         private const val relAllergiesLabel: String = "rel/allergies"
         private const val relUserListsLabel: String = "rel/lists"
