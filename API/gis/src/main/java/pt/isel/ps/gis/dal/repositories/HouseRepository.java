@@ -19,6 +19,7 @@ public interface HouseRepository extends CrudRepository<House, Long>, HouseRepos
      */
     @Query(value = "SELECT public.\"house\".house_id, public.\"house\".house_name, public.\"house\".house_characteristics " +
             "FROM public.\"house\" JOIN public.\"userhouse\" ON public.\"house\".house_id = public.\"userhouse\".house_id " +
-            "WHERE public.\"userhouse\".users_username = :username", nativeQuery = true)
+            "JOIN public.\"users\" ON public.\"userhouse\".users_id = public.\"users\".users_id " +
+            "WHERE public.\"users\".users_username = :username", nativeQuery = true)
     List<House> findAllByUsersUsername(@Param("username") String username);
 }
