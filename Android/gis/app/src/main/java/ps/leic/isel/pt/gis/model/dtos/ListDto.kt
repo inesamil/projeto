@@ -38,6 +38,9 @@ class ListDto(siren: Siren) {
     }
 
     class HousesActions(actions: Array<Action>?) {
+        val updateListProducts: Action? = actions?.find {
+            it.name == updateListProductsLabel
+        }
         val updateList: Action? = actions?.find {
             it.name == updateListLabel
         }
@@ -71,6 +74,7 @@ class ListDto(siren: Siren) {
         private const val listClassLabel: String = "list"
         private const val listsLabel: String = "lists"
         private const val updateListLabel: String = "update-list"
+        private const val updateListProductsLabel: String = "update-list-product"
         private const val deleteListLabel: String = "delete-list"
     }
 }

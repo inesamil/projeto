@@ -7,7 +7,7 @@ import ps.leic.isel.pt.gis.model.ActionDto
 
 class ListsDto(siren: Siren) {
     val lists: Array<ListDto> = siren.entities?.map {
-        ListDto(Siren(it.klass, it.properties, null, null, it.links))
+        ListDto(Siren(it.klass, it.properties, null, it.actions, it.links))
     }.orEmpty().toTypedArray()
     val actions: ListsActions = ListsActions(siren.actions)
     val links: HousesLink = HousesLink(siren.links)
