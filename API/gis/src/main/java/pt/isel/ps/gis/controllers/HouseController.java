@@ -36,7 +36,7 @@ public class HouseController {
     }
 
     @GetMapping("/{house-id}")
-    public ResponseEntity<HouseOutputModel> getHouses(@PathVariable("house-id") long houseId)
+    public ResponseEntity<HouseOutputModel> getHouse(@PathVariable("house-id") long houseId)
             throws NotFoundException, BadRequestException {
         House house;
         try {

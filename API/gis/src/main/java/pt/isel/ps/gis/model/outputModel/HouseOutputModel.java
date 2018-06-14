@@ -29,11 +29,11 @@ public class HouseOutputModel {
     private final Link[] links;
 
     // Ctor
-    public HouseOutputModel(House house) {
+    public HouseOutputModel(String username, House house) {
         this.klass = initKlass();
         this.properties = initProperties(house);
         this.actions = initActions(house);
-        this.links = initLinks(house);
+        this.links = initLinks(username, house);
     }
 
     // Initters
@@ -94,7 +94,7 @@ public class HouseOutputModel {
         return new Action[]{putHouse, deleteHouse};
     }
 
-    private Link[] initLinks(House house) {
+    private Link[] initLinks(String username, House house) {
         long houseId = house.getHouseId();
 
         // Link-self
@@ -104,6 +104,10 @@ public class HouseOutputModel {
         // Link-index
         String indexUri = UriBuilderUtils.buildIndexUri();
         Link indexLink = new Link(new String[]{"index"}, new String[]{"index"}, indexUri);
+
+        // Link-collection
+        String housesUri = UriBuilderUtils.buildUserHousesUri(username);
+        Link housesLink = new Link(new String[]{"collection"}, new String[]{"houses", "collection"}, housesUri);
 
         // Link-items
         String itemsUri = UriBuilderUtils.buildStockItemsUri(houseId);
@@ -125,6 +129,6 @@ public class HouseOutputModel {
         String storagesUri = UriBuilderUtils.buildStoragesUri(houseId);
         Link storagesLink = new Link(new String[]{"related"}, new String[]{"storages", "collection"}, storagesUri);
 
-        return new Link[]{selfLink, indexLink, itemsLink, movementsLink, allergiesLink, listsLink, storagesLink};
+        return new Link[]{selfLink, indexLink, housesLink, itemsLink, movementsLink, allergiesLink, listsLink, storagesLink};
     }
 }
