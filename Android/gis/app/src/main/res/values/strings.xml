@@ -200,4 +200,6 @@
     <string name="could_not_save_allergies">Could not save allergies, please try again</string>
     <string name="user_needs_to_login_first">User needs to login first</string>
     <string name="registe_user_failed">Registe user failed</string>
+    <string name="list_products_successfully">Products added to list with success</string>
+    <string name="list_products_error">Some products were not added to list</string>
 </resources>

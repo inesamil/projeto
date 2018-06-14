@@ -13,6 +13,7 @@ import android.widget.ScrollView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.layout_add_list_product_dialog.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.body.ListProductBody
 import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.AddOrRemoveProductToListAdapter
@@ -71,9 +72,31 @@ class AddOrRemoveProductToListDialogFragment : DialogFragment() {
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton(if (toAdd) R.string.add else R.string.remove, { _, _ ->
-                    listsViewModel.addList()
-                    // TODO: add list
-                    Toast.makeText(view?.context, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
+                    adapter.getListProduct()?.map { ListProductBody(it.productId, null, it.quantity) }?.let {
+                        var dones = 0
+                        var errorOccur = false
+                        val size = it.size
+                        it.forEachIndexed { index, listProductBody ->
+                            lists?.get(index)?.actions?.updateListProducts?.let {
+                                listsViewModel.addProductsToList(listProductBody, it).observe(this, Observer {
+                                    when {
+                                        it?.status == Status.SUCCESS -> {
+                                            if (!errorOccur && ++dones == size)
+                                                Toast.makeText(activity, getString(R.string.list_products_successfully), Toast.LENGTH_SHORT).show()
+                                        }
+                                        it?.status == Status.ERROR -> {
+                                            if (!errorOccur) {
+                                                errorOccur = true
+                                                listsViewModel.cancel()
+                                                Toast.makeText(activity, getString(R.string.list_products_error), Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+                                        it?.status == Status.LOADING -> state = State.LOADING
+                                    }
+                                })
+                            }
+                        }
+                    }
                 })
                 .setNegativeButton(R.string.cancel, { _, _ -> this@AddOrRemoveProductToListDialogFragment.dialog.cancel() })
 

@@ -3,14 +3,12 @@ package ps.leic.isel.pt.gis.viewModel
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import org.json.JSONObject
-import org.json.JSONStringer
 import ps.leic.isel.pt.gis.ServiceLocator
+import ps.leic.isel.pt.gis.model.ActionDto
 import ps.leic.isel.pt.gis.model.body.ListBody
-import ps.leic.isel.pt.gis.model.dtos.HouseDto
+import ps.leic.isel.pt.gis.model.body.ListProductBody
 import ps.leic.isel.pt.gis.model.dtos.ListDto
+import ps.leic.isel.pt.gis.model.dtos.ListProductDto
 import ps.leic.isel.pt.gis.model.dtos.ListsDto
 import ps.leic.isel.pt.gis.repositories.Resource
 
@@ -40,9 +38,14 @@ class ListsViewModel(private val app: Application) : AndroidViewModel(app) {
         lists?.value?.data?.actions?.addList?.let {
             return ServiceLocator
                     .getRepository(app.applicationContext)
-                    .create(ListDto::class.java, it.url, it.contentType, list, HousesViewModel.TAG)
+                    .create(ListDto::class.java, it.url, it.contentType, list, TAG)
         }
         return null
+    }
+
+    fun addProductsToList(listProductBody: ListProductBody, actionDto: ActionDto): LiveData<Resource<ListProductDto>> {
+        return ServiceLocator.getRepository(app.applicationContext)
+                .create(ListProductDto::class.java, actionDto.url, actionDto.contentType, listProductBody, TAG)
     }
 
     fun cancel() {
@@ -52,6 +55,5 @@ class ListsViewModel(private val app: Application) : AndroidViewModel(app) {
 
     companion object {
         private const val TAG = "ListsViewModel"
-        private val mapper: ObjectMapper = jacksonObjectMapper()
     }
 }

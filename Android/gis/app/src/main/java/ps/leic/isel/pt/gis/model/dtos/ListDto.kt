@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
+import ps.leic.isel.pt.gis.model.ActionDto
 
 class ListDto(siren: Siren) {
     val houseId: Long
@@ -38,14 +39,22 @@ class ListDto(siren: Siren) {
     }
 
     class HousesActions(actions: Array<Action>?) {
-        val updateListProducts: Action? = actions?.find {
-            it.name == updateListProductsLabel
-        }
-        val updateList: Action? = actions?.find {
-            it.name == updateListLabel
-        }
-        val deleteList: Action? = actions?.find {
-            it.name == deleteListLabel
+        var updateListProducts: ActionDto? = null
+        var updateList: ActionDto? = null
+        var deleteList: ActionDto? = null
+
+        init {
+            actions?.find {
+                it.name == updateListProductsLabel
+            }?.let { updateListProducts = ActionDto(it.name, it.href, it.type) }
+
+            actions?.find {
+                it.name == updateListLabel
+            }?.let { updateList = ActionDto(it.name, it.href, it.type) }
+
+            actions?.find {
+                it.name == deleteListLabel
+            }?.let { deleteList = ActionDto(it.name, it.href, it.type) }
         }
     }
 
