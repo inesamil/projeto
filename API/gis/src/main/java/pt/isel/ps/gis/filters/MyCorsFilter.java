@@ -22,7 +22,6 @@ public class MyCorsFilter extends CorsFilter {
         config.addAllowedMethod(HttpMethod.POST);
         config.addAllowedMethod(HttpMethod.PUT);
         config.addAllowedMethod(HttpMethod.DELETE);
-        // TODO remove *
         config.addAllowedOrigin("*");
         config.addAllowedHeader("Authorization");
         config.addAllowedHeader("Content-Type");
