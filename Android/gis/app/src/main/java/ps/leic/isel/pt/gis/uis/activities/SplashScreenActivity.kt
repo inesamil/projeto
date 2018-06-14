@@ -62,7 +62,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 } else {
                     // Invalid Credentials
                     Log.d(TAG, "Retrieved invalid credentials, so delete retrieved credential.")
-                    ServiceLocator.getCredentialsStore(applicationContext).deleteUsername()
+                    ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials()
                 }
             }
             // No credentials retrieved
