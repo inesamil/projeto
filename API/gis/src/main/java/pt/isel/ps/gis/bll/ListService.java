@@ -106,7 +106,7 @@ public interface ListService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se a lista especificada não existir na casa particularizada
      */
-    void deleteUserListByListId(String username, long houseId, short listId) throws EntityException, EntityNotFoundException;
+    void deleteUserListByListId(String username, long houseId, short listId) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Filtros - filtragem das listas

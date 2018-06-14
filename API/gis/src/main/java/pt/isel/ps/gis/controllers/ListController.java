@@ -130,18 +130,17 @@ public class ListController {
     public ResponseEntity<UserListsOutputModel> deleteList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         java.util.List<List> lists = null;
         String username = authenticationFacade.getAuthentication().getName();
         try {
             listService.deleteUserListByListId(username, houseId, listId);
-            /* TODO verificar se o user qe ta a apagar é quem criou a lista para poder apagar.
-               Retornar a lista das listas do user que tá a fazer esta operação e passar a variavel username ao output model
-              */
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserListsOutputModel(username, lists), setSirenContentType(headers),

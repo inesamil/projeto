@@ -6,10 +6,13 @@ import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.dal.repositories.*;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.ForbiddenException;
 import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.*;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
+
+import java.util.Optional;
 
 @Service
 public class ListServiceImpl implements ListService {
@@ -114,11 +117,16 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public void deleteUserListByListId(String username, long houseId, short listId) throws EntityException, EntityNotFoundException {
+    public void deleteUserListByListId(String username, long houseId, short listId) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         // TODO transacional?
         ListId id = new ListId(houseId, listId);
         checkListId(id);
-        userListRepository.deleteCascadeUserListById(new UserListId(houseId, listId));
+        UserListId userListId = new UserListId(houseId, listId);
+        Optional<UserList> userList = userListRepository.findById(userListId);
+        if (userList.isPresent() && !userList.get().getUsersByUsersId().getUsersUsername().equals(username)){
+            throw new InsufficientPrivilegesException("You don't have permissions to delete this list.");
+        }
+        userListRepository.deleteCascadeUserListById(userListId);
     }
 
     private void checkHouseId(long houseId) throws EntityException, EntityNotFoundException {
