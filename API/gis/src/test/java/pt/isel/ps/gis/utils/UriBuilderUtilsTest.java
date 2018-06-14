@@ -136,10 +136,10 @@ public class UriBuilderUtilsTest {
         assertEquals(HOUSEHOLD, UriBuilderUtils.buildHouseholdUri(1));
     }
 
-    @Test
+    /*@Test
     public void test_build_user_list_uri() {
         assertEquals(USER_LIST, UriBuilderUtils.buildUserListUri(1L, (short) 1));
-    }
+    }*/
 
     @Test
     public void test_build_user_uri() {
