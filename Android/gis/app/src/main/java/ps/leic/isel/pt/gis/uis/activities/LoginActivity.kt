@@ -14,6 +14,7 @@ import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.utils.CredentialsStore
 import ps.leic.isel.pt.gis.viewModel.BasicInformationViewModel
 
 class LoginActivity : AppCompatActivity() {
@@ -60,8 +61,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onSuccess(user: UserDto) {
-        user.username?.let {
-            ServiceLocator.getCredentialsStore(applicationContext).storeUsername(user.username)
+        if (user.username != null && user.password != null) {
+            ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(user.username, user.password))
             Log.i(TAG, "Credentials stored. Login succeeded.")
             finish()
             startActivity(Intent(this, HomeActivity::class.java))
