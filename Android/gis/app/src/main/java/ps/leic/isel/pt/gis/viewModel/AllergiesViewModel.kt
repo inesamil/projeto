@@ -22,11 +22,11 @@ class AllergiesViewModel(private val app: Application) : AndroidViewModel(app) {
         return allergies
     }
 
-    fun addHouseAllergies(houseAllergies: HouseAllergiesBody): LiveData<Resource<HouseAllergyDto>>? {
+    fun addHouseAllergies(houseAllergies: HouseAllergiesBody): LiveData<Resource<HouseAllergiesDto>>? {
         allergies?.value?.data?.actions?.updateHouseAllergies?.let {
             return ServiceLocator
                     .getRepository(app.applicationContext)
-                    .update(HouseAllergyDto::class.java, it.url, it.contentType, houseAllergies, TAG)
+                    .update(HouseAllergiesDto::class.java, it.url, it.contentType, houseAllergies, TAG)
         }
         return null
     }
