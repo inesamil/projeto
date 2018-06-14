@@ -163,7 +163,7 @@
     <string name="house_added_successfully">Casa adicionada com sucesso</string>
     <string name="could_not_add_house">Não foi possível adicionar a casa, por favor tente novamente</string>
     <string name="allergies_saved_successfully">Alergias guardadas com sucesso</string>
-    <string name="could_not_save_allergies">Não foi possível guardar as alergies, por favor tente novamente</string>
+    <string name="could_not_save_allergies">Não foi possível guardar as alergias, por favor tente novamente</string>
     <string name="user_needs_to_login_first">É necessário iniciar sessão</string>
     <string name="registe_user_failed">Registo do utilizador falhou</string>
 </resources>
