@@ -14,6 +14,8 @@ import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.model.Users;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -67,7 +69,8 @@ public class HouseServiceImpl implements HouseService {
         Users user = usersRepository.findByUsersUsername(username).orElseThrow(() -> new EntityNotFoundException(USER_NOT_EXIST));
         house = houseRepository.save(house);
         UserHouse userHouse = userHouseRepository.save(new UserHouse(house.getHouseId(), user.getUsersId(), true));
-        house.getUserhousesByHouseId().add(userHouse);
+        userHouse.setUsersByUsersId(user);
+        house.setUserhousesByHouseId(new ArrayList<>(Collections.singleton(userHouse)));
         return house;
     }
 
