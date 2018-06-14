@@ -4,7 +4,9 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import ps.leic.isel.pt.gis.ServiceLocator
+import ps.leic.isel.pt.gis.model.body.UserBody
 import ps.leic.isel.pt.gis.model.dtos.IndexDto
+import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Resource
 
 class SplashScreenViewModel(private val app: Application) : AndroidViewModel(app) {
