@@ -96,6 +96,21 @@ public class ListOutputModel {
 
         // URIs
         String userListUri = UriBuilderUtils.buildListUri(houseId, listId);
+        String productsListUri = UriBuilderUtils.buildProductsListUri(houseId, listId);
+
+        // PUT ListProduct
+        Action updateListProducts = new Action(
+                "update-list-product",
+                "Update List Products",
+                Method.PUT,
+                productsListUri,
+                type,
+                new Field[]{
+                        new Field("product-id", Field.Type.number, null, "Product Id"),
+                        new Field("brand", Field.Type.text, null, "Brand"),
+                        new Field("quantity", Field.Type.number, null, "Quantity")
+                }
+        );
 
         // PUT List
         Action updateList = new Action(
@@ -120,7 +135,7 @@ public class ListOutputModel {
                 null
         );
 
-        return new Action[]{updateList, deleteList};
+        return new Action[]{updateListProducts, updateList, deleteList};
     }
 
     private Link[] initLinks(List list) {
