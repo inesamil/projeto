@@ -11,7 +11,7 @@ public class AllergiesInputModel {
         return allergies;
     }
 
-    public class Allergy {
+    public static class Allergy {
         @JsonProperty(value = "allergy")
         private String allergy;
 
