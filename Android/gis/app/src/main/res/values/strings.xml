@@ -198,4 +198,5 @@
     <string name="could_not_add_house">Could not add house, please try again</string>
     <string name="allergies_saved_successfully">Allergies saved successfully</string>
     <string name="could_not_save_allergies">Could not save allergies, please try again</string>
+    <string name="user_needs_to_login_first">User needs to login first</string>
 </resources>
