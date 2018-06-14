@@ -249,7 +249,7 @@ class HomeActivity : AppCompatActivity(),
     }
 
     // Listener for CategoryProductsFragement interaction
-    override fun onAddProductToListInteraction() {
+    override fun onAddProductToListInteraction(productId: Int) {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
         val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
@@ -261,15 +261,16 @@ class HomeActivity : AppCompatActivity(),
         index.getUserListUrl(username)?.let {
             val args: Map<String, Any> = mapOf(
                     Pair(AddOrRemoveProductToListDialogFragment.URL_ARG, it),
-                    Pair(AddOrRemoveProductToListDialogFragment.ADD_ACTION_ARG, true)
+                    Pair(AddOrRemoveProductToListDialogFragment.ADD_ACTION_ARG, true),
+                    Pair(AddOrRemoveProductToListDialogFragment.PRODUCT_ID_ARG, productId)
             )
             val fragment = AddOrRemoveProductToListDialogFragment.newInstance(args)
             fragment.show(supportFragmentManager, AddOrRemoveProductToListDialogFragment.TAG)
         }
     }
 
-    // Listener for CategoryProductsFragement interaction
-    override fun onRemoveProductFromListInteraction() {
+    // Listener for CategoryProductsFragment interaction
+    override fun onRemoveProductFromListInteraction(productId: Int) {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
         val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
@@ -281,7 +282,8 @@ class HomeActivity : AppCompatActivity(),
         index.getUserListUrl(username)?.let {
             val args: Map<String, Any> = mapOf(
                     Pair(AddOrRemoveProductToListDialogFragment.URL_ARG, it),
-                    Pair(AddOrRemoveProductToListDialogFragment.ADD_ACTION_ARG, false)
+                    Pair(AddOrRemoveProductToListDialogFragment.ADD_ACTION_ARG, false),
+                    Pair(AddOrRemoveProductToListDialogFragment.PRODUCT_ID_ARG, productId)
             )
             val fragment = AddOrRemoveProductToListDialogFragment.newInstance(args)
             fragment.show(supportFragmentManager, AddOrRemoveProductToListDialogFragment.TAG)

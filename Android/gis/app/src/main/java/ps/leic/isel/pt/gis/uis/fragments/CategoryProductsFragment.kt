@@ -154,11 +154,17 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      ***/
 
     override fun onPlusClick(view: View, position: Int) {
-        listener?.onAddProductToListInteraction()
+        products?.let {
+            val item = it[position]
+            listener?.onAddProductToListInteraction(item.productId)
+        }
     }
 
     override fun onMinusClick(view: View, position: Int) {
-        listener?.onRemoveProductFromListInteraction()
+        products?.let {
+            val item = it[position]
+            listener?.onRemoveProductFromListInteraction(item.productId)
+        }
     }
 
     /**
@@ -168,8 +174,8 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
      * activity.
      */
     interface OnCategoryProductsFragmentInteractionListener {
-        fun onAddProductToListInteraction()
-        fun onRemoveProductFromListInteraction()
+        fun onAddProductToListInteraction(productId: Int)
+        fun onRemoveProductFromListInteraction(productId: Int)
     }
 
     /**

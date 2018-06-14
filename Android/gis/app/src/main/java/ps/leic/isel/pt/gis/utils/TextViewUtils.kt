@@ -4,7 +4,7 @@ import android.widget.TextView
 
 object TextViewUtils {
 
-    fun incNumberText(textView: TextView, min: Int, max: Int) {
+    fun incNumberText(textView: TextView, min: Int, max: Int): Int {
         val countText = textView.text.toString()
         var count: Int
         if (countText.isEmpty()) {
@@ -14,10 +14,11 @@ object TextViewUtils {
             if (count < max)
                 count += 1
         }
-        textView.setText(count.toString())
+        textView.text = count.toString()
+        return count
     }
 
-    fun decNumberText(textView: TextView, min: Int) {
+    fun decNumberText(textView: TextView, min: Int): Int {
         val countText = textView.text.toString()
         var count: Int
         if (countText.isEmpty()) {
@@ -27,6 +28,7 @@ object TextViewUtils {
             if (count > min)
                 count -= 1
         }
-        textView.setText(count.toString())
+        textView.text = count.toString()
+        return count
     }
 }

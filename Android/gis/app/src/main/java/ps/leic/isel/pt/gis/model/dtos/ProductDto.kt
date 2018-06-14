@@ -5,8 +5,8 @@ import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 
 class ProductDto(siren: Siren) {
 
-    val categoryId: Long
-    val productId: Long
+    val categoryId: Int
+    val productId: Int
     val productName: String
     val productEdible: Boolean
     val productShellifetime: String
@@ -14,8 +14,8 @@ class ProductDto(siren: Siren) {
 
     init {
         val properties = siren.properties
-        categoryId = (properties?.get(categoryIdLabel) as Int).toLong()
-        productId = (properties[productIdLabel] as Int).toLong()
+        categoryId = (properties?.get(categoryIdLabel) as Int)
+        productId = (properties[productIdLabel] as Int)
         productName = properties[productNameLabel] as String
         productEdible = properties[productEdibleLabel] as Boolean
         productShellifetime = properties[productShellifetimeLabel] as String

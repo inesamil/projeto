@@ -24,6 +24,7 @@ class AddOrRemoveProductToListDialogFragment : DialogFragment() {
     private lateinit var url: String
     private lateinit var listsViewModel: ListsViewModel
     private var toAdd: Boolean = true
+    private var productId: Int? = null
 
     private val adapter: AddOrRemoveProductToListAdapter = AddOrRemoveProductToListAdapter()
     private var lists: Array<ListDto>? = null
@@ -41,6 +42,7 @@ class AddOrRemoveProductToListDialogFragment : DialogFragment() {
         arguments?.let {
             url = it.getString(URL_TAG)
             toAdd = it.getBoolean(ADD_ACTION_TAG)
+            productId = it.getInt(PRODUCT_ID_KEY)
         }
 
         listsViewModel = ViewModelProviders.of(this).get(ListsViewModel::class.java)
@@ -50,7 +52,7 @@ class AddOrRemoveProductToListDialogFragment : DialogFragment() {
                 it?.status == Status.SUCCESS -> {
                     lists = it.data!!.lists
                     lists?.let {
-                        adapter.setData(it)
+                        productId?.let { id -> adapter.setData(it, id) }
                     }
                     state = State.SUCCESS
                     showProgressBarOrContent()
@@ -58,7 +60,7 @@ class AddOrRemoveProductToListDialogFragment : DialogFragment() {
                 it?.status == Status.ERROR -> {
                     //TODO
                     state = State.ERROR
-               }
+                }
                 it?.status == Status.LOADING -> state = State.LOADING
             }
         })
@@ -69,10 +71,11 @@ class AddOrRemoveProductToListDialogFragment : DialogFragment() {
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton(if (toAdd) R.string.add else R.string.remove, { _, _ ->
+                    listsViewModel.addList()
                     // TODO: add list
                     Toast.makeText(view?.context, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
                 })
-                .setNegativeButton(R.string.cancel, { _, _ -> this@AddOrRemoveProductToListDialogFragment.getDialog().cancel() })
+                .setNegativeButton(R.string.cancel, { _, _ -> this@AddOrRemoveProductToListDialogFragment.dialog.cancel() })
 
         // Set Adapter to Recycler View
         view.listsRecyclerView.layoutManager = LinearLayoutManager(view.context)
@@ -103,10 +106,11 @@ class AddOrRemoveProductToListDialogFragment : DialogFragment() {
         const val URL_ARG: String = "url"
         const val ADD_ACTION_ARG: String = "action"
 
+        private const val PRODUCT_ID_KEY: String = "PRODUCT_ID"
+        const val PRODUCT_ID_ARG: String = "product_id"
         // Layouts
         private const val ADD_DIALOG_LAYOUT: Int = R.layout.layout_add_list_product_dialog
         private const val REMOVE_DIALOG_LAYOUT: Int = R.layout.layout_remove_list_product_dialog
-
 
         /**
          * Use this factory method to create a new instance of
@@ -120,6 +124,7 @@ class AddOrRemoveProductToListDialogFragment : DialogFragment() {
                     arguments = Bundle().apply {
                         putString(URL_TAG, args[URL_ARG] as String)
                         putBoolean(ADD_ACTION_TAG, args[ADD_ACTION_ARG] as Boolean)
+                        putInt(PRODUCT_ID_KEY, args[PRODUCT_ID_ARG] as Int)
                     }
                 }
     }

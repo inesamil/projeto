@@ -9,7 +9,7 @@ import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 class ListDto(siren: Siren) {
     val houseId: Long
     val houseName: String
-    val listId: Long
+    val listId: Short
     val listName: String
     val listType: String
     var username: String? = null
@@ -22,7 +22,7 @@ class ListDto(siren: Siren) {
         val properties = siren.properties
         houseId = (properties?.get(houseIdLabel) as Int).toLong()
         houseName = properties[houseNameLabel] as String
-        listId = (properties[listIdLabel] as Int).toLong()
+        listId = (properties[listIdLabel] as Int).toShort()
         listName = properties[listNameLabel] as String
         listType = properties[listTypeLabel] as String
         username = properties[usernameLabel] as? String
