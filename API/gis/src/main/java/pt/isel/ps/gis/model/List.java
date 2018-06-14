@@ -42,6 +42,22 @@ public class List {
     )
     private Collection<ListProduct> listproducts = new ArrayList<>();
 
+    @OneToOne(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            optional = false,
+            mappedBy = "list"
+    )
+    private SystemList systemlist;
+
+    @OneToOne(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            optional = false,
+            mappedBy = "list"
+    )
+    private UserList userlist;
+
     /**
      * CONSTRUTORES
      */
@@ -117,6 +133,32 @@ public class List {
 
     public void setListproducts(Collection<ListProduct> listproducts) {
         this.listproducts = listproducts;
+    }
+
+    public SystemList getSystemlist() {
+        return systemlist;
+    }
+
+    public void setSystemlist(SystemList systemlist) {
+        if (systemlist == null) {
+            if (this.systemlist != null)
+                this.systemlist.setList(null);
+        } else
+            systemlist.setList(this);
+        this.systemlist = systemlist;
+    }
+
+    public UserList getUserlist() {
+        return userlist;
+    }
+
+    public void setUserlist(UserList userlist) {
+        if (userlist == null) {
+            if (this.userlist != null)
+                this.userlist.setList(null);
+        } else
+            userlist.setList(this);
+        this.userlist = userlist;
     }
 
     public void addListProduct(ListProduct listProduct) {
