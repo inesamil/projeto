@@ -24,7 +24,7 @@ import pt.isel.ps.gis.utils.ValidationsUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Service("userServiceImpl")
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final static String ROLE_USER = "ROLE_USER";
