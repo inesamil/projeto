@@ -26,7 +26,7 @@ class CredentialsStoreImpl(val applicationContext: Context) : CredentialsStore {
         return true
     }
 
-    override fun deleteCredentials(credentials: CredentialsStore.Credentials) : Boolean {
+    override fun deleteCredentials() : Boolean {
         val mPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         mPreferences.edit().remove(CredentialsStore.USERNAME).remove(CredentialsStore.PASSWORD).apply()
         return true

@@ -8,7 +8,7 @@ interface CredentialsStore {
 
     fun storeCredentials(credentials: Credentials) : Boolean
 
-    fun deleteCredentials(credentials: Credentials) : Boolean
+    fun deleteCredentials() : Boolean
 
     data class Credentials (val username: String, val password: String)
 
