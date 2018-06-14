@@ -14,9 +14,13 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
 
+        val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
+
         val headers = mutableMapOf<String, String>()
         HeadersUtils.setContentTypeHeader(headers, contentType)
-        //TODO: se necessario adicionar cookies aqui
+        credentials?.let {
+            HeadersUtils.setAuthorizationHeader(headers, it.username, it.password)
+        }
 
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.POST, url, body, headers, c, {
@@ -30,7 +34,13 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
     override fun <T> get(c: Class<T>, url: String, tag: String): LiveData<Resource<T>> {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
+
+        val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
+
         val headers = mutableMapOf<String, String>()
+        credentials?.let {
+            HeadersUtils.setAuthorizationHeader(headers, it.username, it.password)
+        }
 
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.GET, url, null, headers, c, {
@@ -45,9 +55,13 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
 
+        val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
+
         val headers = mutableMapOf<String, String>()
         HeadersUtils.setContentTypeHeader(headers, contentType)
-        //TODO: se necessario adicionar cookies aqui
+        credentials?.let {
+            HeadersUtils.setAuthorizationHeader(headers, it.username, it.password)
+        }
 
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.PUT, url, body, headers, c, {
@@ -61,7 +75,13 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
     override fun <T> delete(c: Class<T>, url: String, tag: String): LiveData<Resource<T>> {
         val data = MutableLiveData<Resource<T>>()
         data.value = Resource.loading()
+
+        val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
+
         val headers = mutableMapOf<String, String>()
+        credentials?.let {
+            HeadersUtils.setAuthorizationHeader(headers, it.username, it.password)
+        }
 
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.DELETE, url, null, headers, c, {
