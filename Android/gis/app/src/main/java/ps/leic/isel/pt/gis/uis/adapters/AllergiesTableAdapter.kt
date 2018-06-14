@@ -58,7 +58,7 @@ class AllergiesTableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     // Fill ViewHolder
                     holder.allergensText.text = item.allergy
                     holder.allergicsText.setText(item.allergics.toString())
-                    holder.allergicsText.addTextChangedListener(MyTextWatcher(position))
+                    holder.allergicsText.addTextChangedListener(MyTextWatcher(position - 1))
                 }
             }
         }
@@ -103,9 +103,11 @@ class AllergiesTableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         override fun afterTextChanged(s: Editable?) {
             data?.let {
-               it[idx].allergics = s?.toString()?.toShort() ?: 0
+                s?.let { str ->
+                    if (str.isNotEmpty())
+                        it[idx].allergics = str.toString().toShort()
+                }
             }
         }
-
     }
 }
