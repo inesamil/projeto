@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.ListProductService;
 import pt.isel.ps.gis.bll.ListService;
+import pt.isel.ps.gis.config.AuthenticationFacade;
 import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.List;
 import pt.isel.ps.gis.model.ListProduct;
@@ -24,10 +25,12 @@ public class ListController {
 
     private final ListService listService;
     private final ListProductService listProductService;
+    private final AuthenticationFacade authenticationFacade;
 
-    public ListController(ListService listService, ListProductService listProductService) {
+    public ListController(ListService listService, ListProductService listProductService, AuthenticationFacade authenticationFacade) {
         this.listService = listService;
         this.listProductService = listProductService;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @GetMapping("")
@@ -129,8 +132,9 @@ public class ListController {
             @PathVariable("list-id") short listId
     ) throws BadRequestException, NotFoundException {
         java.util.List<List> lists = null;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
-            listService.deleteUserListByListId(houseId, listId);
+            listService.deleteUserListByListId(username, houseId, listId);
             /* TODO verificar se o user qe ta a apagar é quem criou a lista para poder apagar.
                Retornar a lista das listas do user que tá a fazer esta operação e passar a variavel username ao output model
               */
@@ -140,7 +144,7 @@ public class ListController {
             throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new UserListsOutputModel("", lists), setSirenContentType(headers),
+        return new ResponseEntity<>(new UserListsOutputModel(username, lists), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 

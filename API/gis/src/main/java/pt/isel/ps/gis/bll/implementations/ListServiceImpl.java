@@ -114,7 +114,7 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public void deleteUserListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
+    public void deleteUserListByListId(String username, long houseId, short listId) throws EntityException, EntityNotFoundException {
         // TODO transacional?
         ListId id = new ListId(houseId, listId);
         checkListId(id);
