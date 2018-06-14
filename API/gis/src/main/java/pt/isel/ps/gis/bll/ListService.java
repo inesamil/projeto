@@ -2,6 +2,7 @@ package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.List;
 
 public interface ListService {
@@ -73,7 +74,7 @@ public interface ListService {
      * @return UserList
      * @throws EntityException se os parâmetros recebeidos forem inválidos
      */
-    List addUserList(long houseId, String listName, String username, boolean listShareable) throws EntityException, EntityNotFoundException;
+    List addUserList(Long houseId, String listName, String username, Boolean listShareable) throws EntityException, EntityNotFoundException;
 
     /**
      * Atualizar uma lista duma casa
@@ -85,7 +86,7 @@ public interface ListService {
      * @return List
      * @throws EntityNotFoundException se a lista especificada não existir na casa particularizada
      */
-    List updateList(long houseId, short listId, String listName, boolean listShareable) throws EntityException, EntityNotFoundException;
+    List updateList(long houseId, short listId, String listName, Boolean listShareable) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Remover uma dada lista do sistema da casa

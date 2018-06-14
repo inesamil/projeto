@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.HouseAllergyService;
 import pt.isel.ps.gis.dal.repositories.AllergyRepository;
 import pt.isel.ps.gis.dal.repositories.HouseAllergyRepository;
@@ -14,6 +15,7 @@ import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HouseAllergyServiceImpl implements HouseAllergyService {
@@ -41,6 +43,7 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     @Override
     public List<HouseAllergy> getAllergiesByHouseId(long houseId) throws EntityException, EntityNotFoundException {
+        // TODO é transacional? tá a fazer uma verificacao e dps e um get
         ValidationsUtils.validateHouseId(houseId);
         checkHouse(houseId);
         return houseAllergyRepository.findAllById_HouseId(houseId);
@@ -48,6 +51,7 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     @Override
     public List<HouseAllergy> associateHouseAllergies(long houseId, HouseAllergy[] allergies) throws EntityNotFoundException, EntityException {
+        // TODO transacional?
         List<HouseAllergy> houseAllergies = new ArrayList<>();
         for (HouseAllergy houseAllergy : allergies) {
             houseAllergies.add(associateHouseAllergy(houseId, houseAllergy.getId().getAllergyAllergen(), houseAllergy.getHouseallergyAllergicsnum()));
@@ -55,20 +59,32 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
         return houseAllergies;
     }
 
+    @Transactional
     @Override
-    public HouseAllergy associateHouseAllergy(long houseId, String allergen, short allergicsNum) throws EntityNotFoundException, EntityException {
-        HouseAllergy houseAllergy = new HouseAllergy(houseId, allergen, allergicsNum);
-        checkHouse(houseId);
-        checkAllergy(allergen);
-        if (existsHouseAllergyByHouseAllergyId(houseId, allergen))
-            houseAllergy = updateHouseAllergy(houseAllergy);
-        else
-            houseAllergy = addHouseAllergy(houseAllergy);
+    public HouseAllergy associateHouseAllergy(long houseId, String allergen, Short allergicsNum) throws EntityNotFoundException, EntityException {
+        ValidationsUtils.validateHouseAllergyAllergicsNum(allergicsNum);
+        // Total Membros na casa
+        int totalMembers = membersRepository.findAllById_HouseId(houseId).size();
+        if (allergicsNum > totalMembers)
+            throw new EntityException(String.format("Cannot add allergy in the house wih ID %d, there are more allergics than members in the house.",
+                    houseId));
+        Optional<HouseAllergy> optionalHouseAllergy = houseAllergyRepository.findById(new HouseAllergyId(houseId, allergen));
+        HouseAllergy houseAllergy;
+        if (optionalHouseAllergy.isPresent()) {
+            houseAllergy = optionalHouseAllergy.get();
+            houseAllergy.setHouseallergyAllergicsnum(allergicsNum);
+        } else {
+            checkHouse(houseId);
+            checkAllergy(allergen);
+            houseAllergy = new HouseAllergy(houseId, allergen, allergicsNum);
+            houseAllergyRepository.save(houseAllergy);
+        }
         return houseAllergy;
     }
 
     @Override
     public void deleteHouseAllergyByHouseAllergyId(long houseId, String allergen) throws EntityException, EntityNotFoundException {
+        // TODO Transacional?
         HouseAllergyId id = new HouseAllergyId(houseId, allergen);
         checkAllergen(houseId, allergen);
         houseAllergyRepository.deleteById(id);
@@ -76,21 +92,9 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     @Override
     public void deleteAllHouseAllergiesByHouseId(long houseId) throws EntityNotFoundException {
+        // TODO transacional?
         checkHouse(houseId);
         houseAllergyRepository.deleteAllById_HouseId(houseId);
-    }
-
-    private HouseAllergy addHouseAllergy(HouseAllergy houseAllergy) throws EntityException {
-        // Total Membros na casa
-        int totalMembers = membersRepository.findAllById_HouseId(houseAllergy.getId().getHouseId()).size();
-        if (houseAllergy.getHouseallergyAllergicsnum() > totalMembers)
-            throw new EntityException(String.format("Cannot add allergy in the house wih ID %d, there are more allergics than members in the house.",
-                    houseAllergy.getId().getHouseId()));
-        return houseAllergyRepository.save(houseAllergy);
-    }
-
-    private HouseAllergy updateHouseAllergy(HouseAllergy houseAllergy) {
-        return houseAllergyRepository.save(houseAllergy);
     }
 
     private void checkHouse(long houseId) throws EntityNotFoundException {

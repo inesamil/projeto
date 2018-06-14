@@ -6,10 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.ListProductService;
 import pt.isel.ps.gis.bll.ListService;
-import pt.isel.ps.gis.exceptions.BadRequestException;
-import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.exceptions.EntityNotFoundException;
-import pt.isel.ps.gis.exceptions.NotFoundException;
+import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.List;
 import pt.isel.ps.gis.model.ListProduct;
 import pt.isel.ps.gis.model.inputModel.ListInputModel;
@@ -89,7 +86,7 @@ public class ListController {
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
             @RequestBody ListInputModel body
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List list;
         try {
             list = listService.updateList(houseId, listId, body.getName(), body.getShareable());
@@ -97,6 +94,8 @@ public class ListController {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
+        } catch (UnsupportedOperationException e) {
+            throw new ForbiddenException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListOutputModel(list), setSirenContentType(headers),

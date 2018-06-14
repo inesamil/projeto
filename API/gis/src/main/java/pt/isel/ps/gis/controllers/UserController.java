@@ -144,16 +144,14 @@ public class UserController {
             @RequestBody UserInputModel body
     ) throws BadRequestException, NotFoundException, ConflictException {
         Users user;
-        HttpStatus status;
         try {
-            //TODO: como sei se é insert ou update?
-            if (userService.existsUserByUserUsername(username)) {
-                user = userService.updateUser(username, body.getEmail(), body.getAge(), body.getName(), body.getPassword());
-                status = HttpStatus.OK;
-            } else {
-                user = userService.addUser(username, body.getEmail(), body.getAge(), body.getName(), body.getPassword());
-                status = HttpStatus.CREATED;
-            }
+            user = userService.updateUser(
+                    username,
+                    body.getEmail(),
+                    body.getAge(),
+                    body.getName(),
+                    body.getPassword()
+            );
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -162,7 +160,7 @@ public class UserController {
             throw new ConflictException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), status);
+        return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), HttpStatus.OK);
     }
 
     @DeleteMapping("/{username}")

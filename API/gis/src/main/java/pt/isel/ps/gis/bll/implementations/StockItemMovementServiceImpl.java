@@ -45,6 +45,7 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     @Override
     public List<StockItemMovement> getStockItemMovementsByHouseId(long houseId) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         ValidationsUtils.validateHouseId(houseId);
         checkHouseId(houseId);
         return stockItemMovementRepository.findAllById_HouseId(houseId);
@@ -52,6 +53,7 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     @Override
     public List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         ValidationsUtils.validateHouseId(houseId);
         checkHouseId(houseId);
         return stockItemMovementRepository.findMovementsFiltered(houseId, filters.item, filters.type, filters.dateTime, filters.storage);
@@ -59,6 +61,7 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     @Override
     public StockItemMovement addStockItemMovement(long houseId, short storageId, boolean movementType, short quantity, String productName, String brand, String variety, String segment, String conservationConditions, String description, String date) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         checkHouseId(houseId);
         checkStorageId(houseId, storageId);
         checkProductName(productName);
@@ -95,8 +98,8 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     private void checkProductName(String productName) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateProductName(productName);
-        /*TODO: if (!productRepository.existsByName(productName)) //Preciso desta função no repositório dos produtos
-            throw new EntityNotFoundException(PRODUCT_DOES_NOT_EXISTS);*/
+        if (!productRepository.existsByProductName(productName))
+            throw new EntityNotFoundException(PRODUCT_DOES_NOT_EXISTS);
     }
 
     private void checkStorageId(long houseId, short storageId) throws EntityException, EntityNotFoundException {

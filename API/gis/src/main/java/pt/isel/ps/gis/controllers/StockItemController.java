@@ -3,7 +3,10 @@ package pt.isel.ps.gis.controllers;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pt.isel.ps.gis.bll.StockItemAllergenService;
 import pt.isel.ps.gis.bll.StockItemService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
@@ -12,7 +15,6 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.Allergy;
 import pt.isel.ps.gis.model.StockItem;
-import pt.isel.ps.gis.model.inputModel.StockItemInputModel;
 import pt.isel.ps.gis.model.outputModel.AllergiesStockItemOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemsOutputModel;
@@ -97,31 +99,4 @@ public class StockItemController {
         return new ResponseEntity<>(new AllergiesStockItemOutputModel(houseId, sku, allergens),
                 setSirenContentType(headers), HttpStatus.OK);
     }
-
-    /*@PostMapping("")
-    public ResponseEntity<StockItemOutputModel> postItem(
-            @PathVariable("house-id") long houseId,
-            @RequestBody StockItemInputModel body
-    ) throws BadRequestException, NotFoundException {
-        StockItem stockItem;
-        try {
-            stockItem = stockItemService.addStockItem(
-                    houseId,
-                    body.getProductId(),
-                    body.getBrand(),
-                    body.getSegment(),
-                    body.getVariety(),
-                    body.getQuantity(),
-                    body.getDescription(),
-                    body.getConservationStorage()
-            );
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
-        }
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new StockItemOutputModel(stockItem), setSirenContentType(headers),
-                HttpStatus.CREATED);
-    }*/
 }

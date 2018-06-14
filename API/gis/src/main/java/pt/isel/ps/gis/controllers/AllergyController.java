@@ -103,11 +103,27 @@ public class AllergyController {
             @PathVariable("allergen") String allergen,
             @RequestBody AllergyInputModel body
     ) throws BadRequestException, NotFoundException {
-        if (body.getAllergicsNum() == null)
-            throw new BadRequestException(BODY_ERROR_MSG);
         List<HouseAllergy> allergies;
         try {
             houseAllergyService.associateHouseAllergy(houseId, allergen, body.getAllergicsNum());
+            allergies = houseAllergyService.getAllergiesByHouseId(houseId);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        }
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
+                HttpStatus.OK);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<HouseAllergiesOutputModel> deleteAllergies(
+            @PathVariable("house-id") long houseId
+    ) throws BadRequestException, NotFoundException {
+        List<HouseAllergy> allergies;
+        try {
+            houseAllergyService.deleteAllHouseAllergiesByHouseId(houseId);
             allergies = houseAllergyService.getAllergiesByHouseId(houseId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
@@ -127,24 +143,6 @@ public class AllergyController {
         List<HouseAllergy> allergies;
         try {
             houseAllergyService.deleteHouseAllergyByHouseAllergyId(houseId, allergen);
-            allergies = houseAllergyService.getAllergiesByHouseId(houseId);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
-        } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
-        }
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
-                HttpStatus.OK);
-    }
-
-    @DeleteMapping("")
-    public ResponseEntity<HouseAllergiesOutputModel> deleteAllergies(
-            @PathVariable("house-id") long houseId
-    ) throws BadRequestException, NotFoundException {
-        List<HouseAllergy> allergies;
-        try {
-            houseAllergyService.deleteAllHouseAllergiesByHouseId(houseId);
             allergies = houseAllergyService.getAllergiesByHouseId(houseId);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());

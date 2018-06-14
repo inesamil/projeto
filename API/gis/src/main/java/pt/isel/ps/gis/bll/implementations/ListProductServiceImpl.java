@@ -45,14 +45,15 @@ public class ListProductServiceImpl implements ListProductService {
 
     @Override
     public List<ListProduct> getListProductsByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         checkListId(new ListId(houseId, listId));
         return listProductRepository.findAllById_HouseIdAndId_ListId(houseId, listId);
     }
 
     @Override
     public ListProduct associateListProduct(long houseId, short listId, int productId, String brand, Short quantity) throws EntityException, EntityNotFoundException {
-        ListId listID = new ListId(houseId, listId);
-        checkListId(listID);
+        // TODO transacional?
+        checkListId(new ListId(houseId, listId));
         checkProductId(productId);
         ListProduct listProduct = new ListProduct(houseId, listId, productId, brand, quantity);
         return listProductRepository.save(listProduct);
@@ -60,6 +61,7 @@ public class ListProductServiceImpl implements ListProductService {
 
     @Override
     public void deleteListProductByListProductId(long houseId, short listId, int productId) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         ListProductId id = new ListProductId(houseId, listId, productId);
         checkListProductId(id);
         listProductRepository.deleteById(id);

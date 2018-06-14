@@ -9,7 +9,6 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemId;
-import pt.isel.ps.gis.utils.InputUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
@@ -49,6 +48,7 @@ public class StockItemServiceImpl implements StockItemService {
 
     @Override
     public List<StockItem> getStockItemsByHouseId(long houseId) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         ValidationsUtils.validateHouseId(houseId);
         checkHouse(houseId);
         return stockItemRepository.findAllById_HouseId(houseId);
@@ -56,6 +56,7 @@ public class StockItemServiceImpl implements StockItemService {
 
     @Override
     public List<StockItem> getStockItemsByHouseIdFiltered(long houseId, StockItemFilters filters) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         ValidationsUtils.validateHouseId(houseId);
         checkHouse(houseId);
         return stockItemRepository.findStockItemsFiltered(houseId, filters.product, filters.brand, filters.variety,
@@ -64,6 +65,7 @@ public class StockItemServiceImpl implements StockItemService {
 
     @Override
     public void deleteStockItem(long houseId, String stockItemSku) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         StockItemId id = new StockItemId(houseId, stockItemSku);
         if (!stockItemRepository.existsById(id))
             throw new EntityNotFoundException(String.format("Stock item with ID %s does not exist in the house with ID %d.",
@@ -74,6 +76,7 @@ public class StockItemServiceImpl implements StockItemService {
 
     @Override
     public void decreaseStockItemQuantity(long houseId, String stockItemSku, short decreasingQuantity) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         StockItemId id = new StockItemId(houseId, stockItemSku);
         ValidationsUtils.validateStockItemQuantity(decreasingQuantity);
         if (!stockItemRepository.existsById(id))
@@ -84,6 +87,7 @@ public class StockItemServiceImpl implements StockItemService {
 
     @Override
     public void increaseStockItemQuantity(long houseId, String stockItemSku, short increasingQuantity) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         StockItemId id = new StockItemId(houseId, stockItemSku);
         ValidationsUtils.validateStockItemQuantity(increasingQuantity);
         if (!stockItemRepository.existsById(id))
@@ -95,12 +99,5 @@ public class StockItemServiceImpl implements StockItemService {
     private void checkHouse(long houseId) throws EntityNotFoundException {
         if (!houseRepository.existsById(houseId))
             throw new EntityNotFoundException(HOUSE_NOT_EXIST);
-    }
-
-    private String[] splitSegment(String segment) throws EntityException {
-        String[] segmentSplitted = InputUtils.splitNumbersFromLetters(segment);
-        if (segmentSplitted.length != 2)
-            throw new EntityException(SEGMENT_INVALID);
-        return segmentSplitted;
     }
 }

@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.StorageService;
 import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.dal.repositories.StorageRepository;
@@ -41,6 +42,7 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public List<Storage> getStorageByHouseId(long houseId) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         ValidationsUtils.validateHouseId(houseId);
         checkHouse(houseId);
         return storageRepository.findAllById_HouseId(houseId);
@@ -48,21 +50,24 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public Storage addStorage(long houseId, String name, Float minimumTemperature, Float maximumTemperature) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         Storage storage = new Storage(houseId, name, new Numrange(minimumTemperature, maximumTemperature));
         checkHouse(houseId);
         return storageRepository.insertStorage(storage);
     }
 
+    @Transactional
     @Override
     public Storage updateStorage(long houseId, short storageId, String name, Float minimumTemperature, Float maximumTemperature) throws EntityNotFoundException, EntityException {
         Storage storage = getStorageByStorageId(houseId, storageId);
         storage.setStorageName(name);
         storage.setStorageTemperature(new Numrange(minimumTemperature, maximumTemperature));
-        return storageRepository.save(storage);
+        return storage;
     }
 
     @Override
     public void deleteStorageByStorageId(long houseId, short storageId) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         StorageId id = new StorageId(houseId, storageId);
         if (!storageRepository.existsById(id))
             throw new EntityNotFoundException(String.format("Storage with ID %d does not exist in the house with ID %d.",

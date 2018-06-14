@@ -46,6 +46,7 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public List<House> getHousesByUserUsername(String username) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         ValidationsUtils.validateUserUsername(username);
         if (!usersRepository.existsByUsersUsername(username))
             throw new EntityNotFoundException(String.format("The user with username %s does not exist.", username));
@@ -70,24 +71,26 @@ public class HouseServiceImpl implements HouseService {
         return house;
     }
 
+    @Transactional
     @Override
     public House updateHouse(
             long houseId, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber
     ) throws EntityNotFoundException, EntityException {
-        if (!existsHouseByHouseId(houseId))
-            throw new EntityNotFoundException(String.format("House with ID %d does not exist.", houseId));
+        House house = getHouseByHouseId(houseId);
         Characteristics characteristics = new Characteristics(
                 babiesNumber,
                 childrenNumber,
                 adultsNumber,
                 seniorsNumber
         );
-        House house = new House(houseId, name, characteristics);
-        return houseRepository.save(house);
+        house.setHouseName(name);
+        house.setHouseCharacteristics(characteristics);
+        return house;
     }
 
     @Override
     public void deleteHouseByHouseId(long houseId) throws EntityNotFoundException, EntityException {
+        // TODO transacional?
         if (!existsHouseByHouseId(houseId))
             throw new EntityNotFoundException(String.format("House with ID %d does not exist.", houseId));
         // Remover a casa bem como todas as relações das quais a casa seja parte integrante

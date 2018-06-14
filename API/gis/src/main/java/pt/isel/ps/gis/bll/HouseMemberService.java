@@ -47,7 +47,7 @@ public interface HouseMemberService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o membro especificado não existir ou já estiver presente na casa particularizada
      */
-    UserHouse associateMember(long houseId, String username, boolean administrator) throws EntityException, EntityNotFoundException;
+    UserHouse associateMember(long houseId, String username, Boolean administrator) throws EntityException, EntityNotFoundException;
 
     /**
      * Remover um membro da casa

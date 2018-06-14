@@ -40,12 +40,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductsByCategoryId(int categoryId) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         checkCategoryId(categoryId);
         return productRepository.findAllByCategoryId(categoryId);
     }
 
     @Override
     public List<Product> getProductsByCategoryIdFiltered(int categoryId, ProductFilters filters) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         checkCategoryId(categoryId);
         ValidationsUtils.validateProductName(filters.name);
         return productRepository.findProductsByNameAndCategoryId(categoryId, filters.name);

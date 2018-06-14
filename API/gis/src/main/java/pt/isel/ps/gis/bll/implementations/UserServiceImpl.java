@@ -94,6 +94,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void deleteUserByUserUsername(String username) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         checkUserUsername(username);
         // Remover o utilizador bem como todas as relações das quais o utilizador seja parte integrante
         usersRepository.deleteCascadeUserByUsername(username);

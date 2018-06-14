@@ -37,6 +37,7 @@ public class StockItemAllergenServiceImpl implements StockItemAllergenService {
 
     @Override
     public List<Allergy> getAllergensByStockItemId(long houseId, String stockItemSku) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         StockItemId stockItemId = new StockItemId(houseId, stockItemSku);
         checkStockItem(stockItemId);
         return allergyRepository.findAllByHouseIdAndStockitemSku(houseId, stockItemSku);
@@ -44,6 +45,7 @@ public class StockItemAllergenServiceImpl implements StockItemAllergenService {
 
     @Override
     public List<StockItem> getStockItemsByHouseIdAndAllergenId(long houseId, String allergen) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         HouseAllergyId houseAllergyId = new HouseAllergyId(houseId, allergen);
         checkAllergen(houseAllergyId);
         return stockItemRepository.findAllByHouseIdAndAllergyAllergen(houseId, allergen);

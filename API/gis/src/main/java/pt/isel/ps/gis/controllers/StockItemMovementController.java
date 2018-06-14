@@ -64,6 +64,7 @@ public class StockItemMovementController {
             @PathVariable("house-id") long houseId,
             @RequestBody MovementInputModel body
     ) throws BadRequestException, NotFoundException {
+        // TODO o que acontece qnd um atributo é null? qual é a excecao lancada pelo jackson e no qe resulta essa excecao?
         CsvToBeanBuilder<TagCsv> builder = new CsvToBeanBuilder<>(new StringReader(body.getTag()));
         List<TagCsv> tagCsvList = builder.withType(TagCsv.class).build().parse();
         if (tagCsvList.size() <= 0) throw new BadRequestException(""); // TODO ver a mensagem da excecao

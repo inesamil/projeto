@@ -6,6 +6,7 @@ import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.dal.repositories.*;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.*;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
@@ -46,6 +47,7 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public java.util.List<List> getListsByHouseId(long houseId) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         checkHouseId(houseId);
         return listRepository.findAllById_HouseId(houseId);
     }
@@ -64,13 +66,14 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public java.util.List<List> getAvailableListsByUserUsername(String username, AvailableListFilters filters) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         checkUserUsername(username);
         return listRepository.findAvailableListsByUserUsername(username, filters.houses, filters.systemLists, filters.listsFromUser, filters.sharedLists);
     }
 
     @Transactional
     @Override
-    public List addUserList(long houseId, String listName, String username, boolean listShareable) throws EntityException, EntityNotFoundException {
+    public List addUserList(Long houseId, String listName, String username, Boolean listShareable) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateListName(listName);
         ValidationsUtils.validateListShareable(listShareable);
         checkHouseId(houseId);
@@ -83,7 +86,7 @@ public class ListServiceImpl implements ListService {
 
     @Transactional
     @Override
-    public List updateList(long houseId, short listId, String listName, boolean listShareable) throws EntityException, EntityNotFoundException {
+    public List updateList(long houseId, short listId, String listName, Boolean listShareable) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         ListId id = new ListId(houseId, listId);
         // Verify list existence
         List list = listRepository
@@ -92,11 +95,10 @@ public class ListServiceImpl implements ListService {
                         id.getListId(), id.getHouseId())));
         // Verify list type - system lists cannot be updated
         if (isSystemListType(list))
-            throw new UnsupportedOperationException(String.format("The list with ID %d in the house with ID %d cannot be updated.",
-                    id.getListId(), id.getHouseId()));
+            throw new InsufficientPrivilegesException("You don't have permissions to update this list.");
         UserList userList = new UserList(houseId, listId, listName, list.getUserlist().getUsersId(), listShareable);
         // Update list
-        userListRepository.save(userList);//TODO: necessario guadar nos 2 repositórios?
+        userListRepository.save(userList);
         list = listRepository.save(userList.getList());
         list.getListproducts().size();
         return list;
@@ -104,6 +106,7 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public void deleteSystemListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         ListId id = new ListId(houseId, listId);
         checkListId(id);
         systemListRepository.deleteById(new SystemListId(houseId, listId));
@@ -112,6 +115,7 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public void deleteUserListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
+        // TODO transacional?
         ListId id = new ListId(houseId, listId);
         checkListId(id);
         userListRepository.deleteCascadeUserListById(new UserListId(houseId, listId));
