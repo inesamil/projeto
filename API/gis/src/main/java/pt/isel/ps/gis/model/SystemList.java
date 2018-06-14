@@ -20,7 +20,7 @@ public class SystemList {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @MapsId
     @JoinColumns({
             @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false),

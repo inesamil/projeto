@@ -5,6 +5,7 @@ import pt.isel.ps.gis.utils.DateUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -20,10 +21,15 @@ public class Date {
     private java.sql.Date dateDate;
 
     /**
-     * COLEÇÕES
+     * ASSOCIAÇÕES
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "dateByDateDate")
-    private Collection<ExpirationDate> expirationdatesByDateDate;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "dateByDateDate"
+    )
+    private Collection<ExpirationDate> expirationdatesByDateDate = new ArrayList<>();
 
     /**
      * CONSTRUTORES
@@ -53,6 +59,16 @@ public class Date {
 
     public void setExpirationdatesByDateDate(Collection<ExpirationDate> expirationdatesByDateDate) {
         this.expirationdatesByDateDate = expirationdatesByDateDate;
+    }
+
+    public void addExpirationDate(ExpirationDate expirationDate) {
+        expirationdatesByDateDate.add(expirationDate);
+        expirationDate.setDateByDateDate(this);
+    }
+
+    public void removeExpirationDate(ExpirationDate expirationDate) {
+        expirationdatesByDateDate.remove(expirationDate);
+        expirationDate.setDateByDateDate(null);
     }
 
     @Override

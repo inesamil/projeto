@@ -5,6 +5,7 @@ import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -29,18 +30,17 @@ public class List {
     /**
      * ASSOCIAÇÕES
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false)
     private House houseByHouseId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "list")
-    private Collection<ListProduct> listproducts;
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "list")
-    private SystemList systemlist;
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "list")
-    private UserList userlist;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "list"
+    )
+    private Collection<ListProduct> listproducts = new ArrayList<>();
 
     /**
      * CONSTRUTORES
@@ -119,20 +119,14 @@ public class List {
         this.listproducts = listproducts;
     }
 
-    public SystemList getSystemlist() {
-        return systemlist;
+    public void addListProduct(ListProduct listProduct) {
+        listproducts.add(listProduct);
+        listProduct.setList(this);
     }
 
-    public void setSystemlist(SystemList systemlist) {
-        this.systemlist = systemlist;
-    }
-
-    public UserList getUserlist() {
-        return userlist;
-    }
-
-    public void setUserlist(UserList userlist) {
-        this.userlist = userlist;
+    public void removeListProduct(ListProduct listProduct) {
+        listproducts.remove(listProduct);
+        listProduct.setList(null);
     }
 
     @Override

@@ -6,16 +6,22 @@ public class TagCsv {
 
     @CsvBindByPosition(position = 0, required = true)
     private String productName;
+
     @CsvBindByPosition(position = 1, required = true)
     private String brand;
+
     @CsvBindByPosition(position = 2, required = true)
     private String variety;
+
     @CsvBindByPosition(position = 3, required = true)
     private String segment;
+
     @CsvBindByPosition(position = 4, required = true)
     private String date;
+
     @CsvBindByPosition(position = 5)
     private String conditions;
+
     @CsvBindByPosition(position = 6)
     private String description;
 

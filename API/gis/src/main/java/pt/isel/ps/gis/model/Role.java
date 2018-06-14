@@ -5,6 +5,7 @@ import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -27,8 +28,13 @@ public class Role {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "roleByRoleId")
-    private Collection<UserRole> usersroleByRoleId;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "roleByRoleId"
+    )
+    private Collection<UserRole> usersroleByRoleId = new ArrayList<>();
 
     /**
      * CONSTRUTORES
@@ -72,6 +78,16 @@ public class Role {
 
     public void setUsersroleByRoleId(Collection<UserRole> usersroleByRoleId) {
         this.usersroleByRoleId = usersroleByRoleId;
+    }
+
+    public void addUserRole(UserRole userRole) {
+        usersroleByRoleId.add(userRole);
+        userRole.setRoleByRoleId(this);
+    }
+
+    public void removeUserRole(UserRole userRole) {
+        usersroleByRoleId.remove(userRole);
+        userRole.setRoleByRoleId(null);
     }
 
     @Override

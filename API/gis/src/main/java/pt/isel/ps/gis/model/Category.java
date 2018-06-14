@@ -6,6 +6,7 @@ import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -28,8 +29,13 @@ public class Category implements Serializable {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "categoryByCategoryId")
-    private Collection<Product> productsByCategoryId;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "categoryByCategoryId"
+    )
+    private Collection<Product> productsByCategoryId = new ArrayList<>();
 
     /**
      * CONSTRUTORES
@@ -68,6 +74,16 @@ public class Category implements Serializable {
 
     public void setProductsByCategoryId(Collection<Product> productsByCategoryId) {
         this.productsByCategoryId = productsByCategoryId;
+    }
+
+    public void addProduct(Product product) {
+        productsByCategoryId.add(product);
+        product.setCategoryByCategoryId(this);
+    }
+
+    public void removeProduct(Product product) {
+        productsByCategoryId.remove(product);
+        product.setCategoryByCategoryId(null);
     }
 
     @Override

@@ -5,6 +5,7 @@ import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -43,14 +44,29 @@ public class Users {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUsersId")
-    private Collection<UserHouse> userhousesByUsersId;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "usersByUsersId"
+    )
+    private Collection<UserHouse> userhousesByUsersId = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUsersId")
-    private Collection<UserList> userlistsByUsersId;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "usersByUsersId"
+    )
+    private Collection<UserList> userlistsByUsersId = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUsersId")
-    private Collection<UserRole> usersrolesByUsersId;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "usersByUsersId"
+    )
+    private Collection<UserRole> usersrolesByUsersId = new ArrayList<>();
 
     /**
      * CONSTRUTORES
@@ -154,6 +170,36 @@ public class Users {
 
     public void setUsersrolesByUsersId(Collection<UserRole> usersrolesByUsersId) {
         this.usersrolesByUsersId = usersrolesByUsersId;
+    }
+
+    public void addUserHouse(UserHouse userHouse) {
+        userhousesByUsersId.add(userHouse);
+        userHouse.setUsersByUsersId(this);
+    }
+
+    public void removeUserHouse(UserHouse userHouse) {
+        userhousesByUsersId.remove(userHouse);
+        userHouse.setUsersByUsersId(null);
+    }
+
+    public void addUserList(UserList userList) {
+        userlistsByUsersId.add(userList);
+        userList.setUsersByUsersId(this);
+    }
+
+    public void removeUserlist(UserList userList) {
+        userlistsByUsersId.remove(userList);
+        userList.setUsersByUsersId(null);
+    }
+
+    public void addUserRole(UserRole userRole) {
+        usersrolesByUsersId.add(userRole);
+        userRole.setUsersByUsersId(this);
+    }
+
+    public void removeUserRole(UserRole userRole) {
+        usersrolesByUsersId.remove(userRole);
+        userRole.setUsersByUsersId(null);
     }
 
     @Override

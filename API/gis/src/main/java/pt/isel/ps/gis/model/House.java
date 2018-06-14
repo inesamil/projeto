@@ -37,19 +37,44 @@ public class House {
     /**
      * COLEÇÕES
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "houseByHouseId"
+    )
     private Collection<HouseAllergy> houseallergiesByHouseId = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "houseByHouseId"
+    )
     private Collection<List> listsByHouseId = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "houseByHouseId"
+    )
     private Collection<StockItem> stockitemsByHouseId = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseByHouseId")
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "houseByHouseId"
+    )
     private Collection<Storage> storagesByHouseId = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "houseByHouseId")
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "houseByHouseId"
+    )
     private Collection<UserHouse> userhousesByHouseId = new ArrayList<>();
 
     /**
@@ -135,6 +160,56 @@ public class House {
 
     public void setUserhousesByHouseId(Collection<UserHouse> userhousesByHouseId) {
         this.userhousesByHouseId = userhousesByHouseId;
+    }
+
+    public void addHouseAllergy(HouseAllergy houseAllergy) {
+        houseallergiesByHouseId.add(houseAllergy);
+        houseAllergy.setHouseByHouseId(this);
+    }
+
+    public void removeHouseAllergy(HouseAllergy houseAllergy) {
+        houseallergiesByHouseId.remove(houseAllergy);
+        houseAllergy.setHouseByHouseId(null);
+    }
+
+    public void addList(List list) {
+        listsByHouseId.add(list);
+        list.setHouseByHouseId(this);
+    }
+
+    public void removeList(List list) {
+        listsByHouseId.remove(list);
+        list.setHouseByHouseId(null);
+    }
+
+    public void addStockItem(StockItem stockItem) {
+        stockitemsByHouseId.add(stockItem);
+        stockItem.setHouseByHouseId(this);
+    }
+
+    public void removeStockItem(StockItem stockItem) {
+        stockitemsByHouseId.remove(stockItem);
+        stockItem.setHouseByHouseId(null);
+    }
+
+    public void addStorage(Storage storage) {
+        storagesByHouseId.add(storage);
+        storage.setHouseByHouseId(this);
+    }
+
+    public void removeStorage(Storage storage) {
+        storagesByHouseId.remove(storage);
+        storage.setHouseByHouseId(null);
+    }
+
+    public void addUserHouse(UserHouse userHouse) {
+        userhousesByHouseId.add(userHouse);
+        userHouse.setHouseByHouseId(this);
+    }
+
+    public void removeUserHouse(UserHouse userHouse) {
+        userhousesByHouseId.remove(userHouse);
+        userHouse.setHouseByHouseId(null);
     }
 
     @Override

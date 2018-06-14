@@ -5,6 +5,7 @@ import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -22,11 +23,21 @@ public class Allergy {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "allergyByAllergyAllergen")
-    private Collection<HouseAllergy> houseallergiesByAllergyAllergen;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "allergyByAllergyAllergen"
+    )
+    private Collection<HouseAllergy> houseallergiesByAllergyAllergen = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "allergyByAllergyAllergen")
-    private Collection<StockItemAllergy> stockitemallergiesByAllergyAllergen;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "allergyByAllergyAllergen"
+    )
+    private Collection<StockItemAllergy> stockitemallergiesByAllergyAllergen = new ArrayList<>();
 
     /**
      * CONSTRUTORES
@@ -64,6 +75,26 @@ public class Allergy {
 
     public void setStockitemallergiesByAllergyAllergen(Collection<StockItemAllergy> stockitemallergiesByAllergyAllergen) {
         this.stockitemallergiesByAllergyAllergen = stockitemallergiesByAllergyAllergen;
+    }
+
+    public void addHouseAllergy(HouseAllergy houseAllergy) {
+        houseallergiesByAllergyAllergen.add(houseAllergy);
+        houseAllergy.setAllergyByAllergyAllergen(this);
+    }
+
+    public void removeHouseAllergy(HouseAllergy houseAllergy) {
+        houseallergiesByAllergyAllergen.remove(houseAllergy);
+        houseAllergy.setAllergyByAllergyAllergen(null);
+    }
+
+    public void addStockItemAllergy(StockItemAllergy stockItemAllergy) {
+        stockitemallergiesByAllergyAllergen.add(stockItemAllergy);
+        stockItemAllergy.setAllergyByAllergyAllergen(this);
+    }
+
+    public void removeStockItemAllergy(StockItemAllergy stockItemAllergy) {
+        stockitemallergiesByAllergyAllergen.remove(stockItemAllergy);
+        stockItemAllergy.setAllergyByAllergyAllergen(null);
     }
 
     @Override

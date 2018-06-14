@@ -5,6 +5,7 @@ import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -43,15 +44,25 @@ public class Product {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private Collection<ListProduct> listproducts;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "product"
+    )
+    private Collection<ListProduct> listproducts = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false, insertable = false, updatable = false)
     private Category categoryByCategoryId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private Collection<StockItem> stockitems;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "product"
+    )
+    private Collection<StockItem> stockitems = new ArrayList<>();
 
     /**
      * CONSTRUTORES
@@ -152,6 +163,26 @@ public class Product {
 
     public void setStockitems(Collection<StockItem> stockitems) {
         this.stockitems = stockitems;
+    }
+
+    public void addListProduct(ListProduct listProduct) {
+        listproducts.add(listProduct);
+        listProduct.setProduct(this);
+    }
+
+    public void removeListProduct(ListProduct listProduct) {
+        listproducts.remove(listProduct);
+        listProduct.setProduct(null);
+    }
+
+    public void addStockItem(StockItem stockItem) {
+        stockitems.add(stockItem);
+        stockItem.setProduct(this);
+    }
+
+    public void removeStockItem(StockItem stockItem) {
+        stockitems.remove(stockItem);
+        stockItem.setProduct(null);
     }
 
     @Override

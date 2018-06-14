@@ -5,6 +5,7 @@ import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -54,10 +55,15 @@ public class StockItem {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockitem")
-    private Collection<ExpirationDate> expirationdates;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "stockitem"
+    )
+    private Collection<ExpirationDate> expirationdates = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false)
     private House houseByHouseId;
 
@@ -65,14 +71,29 @@ public class StockItem {
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     private Product product;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockitem")
-    private Collection<StockItemAllergy> stockitemallergies;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "stockitem"
+    )
+    private Collection<StockItemAllergy> stockitemallergies = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockitem")
-    private Collection<StockItemMovement> stockitemmovements;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "stockitem"
+    )
+    private Collection<StockItemMovement> stockitemmovements = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockitem")
-    private Collection<StockItemStorage> stockitemstorages;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "stockitem"
+    )
+    private Collection<StockItemStorage> stockitemstorages = new ArrayList<>();
 
     /**
      * CONSTRUTORES
@@ -254,6 +275,46 @@ public class StockItem {
 
     public void setStockitemstorages(Collection<StockItemStorage> stockitemstorages) {
         this.stockitemstorages = stockitemstorages;
+    }
+
+    public void addExpirationDate(ExpirationDate expirationDate) {
+        expirationdates.add(expirationDate);
+        expirationDate.setStockitem(this);
+    }
+
+    public void removeExpirationDate(ExpirationDate expirationDate) {
+        expirationdates.remove(expirationDate);
+        expirationDate.setStockitem(null);
+    }
+
+    public void addStockItemAllergy(StockItemAllergy stockItemAllergy) {
+        stockitemallergies.add(stockItemAllergy);
+        stockItemAllergy.setStockitem(this);
+    }
+
+    public void removeStockItemAllergy(StockItemAllergy stockItemAllergy) {
+        stockitemallergies.remove(stockItemAllergy);
+        stockItemAllergy.setStockitem(null);
+    }
+
+    public void addStockItemMovement(StockItemMovement stockItemMovement) {
+        stockitemmovements.add(stockItemMovement);
+        stockItemMovement.setStockitem(this);
+    }
+
+    public void removeStockItemMovement(StockItemMovement stockItemMovement) {
+        stockitemmovements.remove(stockItemMovement);
+        stockItemMovement.setStockitem(null);
+    }
+
+    public void addStockItemStorage(StockItemStorage stockItemStorage) {
+        stockitemstorages.add(stockItemStorage);
+        stockItemStorage.setStockitem(this);
+    }
+
+    public void removeStockItemStorage(StockItemStorage stockItemStorage) {
+        stockitemstorages.remove(stockItemStorage);
+        stockItemStorage.setStockitem(null);
     }
 
     @Override

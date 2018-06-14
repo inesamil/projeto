@@ -8,6 +8,7 @@ import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -34,13 +35,23 @@ public class Storage {
     /**
      * ASSOCIAÇÕES
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "storage")
-    private Collection<StockItemMovement> stockitemmovements;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "storage"
+    )
+    private Collection<StockItemMovement> stockitemmovements = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "storage")
-    private Collection<StockItemStorage> stockitemstorages;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "storage"
+    )
+    private Collection<StockItemStorage> stockitemstorages = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "house_id", referencedColumnName = "house_id", nullable = false, insertable = false, updatable = false)
     private House houseByHouseId;
 
@@ -129,6 +140,26 @@ public class Storage {
 
     public void setHouseByHouseId(House houseByHouseId) {
         this.houseByHouseId = houseByHouseId;
+    }
+
+    public void addStockItemMovement(StockItemMovement stockItemMovement) {
+        stockitemmovements.add(stockItemMovement);
+        stockItemMovement.setStorage(this);
+    }
+
+    public void removeStockItemMovement(StockItemMovement stockItemMovement) {
+        stockitemmovements.remove(stockItemMovement);
+        stockItemMovement.setStorage(null);
+    }
+
+    public void addStockItemStorage(StockItemStorage stockItemStorage) {
+        stockitemstorages.add(stockItemStorage);
+        stockItemStorage.setStorage(this);
+    }
+
+    public void removeStockItemStorage(StockItemStorage stockItemStorage) {
+        stockitemstorages.remove(stockItemStorage);
+        stockItemStorage.setStorage(null);
     }
 
     @Override
