@@ -16,12 +16,20 @@ import ps.leic.isel.pt.gis.repositories.Resource
 
 class ListsViewModel(private val app: Application) : AndroidViewModel(app) {
 
+    private lateinit var url: String
     private var lists: LiveData<Resource<ListsDto>>? = null
 
     fun init(url: String) {
-        if (lists != null) return
-        lists = ServiceLocator.getRepository(app.applicationContext)
-                .get(ListsDto::class.java, url, TAG)
+        if (lists != null && this.url == url) return
+        if (lists != null) cancel()
+        this.url = url
+        lists = ServiceLocator.getRepository(app.applicationContext).get(ListsDto::class.java, url, TAG)
+    }
+
+    fun reload(url: String) {
+        if (lists != null) cancel()
+        this.url = url
+        lists = ServiceLocator.getRepository(app.applicationContext).get(ListsDto::class.java, url, TAG)
     }
 
     fun getLists(): LiveData<Resource<ListsDto>>? {
