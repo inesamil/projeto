@@ -14,10 +14,19 @@ import ps.leic.isel.pt.gis.repositories.Resource
 
 class HousesViewModel(private val app: Application) : AndroidViewModel(app) {
 
+    private lateinit var url: String
     private var houses: LiveData<Resource<HousesDto>>? = null
 
     fun init(url: String) {
-        if (houses != null) return
+        if (houses != null && this.url == url) return
+        if (houses != null) cancel()
+        this.url = url
+        houses = ServiceLocator.getRepository(app.applicationContext).get(HousesDto::class.java, url, TAG)
+    }
+
+    fun reload(url: String) {
+        if (houses != null) cancel()
+        this.url = url
         houses = ServiceLocator.getRepository(app.applicationContext).get(HousesDto::class.java, url, TAG)
     }
 
