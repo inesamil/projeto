@@ -58,12 +58,12 @@ class ReadFragment : DialogFragment() {
     }
 
     private fun onSuccess(statusCode: String) {
-        tv_message.text = "The movement was register with success!"
+        tv_message.text = "O movimento foi registado com sucesso!"
         Log.i("APP_TEST", statusCode)
     }
 
     private fun onError(error: VolleyError?) {
-        tv_message.text = "Cannot register this movement, sorry..."
+        tv_message.text = "Pedimos desculpa, mas não é possível registar esse movimento..."
         error?.let {
             it.message?.let {
                 Log.w("APP_TEST", it)

@@ -72,7 +72,7 @@ class AddOrRemoveProductToListDialogFragment : DialogFragment() {
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton(if (toAdd) R.string.add else R.string.remove, { _, _ ->
-                    adapter.getListProduct()?.map { ListProductBody(it.productId, null, it.quantity) }?.let {
+                    /*adapter.getListProduct()?.map { ListProductBody(it.productId, null, it.quantity) }?.let {
                         var dones = 0
                         var errorOccur = false
                         val size = it.size
@@ -96,7 +96,8 @@ class AddOrRemoveProductToListDialogFragment : DialogFragment() {
                                 })
                             }
                         }
-                    }
+                    }*/
+                    Toast.makeText(context, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
                 })
                 .setNegativeButton(R.string.cancel, { _, _ -> this@AddOrRemoveProductToListDialogFragment.dialog.cancel() })
 
