@@ -50,7 +50,7 @@ class AddOrRemoveProductToListAdapter : RecyclerView.Adapter<AddOrRemoveProductT
     }
 
     fun getListProduct(): Array<ListProduct>? {
-        return data
+        return data?.filter { it.quantity > 0 }?.toTypedArray()
     }
 
     // Stores and recycles views as they are scrolled off screen

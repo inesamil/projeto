@@ -68,12 +68,26 @@ public class UserListsOutputModel {
                 properties.put("list-shareable", list.getUserlist().getListShareable());
             }
 
+            // Type
+            String type = "application/json";
+
             String listUri = UriBuilderUtils.buildListUri(houseId, listId);
+            String productsListUri = UriBuilderUtils.buildProductsListUri(houseId, listId);
+
             entities[i] = new Entity(
                     new String[]{"list"},
                     new String[]{"item"},
                     properties,
-                    null,
+                    new Action[]{new Action("update-list-product",
+                            "Update List Products",
+                            Method.PUT,
+                            productsListUri,
+                            type,
+                            new Field[]{
+                                    new Field("product-id", Field.Type.number, null, "Product Id"),
+                                    new Field("brand", Field.Type.text, null, "Brand"),
+                                    new Field("quantity", Field.Type.number, null, "Quantity")
+                            })},
                     new Link[]{new Link(new String[]{"self"}, new String[]{"list"}, listUri)});
         }
         return entities;
