@@ -8,12 +8,13 @@ public class UriBuilderUtils {
     private static String HOST;
 
     static {
-        try {
+        /*try {
             HOST = String.format("http://%s:8081", InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownHostException e) {
             HOST = "http://localhost:8081";
             e.printStackTrace();
-        }
+        }*/
+        HOST = "http://10.10.4.173:8081";
     }
 
     private static final String

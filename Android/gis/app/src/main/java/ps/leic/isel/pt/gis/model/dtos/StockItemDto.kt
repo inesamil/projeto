@@ -11,8 +11,8 @@ class StockItemDto(siren: Siren) {
     val productId: Long
     val productName: String
     val brand: String
-    val conservationStorage: String
-    val description: String
+    val conservationStorage: String?
+    val description: String?
     val quantity: Short
     val variety: String
     val segment: String
@@ -29,8 +29,8 @@ class StockItemDto(siren: Siren) {
         productId = (properties[productIdLabel] as Int).toLong()
         productName = properties[productNameLabel] as String
         brand = properties[brandLabel] as String
-        conservationStorage = properties[conservationStorageLabel] as String
-        description = properties[descriptionLabel] as String
+        conservationStorage = properties[conservationStorageLabel] as String?
+        description = properties[descriptionLabel] as String?
         quantity = (properties[quantityLabel] as Int).toShort()
         variety = properties[varietyLabel] as String
         segment = properties[segmentLabel] as String

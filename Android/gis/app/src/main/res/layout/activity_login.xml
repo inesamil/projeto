@@ -15,7 +15,7 @@
         android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="@string/username"
-        android:inputType="textPersonName"
+        android:inputType="textVisiblePassword"
         app:layout_constraintBottom_toTopOf="@+id/passwordEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
