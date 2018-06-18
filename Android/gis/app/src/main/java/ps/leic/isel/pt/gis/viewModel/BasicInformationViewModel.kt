@@ -14,7 +14,7 @@ class BasicInformationViewModel(private val app: Application) : AndroidViewModel
     private var users: LiveData<Resource<UserDto>>? = null
 
     fun init(url: String) {
-        if (users != null) return
+        if (users?.value?.data != null) return
         users = ServiceLocator.getRepository(app.applicationContext)
                 .get(UserDto::class.java, url, TAG)
     }

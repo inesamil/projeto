@@ -56,20 +56,20 @@ class LoginActivity : AppCompatActivity() {
             basicInformationViewModel?.init(it)
             basicInformationViewModel?.getUser()?.observe(this, Observer {
                 when {
-                    it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                    it?.status == Status.ERROR -> onError(it.message!!)
+                    it?.status == Status.SUCCESS -> onSuccess(it.data)
+                    it?.status == Status.ERROR -> onError(it.message)
                 }
             })
         }
     }
 
-    private fun onSuccess(user: UserDto) {
+    private fun onSuccess(user: UserDto?) {
         Log.i(TAG, "Login succeeded.")
         finish()
         startActivity(Intent(this, HomeActivity::class.java))
     }
 
-    private fun onError(message: String) {
+    private fun onError(message: String?) {
         //TODO: pode não ter sido wrong credentials é preciso verificar
         ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials()
         Log.i(TAG, "Credentials deleted.")
