@@ -17,7 +17,7 @@ public class MyCorsFilter extends CorsFilter {
     private static CorsConfigurationSource getCorsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedMethod(HttpMethod.OPTIONS);
+        config.setAllowCredentials(true);
         config.addAllowedMethod(HttpMethod.GET);
         config.addAllowedMethod(HttpMethod.POST);
         config.addAllowedMethod(HttpMethod.PUT);
