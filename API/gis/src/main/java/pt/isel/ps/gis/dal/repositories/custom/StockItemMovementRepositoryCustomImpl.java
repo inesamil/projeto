@@ -132,8 +132,9 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
         boolean stockitemmovement_type = resultSet.getBoolean(4);
         String stockitemmovement_datetime = DateUtils.convertTimestampFormat(resultSet.getTimestamp(5));
         short stockitemmovement_quantity = resultSet.getShort(6);
+        short stockitemmovement_finalQuantity = resultSet.getShort(7);
         return new StockItemMovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime,
-                stockitemmovement_quantity);
+                stockitemmovement_quantity, stockitemmovement_finalQuantity);
     }
 
     /**
