@@ -17,6 +17,9 @@ module.exports = {
             presets: ['env', 'react', 'stage-3']
           }
         }
+      }, {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
       }
     ]
   },

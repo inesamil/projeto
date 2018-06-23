@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import URITemplate from 'urijs/src/URITemplate'
 import Error from './error'
 import { request } from '../utils/request'
+import '../../static/style.css'
 
 export default class Login extends React.Component {
   constructor (props) {
@@ -81,20 +82,27 @@ export default class Login extends React.Component {
       return <Redirect to={from} />
     }
 
+    if (this.state.error) {
+      return (
+        <Error error={this.state.error} />
+      )
+    }
+
     return (
-      <div>
-        {this.state.error && <Error error={this.state.error} />}
-        <p />
-        <div>
-          Username <input type='text' name='username' onChange={this.handleChange} />
-        </div>
-        <p />
-        <div>
-          Password <input type='password' name='password' onChange={this.handleChange} />
-        </div>
-        <p />
-        <div>
-          <input type='submit' value='Log in' onClick={this.login} />
+      <div className='login-row'>
+        <div className='login-column'>
+          <h5>LOGIN</h5>
+          <div className='form-group'>
+            <label for='username'>Username: </label>
+            <input type='text' onChange={this.handleChange} placeholder='Enter Username' name='username' className='form-control' required />
+          </div>
+          <div className='form-group'>
+            <label for='password'>Password: </label>
+            <input type='password' onChange={this.handleChange} placeholder='Enter Password' name='password' className='form-control' required />
+          </div>
+          <div className='form-group'>
+            <input type='submit' onClick={this.login} value='SIGN IN' className='form-control' />
+          </div>
         </div>
       </div>
     )

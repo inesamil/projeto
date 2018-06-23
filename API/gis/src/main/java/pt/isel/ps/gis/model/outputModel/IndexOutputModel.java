@@ -43,13 +43,13 @@ public class IndexOutputModel {
 
     private HashMap<String, ResourceObject> initResources() {
         HashMap<String, ResourceObject> resources = new HashMap<>();
-        resources.put("rel/house", createPostHouses());
-        resources.put("rel/users", createPostUsers());
-        resources.put("rel/user", createGetUsers());
-        resources.put("rel/categories", createGetCategories());
-        resources.put("rel/allergies", createGetAllergies());
-        resources.put("rel/houses", createGetHouses());
-        resources.put("rel/lists", createGetUserLists());
+        resources.put("/rel/house", createPostHouses());
+        resources.put("/rel/users", createPostUsers());
+        resources.put("/rel/user", createGetUsers());
+        resources.put("/rel/categories", createGetCategories());
+        resources.put("/rel/allergies", createGetAllergies());
+        resources.put("/rel/houses", createGetHouses());
+        resources.put("/rel/lists", createGetUserLists());
         return resources;
     }
 
