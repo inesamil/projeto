@@ -59,6 +59,9 @@ public class RestrictionsUtils {
     /// StockItemStorage
     public static final short STOCKITEMSTORAGE_QUANTITY_MIN = 1;
 
+    // StockItemMovement
+    public static final short MOVEMENT_FINAL_QUANTITY_MIN = 0;
+
     /// Category
     public static final int CATEGORY_ID_MIN = 1;
     public static final int CATEGORY_NAME_MAX_LENGTH = 35;

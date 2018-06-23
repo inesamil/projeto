@@ -675,6 +675,14 @@ public class ValidationsUtils {
                     RestrictionsUtils.MOVEMENT_QUANTITY_MIN));
     }
 
+    public static void validateStockItemMovementFinalQuantity(Short finalQuantity) throws EntityException {
+        if (finalQuantity == null)
+            throw new EntityException("Movement final quantity is required.");
+        if (finalQuantity < RestrictionsUtils.MOVEMENT_FINAL_QUANTITY_MIN)
+            throw new EntityException(String.format("Invalid movement final quantity. Final quantity must be greater or equal to %d.",
+                    RestrictionsUtils.MOVEMENT_FINAL_QUANTITY_MIN));
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////                                            ExpirationDate                                                  ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
