@@ -762,4 +762,13 @@ public class ValidationsUtils {
         if (shareable == null)
             throw new EntityException("Shareable is required.");
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////                                            Invitation                                                      ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static void validateInvitationAccepted(Boolean invitationAccepted) throws EntityException {
+        if (invitationAccepted)
+            throw new EntityException("Invitation accepted is required.");
+    }
 }
