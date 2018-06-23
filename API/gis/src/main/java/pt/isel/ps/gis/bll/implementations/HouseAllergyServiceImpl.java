@@ -9,10 +9,7 @@ import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
-import pt.isel.ps.gis.model.Characteristics;
-import pt.isel.ps.gis.model.House;
-import pt.isel.ps.gis.model.HouseAllergy;
-import pt.isel.ps.gis.model.HouseAllergyId;
+import pt.isel.ps.gis.model.*;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.ArrayList;
@@ -45,9 +42,18 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     @Override
     public List<HouseAllergy> getAllergiesByHouseId(long houseId) throws EntityException, EntityNotFoundException {
-        // TODO é transacional? tá a fazer uma verificacao e dps e um get
         checkHouse(houseId);
-        return houseAllergyRepository.findAllById_HouseId(houseId);
+        List<HouseAllergy> houseAllergies = houseAllergyRepository.findAllById_HouseId(houseId);
+        List<HouseAllergy> allergies = new ArrayList<HouseAllergy>();
+        for (Allergy allergy : allergyRepository.findAll()) {
+            HouseAllergy houseAllergy = houseAllergies.stream()
+                    .filter(ha -> ha.getId().getAllergyAllergen().equals(allergy.getAllergyAllergen())).findFirst().orElse(null);
+            if (houseAllergy == null) {
+                houseAllergy = new HouseAllergy(houseId, allergy.getAllergyAllergen(), (short)0);
+            }
+            allergies.add(houseAllergy);
+        }
+        return allergies;
     }
 
     @Transactional
