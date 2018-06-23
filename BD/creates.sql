@@ -121,6 +121,7 @@ CREATE TABLE IF NOT EXISTS public."stockitemmovement" (
 	stockitemmovement_type boolean NOT NULL,
 	stockitemmovement_dateTime timestamp NOT NULL,
 	stockitemmovement_quantity smallint NOT NULL CHECK (stockitemmovement_quantity > 0),
+	stockitemmovement_finalQuantity smallint NOT NULL CHECK (stockitemmovement_quantity >= 0),
 	PRIMARY KEY (house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_dateTime),
 	FOREIGN KEY (house_id, stockitem_sku) REFERENCES public."stockitem" (house_id, stockitem_sku),
 	FOREIGN KEY (house_id, storage_id) REFERENCES public."storage" (house_id, storage_id)
@@ -164,3 +165,10 @@ CREATE TABLE IF NOT EXISTS public."expirationdate" (
 	PRIMARY KEY (house_id, stockitem_sku, date_date),
 	FOREIGN KEY (house_id, stockitem_sku) REFERENCES public."stockitem" (house_id, stockitem_sku)
 );
+
+CREATE TABLE IF NOT EXISTS public."invitation" (
+	users_id bigint NOT NULL CHECK (users_id > 0) REFERENCES public."users" (users_id),
+	house_id bigint NOT NULL CHECK (house_id > 0) REFERENCES public."house" (house_id),
+	invitation_accepted bool NOT NULL DEFAULT false,
+	PRIMARY KEY (house_id, users_id)
+)
