@@ -7,6 +7,7 @@ import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemId;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StockItemRepository extends CrudRepository<StockItem, StockItemId>, StockItemRepositoryCustom {
 
@@ -17,6 +18,10 @@ public interface StockItemRepository extends CrudRepository<StockItem, StockItem
      * @return List with all stock items associated with param houseId
      */
     List<StockItem> findAllById_HouseId(Long houseId);
+
+    Optional<StockItem>
+    findById_HouseIdAndProduct_ProductNameAndStockitemBrandAndStockitemVarietyAndStockitemSegmentAndStockitemSegmentunit(
+            Long houseId, String productName, String brand, String variety, Float segment, String segmentUnit);
 
     /**
      * Find all stock items with specific allergen
