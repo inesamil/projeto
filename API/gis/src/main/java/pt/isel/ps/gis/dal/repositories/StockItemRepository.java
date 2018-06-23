@@ -12,13 +12,25 @@ import java.util.Optional;
 public interface StockItemRepository extends CrudRepository<StockItem, StockItemId>, StockItemRepositoryCustom {
 
     /**
-     * Find all stock items associated with specific house
+     * Find all stock items associated with specific house where stock item quantity is greater than param greaterThan
      *
-     * @param houseId The id of the house
+     * @param houseId     The id of the house
+     * @param greaterThan Value to indicate the minimum stock item quantity
      * @return List with all stock items associated with param houseId
      */
-    List<StockItem> findAllById_HouseId(Long houseId);
+    List<StockItem> findAllById_HouseIdAndStockitemQuantityGreaterThan(Long houseId, Short greaterThan);
 
+    /**
+     * Find stock item by house id, product name, brand, variety, segment and segment unit
+     *
+     * @param houseId     The id of the house
+     * @param productName The product name
+     * @param brand       The stock item brand
+     * @param variety     The stock item variety
+     * @param segment     The stock item segment
+     * @param segmentUnit The stock item segment unit
+     * @return Optional with stock item if exists with all parameter, otherwise optional empty
+     */
     Optional<StockItem>
     findById_HouseIdAndProduct_ProductNameAndStockitemBrandAndStockitemVarietyAndStockitemSegmentAndStockitemSegmentunit(
             Long houseId, String productName, String brand, String variety, Float segment, String segmentUnit);
