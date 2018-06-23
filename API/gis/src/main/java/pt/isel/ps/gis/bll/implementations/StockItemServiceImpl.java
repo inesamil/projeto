@@ -46,26 +46,26 @@ public class StockItemServiceImpl implements StockItemService {
         return stockItem;
     }
 
+    @Transactional
     @Override
     public List<StockItem> getStockItemsByHouseId(long houseId) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         ValidationsUtils.validateHouseId(houseId);
         checkHouse(houseId);
         return stockItemRepository.findAllById_HouseId(houseId);
     }
 
+    @Transactional
     @Override
     public List<StockItem> getStockItemsByHouseIdFiltered(long houseId, StockItemFilters filters) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         ValidationsUtils.validateHouseId(houseId);
         checkHouse(houseId);
         return stockItemRepository.findStockItemsFiltered(houseId, filters.product, filters.brand, filters.variety,
                 filters.segment, filters.storage);
     }
 
+    @Transactional
     @Override
     public void deleteStockItem(long houseId, String stockItemSku) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         StockItemId id = new StockItemId(houseId, stockItemSku);
         if (!stockItemRepository.existsById(id))
             throw new EntityNotFoundException(String.format("Stock item with ID %s does not exist in the house with ID %d.",
@@ -74,9 +74,9 @@ public class StockItemServiceImpl implements StockItemService {
         stockItemRepository.deleteStockItemById(id);
     }
 
+    @Transactional
     @Override
     public void decreaseStockItemQuantity(long houseId, String stockItemSku, short decreasingQuantity) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         StockItemId id = new StockItemId(houseId, stockItemSku);
         ValidationsUtils.validateStockItemQuantity(decreasingQuantity);
         if (!stockItemRepository.existsById(id))
@@ -85,9 +85,9 @@ public class StockItemServiceImpl implements StockItemService {
         stockItemRepository.decrementStockitemQuantity(id, decreasingQuantity);
     }
 
+    @Transactional
     @Override
     public void increaseStockItemQuantity(long houseId, String stockItemSku, short increasingQuantity) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         StockItemId id = new StockItemId(houseId, stockItemSku);
         ValidationsUtils.validateStockItemQuantity(increasingQuantity);
         if (!stockItemRepository.existsById(id))

@@ -40,17 +40,17 @@ public class StorageServiceImpl implements StorageService {
                 .orElseThrow(() -> new EntityNotFoundException(STORAGE_NOT_EXIST));
     }
 
+    @Transactional
     @Override
     public List<Storage> getStorageByHouseId(long houseId) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         ValidationsUtils.validateHouseId(houseId);
         checkHouse(houseId);
         return storageRepository.findAllById_HouseId(houseId);
     }
 
+    @Transactional
     @Override
     public Storage addStorage(long houseId, String name, Float minimumTemperature, Float maximumTemperature) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         Storage storage = new Storage(houseId, name, new Numrange(minimumTemperature, maximumTemperature));
         checkHouse(houseId);
         return storageRepository.insertStorage(storage);
@@ -65,9 +65,9 @@ public class StorageServiceImpl implements StorageService {
         return storage;
     }
 
+    @Transactional
     @Override
     public void deleteStorageByStorageId(long houseId, short storageId) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         StorageId id = new StorageId(houseId, storageId);
         if (!storageRepository.existsById(id))
             throw new EntityNotFoundException(String.format("Storage with ID %d does not exist in the house with ID %d.",

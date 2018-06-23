@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.StockItemMovementService;
 import pt.isel.ps.gis.dal.repositories.*;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -15,7 +16,6 @@ import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.text.ParseException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StockItemMovementServiceImpl implements StockItemMovementService {
@@ -45,14 +45,15 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
         return stockItemMovementRepository.existsById(new StockItemMovementId(houseId, stockItemSku, storageId, type, dateTime));
     }
 
+    @Transactional
     @Override
     public List<StockItemMovement> getStockItemMovementsByHouseId(long houseId) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         ValidationsUtils.validateHouseId(houseId);
         checkHouseId(houseId);
         return stockItemMovementRepository.findAllById_HouseId(houseId);
     }
 
+    @Transactional
     @Override
     public List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
@@ -60,6 +61,7 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
         return stockItemMovementRepository.findMovementsFiltered(houseId, filters.item, filters.type, filters.dateTime, filters.storage);
     }
 
+    @Transactional
     @Override
     public StockItemMovement addStockItemMovement(long houseId, short storageId, boolean movementType, short quantity, String productName, String brand, String variety, String segment, String conservationConditions, String description, String date) throws EntityException, EntityNotFoundException {
         checkHouseId(houseId);
@@ -69,7 +71,7 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
         String[] segmentSplitted = splitSegment(segment);
         float segm = Float.parseFloat(segmentSplitted[0]);
         String segmUnit = segmentSplitted[1];
-        if (!movementType){
+        if (!movementType) {
             // Cannot remove the stock item if doesn't exist or there is 0 quantity of it
             checkStockItem(houseId, productName, brand, variety, segm, segmUnit);
         }
@@ -95,7 +97,7 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     private void checkStockItem(long houseId, String productName, String brand, String variety, float segm, String segmUnit) throws EntityNotFoundException {
         StockItem stockItem = stockItemRepository
-                .findByHouseIdAndProductNameAndBrandAndVarietyAndSegmentAndSegmentUnit(houseId, productName, brand, variety, segm, segmUnit)
+                .findById_HouseIdAndProduct_ProductNameAndStockitemBrandAndStockitemVarietyAndStockitemSegmentAndStockitemSegmentunit(houseId, productName, brand, variety, segm, segmUnit)
                 .orElseThrow(() -> new EntityNotFoundException(STOCK_ITEM_DOES_NOT_EXISTS));
         if (stockItem.getStockitemQuantity() == 0) {
             throw new EntityNotFoundException(STOCK_ITEM_DOES_NOT_EXISTS);

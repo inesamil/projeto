@@ -40,17 +40,17 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
         return houseAllergyRepository.existsById(new HouseAllergyId(houseId, allergy));
     }
 
+    @Transactional
     @Override
     public List<HouseAllergy> getAllergiesByHouseId(long houseId) throws EntityException, EntityNotFoundException {
         checkHouse(houseId);
         List<HouseAllergy> houseAllergies = houseAllergyRepository.findAllById_HouseId(houseId);
-        List<HouseAllergy> allergies = new ArrayList<HouseAllergy>();
+        List<HouseAllergy> allergies = new ArrayList<>();
         for (Allergy allergy : allergyRepository.findAll()) {
             HouseAllergy houseAllergy = houseAllergies.stream()
                     .filter(ha -> ha.getId().getAllergyAllergen().equals(allergy.getAllergyAllergen())).findFirst().orElse(null);
-            if (houseAllergy == null) {
-                houseAllergy = new HouseAllergy(houseId, allergy.getAllergyAllergen(), (short)0);
-            }
+            if (houseAllergy == null)
+                houseAllergy = new HouseAllergy(houseId, allergy.getAllergyAllergen(), (short) 0);
             allergies.add(houseAllergy);
         }
         return allergies;
@@ -123,6 +123,6 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
         House house = houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException(HOUSE_NOT_EXIST));
         Characteristics characteristics = house.getHouseCharacteristics();
         return (short) (characteristics.getHouse_babiesNumber() + characteristics.getHouse_childrenNumber()
-                        + characteristics.getHouse_adultsNumber() + characteristics.getHouse_seniorsNumber());
+                + characteristics.getHouse_adultsNumber() + characteristics.getHouse_seniorsNumber());
     }
 }

@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.StockItemAllergenService;
 import pt.isel.ps.gis.dal.repositories.AllergyRepository;
 import pt.isel.ps.gis.dal.repositories.HouseAllergyRepository;
@@ -35,17 +36,17 @@ public class StockItemAllergenServiceImpl implements StockItemAllergenService {
         return stockItemAllergyRepository.existsById(new StockItemAllergyId(houseId, stockItemSku, allergen));
     }
 
+    @Transactional
     @Override
     public List<Allergy> getAllergensByStockItemId(long houseId, String stockItemSku) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         StockItemId stockItemId = new StockItemId(houseId, stockItemSku);
         checkStockItem(stockItemId);
         return allergyRepository.findAllByHouseIdAndStockitemSku(houseId, stockItemSku);
     }
 
+    @Transactional
     @Override
     public List<StockItem> getStockItemsByHouseIdAndAllergenId(long houseId, String allergen) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         HouseAllergyId houseAllergyId = new HouseAllergyId(houseId, allergen);
         checkAllergen(houseAllergyId);
         return stockItemRepository.findAllByHouseIdAndAllergyAllergen(houseId, allergen);

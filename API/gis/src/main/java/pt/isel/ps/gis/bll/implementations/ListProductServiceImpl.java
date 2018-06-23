@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.ListProductService;
 import pt.isel.ps.gis.dal.repositories.ListProductRepository;
 import pt.isel.ps.gis.dal.repositories.ListRepository;
@@ -43,25 +44,25 @@ public class ListProductServiceImpl implements ListProductService {
                         productId, listId, houseId)));
     }
 
+    @Transactional
     @Override
     public List<ListProduct> getListProductsByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         checkListId(new ListId(houseId, listId));
         return listProductRepository.findAllById_HouseIdAndId_ListId(houseId, listId);
     }
 
+    @Transactional
     @Override
     public ListProduct associateListProduct(long houseId, short listId, Integer productId, String brand, Short quantity) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         checkListId(new ListId(houseId, listId));
         checkProductId(productId);
         ListProduct listProduct = new ListProduct(houseId, listId, productId, brand, quantity);
         return listProductRepository.save(listProduct);
     }
 
+    @Transactional
     @Override
     public void deleteListProductByListProductId(long houseId, short listId, int productId) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         ListProductId id = new ListProductId(houseId, listId, productId);
         checkListProductId(id);
         listProductRepository.deleteById(id);

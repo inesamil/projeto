@@ -47,17 +47,17 @@ public class HouseMemberServiceImpl implements HouseMemberService {
                 .orElseThrow(() -> new EntityNotFoundException(MEMBER_NOT_EXIST));
     }
 
+    @Transactional
     @Override
     public List<UserHouse> getMembersByHouseId(long houseId) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         ValidationsUtils.validateHouseId(houseId);
         checkHouse(houseId);
         return userHouseRepository.findAllById_HouseId(houseId);
     }
 
+    @Transactional
     @Override
     public UserHouse associateMember(long houseId, String username, Boolean administrator) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         ValidationsUtils.validateUserUsername(username);
         Users user = usersRepository.findByUsersUsername(username).orElseThrow(() -> new EntityNotFoundException(USER_NOT_EXIST));
         UserHouse member = new UserHouse(houseId, user.getUsersId(), administrator);

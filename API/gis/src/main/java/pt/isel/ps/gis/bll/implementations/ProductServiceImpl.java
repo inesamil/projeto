@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.bll.implementations;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.ProductService;
 import pt.isel.ps.gis.dal.repositories.CategoryRepository;
 import pt.isel.ps.gis.dal.repositories.ProductRepository;
@@ -38,16 +39,16 @@ public class ProductServiceImpl implements ProductService {
                         productId, categoryId)));
     }
 
+    @Transactional
     @Override
     public List<Product> getProductsByCategoryId(int categoryId) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         checkCategoryId(categoryId);
         return productRepository.findAllByCategoryId(categoryId);
     }
 
+    @Transactional
     @Override
     public List<Product> getProductsByCategoryIdFiltered(int categoryId, ProductFilters filters) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         checkCategoryId(categoryId);
         ValidationsUtils.validateProductName(filters.name);
         return productRepository.findProductsByNameAndCategoryId(categoryId, filters.name);

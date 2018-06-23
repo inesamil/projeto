@@ -6,7 +6,6 @@ import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.dal.repositories.*;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
-import pt.isel.ps.gis.exceptions.ForbiddenException;
 import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.*;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
@@ -48,9 +47,9 @@ public class ListServiceImpl implements ListService {
         return list.getListType().equals(RestrictionsUtils.LIST_TYPE.user.name());
     }
 
+    @Transactional
     @Override
     public java.util.List<List> getListsByHouseId(long houseId) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         checkHouseId(houseId);
         return listRepository.findAllById_HouseId(houseId);
     }
@@ -67,9 +66,9 @@ public class ListServiceImpl implements ListService {
         return list;
     }
 
+    @Transactional
     @Override
     public java.util.List<List> getAvailableListsByUserUsername(String username, AvailableListFilters filters) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         checkUserUsername(username);
         return listRepository.findAvailableListsByUserUsername(username, filters.houses, filters.systemLists, filters.listsFromUser, filters.sharedLists);
     }
@@ -107,23 +106,23 @@ public class ListServiceImpl implements ListService {
         return list;
     }
 
+    @Transactional
     @Override
     public void deleteSystemListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
-        // TODO transacional?
         ListId id = new ListId(houseId, listId);
         checkListId(id);
         systemListRepository.deleteById(new SystemListId(houseId, listId));
         listRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteUserListByListId(String username, long houseId, short listId) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
-        // TODO transacional?
         ListId id = new ListId(houseId, listId);
         checkListId(id);
         UserListId userListId = new UserListId(houseId, listId);
         Optional<UserList> userList = userListRepository.findById(userListId);
-        if (userList.isPresent() && !userList.get().getUsersByUsersId().getUsersUsername().equals(username)){
+        if (userList.isPresent() && !userList.get().getUsersByUsersId().getUsersUsername().equals(username)) {
             throw new InsufficientPrivilegesException("You don't have permissions to delete this list.");
         }
         userListRepository.deleteCascadeUserListById(userListId);
