@@ -84,7 +84,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         adapter.setOnItemClickListener(this)
 
         // Set listener to transferToOfflineLayout clicks
-        view.transferToOfflineLayout.setOnClickListener {
+        view.transferToOfflineButton.setOnClickListener {
             listener?.onListDownload()
         }
 
