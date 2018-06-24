@@ -169,4 +169,5 @@
     <string name="list_products_successfully">Produtos adicionados à lista com sucesso</string>
     <string name="list_products_error">Alguns produtos não foram adicionados à lista</string>
     <string name="system_list">Lista de Sistema</string>
+    <string name="system_list_icon_description">Ícone da Lista de Sistema</string>
 </resources>

@@ -203,4 +203,5 @@
     <string name="list_products_successfully">Products added to list with success</string>
     <string name="list_products_error">Some products were not added to list</string>
     <string name="system_list">System List</string>
+    <string name="system_list_icon_description">System List Icon</string>
 </resources>
