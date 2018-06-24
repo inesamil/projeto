@@ -23,27 +23,27 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
             String sql = "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
-                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity, public.\"stockitemmovement\".stockitemmovement_finalQuantity " +
                     "FROM public.\"stockitemmovement\" " +
                     "WHERE public.\"stockitemmovement\".house_id = ? " +
                     "EXCEPT " +
                     "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
-                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity, public.\"stockitemmovement\".stockitemmovement_finalQuantity " +
                     "FROM public.\"stockitemmovement\" " +
                     "WHERE public.\"stockitemmovement\".house_id = ? AND public.\"stockitemmovement\".stockitem_sku != ? " +
                     "EXCEPT " +
                     "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
-                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity, public.\"stockitemmovement\".stockitemmovement_finalQuantity " +
                     "FROM public.\"stockitemmovement\" " +
                     "WHERE public.\"stockitemmovement\".house_id = ? AND public.\"stockitemmovement\".stockitemmovement_type != ? " +
                     "EXCEPT " +
                     "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
-                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity, public.\"stockitemmovement\".stockitemmovement_finalQuantity " +
                     "FROM public.\"stockitemmovement\" " +
                     "WHERE public.\"stockitemmovement\".house_id = ? AND DATE(public.\"stockitemmovement\".stockitemmovement_datetime) != ? " +
                     "EXCEPT " +
                     "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
-                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity, public.\"stockitemmovement\".stockitemmovement_finalQuantity " +
                     "FROM public.\"stockitemmovement\" " +
                     "WHERE public.\"stockitemmovement\".house_id = ? AND public.\"stockitemmovement\".storage_id != ?;";
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
