@@ -14,8 +14,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.model.dtos.ListProductDto
-import ps.leic.isel.pt.gis.model.dtos.ProductsListDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.ListDetailAdapter
 import ps.leic.isel.pt.gis.utils.State
@@ -33,7 +33,7 @@ import ps.leic.isel.pt.gis.viewModel.ListDetailViewModel
 class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
     private var listName: String? = null
-    private var listProducts: Array<ListProductDto>? = null
+    private var list: ListDto? = null
 
     private var listener: OnListDetailFragmentInteractionListener? = null
     private lateinit var listDetailViewModel: ListDetailViewModel
@@ -130,14 +130,17 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
      * Auxiliary Methods
      ***/
 
-    private fun onSuccess(productsList: ProductsListDto) {
+    private fun onSuccess(list: ListDto) {
         state = State.SUCCESS
+
+        this.list = list
+
+        list.listProducts?.let {
+            adapter.setData(it)
+        }
 
         // Show progress bar or content
         showProgressBarOrContent()
-
-        adapter.setData(productsList.productsListProduct)
-        this.listProducts = productsList.productsListProduct
     }
 
     private fun onError(error: String?) {
@@ -149,7 +152,36 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
     private fun showProgressBarOrContent() {
         progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-        content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+        if (state == State.SUCCESS) {
+            content.visibility = View.VISIBLE
+            showUserListDetailOrSystemListDetail()
+        } else {
+            content.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun showUserListDetailOrSystemListDetail() {
+        list?.let {
+            // Set house name
+            content.houseNameText.text = it.houseName
+
+            if (it.listType == ListDto.USER_TYPE) {
+                content.userListDetails.visibility = View.VISIBLE
+                content.systemListDetails.visibility = View.GONE
+                content.addProductButton.visibility = View.VISIBLE
+
+                // Set username
+                content.usernameText.text = it.username
+                // Set private list checkbox
+                it.shareable?.let {
+                    content.privateListCheckbox.isChecked = !it
+                }
+            } else {
+                content.userListDetails.visibility = View.GONE
+                content.systemListDetails.visibility = View.VISIBLE
+                content.addProductButton.visibility = View.GONE
+            }
+        }
     }
 
     /***
@@ -158,7 +190,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
     // NfcListener for list item clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
-        listProducts?.let {
+        list?.listProducts?.let {
             val listProduct = it[position]
             listener?.onListProductInteraction(listProduct)
         }
