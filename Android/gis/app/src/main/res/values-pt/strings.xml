@@ -153,7 +153,7 @@
     <string name="conservation_storage">Condições de Conservação</string>
     <string name="date">Data</string>
     <string name="item">Item</string>
-    <string name="add_list_product">Adicionar produto a</string>
+    <string name="add_list_product">Adicionar produto</string>
     <string name="please_fill_in_all_required_fields">Por favor, preencha todos os campos obrigatórios</string>
     <string name="functionality_not_available">Funcionalidade não disponível</string>
     <string name="wrong_credentials">Credenciais erradas</string>
@@ -168,4 +168,5 @@
     <string name="registe_user_failed">Registo do utilizador falhou</string>
     <string name="list_products_successfully">Produtos adicionados à lista com sucesso</string>
     <string name="list_products_error">Alguns produtos não foram adicionados à lista</string>
+    <string name="system_list">Lista de Sistema</string>
 </resources>

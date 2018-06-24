@@ -164,7 +164,7 @@
     <string name="list_name">List Name</string>
     <string name="shareable_list">Public</string>
     <string name="private_list">Private</string>
-    <string name="secret_list">Secret list</string>
+    <string name="secret_list">Private list</string>
     <string name="add_new_house">Add new house</string>
     <string name="characteristics">Characteristics</string>
     <string name="brand">Brand</string>
@@ -180,7 +180,7 @@
     <string name="apply">Apply</string>
     <string name="tags">Tags</string>
     <string name="nfc_icon_description">NFC Icon</string>
-    <string name="add_list_product">Add product to</string>
+    <string name="add_list_product">Add product</string>
     <string name="about_Text">Ao automatizarmos a recolha de dados relacionada com os stocks de produtos em casa, simplificamos a gestão dos mesmos. Desta forma, auxiliamos os utilizadores a manter o stock adequado às suas necessidades, bem como alertá-lo para a proximidade do fim da validade e/ou stock dos produtos. Assim, o nosso trabalho vai no sentido de responder a questões como: \'De que forma podemos evitar transtornos causados na altura de reabastecer a nossa despensa? Ou como proceder ao controlo de stocks de alimentos e outros produtos? Como impedir artigos fora de prazo?\'. Se entendermos que a nossa casa funciona como uma empresa, onde existem pessoas que podem realizar as mesmas tarefas, e.g. ir às compras seguindo uma lista previamente elaborada, capacitamos qualquer elemento da família para exercer a compra.</string>
     <string name="Authores_Names">Autores: Ana Santos, Inês Soares e Nuno Veloso</string>
     <string name="mentors_Names">Orientadores: Matilde Pato e Nuno Datia</string>
@@ -202,4 +202,5 @@
     <string name="registe_user_failed">Registe user failed</string>
     <string name="list_products_successfully">Products added to list with success</string>
     <string name="list_products_error">Some products were not added to list</string>
+    <string name="system_list">System List</string>
 </resources>
