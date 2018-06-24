@@ -768,7 +768,7 @@ public class ValidationsUtils {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void validateInvitationAccepted(Boolean invitationAccepted) throws EntityException {
-        if (invitationAccepted)
+        if (invitationAccepted == null)
             throw new EntityException("Invitation accepted is required.");
     }
 }
