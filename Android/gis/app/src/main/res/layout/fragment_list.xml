@@ -59,6 +59,9 @@
                     android:id="@+id/userIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="@string/user_icon_description"
                     app:layout_constraintBottom_toTopOf="@+id/guideline3"
                     app:layout_constraintEnd_toStartOf="@+id/usernameText"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -68,13 +71,12 @@
 
                 <TextView
                     android:id="@+id/usernameText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="2dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_marginStart="2dp"
-                    android:text="zemanel"
+                    android:layout_marginStart="8dp"
                     android:textColor="@color/primaryTextColor"
                     app:layout_constraintBottom_toTopOf="@+id/guideline3"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -89,12 +91,14 @@
                     android:orientation="horizontal"
                     app:layout_constraintGuide_percent="0.5" />
 
-                <CheckBox
-                    android:id="@+id/checkBox"
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/privateListCheckbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="false"
                     android:focusable="false"
                     android:text="@string/secret_list"
+                    app:buttonTint="@color/iris_blue"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -107,9 +111,9 @@
                 android:id="@+id/systemListDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/houseLayout"
@@ -122,6 +126,7 @@
                     android:id="@+id/systemIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/system_list_icon_description"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/systemText"
                     app:layout_constraintStart_toStartOf="parent"
@@ -133,9 +138,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="2dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_marginStart="2dp"
+                    android:layout_marginStart="8dp"
                     android:text="@string/system_list"
                     android:textColor="@color/primaryTextColor"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -161,28 +166,27 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <ImageView
-                    android:id="@+id/houseIcon2"
+                    android:id="@+id/houseIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/home_icon_description"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView3"
+                    app:layout_constraintEnd_toStartOf="@+id/houseNameText"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@mipmap/ic_house_sunset_orange_round" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/houseNameText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginStart="8dp"
-                    android:text="Oliveira"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/houseIcon2"
+                    app:layout_constraintStart_toEndOf="@+id/houseIcon"
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
 
@@ -232,6 +236,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:clickable="true"
+            android:focusable="true"
             app:backgroundTint="@color/iris_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
