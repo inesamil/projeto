@@ -158,7 +158,7 @@ INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stocki
 	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-03-17'::timestamp, 1, 4);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalQuantity)
 	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-03-17'::timestamp, 1, 5);
-INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalQuantity)
 	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-03-20'::timestamp, 1, 6);
 --House2-yogurt
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalQuantity)

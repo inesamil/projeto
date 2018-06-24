@@ -258,7 +258,8 @@ RETURNS TABLE(
 	storage_id smallint,
 	stockitemmovement_type boolean,
 	stockitemmovement_dateTime timestamp,
-	stockitemmovement_quantity smallint 
+	stockitemmovement_quantity smallint,
+	stockitemmovement_finalQuantity smallint
 ) AS $$
 DECLARE 
 	productId integer;
@@ -319,7 +320,7 @@ BEGIN
 
 	RETURN query
 	SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, public."stockitemmovement".storage_id, public."stockitemmovement".stockitemmovement_type, 
-		public."stockitemmovement".stockitemmovement_dateTime, public."stockitemmovement".stockitemmovement_quantity
+		public."stockitemmovement".stockitemmovement_dateTime, public."stockitemmovement".stockitemmovement_quantity, public."stockitemmovement".stockitemmovement_finalQuantity
 	FROM public."stockitemmovement"
 	WHERE public."stockitemmovement".house_id = houseId AND public."stockitemmovement".stockitem_sku = sku AND public."stockitemmovement".storage_id = storageId AND public."stockitemmovement".stockitemmovement_type = movementType 
 		AND public."stockitemmovement".stockitemmovement_dateTime = movementDatetime AND public."stockitemmovement".stockitemmovement_quantity = movementQuantity;
