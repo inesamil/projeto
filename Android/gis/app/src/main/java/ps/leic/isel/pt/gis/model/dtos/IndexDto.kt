@@ -64,12 +64,12 @@ class IndexDto(jsonHome: JsonHome) {
 
     companion object {
         private const val USERNAME_LABEL: String = "username"
-        private const val relHouseLabel: String = "rel/house"
-        private const val relHousesLabel: String = "rel/houses"
-        private const val relUserLabel: String = "rel/user"
-        private const val relUsersLabel: String = "rel/users"
-        private const val relCategoriesLabel: String = "rel/categories"
-        private const val relAllergiesLabel: String = "rel/allergies"
-        private const val relUserListsLabel: String = "rel/lists"
+        private const val relHouseLabel: String = "/rel/house"
+        private const val relHousesLabel: String = "/rel/houses"
+        private const val relUserLabel: String = "/rel/user"
+        private const val relUsersLabel: String = "/rel/users"
+        private const val relCategoriesLabel: String = "/rel/categories"
+        private const val relAllergiesLabel: String = "/rel/allergies"
+        private const val relUserListsLabel: String = "/rel/lists"
     }
 }
