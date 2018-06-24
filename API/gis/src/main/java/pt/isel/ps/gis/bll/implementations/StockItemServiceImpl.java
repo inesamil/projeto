@@ -51,7 +51,7 @@ public class StockItemServiceImpl implements StockItemService {
     public List<StockItem> getStockItemsByHouseId(long houseId) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
         checkHouse(houseId);
-        return stockItemRepository.findAllById_HouseId(houseId);
+        return stockItemRepository.findAllById_HouseIdAndStockitemQuantityGreaterThan(houseId, (short) 0);
     }
 
     @Transactional
