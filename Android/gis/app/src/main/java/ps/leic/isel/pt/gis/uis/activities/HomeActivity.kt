@@ -426,11 +426,6 @@ class HomeActivity : AppCompatActivity(),
                 Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
                 return true
             }
-            R.id.preferencesItem -> {
-                //TODO
-                Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
-                return true
-            }
             R.id.aboutItem -> {
                 supportFragmentManager.replaceCurrentFragmentWith(AboutFragment.TAG, AboutFragment.Companion::newInstance)
                 return true
