@@ -170,4 +170,7 @@
     <string name="list_products_error">Alguns produtos não foram adicionados à lista</string>
     <string name="system_list">Lista de Sistema</string>
     <string name="system_list_icon_description">Ícone da Lista de Sistema</string>
+    <string name="color_system">Sistema de Cores</string>
+    <string name="brand_info">Um símbolo de identificação, marca, logótipo, nome, palavra e/ou frase que as empresas usam para distinguir os seus produtos dos outros.</string>
+    <string name="variety_info">A variedade é sobre a personalização de um produto para se adequar ao caráter do consumidor individual.\nExemplo: Note-se um pacote de leite com as caraterísticas - quantidade líquida igual a 1L, da marca X e do tipo UHT magro.\nEntão, identificar-se-ia da seguinte forma:\n\nCategoria: Laticínios\nProduto: Leite\nMarca: X\nSegmento: 1L\nVariedade:  UHT Magro</string>
 </resources>
