@@ -9,12 +9,10 @@ import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ProgressBar
-import android.widget.Spinner
+import android.widget.*
 import kotlinx.android.synthetic.main.fragment_write_nfc_tag.*
 import kotlinx.android.synthetic.main.fragment_write_nfc_tag.view.*
 import ps.leic.isel.pt.gis.R
@@ -107,6 +105,18 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         showProgressBarOrContent()
 
+        // Set brand info listener
+        val brandEditText = view.brandEditText
+        brandEditText.setOnTouchListener { v, event ->
+            return@setOnTouchListener onRigthDrawableTouchListener(v, event, brandEditText, getString(R.string.brand), getString(R.string.brand_info))
+        }
+
+        // Set variety info listener
+        val varietyEditText = view.varietyEditText
+        varietyEditText.setOnTouchListener { v, event ->
+            return@setOnTouchListener onRigthDrawableTouchListener(v, event, varietyEditText, getString(R.string.variety), getString(R.string.variety_info))
+        }
+
         return view
     }
 
@@ -197,6 +207,20 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private fun showProgressBarOrContent() {
         progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
         content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+    }
+
+    private fun onRigthDrawableTouchListener(v: View, event: MotionEvent, editText: EditText, title: String, info: String): Boolean {
+        //val DRAWABLE_LEFT = 0, DRAWABLE_TOP = 1, DRAWABLE_BOTTOM = 3
+        val DRAWABLE_RIGHT = 2
+
+        if(event.getAction() == MotionEvent.ACTION_UP) {
+            if(event.rawX >= (editText.right - editText.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
+                val infoDialogFragment = InfoDialogFragment.newInstance(title, info)
+                infoDialogFragment.show(fragmentManager, InfoDialogFragment.TAG)
+                return true;
+            }
+        }
+        return false
     }
 
     /***
