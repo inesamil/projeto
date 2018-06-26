@@ -6,7 +6,6 @@ import android.arch.lifecycle.LiveData
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.body.HouseAllergiesBody
 import ps.leic.isel.pt.gis.model.dtos.HouseAllergiesDto
-import ps.leic.isel.pt.gis.model.dtos.HouseAllergyDto
 import ps.leic.isel.pt.gis.repositories.Resource
 
 class AllergiesViewModel(private val app: Application) : AndroidViewModel(app) {

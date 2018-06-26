@@ -9,14 +9,12 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_register.*
-import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.body.UserBody
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.utils.CredentialsStore
-import ps.leic.isel.pt.gis.utils.SmartLock
 import ps.leic.isel.pt.gis.viewModel.BasicInformationViewModel
 
 class RegisterActivity : AppCompatActivity() {

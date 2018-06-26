@@ -1,8 +1,6 @@
 package ps.leic.isel.pt.gis
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.preference.PreferenceManager
 import ps.leic.isel.pt.gis.httpRequest.HttpWebService
 import ps.leic.isel.pt.gis.httpRequest.HttpWebServiceImpl
 import ps.leic.isel.pt.gis.repositories.Repository

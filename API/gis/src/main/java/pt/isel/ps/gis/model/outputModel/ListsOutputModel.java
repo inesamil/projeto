@@ -71,7 +71,7 @@ public class ListsOutputModel {
 
             // URIs
             String listUri = UriBuilderUtils.buildListUri(houseId, listId.getListId());
-            String productsListUri = UriBuilderUtils.buildProductsListUri(houseId, listId.getListId());
+            String productsListUri = UriBuilderUtils.buildListProductstUri(houseId, listId.getListId());
 
             entities[i] = new Entity(
                     new String[]{"list"},

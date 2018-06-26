@@ -1,7 +1,6 @@
 package ps.leic.isel.pt.gis.model.dtos
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
 
 data class MovementDto (
         @field:JsonProperty(value = "house-id") val houseId: Long,

@@ -2,6 +2,7 @@ package ps.leic.isel.pt.gis.uis.activities
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.nfc.NfcAdapter
 import android.nfc.Tag
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
+import ps.leic.isel.pt.gis.model.ListProduct
 import ps.leic.isel.pt.gis.model.UserDTO
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.ListDto
@@ -31,6 +33,7 @@ import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
 import ps.leic.isel.pt.gis.uis.fragments.*
 import ps.leic.isel.pt.gis.utils.getCurrentFragment
 import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
+import ps.leic.isel.pt.gis.viewModel.ListDetailViewModel
 
 class HomeActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
@@ -40,10 +43,10 @@ class HomeActivity : AppCompatActivity(),
         NewHouseDialogFragment.OnNewHouseDialogFragmentInteractionListener,
         BasicInformationFragment.OnBasicInformationFragmentInteractionListener,
         CategoriesFragment.OnCategoriesFragmentInteractionListener,
-        CategoryProductsFragment.OnCategoryProductsFragmentInteractionListener,
         ListsFragment.OnListsFragmentInteractionListener,
-        ListDetailFragment.OnListDetailFragmentInteractionListener,
         NewListDialogFragment.OnNewListDialogFragmentInteractionListener,
+        ListDetailFragment.OnListDetailFragmentInteractionListener,
+        AddProductToListDialogFragment.OnAddProductToListDialogFragmentInteractionListener,
         StockItemListFragment.OnStockItemListFragmentInteractionListener,
         StockItemDetailFragment.OnStockItemDetailFragmentInteractionListener,
         ListsFiltersDialogFragment.OnListsFiltersDialogFragmentInteractionListener {
@@ -249,7 +252,7 @@ class HomeActivity : AppCompatActivity(),
     }
 
     // Listener for CategoryProductsFragement interaction
-    override fun onAddProductToListInteraction(productId: Int) {
+    override fun onAddProductToListInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
         val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
@@ -258,36 +261,15 @@ class HomeActivity : AppCompatActivity(),
             //TODO: logout
             return
         }
-        index.getUserListUrl(username)?.let {
-            val args: Map<String, Any> = mapOf(
-                    Pair(AddProductToListDialogFragment.URL_ARG, it),
-                    Pair(AddProductToListDialogFragment.ADD_ACTION_ARG, true),
-                    Pair(AddProductToListDialogFragment.PRODUCT_ID_ARG, productId)
-            )
-            val fragment = AddProductToListDialogFragment.newInstance(args)
+        index.getCategoriesUrl()?.let {
+            val fragment = AddProductToListDialogFragment.newInstance(it)
             fragment.show(supportFragmentManager, AddProductToListDialogFragment.TAG)
         }
     }
 
-    // Listener for CategoryProductsFragment interaction
-    override fun onRemoveProductFromListInteraction(productId: Int) {
-        val gisApplication = application as GisApplication
-        val index = gisApplication.index
-        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
-        if (username == null) {
-            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            //TODO: logout
-            return
-        }
-        index.getUserListUrl(username)?.let {
-            val args: Map<String, Any> = mapOf(
-                    Pair(AddProductToListDialogFragment.URL_ARG, it),
-                    Pair(AddProductToListDialogFragment.ADD_ACTION_ARG, false),
-                    Pair(AddProductToListDialogFragment.PRODUCT_ID_ARG, productId)
-            )
-            val fragment = AddProductToListDialogFragment.newInstance(args)
-            fragment.show(supportFragmentManager, AddProductToListDialogFragment.TAG)
-        }
+    override fun onAddProductToList(listProduct: ListProduct) {
+        val fragment = supportFragmentManager.findFragmentByTag(ListDetailFragment.TAG) as? ListDetailFragment
+        fragment?.onAddProductToList(listProduct)
     }
 
     // Listener for ListsFragment interaction

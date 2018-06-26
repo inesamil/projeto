@@ -8,13 +8,13 @@ public class UriBuilderUtils {
     private static String HOST;
 
     static {
-        /*try {
+        try {
             HOST = String.format("http://%s:8081", InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownHostException e) {
             HOST = "http://localhost:8081";
             e.printStackTrace();
-        }*/
-        HOST = "http://10.10.4.173:8081";
+        }
+        //HOST = "http://10.10.4.173:8081";
     }
 
     private static final String
@@ -198,7 +198,7 @@ public class UriBuilderUtils {
      * @param listId  The id of the list
      * @return URI to products in specific list of the house
      */
-    public static String buildProductsListUri(long houseId, Short listId) {
+    public static String buildListProductstUri(long houseId, Short listId) {
         return String.format("%s/%s/%s/%d/%s/%d/%s", HOST, VERSION, HOUSES, houseId, LISTS, listId, PRODUCTS);
     }
 
@@ -210,7 +210,7 @@ public class UriBuilderUtils {
      * @param productId The id of the product
      * @return URI to specific product in specific list of the house
      */
-    public static String buildProductListUri(long houseId, short listId, int productId) {
+    public static String buildListProductUri(long houseId, short listId, int productId) {
         return String.format("%s/%s/%s/%d/%s/%d/%s/%d", HOST, VERSION, HOUSES, houseId, LISTS, listId, PRODUCTS, productId);
     }
 

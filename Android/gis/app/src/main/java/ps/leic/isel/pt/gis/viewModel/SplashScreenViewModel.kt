@@ -4,9 +4,7 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import ps.leic.isel.pt.gis.ServiceLocator
-import ps.leic.isel.pt.gis.model.body.UserBody
 import ps.leic.isel.pt.gis.model.dtos.IndexDto
-import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Resource
 
 class SplashScreenViewModel(private val app: Application) : AndroidViewModel(app) {
@@ -29,8 +27,8 @@ class SplashScreenViewModel(private val app: Application) : AndroidViewModel(app
 
     companion object {
         //private const val url: String = "http://192.168.1.19:8081/v1" // NUNO
-         // private val url: String = "http://192.168.1.76:8081/v1" //INES
-        private val url: String = "http://10.10.4.173:8081/v1" //ISEL
+         private val url: String = "http://192.168.1.76:8081/v1" //INES
+        //private val url: String = "http://10.10.4.173:8081/v1" //ISEL
         // private val url: String = "http://192.168.1.10:8081/v1" //CASA //TODO: mudar isto para cada pc :/
         const val TAG: String = "SplashScreenViewModel"
     }

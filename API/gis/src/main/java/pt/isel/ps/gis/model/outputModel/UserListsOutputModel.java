@@ -72,7 +72,7 @@ public class UserListsOutputModel {
             String type = "application/json";
 
             String listUri = UriBuilderUtils.buildListUri(houseId, listId);
-            String productsListUri = UriBuilderUtils.buildProductsListUri(houseId, listId);
+            String productsListUri = UriBuilderUtils.buildListProductstUri(houseId, listId);
 
             entities[i] = new Entity(
                     new String[]{"list"},

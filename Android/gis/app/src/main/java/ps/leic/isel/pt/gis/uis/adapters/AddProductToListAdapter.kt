@@ -9,6 +9,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ListProduct
 import ps.leic.isel.pt.gis.model.dtos.ListDto
+import ps.leic.isel.pt.gis.model.dtos.ProductDto
 import ps.leic.isel.pt.gis.utils.TextViewUtils
 
 class AddProductToListAdapter() : RecyclerView.Adapter<AddProductToListAdapter.ViewHolder>() {
@@ -28,7 +29,7 @@ class AddProductToListAdapter() : RecyclerView.Adapter<AddProductToListAdapter.V
         data?.let {
             val item = it[position]
             // Fill ViewHolder
-            holder.listText.text = item.listName
+            holder.listText.text = item.productName
 
             holder.plusButton.setOnClickListener {
                 item.quantity = TextViewUtils.incNumberText(holder.quantityText, 0, Short.MAX_VALUE.toInt()).toShort()
@@ -47,9 +48,9 @@ class AddProductToListAdapter() : RecyclerView.Adapter<AddProductToListAdapter.V
     // Total number of cells
     override fun getItemCount() = data?.size ?: 0
 
-    fun setData(data: Array<ListDto>, productId: Int) {
-        this.data = data.map { listDto ->
-            ListProduct(listDto.houseId, listDto.listId, listDto.listName, productId, 0)
+    fun setData(data: Array<ProductDto>) {
+        this.data = data.map { product ->
+            ListProduct(product.productId, product.productName, null, 0)
         }.toTypedArray()
         notifyDataSetChanged()
     }

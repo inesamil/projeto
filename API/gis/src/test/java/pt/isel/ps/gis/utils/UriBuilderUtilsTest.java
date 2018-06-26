@@ -108,12 +108,12 @@ public class UriBuilderUtilsTest {
 
     @Test
     public void test_build_products_list_uri() {
-        assertEquals(PRODUCTS_LIST, UriBuilderUtils.buildProductsListUri(1, (short) 1));
+        assertEquals(PRODUCTS_LIST, UriBuilderUtils.buildListProductstUri(1, (short) 1));
     }
 
     @Test
     public void test_build_product_list_uri() {
-        assertEquals(PRODUCT_LIST, UriBuilderUtils.buildProductListUri(1, (short) 1, 1));
+        assertEquals(PRODUCT_LIST, UriBuilderUtils.buildListProductUri(1, (short) 1, 1));
     }
 
     @Test

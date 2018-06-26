@@ -31,12 +31,11 @@ import ps.leic.isel.pt.gis.viewModel.CategoryProductsViewModel
  * create an instance of this fragment.
  *
  */
-class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClickListener {
+class CategoryProductsFragment : Fragment() {
 
     private lateinit var categoryName: String
     private var products: Array<ProductDto>? = null
 
-    private var listener: OnCategoryProductsFragmentInteractionListener? = null
     private val adapter = CategoryProductsAdapter()
 
     private lateinit var categoryProductsViewModel: CategoryProductsViewModel
@@ -45,15 +44,6 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     private var state: State = State.LOADING
     private lateinit var progressBar: ProgressBar
     private lateinit var content: ConstraintLayout
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnCategoryProductsFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnCategoryProductsFragmentInteractionListener")
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +73,6 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
         view.categoryProductsRecyclerView.layoutManager = LinearLayoutManager(view.context)
         view.categoryProductsRecyclerView.setHasFixedSize(true)
         view.categoryProductsRecyclerView.adapter = adapter
-        adapter.setOnItemClickListener(this)
 
         progressBar = view.categoryProductsProgressBar
         content = view.categoryProductsLayout
@@ -118,11 +107,6 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
         categoryProductsViewModel.cancel()
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
     /***
      * Auxiliar Methods
      ***/
@@ -147,35 +131,6 @@ class CategoryProductsFragment : Fragment(), CategoryProductsAdapter.OnItemClick
     private fun showProgressBarOrContent() {
         progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
         content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
-    }
-
-    /***
-     * Listeners
-     ***/
-
-    override fun onPlusClick(view: View, position: Int) {
-        products?.let {
-            val item = it[position]
-            listener?.onAddProductToListInteraction(item.productId)
-        }
-    }
-
-    override fun onMinusClick(view: View, position: Int) {
-        products?.let {
-            val item = it[position]
-            listener?.onRemoveProductFromListInteraction(item.productId)
-        }
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     */
-    interface OnCategoryProductsFragmentInteractionListener {
-        fun onAddProductToListInteraction(productId: Int)
-        fun onRemoveProductFromListInteraction(productId: Int)
     }
 
     /**

@@ -128,7 +128,6 @@ class NewListDialogFragment : DialogFragment() {
         fun onAddList(liveData: LiveData<Resource<ListDto>>?)
     }
 
-
     /**
      * NewListDialogFragment Factory
      */

@@ -2,23 +2,17 @@ package ps.leic.isel.pt.gis.uis.fragments
 
 import android.app.Dialog
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
-import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.layout_new_house_dialog.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.model.body.HouseBody
-import ps.leic.isel.pt.gis.model.dtos.CharacteristicsDto
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
-import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.repositories.Resource
-import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.utils.EditTextUtils
 import ps.leic.isel.pt.gis.utils.RestrictionsUtils
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel

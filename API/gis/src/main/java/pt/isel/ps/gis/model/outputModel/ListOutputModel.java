@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
 import pt.isel.ps.gis.model.List;
 import pt.isel.ps.gis.model.ListProduct;
-import pt.isel.ps.gis.model.outputModel.jsonObjects.ListProductJsonObject;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.util.HashMap;
@@ -76,18 +75,30 @@ public class ListOutputModel {
             properties.put("list-product-brand", listProduct.getListproductBrand());
             properties.put("list-product-quantity", listProduct.getListproductQuantity());
 
+            String listProductUri = UriBuilderUtils.buildListProductUri(houseId, listId, productId);
+
             // PUT ListProduct
             Action updateListProduct = new Action(
                     "update-list-product",
-                    "update List Product",
-                    Method.POST,
-                    UriBuilderUtils.buildProductListUri(houseId, listId, productId),
+                    "Update List Product",
+                    Method.PUT,
+                    listProductUri,
                     "application/json",
                     new Field[]{
                             new Field("product-id", Field.Type.number, null, "Product Id"),
                             new Field("brand", Field.Type.text, null, "Brand"),
                             new Field("quantity", Field.Type.number, null, "Quantity")
                     }
+            );
+
+            // DELETE ListProduct
+            Action deleteListProduct = new Action(
+                    "remove-list-product",
+                    "Remove List Product",
+                    Method.DELETE,
+                    listProductUri,
+                    null,
+                    null
             );
 
             entities[i++] = new Entity(
@@ -113,7 +124,7 @@ public class ListOutputModel {
 
         // URIs
         String userListUri = UriBuilderUtils.buildListUri(houseId, listId);
-        String productsListUri = UriBuilderUtils.buildProductsListUri(houseId, listId);
+        String productsListUri = UriBuilderUtils.buildListProductstUri(houseId, listId);
 
         // POST ListProduct
         Action addListProduct = new Action(

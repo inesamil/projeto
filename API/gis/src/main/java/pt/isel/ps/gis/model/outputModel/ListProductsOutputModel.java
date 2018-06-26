@@ -83,7 +83,7 @@ public class ListProductsOutputModel {
         String type = "application/json";
 
         // URIs
-        String productsListUri = UriBuilderUtils.buildProductsListUri(houseId, listId);
+        String productsListUri = UriBuilderUtils.buildListProductstUri(houseId, listId);
 
         // PUT List
         Action putListProduct = new Action(
@@ -114,7 +114,7 @@ public class ListProductsOutputModel {
     private Link[] initLinks(long houseId, short listId) {
         //URIs
         String listUri = UriBuilderUtils.buildListUri(houseId, listId);
-        String productsListUri = UriBuilderUtils.buildProductsListUri(houseId, listId);
+        String productsListUri = UriBuilderUtils.buildListProductstUri(houseId, listId);
 
         // Link-self
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, productsListUri);

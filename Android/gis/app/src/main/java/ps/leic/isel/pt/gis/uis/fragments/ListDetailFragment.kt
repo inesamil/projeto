@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.ListProduct
+import ps.leic.isel.pt.gis.model.body.ListProductBody
 import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.model.dtos.ListProductDto
 import ps.leic.isel.pt.gis.repositories.Status
@@ -135,7 +137,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
         this.list = list
 
-        list.listProducts?.let {
+        list.listProducts.let {
             adapter.setData(it)
         }
 
@@ -176,6 +178,11 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
                 it.shareable?.let {
                     content.privateListCheckbox.isChecked = !it
                 }
+
+                // Set add product listener
+                content.addProductButton.setOnClickListener {
+                    listener?.onAddProductToListInteraction()
+                }
             } else {
                 content.userListDetails.visibility = View.GONE
                 content.systemListDetails.visibility = View.VISIBLE
@@ -187,6 +194,10 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     /***
      * Listeners
      ***/
+
+    fun onAddProductToList(listProduct: ListProduct) {
+        listDetailViewModel.addProductToList(ListProductBody(listProduct.productId, listProduct.brand, listProduct.quantity))
+    }
 
     // NfcListener for list item clicks (from adapter)
     override fun onItemClick(view: View, position: Int) {
@@ -203,6 +214,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
      * activity.
      */
     interface OnListDetailFragmentInteractionListener {
+        fun onAddProductToListInteraction()
         fun onListProductInteraction(listProduct: ListProductDto)
         fun onListDownload()    //TODO: o que é preciso passar?
     }

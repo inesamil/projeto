@@ -5,7 +5,6 @@ import android.arch.lifecycle.MutableLiveData
 import android.content.Context
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.httpRequest.HttpWebService
-import ps.leic.isel.pt.gis.utils.CredentialsStore
 import ps.leic.isel.pt.gis.utils.HeadersUtils
 
 class RepositoryImpl(private val applicationContext: Context) : Repository {

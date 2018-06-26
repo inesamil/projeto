@@ -11,7 +11,6 @@ import ps.leic.isel.pt.gis.model.dtos.ProductDto
 
 class CategoryProductsAdapter : RecyclerView.Adapter<CategoryProductsAdapter.ViewHolder>() {
 
-    private var mOnItemClickListener: OnItemClickListener? = null
     private var data: Array<ProductDto>? = null
 
     // Inflates the cell layout from xml when needed
@@ -41,28 +40,5 @@ class CategoryProductsAdapter : RecyclerView.Adapter<CategoryProductsAdapter.Vie
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val productText: TextView = itemView.findViewById(R.id.productItemText)
-        internal val productMinusBtn: Button = itemView.findViewById(R.id.productItemMinusButton)
-        internal val productPlusBtn: Button = itemView.findViewById(R.id.productItemPlusButton)
-
-        init {
-            productPlusBtn.setOnClickListener {
-                mOnItemClickListener?.onPlusClick(it, adapterPosition)
-            }
-
-            productMinusBtn.setOnClickListener {
-                mOnItemClickListener?.onMinusClick(it, adapterPosition)
-            }
-        }
-    }
-
-    // Sets listener for items click
-    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
-        mOnItemClickListener = onItemClickListener
-    }
-
-    // Parent activity will implement this method to respond to click events
-    interface OnItemClickListener {
-        fun onPlusClick(view: View, position: Int)
-        fun onMinusClick(view: View, position: Int)
     }
 }

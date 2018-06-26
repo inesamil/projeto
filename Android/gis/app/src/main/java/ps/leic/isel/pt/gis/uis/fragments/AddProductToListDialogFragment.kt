@@ -1,35 +1,62 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.app.Dialog
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
-import android.widget.ProgressBar
-import android.widget.ScrollView
+import android.widget.*
+import kotlinx.android.synthetic.main.fragment_write_nfc_tag.view.*
 import kotlinx.android.synthetic.main.layout_add_list_product_dialog.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ListProduct
-import ps.leic.isel.pt.gis.model.dtos.ListDto
+import ps.leic.isel.pt.gis.model.dtos.*
+import ps.leic.isel.pt.gis.repositories.Resource
+import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.AddProductToListAdapter
 import ps.leic.isel.pt.gis.utils.State
+import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
+import ps.leic.isel.pt.gis.viewModel.CategoryProductsViewModel
+import ps.leic.isel.pt.gis.viewModel.ListDetailViewModel
 import ps.leic.isel.pt.gis.viewModel.ListsViewModel
 
-class AddProductToListDialogFragment : DialogFragment(), AddProductToListAdapter.OnItemClickListener {
-
+class AddProductToListDialogFragment : DialogFragment(), AddProductToListAdapter.OnItemClickListener, AdapterView.OnItemSelectedListener {
     private lateinit var url: String
-    private lateinit var listsViewModel: ListsViewModel
-    private var toAdd: Boolean = true
-    private var productId: Int? = null
+
+    private val FIRST: Int = 0
+    private var previousSelectedCategoryPosition: Int = FIRST
+
+    private lateinit var listViewModel: ListDetailViewModel
+    private lateinit var categoriesViewModel: CategoriesViewModel
+    private lateinit var categoryProductsViewModel: CategoryProductsViewModel
 
     private val adapter: AddProductToListAdapter = AddProductToListAdapter()
-    private var lists: Array<ListDto>? = null
+
+    private var categories: Array<CategoryDto>? = null
+    private var products: Array<ProductDto>? = null
 
     private var state: State = State.LOADING
 
+    private lateinit var categorySpinner: Spinner
     private lateinit var progressBar: ProgressBar
     private lateinit var content: ScrollView
+
+    private var listener: OnAddProductToListDialogFragmentInteractionListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnAddProductToListDialogFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnNewListDialogFragmentInteractionListener")
+        }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity!!)
@@ -38,13 +65,16 @@ class AddProductToListDialogFragment : DialogFragment(), AddProductToListAdapter
 
         arguments?.let {
             url = it.getString(URL_TAG)
-            toAdd = it.getBoolean(ADD_ACTION_TAG)
         }
+
+        getCategories(url)
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         val view = inflater.inflate(R.layout.layout_add_list_product_dialog, null)
         builder.setView(view)
+
+        categorySpinner = view.categorySpinner
 
         // Set Adapter to Recycler View
         view.productsRecyclerView.layoutManager = LinearLayoutManager(view.context)
@@ -60,16 +90,118 @@ class AddProductToListDialogFragment : DialogFragment(), AddProductToListAdapter
         return builder.create()
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+
+    private fun getCategories(url: String) {
+        categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
+        categoriesViewModel.init(url)
+        categoriesViewModel.getCategories()?.observe(this, Observer {
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.LOADING -> {
+                    state = State.LOADING
+                }
+            }
+        })
+    }
+
+    private fun onSuccess(categoriesDto: CategoriesDto) {
+        categories = categoriesDto.categories
+
+        categories?.let {
+            val spinnerAdapter = ArrayAdapter<String>(categorySpinner.context, android.R.layout.simple_spinner_item, it.map { category -> category.categoryName })
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            categorySpinner.adapter = spinnerAdapter
+            categorySpinner.onItemSelectedListener = this
+            categorySpinner.setSelection(FIRST)
+        }
+
+        val size = categories?.size ?: 0
+        if (size > 0) {
+            categories?.get(FIRST)?.links?.productsCategoryLink?.let {
+                getProductsCategory(it)
+            }
+        }
+    }
+
+    private fun onError(error: String?) {
+        state = State.ERROR
+        error?.let {
+            Log.v("APP_GIS", it)
+        }
+    }
+
+    private fun getProductsCategory(url: String) {
+        categoryProductsViewModel = ViewModelProviders.of(this).get(CategoryProductsViewModel::class.java)
+        categoryProductsViewModel.init(url)
+        categoryProductsViewModel.getProducts()?.observe(this, Observer {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data!!)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
+                    this.state = State.LOADING
+                }
+            }
+        })
+    }
+
+    private fun onSuccess(productsDto: ProductsDto) {
+        state = State.SUCCESS
+
+        // Show progress bar or content
+        showProgressBarOrContent()
+
+        products = productsDto.products
+
+        products?.let {
+           adapter.setData(it)
+        }
+    }
+
     private fun showProgressBarOrContent() {
         progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
         content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+    }
 
+    /**
+     * Listeners
+     */
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        parent?.let {
+            if (previousSelectedCategoryPosition != position) {
+                previousSelectedCategoryPosition = position
+                categories?.let {
+                    it[position].links.productsCategoryLink?.let {
+                        getProductsCategory(it)
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        // Nothing to do here
     }
 
     override fun onItemActionClick(listProduct: ListProduct) {
         if (listProduct.quantity > 0) {
-            //TODO
+            listener?.onAddProductToList(listProduct)
         }
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     */
+    interface OnAddProductToListDialogFragmentInteractionListener {
+        fun onAddProductToList(listProduct: ListProduct)
     }
 
     /**
@@ -78,11 +210,6 @@ class AddProductToListDialogFragment : DialogFragment(), AddProductToListAdapter
     companion object {
         const val TAG: String = "AddProductToListDialogFragment"
         private const val URL_TAG: String = "URL"
-        private const val ADD_ACTION_TAG: String = "ACTION"
-        const val URL_ARG: String = "url"
-        const val ADD_ACTION_ARG: String = "action"
-
-
 
         /**
          * Use this factory method to create a new instance of
@@ -91,11 +218,10 @@ class AddProductToListDialogFragment : DialogFragment(), AddProductToListAdapter
          * @return A new instance of fragment NewListDialogFragment.
          */
         @JvmStatic
-        fun newInstance(args: Map<String, Any>) = AddProductToListDialogFragment()
+        fun newInstance(url: String) = AddProductToListDialogFragment()
                 .apply {
                     arguments = Bundle().apply {
-                        putString(URL_TAG, args[URL_ARG] as String)
-                        putBoolean(ADD_ACTION_TAG, args[ADD_ACTION_ARG] as Boolean)
+                        putString(URL_TAG, url)
                     }
                 }
     }
