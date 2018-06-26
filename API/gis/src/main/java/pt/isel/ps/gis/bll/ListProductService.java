@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll;
 
+import pt.isel.ps.gis.exceptions.EntityAlreadyExistsException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.ListProduct;
@@ -41,7 +42,20 @@ public interface ListProductService {
     List<ListProduct> getListProductsByListId(long houseId, short listId) throws EntityException, EntityNotFoundException;
 
     /**
-     * Adicionar ou Atualizar um produto a uma lista
+     * Adicionar um produto a uma lista
+     *
+     * @param houseId   identificador da casa
+     * @param listId    identificador da lista
+     * @param productId identificador do produto
+     * @param brand     marca do produto
+     * @param quantity  quantidade do produto
+     * @return ListProduct
+     */
+    ListProduct addListProduct(long houseId, short listId, Integer productId, String brand, Short quantity) throws EntityException, EntityAlreadyExistsException;
+
+
+    /**
+     * Atualizar um produto a uma lista
      *
      * @param houseId   identificador da casa
      * @param listId    identificador da lista

@@ -6,6 +6,7 @@ import pt.isel.ps.gis.bll.ListProductService;
 import pt.isel.ps.gis.dal.repositories.ListProductRepository;
 import pt.isel.ps.gis.dal.repositories.ListRepository;
 import pt.isel.ps.gis.dal.repositories.ProductRepository;
+import pt.isel.ps.gis.exceptions.EntityAlreadyExistsException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.ListId;
@@ -49,6 +50,15 @@ public class ListProductServiceImpl implements ListProductService {
     public List<ListProduct> getListProductsByListId(long houseId, short listId) throws EntityException, EntityNotFoundException {
         checkListId(new ListId(houseId, listId));
         return listProductRepository.findAllById_HouseIdAndId_ListId(houseId, listId);
+    }
+
+    @Transactional
+    @Override
+    public ListProduct addListProduct(long houseId, short listId, Integer productId, String brand, Short quantity) throws EntityException, EntityAlreadyExistsException {
+        if (listProductRepository.existsById(new ListProductId(houseId, listId, productId)))
+            throw new EntityAlreadyExistsException("Product already exists in the list. Try to update it.");
+        ListProduct listProduct = new ListProduct(houseId, listId, productId, brand, quantity);
+        return listProductRepository.save(listProduct);
     }
 
     @Transactional
