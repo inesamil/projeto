@@ -1,10 +1,10 @@
-package pt.isel.ps.gis.hypermedia.problemPlusJson;
+package pt.isel.ps.gis.hypermedia.problemDetails;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProblemPlusJson {
+public class ProblemDetails {
 
     @JsonProperty
     private final String type;
@@ -21,7 +21,7 @@ public class ProblemPlusJson {
     @JsonProperty
     private final String instance;
 
-    public ProblemPlusJson(String type, String title, int status, String detail, String instance) {
+    public ProblemDetails(String type, String title, int status, String detail, String instance) {
         this.type = type;
         this.title = title;
         this.status = status;
@@ -29,11 +29,11 @@ public class ProblemPlusJson {
         this.instance = instance;
     }
 
-    public ProblemPlusJson(String title, int status, String detail, String instance) {
+    public ProblemDetails(String title, int status, String detail, String instance) {
         this("about:blank", title, status, detail, instance);
     }
 
-    public ProblemPlusJson(String title, int status, String detail) {
+    public ProblemDetails(String title, int status, String detail) {
         this(title, status, detail, null);
     }
 }

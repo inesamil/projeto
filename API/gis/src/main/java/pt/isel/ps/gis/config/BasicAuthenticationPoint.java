@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-import pt.isel.ps.gis.hypermedia.problemPlusJson.ProblemPlusJson;
+import pt.isel.ps.gis.hypermedia.problemDetails.ProblemDetails;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,11 +31,11 @@ public class BasicAuthenticationPoint extends BasicAuthenticationEntryPoint {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE);
         HttpStatus httpStatus = HttpStatus.UNAUTHORIZED;
-        ProblemPlusJson problemPlusJson = new ProblemPlusJson(
+        ProblemDetails problemDetails = new ProblemDetails(
                 "Requires authentication.",
                 httpStatus.value(),
                 "You need to authenticate first.");
-        String body = new ObjectMapper().writeValueAsString(problemPlusJson);
+        String body = new ObjectMapper().writeValueAsString(problemDetails);
         PrintWriter writer = response.getWriter();
         writer.println(body);
         writer.flush();

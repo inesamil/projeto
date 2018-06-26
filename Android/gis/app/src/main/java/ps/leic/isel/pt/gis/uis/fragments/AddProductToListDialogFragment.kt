@@ -74,7 +74,7 @@ class AddProductToListDialogFragment : DialogFragment(), AddProductToListAdapter
         val view = inflater.inflate(R.layout.layout_add_list_product_dialog, null)
         builder.setView(view)
 
-        categorySpinner = view.categorySpinner
+        categorySpinner = view.categoriesSpinner
 
         // Set Adapter to Recycler View
         view.productsRecyclerView.layoutManager = LinearLayoutManager(view.context)

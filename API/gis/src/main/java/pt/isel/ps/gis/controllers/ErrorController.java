@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pt.isel.ps.gis.hypermedia.problemPlusJson.ProblemPlusJson;
+import pt.isel.ps.gis.hypermedia.problemDetails.ProblemDetails;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +27,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
     }
 
     @RequestMapping(ERROR_PATH)
-    public ResponseEntity<ProblemPlusJson> error(HttpServletRequest request) {
+    public ResponseEntity<ProblemDetails> error(HttpServletRequest request) {
         String servletName = (String) request.getAttribute(RequestDispatcher.ERROR_SERVLET_NAME);
         String requestUri = (String) request.getAttribute(RequestDispatcher.ERROR_REQUEST_URI);
         String queryString = (String) request.getAttribute(RequestDispatcher.FORWARD_QUERY_STRING);
@@ -41,12 +41,12 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
             httpStatus = HttpStatus.valueOf(statusCode);
         else
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        ProblemPlusJson problemPlusJson = new ProblemPlusJson(
+        ProblemDetails problemDetails = new ProblemDetails(
                 httpStatus.getReasonPhrase(),
                 httpStatus.value(),
                 MESSAGE_DETAIL
         );
         HttpHeaders httpHeaders = new HttpHeaders();
-        return new ResponseEntity<>(problemPlusJson, setProblemDetailContentType(httpHeaders), httpStatus);
+        return new ResponseEntity<>(problemDetails, setProblemDetailContentType(httpHeaders), httpStatus);
     }
 }

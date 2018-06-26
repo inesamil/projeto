@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import pt.isel.ps.gis.hypermedia.problemPlusJson.ProblemPlusJson;
+import pt.isel.ps.gis.hypermedia.problemDetails.ProblemDetails;
 
 import java.util.Set;
 
@@ -33,11 +33,11 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
             ConflictException.class,
             ForbiddenException.class
     })
-    public final ResponseEntity<ProblemPlusJson> handleProblemDetailsException(ProblemDetailsException ex) {
+    public final ResponseEntity<ProblemDetails> handleProblemDetailsException(ProblemDetailsException ex) {
         log.warn(ex.getTitle());
         log.warn(ex.getDetail());
         HttpStatus httpStatus = ex.getStatus();
-        ProblemPlusJson problemPlusJson = new ProblemPlusJson(
+        ProblemDetails problemDetails = new ProblemDetails(
                 ex.getType(),
                 ex.getTitle(),
                 httpStatus.value(),
@@ -45,7 +45,7 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
                 ex.getInstance()
         );
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(problemPlusJson, setProblemDetailContentType(headers), httpStatus);
+        return new ResponseEntity<>(problemDetails, setProblemDetailContentType(headers), httpStatus);
     }
 
     // This exception is thrown when you send a requested with an unsupported HTTP method.
@@ -59,7 +59,7 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
         String error = "The method " + ex.getMethod() + " is not supported for this request. Please check the documentation.";
-        ProblemPlusJson problemPlusJson = new ProblemPlusJson(
+        ProblemDetails problemDetails = new ProblemDetails(
                 "Method not supported.",
                 status.value(),
                 error
@@ -67,7 +67,7 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         Set<HttpMethod> supportedMethods = ex.getSupportedHttpMethods();
         if (!CollectionUtils.isEmpty(supportedMethods))
             headers.setAllow(supportedMethods);
-        return new ResponseEntity<>(problemPlusJson, setProblemDetailContentType(headers), status);
+        return new ResponseEntity<>(problemDetails, setProblemDetailContentType(headers), status);
     }
 
     @Override
@@ -81,13 +81,13 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         log.warn(ex.getLocalizedMessage());
         String error = "The " + ex.getContentType() + " media type is not supported.";
         HttpStatus httpStatus = HttpStatus.UNSUPPORTED_MEDIA_TYPE;
-        ProblemPlusJson problemPlusJson = new ProblemPlusJson(
+        ProblemDetails problemDetails = new ProblemDetails(
                 "Media type not supported.",
                 httpStatus.value(),
                 error
         );
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>(problemPlusJson, setProblemDetailContentType(responseHeaders), httpStatus);
+        return new ResponseEntity<>(problemDetails, setProblemDetailContentType(responseHeaders), httpStatus);
     }
 
     // This exception is thrown when request missing parameter.
@@ -101,13 +101,13 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
-        ProblemPlusJson problemPlusJson = new ProblemPlusJson(
+        ProblemDetails problemDetails = new ProblemDetails(
                 "Request missing parameter.",
                 httpStatus.value(),
                 ex.getMessage()
         );
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>(problemPlusJson, setProblemDetailContentType(responseHeaders), httpStatus);
+        return new ResponseEntity<>(problemDetails, setProblemDetailContentType(responseHeaders), httpStatus);
     }
 
     // This exception is thrown when method argument is not the expected type.
@@ -121,12 +121,12 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
         String error = ex.getValue() + " should be of type " + ex.getRequiredType().getName();
-        ProblemPlusJson problemPlusJson = new ProblemPlusJson(
+        ProblemDetails problemDetails = new ProblemDetails(
                 "Method argument is not the expected type.",
                 status.value(),
                 error
         );
-        return new ResponseEntity<>(problemPlusJson, setProblemDetailContentType(headers), status);
+        return new ResponseEntity<>(problemDetails, setProblemDetailContentType(headers), status);
     }
 
     // This exception is thrown when no handler found for the request.
@@ -140,37 +140,37 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
         String error = "No handler found for " + ex.getHttpMethod() + " " + ex.getRequestURL();
-        ProblemPlusJson problemPlusJson = new ProblemPlusJson(
+        ProblemDetails problemDetails = new ProblemDetails(
                 "No handler found.",
                 status.value(),
                 error
         );
-        return new ResponseEntity<>(problemPlusJson, setProblemDetailContentType(headers), status);
+        return new ResponseEntity<>(problemDetails, setProblemDetailContentType(headers), status);
     }
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
-        ProblemPlusJson problemPlusJson = new ProblemPlusJson(
+        ProblemDetails problemDetails = new ProblemDetails(
                 "Something went wrong.",
                 status.value(),
                 ex.getMessage()
         );
-        return new ResponseEntity<>(problemPlusJson, setProblemDetailContentType(headers), status);
+        return new ResponseEntity<>(problemDetails, setProblemDetailContentType(headers), status);
     }
 
     @ExceptionHandler(Throwable.class)
-    public final ResponseEntity<ProblemPlusJson> handleException(Throwable ex) {
+    public final ResponseEntity<ProblemDetails> handleException(Throwable ex) {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
         HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        ProblemPlusJson problemPlusJson = new ProblemPlusJson(
+        ProblemDetails problemDetails = new ProblemDetails(
                 "Server error.",
                 httpStatus.value(),
                 "The server can not process your request."
         );
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(problemPlusJson, setProblemDetailContentType(headers), httpStatus);
+        return new ResponseEntity<>(problemDetails, setProblemDetailContentType(headers), httpStatus);
     }
 }
