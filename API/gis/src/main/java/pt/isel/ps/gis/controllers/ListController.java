@@ -116,7 +116,7 @@ public class ListController {
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
             @RequestBody ListProductInputModel body
-    ) throws BadRequestException, NotFoundException, EntityAlreadyExistsException {
+    ) throws BadRequestException, NotFoundException, ConflictException {
         List list;
         String username;
         try {
@@ -128,7 +128,7 @@ public class ListController {
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
         } catch (EntityAlreadyExistsException e) {
-            throw new EntityAlreadyExistsException(e.getMessage());
+            throw new ConflictException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListOutputModel(username, list),
