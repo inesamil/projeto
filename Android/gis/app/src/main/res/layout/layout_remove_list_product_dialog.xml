@@ -24,7 +24,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
     <ScrollView
-        android:id="@+id/listsScrollView"
+        android:id="@+id/productsScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -57,13 +57,13 @@
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/listsScrollView"
+                app:layout_constraintBottom_toTopOf="@+id/productsScrollView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/listsRecyclerView"
+                android:id="@+id/productsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"

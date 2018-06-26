@@ -11,14 +11,15 @@ import ps.leic.isel.pt.gis.model.ListProduct
 import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.utils.TextViewUtils
 
-class AddOrRemoveProductToListAdapter : RecyclerView.Adapter<AddOrRemoveProductToListAdapter.ViewHolder>() {
+class AddOrRemoveProductToListAdapter(private val action: String) : RecyclerView.Adapter<AddOrRemoveProductToListAdapter.ViewHolder>() {
 
+    private lateinit var mOnItemClickListener: OnItemClickListener
     private var data: Array<ListProduct>? = null
 
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_add_remove_list_product_popup, parent, false) as View
+                .inflate(R.layout.item_add_remove_list_product, parent, false) as View
         return ViewHolder(view)
     }
 
@@ -36,6 +37,11 @@ class AddOrRemoveProductToListAdapter : RecyclerView.Adapter<AddOrRemoveProductT
             holder.minusButton.setOnClickListener {
                 item.quantity = TextViewUtils.decNumberText(holder.quantityText, 0).toShort()
             }
+
+            holder.actionButton.text = action
+            holder.actionButton.setOnClickListener {
+                mOnItemClickListener.onItemActionClick(item)
+            }
         }
     }
 
@@ -49,15 +55,22 @@ class AddOrRemoveProductToListAdapter : RecyclerView.Adapter<AddOrRemoveProductT
         notifyDataSetChanged()
     }
 
-    fun getListProduct(): Array<ListProduct>? {
-        return data?.filter { it.quantity > 0 }?.toTypedArray()
-    }
-
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val listText: TextView = itemView.findViewById(R.id.listText)
+        internal val listText: TextView = itemView.findViewById(R.id.productText)
         internal val plusButton: Button = itemView.findViewById(R.id.plusButton)
         internal val minusButton: Button = itemView.findViewById(R.id.minusButton)
         internal val quantityText: TextView = itemView.findViewById(R.id.quantityText)
+        internal val actionButton: Button = itemView.findViewById(R.id.actionButton)
+    }
+
+    // Sets listener for items click
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
+        mOnItemClickListener = onItemClickListener
+    }
+
+    // Parent activity will implement this method to respond to click events
+    interface OnItemClickListener {
+        fun onItemActionClick(listProduct: ListProduct)
     }
 }
