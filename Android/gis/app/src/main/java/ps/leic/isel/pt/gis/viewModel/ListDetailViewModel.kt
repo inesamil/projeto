@@ -22,11 +22,11 @@ class ListDetailViewModel(private val app: Application) : AndroidViewModel(app) 
         return listDetail
     }
 
-    fun addProductToList(listProduct: ListProductBody): LiveData<Resource<ListProductsDto>>? {
+    fun addProductToList(listProduct: ListProductBody): LiveData<Resource<ListDto>>? {
         listDetail?.value?.data?.actions?.addListProduct?.let {
             return ServiceLocator
                     .getRepository(app.applicationContext)
-                    .create(ListProductsDto::class.java, it.url, it.contentType, listProduct, TAG)
+                    .create(ListDto::class.java, it.url, it.contentType, listProduct, TAG)
         }
         return null
     }

@@ -196,7 +196,12 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
      ***/
 
     fun onAddProductToList(listProduct: ListProduct) {
-        listDetailViewModel.addProductToList(ListProductBody(listProduct.productId, listProduct.brand, listProduct.quantity))
+        listDetailViewModel.addProductToList(ListProductBody(listProduct.productId, listProduct.brand, listProduct.quantity))?.observe(this, Observer {
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+            }
+        })
     }
 
     // NfcListener for list item clicks (from adapter)
