@@ -112,22 +112,49 @@ public class ListController {
     }
 
     @PostMapping("/{list-id}/products")
-    public ResponseEntity<ListProductsOutputModel> putProductInList(
+    public ResponseEntity<ListOutputModel> postProductInList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
             @RequestBody ListProductInputModel body
-    ) throws BadRequestException, NotFoundException {
-        java.util.List<ListProduct> listProducts;
+    ) throws BadRequestException, NotFoundException, EntityAlreadyExistsException {
+        List list;
+        String username;
         try {
-            listProductService.associateListProduct(houseId, listId, body.getProductId(), body.getBrand(), body.getQuantity());
-            listProducts = listProductService.getListProductsByListId(houseId, listId);
+            listProductService.addListProduct(houseId, listId, body.getProductId(), body.getBrand(), body.getQuantity());
+            list = listService.getListByListId(houseId, listId);
+            username = authenticationFacade.getAuthentication().getName();
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage());
+        } catch (EntityAlreadyExistsException e) {
+            throw new EntityAlreadyExistsException(e.getMessage());
+        }
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new ListOutputModel(username, list),
+                setSirenContentType(headers), HttpStatus.OK);
+    }
+
+    @PutMapping("/{list-id}/products/{product-id}")
+    public ResponseEntity<ListOutputModel> putProductInList(
+            @PathVariable("house-id") long houseId,
+            @PathVariable("list-id") short listId,
+            @PathVariable("product-id") int productId,
+            @RequestBody ListProductInputModel body
+    ) throws BadRequestException, NotFoundException {
+        List list;
+        String username;
+        try {
+            listProductService.associateListProduct(houseId, listId, productId, body.getBrand(), body.getQuantity());
+            list = listService.getListByListId(houseId, listId);
+            username = authenticationFacade.getAuthentication().getName();
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListProductsOutputModel(houseId, listId, listProducts),
+        return new ResponseEntity<>(new ListOutputModel(username, list),
                 setSirenContentType(headers), HttpStatus.OK);
     }
 
@@ -165,22 +192,24 @@ public class ListController {
     }
 
     @DeleteMapping("/{list-id}/products/{product-id}")
-    public ResponseEntity<ListProductsOutputModel> deleteProductFromList(
+    public ResponseEntity<ListOutputModel> deleteProductFromList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
             @PathVariable("product-id") int productId
     ) throws BadRequestException, NotFoundException {
-        java.util.List<ListProduct> listProducts;
+        List list;
+        String username;
         try {
             listProductService.deleteListProductByListProductId(houseId, listId, productId);
-            listProducts = listProductService.getListProductsByListId(houseId, listId);
+            list = listService.getListByListId(houseId, listId);
+            username = authenticationFacade.getAuthentication().getName();
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListProductsOutputModel(houseId, listId, listProducts),
+        return new ResponseEntity<>(new ListOutputModel(username, list),
                 setSirenContentType(headers), HttpStatus.OK);
     }
 }
