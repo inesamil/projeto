@@ -11,7 +11,7 @@ import ps.leic.isel.pt.gis.model.ListProduct
 import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.utils.TextViewUtils
 
-class AddOrRemoveProductToListAdapter(private val action: String) : RecyclerView.Adapter<AddOrRemoveProductToListAdapter.ViewHolder>() {
+class AddProductToListAdapter() : RecyclerView.Adapter<AddProductToListAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
     private var data: Array<ListProduct>? = null
@@ -19,7 +19,7 @@ class AddOrRemoveProductToListAdapter(private val action: String) : RecyclerView
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_add_remove_list_product, parent, false) as View
+                .inflate(R.layout.item_add_list_product, parent, false) as View
         return ViewHolder(view)
     }
 
@@ -38,7 +38,6 @@ class AddOrRemoveProductToListAdapter(private val action: String) : RecyclerView
                 item.quantity = TextViewUtils.decNumberText(holder.quantityText, 0).toShort()
             }
 
-            holder.actionButton.text = action
             holder.actionButton.setOnClickListener {
                 mOnItemClickListener.onItemActionClick(item)
             }

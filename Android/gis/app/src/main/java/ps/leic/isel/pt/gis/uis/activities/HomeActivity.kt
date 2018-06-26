@@ -260,12 +260,12 @@ class HomeActivity : AppCompatActivity(),
         }
         index.getUserListUrl(username)?.let {
             val args: Map<String, Any> = mapOf(
-                    Pair(AddOrRemoveProductToListDialogFragment.URL_ARG, it),
-                    Pair(AddOrRemoveProductToListDialogFragment.ADD_ACTION_ARG, true),
-                    Pair(AddOrRemoveProductToListDialogFragment.PRODUCT_ID_ARG, productId)
+                    Pair(AddProductToListDialogFragment.URL_ARG, it),
+                    Pair(AddProductToListDialogFragment.ADD_ACTION_ARG, true),
+                    Pair(AddProductToListDialogFragment.PRODUCT_ID_ARG, productId)
             )
-            val fragment = AddOrRemoveProductToListDialogFragment.newInstance(args)
-            fragment.show(supportFragmentManager, AddOrRemoveProductToListDialogFragment.TAG)
+            val fragment = AddProductToListDialogFragment.newInstance(args)
+            fragment.show(supportFragmentManager, AddProductToListDialogFragment.TAG)
         }
     }
 
@@ -281,12 +281,12 @@ class HomeActivity : AppCompatActivity(),
         }
         index.getUserListUrl(username)?.let {
             val args: Map<String, Any> = mapOf(
-                    Pair(AddOrRemoveProductToListDialogFragment.URL_ARG, it),
-                    Pair(AddOrRemoveProductToListDialogFragment.ADD_ACTION_ARG, false),
-                    Pair(AddOrRemoveProductToListDialogFragment.PRODUCT_ID_ARG, productId)
+                    Pair(AddProductToListDialogFragment.URL_ARG, it),
+                    Pair(AddProductToListDialogFragment.ADD_ACTION_ARG, false),
+                    Pair(AddProductToListDialogFragment.PRODUCT_ID_ARG, productId)
             )
-            val fragment = AddOrRemoveProductToListDialogFragment.newInstance(args)
-            fragment.show(supportFragmentManager, AddOrRemoveProductToListDialogFragment.TAG)
+            val fragment = AddProductToListDialogFragment.newInstance(args)
+            fragment.show(supportFragmentManager, AddProductToListDialogFragment.TAG)
         }
     }
 
