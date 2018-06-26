@@ -1,7 +1,5 @@
 package ps.leic.isel.pt.gis.model.dtos
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
@@ -15,9 +13,11 @@ class ListDto(siren: Siren) {
     val listType: String
     var username: String? = null
     var shareable: Boolean? = null
-    var listProducts: Array<ListProductDto>? = null
-    val actions: HousesActions
-    val links: HouseLinks
+    var listProducts: Array<ListProductDto> = siren.entities?.map {
+        ListProductDto(Siren(it.klass, it.properties, null, it.actions, it.links))
+    }.orEmpty().toTypedArray()
+    val actions: ListActions
+    val links: ListLinks
 
     init {
         val properties = siren.properties
@@ -28,25 +28,19 @@ class ListDto(siren: Siren) {
         listType = properties[listTypeLabel] as String
         username = properties[usernameLabel] as? String
         shareable = properties[shareableLabel] as? Boolean
-
-        val listProductsElements = siren.entities?.find {
-            it.klass?.contains(listProductsLabel) ?: false
-        }?.properties?.get(elementsLabel)
-        listProducts = mapper.convertValue<Array<ListProductDto>>(listProductsElements, Array<ListProductDto>::class.java)
-
-        actions = HousesActions(siren.actions)
-        links = HouseLinks(siren.links)
+        actions = ListActions(siren.actions)
+        links = ListLinks(siren.links)
     }
 
-    class HousesActions(actions: Array<Action>?) {
-        var updateListProducts: ActionDto? = null
+    class ListActions(actions: Array<Action>?) {
+        var addListProduct: ActionDto? = null
         var updateList: ActionDto? = null
         var deleteList: ActionDto? = null
 
         init {
             actions?.find {
-                it.name == updateListProductsLabel
-            }?.let { updateListProducts = ActionDto(it.name, it.href, it.type) }
+                it.name == addListProductLabel
+            }?.let { addListProduct = ActionDto(it.name, it.href, it.type) }
 
             actions?.find {
                 it.name == updateListLabel
@@ -58,7 +52,7 @@ class ListDto(siren: Siren) {
         }
     }
 
-    class HouseLinks(links: Array<Link>?) {
+    class ListLinks(links: Array<Link>?) {
         val selfLink: String? = links?.find {
             it.klass?.contains(listClassLabel) ?: false
         }?.href
@@ -70,7 +64,6 @@ class ListDto(siren: Siren) {
     companion object {
         const val SYSTEM_TYPE = "system"
         const val USER_TYPE = "user"
-        private val mapper: ObjectMapper = jacksonObjectMapper()
         private const val houseIdLabel: String = "house-id"
         private const val houseNameLabel: String = "house-name"
         private const val listIdLabel: String = "list-id"
@@ -78,12 +71,10 @@ class ListDto(siren: Siren) {
         private const val listTypeLabel = "list-type"
         private const val usernameLabel: String = "user-username"
         private const val shareableLabel: String = "list-shareable"
-        private const val listProductsLabel: String = "list-products"
-        private const val elementsLabel: String = "elements"
         private const val listClassLabel: String = "list"
         private const val listsLabel: String = "lists"
+        private const val addListProductLabel: String = "add-list-product"
         private const val updateListLabel: String = "update-list"
-        private const val updateListProductsLabel: String = "update-list-product"
         private const val deleteListLabel: String = "delete-list"
     }
 }

@@ -60,28 +60,45 @@ public class ListOutputModel {
 
     private Entity[] initEntities(List list) {
         // Products
-        ListProductJsonObject[] products = new ListProductJsonObject[list.getListproducts().size()];
+        Entity[] entities = new Entity[list.getListproducts().size()];
         int i = 0;
         for (ListProduct listProduct : list.getListproducts()) {
-            products[i++] = new ListProductJsonObject(
-                    listProduct.getId().getHouseId(),
-                    listProduct.getId().getListId(),
-                    listProduct.getId().getProductId(),
-                    listProduct.getProduct().getProductName(),
-                    listProduct.getListproductBrand(),
-                    listProduct.getListproductQuantity());
+            HashMap<String, Object> properties = new HashMap<>();
+
+            long houseId = listProduct.getId().getHouseId();
+            short listId = listProduct.getId().getListId();
+            int productId = listProduct.getId().getProductId();
+
+            properties.put("house-id", houseId);
+            properties.put("list-id", listId);
+            properties.put("product-id", productId);
+            properties.put("product-name", listProduct.getProduct().getProductName());
+            properties.put("list-product-brand", listProduct.getListproductBrand());
+            properties.put("list-product-quantity", listProduct.getListproductQuantity());
+
+            // PUT ListProduct
+            Action updateListProduct = new Action(
+                    "update-list-product",
+                    "update List Product",
+                    Method.POST,
+                    UriBuilderUtils.buildProductListUri(houseId, listId, productId),
+                    "application/json",
+                    new Field[]{
+                            new Field("product-id", Field.Type.number, null, "Product Id"),
+                            new Field("brand", Field.Type.text, null, "Brand"),
+                            new Field("quantity", Field.Type.number, null, "Quantity")
+                    }
+            );
+
+            entities[i++] = new Entity(
+                    new String[]{"list-products", "collection"},
+                    new String[]{"collection"},
+                    properties,
+                    new Action[]{updateListProduct},
+                    null);
+
         }
-        HashMap<String, Object> listProductsProperties = new HashMap<>();
-        listProductsProperties.put("elements", products);
-
-        Entity listProductsEntity = new Entity(
-                new String[]{"list-products", "collection"},
-                new String[]{"collection"},
-                listProductsProperties,
-                null,
-                null);
-
-        return new Entity[]{listProductsEntity};
+        return entities;
     }
 
     private Action[] initActions(List list) {
@@ -98,11 +115,11 @@ public class ListOutputModel {
         String userListUri = UriBuilderUtils.buildListUri(houseId, listId);
         String productsListUri = UriBuilderUtils.buildProductsListUri(houseId, listId);
 
-        // PUT ListProduct
-        Action updateListProducts = new Action(
-                "update-list-product",
-                "Update List Products",
-                Method.PUT,
+        // POST ListProduct
+        Action addListProduct = new Action(
+                "add-list-product",
+                "Add List Product",
+                Method.POST,
                 productsListUri,
                 type,
                 new Field[]{
@@ -135,7 +152,7 @@ public class ListOutputModel {
                 null
         );
 
-        return new Action[]{updateListProducts, updateList, deleteList};
+        return new Action[]{addListProduct, updateList, deleteList};
     }
 
     private Link[] initLinks(String username, List list) {
