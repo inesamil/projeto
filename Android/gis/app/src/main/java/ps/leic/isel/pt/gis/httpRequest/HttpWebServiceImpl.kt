@@ -2,6 +2,7 @@ package ps.leic.isel.pt.gis.httpRequest
 
 import android.content.Context
 import com.android.volley.Request
+import ps.leic.isel.pt.gis.repositories.Resource
 import ps.leic.isel.pt.gis.utils.RequestQueue
 import ps.leic.isel.pt.gis.utils.Requester
 
@@ -16,9 +17,11 @@ class HttpWebServiceImpl(private val applicationContext: Context) : HttpWebServi
         methodsMapper[HttpWebService.Method.DELETE] = Request.Method.DELETE
     }
 
-    override fun <T> fetch(method: HttpWebService.Method, url: String, body: Any?, headers: MutableMap<String, String>,
-                           dtoType: Class<T>, onSuccess: (T) -> Unit, onError: (String?) -> Unit,
-                           tag: String) {
+    override fun <T> fetch(
+            method: HttpWebService.Method, url: String, body: Any?, headers: MutableMap<String, String>,
+            dtoType: Class<T>, onSuccess: (Resource<T>) -> Unit, onError: (String?) -> Unit,
+            tag: String
+    ) {
         methodsMapper[method]?.let {
             val requester = Requester(it, url, body, headers, dtoType, onSuccess, { onError(it?.message) })
             RequestQueue.getInstance(applicationContext).addToRequestQueue(requester)

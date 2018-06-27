@@ -23,7 +23,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
 
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.POST, url, body, headers, c, {
-            data.value = Resource.success(it)
+            data.value = it
         }, {
             data.value = Resource.error(it)
         }, tag)
@@ -43,7 +43,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
 
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.GET, url, null, headers, c, {
-            data.value = Resource.success(it)
+            data.value = it
         }, {
             data.value = Resource.error(it)
         }, tag)
@@ -64,7 +64,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
 
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.PUT, url, body, headers, c, {
-            data.value = Resource.success(it)
+            data.value = it
         }, {
             data.value = Resource.error(it)
         }, tag)
@@ -84,7 +84,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
 
         ServiceLocator.getWebService(applicationContext).fetch(
                 HttpWebService.Method.DELETE, url, null, headers, c, {
-            data.value = Resource.success(it)
+            data.value = it
         }, {
             data.value = Resource.error(it)
         }, tag)
