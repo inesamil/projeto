@@ -173,4 +173,7 @@
     <string name="color_system">Sistema de Cores</string>
     <string name="brand_info">Um símbolo de identificação, marca, logótipo, nome, palavra e/ou frase que as empresas usam para distinguir os seus produtos dos outros.</string>
     <string name="variety_info">A variedade é sobre a personalização de um produto para se adequar ao caráter do consumidor individual.\nExemplo: Note-se um pacote de leite com as caraterísticas - quantidade líquida igual a 1L, da marca X e do tipo UHT magro.\nEntão, identificar-se-ia da seguinte forma:\n\nCategoria: Laticínios\nProduto: Leite\nMarca: X\nSegmento: 1L\nVariedade:  UHT Magro</string>
+    <string name="edit_icon_description">Ícone de Editar</string>
+    <string name="delete_icon_description">Ícone de Remover</string>
+    <string name="delete_confirmation">Tem a certeza que pretende remover?</string>
 </resources>

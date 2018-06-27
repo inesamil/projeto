@@ -207,4 +207,9 @@
     <string name="color_system">Color System</string>
     <string name="brand_info">An identification symbol, brand, logo, name, word and/or phrase that companies use to distinguish their products from others.</string>
     <string name="variety_info">Variety is about personalizing a product to suit the character of the individual consumer.</string>
+    <string name="edit_icon_description">Edit Icon</string>
+    <string name="delete_icon_description">Delete Icon</string>
+    <string name="delete_confirmation">Are you sure you want to delete?</string>
+    <string name="list_product_removed_successfully">Product removed successfully</string>
+    <string name="could_not_remove_list_product">Sorry, we couldn\'t remove the product, please try again</string>
 </resources>
