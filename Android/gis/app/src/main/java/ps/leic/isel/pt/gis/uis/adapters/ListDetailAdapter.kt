@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.ListProductDto
@@ -27,6 +28,8 @@ class ListDetailAdapter : RecyclerView.Adapter<ListDetailAdapter.ViewHolder>() {
             // Fill ViewHolder
             holder.nameItemText.text = item.productName
             holder.numberItemText.text = item.productsListQuantity.toString()
+            holder.editIcon.setOnClickListener { mOnItemClickListener.onEditClick(item) }
+            holder.deleteIcon.setOnClickListener { mOnItemClickListener.onDeleteClick(item) }
         }
     }
 
@@ -42,12 +45,8 @@ class ListDetailAdapter : RecyclerView.Adapter<ListDetailAdapter.ViewHolder>() {
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val nameItemText: TextView = itemView.findViewById(R.id.nameText) as TextView
         internal val numberItemText: TextView = itemView.findViewById(R.id.numberText) as TextView
-
-        init {
-            itemView.setOnClickListener {
-                mOnItemClickListener.onItemClick(it, adapterPosition)
-            }
-        }
+        internal val editIcon: ImageView = itemView.findViewById(R.id.editIcon) as ImageView
+        internal val deleteIcon: ImageView = itemView.findViewById(R.id.deleteIcon) as ImageView
     }
 
     // Sets listener for items click
@@ -57,6 +56,7 @@ class ListDetailAdapter : RecyclerView.Adapter<ListDetailAdapter.ViewHolder>() {
 
     // Parent activity will implement this method to respond to click events
     interface OnItemClickListener {
-        fun onItemClick(view: View, position: Int)
+        fun onEditClick(listProductDto: ListProductDto)
+        fun onDeleteClick(listProductDto: ListProductDto)
     }
 }
