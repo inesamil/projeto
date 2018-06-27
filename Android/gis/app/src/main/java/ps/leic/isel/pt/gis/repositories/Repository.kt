@@ -4,13 +4,13 @@ import android.arch.lifecycle.LiveData
 
 interface Repository {
 
-    fun <T> create(c: Class<T>, url: String, contentType: String?, body: Any?, tag: String): LiveData<Resource<T>>
+    fun <T, E> create(dtoType: Class<T>, errorType: Class<E>, url: String, contentType: String?, body: Any?, tag: String): LiveData<Resource<T, E>>
 
-    fun <T> get(c: Class<T>, url: String, tag: String): LiveData<Resource<T>>
+    fun <T, E> get(dtoType: Class<T>, errorType: Class<E>, url: String, tag: String): LiveData<Resource<T, E>>
 
-    fun <T> update(c: Class<T>, url: String, contentType: String?, body: Any?, tag: String): LiveData<Resource<T>>
+    fun <T, E> update(dtoType: Class<T>, errorType: Class<E>, url: String, contentType: String?, body: Any?, tag: String): LiveData<Resource<T, E>>
 
-    fun <T> delete(c: Class<T>, url: String, tag: String): LiveData<Resource<T>>
+    fun <T, E> delete(dtoType: Class<T>, errorType: Class<E>, url: String, tag: String): LiveData<Resource<T, E>>
 
     fun cancelAllPendingRequests(tag: String)
 }

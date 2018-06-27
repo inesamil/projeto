@@ -9,8 +9,8 @@ import ps.leic.isel.pt.gis.utils.HeadersUtils
 
 class RepositoryImpl(private val applicationContext: Context) : Repository {
 
-    override fun <T> create(c: Class<T>, url: String, contentType: String?, body: Any?, tag: String): LiveData<Resource<T>> {
-        val data = MutableLiveData<Resource<T>>()
+    override fun <T, E> create(dtoType: Class<T>, errorType: Class<E>, url: String, contentType: String?, body: Any?, tag: String): LiveData<Resource<T, E>> {
+        val data = MutableLiveData<Resource<T, E>>()
         data.value = Resource.loading()
 
         val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
@@ -22,7 +22,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         }
 
         ServiceLocator.getWebService(applicationContext).fetch(
-                HttpWebService.Method.POST, url, body, headers, c, {
+                HttpWebService.Method.POST, url, body, headers, dtoType, errorType, {
             data.value = it
         }, {
             data.value = Resource.error(it)
@@ -30,8 +30,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         return data
     }
 
-    override fun <T> get(c: Class<T>, url: String, tag: String): LiveData<Resource<T>> {
-        val data = MutableLiveData<Resource<T>>()
+    override fun <T, E> get(dtoType: Class<T>, errorType: Class<E>, url: String, tag: String): LiveData<Resource<T, E>> {
+        val data = MutableLiveData<Resource<T, E>>()
         data.value = Resource.loading()
 
         val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
@@ -42,7 +42,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         }
 
         ServiceLocator.getWebService(applicationContext).fetch(
-                HttpWebService.Method.GET, url, null, headers, c, {
+                HttpWebService.Method.GET, url, null, headers, dtoType, errorType, {
             data.value = it
         }, {
             data.value = Resource.error(it)
@@ -50,8 +50,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         return data
     }
 
-    override fun <T> update(c: Class<T>, url: String, contentType: String?, body: Any?, tag: String): LiveData<Resource<T>> {
-        val data = MutableLiveData<Resource<T>>()
+    override fun <T, E> update(dtoType: Class<T>, errorType: Class<E>, url: String, contentType: String?, body: Any?, tag: String): LiveData<Resource<T, E>> {
+        val data = MutableLiveData<Resource<T, E>>()
         data.value = Resource.loading()
 
         val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
@@ -63,7 +63,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         }
 
         ServiceLocator.getWebService(applicationContext).fetch(
-                HttpWebService.Method.PUT, url, body, headers, c, {
+                HttpWebService.Method.PUT, url, body, headers, dtoType, errorType, {
             data.value = it
         }, {
             data.value = Resource.error(it)
@@ -71,8 +71,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         return data
     }
 
-    override fun <T> delete(c: Class<T>, url: String, tag: String): LiveData<Resource<T>> {
-        val data = MutableLiveData<Resource<T>>()
+    override fun <T, E> delete(dtoType: Class<T>, errorType: Class<E>, url: String, tag: String): LiveData<Resource<T, E>> {
+        val data = MutableLiveData<Resource<T, E>>()
         data.value = Resource.loading()
 
         val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
@@ -83,7 +83,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         }
 
         ServiceLocator.getWebService(applicationContext).fetch(
-                HttpWebService.Method.DELETE, url, null, headers, c, {
+                HttpWebService.Method.DELETE, url, null, headers, dtoType, errorType, {
             data.value = it
         }, {
             data.value = Resource.error(it)
