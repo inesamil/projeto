@@ -13,11 +13,11 @@ import ps.leic.isel.pt.gis.repositories.Resource
 import java.io.IOException
 
 
-class Requester<T>(
+class Requester<T, E>(
         method: Int, url: String, body: Any?, private val headers: MutableMap<String, String>,
-        private val dtoType: Class<T>, onSuccess: (Resource<T>) -> Unit,
+        private val dtoType: Class<T>, private val errorType: Class<E>, onSuccess: (Resource<T, E>) -> Unit,
         onError: (VolleyError?) -> Unit
-) : JsonRequest<Resource<T>>(
+) : JsonRequest<Resource<T, E>>(
         method, UrlUtils.parseUrl(url), mapper.writeValueAsString(body), onSuccess, onError
 ) {
 
@@ -36,16 +36,19 @@ class Requester<T>(
     /**
      *  The function that parses the response to a DTO (generic)
      */
-    override fun parseNetworkResponse(response: NetworkResponse): Response<Resource<T>> {
+    override fun parseNetworkResponse(response: NetworkResponse): Response<Resource<T, E>> {
         return try {
             val hypermediaType = response.headers["content-type"]
             val hypermedia = mapper.readValue(response.data, hypermediaClasses[hypermediaType])
-            val constructor = dtoType.getConstructor(hypermediaClasses[hypermediaType])
-            val dto = constructor.newInstance(hypermedia)
-            if (hypermediaType == PROBLEM_JSON)
-                Response.success(Resource.error(dto), null)
-            else
+            if (hypermediaType == PROBLEM_JSON) {
+                val constructor = errorType.getConstructor(hypermediaClasses[hypermediaType])
+                val errorApi = constructor.newInstance(hypermedia)
+                Response.success(Resource.apiError(errorApi), null)
+            } else {
+                val constructor = dtoType.getConstructor(hypermediaClasses[hypermediaType])
+                val dto = constructor.newInstance(hypermedia)
                 Response.success(Resource.success(dto), null)
+            }
         } catch (e: IOException) {
             Response.error(VolleyError(e))
         }
