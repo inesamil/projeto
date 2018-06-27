@@ -3,39 +3,28 @@ package ps.leic.isel.pt.gis.repositories
 enum class Status {
     SUCCESS,
     ERROR,
+    API_ERROR,
     LOADING
 }
 
 //a generic class that describes a data with a status
-class Resource<out T> private constructor(val status: Status, val data: T?, val message: String?) {
+class Resource<out T, E> private constructor(val status: Status, val data: T?, val apiError: E?, val message: String?) {
 
     companion object {
-        fun <T> success(data: T): Resource<T> {
-            return Resource(Status.SUCCESS, data, null)
+        fun <T, E> success(data: T): Resource<T, E> {
+            return Resource(Status.SUCCESS, data, null, null)
         }
 
-        fun <T> success(msg: String?): Resource<T> {
-            return Resource(Status.SUCCESS, null, msg)
+        fun <T, E> apiError(problemDetails: E): Resource<T, E> {
+            return Resource(Status.ERROR, null, problemDetails, null)
         }
 
-        fun <T> success(data: T, msg: String?): Resource<T> {
-            return Resource(Status.SUCCESS, data, msg)
+        fun <T, E> error(msg: String?): Resource<T, E> {
+            return Resource(Status.ERROR, null, null, msg)
         }
 
-        fun <T> error(msg: String?): Resource<T> {
-            return Resource(Status.ERROR, null, msg)
-        }
-
-        fun <T> error(error: T): Resource<T> {
-            return Resource(Status.ERROR, error, null)
-        }
-
-        fun <T> error(error: T, msg: String?): Resource<T> {
-            return Resource(Status.ERROR, error, msg)
-        }
-
-        fun <T> loading(): Resource<T> {
-            return Resource(Status.LOADING, null, null)
+        fun <T, E> loading(): Resource<T, E> {
+            return Resource(Status.LOADING, null, null, null)
         }
     }
 }
