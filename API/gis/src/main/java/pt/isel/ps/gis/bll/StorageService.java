@@ -5,6 +5,7 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Storage;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface StorageService {
 
@@ -26,7 +27,7 @@ public interface StorageService {
      * @return Optional<Storage>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Storage getStorageByStorageId(long houseId, short storageId) throws EntityException, EntityNotFoundException;
+    Storage getStorageByStorageId(long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar todos os locais de armazenamento duma casa através do ID da casa
@@ -35,24 +36,22 @@ public interface StorageService {
      * @return List<Storage>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<Storage> getStorageByHouseId(long houseId) throws EntityException, EntityNotFoundException;
+    List<Storage> getStorageByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar um local de armazenamento numa casa
      *
-     * @param storage local de armazenamento a adicionar
      * @return Storage
      */
-    Storage addStorage(long houseId, String name, Float minimumTemperature, Float maximumTemperature) throws EntityException, EntityNotFoundException;
+    Storage addStorage(long houseId, String name, Float minimumTemperature, Float maximumTemperature, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Atualizar um local de armazenamento duma casa
      *
-     * @param storage local de armazenamento atualizado
      * @return Storage
      * @throws EntityNotFoundException se o local de armazenamento especificado não existir na casa particularizada
      */
-    Storage updateStorage(long houseId, short storageId, String name, Float minimumTemperature, Float maximumTemperature) throws EntityNotFoundException, EntityException;
+    Storage updateStorage(long houseId, short storageId, String name, Float minimumTemperature, Float maximumTemperature, Locale locale) throws EntityNotFoundException, EntityException;
 
     /**
      * Remover um local de armazenamento duma casa
@@ -62,5 +61,5 @@ public interface StorageService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o local de armazenamento especificado não existir na casa particularizada
      */
-    void deleteStorageByStorageId(long houseId, short storageId) throws EntityException, EntityNotFoundException;
+    void deleteStorageByStorageId(long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException;
 }

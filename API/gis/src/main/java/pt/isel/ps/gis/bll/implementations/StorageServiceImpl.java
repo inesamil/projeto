@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll.implementations;
 
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.StorageService;
@@ -13,19 +14,20 @@ import pt.isel.ps.gis.model.StorageId;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class StorageServiceImpl implements StorageService {
 
-    private static final String HOUSE_NOT_EXIST = "House does not exist.";
-    private static final String STORAGE_NOT_EXIST = "Storage does not exist in this house.";
-
     private final StorageRepository storageRepository;
     private final HouseRepository houseRepository;
 
-    public StorageServiceImpl(StorageRepository storageRepository, HouseRepository houseRepository) {
+    private final MessageSource messageSource;
+
+    public StorageServiceImpl(StorageRepository storageRepository, HouseRepository houseRepository, MessageSource messageSource) {
         this.storageRepository = storageRepository;
         this.houseRepository = houseRepository;
+        this.messageSource = messageSource;
     }
 
     @Override
@@ -34,32 +36,32 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public Storage getStorageByStorageId(long houseId, short storageId) throws EntityException, EntityNotFoundException {
+    public Storage getStorageByStorageId(long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException {
         return storageRepository
                 .findById(new StorageId(houseId, storageId))
-                .orElseThrow(() -> new EntityNotFoundException(STORAGE_NOT_EXIST));
+                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("storage_In_House_Not_Exist", null, locale)));
     }
 
     @Transactional
     @Override
-    public List<Storage> getStorageByHouseId(long houseId) throws EntityException, EntityNotFoundException {
+    public List<Storage> getStorageByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
-        checkHouse(houseId);
+        checkHouse(houseId, locale);
         return storageRepository.findAllById_HouseId(houseId);
     }
 
     @Transactional
     @Override
-    public Storage addStorage(long houseId, String name, Float minimumTemperature, Float maximumTemperature) throws EntityException, EntityNotFoundException {
+    public Storage addStorage(long houseId, String name, Float minimumTemperature, Float maximumTemperature, Locale locale) throws EntityException, EntityNotFoundException {
         Storage storage = new Storage(houseId, name, new Numrange(minimumTemperature, maximumTemperature));
-        checkHouse(houseId);
+        checkHouse(houseId, locale);
         return storageRepository.insertStorage(storage);
     }
 
     @Transactional
     @Override
-    public Storage updateStorage(long houseId, short storageId, String name, Float minimumTemperature, Float maximumTemperature) throws EntityNotFoundException, EntityException {
-        Storage storage = getStorageByStorageId(houseId, storageId);
+    public Storage updateStorage(long houseId, short storageId, String name, Float minimumTemperature, Float maximumTemperature, Locale locale) throws EntityNotFoundException, EntityException {
+        Storage storage = getStorageByStorageId(houseId, storageId, locale);
         storage.setStorageName(name);
         storage.setStorageTemperature(new Numrange(minimumTemperature, maximumTemperature));
         return storage;
@@ -67,16 +69,15 @@ public class StorageServiceImpl implements StorageService {
 
     @Transactional
     @Override
-    public void deleteStorageByStorageId(long houseId, short storageId) throws EntityException, EntityNotFoundException {
+    public void deleteStorageByStorageId(long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException {
         StorageId id = new StorageId(houseId, storageId);
         if (!storageRepository.existsById(id))
-            throw new EntityNotFoundException(String.format("Storage with ID %d does not exist in the house with ID %d.",
-                    storageId, houseId));
+            throw new EntityNotFoundException(messageSource.getMessage("storage_Id_Not_Exist", new Object[]{ storageId, houseId}, locale));
         storageRepository.deleteCascadeStorageById(id);
     }
 
-    private void checkHouse(long houseId) throws EntityNotFoundException {
+    private void checkHouse(long houseId, Locale locale) throws EntityNotFoundException {
         if (!houseRepository.existsById(houseId))
-            throw new EntityNotFoundException(HOUSE_NOT_EXIST);
+            throw new EntityNotFoundException(messageSource.getMessage("house_Not_Exist", null, locale));
     }
 }
