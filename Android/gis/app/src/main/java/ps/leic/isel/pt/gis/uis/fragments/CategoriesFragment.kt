@@ -62,6 +62,9 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
             when {
                 it?.status == Status.SUCCESS -> onSuccess(it.data!!)
                 it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.API_ERROR -> {
+                    it.apiError
+                }
                 it?.status == Status.LOADING -> {
                     state = State.LOADING
                 }
