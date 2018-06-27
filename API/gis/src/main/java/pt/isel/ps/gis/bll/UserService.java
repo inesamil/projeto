@@ -5,6 +5,8 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Users;
 
+import java.util.Locale;
+
 public interface UserService {
 
     /**
@@ -24,7 +26,7 @@ public interface UserService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador com o ID especificado não existir
      */
-    Users getUserByUserId(Long userId) throws EntityException, EntityNotFoundException;
+    Users getUserByUserId(Long userId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Obter um utilizador através do ser nome de utilizador
@@ -34,7 +36,7 @@ public interface UserService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador com o ID especificado não existir
      */
-    Users getUserByUserUsername(String username) throws EntityException, EntityNotFoundException;
+    Users getUserByUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar um utilizador
@@ -47,7 +49,7 @@ public interface UserService {
      * @return User
      * @throws EntityException se os atributos especificados no parâmetro user forem inválidos
      */
-    Users addUser(String username, String email, Short age, String name, String password) throws EntityException, EntityAlreadyExistsException;
+    Users addUser(String username, String email, Short age, String name, String password, Locale locale) throws EntityException, EntityAlreadyExistsException;
 
     /**
      * Atualizar um utilizador
@@ -61,7 +63,7 @@ public interface UserService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador especificado não existir
      */
-    Users updateUser(String username, String email, Short age, String name, String password) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException;
+    Users updateUser(String username, String email, Short age, String name, String password, Locale locale) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException;
 
     /**
      * Remover um utilizador
@@ -70,5 +72,5 @@ public interface UserService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador especificado não existir
      */
-    void deleteUserByUserUsername(String username) throws EntityException, EntityNotFoundException;
+    void deleteUserByUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException;
 }
