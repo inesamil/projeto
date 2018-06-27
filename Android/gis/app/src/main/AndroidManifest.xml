@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ps.leic.isel.pt.gis">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- Add permission for NFC -->
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.INTERNET" />
