@@ -21,16 +21,8 @@ public class IndexController {
 
     private static final Logger log = LoggerFactory.getLogger(IndexController.class);
 
-    private final MessageSource messageSource;
-
-    public IndexController(MessageSource messageSource) {
-        this.messageSource = messageSource;
-    }
-
     @GetMapping("")
-    public ResponseEntity<IndexOutputModel> getIndex(Locale locale) {
-        log.info(messageSource.getMessage("test", null, locale));
-        log.info(messageSource.getMessage("test.abc", new Object[]{"xpto"}, locale));
+    public ResponseEntity<IndexOutputModel> getIndex() {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new IndexOutputModel(), setJsonHomeContentType(headers), HttpStatus.OK);
     }

@@ -140,14 +140,4 @@ public class UriBuilderUtilsTest {
     public void test_build_user_list_uri() {
         assertEquals(USER_LIST, UriBuilderUtils.buildUserListUri(1L, (short) 1));
     }*/
-
-    @Test
-    public void test_build_user_uri() {
-        assertEquals(USER, UriBuilderUtils.buildUserUri("test"));
-    }
-
-    @Test
-    public void test_build_user_houses_uri() {
-        assertEquals(USER_HOUSES, UriBuilderUtils.buildUserHousesUri("test"));
-    }
 }
