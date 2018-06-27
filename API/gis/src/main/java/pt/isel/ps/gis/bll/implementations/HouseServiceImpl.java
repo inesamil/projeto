@@ -4,10 +4,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.HouseService;
-import pt.isel.ps.gis.dal.repositories.HouseRepository;
-import pt.isel.ps.gis.dal.repositories.SystemListRepositoryCustom;
-import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
-import pt.isel.ps.gis.dal.repositories.UsersRepository;
+import pt.isel.ps.gis.dal.repositories.*;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.*;
@@ -24,11 +21,11 @@ public class HouseServiceImpl implements HouseService {
     private final HouseRepository houseRepository;
     private final UsersRepository usersRepository;
     private final UserHouseRepository userHouseRepository;
-    private final SystemListRepositoryCustom systemListRepository;
+    private final SystemListRepository systemListRepository;
 
     private final MessageSource messageSource;
 
-    public HouseServiceImpl(HouseRepository houseRepository, UsersRepository usersRepository, UserHouseRepository userHouseRepository, SystemListRepositoryCustom systemListRepository, MessageSource messageSource) {
+    public HouseServiceImpl(HouseRepository houseRepository, UsersRepository usersRepository, UserHouseRepository userHouseRepository, SystemListRepository systemListRepository, MessageSource messageSource) {
         this.houseRepository = houseRepository;
         this.usersRepository = usersRepository;
         this.userHouseRepository = userHouseRepository;
