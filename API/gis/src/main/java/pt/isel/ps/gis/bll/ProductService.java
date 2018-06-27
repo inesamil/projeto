@@ -5,6 +5,7 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Product;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface ProductService {
 
@@ -24,7 +25,7 @@ public interface ProductService {
      * @return Product
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Product getProductByCategoryIdAndProductId(int categoryId, int productId) throws EntityException, EntityNotFoundException;
+    Product getProductByCategoryIdAndProductId(int categoryId, int productId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar os produtos de uma categoria através do ID da categoria
@@ -33,7 +34,7 @@ public interface ProductService {
      * @return List<Product>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<Product> getProductsByCategoryId(int categoryId) throws EntityException, EntityNotFoundException;
+    List<Product> getProductsByCategoryId(int categoryId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar os produtos filtrados de uma categoria através do ID da categoria
@@ -43,7 +44,7 @@ public interface ProductService {
      * @return List<ProductService>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<Product> getProductsByCategoryIdFiltered(int categoryId, ProductFilters filters) throws EntityException, EntityNotFoundException;
+    List<Product> getProductsByCategoryIdFiltered(int categoryId, ProductFilters filters, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar um produto
