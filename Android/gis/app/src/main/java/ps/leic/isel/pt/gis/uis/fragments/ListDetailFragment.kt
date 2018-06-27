@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ListProduct
@@ -33,7 +34,6 @@ import ps.leic.isel.pt.gis.viewModel.ListDetailViewModel
  *
  */
 class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
-
     private var listName: String? = null
     private var list: ListDto? = null
 
@@ -204,12 +204,33 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         })
     }
 
-    // NfcListener for list item clicks (from adapter)
-    override fun onItemClick(view: View, position: Int) {
-        list?.listProducts?.let {
-            val listProduct = it[position]
-            listener?.onListProductInteraction(listProduct)
-        }
+    fun onListProductEdited(listProduct: ListProduct) {
+        listDetailViewModel.updateListProduct(ListProductBody(listProduct.productId, listProduct.brand, listProduct.quantity))?.observe(this, Observer {
+            when {
+                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
+                it?.status == Status.ERROR -> onError(it.message)
+            }
+        })
+    }
+
+    fun onListProductRemoved(listProduct: ListProductDto) {
+        listDetailViewModel.removeListProduct(ListProductBody(listProduct.productId, listProduct.productListBrand, listProduct.productsListQuantity))?.observe(this, Observer {
+            when {
+                it?.status == Status.SUCCESS -> {
+                    onSuccess(it.data!!)
+                    Toast.makeText(context, getString(R.string.list_product_removed_successfully), Toast.LENGTH_SHORT).show()
+                }
+                it?.status == Status.ERROR -> { Toast.makeText(context, getString(R.string.could_not_remove_list_product), Toast.LENGTH_SHORT).show()}
+            }
+        })
+    }
+
+    override fun onEditClick(listProduct: ListProductDto) {
+        listener?.onEditListProductInteraction(listProduct)
+    }
+
+    override fun onDeleteClick(listProduct: ListProductDto) {
+        listener?.onDeleteListProductInteraction(listProduct)
     }
 
     /**
@@ -220,7 +241,8 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
      */
     interface OnListDetailFragmentInteractionListener {
         fun onAddProductToListInteraction()
-        fun onListProductInteraction(listProduct: ListProductDto)
+        fun onEditListProductInteraction(listProduct: ListProductDto)
+        fun onDeleteListProductInteraction(listProduct: ListProductDto)
         fun onListDownload()    //TODO: o que é preciso passar?
     }
 
