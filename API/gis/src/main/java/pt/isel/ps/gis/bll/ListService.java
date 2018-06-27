@@ -4,6 +4,7 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.List;
+import pt.isel.ps.gis.model.SystemList;
 
 public interface ListService {
 
@@ -72,9 +73,20 @@ public interface ListService {
      * @param username      nome de utilizador do autor da lista
      * @param listShareable indicador de lista partilhável
      * @return UserList
-     * @throws EntityException se os parâmetros recebeidos forem inválidos
+     * @throws EntityException se os parâmetros recebidos forem inválidos
      */
     List addUserList(Long houseId, String listName, String username, Boolean listShareable) throws EntityException, EntityNotFoundException;
+
+    /**
+     * Adicionar uma lista de sistema a uma casa
+     *
+     * @param houseId       identificador da casa
+     * @param listName      nome da lista
+     * @return SystemList
+     * @throws EntityException se os parâmetros recebidos forem inválidos
+     */
+    SystemList addSystemList(Long houseId, String listName) throws EntityException, EntityNotFoundException;
+
 
     /**
      * Atualizar uma lista duma casa

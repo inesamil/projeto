@@ -86,6 +86,14 @@ public class ListServiceImpl implements ListService {
         return list;
     }
 
+    @Override
+    public SystemList addSystemList(Long houseId, String listName) throws EntityException, EntityNotFoundException {
+        ValidationsUtils.validateListName(listName);
+        checkHouseId(houseId);
+        SystemList list = systemListRepository.insertSystemList(new SystemList(houseId, listName));
+        return list;
+    }
+
     @Transactional
     @Override
     public List updateList(long houseId, short listId, String listName, Boolean listShareable) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
