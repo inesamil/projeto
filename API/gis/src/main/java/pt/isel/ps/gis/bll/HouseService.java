@@ -5,6 +5,7 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.House;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface HouseService {
 
@@ -24,7 +25,7 @@ public interface HouseService {
      * @return Optional<House>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    House getHouseByHouseId(long houseId) throws EntityException, EntityNotFoundException;
+    House getHouseByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar as casas de um utilizador através do seu nome do utilizador
@@ -33,7 +34,7 @@ public interface HouseService {
      * @return List<House>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<House> getHousesByUserUsername(String username) throws EntityException, EntityNotFoundException;
+    List<House> getHousesByUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar uma casa
@@ -47,7 +48,7 @@ public interface HouseService {
      * @return House
      * @throws EntityException se os atributos especificados no parâmetro house forem inválidos
      */
-    House addHouse(String username, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityException, EntityNotFoundException;
+    House addHouse(String username, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Atualizar uma casa
@@ -62,7 +63,7 @@ public interface HouseService {
      * @throws EntityNotFoundException se a casa especificada não existir
      * @throws EntityException         se os atributos especificados no parâmetro house forem inválidos
      */
-    House updateHouse(long houseId, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber) throws EntityNotFoundException, EntityException;
+    House updateHouse(long houseId, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber, Locale locale) throws EntityNotFoundException, EntityException;
 
     /**
      * Remover uma casa
@@ -70,5 +71,5 @@ public interface HouseService {
      * @param houseId identificador da casa a remover
      * @throws EntityNotFoundException se a casa especificada não existir
      */
-    void deleteHouseByHouseId(long houseId) throws EntityNotFoundException, EntityException;
+    void deleteHouseByHouseId(long houseId, Locale locale) throws EntityNotFoundException, EntityException;
 }
