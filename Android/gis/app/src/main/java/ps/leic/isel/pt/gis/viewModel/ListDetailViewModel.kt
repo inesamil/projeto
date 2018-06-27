@@ -31,6 +31,23 @@ class ListDetailViewModel(private val app: Application) : AndroidViewModel(app) 
         return null
     }
 
+    fun updateListProduct(listProduct: ListProductBody) : LiveData<Resource<ListDto>>? {
+        listDetail?.value?.data?.listProducts?.find { elem -> elem.productId == listProduct.productId }?.actions?.updateListProduct?.let {
+            return ServiceLocator
+                    .getRepository(app.applicationContext)
+                    .update(ListDto::class.java, it.url, it.contentType, listProduct, TAG)
+        }
+        return null
+    }
+
+    fun removeListProduct(listProduct: ListProductBody) : LiveData<Resource<ListDto>>? {
+        listDetail?.value?.data?.listProducts?.find { elem -> elem.productId == listProduct.productId }?.actions?.removeListProduct?.let {
+            return ServiceLocator
+                    .getRepository(app.applicationContext)
+                    .delete(ListDto::class.java, it.url, TAG)
+        }
+        return null
+    }
 
     fun cancel() {
         ServiceLocator.getRepository(app.applicationContext).cancelAllPendingRequests(TAG)
