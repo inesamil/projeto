@@ -27,11 +27,16 @@ class ListProductDto(siren: Siren) {
 
     class ListProductActions (actions: Array<Action>?) {
         var updateListProduct: ActionDto? = null
+        var removeListProduct: ActionDto? = null
 
         init {
             actions?.find {
                 it.name == updateListProductLabel
             }?.let { updateListProduct = ActionDto(it.name, it.href, it.type) }
+
+            actions?.find {
+                it.name == removeListProductLabel
+            }?.let { removeListProduct = ActionDto(it.name, it.href, it.type) }
         }
     }
 
@@ -43,5 +48,6 @@ class ListProductDto(siren: Siren) {
         private const val listProductBrandLabel: String = "list-product-brand"
         private const val listProductQuantityLabel: String = "list-product-quantity"
         private const val updateListProductLabel: String = "update-list-product"
+        private const val removeListProductLabel: String = "delete-list-product"
     }
 }
