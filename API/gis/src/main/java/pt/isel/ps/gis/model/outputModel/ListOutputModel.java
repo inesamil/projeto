@@ -93,8 +93,8 @@ public class ListOutputModel {
 
             // DELETE ListProduct
             Action deleteListProduct = new Action(
-                    "remove-list-product",
-                    "Remove List Product",
+                    "delete-list-product",
+                    "Delete List Product",
                     Method.DELETE,
                     listProductUri,
                     null,
@@ -105,7 +105,7 @@ public class ListOutputModel {
                     new String[]{"list-products", "collection"},
                     new String[]{"collection"},
                     properties,
-                    new Action[]{updateListProduct},
+                    new Action[]{updateListProduct, deleteListProduct},
                     null);
 
         }

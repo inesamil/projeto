@@ -95,7 +95,6 @@ class AddProductToListDialogFragment : DialogFragment(), AddProductToListAdapter
         listener = null
     }
 
-
     private fun getCategories(url: String) {
         categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
         categoriesViewModel.init(url)
