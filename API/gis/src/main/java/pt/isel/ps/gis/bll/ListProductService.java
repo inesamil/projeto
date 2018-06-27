@@ -6,6 +6,7 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.ListProduct;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface ListProductService {
 
@@ -29,7 +30,7 @@ public interface ListProductService {
      * @return Optional<ListProduct>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    ListProduct getListProductByListProductId(long houseId, short listId, int productId) throws EntityException;
+    ListProduct getListProductByListProductId(long houseId, short listId, int productId, Locale locale) throws EntityException;
 
     /**
      * Listar os produtos de uma lista
@@ -39,7 +40,7 @@ public interface ListProductService {
      * @return List<ListProduct>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<ListProduct> getListProductsByListId(long houseId, short listId) throws EntityException, EntityNotFoundException;
+    List<ListProduct> getListProductsByListId(long houseId, short listId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar um produto a uma lista
@@ -51,7 +52,7 @@ public interface ListProductService {
      * @param quantity  quantidade do produto
      * @return ListProduct
      */
-    ListProduct addListProduct(long houseId, short listId, Integer productId, String brand, Short quantity) throws EntityException, EntityAlreadyExistsException;
+    ListProduct addListProduct(long houseId, short listId, Integer productId, String brand, Short quantity, Locale locale) throws EntityException, EntityAlreadyExistsException;
 
 
     /**
@@ -64,7 +65,7 @@ public interface ListProductService {
      * @param quantity  quantidade do produto
      * @return ListProduct
      */
-    ListProduct associateListProduct(long houseId, short listId, Integer productId, String brand, Short quantity) throws EntityException, EntityNotFoundException;
+    ListProduct associateListProduct(long houseId, short listId, Integer productId, String brand, Short quantity, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Remover um produto de uma lista
@@ -73,6 +74,6 @@ public interface ListProductService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o produto especificado não existir na lista particularizada
      */
-    void deleteListProductByListProductId(long houseId, short listId, int productId) throws EntityException, EntityNotFoundException;
+    void deleteListProductByListProductId(long houseId, short listId, int productId, Locale locale) throws EntityException, EntityNotFoundException;
 
 }
