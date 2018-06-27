@@ -66,12 +66,15 @@ class HomeActivity : AppCompatActivity(),
 
         // Init
         savedInstanceState?.let {
-            val fragment: Fragment = supportFragmentManager.getFragment(it, "FRAGMENT")
-                    ?: HomePageFragment.newInstance()  //TODO: extrair tag
-            val fragmentTag: String = fragment.tag ?: HomePageFragment.TAG
+            var tag = it.getString("FRAGMENT")
+            var fragment: Fragment? = supportFragmentManager.findFragmentByTag(tag)
+            if (fragment == null) {
+                fragment = HomePageFragment.newInstance()
+                tag = HomePageFragment.TAG
+            }
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.content, fragment, fragmentTag)
-                    .addToBackStack(fragmentTag)
+                    .replace(R.id.content, fragment, tag)
+                    .addToBackStack(tag)
                     .commit()
             return
         }
@@ -81,11 +84,9 @@ class HomeActivity : AppCompatActivity(),
                 .commit()
     }
 
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        super.onSaveInstanceState(outState, outPersistentState)
-        outState?.let {
-            supportFragmentManager.putFragment(it, "FRAGMENT", supportFragmentManager.getCurrentFragment()) //TODO: extrair tag
-        }
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putString("FRAGMENT", supportFragmentManager.getCurrentFragment().tag)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
