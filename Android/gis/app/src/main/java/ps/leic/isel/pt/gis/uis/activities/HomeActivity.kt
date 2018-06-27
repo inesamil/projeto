@@ -47,6 +47,7 @@ class HomeActivity : AppCompatActivity(),
         NewListDialogFragment.OnNewListDialogFragmentInteractionListener,
         ListDetailFragment.OnListDetailFragmentInteractionListener,
         AddProductToListDialogFragment.OnAddProductToListDialogFragmentInteractionListener,
+        EditListProductDialogFragment.OnEditListProductDialogFragmentInteractionListener,
         StockItemListFragment.OnStockItemListFragmentInteractionListener,
         StockItemDetailFragment.OnStockItemDetailFragmentInteractionListener,
         ListsFiltersDialogFragment.OnListsFiltersDialogFragmentInteractionListener {
@@ -262,14 +263,35 @@ class HomeActivity : AppCompatActivity(),
             return
         }
         index.getCategoriesUrl()?.let {
-            val fragment = AddProductToListDialogFragment.newInstance(it)
-            fragment.show(supportFragmentManager, AddProductToListDialogFragment.TAG)
+            val dialog = AddProductToListDialogFragment.newInstance(it)
+            dialog.show(supportFragmentManager, AddProductToListDialogFragment.TAG)
         }
+    }
+
+    override fun onEditListProductInteraction(listProduct: ListProductDto) {
+        val dialog = EditListProductDialogFragment.newInstance(listProduct.productId, listProduct.productName, listProduct.productsListQuantity)
+        dialog.show(supportFragmentManager, EditListProductDialogFragment.TAG)
+    }
+
+    override fun onDeleteListProductInteraction(listProduct: ListProductDto) {
+        val dialog = DeleteConfirmationDialogFragment.newInstance()
+        dialog.setOnDeleteConfirmationDialogListener(object : DeleteConfirmationDialogFragment.OnDeleteConfirmationDialogFragmentListener {
+            override fun onPositiveConfirmation() {
+                val fragment = supportFragmentManager.findFragmentByTag(ListDetailFragment.TAG) as? ListDetailFragment
+                fragment?.onListProductRemoved(listProduct)
+            }
+        })
+        dialog.show(supportFragmentManager, DeleteConfirmationDialogFragment.TAG)
     }
 
     override fun onAddProductToList(listProduct: ListProduct) {
         val fragment = supportFragmentManager.findFragmentByTag(ListDetailFragment.TAG) as? ListDetailFragment
         fragment?.onAddProductToList(listProduct)
+    }
+
+    override fun onEditListProduct(listProduct: ListProduct) {
+        val fragment = supportFragmentManager.findFragmentByTag(ListDetailFragment.TAG) as? ListDetailFragment
+        fragment?.onListProductEdited(listProduct)
     }
 
     // Listener for ListsFragment interaction
@@ -330,11 +352,6 @@ class HomeActivity : AppCompatActivity(),
             val fragment = ListsFiltersDialogFragment.newInstance(it)
             fragment.show(supportFragmentManager, ListsFiltersDialogFragment.TAG)
         }
-    }
-
-    // Listener for ListDetailFragment interaction
-    override fun onListProductInteraction(listProduct: ListProductDto) {
-        //TODO: expand
     }
 
     // Listener for ListDetailFragment interaction
