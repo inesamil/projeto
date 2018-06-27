@@ -6,6 +6,7 @@ import pt.isel.ps.gis.model.Allergy;
 import pt.isel.ps.gis.model.StockItem;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface StockItemAllergenService {
 
@@ -28,7 +29,7 @@ public interface StockItemAllergenService {
      * @return List<Allergy>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<Allergy> getAllergensByStockItemId(long houseId, String stockItemSku) throws EntityException, EntityNotFoundException;
+    List<Allergy> getAllergensByStockItemId(long houseId, String stockItemSku, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar os itens com um determinado alergénio
@@ -38,5 +39,5 @@ public interface StockItemAllergenService {
      * @return List<StockItem>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<StockItem> getStockItemsByHouseIdAndAllergenId(long houseId, String allergen) throws EntityException, EntityNotFoundException;
+    List<StockItem> getStockItemsByHouseIdAndAllergenId(long houseId, String allergen, Locale locale) throws EntityException, EntityNotFoundException;
 }
