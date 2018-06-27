@@ -30,7 +30,7 @@ class GisApplication : MultiDexApplication() {
      *
      * @return true if the phone is connected to the internet, otherwise false
      */
-    private fun isNetworkAvailable(): Boolean {
+    fun isNetworkAvailable(): Boolean {
         val connectivityManager = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         return activeNetworkInfo != null && activeNetworkInfo.isConnected
