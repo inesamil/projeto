@@ -6,6 +6,8 @@ import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.List;
 import pt.isel.ps.gis.model.SystemList;
 
+import java.util.Locale;
+
 public interface ListService {
 
     /**
@@ -42,7 +44,7 @@ public interface ListService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se a casa com ID {houseId} não existir
      */
-    java.util.List<List> getListsByHouseId(long houseId) throws EntityException, EntityNotFoundException;
+    java.util.List<List> getListsByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Obter uma lista através do seu ID
@@ -53,7 +55,7 @@ public interface ListService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se a lista especificada não existir
      */
-    List getListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException;
+    List getListByListId(long houseId, short listId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar as listas através do username do user
@@ -63,7 +65,7 @@ public interface ListService {
      * @throws EntityException         se os parâmetros recebeidos forem inválidos
      * @throws EntityNotFoundException se o utilizador não existir
      */
-    java.util.List<List> getAvailableListsByUserUsername(String username, AvailableListFilters filters) throws EntityException, EntityNotFoundException;
+    java.util.List<List> getAvailableListsByUserUsername(String username, AvailableListFilters filters, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar uma lista a uma casa
@@ -75,18 +77,7 @@ public interface ListService {
      * @return UserList
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List addUserList(Long houseId, String listName, String username, Boolean listShareable) throws EntityException, EntityNotFoundException;
-
-    /**
-     * Adicionar uma lista de sistema a uma casa
-     *
-     * @param houseId       identificador da casa
-     * @param listName      nome da lista
-     * @return SystemList
-     * @throws EntityException se os parâmetros recebidos forem inválidos
-     */
-    SystemList addSystemList(Long houseId, String listName) throws EntityException, EntityNotFoundException;
-
+    List addUserList(Long houseId, String listName, String username, Boolean listShareable, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Atualizar uma lista duma casa
@@ -98,7 +89,7 @@ public interface ListService {
      * @return List
      * @throws EntityNotFoundException se a lista especificada não existir na casa particularizada
      */
-    List updateList(long houseId, short listId, String listName, Boolean listShareable) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
+    List updateList(long houseId, short listId, String listName, Boolean listShareable, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Remover uma dada lista do sistema da casa
@@ -108,7 +99,7 @@ public interface ListService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se a lista especificada não existir na casa particularizada
      */
-    void deleteSystemListByListId(long houseId, short listId) throws EntityException, EntityNotFoundException;
+    void deleteSystemListByListId(long houseId, short listId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Remover uma dada lista de um utilizador
@@ -118,7 +109,7 @@ public interface ListService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se a lista especificada não existir na casa particularizada
      */
-    void deleteUserListByListId(String username, long houseId, short listId) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
+    void deleteUserListByListId(String username, long houseId, short listId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Filtros - filtragem das listas
