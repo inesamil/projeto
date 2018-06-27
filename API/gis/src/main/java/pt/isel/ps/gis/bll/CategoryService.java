@@ -5,6 +5,7 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Category;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface CategoryService {
 
@@ -39,7 +40,7 @@ public interface CategoryService {
      * @return Optional<Category>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Category getCategoryByCategoryId(int categoryId) throws EntityException, EntityNotFoundException;
+    Category getCategoryByCategoryId(int categoryId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Filtros - filtragem das categorias
