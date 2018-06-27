@@ -1,11 +1,13 @@
 package pt.isel.ps.gis.controllers;
 
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.HouseMemberService;
 import pt.isel.ps.gis.bll.HouseService;
+import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.config.AuthenticationFacade;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -18,6 +20,7 @@ import pt.isel.ps.gis.model.inputModel.HouseholdInputModel;
 import pt.isel.ps.gis.model.outputModel.HouseMembersOutputModel;
 import pt.isel.ps.gis.model.outputModel.HouseOutputModel;
 import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
+import java.util.Locale;
 
 import java.util.List;
 
@@ -30,12 +33,16 @@ public class HouseController {
 
     private final HouseService houseService;
     private final HouseMemberService houseMemberService;
+    private final ListService listService;
     private final AuthenticationFacade authenticationFacade;
+    private final MessageSource messageSource;
 
-    public HouseController(HouseService houseService, HouseMemberService houseMemberService, AuthenticationFacade authenticationFacade) {
+    public HouseController(HouseService houseService, HouseMemberService houseMemberService, ListService listService, AuthenticationFacade authenticationFacade, MessageSource messageSource) {
         this.houseService = houseService;
         this.houseMemberService = houseMemberService;
+        this.listService = listService;
         this.authenticationFacade = authenticationFacade;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("/{house-id}")
@@ -73,7 +80,8 @@ public class HouseController {
 
     @PostMapping("")
     public ResponseEntity<HouseOutputModel> postHouse(
-            @RequestBody HouseInputModel body
+            @RequestBody HouseInputModel body,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         House house;
         String username = authenticationFacade.getAuthentication().getName();
@@ -86,6 +94,7 @@ public class HouseController {
                     body.getAdultsNumber(),
                     body.getSeniorsNumber()
             );
+            listService.addSystemList(house.getHouseId(), messageSource.getMessage("SystemListName", null, locale));
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
