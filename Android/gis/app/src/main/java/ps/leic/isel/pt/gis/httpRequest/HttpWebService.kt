@@ -8,8 +8,9 @@ interface HttpWebService {
         GET, POST, PUT, DELETE
     }
 
-    fun <T> fetch(method: Method, url: String, body: Any?, headers: MutableMap<String, String>, dtoType: Class<T>,
-                  onSuccess: (Resource<T>) -> Unit, onError: (String?) -> Unit, tag: String)
+    fun <T, E> fetch(method: Method, url: String, body: Any?, headers: MutableMap<String, String>,
+                     dtoType: Class<T>, errorType: Class<E>, onSuccess: (Resource<T, E>) -> Unit,
+                     onError: (String?) -> Unit, tag: String)
 
     fun cancelAll(tag: String)
 }

@@ -17,13 +17,13 @@ class HttpWebServiceImpl(private val applicationContext: Context) : HttpWebServi
         methodsMapper[HttpWebService.Method.DELETE] = Request.Method.DELETE
     }
 
-    override fun <T> fetch(
+    override fun <T, E> fetch(
             method: HttpWebService.Method, url: String, body: Any?, headers: MutableMap<String, String>,
-            dtoType: Class<T>, onSuccess: (Resource<T>) -> Unit, onError: (String?) -> Unit,
+            dtoType: Class<T>, errorType: Class<E>, onSuccess: (Resource<T, E>) -> Unit, onError: (String?) -> Unit,
             tag: String
     ) {
         methodsMapper[method]?.let {
-            val requester = Requester(it, url, body, headers, dtoType, onSuccess, { onError(it?.message) })
+            val requester = Requester(it, url, body, headers, dtoType, errorType, onSuccess, { onError(it?.message) })
             RequestQueue.getInstance(applicationContext).addToRequestQueue(requester)
             requester.tag = tag
             return
