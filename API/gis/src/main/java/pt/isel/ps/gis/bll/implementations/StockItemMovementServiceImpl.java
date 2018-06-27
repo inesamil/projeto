@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll.implementations;
 
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.StockItemMovementService;
@@ -16,15 +17,10 @@ import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class StockItemMovementServiceImpl implements StockItemMovementService {
-
-    private static final String HOUSE_DOES_NOT_EXIST = "House does not exist.";
-    private static final String PRODUCT_DOES_NOT_EXISTS = "Product does not exist.";
-    private static final String STOCK_ITEM_DOES_NOT_EXISTS = "Stock Item does not exist.";
-    private static final String STORAGE_DOES_NOT_EXIST = "Storage does not exist.";
-    private static final String SEGMENT_INVALID = "Segment is invalid.";
 
     private final StockItemMovementRepository stockItemMovementRepository;
     private final HouseRepository houseRepository;
@@ -32,12 +28,15 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
     private final ProductRepository productRepository;
     private final StockItemRepository stockItemRepository;
 
-    public StockItemMovementServiceImpl(StockItemMovementRepository stockItemMovementRepository, HouseRepository houseRepository, StorageRepository storageRepository, ProductRepository productRepository, StockItemRepository stockItemRepository) {
+    private final MessageSource messageSource;
+
+    public StockItemMovementServiceImpl(StockItemMovementRepository stockItemMovementRepository, HouseRepository houseRepository, StorageRepository storageRepository, ProductRepository productRepository, StockItemRepository stockItemRepository, MessageSource messageSource) {
         this.stockItemMovementRepository = stockItemMovementRepository;
         this.houseRepository = houseRepository;
         this.storageRepository = storageRepository;
         this.productRepository = productRepository;
         this.stockItemRepository = stockItemRepository;
+        this.messageSource = messageSource;
     }
 
     @Override
@@ -47,33 +46,33 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     @Transactional
     @Override
-    public List<StockItemMovement> getStockItemMovementsByHouseId(long houseId) throws EntityException, EntityNotFoundException {
+    public List<StockItemMovement> getStockItemMovementsByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
-        checkHouseId(houseId);
+        checkHouseId(houseId, locale);
         return stockItemMovementRepository.findAllById_HouseId(houseId);
     }
 
     @Transactional
     @Override
-    public List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters) throws EntityException, EntityNotFoundException {
+    public List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
-        checkHouseId(houseId);
+        checkHouseId(houseId, locale);
         return stockItemMovementRepository.findMovementsFiltered(houseId, filters.item, filters.type, filters.dateTime, filters.storage);
     }
 
     @Transactional
     @Override
-    public StockItemMovement addStockItemMovement(long houseId, short storageId, boolean movementType, short quantity, String productName, String brand, String variety, String segment, String conservationConditions, String description, String date) throws EntityException, EntityNotFoundException {
-        checkHouseId(houseId);
-        checkStorageId(houseId, storageId);
-        checkProductName(productName);
+    public StockItemMovement addStockItemMovement(long houseId, short storageId, boolean movementType, short quantity, String productName, String brand, String variety, String segment, String conservationConditions, String description, String date, Locale locale) throws EntityException, EntityNotFoundException {
+        checkHouseId(houseId, locale);
+        checkStorageId(houseId, storageId, locale);
+        checkProductName(productName, locale);
         // Split segmento
-        String[] segmentSplitted = splitSegment(segment);
+        String[] segmentSplitted = splitSegment(segment, locale);
         float segm = Float.parseFloat(segmentSplitted[0]);
         String segmUnit = segmentSplitted[1];
         if (!movementType) {
             // Cannot remove the stock item if doesn't exist or there is 0 quantity of it
-            checkStockItem(houseId, productName, brand, variety, segm, segmUnit);
+            checkStockItem(houseId, productName, brand, variety, segm, segmUnit, locale);
         }
         try {
             return stockItemMovementRepository.insertStockItemMovement(
@@ -95,37 +94,37 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
         }
     }
 
-    private void checkStockItem(long houseId, String productName, String brand, String variety, float segm, String segmUnit) throws EntityNotFoundException {
+    private void checkStockItem(long houseId, String productName, String brand, String variety, float segm, String segmUnit, Locale locale) throws EntityNotFoundException {
         StockItem stockItem = stockItemRepository
                 .findById_HouseIdAndProduct_ProductNameAndStockitemBrandAndStockitemVarietyAndStockitemSegmentAndStockitemSegmentunit(houseId, productName, brand, variety, segm, segmUnit)
-                .orElseThrow(() -> new EntityNotFoundException(STOCK_ITEM_DOES_NOT_EXISTS));
+                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("stock_Item_Not_Exist", null, locale)));
         if (stockItem.getStockitemQuantity() == 0) {
-            throw new EntityNotFoundException(STOCK_ITEM_DOES_NOT_EXISTS);
+            throw new EntityNotFoundException(messageSource.getMessage("stock_Item_Not_Exist", null, locale));
         }
     }
 
-    private void checkHouseId(long houseId) throws EntityException, EntityNotFoundException {
+    private void checkHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
         if (!houseRepository.existsById(houseId))
-            throw new EntityNotFoundException(HOUSE_DOES_NOT_EXIST);
+            throw new EntityNotFoundException(messageSource.getMessage("house_Not_Exist", null, locale));
     }
 
-    private void checkProductName(String productName) throws EntityException, EntityNotFoundException {
+    private void checkProductName(String productName, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateProductName(productName);
         if (!productRepository.existsByProductName(productName))
-            throw new EntityNotFoundException(PRODUCT_DOES_NOT_EXISTS);
+            throw new EntityNotFoundException(messageSource.getMessage("product_Not_Exist", null, locale));
     }
 
-    private void checkStorageId(long houseId, short storageId) throws EntityException, EntityNotFoundException {
+    private void checkStorageId(long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException {
         StorageId id = new StorageId(houseId, storageId);
         if (!storageRepository.existsById(id))
-            throw new EntityNotFoundException(STORAGE_DOES_NOT_EXIST);
+            throw new EntityNotFoundException(messageSource.getMessage("storage_Not_Exist", null, locale));
     }
 
-    private String[] splitSegment(String segment) throws EntityException {
+    private String[] splitSegment(String segment, Locale locale) throws EntityException {
         String[] segmentSplitted = InputUtils.splitNumbersFromLetters(segment);
         if (segmentSplitted.length != 2)
-            throw new EntityException(SEGMENT_INVALID);
+            throw new EntityException(messageSource.getMessage("segment_Invalid", null, locale));
         return segmentSplitted;
     }
 }

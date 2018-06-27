@@ -6,6 +6,7 @@ import pt.isel.ps.gis.model.StockItemMovement;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Locale;
 
 public interface StockItemMovementService {
 
@@ -30,7 +31,7 @@ public interface StockItemMovementService {
      * @return List<StockItemMovement>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<StockItemMovement> getStockItemMovementsByHouseId(long houseId) throws EntityException, EntityNotFoundException;
+    List<StockItemMovement> getStockItemMovementsByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar os movimentos filtrados dos itens de uma casa
@@ -40,7 +41,7 @@ public interface StockItemMovementService {
      * @return List<StockItemMovement>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters) throws EntityException, EntityNotFoundException;
+    List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Adicionar um movimento à casa
@@ -61,7 +62,7 @@ public interface StockItemMovementService {
      * @throws EntityNotFoundException
      */
     StockItemMovement addStockItemMovement(long houseId, short storageId, boolean movementType, short quantity, String productName, String brand, String variety, String segment,
-                                           String conservationConditions, String description, String date) throws EntityException, EntityNotFoundException;
+                                           String conservationConditions, String description, String date, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Filtros - filtragem dos movimentos
