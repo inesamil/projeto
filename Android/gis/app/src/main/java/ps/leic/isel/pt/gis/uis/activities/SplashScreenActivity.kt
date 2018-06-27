@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -15,6 +16,7 @@ import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.dtos.IndexDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.viewModel.SplashScreenViewModel
+import java.lang.Thread.sleep
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -24,6 +26,35 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
+
+        val gisApplication = application as GisApplication
+        if (!gisApplication.isNetworkAvailable()) {
+            Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show()
+            return
+        }
+
+        splashScreenViewModel = ViewModelProviders.of(this).get(SplashScreenViewModel::class.java)
+        splashScreenViewModel.init()
+        splashScreenViewModel.getIndex()?.observe(this, Observer {
+            if (it?.status == Status.SUCCESS)
+                onSuccess(it.data!!)
+            else if (it?.status == Status.ERROR)
+                onError(it.message)
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val gisApplication = application as GisApplication
+        if (!gisApplication.isNetworkAvailable()) {
+            val handler = Handler()
+            val run = Runnable {
+                finish()
+            }
+            handler.postDelayed(run, 3000)
+            return
+        }
 
         splashScreenViewModel = ViewModelProviders.of(this).get(SplashScreenViewModel::class.java)
         splashScreenViewModel.init()
@@ -75,7 +106,7 @@ class SplashScreenActivity : AppCompatActivity() {
             Log.i(TAG, it)
         }
         Toast.makeText(this, getString(R.string.could_not_connect_to_server), Toast.LENGTH_SHORT).show()
-        finish()    //TODO: kill app
+        finish()
     }
 
     private fun isFirstTime(): Boolean {
