@@ -5,6 +5,7 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.HouseAllergy;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface HouseAllergyService {
 
@@ -26,7 +27,7 @@ public interface HouseAllergyService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se não encontrar a casa especificada
      */
-    List<HouseAllergy> getAllergiesByHouseId(long houseId) throws EntityException, EntityNotFoundException;
+    List<HouseAllergy> getAllergiesByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Atualizar ou associar uma alergia a uma casa
@@ -37,7 +38,7 @@ public interface HouseAllergyService {
      * @throws EntityNotFoundException se não encontrar a alergia especificada na casa particularizada
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      */
-    List<HouseAllergy> associateHouseAllergies(long houseId, HouseAllergy[] allergies) throws EntityNotFoundException, EntityException;
+    List<HouseAllergy> associateHouseAllergies(long houseId, HouseAllergy[] allergies, Locale locale) throws EntityNotFoundException, EntityException;
 
 
     /**
@@ -50,7 +51,7 @@ public interface HouseAllergyService {
      * @throws EntityNotFoundException se não encontrar a alergia especificada na casa particularizada
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      */
-    HouseAllergy associateHouseAllergy(long houseId, String allergen, Short allergicsNum) throws EntityNotFoundException, EntityException;
+    HouseAllergy associateHouseAllergy(long houseId, String allergen, Short allergicsNum, Locale locale) throws EntityNotFoundException, EntityException;
 
     /**
      * Desassociar uma alergia de uma casa
@@ -60,7 +61,7 @@ public interface HouseAllergyService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se não encontrar a alergia especificada na casa particularizada
      */
-    void deleteHouseAllergyByHouseAllergyId(long houseId, String allergen) throws EntityException, EntityNotFoundException;
+    void deleteHouseAllergyByHouseAllergyId(long houseId, String allergen, Locale locale) throws EntityException, EntityNotFoundException;
 
 
     /**
@@ -69,5 +70,5 @@ public interface HouseAllergyService {
      * @param houseId identificador da casa
      * @throws EntityNotFoundException se não a casa especificada não existir
      */
-    void deleteAllHouseAllergiesByHouseId(long houseId) throws EntityException, EntityNotFoundException;
+    void deleteAllHouseAllergiesByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
 }
