@@ -15,6 +15,7 @@ import pt.isel.ps.gis.model.outputModel.StorageOutputModel;
 import pt.isel.ps.gis.model.outputModel.StoragesOutputModel;
 
 import java.util.List;
+import java.util.Locale;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
@@ -30,11 +31,12 @@ public class StorageController {
 
     @GetMapping("")
     public ResponseEntity<StoragesOutputModel> getStorages(
-            @PathVariable("house-id") long houseId
+            @PathVariable("house-id") long houseId,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<Storage> storages;
         try {
-            storages = storageService.getStorageByHouseId(houseId);
+            storages = storageService.getStorageByHouseId(houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -48,11 +50,12 @@ public class StorageController {
     @GetMapping("/{storage-id}")
     public ResponseEntity<StorageOutputModel> getStorage(
             @PathVariable("house-id") long houseId,
-            @PathVariable("storage-id") short storageId
+            @PathVariable("storage-id") short storageId,
+            Locale locale
     ) throws NotFoundException, BadRequestException {
         Storage storage;
         try {
-            storage = storageService.getStorageByStorageId(houseId, storageId);
+            storage = storageService.getStorageByStorageId(houseId, storageId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -65,7 +68,8 @@ public class StorageController {
     @PostMapping("")
     public ResponseEntity<StorageOutputModel> postStorage(
             @PathVariable("house-id") long houseId,
-            @RequestBody StorageInputModel body
+            @RequestBody StorageInputModel body,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         Storage storage;
         try {
@@ -73,7 +77,8 @@ public class StorageController {
                     houseId,
                     body.getName(),
                     body.getMinimumTemperature(),
-                    body.getMaximumTemperature()
+                    body.getMaximumTemperature(),
+                    locale
             );
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
@@ -89,7 +94,8 @@ public class StorageController {
     public ResponseEntity<StorageOutputModel> putStorage(
             @PathVariable("house-id") long houseId,
             @PathVariable("storage-id") short storageId,
-            @RequestBody StorageInputModel body
+            @RequestBody StorageInputModel body,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         Storage storage;
         try {
@@ -98,7 +104,8 @@ public class StorageController {
                     storageId,
                     body.getName(),
                     body.getMinimumTemperature(),
-                    body.getMaximumTemperature()
+                    body.getMaximumTemperature(),
+                    locale
             );
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
@@ -113,12 +120,13 @@ public class StorageController {
     @DeleteMapping("/{storage-id}")
     public ResponseEntity<StoragesOutputModel> deleteStorage(
             @PathVariable("house-id") long houseId,
-            @PathVariable("storage-id") short storageId
+            @PathVariable("storage-id") short storageId,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<Storage> storages;
         try {
-            storageService.deleteStorageByStorageId(houseId, storageId);
-            storages = storageService.getStorageByHouseId(houseId);
+            storageService.deleteStorageByStorageId(houseId, storageId, locale);
+            storages = storageService.getStorageByHouseId(houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {

@@ -21,6 +21,7 @@ import pt.isel.ps.gis.model.outputModel.StockItemsOutputModel;
 import pt.isel.ps.gis.model.requestParams.StockItemRequestParam;
 
 import java.util.List;
+import java.util.Locale;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
@@ -39,12 +40,13 @@ public class StockItemController {
     @GetMapping("")
     public ResponseEntity<StockItemsOutputModel> getStockItems(
             @PathVariable("house-id") long houseId,
-            StockItemRequestParam params
+            StockItemRequestParam params,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<StockItem> stockItems;
         try {
             if (params.isNull())
-                stockItems = stockItemService.getStockItemsByHouseId(houseId);
+                stockItems = stockItemService.getStockItemsByHouseId(houseId, locale);
             else {
                 StockItemService.StockItemFilters filters = new StockItemService.StockItemFilters(
                         params.getProduct(),
@@ -53,7 +55,7 @@ public class StockItemController {
                         params.getSegment(),
                         params.getStorage()
                 );
-                stockItems = stockItemService.getStockItemsByHouseIdFiltered(houseId, filters);
+                stockItems = stockItemService.getStockItemsByHouseIdFiltered(houseId, filters, locale);
             }
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
@@ -68,11 +70,12 @@ public class StockItemController {
     @GetMapping("/{stock-item-id}")
     public ResponseEntity<StockItemOutputModel> getStockItem(
             @PathVariable("house-id") long houseId,
-            @PathVariable("stock-item-id") String sku
+            @PathVariable("stock-item-id") String sku,
+            Locale locale
     ) throws NotFoundException, BadRequestException {
         StockItem stockItem;
         try {
-            stockItem = stockItemService.getStockItemByStockItemId(houseId, sku);
+            stockItem = stockItemService.getStockItemByStockItemId(houseId, sku, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -85,11 +88,12 @@ public class StockItemController {
     @GetMapping("/{stock-item-id}/allergies")
     public ResponseEntity<AllergiesStockItemOutputModel> getAllergiesFromStockItem(
             @PathVariable("house-id") long houseId,
-            @PathVariable("stock-item-id") String sku
+            @PathVariable("stock-item-id") String sku,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<Allergy> allergens;
         try {
-            allergens = stockItemAllergenService.getAllergensByStockItemId(houseId, sku);
+            allergens = stockItemAllergenService.getAllergensByStockItemId(houseId, sku, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {

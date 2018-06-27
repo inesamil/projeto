@@ -18,6 +18,7 @@ import pt.isel.ps.gis.model.requestParams.StockItemMovementRequestParam;
 
 import java.io.StringReader;
 import java.util.List;
+import java.util.Locale;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
@@ -34,12 +35,13 @@ public class StockItemMovementController {
     @GetMapping("")
     public ResponseEntity<MovementsOutputModel> getMovements(
             @PathVariable("house-id") long houseId,
-            StockItemMovementRequestParam params
+            StockItemMovementRequestParam params,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<StockItemMovement> movements;
         try {
             if (params.isNull())
-                movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId);
+                movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId, locale);
             else {
                 StockItemMovementService.MovementFilters filters = new StockItemMovementService.MovementFilters(
                         params.getType(),
@@ -47,7 +49,7 @@ public class StockItemMovementController {
                         params.getStorage(),
                         params.getItem()
                 );
-                movements = stockItemMovementService.getStockItemMovementsByHouseIdFiltered(houseId, filters);
+                movements = stockItemMovementService.getStockItemMovementsByHouseIdFiltered(houseId, filters, locale);
             }
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
@@ -62,7 +64,8 @@ public class StockItemMovementController {
     @PostMapping("")
     public ResponseEntity<MovementsOutputModel> postMovement(
             @PathVariable("house-id") long houseId,
-            @RequestBody MovementInputModel body
+            @RequestBody MovementInputModel body,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         // TODO o que acontece qnd um atributo é null? qual é a excecao lancada pelo jackson e no qe resulta essa excecao?
         CsvToBeanBuilder<TagCsv> builder = new CsvToBeanBuilder<>(new StringReader(body.getTag()));
@@ -82,9 +85,10 @@ public class StockItemMovementController {
                     tag.getSegment(),
                     tag.getConditions(),
                     tag.getDescription(),
-                    tag.getDate()
+                    tag.getDate(),
+                    locale
             );
-            movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId);
+            movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {

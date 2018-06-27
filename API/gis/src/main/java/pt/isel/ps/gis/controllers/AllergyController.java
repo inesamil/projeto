@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.controllers;
 
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import pt.isel.ps.gis.model.outputModel.HouseAllergiesOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemsAllergenOutputModel;
 
 import java.util.List;
+import java.util.Locale;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
@@ -25,23 +27,25 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 @RequestMapping("/v1/houses/{house-id}/allergies")
 public class AllergyController {
 
-    private static final String BODY_ERROR_MSG = "You must specify the body correctly.";
-
     private final HouseAllergyService houseAllergyService;
     private final StockItemAllergenService stockItemAllergenService;
 
-    public AllergyController(HouseAllergyService houseAllergyService, StockItemAllergenService stockItemAllergenService) {
+    private final MessageSource messageSource;
+
+    public AllergyController(HouseAllergyService houseAllergyService, StockItemAllergenService stockItemAllergenService, MessageSource messageSource) {
         this.houseAllergyService = houseAllergyService;
         this.stockItemAllergenService = stockItemAllergenService;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("")
     public ResponseEntity<HouseAllergiesOutputModel> getHouseAllergies(
-            @PathVariable("house-id") long houseId
+            @PathVariable("house-id") long houseId,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<HouseAllergy> allergies;
         try {
-            allergies = houseAllergyService.getAllergiesByHouseId(houseId);
+            allergies = houseAllergyService.getAllergiesByHouseId(houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -55,11 +59,12 @@ public class AllergyController {
     @GetMapping("/{allergen}/items")
     public ResponseEntity<StockItemsAllergenOutputModel> getStockItemsAllergen(
             @PathVariable("house-id") long houseId,
-            @PathVariable("allergen") String allergen
+            @PathVariable("allergen") String allergen,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<StockItem> stockItemsAllergen;
         try {
-            stockItemsAllergen = stockItemAllergenService.getStockItemsByHouseIdAndAllergenId(houseId, allergen);
+            stockItemsAllergen = stockItemAllergenService.getStockItemsByHouseIdAndAllergenId(houseId, allergen, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -73,10 +78,11 @@ public class AllergyController {
     @PutMapping("")
     public ResponseEntity<HouseAllergiesOutputModel> putAllergens(
             @PathVariable("house-id") long houseId,
-            @RequestBody AllergiesInputModel body
+            @RequestBody AllergiesInputModel body,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         if (body.getAllergies() == null)
-            throw new BadRequestException(BODY_ERROR_MSG);
+            throw new BadRequestException(messageSource.getMessage("body_Error_Msg", null, locale));
         List<HouseAllergy> allergies;
         try {
             AllergiesInputModel.Allergy[] bodyAllergies = body.getAllergies();
@@ -85,7 +91,7 @@ public class AllergyController {
                 AllergiesInputModel.Allergy allergy = bodyAllergies[i];
                 houseAllergies[i] = new HouseAllergy(houseId, allergy.getAllergy(), allergy.getAllergicsNum());
             }
-            allergies = houseAllergyService.associateHouseAllergies(houseId, houseAllergies);
+            allergies = houseAllergyService.associateHouseAllergies(houseId, houseAllergies, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -100,12 +106,13 @@ public class AllergyController {
     public ResponseEntity<HouseAllergiesOutputModel> putAllergen(
             @PathVariable("house-id") long houseId,
             @PathVariable("allergen") String allergen,
-            @RequestBody AllergyInputModel body
+            @RequestBody AllergyInputModel body,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<HouseAllergy> allergies;
         try {
-            houseAllergyService.associateHouseAllergy(houseId, allergen, body.getAllergicsNum());
-            allergies = houseAllergyService.getAllergiesByHouseId(houseId);
+            houseAllergyService.associateHouseAllergy(houseId, allergen, body.getAllergicsNum(), locale);
+            allergies = houseAllergyService.getAllergiesByHouseId(houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -118,12 +125,13 @@ public class AllergyController {
 
     @DeleteMapping("")
     public ResponseEntity<HouseAllergiesOutputModel> deleteAllergies(
-            @PathVariable("house-id") long houseId
+            @PathVariable("house-id") long houseId,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<HouseAllergy> allergies;
         try {
-            houseAllergyService.deleteAllHouseAllergiesByHouseId(houseId);
-            allergies = houseAllergyService.getAllergiesByHouseId(houseId);
+            houseAllergyService.deleteAllHouseAllergiesByHouseId(houseId, locale);
+            allergies = houseAllergyService.getAllergiesByHouseId(houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -137,12 +145,13 @@ public class AllergyController {
     @DeleteMapping("/{allergen}")
     public ResponseEntity<HouseAllergiesOutputModel> deleteAllergen(
             @PathVariable("house-id") long houseId,
-            @PathVariable("allergen") String allergen
+            @PathVariable("allergen") String allergen,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<HouseAllergy> allergies;
         try {
-            houseAllergyService.deleteHouseAllergyByHouseAllergyId(houseId, allergen);
-            allergies = houseAllergyService.getAllergiesByHouseId(houseId);
+            houseAllergyService.deleteHouseAllergyByHouseAllergyId(houseId, allergen, locale);
+            allergies = houseAllergyService.getAllergiesByHouseId(houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {

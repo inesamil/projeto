@@ -19,6 +19,8 @@ import pt.isel.ps.gis.model.outputModel.ListProductsOutputModel;
 import pt.isel.ps.gis.model.outputModel.ListsOutputModel;
 import pt.isel.ps.gis.model.outputModel.UserListsOutputModel;
 
+import java.util.Locale;
+
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
 @RestController
@@ -39,11 +41,12 @@ public class ListController {
 
     @GetMapping("")
     public ResponseEntity<ListsOutputModel> geHouseLists(
-            @PathVariable("house-id") long houseId
+            @PathVariable("house-id") long houseId,
+            Locale locale
     ) throws NotFoundException, BadRequestException {
         java.util.List<List> lists;
         try {
-            lists = listService.getListsByHouseId(houseId);
+            lists = listService.getListsByHouseId(houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -56,11 +59,12 @@ public class ListController {
     @GetMapping("/{list-id}")
     public ResponseEntity<ListOutputModel> getList(
             @PathVariable("house-id") long houseId,
-            @PathVariable("list-id") short listId
+            @PathVariable("list-id") short listId,
+            Locale locale
     ) throws NotFoundException, BadRequestException {
         List list;
         try {
-            list = listService.getListByListId(houseId, listId);
+            list = listService.getListByListId(houseId, listId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -74,11 +78,12 @@ public class ListController {
     @GetMapping("/{list-id}/products")
     public ResponseEntity<ListProductsOutputModel> getProductsInList(
             @PathVariable("house-id") long houseId,
-            @PathVariable("list-id") short listId
+            @PathVariable("list-id") short listId,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         java.util.List<ListProduct> listProducts;
         try {
-            listProducts = listProductService.getListProductsByListId(houseId, listId);
+            listProducts = listProductService.getListProductsByListId(houseId, listId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -93,11 +98,12 @@ public class ListController {
     public ResponseEntity<ListOutputModel> putList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
-            @RequestBody ListInputModel body
+            @RequestBody ListInputModel body,
+            Locale locale
     ) throws BadRequestException, NotFoundException, ForbiddenException {
         List list;
         try {
-            list = listService.updateList(houseId, listId, body.getName(), body.getShareable());
+            list = listService.updateList(houseId, listId, body.getName(), body.getShareable(), locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -115,13 +121,14 @@ public class ListController {
     public ResponseEntity<ListOutputModel> postProductInList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
-            @RequestBody ListProductInputModel body
+            @RequestBody ListProductInputModel body,
+            Locale locale
     ) throws BadRequestException, NotFoundException, ConflictException {
         List list;
         String username;
         try {
-            listProductService.addListProduct(houseId, listId, body.getProductId(), body.getBrand(), body.getQuantity());
-            list = listService.getListByListId(houseId, listId);
+            listProductService.addListProduct(houseId, listId, body.getProductId(), body.getBrand(), body.getQuantity(), locale);
+            list = listService.getListByListId(houseId, listId, locale);
             username = authenticationFacade.getAuthentication().getName();
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
@@ -140,13 +147,14 @@ public class ListController {
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
             @PathVariable("product-id") int productId,
-            @RequestBody ListProductInputModel body
+            @RequestBody ListProductInputModel body,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List list;
         String username;
         try {
-            listProductService.associateListProduct(houseId, listId, productId, body.getBrand(), body.getQuantity());
-            list = listService.getListByListId(houseId, listId);
+            listProductService.associateListProduct(houseId, listId, productId, body.getBrand(), body.getQuantity(), locale);
+            list = listService.getListByListId(houseId, listId, locale);
             username = authenticationFacade.getAuthentication().getName();
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
@@ -161,13 +169,14 @@ public class ListController {
     @DeleteMapping("/{list-id}")
     public ResponseEntity<UserListsOutputModel> deleteList(
             @PathVariable("house-id") long houseId,
-            @PathVariable("list-id") short listId
+            @PathVariable("list-id") short listId,
+            Locale locale
     ) throws BadRequestException, NotFoundException, ForbiddenException {
         java.util.List<List> lists;
         String username = authenticationFacade.getAuthentication().getName();
         try {
-            listService.deleteUserListByListId(username, houseId, listId);
-            Long[] housesIds = houseService.getHousesByUserUsername(username)
+            listService.deleteUserListByListId(username, houseId, listId, locale);
+            Long[] housesIds = houseService.getHousesByUserUsername(username, locale)
                     .stream()
                     .map(House::getHouseId)
                     .toArray(Long[]::new);
@@ -178,7 +187,8 @@ public class ListController {
                             false,
                             true,
                             false
-                    ));
+                    ),
+                    locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -195,13 +205,14 @@ public class ListController {
     public ResponseEntity<ListOutputModel> deleteProductFromList(
             @PathVariable("house-id") long houseId,
             @PathVariable("list-id") short listId,
-            @PathVariable("product-id") int productId
+            @PathVariable("product-id") int productId,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List list;
         String username;
         try {
-            listProductService.deleteListProductByListProductId(houseId, listId, productId);
-            list = listService.getListByListId(houseId, listId);
+            listProductService.deleteListProductByListProductId(houseId, listId, productId, locale);
+            list = listService.getListByListId(houseId, listId, locale);
             username = authenticationFacade.getAuthentication().getName();
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());

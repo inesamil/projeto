@@ -14,6 +14,7 @@ import pt.isel.ps.gis.model.outputModel.ProductOutputModel;
 import pt.isel.ps.gis.model.outputModel.ProductsCategoryOutputModel;
 
 import java.util.List;
+import java.util.Locale;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
@@ -30,14 +31,15 @@ public class ProductController {
     @GetMapping("")
     public ResponseEntity<ProductsCategoryOutputModel> getProducts(
             @PathVariable("category-id") int categoryId,
-            @RequestParam(value = "name", required = false) String name
+            @RequestParam(value = "name", required = false) String name,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<Product> products;
         try {
             if (name == null)
-                products = productService.getProductsByCategoryId(categoryId);
+                products = productService.getProductsByCategoryId(categoryId, locale);
             else
-                products = productService.getProductsByCategoryIdFiltered(categoryId, new ProductService.ProductFilters(name));
+                products = productService.getProductsByCategoryIdFiltered(categoryId, new ProductService.ProductFilters(name), locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -51,11 +53,12 @@ public class ProductController {
     @GetMapping("/{product-id}")
     public ResponseEntity<ProductOutputModel> getProduct(
             @PathVariable("category-id") int categoryId,
-            @PathVariable("product-id") int productId
+            @PathVariable("product-id") int productId,
+            Locale locale
     ) throws NotFoundException, BadRequestException {
         Product product;
         try {
-            product = productService.getProductByCategoryIdAndProductId(categoryId, productId);
+            product = productService.getProductByCategoryIdAndProductId(categoryId, productId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {

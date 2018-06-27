@@ -2,6 +2,7 @@ package pt.isel.ps.gis.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +13,21 @@ import pt.isel.ps.gis.hypermedia.problemDetails.ProblemDetails;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.Locale;
+
 import static pt.isel.ps.gis.utils.HeadersUtils.setProblemDetailContentType;
 
 @RestController
 public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
 
     private static final String ERROR_PATH = "/error";
-    private static final String MESSAGE_DETAIL = "Your request couldn't be processed.";
     private static final Logger log = LoggerFactory.getLogger(ErrorController.class);
+
+    private final MessageSource messageSource;
+
+    public ErrorController(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @Override
     public String getErrorPath() {
@@ -27,7 +35,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
     }
 
     @RequestMapping(ERROR_PATH)
-    public ResponseEntity<ProblemDetails> error(HttpServletRequest request) {
+    public ResponseEntity<ProblemDetails> error(HttpServletRequest request, Locale locale) {
         String servletName = (String) request.getAttribute(RequestDispatcher.ERROR_SERVLET_NAME);
         String requestUri = (String) request.getAttribute(RequestDispatcher.ERROR_REQUEST_URI);
         String queryString = (String) request.getAttribute(RequestDispatcher.FORWARD_QUERY_STRING);
@@ -44,7 +52,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
         ProblemDetails problemDetails = new ProblemDetails(
                 httpStatus.getReasonPhrase(),
                 httpStatus.value(),
-                MESSAGE_DETAIL
+                messageSource.getMessage("message_Detail", null, locale)
         );
         HttpHeaders httpHeaders = new HttpHeaders();
         return new ResponseEntity<>(problemDetails, setProblemDetailContentType(httpHeaders), httpStatus);

@@ -33,25 +33,21 @@ public class HouseController {
 
     private final HouseService houseService;
     private final HouseMemberService houseMemberService;
-    private final ListService listService;
     private final AuthenticationFacade authenticationFacade;
-    private final MessageSource messageSource;
 
     public HouseController(HouseService houseService, HouseMemberService houseMemberService, ListService listService, AuthenticationFacade authenticationFacade, MessageSource messageSource) {
         this.houseService = houseService;
         this.houseMemberService = houseMemberService;
-        this.listService = listService;
         this.authenticationFacade = authenticationFacade;
-        this.messageSource = messageSource;
     }
 
     @GetMapping("/{house-id}")
-    public ResponseEntity<HouseOutputModel> getHouse(@PathVariable("house-id") long houseId)
+    public ResponseEntity<HouseOutputModel> getHouse(@PathVariable("house-id") long houseId, Locale locale)
             throws NotFoundException, BadRequestException {
         House house;
         String username = authenticationFacade.getAuthentication().getName();
         try {
-            house = houseService.getHouseByHouseId(houseId);
+            house = houseService.getHouseByHouseId(houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -63,11 +59,12 @@ public class HouseController {
 
     @GetMapping("/{house-id}/users")
     public ResponseEntity<HouseMembersOutputModel> getHousehold(
-            @PathVariable("house-id") long houseId
+            @PathVariable("house-id") long houseId,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<UserHouse> household;
         try {
-            household = houseMemberService.getMembersByHouseId(houseId);
+            household = houseMemberService.getMembersByHouseId(houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -92,9 +89,9 @@ public class HouseController {
                     body.getBabiesNumber(),
                     body.getChildrenNumber(),
                     body.getAdultsNumber(),
-                    body.getSeniorsNumber()
+                    body.getSeniorsNumber(),
+                    locale
             );
-            listService.addSystemList(house.getHouseId(), messageSource.getMessage("SystemListName", null, locale));
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -107,7 +104,8 @@ public class HouseController {
     @PutMapping("/{house-id}")
     public ResponseEntity<HouseOutputModel> putHouse(
             @PathVariable("house-id") long houseId,
-            @RequestBody HouseInputModel body
+            @RequestBody HouseInputModel body,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         House house;
         String username = authenticationFacade.getAuthentication().getName();
@@ -118,7 +116,8 @@ public class HouseController {
                     body.getBabiesNumber(),
                     body.getChildrenNumber(),
                     body.getAdultsNumber(),
-                    body.getSeniorsNumber()
+                    body.getSeniorsNumber(),
+                    locale
             );
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
@@ -133,12 +132,13 @@ public class HouseController {
     public ResponseEntity<HouseMembersOutputModel> putMember(
             @PathVariable("house-id") long houseId,
             @PathVariable("username") String username,
-            @RequestBody HouseholdInputModel body
+            @RequestBody HouseholdInputModel body,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<UserHouse> household;
         try {
-            houseMemberService.associateMember(houseId, username, body.getAdministrator());
-            household = houseMemberService.getMembersByHouseId(houseId);
+            houseMemberService.associateMember(houseId, username, body.getAdministrator(), locale);
+            household = houseMemberService.getMembersByHouseId(houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -151,10 +151,11 @@ public class HouseController {
 
     @DeleteMapping("/{house-id}")
     public ResponseEntity<IndexOutputModel> deleteHouse(
-            @PathVariable("house-id") long houseId
+            @PathVariable("house-id") long houseId,
+            Locale locale
     ) throws NotFoundException, BadRequestException {
         try {
-            houseService.deleteHouseByHouseId(houseId);
+            houseService.deleteHouseByHouseId(houseId, locale);
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage());
         } catch (EntityException e) {
@@ -167,12 +168,13 @@ public class HouseController {
     @DeleteMapping("/{house-id}/users/{username}")
     public ResponseEntity<HouseMembersOutputModel> deleteUser(
             @PathVariable("house-id") long houseId,
-            @PathVariable("username") String username
+            @PathVariable("username") String username,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<UserHouse> household;
         try {
-            houseMemberService.deleteMemberByMemberId(houseId, username);
-            household = houseMemberService.getMembersByHouseId(houseId);
+            houseMemberService.deleteMemberByMemberId(houseId, username, locale);
+            household = houseMemberService.getMembersByHouseId(houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {

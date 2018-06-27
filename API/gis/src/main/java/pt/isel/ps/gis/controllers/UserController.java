@@ -17,6 +17,7 @@ import pt.isel.ps.gis.model.outputModel.*;
 import pt.isel.ps.gis.model.requestParams.ListRequestParam;
 
 import java.util.List;
+import java.util.Locale;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setJsonHomeContentType;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
@@ -37,11 +38,12 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseEntity<UserOutputModel> getUser(
-            @PathVariable("username") String username
+            @PathVariable("username") String username,
+            Locale locale
     ) throws NotFoundException, BadRequestException {
         Users user;
         try {
-            user = userService.getUserByUserUsername(username);
+            user = userService.getUserByUserUsername(username, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -53,11 +55,12 @@ public class UserController {
 
     @GetMapping("/{username}/houses")
     public ResponseEntity<UserHousesOutputModel> getUserHouses(
-            @PathVariable("username") String username
+            @PathVariable("username") String username,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<House> userHouses;
         try {
-            userHouses = houseService.getHousesByUserUsername(username);
+            userHouses = houseService.getHousesByUserUsername(username, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -71,13 +74,14 @@ public class UserController {
     @GetMapping("/{username}/lists")
     public ResponseEntity<UserListsOutputModel> getUserLists(
             @PathVariable("username") String username,
-            ListRequestParam params
+            ListRequestParam params,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         List<pt.isel.ps.gis.model.List> lists;
         try {
             ListService.AvailableListFilters filters;
             if (params.isNull()) {
-                Long[] housesIds = houseService.getHousesByUserUsername(username)
+                Long[] housesIds = houseService.getHousesByUserUsername(username, locale)
                         .stream()
                         .map(House::getHouseId)
                         .toArray(Long[]::new);
@@ -89,7 +93,7 @@ public class UserController {
                         params.getUser(),
                         params.getShareable()
                 );
-            lists = listService.getAvailableListsByUserUsername(username, filters);
+            lists = listService.getAvailableListsByUserUsername(username, filters, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -102,11 +106,12 @@ public class UserController {
 
     @PostMapping("")
     public ResponseEntity<UserOutputModel> registerUser(
-            @RequestBody RegisterUserInputModel body
+            @RequestBody RegisterUserInputModel body,
+            Locale locale
     ) throws BadRequestException, ConflictException {
         Users user;
         try {
-            user = userService.addUser(body.getUsername(), body.getEmail(), body.getAge(), body.getName(), body.getPassword());
+            user = userService.addUser(body.getUsername(), body.getEmail(), body.getAge(), body.getName(), body.getPassword(), locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityAlreadyExistsException e) {
@@ -119,7 +124,8 @@ public class UserController {
     @PostMapping("/{username}/lists")
     public ResponseEntity<ListOutputModel> postUserList(
             @PathVariable("username") String username,
-            @RequestBody ListInputModel body
+            @RequestBody ListInputModel body,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         pt.isel.ps.gis.model.List list;
         try {
@@ -127,7 +133,8 @@ public class UserController {
                     body.getHouseId(),
                     body.getName(),
                     username,
-                    body.getShareable()
+                    body.getShareable(),
+                    locale
             );
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
@@ -141,7 +148,8 @@ public class UserController {
     @PutMapping("/{username}")
     public ResponseEntity<UserOutputModel> putUser(
             @PathVariable("username") String username,
-            @RequestBody UserInputModel body
+            @RequestBody UserInputModel body,
+            Locale locale
     ) throws BadRequestException, NotFoundException, ConflictException {
         Users user;
         try {
@@ -150,7 +158,8 @@ public class UserController {
                     body.getEmail(),
                     body.getAge(),
                     body.getName(),
-                    body.getPassword()
+                    body.getPassword(),
+                    locale
             );
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
@@ -165,10 +174,11 @@ public class UserController {
 
     @DeleteMapping("/{username}")
     public ResponseEntity<IndexOutputModel> deleteUser(
-            @PathVariable("username") String username
+            @PathVariable("username") String username,
+            Locale locale
     ) throws BadRequestException, NotFoundException {
         try {
-            userService.deleteUserByUserUsername(username);
+            userService.deleteUserByUserUsername(username, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {

@@ -14,6 +14,7 @@ import pt.isel.ps.gis.model.outputModel.CategoriesOutputModel;
 import pt.isel.ps.gis.model.outputModel.CategoryOutputModel;
 
 import java.util.List;
+import java.util.Locale;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 
@@ -49,11 +50,12 @@ public class CategoryController {
 
     @GetMapping("/{category-id}")
     public ResponseEntity<CategoryOutputModel> getCategory(
-            @PathVariable("category-id") int categoryId
+            @PathVariable("category-id") int categoryId,
+            Locale locale
     ) throws NotFoundException, BadRequestException {
         Category category;
         try {
-            category = categoryService.getCategoryByCategoryId(categoryId);
+            category = categoryService.getCategoryByCategoryId(categoryId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage());
         } catch (EntityNotFoundException e) {
