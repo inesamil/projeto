@@ -5,6 +5,7 @@ import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.UserHouse;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface HouseMemberService {
 
@@ -26,7 +27,7 @@ public interface HouseMemberService {
      * @return Optional<UserHouse>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    UserHouse getMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException;
+    UserHouse getMemberByMemberId(long houseId, String username, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Listar os membros de uma casa através do ID da casa
@@ -35,7 +36,7 @@ public interface HouseMemberService {
      * @return List<UserHouse>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<UserHouse> getMembersByHouseId(long houseId) throws EntityException, EntityNotFoundException;
+    List<UserHouse> getMembersByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Associar ou atualizar um membro de uma casa
@@ -47,7 +48,7 @@ public interface HouseMemberService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o membro especificado não existir ou já estiver presente na casa particularizada
      */
-    UserHouse associateMember(long houseId, String username, Boolean administrator) throws EntityException, EntityNotFoundException;
+    UserHouse associateMember(long houseId, String username, Boolean administrator, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Remover um membro da casa
@@ -57,5 +58,5 @@ public interface HouseMemberService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o membro especificado não existir na casa particularizada
      */
-    void deleteMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException;
+    void deleteMemberByMemberId(long houseId, String username, Locale locale) throws EntityException, EntityNotFoundException;
 }

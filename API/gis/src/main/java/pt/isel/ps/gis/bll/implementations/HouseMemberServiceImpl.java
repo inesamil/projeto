@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll.implementations;
 
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.HouseMemberService;
@@ -13,22 +14,22 @@ import pt.isel.ps.gis.model.Users;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class HouseMemberServiceImpl implements HouseMemberService {
-
-    private static final String HOUSE_NOT_EXIST = "House does not exist.";
-    private static final String MEMBER_NOT_EXIST = "Member does not exist.";
-    private static final String USER_NOT_EXIST = "User does not exist.";
 
     private final UserHouseRepository userHouseRepository;
     private final HouseRepository houseRepository;
     private final UsersRepository usersRepository;
 
-    public HouseMemberServiceImpl(UserHouseRepository userHouseRepository, HouseRepository houseRepository, UsersRepository usersRepository) {
+    private final MessageSource messageSource;
+
+    public HouseMemberServiceImpl(UserHouseRepository userHouseRepository, HouseRepository houseRepository, UsersRepository usersRepository, MessageSource messageSource) {
         this.userHouseRepository = userHouseRepository;
         this.houseRepository = houseRepository;
         this.usersRepository = usersRepository;
+        this.messageSource = messageSource;
     }
 
     @Override
@@ -39,42 +40,42 @@ public class HouseMemberServiceImpl implements HouseMemberService {
     }
 
     @Override
-    public UserHouse getMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException {
+    public UserHouse getMemberByMemberId(long houseId, String username, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
         ValidationsUtils.validateUserUsername(username);
         return userHouseRepository
                 .findById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username)
-                .orElseThrow(() -> new EntityNotFoundException(MEMBER_NOT_EXIST));
+                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("member_Not_Exist", null, locale)));
     }
 
     @Transactional
     @Override
-    public List<UserHouse> getMembersByHouseId(long houseId) throws EntityException, EntityNotFoundException {
+    public List<UserHouse> getMembersByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
-        checkHouse(houseId);
+        checkHouse(houseId, locale);
         return userHouseRepository.findAllById_HouseId(houseId);
     }
 
     @Transactional
     @Override
-    public UserHouse associateMember(long houseId, String username, Boolean administrator) throws EntityException, EntityNotFoundException {
+    public UserHouse associateMember(long houseId, String username, Boolean administrator, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateUserUsername(username);
-        Users user = usersRepository.findByUsersUsername(username).orElseThrow(() -> new EntityNotFoundException(USER_NOT_EXIST));
+        Users user = usersRepository.findByUsersUsername(username).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("user_Not_Exist", null, locale)));
         UserHouse member = new UserHouse(houseId, user.getUsersId(), administrator);
-        checkHouse(houseId);
+        checkHouse(houseId, locale);
         userHouseRepository.save(member);
         return member;
     }
 
     @Transactional
     @Override
-    public void deleteMemberByMemberId(long houseId, String username) throws EntityException, EntityNotFoundException {
-        UserHouse member = getMemberByMemberId(houseId, username);
+    public void deleteMemberByMemberId(long houseId, String username, Locale locale) throws EntityException, EntityNotFoundException {
+        UserHouse member = getMemberByMemberId(houseId, username, locale);
         userHouseRepository.deleteById(member.getId());
     }
 
-    private void checkHouse(long houseId) throws EntityNotFoundException {
+    private void checkHouse(long houseId, Locale locale) throws EntityNotFoundException {
         if (!houseRepository.existsById(houseId))
-            throw new EntityNotFoundException(HOUSE_NOT_EXIST);
+            throw new EntityNotFoundException(messageSource.getMessage("house_Not_Exist", null, locale));
     }
 }
