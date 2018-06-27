@@ -1,7 +1,7 @@
 package ps.leic.isel.pt.gis.model.dtos
 
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
-import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
+import ps.leic.isel.pt.gis.hypermedia.siren.Siren
 
 class ProductsDto(siren: Siren) {
     val products: Array<ProductDto> = siren.entities?.map {

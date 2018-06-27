@@ -2,7 +2,7 @@ package ps.leic.isel.pt.gis.model.dtos
 
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
-import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Siren
+import ps.leic.isel.pt.gis.hypermedia.siren.Siren
 
 class HouseAllergyDto(siren: Siren) {
     val houseId: Long

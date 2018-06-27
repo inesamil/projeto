@@ -1,7 +1,7 @@
 package ps.leic.isel.pt.gis.model.dtos
 
 import com.damnhandy.uri.template.UriTemplate
-import ps.leic.isel.pt.gis.hypermedia.jsonHome.subentities.JsonHome
+import ps.leic.isel.pt.gis.hypermedia.jsonHome.JsonHome
 import ps.leic.isel.pt.gis.hypermedia.jsonHome.subentities.ResourceObject
 import ps.leic.isel.pt.gis.model.ActionDto
 
