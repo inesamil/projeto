@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.HouseMemberService;
 import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.ListService;
-import pt.isel.ps.gis.config.AuthenticationFacade;
+import pt.isel.ps.gis.components.AuthenticationFacade;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
@@ -20,9 +20,9 @@ import pt.isel.ps.gis.model.inputModel.HouseholdInputModel;
 import pt.isel.ps.gis.model.outputModel.HouseMembersOutputModel;
 import pt.isel.ps.gis.model.outputModel.HouseOutputModel;
 import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
-import java.util.Locale;
 
 import java.util.List;
+import java.util.Locale;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setJsonHomeContentType;
 import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;

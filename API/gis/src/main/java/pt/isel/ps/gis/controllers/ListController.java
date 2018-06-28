@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.ListProductService;
 import pt.isel.ps.gis.bll.ListService;
-import pt.isel.ps.gis.config.AuthenticationFacade;
+import pt.isel.ps.gis.components.AuthenticationFacade;
 import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.List;

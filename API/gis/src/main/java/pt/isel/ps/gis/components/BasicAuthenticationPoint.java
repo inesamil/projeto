@@ -1,4 +1,4 @@
-package pt.isel.ps.gis.config;
+package pt.isel.ps.gis.components;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
