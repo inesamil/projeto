@@ -5,8 +5,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 import pt.isel.ps.gis.bll.StorageService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -27,9 +25,11 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 public class StorageController {
 
     private final StorageService storageService;
+    private final MessageSource messageSource;
 
-    public StorageController(StorageService storageService) {
+    public StorageController(StorageService storageService, MessageSource messageSource) {
         this.storageService = storageService;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("")
@@ -38,8 +38,6 @@ public class StorageController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<Storage> storages;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             storages = storageService.getStorageByHouseId(houseId, locale);
         } catch (EntityException e) {
@@ -59,8 +57,6 @@ public class StorageController {
             Locale locale
     ) throws NotFoundException, BadRequestException {
         Storage storage;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             storage = storageService.getStorageByStorageId(houseId, storageId, locale);
         } catch (EntityException e) {
@@ -79,8 +75,6 @@ public class StorageController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         Storage storage;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             storage = storageService.addStorage(
                     houseId,
@@ -107,8 +101,6 @@ public class StorageController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         Storage storage;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             storage = storageService.updateStorage(
                     houseId,
@@ -135,8 +127,6 @@ public class StorageController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<Storage> storages;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             storageService.deleteStorageByStorageId(houseId, storageId, locale);
             storages = storageService.getStorageByHouseId(houseId, locale);

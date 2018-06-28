@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 import pt.isel.ps.gis.bll.StockItemAllergenService;
 import pt.isel.ps.gis.bll.StockItemService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
@@ -34,10 +32,12 @@ public class StockItemController {
 
     private final StockItemService stockItemService;
     private final StockItemAllergenService stockItemAllergenService;
+    private final MessageSource messageSource;
 
-    public StockItemController(StockItemService stockItemService, StockItemAllergenService stockItemAllergenService) {
+    public StockItemController(StockItemService stockItemService, StockItemAllergenService stockItemAllergenService, MessageSource messageSource) {
         this.stockItemService = stockItemService;
         this.stockItemAllergenService = stockItemAllergenService;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("")
@@ -47,8 +47,6 @@ public class StockItemController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<StockItem> stockItems;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             if (params.isNull())
                 stockItems = stockItemService.getStockItemsByHouseId(houseId, locale);
@@ -79,8 +77,6 @@ public class StockItemController {
             Locale locale
     ) throws NotFoundException, BadRequestException {
         StockItem stockItem;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             stockItem = stockItemService.getStockItemByStockItemId(houseId, sku, locale);
         } catch (EntityException e) {
@@ -99,8 +95,6 @@ public class StockItemController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<Allergy> allergens;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             allergens = stockItemAllergenService.getAllergensByStockItemId(houseId, sku, locale);
         } catch (EntityException e) {

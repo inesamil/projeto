@@ -6,8 +6,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 import pt.isel.ps.gis.bll.StockItemMovementService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -30,9 +28,11 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 public class StockItemMovementController {
 
     private final StockItemMovementService stockItemMovementService;
+    private final MessageSource messageSource;
 
-    public StockItemMovementController(StockItemMovementService stockItemMovementService) {
+    public StockItemMovementController(StockItemMovementService stockItemMovementService, MessageSource messageSource) {
         this.stockItemMovementService = stockItemMovementService;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("")
@@ -42,8 +42,6 @@ public class StockItemMovementController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<StockItemMovement> movements;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             if (params.isNull())
                 movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId, locale);
@@ -78,8 +76,6 @@ public class StockItemMovementController {
         if (tagCsvList.size() <= 0) throw new BadRequestException("", ""); // TODO ver a mensagem da excecao
         TagCsv tag = tagCsvList.get(0);
         List<StockItemMovement> movements;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             stockItemMovementService.addStockItemMovement(
                     houseId,

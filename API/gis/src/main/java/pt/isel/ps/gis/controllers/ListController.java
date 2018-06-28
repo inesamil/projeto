@@ -5,8 +5,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.ListProductService;
 import pt.isel.ps.gis.bll.ListService;
@@ -34,12 +32,14 @@ public class ListController {
     private final ListProductService listProductService;
     private final HouseService houseService;
     private final AuthenticationFacade authenticationFacade;
+    private final MessageSource messageSource;
 
-    public ListController(ListService listService, ListProductService listProductService, HouseService houseService, AuthenticationFacade authenticationFacade) {
+    public ListController(ListService listService, ListProductService listProductService, HouseService houseService, AuthenticationFacade authenticationFacade, MessageSource messageSource) {
         this.listService = listService;
         this.listProductService = listProductService;
         this.houseService = houseService;
         this.authenticationFacade = authenticationFacade;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("")
@@ -48,8 +48,6 @@ public class ListController {
             Locale locale
     ) throws NotFoundException, BadRequestException {
         java.util.List<List> lists;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             lists = listService.getListsByHouseId(houseId, locale);
         } catch (EntityException e) {
@@ -68,8 +66,6 @@ public class ListController {
             Locale locale
     ) throws NotFoundException, BadRequestException {
         List list;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             list = listService.getListByListId(houseId, listId, locale);
         } catch (EntityException e) {
@@ -89,8 +85,6 @@ public class ListController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         java.util.List<ListProduct> listProducts;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             listProducts = listProductService.getListProductsByListId(houseId, listId, locale);
         } catch (EntityException e) {
@@ -111,8 +105,6 @@ public class ListController {
             Locale locale
     ) throws BadRequestException, NotFoundException, ForbiddenException {
         List list;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             list = listService.updateList(houseId, listId, body.getName(), body.getShareable(), locale);
         } catch (EntityException e) {
@@ -137,8 +129,6 @@ public class ListController {
     ) throws BadRequestException, NotFoundException, ConflictException {
         List list;
         String username;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             listProductService.addListProduct(houseId, listId, body.getProductId(), body.getBrand(), body.getQuantity(), locale);
             list = listService.getListByListId(houseId, listId, locale);
@@ -165,8 +155,6 @@ public class ListController {
     ) throws BadRequestException, NotFoundException {
         List list;
         String username;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             listProductService.associateListProduct(houseId, listId, productId, body.getBrand(), body.getQuantity(), locale);
             list = listService.getListByListId(houseId, listId, locale);
@@ -225,8 +213,6 @@ public class ListController {
     ) throws BadRequestException, NotFoundException {
         List list;
         String username;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             listProductService.deleteListProductByListProductId(houseId, listId, productId, locale);
             list = listService.getListByListId(houseId, listId, locale);

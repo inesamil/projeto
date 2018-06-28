@@ -5,8 +5,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 import pt.isel.ps.gis.bll.HouseMemberService;
 import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.ListService;
@@ -36,11 +34,13 @@ public class HouseController {
     private final HouseService houseService;
     private final HouseMemberService houseMemberService;
     private final AuthenticationFacade authenticationFacade;
+    private final MessageSource messageSource;
 
-    public HouseController(HouseService houseService, HouseMemberService houseMemberService, ListService listService, AuthenticationFacade authenticationFacade, MessageSource messageSource) {
+    public HouseController(HouseService houseService, HouseMemberService houseMemberService, ListService listService, AuthenticationFacade authenticationFacade, MessageSource messageSource, MessageSource messageSource1) {
         this.houseService = houseService;
         this.houseMemberService = houseMemberService;
         this.authenticationFacade = authenticationFacade;
+        this.messageSource = messageSource1;
     }
 
     @GetMapping("/{house-id}")
@@ -48,8 +48,6 @@ public class HouseController {
             throws NotFoundException, BadRequestException {
         House house;
         String username = authenticationFacade.getAuthentication().getName();
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             house = houseService.getHouseByHouseId(houseId, locale);
         } catch (EntityException e) {
@@ -67,8 +65,6 @@ public class HouseController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<UserHouse> household;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             household = houseMemberService.getMembersByHouseId(houseId, locale);
         } catch (EntityException e) {
@@ -115,8 +111,6 @@ public class HouseController {
     ) throws BadRequestException, NotFoundException {
         House house;
         String username = authenticationFacade.getAuthentication().getName();
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             house = houseService.updateHouse(
                     houseId,
@@ -162,8 +156,6 @@ public class HouseController {
             @PathVariable("house-id") long houseId,
             Locale locale
     ) throws NotFoundException, BadRequestException {
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             houseService.deleteHouseByHouseId(houseId, locale);
         } catch (EntityNotFoundException e) {
@@ -182,8 +174,6 @@ public class HouseController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<UserHouse> household;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             houseMemberService.deleteMemberByMemberId(houseId, username, locale);
             household = houseMemberService.getMembersByHouseId(houseId, locale);

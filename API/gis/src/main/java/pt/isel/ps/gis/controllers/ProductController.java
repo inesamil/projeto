@@ -5,8 +5,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 import pt.isel.ps.gis.bll.ProductService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -26,9 +24,11 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 public class ProductController {
 
     private final ProductService productService;
+    private final MessageSource messageSource;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, MessageSource messageSource) {
         this.productService = productService;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("")
@@ -38,8 +38,6 @@ public class ProductController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<Product> products;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             if (name == null)
                 products = productService.getProductsByCategoryId(categoryId, locale);
@@ -62,8 +60,6 @@ public class ProductController {
             Locale locale
     ) throws NotFoundException, BadRequestException {
         Product product;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             product = productService.getProductByCategoryIdAndProductId(categoryId, productId, locale);
         } catch (EntityException e) {

@@ -5,8 +5,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 import pt.isel.ps.gis.bll.CategoryService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -26,9 +24,11 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 public class CategoryController {
 
     private final CategoryService categoryService;
+    private final MessageSource messageSource;
 
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, MessageSource messageSource) {
         this.categoryService = categoryService;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("")
@@ -37,9 +37,6 @@ public class CategoryController {
             Locale locale
     ) throws BadRequestException {
         List<Category> categories;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
-
         if (name == null)
             categories = categoryService.getCategories();
         else {
@@ -61,8 +58,6 @@ public class CategoryController {
             Locale locale
     ) throws NotFoundException, BadRequestException {
         Category category;
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             category = categoryService.getCategoryByCategoryId(categoryId, locale);
         } catch (EntityException e) {

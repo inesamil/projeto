@@ -12,7 +12,6 @@ import pt.isel.ps.gis.hypermedia.problemDetails.ProblemDetails;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.Locale;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setProblemDetailContentType;
