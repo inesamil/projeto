@@ -125,6 +125,7 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         ProblemDetails problemDetails = new ProblemDetails(
                 "Request missing parameter.",
                 httpStatus.value(),
+                ex.getMessage(),
                 ex.getMessage()
         );
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -190,6 +191,7 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         ProblemDetails problemDetails = new ProblemDetails(
                 "Something went wrong.",
                 status.value(),
+                ex.getMessage(),
                 ex.getMessage()
         );
         return new ResponseEntity<>(problemDetails, setProblemDetailContentType(headers), status);
