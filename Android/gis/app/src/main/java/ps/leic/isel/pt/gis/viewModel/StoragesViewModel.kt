@@ -4,19 +4,21 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import ps.leic.isel.pt.gis.ServiceLocator
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.StoragesDto
 import ps.leic.isel.pt.gis.repositories.Resource
 
 class StoragesViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    private var storages: LiveData<Resource<StoragesDto>>? = null
+    private var storages: LiveData<Resource<StoragesDto, ErrorDto>>? = null
 
     fun init(url: String) {
         if (storages != null) return
-        storages = ServiceLocator.getRepository(app.applicationContext).get(StoragesDto::class.java, url, TAG)
+        storages = ServiceLocator.getRepository(app.applicationContext)
+                .get(StoragesDto::class.java, ErrorDto::class.java, url, TAG)
     }
 
-    fun getStorages(): LiveData<Resource<StoragesDto>>? {
+    fun getStorages(): LiveData<Resource<StoragesDto, ErrorDto>>? {
         return storages
     }
 

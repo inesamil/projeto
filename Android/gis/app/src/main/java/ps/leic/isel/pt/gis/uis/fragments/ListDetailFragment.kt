@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,9 +18,11 @@ import kotlinx.android.synthetic.main.fragment_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ListProduct
 import ps.leic.isel.pt.gis.model.body.ListProductBody
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.model.dtos.ListProductDto
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.ListDetailAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.ListDetailViewModel
@@ -64,10 +67,11 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         listDetailViewModel = ViewModelProviders.of(this).get(ListDetailViewModel::class.java)
         listDetailViewModel.init(url)
         listDetailViewModel.getListDetail()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-                it?.status == Status.LOADING -> {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
                     state = State.LOADING
                 }
             }
@@ -132,23 +136,35 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
      * Auxiliary Methods
      ***/
 
-    private fun onSuccess(list: ListDto) {
-        state = State.SUCCESS
+    private fun onSuccess(list: ListDto?) {
+        list?.let {
+            state = State.SUCCESS
 
-        this.list = list
+            this.list = list
 
-        list.listProducts.let {
-            adapter.setData(it)
+            list.listProducts.let {
+                adapter.setData(it)
+            }
+
+            // Show progress bar or content
+            showProgressBarOrContent()
         }
-
-        // Show progress bar or content
-        showProgressBarOrContent()
     }
 
-    private fun onError(error: String?) {
+    private fun onUnsuccess(error: ErrorDto?) {
         state = State.ERROR
         error?.let {
-            Log.v("APP_GIS", error)
+            Log.e(TAG, it.developerErrorMessage)
+            onError(it.message)
+        }
+    }
+
+    private fun onError(message: String?) {
+        state = State.ERROR
+        message?.let {
+            Log.e(TAG, it)
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 
@@ -197,18 +213,26 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
     fun onAddProductToList(listProduct: ListProduct) {
         listDetailViewModel.addProductToList(ListProductBody(listProduct.productId, listProduct.brand, listProduct.quantity))?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
+                    state = State.LOADING
+                }
             }
         })
     }
 
     fun onListProductEdited(listProduct: ListProduct) {
         listDetailViewModel.updateListProduct(ListProductBody(listProduct.productId, listProduct.brand, listProduct.quantity))?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
+                    state = State.LOADING
+                }
             }
         })
     }

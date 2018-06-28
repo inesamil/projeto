@@ -10,7 +10,9 @@ import android.support.v7.app.AlertDialog
 import android.view.View
 import kotlinx.android.synthetic.main.layout_new_house_dialog.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.House
 import ps.leic.isel.pt.gis.model.body.HouseBody
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.repositories.Resource
 import ps.leic.isel.pt.gis.utils.EditTextUtils
@@ -18,8 +20,6 @@ import ps.leic.isel.pt.gis.utils.RestrictionsUtils
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 
 class NewHouseDialogFragment : DialogFragment() {
-
-    private var housesViewModel: HousesViewModel? = null
 
     private var listener: OnNewHouseDialogFragmentInteractionListener? = null
 
@@ -123,11 +123,7 @@ class NewHouseDialogFragment : DialogFragment() {
         val childrenNumber: Short = view.childrenNumEditText.text.toString().toShortOrNull() ?: 0
         val adultsNumber: Short = view.adultsNumEditText.text.toString().toShortOrNull() ?: 0
         val seniorsNumber: Short = view.seniorNumEditText.text.toString().toShortOrNull() ?: 0
-
-        val house: HouseBody = HouseBody(houseName, babiesNumber, childrenNumber, adultsNumber, seniorsNumber)
-
-        housesViewModel = ViewModelProviders.of(activity!!).get(HousesViewModel::class.java)
-        listener?.onAddHouse(housesViewModel?.addHouse(house))
+        listener?.onAddHouse(House(houseName, babiesNumber, childrenNumber, adultsNumber, seniorsNumber))
     }
 
     /***
@@ -141,7 +137,7 @@ class NewHouseDialogFragment : DialogFragment() {
      * activity.
      */
     interface OnNewHouseDialogFragmentInteractionListener {
-        fun onAddHouse(liveData: LiveData<Resource<HouseDto>>?)
+        fun onAddHouse(house: House)
     }
 
     /**

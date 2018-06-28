@@ -4,19 +4,21 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import ps.leic.isel.pt.gis.ServiceLocator
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.IndexDto
 import ps.leic.isel.pt.gis.repositories.Resource
 
 class SplashScreenViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    private var index: LiveData<Resource<IndexDto>>? = null
+    private var index: LiveData<Resource<IndexDto, ErrorDto>>? = null
 
     fun init() {
         if (index != null) return
-        index = ServiceLocator.getRepository(app.applicationContext).get(IndexDto::class.java, url, TAG)
+        index = ServiceLocator.getRepository(app.applicationContext)
+                .get(IndexDto::class.java, ErrorDto::class.java, url, TAG)
     }
 
-    fun getIndex(): LiveData<Resource<IndexDto>>? {
+    fun getIndex(): LiveData<Resource<IndexDto, ErrorDto>>? {
         return index
     }
 

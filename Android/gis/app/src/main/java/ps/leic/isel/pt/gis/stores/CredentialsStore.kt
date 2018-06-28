@@ -1,4 +1,4 @@
-package ps.leic.isel.pt.gis.utils
+package ps.leic.isel.pt.gis.stores
 
 interface CredentialsStore {
 

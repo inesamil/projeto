@@ -6,18 +6,26 @@ import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_houses.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.House
+import ps.leic.isel.pt.gis.model.body.HouseBody
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
 import ps.leic.isel.pt.gis.utils.State
+import ps.leic.isel.pt.gis.utils.removeFragment
+import ps.leic.isel.pt.gis.utils.removeFragmentByTag
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 
 /**
@@ -109,12 +117,17 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     /**
      * Methods
      */
-    fun refresh(url: String) {
-        this.url = url
-        housesViewModel = ViewModelProviders.of(activity!!).get(HousesViewModel::class.java)
-        housesViewModel.reload(url)
-        getHouses()
-
+    fun onAddHouse(house: House) {
+        housesViewModel.addHouse(HouseBody(house.houseName, house.babiesNumber, house.childrenNumber, house.adultsNumber, house.seniorsNumber))?.observe(this, Observer {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
+                    state = State.LOADING
+                }
+            }
+        })
     }
 
     /***
@@ -123,30 +136,43 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
 
     private fun getHouses() {
         housesViewModel.getHouses()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-                it?.status == Status.LOADING -> {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
                     state = State.LOADING
                 }
             }
         })
     }
 
-    private fun onSuccess(houses: HousesDto) {
-        state = State.SUCCESS
+    private fun onSuccess(houses: HousesDto?) {
+        houses?.let {
+            state = State.SUCCESS
 
-        // Show progress bar or content
-        showProgressBarOrContent()
+            // Show progress bar or content
+            showProgressBarOrContent()
 
-        this.houses = houses
-        adapter.setData(houses.houses)
+            this.houses = houses
+            adapter.setData(it.houses)
+        }
     }
 
-    private fun onError(error: String?) {
+    private fun onUnsuccess(error: ErrorDto?) {
         state = State.ERROR
         error?.let {
-            Log.v("APP_GIS", error)
+            Log.e(TAG, it.developerErrorMessage)
+            onError(it.message)
+        }
+    }
+
+    private fun onError(message: String?) {
+        state = State.ERROR
+        message?.let {
+            Log.e(TAG, it)
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 

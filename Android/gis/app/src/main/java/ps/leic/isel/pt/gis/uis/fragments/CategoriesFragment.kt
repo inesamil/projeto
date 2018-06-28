@@ -6,16 +6,20 @@ import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_categories.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.CategoriesDto
 import ps.leic.isel.pt.gis.model.dtos.CategoryDto
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.CategoriesAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
@@ -59,13 +63,11 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
         categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
         categoriesViewModel.init(url)
         categoriesViewModel.getCategories()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-                it?.status == Status.API_ERROR -> {
-                    it.apiError
-                }
-                it?.status == Status.LOADING -> {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
                     state = State.LOADING
                 }
             }
@@ -121,21 +123,33 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
      * Auxiliary Methods
      ***/
 
-    private fun onSuccess(categories: CategoriesDto) {
-        state = State.SUCCESS
+    private fun onSuccess(categories: CategoriesDto?) {
+        categories?.let {
+            state = State.SUCCESS
 
-        // Show progress bar or content
-        showProgressBarOrContent()
+            // Show progress bar or content
+            showProgressBarOrContent()
 
-        // Set Adapter
-        adapter.setData(categories.categories)
-        this.categories = categories.categories
+            // Set Adapter
+            adapter.setData(it.categories)
+            this.categories = it.categories
+        }
     }
 
-    private fun onError(error: String?) {
+    private fun onUnsuccess(error: ErrorDto?) {
         state = State.ERROR
         error?.let {
-            Log.v("APP_GIS", error)
+            Log.e(TAG, it.developerErrorMessage)
+            onError(it.message)
+        }
+    }
+
+    private fun onError(message: String?) {
+        state = State.ERROR
+        message?.let {
+            Log.e(TAG, it)
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,8 +20,10 @@ import kotlinx.android.synthetic.main.fragment_allergies.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.body.HouseAllergiesBody
 import ps.leic.isel.pt.gis.model.body.HouseAllergyBody
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.HouseAllergiesDto
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.AllergiesTableAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.AllergiesViewModel
@@ -58,10 +61,11 @@ class AllergiesFragment : Fragment() {
             allergiesViewModel.init(it)
         }
         allergiesViewModel.getAllergies()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-                it?.status == Status.LOADING -> {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
                     state = State.LOADING
                 }
             }
@@ -129,33 +133,45 @@ class AllergiesFragment : Fragment() {
      * Auxiliary Methods
      ***/
 
-    private fun onSuccess(allergies: HouseAllergiesDto) {
-        state = State.SUCCESS
+    private fun onSuccess(allergies: HouseAllergiesDto?) {
+        allergies?.let {
+            state = State.SUCCESS
 
-        // Hide progress bar
-        showProgressBarOrContent()
+            // Hide progress bar
+            showProgressBarOrContent()
 
-        // Set data to adapter
-        adapter.setData(allergies.houseAllergies)
+            // Set data to adapter
+            adapter.setData(it.houseAllergies)
 
-        // Show allergies or not
-        view?.let {
-            val mPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
-            val showAllergies = mPreferences.getBoolean(SHOW_ALLERGIES_TAG, true)
-            if (showAllergies) {
-                it.allergiesRecyclerView.visibility = View.VISIBLE
-                it.allergiesRadioGroup.check(R.id.allergiesYesRadioBtn)
-            } else {
-                it.allergiesRecyclerView.visibility = View.INVISIBLE
-                it.allergiesRadioGroup.check(R.id.allergiesNoRadioBtn)
+            // Show allergies or not
+            view?.let {
+                val mPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+                val showAllergies = mPreferences.getBoolean(SHOW_ALLERGIES_TAG, true)
+                if (showAllergies) {
+                    it.allergiesRecyclerView.visibility = View.VISIBLE
+                    it.allergiesRadioGroup.check(R.id.allergiesYesRadioBtn)
+                } else {
+                    it.allergiesRecyclerView.visibility = View.INVISIBLE
+                    it.allergiesRadioGroup.check(R.id.allergiesNoRadioBtn)
+                }
             }
         }
     }
 
-    private fun onError(error: String?) {
+    private fun onUnsuccess(error: ErrorDto?) {
         state = State.ERROR
         error?.let {
-            Log.v("APP_GIS", it)
+            Log.e(TAG, it.developerErrorMessage)
+            onError(it.message)
+        }
+    }
+
+    private fun onError(message: String?) {
+        state = State.ERROR
+        message?.let {
+            Log.e(TAG, it)
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 

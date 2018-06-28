@@ -1,4 +1,4 @@
-package ps.leic.isel.pt.gis.utils
+package ps.leic.isel.pt.gis.stores
 
 import com.google.android.gms.auth.api.credentials.Credential
 import java.lang.Exception

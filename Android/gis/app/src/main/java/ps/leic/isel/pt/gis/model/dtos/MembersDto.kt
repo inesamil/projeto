@@ -2,7 +2,7 @@ package ps.leic.isel.pt.gis.model.dtos
 
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.Siren
-import ps.leic.isel.pt.gis.utils.Requester.Companion.mapper
+import ps.leic.isel.pt.gis.volley.Requester.Companion.mapper
 
 class MembersDto(siren: Siren) {
     val members = siren.properties?.get("house-members");

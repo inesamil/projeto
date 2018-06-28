@@ -8,5 +8,6 @@ class ProblemDetails (
         val title: String,
         val status: Int,
         val detail: String,
-        val instance: String
+        val instance: String,
+        val userFriendlyMessage: String?
 )

@@ -177,4 +177,6 @@
     <string name="delete_icon_description">Ícone de Remover</string>
     <string name="delete_confirmation">Tem a certeza que pretende remover?</string>
     <string name="no_internet_connection">Sem ligação à internet</string>
+    <string name="network_error_has_occurred">Ocorreu um erro de rede</string>
+    <string name="unfortunately_an_error_has_occurred">Infelizmente ocorreu um erro</string>
 </resources>

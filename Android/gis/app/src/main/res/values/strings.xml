@@ -213,4 +213,6 @@
     <string name="list_product_removed_successfully">Product removed successfully</string>
     <string name="could_not_remove_list_product">Sorry, we couldn\'t remove the product, please try again</string>
     <string name="no_internet_connection">No internet connection</string>
+    <string name="network_error_has_occurred">A network error has occurred</string>
+    <string name="unfortunately_an_error_has_occurred">Unfortunately an error has occurred</string>
 </resources>

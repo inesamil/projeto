@@ -5,17 +5,21 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_storages.*
 import kotlinx.android.synthetic.main.fragment_storages.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.StoragesDto
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.StoragesAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.StoragesViewModel
@@ -47,10 +51,11 @@ class StoragesFragment : Fragment() {
         storagesViewModel = ViewModelProviders.of(this).get(StoragesViewModel::class.java)
         storagesViewModel.init(url)
         storagesViewModel.getStorages()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-                it?.status == Status.LOADING -> {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
                     state = State.LOADING
                 }
             }
@@ -100,21 +105,33 @@ class StoragesFragment : Fragment() {
      * Auxiliary Methods
      ***/
 
-    private fun onSuccess(storages: StoragesDto) {
-        state = State.SUCCESS
+    private fun onSuccess(storages: StoragesDto?) {
+        storages?.let {
+            state = State.SUCCESS
 
-        // Show progress bar or content
-        showProgressBarOrContent()
+            // Show progress bar or content
+            showProgressBarOrContent()
 
-        storagesLayout.visibility = View.VISIBLE
+            storagesLayout.visibility = View.VISIBLE
 
-        adapter.setData(storages.storages)
+            adapter.setData(it.storages)
+        }
     }
 
-    private fun onError(error: String?) {
+    private fun onUnsuccess(error: ErrorDto?) {
         state = State.ERROR
         error?.let {
-            Log.v("APP_GIS", it)
+            Log.e(TAG, it.developerErrorMessage)
+            onError(it.message)
+        }
+    }
+
+    private fun onError(message: String?) {
+        state = State.ERROR
+        message?.let {
+            Log.e(TAG, it)
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 

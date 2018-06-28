@@ -18,7 +18,7 @@ import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
  * create an instance of this fragment.
  *
  */
-class ProfileFragment : Fragment() { // TODO este fragmento precisa de fazer um pedido a api? ou recebe so o username pelo bundle?
+class ProfileFragment : Fragment() {
 
     private lateinit var housesUrl: String
     private lateinit var userUrl: String

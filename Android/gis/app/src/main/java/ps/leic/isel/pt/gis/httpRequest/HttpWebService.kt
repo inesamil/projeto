@@ -10,7 +10,7 @@ interface HttpWebService {
 
     fun <T, E> fetch(method: Method, url: String, body: Any?, headers: MutableMap<String, String>,
                      dtoType: Class<T>, errorType: Class<E>, onSuccess: (Resource<T, E>) -> Unit,
-                     onError: (String?) -> Unit, tag: String)
+                     onError: (String) -> Unit, tag: String)
 
     fun cancelAll(tag: String)
 }

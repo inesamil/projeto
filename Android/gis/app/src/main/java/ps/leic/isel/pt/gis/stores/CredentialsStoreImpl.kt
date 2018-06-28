@@ -1,4 +1,4 @@
-package ps.leic.isel.pt.gis.utils
+package ps.leic.isel.pt.gis.stores
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -61,3 +61,10 @@ fun FragmentManager.removeFragmentByTag(tag: String) {
                 .commit()
     }
 }
+
+fun FragmentManager.removeFragment(fragment: Fragment) {
+    beginTransaction()
+            .remove(fragment)
+            .commit()
+
+}

@@ -14,7 +14,7 @@ import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.body.UserBody
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.utils.CredentialsStore
+import ps.leic.isel.pt.gis.stores.CredentialsStore
 import ps.leic.isel.pt.gis.viewModel.BasicInformationViewModel
 
 class RegisterActivity : AppCompatActivity() {

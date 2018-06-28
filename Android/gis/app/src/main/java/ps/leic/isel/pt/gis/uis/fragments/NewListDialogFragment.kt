@@ -1,24 +1,25 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.app.Dialog
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import kotlinx.android.synthetic.main.layout_new_list_dialog.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.body.ListBody
+import ps.leic.isel.pt.gis.model.List
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
-import ps.leic.isel.pt.gis.model.dtos.ListDto
-import ps.leic.isel.pt.gis.repositories.Resource
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 import ps.leic.isel.pt.gis.viewModel.ListsViewModel
 
@@ -84,10 +85,7 @@ class NewListDialogFragment : DialogFragment() {
             val listName: String = view.listNameEditText.text.toString()
             val shareable: Boolean = !view.shareableListSwitch.isChecked
 
-            val list = ListBody(houseId, listName, shareable)
-
-            listsViewModel = ViewModelProviders.of(activity!!).get(ListsViewModel::class.java)
-            listener?.onAddList(listsViewModel?.addList(list))
+            listener?.onAddList(List(houseId, listName, shareable))
         }
     }
 
@@ -95,27 +93,41 @@ class NewListDialogFragment : DialogFragment() {
         housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
         housesViewModel.init(url)
         housesViewModel.getHouses()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
             }
         })
     }
 
-    private fun onSuccess(housesDto: HousesDto) {
-        houses = housesDto.houses
-
+    private fun onSuccess(houses: HousesDto?) {
         houses?.let {
-            val spinnerAdapter = ArrayAdapter<String>(housesSpinner.context, android.R.layout.simple_spinner_item, it.map { house -> house.name })
-            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            housesSpinner.adapter = spinnerAdapter
-            housesSpinner.setSelection(0)
+            this.houses = it.houses
+
+            this.houses?.let {
+                val spinnerAdapter = ArrayAdapter<String>(housesSpinner.context, android.R.layout.simple_spinner_item, it.map { house -> house.name })
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                housesSpinner.adapter = spinnerAdapter
+                housesSpinner.setSelection(0)
+            }
         }
     }
 
+    private fun onUnsuccess(error: ErrorDto?) {
+        error?.let {
+            Log.e(TAG, it.developerErrorMessage)
+            onError(it.message)
+        }
+    }
 
-    private fun onError(error: String?) {
-        //TODO
+    private fun onError(message: String?) {
+
+        message?.let {
+            Log.e(TAG, it)
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            (activity as? HomeActivity)?.goBackInStack()
+        }
     }
 
     /**
@@ -125,7 +137,7 @@ class NewListDialogFragment : DialogFragment() {
      * activity.
      */
     interface OnNewListDialogFragmentInteractionListener {
-        fun onAddList(liveData: LiveData<Resource<ListDto>>?)
+        fun onAddList(list: List)
     }
 
     /**

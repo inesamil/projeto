@@ -1,4 +1,4 @@
-package ps.leic.isel.pt.gis.utils
+package ps.leic.isel.pt.gis.volley
 
 import android.content.Context
 import com.android.volley.Request
@@ -8,7 +8,7 @@ import com.android.volley.toolbox.Volley
 class RequestQueue(context: Context?) {
     companion object {
         @Volatile
-        private var INSTANCE: ps.leic.isel.pt.gis.utils.RequestQueue? = null
+        private var INSTANCE: ps.leic.isel.pt.gis.volley.RequestQueue? = null
 
         fun getInstance(context: Context?) =
                 INSTANCE ?: synchronized(this) {

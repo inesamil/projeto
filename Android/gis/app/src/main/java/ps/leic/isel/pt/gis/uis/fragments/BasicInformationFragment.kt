@@ -6,16 +6,20 @@ import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_basic_information.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.UserDTO
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.BasicInformationViewModel
 
@@ -55,10 +59,11 @@ class BasicInformationFragment : Fragment() {
         basicInfoVM = ViewModelProviders.of(this).get(BasicInformationViewModel::class.java)
         basicInfoVM.init(url)
         basicInfoVM.getUser()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-                it?.status == Status.LOADING -> {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
                     state = State.LOADING
                 }
             }
@@ -105,23 +110,36 @@ class BasicInformationFragment : Fragment() {
      * Auxiliary Methods
      ***/
 
-    private fun onSuccess(user: UserDto) {
-        state = State.SUCCESS
+    private fun onSuccess(user: UserDto?) {
+        user?.let {
+            state = State.SUCCESS
 
-        showProgressBarOrContent()
+            showProgressBarOrContent()
 
-        // Set info
-        view?.let {
-            it.fullnameText.text = user.name
-            it.emailText.text = user.email
-            it.requesterUserText.text = user.username
-            it.ageText.text = user.age.toString()
+            // Set info
+            view?.let {
+                it.fullnameText.text = user.name
+                it.emailText.text = user.email
+                it.requesterUserText.text = user.username
+                it.ageText.text = user.age.toString()
+            }
         }
     }
 
-    private fun onError(error: String?) {
+    private fun onUnsuccess(error: ErrorDto?) {
+        state = State.ERROR
         error?.let {
-            Log.v("APP_GIS", it)
+            Log.e(TAG, it.developerErrorMessage)
+            onError(it.message)
+        }
+    }
+
+    private fun onError(message: String?) {
+        state = State.ERROR
+        message?.let {
+            Log.e(TAG, it)
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 
@@ -145,7 +163,7 @@ class BasicInformationFragment : Fragment() {
     }
 
     companion object {
-        const val TAG: String = "BasicInformationFragment"
+        const val TAG: String = "BasicInfoFragment"
         private const val URL_TAG: String = "URL"
         /**
          * Use this factory method to create a new instance of

@@ -4,12 +4,13 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import ps.leic.isel.pt.gis.ServiceLocator
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.ProductsDto
 import ps.leic.isel.pt.gis.repositories.Resource
 
 class CategoryProductsViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    private var products: LiveData<Resource<ProductsDto>>? = null
+    private var products: LiveData<Resource<ProductsDto, ErrorDto>>? = null
     private lateinit var url: String
 
     fun init(url: String) {
@@ -17,10 +18,10 @@ class CategoryProductsViewModel(private val app: Application) : AndroidViewModel
         if (products != null) cancel()
         this.url = url
         products = ServiceLocator.getRepository(app.applicationContext)
-                .get(ProductsDto::class.java, url, TAG)
+                .get(ProductsDto::class.java, ErrorDto::class.java, url, TAG)
     }
 
-    fun getProducts(): LiveData<Resource<ProductsDto>>? {
+    fun getProducts(): LiveData<Resource<ProductsDto, ErrorDto>>? {
         return products
     }
 

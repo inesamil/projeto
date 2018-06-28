@@ -7,6 +7,7 @@ import android.nfc.NfcAdapter
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -16,11 +17,9 @@ import android.widget.*
 import kotlinx.android.synthetic.main.fragment_write_nfc_tag.*
 import kotlinx.android.synthetic.main.fragment_write_nfc_tag.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.dtos.CategoriesDto
-import ps.leic.isel.pt.gis.model.dtos.CategoryDto
-import ps.leic.isel.pt.gis.model.dtos.ProductDto
-import ps.leic.isel.pt.gis.model.dtos.ProductsDto
+import ps.leic.isel.pt.gis.model.dtos.*
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.utils.NFCUtils
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
@@ -70,10 +69,11 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
         categoriesViewModel.init(url)
         categoriesViewModel.getCategories()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-                it?.status == Status.LOADING -> {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
                     state = State.LOADING
                 }
             }
@@ -148,29 +148,41 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
      * Auxiliary Methods
      ***/
 
-    private fun onSuccess(categoriesDto: CategoriesDto) {
-        categories = categoriesDto.categories
-
+    private fun onSuccess(categories: CategoriesDto?) {
         categories?.let {
-            val spinnerAdapter = ArrayAdapter<String>(categorySpinner.context, android.R.layout.simple_spinner_item, it.map { category -> category.categoryName })
-            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            categorySpinner.adapter = spinnerAdapter
-            categorySpinner.onItemSelectedListener = this
-            categorySpinner.setSelection(first)
-        }
+            this.categories = it.categories
 
-        val size = categories?.size ?: 0
-        if (size > 0) {
-            categories?.get(first)?.links?.productsCategoryLink?.let {
-                getProductsCategory(it)
+            this.categories?.let {
+                val spinnerAdapter = ArrayAdapter<String>(categorySpinner.context, android.R.layout.simple_spinner_item, it.map { category -> category.categoryName })
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                categorySpinner.adapter = spinnerAdapter
+                categorySpinner.onItemSelectedListener = this
+                categorySpinner.setSelection(first)
+            }
+
+            val size = this.categories?.size ?: 0
+            if (size > 0) {
+                this.categories?.get(first)?.links?.productsCategoryLink?.let {
+                    getProductsCategory(it)
+                }
             }
         }
     }
 
-    private fun onError(error: String?) {
+    private fun onUnsuccess(error: ErrorDto?) {
         state = State.ERROR
         error?.let {
-            Log.v("APP_GIS", it)
+            Log.e(TAG, it.developerErrorMessage)
+            onError(it.message)
+        }
+    }
+
+    private fun onError(message: String?) {
+        state = State.ERROR
+        message?.let {
+            Log.e(TAG, it)
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 
@@ -179,28 +191,31 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         categoryProductsViewModel.init(url)
         categoryProductsViewModel.getProducts()?.observe(this, Observer {
             when (it?.status) {
-                Status.SUCCESS -> onSuccess(it.data!!)
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
                 Status.ERROR -> onError(it.message)
                 Status.LOADING -> {
-                    this.state = State.LOADING
+                    state = State.LOADING
                 }
             }
         })
     }
 
-    private fun onSuccess(productsDto: ProductsDto) {
-        state = State.SUCCESS
-
-        // Show progress bar or content
-        showProgressBarOrContent()
-
-        products = productsDto.products
-
+    private fun onSuccess(products: ProductsDto?) {
         products?.let {
-            val spinnerAdapter = ArrayAdapter<String>(productSpinner.context, android.R.layout.simple_spinner_item, it.map { product -> product.productName })
-            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            productSpinner.adapter = spinnerAdapter
-            productSpinner.setSelection(first)
+            state = State.SUCCESS
+
+            // Show progress bar or content
+            showProgressBarOrContent()
+
+            this.products = it.products
+
+            this.products?.let {
+                val spinnerAdapter = ArrayAdapter<String>(productSpinner.context, android.R.layout.simple_spinner_item, it.map { product -> product.productName })
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                productSpinner.adapter = spinnerAdapter
+                productSpinner.setSelection(first)
+            }
         }
     }
 

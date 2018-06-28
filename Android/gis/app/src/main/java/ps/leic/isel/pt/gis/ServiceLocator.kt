@@ -5,7 +5,7 @@ import ps.leic.isel.pt.gis.httpRequest.HttpWebService
 import ps.leic.isel.pt.gis.httpRequest.HttpWebServiceImpl
 import ps.leic.isel.pt.gis.repositories.Repository
 import ps.leic.isel.pt.gis.repositories.RepositoryImpl
-import ps.leic.isel.pt.gis.utils.*
+import ps.leic.isel.pt.gis.stores.*
 
 object ServiceLocator {
 

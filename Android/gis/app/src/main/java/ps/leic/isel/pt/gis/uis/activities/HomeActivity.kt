@@ -21,12 +21,11 @@ import kotlinx.android.synthetic.main.toolbar.*
 import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
+import ps.leic.isel.pt.gis.model.House
+import ps.leic.isel.pt.gis.model.List
 import ps.leic.isel.pt.gis.model.ListProduct
 import ps.leic.isel.pt.gis.model.UserDTO
-import ps.leic.isel.pt.gis.model.dtos.HouseDto
-import ps.leic.isel.pt.gis.model.dtos.ListDto
-import ps.leic.isel.pt.gis.model.dtos.ListProductDto
-import ps.leic.isel.pt.gis.model.dtos.StorageDto
+import ps.leic.isel.pt.gis.model.dtos.*
 import ps.leic.isel.pt.gis.repositories.Resource
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
@@ -98,6 +97,10 @@ class HomeActivity : AppCompatActivity(),
     override fun setTitle(title: CharSequence?) {
         super.setTitle(title)
         supportActionBar?.title = title
+    }
+
+    fun goBackInStack() {
+
     }
 
     /**
@@ -209,23 +212,9 @@ class HomeActivity : AppCompatActivity(),
         fragment.show(supportFragmentManager, NewHouseDialogFragment.TAG)
     }
 
-    override fun onAddHouse(liveData: LiveData<Resource<HouseDto>>?) {
-        liveData?.observe(this, Observer {
-            when{
-                it?.status == Status.SUCCESS -> {
-                    Toast.makeText(this, getString(R.string.house_added_successfully), Toast.LENGTH_SHORT).show()
-                    /*val house: HouseDto = it.data!!
-                    val fragment = supportFragmentManager.findFragmentByTag(ProfileFragment.TAG) as? ProfileFragment
-                    house.links.housesLink?.let {
-                        fragment?.getHousesFragment()?.refresh(it)
-                    }*/
-                }
-                it?.status == Status.ERROR -> {
-                    Toast.makeText(this, getString(R.string.could_not_add_house), Toast.LENGTH_SHORT).show()
-                    onNewHouseInteraction()
-                }
-            }
-        })
+    override fun onAddHouse(house: House) {
+        val fragment = supportFragmentManager.findFragmentByTag(HousesFragment.TAG) as? HousesFragment
+        fragment?.onAddHouse(house)
     }
 
     // Listener for BasicInformationFragment interaction
@@ -320,23 +309,9 @@ class HomeActivity : AppCompatActivity(),
         }
     }
 
-    override fun onAddList(liveData: LiveData<Resource<ListDto>>?) {
-        liveData?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> {
-                    Toast.makeText(this, getString(R.string.list_added_successfully), Toast.LENGTH_SHORT).show()
-                    /*val list: ListDto = it.data!!
-                    val fragment = supportFragmentManager.findFragmentByTag(ListsFragment.TAG) as? ListsFragment
-                    list.links.listsLink?.let {
-                        fragment?.refresh(it)
-                    }*/
-                }
-                it?.status == Status.ERROR -> {
-                    Toast.makeText(this, getString(R.string.could_not_add_list), Toast.LENGTH_LONG).show()
-                    onNewListInteraction()
-                }
-            }
-        })
+    override fun onAddList(list: List) {
+        val fragment = supportFragmentManager.findFragmentByTag(ListsFragment.TAG) as? ListsFragment
+        fragment?.onAddList(list)
     }
 
     // Listener for ListsFragment interaction

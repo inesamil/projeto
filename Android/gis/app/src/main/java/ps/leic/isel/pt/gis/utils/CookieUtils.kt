@@ -1,5 +1,7 @@
 package ps.leic.isel.pt.gis.utils
 
+import ps.leic.isel.pt.gis.stores.CookieStore
+
 object CookieUtils {
 
     private const val NAME_IDX = 0

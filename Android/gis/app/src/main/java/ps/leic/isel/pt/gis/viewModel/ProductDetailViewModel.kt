@@ -4,19 +4,21 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import ps.leic.isel.pt.gis.ServiceLocator
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.ProductDto
 import ps.leic.isel.pt.gis.repositories.Resource
 
 class ProductDetailViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    private var product: LiveData<Resource<ProductDto>>? = null
+    private var product: LiveData<Resource<ProductDto, ErrorDto>>? = null
 
     fun init(url: String) {
         if (product != null) return
-        product = ServiceLocator.getRepository(app.applicationContext).get(ProductDto::class.java, url, TAG)
+        product = ServiceLocator.getRepository(app.applicationContext)
+                .get(ProductDto::class.java, ErrorDto::class.java, url, TAG)
     }
 
-    fun getProduct(): LiveData<Resource<ProductDto>>? {
+    fun getProduct(): LiveData<Resource<ProductDto, ErrorDto>>? {
         return product
     }
 

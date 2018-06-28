@@ -2,12 +2,12 @@ package ps.leic.isel.pt.gis.repositories
 
 enum class Status {
     SUCCESS,
+    UNSUCCESS,
     ERROR,
-    API_ERROR,
     LOADING
 }
 
-//a generic class that describes a data with a status
+// Generic class that describes a data with a status
 class Resource<out T, E> private constructor(val status: Status, val data: T?, val apiError: E?, val message: String?) {
 
     companion object {
@@ -15,8 +15,8 @@ class Resource<out T, E> private constructor(val status: Status, val data: T?, v
             return Resource(Status.SUCCESS, data, null, null)
         }
 
-        fun <T, E> apiError(problemDetails: E): Resource<T, E> {
-            return Resource(Status.ERROR, null, problemDetails, null)
+        fun <T, E> apiError(error: E): Resource<T, E> {
+            return Resource(Status.UNSUCCESS, null, error, null)
         }
 
         fun <T, E> error(msg: String?): Resource<T, E> {

@@ -6,22 +6,18 @@ import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ProgressBar
-import android.widget.Spinner
+import android.widget.*
 import kotlinx.android.synthetic.main.fragment_stock_item_list.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.dtos.HouseDto
-import ps.leic.isel.pt.gis.model.dtos.HousesDto
-import ps.leic.isel.pt.gis.model.dtos.StockItemDto
-import ps.leic.isel.pt.gis.model.dtos.StockItemsDto
+import ps.leic.isel.pt.gis.model.dtos.*
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.StockItemListAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
@@ -74,10 +70,11 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
         housesViewModel.init(url)
         housesViewModel.getHouses()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-                it?.status == Status.LOADING -> {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
                     state = State.LOADING
                 }
             }
@@ -138,20 +135,20 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
      * Auxiliary Methods
      ***/
 
-    private fun onSuccess(housesDto: HousesDto) {
-        state = State.SUCCESS
+    private fun onSuccess(houses: HousesDto?) {
+        houses?.let {
+            // Show progress bar or content
+            showProgressBarOrContent()
 
-        // Show progress bar or content
-        showProgressBarOrContent()
+            this.houses = it.houses
 
-        houses = housesDto.houses
+            setSpinnerData()
 
-        setSpinnerData()
-
-        val size = houses?.size ?: 0
-        if (size > 0) {
-            houses?.get(0)?.links?.stockItemsLink?.let {
-                getHouseStockItemList(it)
+            val size = this.houses?.size ?: 0
+            if (size > 0) {
+                this.houses?.get(0)?.links?.stockItemsLink?.let {
+                    getHouseStockItemList(it)
+                }
             }
         }
     }
@@ -160,22 +157,39 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         stockItemListViewModel = ViewModelProviders.of(this).get(StockItemListViewModel::class.java)
         stockItemListViewModel.init(url)
         stockItemListViewModel.getStockItems()?.observe(this, Observer {
-            if (it?.status == Status.SUCCESS)
-                onSuccess(it.data!!)
-            else if (it?.status == Status.ERROR)
-                onError(it.message)
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
+                    state = State.LOADING
+                }
+            }
         })
     }
 
-    private fun onSuccess(stockItems: StockItemsDto) {
-        stockItemListAdapter.setData(stockItems.stockItems)
-        this.stockItems = stockItems.stockItems
+    private fun onSuccess(stockItems: StockItemsDto?) {
+        stockItems?.let {
+            state = State.SUCCESS
+            stockItemListAdapter.setData(it.stockItems)
+            this.stockItems = it.stockItems
+        }
     }
 
-    private fun onError(error: String?) {
+    private fun onUnsuccess(error: ErrorDto?) {
         state = State.ERROR
         error?.let {
-            Log.v("APP_GIS", it)
+            Log.e(TAG, it.developerErrorMessage)
+            onError(it.message)
+        }
+    }
+
+    private fun onError(message: String?) {
+        state = State.ERROR
+        message?.let {
+            Log.e(TAG, it)
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 

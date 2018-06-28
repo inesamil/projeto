@@ -1,4 +1,4 @@
-package ps.leic.isel.pt.gis.utils
+package ps.leic.isel.pt.gis.volley
 
 import com.android.volley.NetworkResponse
 import com.android.volley.Response
@@ -10,6 +10,7 @@ import ps.leic.isel.pt.gis.hypermedia.jsonHome.JsonHome
 import ps.leic.isel.pt.gis.hypermedia.problemDetails.ProblemDetails
 import ps.leic.isel.pt.gis.hypermedia.siren.Siren
 import ps.leic.isel.pt.gis.repositories.Resource
+import ps.leic.isel.pt.gis.utils.UrlUtils
 import java.io.IOException
 
 

@@ -6,18 +6,22 @@ import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_stock_item_detail.*
 import kotlinx.android.synthetic.main.fragment_stock_item_detail.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.StockItemDto
 import ps.leic.isel.pt.gis.model.dtos.StorageDto
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsExpirationDateAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsMovementsAdapter
 import ps.leic.isel.pt.gis.uis.adapters.StockItemDetailsStorageAdapter
@@ -71,10 +75,11 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
         stockItemDetailViewModel = ViewModelProviders.of(this).get(StockItemDetailViewModel::class.java)
         stockItemDetailViewModel.init(url)
         stockItemDetailViewModel.getStockItem()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-                it?.status == Status.LOADING -> {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
                     state = State.LOADING
                 }
             }
@@ -147,38 +152,50 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
      * Auxiliary Methods
      ***/
 
-    private fun onSuccess(stockItem: StockItemDto) {
-        state = State.SUCCESS
+    private fun onSuccess(stockItem: StockItemDto?) {
+        stockItem?.let {
+            state = State.SUCCESS
 
-        // Show progress bar or content
-        showProgressBarOrContent()
+            // Show progress bar or content
+            showProgressBarOrContent()
 
-        brandText.text = stockItem.brand
-        quantityText.text = stockItem.quantity.toString()
-        unitText.text = stockItem.segment
+            brandText.text = it.brand
+            quantityText.text = it.quantity.toString()
+            unitText.text = it.segment
 
-        // Set Allergens
-        allergensText.text = stockItem.allergens?.joinToString(";")
+            // Set Allergens
+            allergensText.text = it.allergens?.joinToString(";")
 
-        // Set Adapters (Expiration dates)
-        expirationDatesAdapter.setData(stockItem.expirationDates)
+            // Set Adapters (Expiration dates)
+            expirationDatesAdapter.setData(it.expirationDates)
 
-        // Set Adapter (Storages)
-        storagesAdapter.setData(stockItem.storages)
-        // TODO stockItem.storages é um array de string e para o listener é preciso um array de storage dto
-        // this.storages = stockItem.storages
+            // Set Adapter (Storages)
+            storagesAdapter.setData(it.storages)
+            // TODO stockItem.storages é um array de string e para o listener é preciso um array de storage dto
+            // this.storages = stockItem.storages
 
-        // Set Adapter (Movements)
-        movementsAdapter.setData(stockItem.movements)
+            // Set Adapter (Movements)
+            movementsAdapter.setData(it.movements)
 
-        // Set Description
-        descriptionText.text = stockItem.description
+            // Set Description
+            descriptionText.text = it.description
+        }
     }
 
-    private fun onError(error: String?) {
+    private fun onUnsuccess(error: ErrorDto?) {
         state = State.ERROR
         error?.let {
-            Log.v("APP_GIS", it)
+            Log.e(TAG, it.developerErrorMessage)
+            onError(it.message)
+        }
+    }
+
+    private fun onError(message: String?) {
+        state = State.ERROR
+        message?.let {
+            Log.e(TAG, it)
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 

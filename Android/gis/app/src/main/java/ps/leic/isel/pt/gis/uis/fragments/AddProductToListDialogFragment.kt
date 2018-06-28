@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -19,6 +20,7 @@ import ps.leic.isel.pt.gis.model.ListProduct
 import ps.leic.isel.pt.gis.model.dtos.*
 import ps.leic.isel.pt.gis.repositories.Resource
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.AddProductToListAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
@@ -32,7 +34,6 @@ class AddProductToListDialogFragment : DialogFragment(), AddProductToListAdapter
     private val FIRST: Int = 0
     private var previousSelectedCategoryPosition: Int = FIRST
 
-    private lateinit var listViewModel: ListDetailViewModel
     private lateinit var categoriesViewModel: CategoriesViewModel
     private lateinit var categoryProductsViewModel: CategoryProductsViewModel
 
@@ -99,39 +100,52 @@ class AddProductToListDialogFragment : DialogFragment(), AddProductToListAdapter
         categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
         categoriesViewModel.init(url)
         categoriesViewModel.getCategories()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
-                it?.status == Status.LOADING -> {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
                     state = State.LOADING
                 }
             }
         })
     }
 
-    private fun onSuccess(categoriesDto: CategoriesDto) {
-        categories = categoriesDto.categories
+    private fun onSuccess(categoriesDto: CategoriesDto?) {
+        categoriesDto?.let {
+            categories = it.categories
 
-        categories?.let {
-            val spinnerAdapter = ArrayAdapter<String>(categorySpinner.context, android.R.layout.simple_spinner_item, it.map { category -> category.categoryName })
-            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            categorySpinner.adapter = spinnerAdapter
-            categorySpinner.onItemSelectedListener = this
-            categorySpinner.setSelection(FIRST)
-        }
+            categories?.let {
+                val spinnerAdapter = ArrayAdapter<String>(categorySpinner.context, android.R.layout.simple_spinner_item, it.map { category -> category.categoryName })
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                categorySpinner.adapter = spinnerAdapter
+                categorySpinner.onItemSelectedListener = this
+                categorySpinner.setSelection(FIRST)
+            }
 
-        val size = categories?.size ?: 0
-        if (size > 0) {
-            categories?.get(FIRST)?.links?.productsCategoryLink?.let {
-                getProductsCategory(it)
+            val size = categories?.size ?: 0
+            if (size > 0) {
+                categories?.get(FIRST)?.links?.productsCategoryLink?.let {
+                    getProductsCategory(it)
+                }
             }
         }
     }
 
-    private fun onError(error: String?) {
+    private fun onUnsuccess(error: ErrorDto?) {
         state = State.ERROR
         error?.let {
-            Log.v("APP_GIS", it)
+            Log.e(TAG, it.developerErrorMessage)
+            onError(it.message)
+        }
+    }
+
+    private fun onError(message: String?) {
+        state = State.ERROR
+        message?.let {
+            Log.e(TAG, it)
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 
@@ -140,25 +154,28 @@ class AddProductToListDialogFragment : DialogFragment(), AddProductToListAdapter
         categoryProductsViewModel.init(url)
         categoryProductsViewModel.getProducts()?.observe(this, Observer {
             when (it?.status) {
-                Status.SUCCESS -> onSuccess(it.data!!)
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
                 Status.ERROR -> onError(it.message)
                 Status.LOADING -> {
-                    this.state = State.LOADING
+                    state = State.LOADING
                 }
             }
         })
     }
 
-    private fun onSuccess(productsDto: ProductsDto) {
-        state = State.SUCCESS
+    private fun onSuccess(productsDto: ProductsDto?) {
+        productsDto?.let {
+            state = State.SUCCESS
 
-        // Show progress bar or content
-        showProgressBarOrContent()
+            // Show progress bar or content
+            showProgressBarOrContent()
 
-        products = productsDto.products
+            products = it.products
 
-        products?.let {
-           adapter.setData(it)
+            products?.let {
+                adapter.setData(it)
+            }
         }
     }
 
@@ -207,7 +224,7 @@ class AddProductToListDialogFragment : DialogFragment(), AddProductToListAdapter
      * AddProductToListDialogFragment Factory
      */
     companion object {
-        const val TAG: String = "AddProductToListDialogFragment"
+        const val TAG: String = "AddListProductFragment"
         private const val URL_TAG: String = "URL"
 
         /**

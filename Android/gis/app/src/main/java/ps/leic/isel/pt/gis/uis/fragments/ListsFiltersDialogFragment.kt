@@ -6,19 +6,25 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.layout_filters_dialog.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.FiltersHousesAdapter
+import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 
 class ListsFiltersDialogFragment : DialogFragment() {
@@ -62,9 +68,10 @@ class ListsFiltersDialogFragment : DialogFragment() {
         housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
         housesViewModel.init(url)
         housesViewModel.getHouses()?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!)
-                it?.status == Status.ERROR -> onError(it.message)
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
             }
         })
 
@@ -114,12 +121,25 @@ class ListsFiltersDialogFragment : DialogFragment() {
         listener = null
     }
 
-    private fun onSuccess(housesDto: HousesDto) {
-        filtersHousesAdapter.setData(housesDto.houses)
+    private fun onSuccess(houses: HousesDto?) {
+        houses?.let {
+            filtersHousesAdapter.setData(it.houses)
+        }
+    }
+
+    private fun onUnsuccess(error: ErrorDto?) {
+        error?.let {
+            Log.e(TAG, it.developerErrorMessage)
+            onError(it.message)
+        }
     }
 
     private fun onError(message: String?) {
-        //TODO. smthg
+        message?.let {
+            Log.e(TAG, it)
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
     }
 
     private inner class ListsFilters {
@@ -190,7 +210,7 @@ class ListsFiltersDialogFragment : DialogFragment() {
      * ListsFiltersDialogFragment Factory
      */
     companion object {
-        const val TAG: String = "ListsFiltersDialogFragment"
+        const val TAG: String = "ListsFiltersDialogFrag"
         private const val URL_KEY: String = "URL"
         /**
          * Use this factory method to create a new instance of
