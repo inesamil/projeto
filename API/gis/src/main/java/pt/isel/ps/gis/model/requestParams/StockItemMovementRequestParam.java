@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.model.requestParams;
 
+import org.springframework.context.MessageSource;
+import pt.isel.ps.gis.components.MessageSourceHolder;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.utils.DateUtils;
 
@@ -19,6 +21,7 @@ public class StockItemMovementRequestParam {
             try {
                 this.datetime = DateUtils.convertStringToTimestamp(datetime);
             } catch (ParseException e) {
+                MessageSource messageSource = MessageSourceHolder.getMessageSource();
                 throw new BadRequestException("Date time is missing or invalid.");
             }
         }

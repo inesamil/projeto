@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.components;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
@@ -18,6 +19,12 @@ import java.io.PrintWriter;
 public class BasicAuthenticationPoint extends BasicAuthenticationEntryPoint {
 
     private final static String REALM_NAME = "GIS API";
+
+    private final MessageSource messageSource;
+
+    public BasicAuthenticationPoint(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
