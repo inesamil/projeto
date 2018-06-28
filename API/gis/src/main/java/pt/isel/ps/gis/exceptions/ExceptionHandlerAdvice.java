@@ -3,6 +3,8 @@ package pt.isel.ps.gis.exceptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -13,11 +15,15 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.LocaleContextResolver;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import pt.isel.ps.gis.hypermedia.problemDetails.ProblemDetails;
 
+import java.util.Locale;
 import java.util.Set;
 
 import static pt.isel.ps.gis.utils.HeadersUtils.setProblemDetailContentType;
@@ -42,7 +48,8 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
                 ex.getTitle(),
                 httpStatus.value(),
                 ex.getDetail(),
-                ex.getInstance()
+                ex.getInstance(),
+                ex.getUserFriendlyMessage()
         );
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(problemDetails, setProblemDetailContentType(headers), httpStatus);
@@ -58,11 +65,18 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
     ) {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
-        String error = "The method " + ex.getMethod() + " is not supported for this request. Please check the documentation.";
+        Locale locale = LocaleContextHolder.getLocale();
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
+
+        String error = messageSource.getMessage("method_Not_Supported_For_request", new Object[]{ex.getMethod()}, locale);
+        String userFriendlyError = messageSource.getMessage("request_Not_Be_Completed", null, locale);
+
         ProblemDetails problemDetails = new ProblemDetails(
                 "Method not supported.",
                 status.value(),
-                error
+                error,
+                userFriendlyError
         );
         Set<HttpMethod> supportedMethods = ex.getSupportedHttpMethods();
         if (!CollectionUtils.isEmpty(supportedMethods))
@@ -79,12 +93,19 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
     ) {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
-        String error = "The " + ex.getContentType() + " media type is not supported.";
+        Locale locale = LocaleContextHolder.getLocale();
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
+
+        String error = messageSource.getMessage("mediaType_Not_Supported", new Object[]{ex.getContentType()}, locale);
+        String userFriendlyError = messageSource.getMessage("request_Not_Be_Completed", null, locale);
+
         HttpStatus httpStatus = HttpStatus.UNSUPPORTED_MEDIA_TYPE;
         ProblemDetails problemDetails = new ProblemDetails(
                 "Media type not supported.",
                 httpStatus.value(),
-                error
+                error,
+                userFriendlyError
         );
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<>(problemDetails, setProblemDetailContentType(responseHeaders), httpStatus);
@@ -120,11 +141,18 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
     ) {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
-        String error = ex.getValue() + " should be of type " + ex.getRequiredType().getName();
+        Locale locale = LocaleContextHolder.getLocale();
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
+
+        String error = messageSource.getMessage("should_Be_Of_Type", new Object[]{ex.getValue(), ex.getRequiredType().getName()}, locale);
+        String userFriendlyError = messageSource.getMessage("request_Not_Be_Completed", null, locale);
+
         ProblemDetails problemDetails = new ProblemDetails(
                 "Method argument is not the expected type.",
                 status.value(),
-                error
+                error,
+                userFriendlyError
         );
         return new ResponseEntity<>(problemDetails, setProblemDetailContentType(headers), status);
     }
@@ -139,11 +167,18 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
     ) {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
-        String error = "No handler found for " + ex.getHttpMethod() + " " + ex.getRequestURL();
+        Locale locale = LocaleContextHolder.getLocale();
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
+
+        String error = messageSource.getMessage("no_Handler_Found", new Object[]{ex.getHttpMethod(), ex.getRequestURL()}, locale);
+        String userFriendlyError = messageSource.getMessage("request_Not_Be_Completed", null, locale);
+
         ProblemDetails problemDetails = new ProblemDetails(
                 "No handler found.",
                 status.value(),
-                error
+                error,
+                userFriendlyError
         );
         return new ResponseEntity<>(problemDetails, setProblemDetailContentType(headers), status);
     }
@@ -165,10 +200,17 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
         HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        Locale locale = LocaleContextHolder.getLocale();
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
+
+        String error = messageSource.getMessage("server_Not_Process_Request", null, locale);
+
         ProblemDetails problemDetails = new ProblemDetails(
                 "Server error.",
                 httpStatus.value(),
-                "The server can not process your request."
+                error,
+                error
         );
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(problemDetails, setProblemDetailContentType(headers), httpStatus);

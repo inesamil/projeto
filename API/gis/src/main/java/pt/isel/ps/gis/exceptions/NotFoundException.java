@@ -9,10 +9,10 @@ public class NotFoundException extends ProblemDetailsException {
     private static final String MESSAGE = "This resource can not be found.";
 
     public NotFoundException() {
-        super(TITLE, HTTP_STATUS, MESSAGE);
+        super(TITLE, HTTP_STATUS, MESSAGE, MESSAGE);
     }
 
-    public NotFoundException(String message) {
-        super(TITLE, HTTP_STATUS, message);
+    public NotFoundException(String message, String userFriendlyMessage) {
+        super(TITLE, HTTP_STATUS, message, userFriendlyMessage);
     }
 }
