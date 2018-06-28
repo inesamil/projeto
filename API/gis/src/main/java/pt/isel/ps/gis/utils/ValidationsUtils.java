@@ -1,10 +1,13 @@
 package pt.isel.ps.gis.utils;
 
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import pt.isel.ps.gis.components.MessageSourceHolder;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.Characteristics;
 import pt.isel.ps.gis.model.Numrange;
+
+import java.util.Locale;
 
 public class ValidationsUtils {
 
@@ -20,10 +23,11 @@ public class ValidationsUtils {
      */
     public static void validateHouseId(Long houseId) throws EntityException {
         MessageSource messageSource = MessageSourceHolder.getMessageSource();
+        Locale locale = LocaleContextHolder.getLocale();
         if (houseId == null)
-            throw new EntityException("House ID is required.");
+            throw new EntityException(messageSource.getMessage("house_Id_Required", null, locale));
         if (houseId < RestrictionsUtils.HOUSE_ID_MIN)
-            throw new EntityException("Invalid House ID.");
+            throw new EntityException(messageSource.getMessage("house_Id_Invalid", null, locale));
     }
 
     /**
@@ -33,10 +37,12 @@ public class ValidationsUtils {
      * @throws EntityException se o nome não for válido
      */
     public static void validateHouseName(String houseName) throws EntityException {
+        MessageSource messageSource = MessageSourceHolder.getMessageSource();
+        Locale locale = LocaleContextHolder.getLocale();
         if (houseName == null)
-            throw new EntityException("House name is required.");
+            throw new EntityException(messageSource.getMessage("house_Name_Required", null, locale));
         if (houseName.length() > RestrictionsUtils.HOUSE_NAME_MAX_LENGTH)
-            throw new EntityException("Invalid House name.");
+            throw new EntityException(messageSource.getMessage("house_Name_Invalid", null, locale));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
