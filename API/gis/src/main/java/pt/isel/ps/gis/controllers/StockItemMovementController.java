@@ -1,10 +1,13 @@
 package pt.isel.ps.gis.controllers;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 import pt.isel.ps.gis.bll.StockItemMovementService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -39,6 +42,8 @@ public class StockItemMovementController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<StockItemMovement> movements;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             if (params.isNull())
                 movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId, locale);
@@ -52,9 +57,9 @@ public class StockItemMovementController {
                 movements = stockItemMovementService.getStockItemMovementsByHouseIdFiltered(houseId, filters, locale);
             }
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new MovementsOutputModel(houseId, movements), setSirenContentType(headers),
@@ -70,9 +75,11 @@ public class StockItemMovementController {
         // TODO o que acontece qnd um atributo é null? qual é a excecao lancada pelo jackson e no qe resulta essa excecao?
         CsvToBeanBuilder<TagCsv> builder = new CsvToBeanBuilder<>(new StringReader(body.getTag()));
         List<TagCsv> tagCsvList = builder.withType(TagCsv.class).build().parse();
-        if (tagCsvList.size() <= 0) throw new BadRequestException(""); // TODO ver a mensagem da excecao
+        if (tagCsvList.size() <= 0) throw new BadRequestException("", ""); // TODO ver a mensagem da excecao
         TagCsv tag = tagCsvList.get(0);
         List<StockItemMovement> movements;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             stockItemMovementService.addStockItemMovement(
                     houseId,
@@ -90,9 +97,9 @@ public class StockItemMovementController {
             );
             movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new MovementsOutputModel(houseId, movements), setSirenContentType(headers),

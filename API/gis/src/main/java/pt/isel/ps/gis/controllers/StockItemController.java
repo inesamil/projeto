@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.controllers;
 
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 import pt.isel.ps.gis.bll.StockItemAllergenService;
 import pt.isel.ps.gis.bll.StockItemService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
@@ -44,6 +47,8 @@ public class StockItemController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<StockItem> stockItems;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             if (params.isNull())
                 stockItems = stockItemService.getStockItemsByHouseId(houseId, locale);
@@ -58,9 +63,9 @@ public class StockItemController {
                 stockItems = stockItemService.getStockItemsByHouseIdFiltered(houseId, filters, locale);
             }
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemsOutputModel(houseId, stockItems), setSirenContentType(headers),
@@ -74,12 +79,14 @@ public class StockItemController {
             Locale locale
     ) throws NotFoundException, BadRequestException {
         StockItem stockItem;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             stockItem = stockItemService.getStockItemByStockItemId(houseId, sku, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemOutputModel(stockItem), setSirenContentType(headers), HttpStatus.OK);
@@ -92,12 +99,14 @@ public class StockItemController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<Allergy> allergens;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             allergens = stockItemAllergenService.getAllergensByStockItemId(houseId, sku, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new AllergiesStockItemOutputModel(houseId, sku, allergens),

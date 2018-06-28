@@ -52,6 +52,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
         ProblemDetails problemDetails = new ProblemDetails(
                 httpStatus.getReasonPhrase(),
                 httpStatus.value(),
+                messageSource.getMessage("message_Detail", null, locale),
                 messageSource.getMessage("message_Detail", null, locale)
         );
         HttpHeaders httpHeaders = new HttpHeaders();

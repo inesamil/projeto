@@ -1,9 +1,12 @@
 package pt.isel.ps.gis.controllers;
 
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 import pt.isel.ps.gis.bll.CategoryService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -30,9 +33,13 @@ public class CategoryController {
 
     @GetMapping("")
     public ResponseEntity<CategoriesOutputModel> getCategories(
-            @RequestParam(value = "name", required = false) String name
+            @RequestParam(value = "name", required = false) String name,
+            Locale locale
     ) throws BadRequestException {
         List<Category> categories;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
+
         if (name == null)
             categories = categoryService.getCategories();
         else {
@@ -40,7 +47,7 @@ public class CategoryController {
                 CategoryService.CategoryFilters filters = new CategoryService.CategoryFilters(name);
                 categories = categoryService.getCategoriesFiltered(filters);
             } catch (EntityException e) {
-                throw new BadRequestException(e.getMessage());
+                throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
             }
         }
         HttpHeaders headers = new HttpHeaders();
@@ -54,12 +61,14 @@ public class CategoryController {
             Locale locale
     ) throws NotFoundException, BadRequestException {
         Category category;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             category = categoryService.getCategoryByCategoryId(categoryId, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new CategoryOutputModel(category), setSirenContentType(headers), HttpStatus.OK);

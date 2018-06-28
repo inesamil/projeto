@@ -1,9 +1,12 @@
 package pt.isel.ps.gis.controllers;
 
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.ListProductService;
 import pt.isel.ps.gis.bll.ListService;
@@ -45,12 +48,14 @@ public class ListController {
             Locale locale
     ) throws NotFoundException, BadRequestException {
         java.util.List<List> lists;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             lists = listService.getListsByHouseId(houseId, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListsOutputModel(houseId, lists), setSirenContentType(headers), HttpStatus.OK);
@@ -63,12 +68,14 @@ public class ListController {
             Locale locale
     ) throws NotFoundException, BadRequestException {
         List list;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             list = listService.getListByListId(houseId, listId, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         }
         HttpHeaders headers = new HttpHeaders();
         String username = authenticationFacade.getAuthentication().getName();
@@ -82,12 +89,14 @@ public class ListController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         java.util.List<ListProduct> listProducts;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             listProducts = listProductService.getListProductsByListId(houseId, listId, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListProductsOutputModel(houseId, listId, listProducts),
@@ -102,14 +111,16 @@ public class ListController {
             Locale locale
     ) throws BadRequestException, NotFoundException, ForbiddenException {
         List list;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             list = listService.updateList(houseId, listId, body.getName(), body.getShareable(), locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (InsufficientPrivilegesException e) {
-            throw new ForbiddenException(e.getMessage());
+            throw new ForbiddenException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         String username = authenticationFacade.getAuthentication().getName();
@@ -126,16 +137,18 @@ public class ListController {
     ) throws BadRequestException, NotFoundException, ConflictException {
         List list;
         String username;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             listProductService.addListProduct(houseId, listId, body.getProductId(), body.getBrand(), body.getQuantity(), locale);
             list = listService.getListByListId(houseId, listId, locale);
             username = authenticationFacade.getAuthentication().getName();
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityAlreadyExistsException e) {
-            throw new ConflictException(e.getMessage());
+            throw new ConflictException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListOutputModel(username, list),
@@ -152,14 +165,16 @@ public class ListController {
     ) throws BadRequestException, NotFoundException {
         List list;
         String username;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             listProductService.associateListProduct(houseId, listId, productId, body.getBrand(), body.getQuantity(), locale);
             list = listService.getListByListId(houseId, listId, locale);
             username = authenticationFacade.getAuthentication().getName();
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListOutputModel(username, list),
@@ -190,11 +205,11 @@ public class ListController {
                     ),
                     locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getMessage());
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getMessage());
         } catch (InsufficientPrivilegesException e) {
-            throw new ForbiddenException(e.getMessage());
+            throw new ForbiddenException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserListsOutputModel(username, lists), setSirenContentType(headers),
@@ -210,14 +225,16 @@ public class ListController {
     ) throws BadRequestException, NotFoundException {
         List list;
         String username;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             listProductService.deleteListProductByListProductId(houseId, listId, productId, locale);
             list = listService.getListByListId(houseId, listId, locale);
             username = authenticationFacade.getAuthentication().getName();
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListOutputModel(username, list),

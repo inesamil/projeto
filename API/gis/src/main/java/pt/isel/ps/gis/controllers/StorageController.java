@@ -1,9 +1,12 @@
 package pt.isel.ps.gis.controllers;
 
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 import pt.isel.ps.gis.bll.StorageService;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
@@ -35,12 +38,14 @@ public class StorageController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<Storage> storages;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             storages = storageService.getStorageByHouseId(houseId, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),
@@ -54,12 +59,14 @@ public class StorageController {
             Locale locale
     ) throws NotFoundException, BadRequestException {
         Storage storage;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             storage = storageService.getStorageByStorageId(houseId, storageId, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StorageOutputModel(storage), setSirenContentType(headers), HttpStatus.OK);
@@ -72,6 +79,8 @@ public class StorageController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         Storage storage;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             storage = storageService.addStorage(
                     houseId,
@@ -81,9 +90,9 @@ public class StorageController {
                     locale
             );
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StorageOutputModel(storage), setSirenContentType(headers),
@@ -98,6 +107,8 @@ public class StorageController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         Storage storage;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             storage = storageService.updateStorage(
                     houseId,
@@ -108,9 +119,9 @@ public class StorageController {
                     locale
             );
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StorageOutputModel(storage), setSirenContentType(headers),
@@ -124,13 +135,15 @@ public class StorageController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<Storage> storages;
+        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
+        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
         try {
             storageService.deleteStorageByStorageId(houseId, storageId, locale);
             storages = storageService.getStorageByHouseId(houseId, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage());
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),
