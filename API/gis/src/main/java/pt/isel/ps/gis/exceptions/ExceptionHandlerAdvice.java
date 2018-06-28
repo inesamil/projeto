@@ -15,10 +15,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.LocaleContextResolver;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import pt.isel.ps.gis.hypermedia.problemDetails.ProblemDetails;
@@ -32,6 +29,12 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setProblemDetailContentType;
 public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
 
     private final static Logger log = LoggerFactory.getLogger(ExceptionHandlerAdvice.class);
+
+    private final MessageSource messageSource;
+
+    public ExceptionHandlerAdvice(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @ExceptionHandler({
             BadRequestException.class,
@@ -66,8 +69,6 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
         Locale locale = LocaleContextHolder.getLocale();
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
 
         String error = messageSource.getMessage("method_Not_Supported_For_request", new Object[]{ex.getMethod()}, locale);
         String userFriendlyError = messageSource.getMessage("request_Not_Be_Completed", null, locale);
@@ -94,8 +95,6 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
         Locale locale = LocaleContextHolder.getLocale();
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
 
         String error = messageSource.getMessage("mediaType_Not_Supported", new Object[]{ex.getContentType()}, locale);
         String userFriendlyError = messageSource.getMessage("request_Not_Be_Completed", null, locale);
@@ -143,8 +142,6 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
         Locale locale = LocaleContextHolder.getLocale();
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
 
         String error = messageSource.getMessage("should_Be_Of_Type", new Object[]{ex.getValue(), ex.getRequiredType().getName()}, locale);
         String userFriendlyError = messageSource.getMessage("request_Not_Be_Completed", null, locale);
@@ -169,8 +166,6 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         log.warn(ex.getMessage());
         log.warn(ex.getLocalizedMessage());
         Locale locale = LocaleContextHolder.getLocale();
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
 
         String error = messageSource.getMessage("no_Handler_Found", new Object[]{ex.getHttpMethod(), ex.getRequestURL()}, locale);
         String userFriendlyError = messageSource.getMessage("request_Not_Be_Completed", null, locale);
@@ -203,8 +198,6 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         log.warn(ex.getLocalizedMessage());
         HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         Locale locale = LocaleContextHolder.getLocale();
-        WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-        MessageSource messageSource = (MessageSource) webAppContext.getBean("messageSource");
 
         String error = messageSource.getMessage("server_Not_Process_Request", null, locale);
 
