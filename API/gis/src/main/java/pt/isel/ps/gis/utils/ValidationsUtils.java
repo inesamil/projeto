@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.utils;
 
+import org.springframework.context.MessageSource;
+import pt.isel.ps.gis.components.MessageSourceHolder;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.Characteristics;
 import pt.isel.ps.gis.model.Numrange;
@@ -17,6 +19,7 @@ public class ValidationsUtils {
      * @throws EntityException se o ID não for válido
      */
     public static void validateHouseId(Long houseId) throws EntityException {
+        MessageSource messageSource = MessageSourceHolder.getMessageSource();
         if (houseId == null)
             throw new EntityException("House ID is required.");
         if (houseId < RestrictionsUtils.HOUSE_ID_MIN)
