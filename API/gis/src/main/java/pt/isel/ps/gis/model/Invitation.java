@@ -9,7 +9,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "invitation")
 public class Invitation {
-
+    //TODO: remover o boolean invitationAccepted
     /**
      * COLUNAS
      */

@@ -50,6 +50,7 @@ public class IndexOutputModel {
         resources.put("/rel/allergies", createGetAllergies());
         resources.put("/rel/houses", createGetHouses());
         resources.put("/rel/lists", createGetUserLists());
+        resources.put("/rel/invitations", createGetUserInvitations());
         return resources;
     }
 
@@ -163,6 +164,25 @@ public class IndexOutputModel {
         return new ResourceObject(
                 null,
                 UriBuilderUtils.buildUserListsUriTemplate(),
+                hrefVars,
+                new Hints(
+                        new Method[]{Method.GET},
+                        applicationJsonFormat,
+                        null,
+                        null,
+                        null
+                )
+        );
+    }
+
+    // GET /usrs/{username}/invitations
+    private ResourceObject createGetUserInvitations() {
+        HashMap<String, String> hrefVars = new HashMap<>();
+        hrefVars.put("username", "String");
+
+        return new ResourceObject(
+                null,
+                UriBuilderUtils.buildUserInvitationsUriTemplate(),
                 hrefVars,
                 new Hints(
                         new Method[]{Method.GET},

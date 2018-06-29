@@ -8,12 +8,13 @@ public class UriBuilderUtils {
     private static String HOST;
 
     static {
-        try {
+        /*try {
             HOST = String.format("http://%s:8081", InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownHostException e) {
             HOST = "http://localhost:8081";
             e.printStackTrace();
-        }
+        }*/
+        HOST = "http://192.168.1.76:8081";
         //HOST = "http://10.10.4.173:8081";
     }
 
@@ -24,6 +25,7 @@ public class UriBuilderUtils {
             HOUSES = "houses",
             ITEMS = "items",
             LISTS = "lists",
+            INVITATIONS = "invitations",
             MOVEMENTS = "movements",
             PRODUCTS = "products",
             STORAGES = "storages",
@@ -319,5 +321,32 @@ public class UriBuilderUtils {
      */
     public static String buildUserHousesUriTemplate() {
         return String.format("%s/%s/%s/{username}/%s", HOST, VERSION, USERS, HOUSES);
+    }
+
+    /**
+     * URI Template: http://10.0.2.2:8081/v1/users/{username}/invitations
+     *
+     * @return URI template to user lists
+     */
+    public static String buildUserInvitationsUriTemplate() {
+        return String.format("%s/%s/%s/{username}/%s", HOST, VERSION, USERS, INVITATIONS);
+    }
+
+    /**
+     * URI Template: http://10.0.2.2:8081/v1/invitations
+     *
+     * @return URI template invitations
+     */
+    public static String buildInvitationsUri() {
+        return String.format("%s/%s/%s", HOST, VERSION, INVITATIONS);
+    }
+
+    /**
+     * URI Template: http://10.0.2.2:8081/v1/invitations/houses/{house-id}/users/{username}
+     *
+     * @return URI to an invitation
+     */
+    public static String buildInvitationUri(Long houseId, String username) {
+        return String.format("%s/%s/%s/%s/%d/%s/%s", HOST, VERSION, INVITATIONS, HOUSES, houseId, USERS, username);
     }
 }

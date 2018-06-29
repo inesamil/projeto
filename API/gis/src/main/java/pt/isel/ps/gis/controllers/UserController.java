@@ -5,10 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.HouseService;
+import pt.isel.ps.gis.bll.InvitationService;
 import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.bll.UserService;
 import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.House;
+import pt.isel.ps.gis.model.Invitation;
 import pt.isel.ps.gis.model.Users;
 import pt.isel.ps.gis.model.inputModel.ListInputModel;
 import pt.isel.ps.gis.model.inputModel.RegisterUserInputModel;
@@ -29,11 +31,13 @@ public class UserController {
     private final UserService userService;
     private final HouseService houseService;
     private final ListService listService;
+    private final InvitationService invitationService;
 
-    public UserController(UserService userService, HouseService houseService, ListService listService) {
+    public UserController(UserService userService, HouseService houseService, ListService listService, InvitationService invitationService) {
         this.userService = userService;
         this.houseService = houseService;
         this.listService = listService;
+        this.invitationService = invitationService;
     }
 
     @GetMapping("/{username}")
@@ -101,6 +105,18 @@ public class UserController {
         }
         HttpHeaders httpHeaders = new HttpHeaders();
         return new ResponseEntity<>(new UserListsOutputModel(username, lists), setSirenContentType(httpHeaders),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/{username}/invitations")
+    public ResponseEntity<InvitationsOutputModel> getInvitations(
+            @PathVariable("username") String username,
+            Locale locale
+    ) throws BadRequestException, NotFoundException {
+        List<Invitation> invitations;
+        invitations = invitationService.getReceivedInvitationsByUserUsername(username, locale);
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new InvitationsOutputModel(invitations), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 

@@ -57,15 +57,6 @@ public interface InvitationService {
      *
      * @param username identificador do utilizador
      * @param houseId identificador da casa
-     * @return Invitation
      */
-    Invitation declineInvitation(String username, Long houseId, Locale locale) throws EntityException, EntityNotFoundException;
-
-    /**
-     * Apagar o convite do utilizador com username @username para a casa com ID @houseId
-     *
-     * @param username identificador do utilizador
-     * @param houseId identificador da casa
-     */
-    void deleteInvitation(String username, Long houseId, Locale locale) throws EntityException, EntityNotFoundException;
+    void declineInvitation(String username, Long houseId, Locale locale) throws EntityException, EntityNotFoundException;
 }
