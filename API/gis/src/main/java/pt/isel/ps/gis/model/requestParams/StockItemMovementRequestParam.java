@@ -1,12 +1,14 @@
 package pt.isel.ps.gis.model.requestParams;
 
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import pt.isel.ps.gis.components.MessageSourceHolder;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.utils.DateUtils;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.Locale;
 
 public class StockItemMovementRequestParam {
 
@@ -21,8 +23,9 @@ public class StockItemMovementRequestParam {
             try {
                 this.datetime = DateUtils.convertStringToTimestamp(datetime);
             } catch (ParseException e) {
+                Locale locale = LocaleContextHolder.getLocale();
                 MessageSource messageSource = MessageSourceHolder.getMessageSource();
-                throw new BadRequestException("Date time is missing or invalid.");
+                throw new BadRequestException(messageSource.getMessage("dateTime_Missing_Or_Invalid", null, locale), messageSource.getMessage("dateTime_Missing_Or_Invalid", null, locale));
             }
         }
         this.storage = storage;
