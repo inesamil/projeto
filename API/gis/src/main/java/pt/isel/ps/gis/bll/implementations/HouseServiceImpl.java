@@ -45,6 +45,11 @@ public class HouseServiceImpl implements HouseService {
         return houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("house_Not_Exist", null, locale)));
     }
 
+    @Override
+    public List<House> getHousesByHouseName(String name, Locale locale) throws EntityException, EntityNotFoundException {
+        //TODO: obter casas cujo nome comece por name
+    }
+
     @Transactional
     @Override
     public List<House> getHousesByUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException {

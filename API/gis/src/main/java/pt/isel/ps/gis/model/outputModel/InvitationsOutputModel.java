@@ -57,7 +57,8 @@ public class InvitationsOutputModel {
 
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("house-id", house_Id);
-            properties.put("users-username", users_username);
+            properties.put("house-name", invitation.getHouseByHouseId().getHouseName());
+            properties.put("user-username", users_username);
 
             String invitationUri = UriBuilderUtils.buildInvitationUri(house_Id, users_username);
 
@@ -112,8 +113,10 @@ public class InvitationsOutputModel {
 
         //Link-index
         Link indexLink = new Link(new String[]{"index"}, new String[]{"index"}, indexUri);
-        // Link-self
+        //Link-self
         Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, invitationsUri);
+        //Link-houses
+        Link houses = new Link(new String[]{"related"}, new String[]{"houses", "collection"}, UriBuilderUtils.buildHousesUri());
 
         return new Link[]{self, indexLink};
     }

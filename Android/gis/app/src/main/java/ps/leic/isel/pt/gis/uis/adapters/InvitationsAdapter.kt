@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.InvitationDTO
+import ps.leic.isel.pt.gis.model.dtos.InvitationDto
 
-class InvitationsAdapter(private val data: MutableList<InvitationDTO>)
+class InvitationsAdapter
     : RecyclerView.Adapter<InvitationsAdapter.ViewHolder>() {
+
+    private var data: MutableList<InvitationDto>? = null
 
     private lateinit var mOnItemClickListener: OnItemClickListener
 
@@ -23,32 +25,41 @@ class InvitationsAdapter(private val data: MutableList<InvitationDTO>)
 
     // Binds the data to the textview in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
-        // Fill ViewHolder
-        holder.requesterUser.text = item.requesterUser
-        val invitationQuestion = "Can I join to " + item.houseName + "'s house?"
-        holder.invitationQuestion.text = invitationQuestion    //TODO: user string resources
+        data?.let {
+            val item = it[position]
+            // Fill ViewHolder
+            holder.requesterUser.text = item.username
+            val invitationQuestion = "Can I join to " + item.houseName+ "'s house?"
+            holder.invitationQuestion.text = invitationQuestion    //TODO: user string resources
 
-        // Set on accept invitation listener
-        holder.acceptInvitation.setOnClickListener {
-            removeItem(position)
-            mOnItemClickListener.onAcceptInvitation(item)
-        }
+            // Set on accept invitation listener
+            holder.acceptInvitation.setOnClickListener {
+                removeItem(position)
+                mOnItemClickListener.onAcceptInvitation(item)
+            }
 
-        // Set on decline invitation listener
-        holder.declineInvitation.setOnClickListener {
-            removeItem(position)
-            mOnItemClickListener.onDeclineInvitation(item)
+            // Set on decline invitation listener
+            holder.declineInvitation.setOnClickListener {
+                removeItem(position)
+                mOnItemClickListener.onDeclineInvitation(item)
+            }
         }
     }
 
     // Total number of cells
-    override fun getItemCount() = data.size
+    override fun getItemCount() = data?.size ?: 0
+
+    fun setData(data: MutableList<InvitationDto>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
 
     private fun removeItem(position: Int) {
-        data.removeAt(position)//TODO: remove item
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, data.size)
+        data?.let {
+            it.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, it.size)
+        }
     }
 
     // Stores and recycles views as they are scrolled off screen
@@ -59,7 +70,6 @@ class InvitationsAdapter(private val data: MutableList<InvitationDTO>)
         internal val declineInvitation: Button = itemView.findViewById(R.id.declineInvitationBtn)
     }
 
-
     // Sets listener for items click
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
         mOnItemClickListener = onItemClickListener
@@ -67,7 +77,7 @@ class InvitationsAdapter(private val data: MutableList<InvitationDTO>)
 
     // Parent activity will implement this method to respond to click events
     interface OnItemClickListener {
-        fun onAcceptInvitation(invitation: InvitationDTO)
-        fun onDeclineInvitation(invitation: InvitationDTO)
+        fun onAcceptInvitation(invitation: InvitationDto)
+        fun onDeclineInvitation(invitation: InvitationDto)
     }
 }

@@ -365,11 +365,16 @@ class HomeActivity : AppCompatActivity(),
         if (homeDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             homeDrawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            val count: Int = supportFragmentManager.backStackEntryCount
-            if (count == 1) {
-                finish()
-            } else {
-                supportFragmentManager.popBackStack()
+            val invitationsFragment = supportFragmentManager.findFragmentByTag(InvitationsFragment.TAG) as? InvitationsFragment
+            if (invitationsFragment != null && invitationsFragment.isVisible) {
+                if (!invitationsFragment.onBackPressed()) {
+                    val count: Int = supportFragmentManager.backStackEntryCount
+                    if (count == 1) {
+                        finish()
+                    } else {
+                        supportFragmentManager.popBackStack()
+                    }
+                }
             }
         }
     }

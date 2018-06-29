@@ -44,6 +44,21 @@ public class HouseController {
         this.messageSource = messageSource1;
     }
 
+    @GetMapping("")
+    public ResponseEntity<HouseOutputModel> getHouses(String name, Locale locale)
+            throws NotFoundException, BadRequestException {
+        List<House> houses;
+        try {
+            houses = houseService.getHousesByHouseName(name, locale);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage(), e.getMessage());
+        }
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new HousesOutputModel(houses), setSirenContentType(headers), HttpStatus.OK);
+    }
+
     @GetMapping("/{house-id}")
     public ResponseEntity<HouseOutputModel> getHouse(@PathVariable("house-id") long houseId, Locale locale)
             throws NotFoundException, BadRequestException {
