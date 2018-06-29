@@ -2,6 +2,7 @@ package pt.isel.ps.gis.components;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Locale;
 
 @Component
 public class BasicAuthenticationPoint extends BasicAuthenticationEntryPoint {
@@ -38,10 +40,12 @@ public class BasicAuthenticationPoint extends BasicAuthenticationEntryPoint {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE);
         HttpStatus httpStatus = HttpStatus.UNAUTHORIZED;
+        Locale locale = LocaleContextHolder.getLocale();
         ProblemDetails problemDetails = new ProblemDetails(
                 "Requires authentication.",
                 httpStatus.value(),
-                "You need to authenticate first.");
+                messageSource.getMessage("need_Authenticate_First", null, locale),
+                messageSource.getMessage("need_Authenticate_First", null, locale));
         String body = new ObjectMapper().writeValueAsString(problemDetails);
         PrintWriter writer = response.getWriter();
         writer.println(body);
