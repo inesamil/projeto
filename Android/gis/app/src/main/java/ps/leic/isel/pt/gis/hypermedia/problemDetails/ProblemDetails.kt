@@ -9,5 +9,5 @@ class ProblemDetails (
         val status: Int,
         val detail: String,
         val instance: String,
-        val userFriendlyMessage: String?
+        val userFriendlyMessage: String
 )

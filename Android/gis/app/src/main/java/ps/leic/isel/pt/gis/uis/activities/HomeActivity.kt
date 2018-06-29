@@ -132,16 +132,8 @@ class HomeActivity : AppCompatActivity(),
             return
         }
         index.getHousesUrl(username)?.let {
-            val housesUrl = it
-            index.getUserUrl(username)?.let {
-                val args: Map<String, Any> = mapOf(
-                        Pair(ProfileFragment.HOUSE_URL_ARG, housesUrl),
-                        Pair(ProfileFragment.BASIC_INFO_URL_ARG, it),
-                        Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.Houses)
-                )
-                supportFragmentManager.replaceCurrentFragmentWith(ProfileFragment.TAG, ProfileFragment.Companion::newInstance, args)
-                return
-            }
+            supportFragmentManager.replaceCurrentFragmentWith(HousesFragment.TAG, HousesFragment.Companion::newInstance, it)
+            return
         }
         Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
     }
@@ -157,16 +149,8 @@ class HomeActivity : AppCompatActivity(),
             return
         }
         index.getUserUrl(username)?.let {
-            val userUrl = it
-            index.getHousesUrl(username)?.let {
-                val args: Map<String, Any> = mapOf(
-                        Pair(ProfileFragment.BASIC_INFO_URL_ARG, userUrl),
-                        Pair(ProfileFragment.HOUSE_URL_ARG, it),
-                        Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
-                )
-                supportFragmentManager.replaceCurrentFragmentWith(ProfileFragment.TAG, ProfileFragment.Companion::newInstance, args)
-                return
-            }
+            supportFragmentManager.replaceCurrentFragmentWith(BasicInformationFragment.TAG, BasicInformationFragment.Companion::newInstance, it)
+            return
         }
         Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
     }
@@ -449,16 +433,8 @@ class HomeActivity : AppCompatActivity(),
                     return true
                 }
                 index.getUserUrl(username)?.let {
-                    val userUrl = it
-                    index.getHousesUrl(username)?.let {
-                        val args: Map<String, Any> = mapOf(
-                                Pair(ProfileFragment.BASIC_INFO_URL_ARG, userUrl),
-                                Pair(ProfileFragment.HOUSE_URL_ARG, it),
-                                Pair(ProfileFragment.PAGE_ARG, PageTabsAdapter.ProfilePage.BasicInfo)
-                        )
-                        supportFragmentManager.replaceCurrentFragmentWith(ProfileFragment.TAG, ProfileFragment.Companion::newInstance, args)
-                        return@run
-                    }
+                    supportFragmentManager.replaceCurrentFragmentWith(BasicInformationFragment.TAG, BasicInformationFragment.Companion::newInstance, it)
+                    return@run
                 }
                 Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
             }

@@ -63,12 +63,13 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         arguments?.let {
             url = it.getString(URL_KEY)
         }
-        getHouses(url)
-    }
-
-    private fun getHouses(url: String) {
+        stockItemListViewModel = ViewModelProviders.of(this).get(StockItemListViewModel::class.java)
         housesViewModel = ViewModelProviders.of(this).get(HousesViewModel::class.java)
         housesViewModel.init(url)
+        getHouses()
+    }
+
+    private fun getHouses() {
         housesViewModel.getHouses()?.observe(this, Observer {
             when (it?.status) {
                 Status.SUCCESS -> onSuccess(it.data)
@@ -123,6 +124,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
 
     override fun onStop() {
         super.onStop()
+        housesViewModel.cancel()
         stockItemListViewModel.cancel()
     }
 
@@ -154,7 +156,6 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     }
 
     private fun getHouseStockItemList(url: String) {
-        stockItemListViewModel = ViewModelProviders.of(this).get(StockItemListViewModel::class.java)
         stockItemListViewModel.init(url)
         stockItemListViewModel.getStockItems()?.observe(this, Observer {
             when (it?.status) {
@@ -173,6 +174,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
             state = State.SUCCESS
             stockItemListAdapter.setData(it.stockItems)
             this.stockItems = it.stockItems
+            showProgressBarOrContent()
         }
     }
 

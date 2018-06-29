@@ -99,6 +99,11 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        activity?.title = getString(R.string.houses)
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(URL_TAG, url)
