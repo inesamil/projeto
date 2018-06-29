@@ -20,6 +20,7 @@ import pt.isel.ps.gis.model.inputModel.HouseholdInputModel;
 import pt.isel.ps.gis.model.outputModel.HouseMembersOutputModel;
 import pt.isel.ps.gis.model.outputModel.HouseOutputModel;
 import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
+import pt.isel.ps.gis.model.outputModel.UserHousesOutputModel;
 
 import java.util.List;
 import java.util.Locale;
@@ -78,11 +79,12 @@ public class HouseController {
     }
 
     @PostMapping("")
-    public ResponseEntity<HouseOutputModel> postHouse(
+    public ResponseEntity<UserHousesOutputModel> postHouse(
             @RequestBody HouseInputModel body,
             Locale locale
     ) throws BadRequestException, NotFoundException {
         House house;
+        List<House> houses;
         String username = authenticationFacade.getAuthentication().getName();
         try {
             house = houseService.addHouse(
@@ -94,13 +96,14 @@ public class HouseController {
                     body.getSeniorsNumber(),
                     locale
             );
+            houses = houseService.getHousesByUserUsername(username, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseOutputModel(username, house), setSirenContentType(headers), HttpStatus.CREATED);
+        return new ResponseEntity<>(new UserHousesOutputModel(username, houses), setSirenContentType(headers), HttpStatus.CREATED);
     }
 
     @PutMapping("/{house-id}")
