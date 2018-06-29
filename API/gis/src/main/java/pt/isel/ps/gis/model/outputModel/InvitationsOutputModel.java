@@ -53,14 +53,13 @@ public class InvitationsOutputModel {
             Invitation invitation = invitations.get(i);
 
             Long house_Id = invitation.getId().getHouseId();
-            Long users_Id = invitation.getId().getUsersId();
             String users_username = invitation.getUsersByUsersId().getUsersUsername();
 
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("house-id", house_Id);
             properties.put("users-username", users_username);
 
-            String invitationUri = UriBuilderUtils.buildInvitationUri(house_Id, users_Id);
+            String invitationUri = UriBuilderUtils.buildInvitationUri(house_Id, users_username);
 
             entities[i] = new Entity(
                     new String[]{"invitation"},
@@ -88,7 +87,7 @@ public class InvitationsOutputModel {
         String type = "application/json";
 
         // URIs
-        String invitationsUri = UriBuilderUtils.buildInvitationstUri();
+        String invitationsUri = UriBuilderUtils.buildInvitationsUri();
 
         // POST Invitation
         Action postInvitation = new Action(
