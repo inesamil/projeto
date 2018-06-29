@@ -122,12 +122,13 @@ public class UserController {
     }
 
     @PostMapping("/{username}/lists")
-    public ResponseEntity<ListOutputModel> postUserList(
+    public ResponseEntity<UserListsOutputModel> postUserList(
             @PathVariable("username") String username,
             @RequestBody ListInputModel body,
             Locale locale
     ) throws BadRequestException, NotFoundException {
         pt.isel.ps.gis.model.List list;
+        List<pt.isel.ps.gis.model.List> lists;
         try {
             list = listService.addUserList(
                     body.getHouseId(),
@@ -136,13 +137,18 @@ public class UserController {
                     body.getShareable(),
                     locale
             );
+            Long[] housesIds = houseService.getHousesByUserUsername(username, locale)
+                    .stream()
+                    .map(House::getHouseId)
+                    .toArray(Long[]::new);
+            lists = listService.getAvailableListsByUserUsername(username, new ListService.AvailableListFilters(housesIds), locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListOutputModel(username, list), setSirenContentType(headers), HttpStatus.CREATED);
+        return new ResponseEntity<>(new UserListsOutputModel(username, lists), setSirenContentType(headers), HttpStatus.CREATED);
     }
 
     @PutMapping("/{username}")
