@@ -27,6 +27,7 @@ import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.ListsAdapter
 import ps.leic.isel.pt.gis.utils.State
+import ps.leic.isel.pt.gis.utils.addElement
 import ps.leic.isel.pt.gis.utils.removeFragment
 import ps.leic.isel.pt.gis.viewModel.ListsViewModel
 
@@ -193,7 +194,16 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     fun onAddList(list: List) {
         listsViewModel.addList(ListBody(list.houseId, list.listName, list.listShareable))?.observe(this, Observer {
             when (it?.status) {
-                Status.SUCCESS -> onSuccess(it.data)
+                Status.SUCCESS -> {
+                    it.data?.let { list ->
+                        // Add new list
+                        lists = lists?.addElement(list)
+                        // Notify data set changed
+                        lists?.let {
+                            adapter.setData(it)
+                        }
+                    }
+                }
                 Status.UNSUCCESS -> onUnsuccess(it.apiError)
                 Status.ERROR -> onError(it.message)
                 Status.LOADING -> {

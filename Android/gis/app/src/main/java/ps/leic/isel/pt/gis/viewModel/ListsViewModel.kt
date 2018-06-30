@@ -30,10 +30,10 @@ class ListsViewModel(private val app: Application) : AndroidViewModel(app) {
         return lists
     }
 
-    fun addList(list: ListBody): LiveData<Resource<ListsDto, ErrorDto>>? {
+    fun addList(list: ListBody): LiveData<Resource<ListDto, ErrorDto>>? {
         lists?.value?.data?.actions?.addList?.let {
             return ServiceLocator.getRepository(app.applicationContext)
-                    .create(ListsDto::class.java, ErrorDto::class.java, it.url, it.contentType, list, TAG)
+                    .create(ListDto::class.java, ErrorDto::class.java, it.url, it.contentType, list, TAG)
         }
         return null
     }
