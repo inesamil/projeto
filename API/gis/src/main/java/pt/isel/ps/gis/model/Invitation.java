@@ -1,7 +1,6 @@
 package pt.isel.ps.gis.model;
 
 import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -9,16 +8,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "invitation")
 public class Invitation {
-    //TODO: remover o boolean invitationAccepted
+
     /**
      * COLUNAS
      */
     @EmbeddedId
     private InvitationId id;
-
-    @Basic
-    @Column(name = "invitation_accepted", nullable = false, columnDefinition = "bool default false")
-    private Boolean invitationAccepted;
 
     /**
      * ASSOCIAÇÕES
@@ -37,21 +32,12 @@ public class Invitation {
     protected Invitation() {
     }
 
-    public Invitation(InvitationId id, Boolean invitationAccepted) throws EntityException {
+    public Invitation(InvitationId id) {
         this.id = id;
-        setInvitationAccepted(invitationAccepted);
-    }
-
-    public Invitation(InvitationId id) throws EntityException {
-        this(id, false);
-    }
-
-    public Invitation(Long usersId, Long houseId, Boolean invitationAccepted) throws EntityException {
-        this(new InvitationId(usersId, houseId), invitationAccepted);
     }
 
     public Invitation(Long usersId, Long houseId) throws EntityException {
-        this(new InvitationId(usersId, houseId), false);
+        this(new InvitationId(usersId, houseId));
     }
 
     /**
@@ -67,15 +53,6 @@ public class Invitation {
 
     public void setId(Long usersId, Long houseId) throws EntityException {
         setId(new InvitationId(usersId, houseId));
-    }
-
-    public Boolean getInvitationAccepted() {
-        return invitationAccepted;
-    }
-
-    public void setInvitationAccepted(Boolean invitationAccepted) throws EntityException {
-        ValidationsUtils.validateInvitationAccepted(invitationAccepted);
-        this.invitationAccepted = invitationAccepted;
     }
 
     public Users getUsersByUsersId() {
@@ -99,12 +76,11 @@ public class Invitation {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Invitation that = (Invitation) obj;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(invitationAccepted, that.invitationAccepted);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, invitationAccepted);
+        return Objects.hash(id);
     }
 }

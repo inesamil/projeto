@@ -169,6 +169,5 @@ CREATE TABLE IF NOT EXISTS public."expirationdate" (
 CREATE TABLE IF NOT EXISTS public."invitation" (
 	users_id bigint NOT NULL CHECK (users_id > 0) REFERENCES public."users" (users_id),
 	house_id bigint NOT NULL CHECK (house_id > 0) REFERENCES public."house" (house_id),
-	invitation_accepted bool NOT NULL DEFAULT false,
 	PRIMARY KEY (house_id, users_id)
 )
