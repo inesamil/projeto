@@ -29,10 +29,10 @@ class HousesViewModel(private val app: Application) : AndroidViewModel(app) {
         return houses
     }
 
-    fun addHouse(house: HouseBody): LiveData<Resource<HousesDto, ErrorDto>>? {
+    fun addHouse(house: HouseBody): LiveData<Resource<HouseDto, ErrorDto>>? {
         houses?.value?.data?.actions?.addHouse?.let {
             return ServiceLocator.getRepository(app.applicationContext)
-                    .create(HousesDto::class.java, ErrorDto::class.java, it.url, it.contentType, house, TAG)
+                    .create(HouseDto::class.java, ErrorDto::class.java, it.url, it.contentType, house, TAG)
         }
         return null
     }

@@ -19,11 +19,13 @@ import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.House
 import ps.leic.isel.pt.gis.model.body.HouseBody
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
+import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
 import ps.leic.isel.pt.gis.utils.State
+import ps.leic.isel.pt.gis.utils.addElement
 import ps.leic.isel.pt.gis.utils.removeFragment
 import ps.leic.isel.pt.gis.utils.removeFragmentByTag
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
@@ -42,7 +44,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     private lateinit var housesViewModel: HousesViewModel
     private lateinit var url: String
 
-    private var houses: HousesDto? = null
+    private var houses: Array<HouseDto>? = null
     private val adapter = HousesAdapter()
     private var listener: OnHousesFragmentInteractionListener? = null
 
@@ -78,9 +80,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         view.housesRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
         view.housesLayout.newHouseButton.setOnClickListener {
-            houses?.actions?.addHouse?.let {
-                listener?.onNewHouseInteraction()
-            }
+            listener?.onNewHouseInteraction()
         }
 
         progressBar = view.housesProgressBar
@@ -125,7 +125,16 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     fun onAddHouse(house: House) {
         housesViewModel.addHouse(HouseBody(house.houseName, house.babiesNumber, house.childrenNumber, house.adultsNumber, house.seniorsNumber))?.observe(this, Observer {
             when (it?.status) {
-                Status.SUCCESS -> onSuccess(it.data)
+                Status.SUCCESS -> {
+                    it.data?.let { house ->
+                        // Add new house
+                        houses = houses?.addElement(house)
+                        // Notify data set changed
+                        houses?.let {
+                            adapter.setData(it)
+                        }
+                    }
+                }
                 Status.UNSUCCESS -> onUnsuccess(it.apiError)
                 Status.ERROR -> onError(it.message)
                 Status.LOADING -> {
@@ -159,7 +168,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
             // Show progress bar or content
             showProgressBarOrContent()
 
-            this.houses = houses
+            this.houses = houses.houses
             adapter.setData(it.houses)
         }
     }
@@ -191,13 +200,13 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
      ***/
 
     override fun onStoragesClick(view: View, position: Int) {
-        houses?.houses?.get(position)?.links?.storagesLink?.let {
+        houses?.get(position)?.links?.storagesLink?.let {
             listener?.onStoragesInteraction(it)
         }
     }
 
     override fun onAllergiesClick(view: View, position: Int) {
-        houses?.houses?.get(position)?.links?.houseAllergiesLink?.let {
+        houses?.get(position)?.links?.houseAllergiesLink?.let {
             listener?.onAllergiesInteraction(it)
         }
     }
