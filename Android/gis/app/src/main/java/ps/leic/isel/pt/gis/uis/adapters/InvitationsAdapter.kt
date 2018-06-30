@@ -9,7 +9,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.InvitationDto
 
-class InvitationsAdapter
+class InvitationsAdapter(private val question: String)
     : RecyclerView.Adapter<InvitationsAdapter.ViewHolder>() {
 
     private var data: MutableList<InvitationDto>? = null
@@ -29,8 +29,7 @@ class InvitationsAdapter
             val item = it[position]
             // Fill ViewHolder
             holder.requesterUser.text = item.username
-            val invitationQuestion = "Can I join to " + item.houseName+ "'s house?"
-            holder.invitationQuestion.text = invitationQuestion    //TODO: user string resources
+            holder.invitationQuestion.text = String.format(question, item.houseName);
 
             // Set on accept invitation listener
             holder.acceptInvitation.setOnClickListener {

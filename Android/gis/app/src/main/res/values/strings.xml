@@ -156,7 +156,6 @@
     <string name="my_pantry">My Pantry</string>
     <string name="members">Members</string>
     <string name="admin">admin</string>
-    <string name="invitation_question_1">Can I join to</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
     <string name="add">Add</string>
@@ -215,4 +214,5 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="network_error_has_occurred">A network error has occurred</string>
     <string name="unfortunately_an_error_has_occurred">Unfortunately an error has occurred</string>
+    <string name="invitation_question">Do you want to join to the house %1$s?</string>
 </resources>

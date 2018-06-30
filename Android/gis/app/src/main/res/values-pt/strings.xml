@@ -179,4 +179,5 @@
     <string name="no_internet_connection">Sem ligação à internet</string>
     <string name="network_error_has_occurred">Ocorreu um erro de rede</string>
     <string name="unfortunately_an_error_has_occurred">Infelizmente ocorreu um erro</string>
+    <string name="invitation_question">Quer juntar-se à casa %1$s?</string>
 </resources>
