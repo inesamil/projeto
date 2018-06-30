@@ -11,13 +11,17 @@ import pt.isel.ps.gis.bll.UserService;
 import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.Invitation;
+import pt.isel.ps.gis.model.ListId;
 import pt.isel.ps.gis.model.Users;
 import pt.isel.ps.gis.model.inputModel.ListInputModel;
 import pt.isel.ps.gis.model.inputModel.RegisterUserInputModel;
 import pt.isel.ps.gis.model.inputModel.UserInputModel;
 import pt.isel.ps.gis.model.outputModel.*;
 import pt.isel.ps.gis.model.requestParams.ListRequestParam;
+import pt.isel.ps.gis.utils.UriBuilderUtils;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
 
@@ -112,7 +116,7 @@ public class UserController {
     public ResponseEntity<InvitationsOutputModel> getInvitations(
             @PathVariable("username") String username,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) {
         List<Invitation> invitations;
         invitations = invitationService.getReceivedInvitationsByUserUsername(username, locale);
         HttpHeaders headers = new HttpHeaders();
@@ -124,7 +128,7 @@ public class UserController {
     public ResponseEntity<UserOutputModel> registerUser(
             @RequestBody RegisterUserInputModel body,
             Locale locale
-    ) throws BadRequestException, ConflictException {
+    ) throws BadRequestException, ConflictException, URISyntaxException {
         Users user;
         try {
             user = userService.addUser(body.getUsername(), body.getEmail(), body.getAge(), body.getName(), body.getPassword(), locale);
@@ -134,6 +138,7 @@ public class UserController {
             throw new ConflictException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(new URI(UriBuilderUtils.buildUserUri(user.getUsersUsername())));
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), HttpStatus.CREATED);
     }
 
@@ -142,7 +147,7 @@ public class UserController {
             @PathVariable("username") String username,
             @RequestBody ListInputModel body,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, URISyntaxException {
         pt.isel.ps.gis.model.List list;
         try {
             list = listService.addUserList(
@@ -158,6 +163,8 @@ public class UserController {
             throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
+        ListId listId = list.getId();
+        headers.setLocation(new URI(UriBuilderUtils.buildListUri(listId.getHouseId(), listId.getListId())));
         return new ResponseEntity<>(new ListOutputModel(username, list), setSirenContentType(headers), HttpStatus.CREATED);
     }
 

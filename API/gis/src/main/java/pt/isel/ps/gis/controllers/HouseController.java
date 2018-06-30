@@ -19,7 +19,10 @@ import pt.isel.ps.gis.model.inputModel.HouseholdInputModel;
 import pt.isel.ps.gis.model.outputModel.HouseMembersOutputModel;
 import pt.isel.ps.gis.model.outputModel.HouseOutputModel;
 import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
+import pt.isel.ps.gis.utils.UriBuilderUtils;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
 
@@ -80,7 +83,7 @@ public class HouseController {
     public ResponseEntity<HouseOutputModel> postHouse(
             @RequestBody HouseInputModel body,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, URISyntaxException {
         House house;
         String username = authenticationFacade.getAuthentication().getName();
         try {
@@ -99,6 +102,7 @@ public class HouseController {
             throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(new URI(UriBuilderUtils.buildHouseUri(house.getHouseId())));
         return new ResponseEntity<>(new HouseOutputModel(username, house), setSirenContentType(headers), HttpStatus.CREATED);
     }
 

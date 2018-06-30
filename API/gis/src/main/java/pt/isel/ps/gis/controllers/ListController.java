@@ -97,29 +97,6 @@ public class ListController {
                 setSirenContentType(headers), HttpStatus.OK);
     }
 
-    @PutMapping("/{list-id}")
-    public ResponseEntity<ListOutputModel> putList(
-            @PathVariable("house-id") long houseId,
-            @PathVariable("list-id") short listId,
-            @RequestBody ListInputModel body,
-            Locale locale
-    ) throws BadRequestException, NotFoundException, ForbiddenException {
-        List list;
-        try {
-            list = listService.updateList(houseId, listId, body.getName(), body.getShareable(), locale);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
-        } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
-        } catch (InsufficientPrivilegesException e) {
-            throw new ForbiddenException(e.getMessage(), e.getMessage());
-        }
-        HttpHeaders headers = new HttpHeaders();
-        String username = authenticationFacade.getAuthentication().getName();
-        return new ResponseEntity<>(new ListOutputModel(username, list), setSirenContentType(headers),
-                HttpStatus.OK);
-    }
-
     @PostMapping("/{list-id}/products")
     public ResponseEntity<ListOutputModel> postProductInList(
             @PathVariable("house-id") long houseId,
@@ -141,8 +118,31 @@ public class ListController {
             throw new ConflictException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new ListOutputModel(username, list),
-                setSirenContentType(headers), HttpStatus.OK);
+        return new ResponseEntity<>(new ListOutputModel(username, list), setSirenContentType(headers),
+                HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{list-id}")
+    public ResponseEntity<ListOutputModel> putList(
+            @PathVariable("house-id") long houseId,
+            @PathVariable("list-id") short listId,
+            @RequestBody ListInputModel body,
+            Locale locale
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
+        List list;
+        try {
+            list = listService.updateList(houseId, listId, body.getName(), body.getShareable(), locale);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getMessage());
+        }
+        HttpHeaders headers = new HttpHeaders();
+        String username = authenticationFacade.getAuthentication().getName();
+        return new ResponseEntity<>(new ListOutputModel(username, list), setSirenContentType(headers),
+                HttpStatus.OK);
     }
 
     @PutMapping("/{list-id}/products/{product-id}")

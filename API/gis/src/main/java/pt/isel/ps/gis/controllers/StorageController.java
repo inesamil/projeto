@@ -11,10 +11,14 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.NotFoundException;
 import pt.isel.ps.gis.model.Storage;
+import pt.isel.ps.gis.model.StorageId;
 import pt.isel.ps.gis.model.inputModel.StorageInputModel;
 import pt.isel.ps.gis.model.outputModel.StorageOutputModel;
 import pt.isel.ps.gis.model.outputModel.StoragesOutputModel;
+import pt.isel.ps.gis.utils.UriBuilderUtils;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
 
@@ -73,7 +77,7 @@ public class StorageController {
             @PathVariable("house-id") long houseId,
             @RequestBody StorageInputModel body,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, URISyntaxException {
         Storage storage;
         try {
             storage = storageService.addStorage(
@@ -89,6 +93,8 @@ public class StorageController {
             throw new NotFoundException(e.getMessage(), e.getMessage());
         }
         HttpHeaders headers = new HttpHeaders();
+        StorageId storageId = storage.getId();
+        headers.setLocation(new URI(UriBuilderUtils.buildStorageUri(storageId.getHouseId(), storageId.getStorageId())));
         return new ResponseEntity<>(new StorageOutputModel(storage), setSirenContentType(headers),
                 HttpStatus.CREATED);
     }
