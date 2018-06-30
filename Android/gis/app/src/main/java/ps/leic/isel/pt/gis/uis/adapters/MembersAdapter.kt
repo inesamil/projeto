@@ -1,5 +1,6 @@
 package ps.leic.isel.pt.gis.uis.adapters
 
+import android.support.constraint.Placeholder
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.MemberDto
 
-class MembersAdapter : RecyclerView.Adapter<MembersAdapter.ViewHolder>() {
+class MembersAdapter(private val usernamePlaceholder: String) : RecyclerView.Adapter<MembersAdapter.ViewHolder>() {
 
     private var data: Array<MemberDto>? = null
 
@@ -24,7 +25,7 @@ class MembersAdapter : RecyclerView.Adapter<MembersAdapter.ViewHolder>() {
         data?.let {
             val item = it[position]
             // Fill ViewHolder
-            holder.member.text = item.username
+            holder.member.text = String.format(usernamePlaceholder, item.username)
             holder.admin.visibility = if (item.administrator) View.VISIBLE else View.INVISIBLE
         }
     }

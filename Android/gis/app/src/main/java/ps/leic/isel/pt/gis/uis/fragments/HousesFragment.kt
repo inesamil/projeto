@@ -45,7 +45,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     private lateinit var url: String
 
     private var houses: Array<HouseDto>? = null
-    private val adapter = HousesAdapter()
+    private lateinit var adapter: HousesAdapter
     private var listener: OnHousesFragmentInteractionListener? = null
 
     private var state: State = State.LOADING
@@ -66,6 +66,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         arguments?.let {
             url = it.getString(URL_TAG)
         }
+        adapter = HousesAdapter(getString(R.string.at_username))
         housesViewModel = ViewModelProviders.of(activity!!).get(HousesViewModel::class.java)
         housesViewModel.init(url)
         getHouses()

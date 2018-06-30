@@ -51,7 +51,7 @@ class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
             url = it.getString(URL_TAG)
         }
 
-        adapter = InvitationsAdapter(getString(R.string.invitation_question))
+        adapter = InvitationsAdapter(getString(R.string.at_username), getString(R.string.invitation_question))
 
         invitationsViewModel = ViewModelProviders.of(this).get(InvitationsViewModel::class.java)
         invitationsViewModel.init(url)

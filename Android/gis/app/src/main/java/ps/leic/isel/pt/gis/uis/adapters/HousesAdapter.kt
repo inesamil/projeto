@@ -11,7 +11,7 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 
-class HousesAdapter : RecyclerView.Adapter<HousesAdapter.ViewHolder>() {
+class HousesAdapter(private val usernamePlaceholder: String) : RecyclerView.Adapter<HousesAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
     private var data: Array<HouseDto>? = null
@@ -61,7 +61,7 @@ class HousesAdapter : RecyclerView.Adapter<HousesAdapter.ViewHolder>() {
             val context: Context = itemView.context
             // Set inner member list Adapter
             val membersRecyclerView: RecyclerView = itemView.findViewById(R.id.membersRecyclerView)
-            membersAdapter = MembersAdapter()
+            membersAdapter = MembersAdapter(usernamePlaceholder)
             membersRecyclerView.layoutManager = LinearLayoutManager(context)
             membersRecyclerView.setHasFixedSize(true)
             membersRecyclerView.adapter = membersAdapter

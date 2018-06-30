@@ -215,4 +215,5 @@
     <string name="network_error_has_occurred">A network error has occurred</string>
     <string name="unfortunately_an_error_has_occurred">Unfortunately an error has occurred</string>
     <string name="invitation_question">Do you want to join to the house %1$s?</string>
+    <string name="at_username" translatable="false">\@%1$s</string>
 </resources>
