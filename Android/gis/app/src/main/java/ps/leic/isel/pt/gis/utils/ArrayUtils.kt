@@ -7,3 +7,9 @@ fun Array<String>.getElementsSeparatedBySemiColon(): String {
     }
     return elems.toString()
 }
+
+inline fun <reified E> Array<E>.addElement(elem: E) : Array<E>{
+    val list = toMutableList()
+    list.add(elem)
+    return list.toTypedArray()
+}
