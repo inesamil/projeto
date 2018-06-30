@@ -20,6 +20,7 @@ class IndexDto(jsonHome: JsonHome) {
         val getCategories: ResourceObject? = resources[relCategoriesLabel]
         val getAllergies: ResourceObject? = resources[relAllergiesLabel]
         val getUserLists: ResourceObject? = resources[relUserListsLabel]
+        val getInvitations: ResourceObject? = resources[relInvitationsLabel]
     }
 
     fun getHousesUrl(username: String): String? {
@@ -57,6 +58,15 @@ class IndexDto(jsonHome: JsonHome) {
         return null
     }
 
+    fun getInvitationsUrl(username: String) : String? {
+        val invitations = resources.getInvitations
+        invitations?.hrefVars?.containsKey(USERNAME_LABEL)?.let {
+            if (!it) return@let
+            return UriTemplate.expand(invitations.hrefTemplate, mapOf(Pair(USERNAME_LABEL, username)))
+        }
+        return null
+    }
+
     fun getCategoriesUrl() : String? {
         val categories = resources.getCategories
         return categories?.href
@@ -71,5 +81,6 @@ class IndexDto(jsonHome: JsonHome) {
         private const val relCategoriesLabel: String = "/rel/categories"
         private const val relAllergiesLabel: String = "/rel/allergies"
         private const val relUserListsLabel: String = "/rel/lists"
+        private const val relInvitationsLabel: String = "/rel/invitations"
     }
 }

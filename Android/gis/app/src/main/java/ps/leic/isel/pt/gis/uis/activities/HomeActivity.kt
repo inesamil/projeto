@@ -365,28 +365,34 @@ class HomeActivity : AppCompatActivity(),
         if (homeDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             homeDrawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            val invitationsFragment = supportFragmentManager.findFragmentByTag(InvitationsFragment.TAG) as? InvitationsFragment
-            if (invitationsFragment != null && invitationsFragment.isVisible) {
-                if (!invitationsFragment.onBackPressed()) {
-                    val count: Int = supportFragmentManager.backStackEntryCount
-                    if (count == 1) {
-                        finish()
-                    } else {
-                        supportFragmentManager.popBackStack()
-                    }
-                }
+            val count: Int = supportFragmentManager.backStackEntryCount
+            if (count == 1) {
+                finish()
+            } else {
+                supportFragmentManager.popBackStack()
             }
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val gisApplication = application as GisApplication
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.invitationsItem -> {
-                val url: String = ""    //TODO
-                // supportFragmentManager.replaceCurrentFragmentWith(ExtraUtils.INVITATIONS, InvitationsFragment.Companion::newInstance, url)
+                val index = gisApplication.index
+                val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
+                if (username == null) {
+                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+                    //TODO: logout
+                    return false
+                }
+                val url: String? = index.getInvitationsUrl(username)
+                url?.let {
+                    supportFragmentManager.replaceCurrentFragmentWith(InvitationsFragment.TAG, InvitationsFragment.Companion::newInstance, url)
+                    return true
+                }
                 Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
                 return true
             }
