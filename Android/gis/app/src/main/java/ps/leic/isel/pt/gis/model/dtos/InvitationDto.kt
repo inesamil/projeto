@@ -2,6 +2,7 @@ package ps.leic.isel.pt.gis.model.dtos
 
 import ps.leic.isel.pt.gis.hypermedia.siren.Siren
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
+import ps.leic.isel.pt.gis.model.ActionDto
 
 class InvitationDto(siren: Siren) {
     val houseId: Long
@@ -18,8 +19,12 @@ class InvitationDto(siren: Siren) {
     }
 
     class InvitationActions(actions: Array<Action>?) {
-        val updateInvitation: Action? = actions?.find {
-            it.name == updateInvitationLabel
+        var updateInvitation: ActionDto? = null
+
+        init {
+            actions?.find { it.name == updateInvitationLabel }?.let {
+                updateInvitation = ActionDto(it.name, it.href, it.type)
+            }
         }
     }
 
