@@ -74,6 +74,7 @@ public class InvitationController {
             @RequestBody Boolean accept, // TODO criar um input model para receber o accept
             Locale locale
     ) throws BadRequestException, NotFoundException {
+        //TODO: por isto num método no serviço
         if (accept == null)
             throw new BadRequestException(ACCEPT_ERROR_MSG, messageSource.getMessage("body_Error_Msg", null, locale));
         try {
