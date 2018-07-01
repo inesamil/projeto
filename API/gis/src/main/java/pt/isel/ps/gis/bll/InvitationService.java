@@ -17,7 +17,7 @@ public interface InvitationService {
      * @param username identificador do utilizador
      * @return List<Invitation>
      */
-    List<Invitation> getSentInvitationsByUserUsername(String username) throws EntityException, EntityNotFoundException;
+    List<Invitation> getReceivedInvitationsByUserUsername(String username) throws EntityException, EntityNotFoundException;
 
     /**
      * Enviar um convite do utilizador com username @username para a casa com ID @houseId

@@ -33,7 +33,7 @@ public class InvitationServiceImpl implements InvitationService {
     }
 
     @Override
-    public List<Invitation> getSentInvitationsByUserUsername(String username) throws EntityException {
+    public List<Invitation> getReceivedInvitationsByUserUsername(String username) throws EntityException {
         ValidationsUtils.validateUserUsername(username);
         return invitationRepository.findAllByUsersByUsersId_UsersUsername(username);
     }

@@ -36,7 +36,7 @@ public class InvitationController {
     ) throws BadRequestException, NotFoundException {
         List<Invitation> invitations;
         try {
-            invitations = invitationService.getSentInvitationsByUserUsername(username);
+            invitations = invitationService.getReceivedInvitationsByUserUsername(username);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getMessage());
         } catch (EntityNotFoundException e) {
