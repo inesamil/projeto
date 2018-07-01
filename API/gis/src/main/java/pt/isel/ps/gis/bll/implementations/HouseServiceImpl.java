@@ -4,7 +4,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.HouseService;
-import pt.isel.ps.gis.dal.repositories.*;
+import pt.isel.ps.gis.dal.repositories.HouseRepository;
+import pt.isel.ps.gis.dal.repositories.SystemListRepository;
+import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
+import pt.isel.ps.gis.dal.repositories.UsersRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.*;
@@ -43,11 +46,6 @@ public class HouseServiceImpl implements HouseService {
     public House getHouseByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
         return houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("house_Not_Exist", null, locale)));
-    }
-
-    @Override
-    public List<House> getHousesByHouseName(String name, Locale locale) throws EntityException, EntityNotFoundException {
-        //TODO: obter casas cujo nome comece por name
     }
 
     @Transactional

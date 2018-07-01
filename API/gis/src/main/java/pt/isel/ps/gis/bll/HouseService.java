@@ -28,15 +28,6 @@ public interface HouseService {
     House getHouseByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
-     * Obter casas cujo nome começe com name
-     *
-     * @param name nome da casa (parcial)
-     * @return Optional<House>
-     * @throws EntityException se os parâmetros recebidos forem inválidos
-     */
-    List<House> getHousesByHouseName(String name, Locale locale) throws EntityException, EntityNotFoundException;
-
-    /**
      * Listar as casas de um utilizador através do seu nome do utilizador
      *
      * @param username identificador do utilizador
