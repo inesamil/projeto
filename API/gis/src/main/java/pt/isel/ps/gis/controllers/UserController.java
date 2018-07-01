@@ -40,6 +40,21 @@ public class UserController {
         this.listService = listService;
     }
 
+    @GetMapping("")
+    public ResponseEntity<UsersOutputModel> getStartsWithUsername(
+            @RequestParam String username
+    ) throws BadRequestException {
+        List<Users> users;
+        try {
+            users = userService.getUsersStartsWithUsername(username);
+        } catch (EntityException e) {
+            throw new BadRequestException(e.getMessage(), e.getMessage());
+        }
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<UsersOutputModel>(new UsersOutputModel(users), setSirenContentType(headers),
+                HttpStatus.OK);
+    }
+
     @GetMapping("/{username}")
     public ResponseEntity<UserOutputModel> getUser(
             @PathVariable("username") String username,
