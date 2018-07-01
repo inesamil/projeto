@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.Siren
+import ps.leic.isel.pt.gis.model.ActionDto
 
 class HouseDto(siren: Siren) {
     val houseId: Long
@@ -27,8 +28,16 @@ class HouseDto(siren: Siren) {
     }
 
     class HousesActions(actions: Array<Action>?) {
-        val addHouse: Action? = actions?.find {
-            it.name == addHouseLabel
+        var addHouse: ActionDto? = null
+        var sendInvitation: ActionDto? = null
+
+        init {
+            actions?.find { it.name == addHouseLabel }?.let {
+                addHouse = ActionDto(it.name, it.href, it.type)
+            }
+            actions?.find { it.name ==  inviteUserLabel}?.let {
+                sendInvitation = ActionDto(it.name, it.href, it.type)
+            }
         }
     }
 
@@ -73,5 +82,6 @@ class HouseDto(siren: Siren) {
         private const val movementsLabel: String = "movements"
         private const val listsLabel: String = "lists"
         private const val addHouseLabel: String = "add-house"
+        private const val inviteUserLabel: String = "invite-user"
     }
 }
