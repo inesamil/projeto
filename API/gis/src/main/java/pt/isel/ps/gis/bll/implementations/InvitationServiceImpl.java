@@ -62,7 +62,7 @@ public class InvitationServiceImpl implements InvitationService {
     @Override
     public void updateInvitation(String username, Long houseId, Boolean accept, Locale locale) throws EntityException, EntityNotFoundException {
         if (accept == null)
-            throw new EntityException(messageSource.getMessage("body_Error_Msg", null, locale));
+            throw new EntityException("You must specify the body correctly.", messageSource.getMessage("body_Error_Msg", null, locale));
         if (accept)
             acceptInvitation(username, houseId, locale);
         else
