@@ -216,4 +216,5 @@
     <string name="unfortunately_an_error_has_occurred">Unfortunately an error has occurred</string>
     <string name="invitation_question">Do you want to join to the house %1$s?</string>
     <string name="at_username" translatable="false">\@%1$s</string>
+    <string name="invitation_sent_successfully">Invitation sent successfully</string>
 </resources>
