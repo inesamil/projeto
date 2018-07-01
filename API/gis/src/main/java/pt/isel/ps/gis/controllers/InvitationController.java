@@ -1,6 +1,5 @@
 package pt.isel.ps.gis.controllers;
 
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +8,7 @@ import pt.isel.ps.gis.bll.InvitationService;
 import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.Invitation;
 import pt.isel.ps.gis.model.inputModel.InvitationInputModel;
+import pt.isel.ps.gis.model.inputModel.InvitationInputModelUpdate;
 import pt.isel.ps.gis.model.outputModel.InvitationsOutputModel;
 
 import java.util.List;
@@ -20,14 +20,10 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 @RequestMapping("/v1/invitations")
 public class InvitationController {
 
-    private static final String ACCEPT_ERROR_MSG = "Accept must be non-null";
-
     private final InvitationService invitationService;
-    private final MessageSource messageSource;
 
-    public InvitationController(InvitationService invitationService, MessageSource messageSource) {
+    public InvitationController(InvitationService invitationService) {
         this.invitationService = invitationService;
-        this.messageSource = messageSource;
     }
 
     @GetMapping("/users/{username}")
@@ -71,17 +67,11 @@ public class InvitationController {
     public ResponseEntity putInvitation(
             @PathVariable("house-id") Long houseId,
             @PathVariable("username") String username,
-            @RequestBody Boolean accept, // TODO criar um input model para receber o accept
+            @RequestBody InvitationInputModelUpdate body,
             Locale locale
     ) throws BadRequestException, NotFoundException {
-        //TODO: por isto num método no serviço
-        if (accept == null)
-            throw new BadRequestException(ACCEPT_ERROR_MSG, messageSource.getMessage("body_Error_Msg", null, locale));
         try {
-            if (accept)
-                invitationService.acceptInvitation(username, houseId, locale);
-            else
-                invitationService.declineInvitation(username, houseId, locale);
+            invitationService.updateInvitation(username, houseId, body.getAccept(), locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getMessage());
         } catch (EntityNotFoundException e) {
