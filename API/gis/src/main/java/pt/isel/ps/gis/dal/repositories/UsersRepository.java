@@ -38,5 +38,5 @@ public interface UsersRepository extends CrudRepository<Users, Long>, UsersRepos
      * @param username The username of the user
      * @return List with all users that starts with param username
      */
-    List<Users> findAllByUsersUsernameIsStartingWith(String username);
+    List<Users> findAllByUsersUsernameStartsWith(String username);
 }
