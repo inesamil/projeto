@@ -186,7 +186,7 @@ BEGIN
 	INSERT INTO public."userlist" (house_id, list_id, users_id, list_shareable) VALUES (houseID, listID, userId, shareable);
 	
 	RETURN query
-	SELECT public."userlist".house_id, public."house".house_name, public."house".house_characteristics , 
+	SELECT public."userlist".house_id, public."house".house_name, public."house".house_characteristics,
 			public."userlist".list_id, public."list".list_name, public."list".list_type, 
 			public."userlist".users_id, public."users".users_username, public."users".users_email, public."users".users_age, public."users".users_name, public."users".users_password,
 			public."userlist".list_shareable 
@@ -257,9 +257,9 @@ RETURNS TABLE(
 	stockitem_sku character varying(128),
 	storage_id smallint,
 	stockitemmovement_type boolean,
-	stockitemmovement_dateTime timestamp,
+	stockitemmovement_datetime timestamp,
 	stockitemmovement_quantity smallint,
-	stockitemmovement_finalQuantity smallint
+	stockitemmovement_finalquantity smallint
 ) AS $$
 DECLARE 
 	productId integer;
@@ -296,7 +296,7 @@ BEGIN
 		-- StockItem does not exist in the house
 		-- Add StockItem
 		INSERT INTO public."stockitem" (house_id, stockitem_sku, product_id, stockitem_brand, stockitem_variety, stockitem_segment,
-										stockitem_segmentUnit, stockitem_quantity, stockitem_description, stockitem_conservationStorage) 
+										stockitem_segmentunit, stockitem_quantity, stockitem_description, stockitem_conservationstorage)
 			VALUES (houseId, sku, productId, brand, variety, segment, segmentUnit, movementQuantity, description, conservationStorage);
 	
 		-- Add StockItem in Storage
@@ -321,15 +321,15 @@ BEGIN
 		WHERE public."stockitem".house_id = houseId AND public."stockitem".stockitem_sku = sku;
 	
 	-- Insert Movement
-	INSERT INTO public."stockitemmovement" (house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_dateTime, stockitemmovement_quantity, stockitemmovement_finalQuantity)
+	INSERT INTO public."stockitemmovement" (house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
 		VALUES (houseId, sku, storageId, movementType, movementDatetime, movementQuantity, finalQuantity);
 
 	RETURN query
 	SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, public."stockitemmovement".storage_id, public."stockitemmovement".stockitemmovement_type, 
-		public."stockitemmovement".stockitemmovement_dateTime, public."stockitemmovement".stockitemmovement_quantity, public."stockitemmovement".stockitemmovement_finalQuantity
+		public."stockitemmovement".stockitemmovement_datetime, public."stockitemmovement".stockitemmovement_quantity, public."stockitemmovement".stockitemmovement_finalquantity
 	FROM public."stockitemmovement"
 	WHERE public."stockitemmovement".house_id = houseId AND public."stockitemmovement".stockitem_sku = sku AND public."stockitemmovement".storage_id = storageId AND public."stockitemmovement".stockitemmovement_type = movementType 
-		AND public."stockitemmovement".stockitemmovement_dateTime = movementDatetime AND public."stockitemmovement".stockitemmovement_quantity = movementQuantity;
+		AND public."stockitemmovement".stockitemmovement_datetime = movementDatetime AND public."stockitemmovement".stockitemmovement_quantity = movementQuantity;
 END;
 $$ LANGUAGE plpgsql;
 

@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS public."stockitem" (
 	stockitem_segment real NOT NULL,
 	stockitem_variety character varying(35) NOT NULL,
 	stockitem_quantity smallint NOT NULL CHECK (stockitem_quantity >= 0),
-	stockitem_segmentUnit character varying(5) NOT NULL CHECK (stockitem_segmentUnit IN ('kg', 'dag', 'hg', 'g', 'dg', 'cg', 'mg', 'kl', 'hl', 'dal', 'l', 'dl', 'cl', 'ml', 'oz', 'lb', 'pt', 'fl oz', 'units')),
+	stockitem_segmentunit character varying(5) NOT NULL CHECK (stockitem_segmentunit IN ('kg', 'dag', 'hg', 'g', 'dg', 'cg', 'mg', 'kl', 'hl', 'dal', 'l', 'dl', 'cl', 'ml', 'oz', 'lb', 'pt', 'fl oz', 'units')),
 	stockitem_description text,
 	stockitem_conservationstorage character varying(128),
 	PRIMARY KEY (house_id, stockitem_sku),
@@ -119,10 +119,10 @@ CREATE TABLE IF NOT EXISTS public."stockitemmovement" (
 	stockitem_sku character varying(128) NOT NULL,
 	storage_id smallint NOT NULL CHECK (storage_id > 0),
 	stockitemmovement_type boolean NOT NULL,
-	stockitemmovement_dateTime timestamp NOT NULL,
+	stockitemmovement_datetime timestamp NOT NULL,
 	stockitemmovement_quantity smallint NOT NULL CHECK (stockitemmovement_quantity > 0),
-	stockitemmovement_finalQuantity smallint NOT NULL CHECK (stockitemmovement_finalQuantity >= 0),
-	PRIMARY KEY (house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_dateTime),
+	stockitemmovement_finalquantity smallint NOT NULL CHECK (stockitemmovement_finalquantity >= 0),
+	PRIMARY KEY (house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime),
 	FOREIGN KEY (house_id, stockitem_sku) REFERENCES public."stockitem" (house_id, stockitem_sku),
 	FOREIGN KEY (house_id, storage_id) REFERENCES public."storage" (house_id, storage_id)
 );
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS public."stockitemmovement" (
 CREATE TABLE IF NOT EXISTS public."houseallergy" (
 	house_id bigint NOT NULL CHECK (house_id > 0) REFERENCES public."house" (house_id),
 	allergy_allergen character varying(75) NOT NULL REFERENCES public."allergy" (allergy_allergen),
-	houseallergy_allergicsNum smallint NOT NULL CHECK (houseallergy_allergicsNum > 0),
+	houseallergy_allergicsnum smallint NOT NULL CHECK (houseallergy_allergicsnum > 0),
 	PRIMARY KEY (house_id, allergy_allergen)
 );
 
