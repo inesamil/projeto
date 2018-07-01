@@ -48,7 +48,7 @@ public class UserController {
         try {
             users = userService.getUsersStartsWithUsername(username);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<UsersOutputModel>(new UsersOutputModel(users), setSirenContentType(headers),
