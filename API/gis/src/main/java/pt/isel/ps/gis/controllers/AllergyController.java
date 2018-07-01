@@ -49,7 +49,7 @@ public class AllergyController {
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
@@ -68,7 +68,7 @@ public class AllergyController {
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemsAllergenOutputModel(houseId, allergen, stockItemsAllergen),
@@ -93,9 +93,9 @@ public class AllergyController {
             }
             allergies = houseAllergyService.associateHouseAllergies(houseId, houseAllergies, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
@@ -114,9 +114,9 @@ public class AllergyController {
             houseAllergyService.associateHouseAllergy(houseId, allergen, body.getAllergicsNum(), locale);
             allergies = houseAllergyService.getAllergiesByHouseId(houseId, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
@@ -135,7 +135,7 @@ public class AllergyController {
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
@@ -155,7 +155,7 @@ public class AllergyController {
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),

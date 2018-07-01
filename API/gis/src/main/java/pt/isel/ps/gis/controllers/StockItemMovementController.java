@@ -57,7 +57,7 @@ public class StockItemMovementController {
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new MovementsOutputModel(houseId, movements), setSirenContentType(headers),
@@ -95,7 +95,7 @@ public class StockItemMovementController {
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new MovementsOutputModel(houseId, movements), setSirenContentType(headers),

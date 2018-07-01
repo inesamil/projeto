@@ -47,7 +47,7 @@ public class StorageController {
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),
@@ -66,7 +66,7 @@ public class StorageController {
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StorageOutputModel(storage), setSirenContentType(headers), HttpStatus.OK);
@@ -90,7 +90,7 @@ public class StorageController {
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         StorageId storageId = storage.getId();
@@ -119,7 +119,7 @@ public class StorageController {
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StorageOutputModel(storage), setSirenContentType(headers),
@@ -139,7 +139,7 @@ public class StorageController {
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),

@@ -90,7 +90,7 @@ public class ListController {
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListProductsOutputModel(houseId, listId, listProducts),
@@ -115,7 +115,7 @@ public class ListController {
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityAlreadyExistsException e) {
-            throw new ConflictException(e.getMessage(), e.getMessage());
+            throw new ConflictException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new ListOutputModel(username, list), setSirenContentType(headers),
@@ -137,7 +137,7 @@ public class ListController {
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (InsufficientPrivilegesException e) {
-            throw new ForbiddenException(e.getMessage(), e.getMessage());
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         String username = authenticationFacade.getAuthentication().getName();
@@ -193,11 +193,11 @@ public class ListController {
                     ),
                     locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (InsufficientPrivilegesException e) {
-            throw new ForbiddenException(e.getMessage(), e.getMessage());
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserListsOutputModel(username, lists), setSirenContentType(headers),

@@ -64,9 +64,9 @@ public class UserController {
         try {
             user = userService.getUserByUserUsername(username, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), HttpStatus.OK);
@@ -81,9 +81,9 @@ public class UserController {
         try {
             userHouses = houseService.getHousesByUserUsername(username, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserHousesOutputModel(username, userHouses), setSirenContentType(headers),
@@ -114,9 +114,9 @@ public class UserController {
                 );
             lists = listService.getAvailableListsByUserUsername(username, filters, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders httpHeaders = new HttpHeaders();
         return new ResponseEntity<>(new UserListsOutputModel(username, lists), setSirenContentType(httpHeaders),
@@ -132,9 +132,9 @@ public class UserController {
         try {
             user = userService.addUser(body.getUsername(), body.getEmail(), body.getAge(), body.getName(), body.getPassword(), locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityAlreadyExistsException e) {
-            throw new ConflictException(e.getMessage(), e.getMessage());
+            throw new ConflictException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(new URI(UriBuilderUtils.buildUserUri(user.getUsersUsername())));
@@ -157,9 +157,9 @@ public class UserController {
                     locale
             );
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         ListId listId = list.getId();
@@ -184,11 +184,11 @@ public class UserController {
                     locale
             );
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityAlreadyExistsException e) {
-            throw new ConflictException(e.getMessage(), e.getMessage());
+            throw new ConflictException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), HttpStatus.OK);
@@ -202,9 +202,9 @@ public class UserController {
         try {
             userService.deleteUserByUserUsername(username, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new IndexOutputModel(), setJsonHomeContentType(headers), HttpStatus.OK);

@@ -34,9 +34,9 @@ public class InvitationController {
         try {
             invitations = invitationService.getReceivedInvitationsByUserUsername(username);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new InvitationsOutputModel(invitations), setSirenContentType(headers),
@@ -52,13 +52,13 @@ public class InvitationController {
         try {
             invitationService.sentInvitation(body.getUsername(), houseId, locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityAlreadyExistsException e) {
-            throw new ConflictException(e.getMessage(), e.getMessage());
+            throw new ConflictException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (InsufficientPrivilegesException e) {
-            throw new ForbiddenException(e.getMessage(), e.getMessage());
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -73,9 +73,9 @@ public class InvitationController {
         try {
             invitationService.updateInvitation(username, houseId, body.getAccept(), locale);
         } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
+            throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
+            throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         return new ResponseEntity(HttpStatus.OK);
     }
