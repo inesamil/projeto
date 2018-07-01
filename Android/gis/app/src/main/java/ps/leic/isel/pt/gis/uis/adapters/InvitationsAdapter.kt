@@ -12,7 +12,7 @@ import ps.leic.isel.pt.gis.model.dtos.InvitationDto
 class InvitationsAdapter(private val usernamePlaceholder: String, private val questionPlaceholder: String)
     : RecyclerView.Adapter<InvitationsAdapter.ViewHolder>() {
 
-    private var data: MutableList<InvitationDto>? = null
+    private var data: Array<InvitationDto>? = null
 
     private lateinit var mOnItemClickListener: OnItemClickListener
 
@@ -33,13 +33,11 @@ class InvitationsAdapter(private val usernamePlaceholder: String, private val qu
 
             // Set on accept invitation listener
             holder.acceptInvitation.setOnClickListener {
-                removeItem(position)
                 mOnItemClickListener.onAcceptInvitation(item)
             }
 
             // Set on decline invitation listener
             holder.declineInvitation.setOnClickListener {
-                removeItem(position)
                 mOnItemClickListener.onDeclineInvitation(item)
             }
         }
@@ -48,17 +46,9 @@ class InvitationsAdapter(private val usernamePlaceholder: String, private val qu
     // Total number of cells
     override fun getItemCount() = data?.size ?: 0
 
-    fun setData(data: MutableList<InvitationDto>) {
+    fun setData(data: Array<InvitationDto>) {
         this.data = data
         notifyDataSetChanged()
-    }
-
-    private fun removeItem(position: Int) {
-        data?.let {
-            it.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, it.size)
-        }
     }
 
     // Stores and recycles views as they are scrolled off screen

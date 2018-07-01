@@ -21,6 +21,7 @@ import ps.leic.isel.pt.gis.model.dtos.InvitationsDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.adapters.InvitationsAdapter
 import ps.leic.isel.pt.gis.utils.State
+import ps.leic.isel.pt.gis.utils.removeElement
 import ps.leic.isel.pt.gis.viewModel.InvitationsViewModel
 
 /**
@@ -35,7 +36,7 @@ import ps.leic.isel.pt.gis.viewModel.InvitationsViewModel
 class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
 
     private lateinit var url: String
-    private lateinit var invitations: InvitationsDto
+    private lateinit var invitations: Array<InvitationDto>
 
     private lateinit var invitationsViewModel: InvitationsViewModel
 
@@ -80,6 +81,16 @@ class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
         activity?.title = getString(R.string.invitations)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(URL_TAG, url)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        invitationsViewModel.cancel()
+    }
+
     /***
      * Private Methods
      ***/
@@ -101,8 +112,8 @@ class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
         invitations?.let {
             state = State.SUCCESS
 
-            this.invitations = it
-            adapter.setData(it.invitations.toMutableList())
+            this.invitations = it.invitations
+            adapter.setData(it.invitations)
 
             // Show progress bar or content
             showProgressBarOrContent()
@@ -131,18 +142,35 @@ class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
         invitationsRecyclerView.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
     }
 
+    private fun removeInvitation(invitation: InvitationDto) {
+        invitations = invitations.removeElement(invitation)
+        adapter.setData(invitations)
+    }
+
     /***
      * Listeners
      ***/
 
     // Listener for accept invitations
     override fun onAcceptInvitation(invitation: InvitationDto) {
-        //TODO: accept invitation
+        invitationsViewModel.acceptInvitation(invitation)?.observe(this, Observer {
+            when (it?.status) {
+                Status.SUCCESS -> removeInvitation(invitation)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+            }
+        })
     }
 
     // Listener for decline invitations
     override fun onDeclineInvitation(invitation: InvitationDto) {
-        // TODO: decline invitation
+        invitationsViewModel.declineInvitation(invitation)?.observe(this, Observer {
+            when (it?.status) {
+                Status.SUCCESS -> removeInvitation(invitation)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+            }
+        })
     }
 
     /**
