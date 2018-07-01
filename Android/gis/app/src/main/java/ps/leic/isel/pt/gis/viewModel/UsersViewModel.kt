@@ -10,18 +10,18 @@ import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Resource
 
-class BasicInformationViewModel(private val app: Application) : AndroidViewModel(app) {
+class UsersViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    private var users: LiveData<Resource<UserDto, ErrorDto>>? = null
+    private var user: LiveData<Resource<UserDto, ErrorDto>>? = null
 
     fun init(url: String) {
-        if (users?.value?.data != null) return
-        users = ServiceLocator.getRepository(app.applicationContext)
+        if (user?.value?.data != null) return
+        user = ServiceLocator.getRepository(app.applicationContext)
                 .get(UserDto::class.java, ErrorDto::class.java, url, TAG)
     }
 
     fun getUser(): LiveData<Resource<UserDto, ErrorDto>>? {
-        return users
+        return user
     }
 
 
@@ -37,10 +37,10 @@ class BasicInformationViewModel(private val app: Application) : AndroidViewModel
 
     fun cancel() {
         ServiceLocator.getRepository(app.applicationContext).cancelAllPendingRequests(TAG)
-        users = null
+        user = null
     }
 
     companion object {
-        private const val TAG = "BasicInformationViewModel"
+        private const val TAG = "UsersViewModel"
     }
 }

@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
@@ -17,12 +16,12 @@ import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.stores.CredentialsStore
-import ps.leic.isel.pt.gis.viewModel.BasicInformationViewModel
+import ps.leic.isel.pt.gis.viewModel.UsersViewModel
 
 class LoginActivity : AppCompatActivity() {
 
     private var url: String? = null
-    private var basicInformationViewModel: BasicInformationViewModel? = null
+    private var usersViewModel: UsersViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +53,9 @@ class LoginActivity : AppCompatActivity() {
         url = gisApplication.index.getUserUrl(username)
 
         url?.let {
-            basicInformationViewModel = ViewModelProviders.of(this).get(BasicInformationViewModel::class.java)
-            basicInformationViewModel?.init(it)
-            basicInformationViewModel?.getUser()?.observe(this, Observer {
+            usersViewModel = ViewModelProviders.of(this).get(UsersViewModel::class.java)
+            usersViewModel?.init(it)
+            usersViewModel?.getUser()?.observe(this, Observer {
                 when (it?.status) {
                     Status.SUCCESS -> onSuccess(it.data)
                     Status.UNSUCCESS -> onUnsuccess(it.apiError)

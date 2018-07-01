@@ -15,11 +15,11 @@ import ps.leic.isel.pt.gis.model.body.UserBody
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.stores.CredentialsStore
-import ps.leic.isel.pt.gis.viewModel.BasicInformationViewModel
+import ps.leic.isel.pt.gis.viewModel.UsersViewModel
 
 class RegisterActivity : AppCompatActivity() {
     
-    private var basicInformationViewModel: BasicInformationViewModel? = null
+    private var usersViewModel: UsersViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +45,8 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        basicInformationViewModel = ViewModelProviders.of(this).get(BasicInformationViewModel::class.java)
-        basicInformationViewModel?.addUser(UserBody(username, name, email, age, password))?.observe(this, Observer {
+        usersViewModel = ViewModelProviders.of(this).get(UsersViewModel::class.java)
+        usersViewModel?.addUser(UserBody(username, name, email, age, password))?.observe(this, Observer {
             when {
                 it?.status == Status.SUCCESS -> onSuccess(it.data!!, password)
                 it?.status == Status.ERROR -> onError(it.message!!)

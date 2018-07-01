@@ -19,9 +19,8 @@ import ps.leic.isel.pt.gis.model.UserDTO
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.utils.State
-import ps.leic.isel.pt.gis.viewModel.BasicInformationViewModel
+import ps.leic.isel.pt.gis.viewModel.UsersViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -35,7 +34,7 @@ import ps.leic.isel.pt.gis.viewModel.BasicInformationViewModel
 class BasicInformationFragment : Fragment() {
 
     private var listener: OnBasicInformationFragmentInteractionListener? = null
-    private lateinit var basicInfoVM: BasicInformationViewModel
+    private lateinit var basicInfoVM: UsersViewModel
     private lateinit var url: String
 
     private var state: State = State.LOADING
@@ -56,7 +55,7 @@ class BasicInformationFragment : Fragment() {
         arguments?.let {
             url = it.getString(URL_TAG)
         }
-        basicInfoVM = ViewModelProviders.of(this).get(BasicInformationViewModel::class.java)
+        basicInfoVM = ViewModelProviders.of(this).get(UsersViewModel::class.java)
         basicInfoVM.init(url)
         basicInfoVM.getUser()?.observe(this, Observer {
             when (it?.status) {
