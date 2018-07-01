@@ -48,7 +48,7 @@ public class BasicAuthenticationPoint extends BasicAuthenticationEntryPoint {
                 messageSource.getMessage("need_Authenticate_First", null, locale));
         String body = new ObjectMapper().writeValueAsString(problemDetails);
         PrintWriter writer = response.getWriter();
-        writer.println(body);
+        writer.print(body);
         writer.flush();
     }
 }
