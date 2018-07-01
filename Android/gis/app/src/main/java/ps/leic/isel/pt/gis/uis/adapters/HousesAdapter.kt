@@ -1,17 +1,19 @@
 package ps.leic.isel.pt.gis.uis.adapters
 
 import android.content.Context
+import android.opengl.Visibility
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 
-class HousesAdapter(private val usernamePlaceholder: String) : RecyclerView.Adapter<HousesAdapter.ViewHolder>() {
+class HousesAdapter(private val username: String, private val usernamePlaceholder: String) : RecyclerView.Adapter<HousesAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
     private var data: Array<HouseDto>? = null
@@ -35,6 +37,13 @@ class HousesAdapter(private val usernamePlaceholder: String) : RecyclerView.Adap
             holder.seniorsNumber.text = item.characteristics?.seniorsNumber.toString()
             //Pass data to the Adapter
             holder.membersAdapter.setData(item.members)
+            // Show add member button if logged in user is admin
+            if (item.members?.find { member -> member.username == username && member.administrator == true } != null) {
+                holder.addMemberButton.visibility = View.VISIBLE
+                holder.addMemberButton.setOnClickListener { mOnItemClickListener.onInvitationClick(item) }
+            } else {
+                holder.addMemberButton.visibility = View.GONE
+            }
         }
     }
 
@@ -56,6 +65,7 @@ class HousesAdapter(private val usernamePlaceholder: String) : RecyclerView.Adap
         internal val storages: Button = itemView.findViewById(R.id.storageBtn)
         internal val allergies: Button = itemView.findViewById(R.id.allergiesBtn)
         internal val membersAdapter: MembersAdapter
+        internal val addMemberButton: ImageButton = itemView.findViewById(R.id.addMemberButton)
 
         init {
             val context: Context = itemView.context
@@ -83,5 +93,6 @@ class HousesAdapter(private val usernamePlaceholder: String) : RecyclerView.Adap
     interface OnItemClickListener {
         fun onStoragesClick(view: View, position: Int)
         fun onAllergiesClick(view: View, position: Int)
+        fun onInvitationClick(house: HouseDto)
     }
 }

@@ -16,6 +16,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_houses.view.*
 import ps.leic.isel.pt.gis.R
+import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.House
 import ps.leic.isel.pt.gis.model.body.HouseBody
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
@@ -29,6 +30,7 @@ import ps.leic.isel.pt.gis.utils.addElement
 import ps.leic.isel.pt.gis.utils.removeFragment
 import ps.leic.isel.pt.gis.utils.removeFragmentByTag
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
+import ps.leic.isel.pt.gis.viewModel.InvitationsViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -41,8 +43,9 @@ import ps.leic.isel.pt.gis.viewModel.HousesViewModel
  */
 class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
 
-    private lateinit var housesViewModel: HousesViewModel
     private lateinit var url: String
+    private lateinit var housesViewModel: HousesViewModel
+    private var invitationsViewModel: InvitationsViewModel? = null
 
     private var houses: Array<HouseDto>? = null
     private lateinit var adapter: HousesAdapter
@@ -66,7 +69,10 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         arguments?.let {
             url = it.getString(URL_TAG)
         }
-        adapter = HousesAdapter(getString(R.string.at_username))
+
+        val username = context?.let { ServiceLocator.getCredentialsStore(it).getUsername() } ?: ""
+
+        adapter = HousesAdapter(username, getString(R.string.at_username))
         housesViewModel = ViewModelProviders.of(activity!!).get(HousesViewModel::class.java)
         housesViewModel.init(url)
         getHouses()
@@ -145,6 +151,17 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         })
     }
 
+    fun onInvitationSend(house: HouseDto, username: String) {
+        invitationsViewModel = ViewModelProviders.of(this).get(InvitationsViewModel::class.java)
+        invitationsViewModel?.sendInvitation(house, username)?.observe(this, Observer {
+            when (it?.status) {
+                Status.SUCCESS -> Toast.makeText(context, getString(R.string.invitation_sent_successfully), Toast.LENGTH_SHORT).show()
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+            }
+        })
+    }
+
     /***
      * Auxiliary Methods
      ***/
@@ -212,6 +229,10 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         }
     }
 
+    override fun onInvitationClick(house: HouseDto) {
+        listener?.onInvitationsSearchInteraction(house)
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -222,6 +243,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         fun onStoragesInteraction(storagesUrl: String)
         fun onAllergiesInteraction(allergiesUrl: String)
         fun onNewHouseInteraction()
+        fun onInvitationsSearchInteraction(house: HouseDto)
     }
 
     /**
