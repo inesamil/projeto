@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.InvitationService;
 import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.Invitation;
+import pt.isel.ps.gis.model.inputModel.InvitationInputModel;
 import pt.isel.ps.gis.model.outputModel.InvitationsOutputModel;
 
 import java.util.List;
@@ -49,11 +50,11 @@ public class InvitationController {
     @PostMapping("/houses/{house-id}")
     public ResponseEntity postInvitation(
             @PathVariable("house-id") long houseId,
-            @RequestBody String username,
+            @RequestBody InvitationInputModel body,
             Locale locale
     ) throws BadRequestException, NotFoundException, ConflictException, ForbiddenException {
         try {
-            invitationService.sentInvitation(username, houseId, locale);
+            invitationService.sentInvitation(body.getUsername(), houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -70,7 +71,7 @@ public class InvitationController {
     public ResponseEntity putInvitation(
             @PathVariable("house-id") Long houseId,
             @PathVariable("username") String username,
-            @RequestBody Boolean accept,
+            @RequestBody Boolean accept, // TODO criar um input model para receber o accept
             Locale locale
     ) throws BadRequestException, NotFoundException {
         if (accept == null)
