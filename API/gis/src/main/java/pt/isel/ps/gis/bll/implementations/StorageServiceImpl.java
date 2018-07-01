@@ -39,7 +39,7 @@ public class StorageServiceImpl implements StorageService {
     public Storage getStorageByStorageId(long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException {
         return storageRepository
                 .findById(new StorageId(houseId, storageId))
-                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("storage_In_House_Not_Exist", null, locale)));
+                .orElseThrow(() -> new EntityNotFoundException("Storage does not exist in this house.", messageSource.getMessage("storage_In_House_Not_Exist", null, locale)));
     }
 
     @Transactional
@@ -72,12 +72,12 @@ public class StorageServiceImpl implements StorageService {
     public void deleteStorageByStorageId(long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException {
         StorageId id = new StorageId(houseId, storageId);
         if (!storageRepository.existsById(id))
-            throw new EntityNotFoundException(messageSource.getMessage("storage_Id_Not_Exist", new Object[]{ storageId, houseId}, locale));
+            throw new EntityNotFoundException(String.format("Storage with ID %d does not exist in the house with ID %d.", storageId, houseId), messageSource.getMessage("storage_Id_Not_Exist", new Object[]{ storageId, houseId}, locale));
         storageRepository.deleteCascadeStorageById(id);
     }
 
     private void checkHouse(long houseId, Locale locale) throws EntityNotFoundException {
         if (!houseRepository.existsById(houseId))
-            throw new EntityNotFoundException(messageSource.getMessage("house_Not_Exist", null, locale));
+            throw new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale));
     }
 }

@@ -49,12 +49,12 @@ public class InvitationServiceImpl implements InvitationService {
         ValidationsUtils.validateUserUsername(username);
         boolean existsInvitation = invitationRepository.existsAllById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username);
         if (existsInvitation)
-            throw new EntityAlreadyExistsException(messageSource.getMessage("invitation_already_sent", null, locale));
+            throw new EntityAlreadyExistsException("The invitation had already been sent.", messageSource.getMessage("invitation_already_sent", null, locale));
         UserHouse member = userHouseRepository
                 .findById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username)
-                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("member_Not_Exist", null, locale)));
+                .orElseThrow(() -> new EntityNotFoundException("Member does not exist.", messageSource.getMessage("member_Not_Exist", null, locale)));
         if (!member.getUserhouseAdministrator())
-            throw new InsufficientPrivilegesException("You are not administrator of the house");
+            throw new InsufficientPrivilegesException("You are not administrator of the house", messageSource.getMessage("not_Administrator_Of_House", null, locale));
         Long userId = member.getId().getUsersId();
         return invitationRepository.save(new Invitation(userId, houseId));
     }
@@ -74,7 +74,7 @@ public class InvitationServiceImpl implements InvitationService {
         ValidationsUtils.validateUserUsername(username);
         Invitation invitation = invitationRepository
                 .findById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username)
-                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("invitation_not_found", null, locale)));
+                .orElseThrow(() -> new EntityNotFoundException("The invitation does not found.", messageSource.getMessage("invitation_not_found", null, locale)));
         InvitationId id = invitation.getId();
         userHouseRepository.save(new UserHouse(houseId, id.getUsersId(), false));
         invitationRepository.deleteById(id);
@@ -85,7 +85,7 @@ public class InvitationServiceImpl implements InvitationService {
         ValidationsUtils.validateUserUsername(username);
         boolean existsInvitation = invitationRepository.existsAllById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username);
         if (!existsInvitation)
-            throw new EntityNotFoundException(messageSource.getMessage("invitation_not_found", null, locale));
+            throw new EntityNotFoundException("The invitation does not found.", messageSource.getMessage("invitation_not_found", null, locale));
         invitationRepository.deleteById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username);
     }
 }

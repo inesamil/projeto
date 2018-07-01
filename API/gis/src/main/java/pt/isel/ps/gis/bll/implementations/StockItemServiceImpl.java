@@ -39,7 +39,7 @@ public class StockItemServiceImpl implements StockItemService {
     public StockItem getStockItemByStockItemId(long houseId, String stockItemSku, Locale locale) throws EntityException, EntityNotFoundException {
         StockItem stockItem = stockItemRepository
                 .findById(new StockItemId(houseId, stockItemSku))
-                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("stock_Item_In_House_Not_Exist", null, locale)));
+                .orElseThrow(() -> new EntityNotFoundException("Stock item does not exist in this house.", messageSource.getMessage("stock_Item_In_House_Not_Exist", null, locale)));
         stockItem.getStockitemallergies().size();
         stockItem.getExpirationdates().size();
         stockItem.getStockitemstorages().size();
@@ -69,7 +69,7 @@ public class StockItemServiceImpl implements StockItemService {
     public void deleteStockItem(long houseId, String stockItemSku, Locale locale) throws EntityException, EntityNotFoundException {
         StockItemId id = new StockItemId(houseId, stockItemSku);
         if (!stockItemRepository.existsById(id))
-            throw new EntityNotFoundException(messageSource.getMessage("stock_Item_Id_Not_Exist", new Object[]{stockItemSku, houseId}, locale));
+            throw new EntityNotFoundException(String.format("Stock item with ID %s does not exist in the house with ID %d .", stockItemSku, houseId), messageSource.getMessage("stock_Item_Id_Not_Exist", new Object[]{stockItemSku, houseId}, locale));
         // Remover item de stock bem como todas as relações das quais a casa seja parte integrante
         stockItemRepository.deleteStockItemById(id);
     }
@@ -80,7 +80,7 @@ public class StockItemServiceImpl implements StockItemService {
         StockItemId id = new StockItemId(houseId, stockItemSku);
         ValidationsUtils.validateStockItemQuantity(decreasingQuantity);
         if (!stockItemRepository.existsById(id))
-            throw new EntityNotFoundException(messageSource.getMessage("stock_Item_Id_Not_Exist", new Object[]{stockItemSku, houseId}, locale));
+            throw new EntityNotFoundException(String.format("Stock item with ID %s does not exist in the house with ID %d .", stockItemSku, houseId), messageSource.getMessage("stock_Item_Id_Not_Exist", new Object[]{stockItemSku, houseId}, locale));
         stockItemRepository.decrementStockitemQuantity(id, decreasingQuantity);
     }
 
@@ -90,12 +90,12 @@ public class StockItemServiceImpl implements StockItemService {
         StockItemId id = new StockItemId(houseId, stockItemSku);
         ValidationsUtils.validateStockItemQuantity(increasingQuantity);
         if (!stockItemRepository.existsById(id))
-            throw new EntityNotFoundException(messageSource.getMessage("stock_Item_Id_Not_Exist", new Object[]{stockItemSku, houseId}, locale));
+            throw new EntityNotFoundException(String.format("Stock item with ID %s does not exist in the house with ID %d .", stockItemSku, houseId), messageSource.getMessage("stock_Item_Id_Not_Exist", new Object[]{stockItemSku, houseId}, locale));
         stockItemRepository.incrementStockitemQuantity(id, increasingQuantity);
     }
 
     private void checkHouse(long houseId, Locale locale) throws EntityNotFoundException {
         if (!houseRepository.existsById(houseId))
-            throw new EntityNotFoundException(messageSource.getMessage("house_Not_Exist", null, locale));
+            throw new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale));
     }
 }

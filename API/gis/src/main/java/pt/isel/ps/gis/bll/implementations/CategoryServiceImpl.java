@@ -48,6 +48,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getCategoryByCategoryId(int categoryId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateCategoryId(categoryId);
-        return categoryRepository.findById(categoryId).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("category_Not_Exist", null, locale)));
+        return categoryRepository.findById(categoryId).orElseThrow(() -> new EntityNotFoundException("Category does not exist.", messageSource.getMessage("category_Not_Exist", null, locale)));
     }
 }

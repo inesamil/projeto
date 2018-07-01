@@ -74,7 +74,7 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
         // Total Membros na casa
         short totalMembers = getTotalHouseMembers(houseId, locale);
         if (allergicsNum > totalMembers)
-            throw new EntityException(messageSource.getMessage("more_Allergics_Than_Members", new Object[]{houseId}, locale));
+            throw new EntityException(String.format("Cannot add allergy in the house wih ID %d, there are more allergics than members in the house.", houseId), messageSource.getMessage("more_Allergics_Than_Members", new Object[]{houseId}, locale));
         Optional<HouseAllergy> optionalHouseAllergy = houseAllergyRepository.findById(new HouseAllergyId(houseId, allergen));
         HouseAllergy houseAllergy;
         if (optionalHouseAllergy.isPresent()) {
@@ -106,21 +106,21 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
     private void checkHouse(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
         if (!houseRepository.existsById(houseId))
-            throw new EntityNotFoundException(messageSource.getMessage("house_Not_Exist", null, locale));
+            throw new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale));
     }
 
     private void checkAllergy(String allergy, Locale locale) throws EntityNotFoundException {
         if (!allergyRepository.existsById(allergy))
-            throw new EntityNotFoundException(messageSource.getMessage("allergy_Not_Exist", null, locale));
+            throw new EntityNotFoundException("Allergy does not exist.", messageSource.getMessage("allergy_Not_Exist", null, locale));
     }
 
     private void checkAllergen(long houseId, String allergen, Locale locale) throws EntityException, EntityNotFoundException {
         if (!existsHouseAllergyByHouseAllergyId(houseId, allergen))
-            throw new EntityNotFoundException(messageSource.getMessage("allergen_Not_Exist", null, locale));
+            throw new EntityNotFoundException("Allergen does not exist.", messageSource.getMessage("allergen_Not_Exist", null, locale));
     }
 
     private short getTotalHouseMembers(long houseId, Locale locale) throws EntityNotFoundException {
-        House house = houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("house_Not_Exist", null, locale)));
+        House house = houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale)));
         Characteristics characteristics = house.getHouseCharacteristics();
         return (short) (characteristics.getHouse_babiesNumber() + characteristics.getHouse_childrenNumber()
                 + characteristics.getHouse_adultsNumber() + characteristics.getHouse_seniorsNumber());

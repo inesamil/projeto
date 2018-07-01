@@ -45,7 +45,7 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public House getHouseByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
-        return houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("house_Not_Exist", null, locale)));
+        return houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale)));
     }
 
     @Transactional
@@ -53,7 +53,7 @@ public class HouseServiceImpl implements HouseService {
     public List<House> getHousesByUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateUserUsername(username);
         if (!usersRepository.existsByUsersUsername(username))
-            throw new EntityNotFoundException(messageSource.getMessage("user_Username_Not_Exist", new String[]{username}, locale));
+            throw new EntityNotFoundException(String.format("Username %s does not exist.", username), messageSource.getMessage("user_Username_Not_Exist", new String[]{username}, locale));
         return houseRepository.findAllByUsersUsername(username);
     }
 
@@ -68,7 +68,7 @@ public class HouseServiceImpl implements HouseService {
                 seniorsNumber
         );
         House house = new House(name, characteristics);
-        Users user = usersRepository.findByUsersUsername(username).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("user_Not_Exist", null, locale)));
+        Users user = usersRepository.findByUsersUsername(username).orElseThrow(() -> new EntityNotFoundException("User does not exist.", messageSource.getMessage("user_Not_Exist", null, locale)));
         house = houseRepository.save(house);
         UserHouse userHouse = userHouseRepository.save(new UserHouse(house.getHouseId(), user.getUsersId(), true));
         userHouse.setUsersByUsersId(user);
@@ -99,7 +99,7 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public void deleteHouseByHouseId(long houseId, Locale locale) throws EntityNotFoundException, EntityException {
         if (!existsHouseByHouseId(houseId))
-            throw new EntityNotFoundException(messageSource.getMessage("house_Id_Not_Exist", new Object[]{houseId}, locale));
+            throw new EntityNotFoundException(String.format("House Id %d does not exist.", houseId), messageSource.getMessage("house_Id_Not_Exist", new Object[]{houseId}, locale));
         // Remover a casa bem como todas as relações das quais a casa seja parte integrante
         houseRepository.deleteCascadeHouseById(houseId);
     }

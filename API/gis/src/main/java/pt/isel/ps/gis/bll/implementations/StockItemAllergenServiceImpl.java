@@ -56,11 +56,11 @@ public class StockItemAllergenServiceImpl implements StockItemAllergenService {
 
     private void checkAllergen(HouseAllergyId houseAllergyId, Locale locale) throws EntityNotFoundException {
         if (!houseAllergyRepository.existsById(houseAllergyId))
-            throw new EntityNotFoundException(messageSource.getMessage("allergen_Not_Exist", null, locale));
+            throw new EntityNotFoundException("Allergen does not exist.", messageSource.getMessage("allergen_Not_Exist", null, locale));
     }
 
     private void checkStockItem(StockItemId id, Locale locale) throws EntityNotFoundException {
         if (!stockItemRepository.existsById(id))
-            throw new EntityNotFoundException(messageSource.getMessage("stock_Item_Not_Exist", null, locale));
+            throw new EntityNotFoundException("Stock Item does not exist.", messageSource.getMessage("stock_Item_Not_Exist", null, locale));
     }
 }

@@ -45,7 +45,7 @@ public class HouseMemberServiceImpl implements HouseMemberService {
         ValidationsUtils.validateUserUsername(username);
         return userHouseRepository
                 .findById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username)
-                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("member_Not_Exist", null, locale)));
+                .orElseThrow(() -> new EntityNotFoundException("Member does not exist.", messageSource.getMessage("member_Not_Exist", null, locale)));
     }
 
     @Transactional
@@ -60,7 +60,7 @@ public class HouseMemberServiceImpl implements HouseMemberService {
     @Override
     public UserHouse associateMember(long houseId, String username, Boolean administrator, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateUserUsername(username);
-        Users user = usersRepository.findByUsersUsername(username).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("user_Not_Exist", null, locale)));
+        Users user = usersRepository.findByUsersUsername(username).orElseThrow(() -> new EntityNotFoundException("User does not exist.", messageSource.getMessage("user_Not_Exist", null, locale)));
         UserHouse member = new UserHouse(houseId, user.getUsersId(), administrator);
         checkHouse(houseId, locale);
         userHouseRepository.save(member);
@@ -76,6 +76,6 @@ public class HouseMemberServiceImpl implements HouseMemberService {
 
     private void checkHouse(long houseId, Locale locale) throws EntityNotFoundException {
         if (!houseRepository.existsById(houseId))
-            throw new EntityNotFoundException(messageSource.getMessage("house_Not_Exist", null, locale));
+            throw new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale));
     }
 }

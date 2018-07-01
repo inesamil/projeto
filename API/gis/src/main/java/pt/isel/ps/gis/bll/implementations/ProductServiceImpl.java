@@ -1,5 +1,6 @@
 package pt.isel.ps.gis.bll.implementations;
 
+import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
         ValidationsUtils.validateProductId(productId);
         return productRepository
                 .findByCategoryIdAndProductId(categoryId, productId)
-                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("product_Id_In_Category_Not_Exist", new Object[]{productId, categoryId}, locale)));
+                .orElseThrow(() -> new EntityNotFoundException(String.format("The product with ID %d does not exist in category with ID %d.", productId, categoryId), messageSource.getMessage("product_Id_In_Category_Not_Exist", new Object[]{productId, categoryId}, locale)));
     }
 
     @Transactional
@@ -66,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     private void checkCategoryId(int categoryId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateCategoryId(categoryId);
         if (!categoryRepository.existsById(categoryId)) {
-            throw new EntityNotFoundException(messageSource.getMessage("category_Id_Not_Exist", new Object[]{categoryId}, locale));
+            throw new EntityNotFoundException(String.format("The category with ID %d does not exist.", categoryId), messageSource.getMessage("category_Id_Not_Exist", new Object[]{categoryId}, locale));
         }
     }
 }

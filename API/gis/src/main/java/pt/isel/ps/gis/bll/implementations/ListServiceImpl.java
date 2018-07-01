@@ -64,7 +64,7 @@ public class ListServiceImpl implements ListService {
     public List getListByListId(long houseId, short listId, Locale locale) throws EntityException, EntityNotFoundException {
         List list = listRepository
                 .findById(new ListId(houseId, listId))
-                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("list_Id_Not_Exist", new Object[]{listId, houseId}, locale)));
+                .orElseThrow(() -> new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.", listId, houseId), messageSource.getMessage("list_Id_Not_Exist", new Object[]{listId, houseId}, locale)));
         list.getListproducts().size();
         list.getHouseByHouseId().getHouseName();
         return list;
@@ -97,10 +97,10 @@ public class ListServiceImpl implements ListService {
         // Verify list existence
         List list = listRepository
                 .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("list_Id_Not_Exist", new Object[]{id.getListId(), id.getHouseId()}, locale)));
+                .orElseThrow(() -> new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.", listId, houseId), messageSource.getMessage("list_Id_Not_Exist", new Object[]{id.getListId(), id.getHouseId()}, locale)));
         // Verify list type - system lists cannot be updated
         if (isSystemListType(list))
-            throw new InsufficientPrivilegesException(messageSource.getMessage("not_Permission_Update_List", null, locale));
+            throw new InsufficientPrivilegesException("You don't have permissions to update this list.", messageSource.getMessage("not_Permission_Update_List", null, locale));
         UserList userList = new UserList(houseId, listId, listName, list.getUserlist().getUsersId(), listShareable);
         // Update list
         userListRepository.save(userList);
@@ -126,7 +126,7 @@ public class ListServiceImpl implements ListService {
         UserListId userListId = new UserListId(houseId, listId);
         Optional<UserList> userList = userListRepository.findById(userListId);
         if (userList.isPresent() && !userList.get().getUsersByUsersId().getUsersUsername().equals(username)) {
-            throw new InsufficientPrivilegesException(messageSource.getMessage("not_Permission_Delete_List", null, locale));
+            throw new InsufficientPrivilegesException("You don't have permissions to delete this list.", messageSource.getMessage("not_Permission_Delete_List", null, locale));
         }
         userListRepository.deleteCascadeUserListById(userListId);
     }
@@ -134,17 +134,17 @@ public class ListServiceImpl implements ListService {
     private void checkHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
         if (!houseRepository.existsById(houseId))
-            throw new EntityNotFoundException(messageSource.getMessage("house_Id_Not_Exist", new Object[]{houseId}, locale));
+            throw new EntityNotFoundException(String.format("House Id %d does not exist.", houseId), messageSource.getMessage("house_Id_Not_Exist", new Object[]{houseId}, locale));
     }
 
     private void checkUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateUserUsername(username);
         if (!usersRepository.existsByUsersUsername(username))
-            throw new EntityNotFoundException(messageSource.getMessage("user_Username_Not_Exist", new Object[]{username}, locale));
+            throw new EntityNotFoundException(String.format("Username %s does not exist.", username), messageSource.getMessage("user_Username_Not_Exist", new Object[]{username}, locale));
     }
 
     private void checkListId(ListId id, Locale locale) throws EntityNotFoundException {
         if (!listRepository.existsById(id))
-            throw new EntityNotFoundException(messageSource.getMessage("list_Id_Not_Exist", new Object[]{id.getListId(), id.getHouseId()}, locale));
+            throw new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.", id.getListId(), id.getHouseId()), messageSource.getMessage("list_Id_Not_Exist", new Object[]{id.getListId(), id.getHouseId()}, locale));
     }
 }

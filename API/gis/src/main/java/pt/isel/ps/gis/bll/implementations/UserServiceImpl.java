@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         ValidationsUtils.validateUserId(userId);
         return usersRepository
                 .findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("user_Id_Not_Exist", new Object[]{userId}, locale)));
+                .orElseThrow(() -> new EntityNotFoundException(String.format("User with ID %d does not exist.", userId), messageSource.getMessage("user_Id_Not_Exist", new Object[]{userId}, locale)));
     }
 
     @Override
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         ValidationsUtils.validateUserUsername(username);
         return usersRepository
                 .findByUsersUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("user_Username_Not_Exist", new Object[]{username}, locale)));
+                .orElseThrow(() -> new EntityNotFoundException(String.format("User with username %s does not exist.", username), messageSource.getMessage("user_Username_Not_Exist", new Object[]{username}, locale)));
     }
 
     @Override
@@ -79,10 +79,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public Users addUser(String username, String email, Short age, String name, String password, Locale locale) throws EntityException, EntityAlreadyExistsException {
         if (existsUserByUserUsername(username))
-            throw new EntityAlreadyExistsException(messageSource.getMessage("username_Already_Exist", new Object[]{username}, locale));
+            throw new EntityAlreadyExistsException(String.format("Username %s is already in use.", username), messageSource.getMessage("username_Already_Exist", new Object[]{username}, locale));
         ValidationsUtils.validateUserEmail(email);
         if (!usersRepository.existsByUsersEmail(email))
-            throw new EntityAlreadyExistsException(messageSource.getMessage("email_Aready_Exist", new Object[]{email}, locale));
+            throw new EntityAlreadyExistsException(String.format("Already exists a user with email: %s", email), messageSource.getMessage("email_Aready_Exist", new Object[]{email}, locale));
         Users users = new Users(username, email, age, name, passwordEncoder.encode(password));
         users = usersRepository.save(users);
         Role userRole = roleRepository.findByRoleName(ROLE_USER).orElseThrow(() -> new IllegalStateException(messageSource.getMessage("Role_User_Not_Found", null, locale)));
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Users user = getUserByUserUsername(username, locale);
         ValidationsUtils.validateUserEmail(email);
         if (!user.getUsersEmail().equals(email) && !usersRepository.existsByUsersEmail(email))
-            throw new EntityAlreadyExistsException(messageSource.getMessage("email_Aready_Exist", new Object[]{email}, locale));
+            throw new EntityAlreadyExistsException(String.format("Already exists a user with email: %s", email), messageSource.getMessage("email_Aready_Exist", new Object[]{email}, locale));
         user.setUsersEmail(email);
         user.setUsersAge(age);
         user.setUsersName(name);
@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private void checkUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateUserUsername(username);
         if (!usersRepository.existsByUsersUsername(username))
-            throw new EntityNotFoundException(messageSource.getMessage("user_Username_Not_Exist", new Object[]{username}, locale));
+            throw new EntityNotFoundException(String.format("Username %s is already in use.", username), messageSource.getMessage("user_Username_Not_Exist", new Object[]{username}, locale));
 
     }
 

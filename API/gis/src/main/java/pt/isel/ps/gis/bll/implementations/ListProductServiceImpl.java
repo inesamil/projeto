@@ -43,7 +43,7 @@ public class ListProductServiceImpl implements ListProductService {
     public ListProduct getListProductByListProductId(long houseId, short listId, int productId, Locale locale) throws EntityException {
         return listProductRepository
                 .findById(new ListProductId(houseId, listId, productId))
-                .orElseThrow(() -> new EntityException(messageSource.getMessage("product_Id_Not_Exist", new Object[]{productId, listId, houseId}, locale)));
+                .orElseThrow(() -> new EntityException(String.format("Product with ID %d does not exist in the list with ID %d in the house with ID %d.", productId, listId, houseId), messageSource.getMessage("product_Id_Not_Exist", new Object[]{productId, listId, houseId}, locale)));
     }
 
     @Transactional
@@ -57,7 +57,7 @@ public class ListProductServiceImpl implements ListProductService {
     @Override
     public ListProduct addListProduct(long houseId, short listId, Integer productId, String brand, Short quantity, Locale locale) throws EntityException, EntityAlreadyExistsException {
         if (listProductRepository.existsById(new ListProductId(houseId, listId, productId)))
-            throw new EntityAlreadyExistsException(messageSource.getMessage("product_Already_Exist", null, locale));
+            throw new EntityAlreadyExistsException("The product already exist.", messageSource.getMessage("product_Already_Exist", null, locale));
         ListProduct listProduct = new ListProduct(houseId, listId, productId, brand, quantity);
         return listProductRepository.save(listProduct);
     }
@@ -81,17 +81,17 @@ public class ListProductServiceImpl implements ListProductService {
 
     private void checkListProductId(ListProductId listProductId, Locale locale) throws EntityNotFoundException {
         if (!listProductRepository.existsById(listProductId))
-            throw new EntityNotFoundException(messageSource.getMessage("product_Id_Not_Exist", new Object[]{listProductId.getProductId(), listProductId.getListId(), listProductId.getHouseId()}, locale));
+            throw new EntityNotFoundException(String.format("Product Id % d does not exist.", listProductId), messageSource.getMessage("product_Id_Not_Exist", new Object[]{listProductId.getProductId(), listProductId.getListId(), listProductId.getHouseId()}, locale));
     }
 
     private void checkProductId(int productId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateProductId(productId);
         if (!productRepository.existsById(productId))
-            throw new EntityNotFoundException(messageSource.getMessage("product_Not_Exist", null, locale));
+            throw new EntityNotFoundException("Product does not exist.", messageSource.getMessage("product_Not_Exist", null, locale));
     }
 
     private void checkListId(ListId listId, Locale locale) throws EntityNotFoundException {
         if (!listRepository.existsById(listId))
-            throw new EntityNotFoundException(messageSource.getMessage("list_Not_Exist", null, locale));
+            throw new EntityNotFoundException("List does not exist.", messageSource.getMessage("list_Not_Exist", null, locale));
     }
 }
