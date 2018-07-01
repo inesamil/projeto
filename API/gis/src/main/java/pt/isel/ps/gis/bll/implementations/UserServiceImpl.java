@@ -69,6 +69,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("user_Username_Not_Exist", new Object[]{username}, locale)));
     }
 
+    @Override
+    public List<Users> getUsersStartsWithUsername(String username, Locale locale) throws EntityException {
+        ValidationsUtils.validateUserUsername(username);
+        return usersRepository.findAllByUsersUsernameIsStartingWith(username);
+    }
+
     @Transactional
     @Override
     public Users addUser(String username, String email, Short age, String name, String password, Locale locale) throws EntityException, EntityAlreadyExistsException {

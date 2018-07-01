@@ -5,6 +5,7 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.model.Users;
 
+import java.util.List;
 import java.util.Locale;
 
 public interface UserService {
@@ -29,7 +30,7 @@ public interface UserService {
     Users getUserByUserId(Long userId, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
-     * Obter um utilizador através do ser nome de utilizador
+     * Obter um utilizador através do seu nome de utilizador
      *
      * @param username identificador do utilizador
      * @return User
@@ -37,6 +38,14 @@ public interface UserService {
      * @throws EntityNotFoundException se o utilizador com o ID especificado não existir
      */
     Users getUserByUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException;
+
+    /**
+     * Obter os utilizadores cujo nome de utilizador começe por username
+     *
+     * @param username identificador do utilizador
+     * @return List<Users>
+     */
+    List<Users> getUsersStartsWithUsername(String username, Locale locale) throws EntityException;
 
     /**
      * Adicionar um utilizador
