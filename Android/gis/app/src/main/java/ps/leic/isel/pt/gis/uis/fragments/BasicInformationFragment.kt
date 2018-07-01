@@ -13,14 +13,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_basic_information.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.UserDTO
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.utils.State
-import ps.leic.isel.pt.gis.viewModel.UsersViewModel
+import ps.leic.isel.pt.gis.viewModel.UserViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -34,7 +33,7 @@ import ps.leic.isel.pt.gis.viewModel.UsersViewModel
 class BasicInformationFragment : Fragment() {
 
     private var listener: OnBasicInformationFragmentInteractionListener? = null
-    private lateinit var basicInfoVM: UsersViewModel
+    private lateinit var basicInfoVM: UserViewModel
     private lateinit var url: String
 
     private var state: State = State.LOADING
@@ -55,7 +54,7 @@ class BasicInformationFragment : Fragment() {
         arguments?.let {
             url = it.getString(URL_TAG)
         }
-        basicInfoVM = ViewModelProviders.of(this).get(UsersViewModel::class.java)
+        basicInfoVM = ViewModelProviders.of(this).get(UserViewModel::class.java)
         basicInfoVM.init(url)
         basicInfoVM.getUser()?.observe(this, Observer {
             when (it?.status) {

@@ -12,32 +12,31 @@ import ps.leic.isel.pt.gis.repositories.Resource
 
 class UsersViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    private var user: LiveData<Resource<UserDto, ErrorDto>>? = null
+    private var users: LiveData<Resource<UsersDto, ErrorDto>>? = null
 
     fun init(url: String) {
-        if (user?.value?.data != null) return
-        user = ServiceLocator.getRepository(app.applicationContext)
-                .get(UserDto::class.java, ErrorDto::class.java, url, TAG)
+        if (users?.value?.data != null) return
+        users = ServiceLocator.getRepository(app.applicationContext)
+                .get(UsersDto::class.java, ErrorDto::class.java, url, TAG)
     }
 
-    fun getUser(): LiveData<Resource<UserDto, ErrorDto>>? {
-        return user
+    fun getUsers() : LiveData<Resource<UsersDto, ErrorDto>>? {
+        return users
     }
-
 
     fun addUser(user: UserBody) : LiveData<Resource<UserDto, ErrorDto>>? {
         val gisApplication = app as GisApplication
         val index = gisApplication.index
         index.getUsersAction()?.let {
             return ServiceLocator.getRepository(app.applicationContext)
-                    .create(UserDto::class.java, ErrorDto::class.java, it.url, it.contentType, user, SplashScreenViewModel.TAG)
+                    .create(UserDto::class.java, ErrorDto::class.java, it.url, it.contentType, user, TAG)
         }
         return null
     }
 
     fun cancel() {
         ServiceLocator.getRepository(app.applicationContext).cancelAllPendingRequests(TAG)
-        user = null
+        users = null
     }
 
     companion object {

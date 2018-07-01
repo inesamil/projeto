@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_login.*
 import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
@@ -16,12 +15,12 @@ import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.stores.CredentialsStore
-import ps.leic.isel.pt.gis.viewModel.UsersViewModel
+import ps.leic.isel.pt.gis.viewModel.UserViewModel
 
 class LoginActivity : AppCompatActivity() {
 
     private var url: String? = null
-    private var usersViewModel: UsersViewModel? = null
+    private var userViewModel: UserViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,9 +52,9 @@ class LoginActivity : AppCompatActivity() {
         url = gisApplication.index.getUserUrl(username)
 
         url?.let {
-            usersViewModel = ViewModelProviders.of(this).get(UsersViewModel::class.java)
-            usersViewModel?.init(it)
-            usersViewModel?.getUser()?.observe(this, Observer {
+            userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
+            userViewModel?.init(it)
+            userViewModel?.getUser()?.observe(this, Observer {
                 when (it?.status) {
                     Status.SUCCESS -> onSuccess(it.data)
                     Status.UNSUCCESS -> onUnsuccess(it.apiError)
