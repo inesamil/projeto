@@ -45,7 +45,7 @@ public interface UserService {
      * @param username identificador do utilizador
      * @return List<Users>
      */
-    List<Users> getUsersStartsWithUsername(String username, Locale locale) throws EntityException;
+    List<Users> getUsersStartsWithUsername(String username) throws EntityException;
 
     /**
      * Adicionar um utilizador

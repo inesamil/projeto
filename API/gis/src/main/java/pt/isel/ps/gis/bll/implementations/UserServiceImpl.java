@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<Users> getUsersStartsWithUsername(String username, Locale locale) throws EntityException {
+    public List<Users> getUsersStartsWithUsername(String username) throws EntityException {
         ValidationsUtils.validateUserUsername(username);
         return usersRepository.findAllByUsersUsernameStartsWith(username);
     }
