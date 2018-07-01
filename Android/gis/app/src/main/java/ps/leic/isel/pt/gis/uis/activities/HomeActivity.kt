@@ -201,6 +201,17 @@ class HomeActivity : AppCompatActivity(),
         fragment?.onAddHouse(house)
     }
 
+    override fun onInvitationsSearchInteraction(house: HouseDto) {
+        val dialog = InvitationsSearchDialogFragment.newInstance()
+        dialog.setOnInvitationsSearchDialogFragmentListener(object : InvitationsSearchDialogFragment.OnInvitationsSearchDialogFragmentListener {
+            override fun onSendInvitation(username: String) {
+                val fragment = supportFragmentManager.findFragmentByTag(HousesFragment.TAG) as? HousesFragment
+                fragment?.onInvitationSend(house, username)
+            }
+        })
+        dialog.show(supportFragmentManager, DeleteConfirmationDialogFragment.TAG)
+    }
+
     // Listener for BasicInformationFragment interaction
     override fun onBasicInformationUpdate(user: UserDTO) {
         Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
