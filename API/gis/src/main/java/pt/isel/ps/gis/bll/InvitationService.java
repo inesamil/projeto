@@ -29,18 +29,11 @@ public interface InvitationService {
     Invitation sentInvitation(String username, Long houseId, Locale locale) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException, InsufficientPrivilegesException;
 
     /**
-     * Aceitar o convite do utilizador com username @username para a casa com ID @houseId
+     * Atualizar um convite, aceitar ou recusar consoante o paramêtro accept
      *
      * @param username identificador do utilizador
      * @param houseId  identificador da casa
+     * @param accept   true para aceitar o convite, false para recusar o convite
      */
-    void acceptInvitation(String username, Long houseId, Locale locale) throws EntityException, EntityNotFoundException;
-
-    /**
-     * Recusar o convite do utilizador com username @username para a casa com ID @houseId
-     *
-     * @param username identificador do utilizador
-     * @param houseId  identificador da casa
-     */
-    void declineInvitation(String username, Long houseId, Locale locale) throws EntityException, EntityNotFoundException;
+    void updateInvitation(String username, Long houseId, Boolean accept, Locale locale) throws EntityException, EntityNotFoundException;
 }

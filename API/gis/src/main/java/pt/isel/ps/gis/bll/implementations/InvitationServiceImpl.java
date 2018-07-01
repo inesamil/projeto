@@ -59,9 +59,17 @@ public class InvitationServiceImpl implements InvitationService {
         return invitationRepository.save(new Invitation(userId, houseId));
     }
 
-    @Transactional
     @Override
-    public void acceptInvitation(String username, Long houseId, Locale locale) throws EntityException, EntityNotFoundException {
+    public void updateInvitation(String username, Long houseId, Boolean accept, Locale locale) throws EntityException, EntityNotFoundException {
+        if (accept == null)
+            throw new EntityException(messageSource.getMessage("body_Error_Msg", null, locale));
+        if (accept)
+            acceptInvitation(username, houseId, locale);
+        else
+            declineInvitation(username, houseId, locale);
+    }
+
+    private void acceptInvitation(String username, Long houseId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
         ValidationsUtils.validateUserUsername(username);
         Invitation invitation = invitationRepository
@@ -72,9 +80,7 @@ public class InvitationServiceImpl implements InvitationService {
         invitationRepository.deleteById(id);
     }
 
-    @Transactional
-    @Override
-    public void declineInvitation(String username, Long houseId, Locale locale) throws EntityException, EntityNotFoundException {
+    private void declineInvitation(String username, Long houseId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
         ValidationsUtils.validateUserUsername(username);
         boolean existsInvitation = invitationRepository.existsAllById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username);
