@@ -21,8 +21,8 @@ public class StockItemMovement {
     private Short stockitemmovementQuantity;
 
     @Basic
-    @Column(name = "stockitemmovement_finalQuantity", nullable = false)
-    private Short stockitemmovementFinalQuantity;
+    @Column(name = "stockitemmovement_finalquantity", nullable = false)
+    private Short stockitemmovementFinalquantity;
 
     /**
      * ASSOCIAÇÕES
@@ -48,20 +48,20 @@ public class StockItemMovement {
     }
 
     public StockItemMovement(
-            StockItemMovementId id, Short stockitemmovementQuantity, Short stockitemmovementFinalQuantity
+            StockItemMovementId id, Short stockitemmovementQuantity, Short stockitemmovementFinalquantity
     ) throws EntityException {
         this.id = id;
         setStockitemmovementQuantity(stockitemmovementQuantity);
-        setStockitemmovementFinalQuantity(stockitemmovementFinalQuantity);
+        setStockitemmovementFinalquantity(stockitemmovementFinalquantity);
     }
 
     public StockItemMovement(
             Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
-            String stockitemmovementDatetime, Short stockitemmovementQuantity, Short stockitemmovementFinalQuantity
+            String stockitemmovementDatetime, Short stockitemmovementQuantity, Short stockitemmovementFinalquantity
     ) throws EntityException {
         setId(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime);
         setStockitemmovementQuantity(stockitemmovementQuantity);
-        setStockitemmovementFinalQuantity(stockitemmovementFinalQuantity);
+        setStockitemmovementFinalquantity(stockitemmovementFinalquantity);
     }
 
     /**
@@ -88,13 +88,13 @@ public class StockItemMovement {
         this.stockitemmovementQuantity = stockitemmovementQuantity;
     }
 
-    public Short getStockitemmovementFinalQuantity() {
-        return stockitemmovementFinalQuantity;
+    public Short getStockitemmovementFinalquantity() {
+        return stockitemmovementFinalquantity;
     }
 
-    public void setStockitemmovementFinalQuantity(Short stockitemmovementFinalQuantity) throws EntityException {
-        ValidationsUtils.validateStockItemMovementFinalQuantity(stockitemmovementFinalQuantity);
-        this.stockitemmovementFinalQuantity = stockitemmovementFinalQuantity;
+    public void setStockitemmovementFinalquantity(Short stockitemmovementFinalquantity) throws EntityException {
+        ValidationsUtils.validateStockItemMovementFinalQuantity(stockitemmovementFinalquantity);
+        this.stockitemmovementFinalquantity = stockitemmovementFinalquantity;
     }
 
     public StockItem getStockitem() {
@@ -120,11 +120,11 @@ public class StockItemMovement {
         StockItemMovement that = (StockItemMovement) obj;
         return Objects.equals(id, that.id) &&
                 Objects.equals(stockitemmovementQuantity, that.stockitemmovementQuantity) &&
-                Objects.equals(stockitemmovementFinalQuantity, that.stockitemmovementFinalQuantity);
+                Objects.equals(stockitemmovementFinalquantity, that.stockitemmovementFinalquantity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, stockitemmovementQuantity, stockitemmovementFinalQuantity);
+        return Objects.hash(id, stockitemmovementQuantity, stockitemmovementFinalquantity);
     }
 }
