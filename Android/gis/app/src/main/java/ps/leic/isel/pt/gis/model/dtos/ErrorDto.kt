@@ -2,9 +2,7 @@ package ps.leic.isel.pt.gis.model.dtos
 
 import ps.leic.isel.pt.gis.hypermedia.problemDetails.ProblemDetails
 
-class ErrorDto(problemDetails: ProblemDetails) {
-    val statusText: String = problemDetails.title
-    val statusCode: Int = problemDetails.status
-    val developerErrorMessage: String = problemDetails.detail
-    val message: String = problemDetails.userFriendlyMessage
+data class ErrorDto(val statusText: String, val statusCode: Int, val developerErrorMessage: String, val message: String) {
+    constructor(problemDetails: ProblemDetails)
+            : this(problemDetails.title, problemDetails.status, problemDetails.detail, problemDetails.userFriendlyMessage)
 }
