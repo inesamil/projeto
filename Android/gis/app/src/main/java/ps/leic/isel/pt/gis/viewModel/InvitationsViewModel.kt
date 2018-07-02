@@ -29,31 +29,29 @@ class InvitationsViewModel(private val app: Application) : AndroidViewModel(app)
         return invitations
     }
 
-    fun sendInvitation(from_house: HouseDto, to_username: String) : LiveData<Resource<Any, ErrorDto>>? {
+    fun sendInvitation(from_house: HouseDto, to_username: String) : LiveData<Resource<Unit, ErrorDto>>? {
         from_house.actions.sendInvitation?.let {
             val invitationBody = InvitationBody1(to_username)
             return ServiceLocator.getRepository(app.applicationContext)
-                    .create(Any::class.java, ErrorDto::class.java, it.url, it.contentType, invitationBody, TAG)
+                    .create(Unit::class.java, ErrorDto::class.java, it.url, it.contentType, invitationBody, TAG)
         }
         return null
     }
 
-    fun acceptInvitation(invitation: InvitationDto) : LiveData<Resource<Any, ErrorDto>>? {
+    fun acceptInvitation(invitation: InvitationDto) : LiveData<Resource<Unit, ErrorDto>>? {
         invitation.actions.updateInvitation?.let {
             val invitationBody = InvitationBody2(true)
             return ServiceLocator.getRepository(app.applicationContext)
-                    .update(Any::class.java, ErrorDto::class.java, it.url, it.contentType, invitationBody, TAG)
-
+                    .update(Unit::class.java, ErrorDto::class.java, it.url, it.contentType, invitationBody, TAG)
         }
         return null
     }
 
-    fun declineInvitation(invitation: InvitationDto) : LiveData<Resource<Any, ErrorDto>>? {
+    fun declineInvitation(invitation: InvitationDto) : LiveData<Resource<Unit, ErrorDto>>? {
         invitation.actions.updateInvitation?.let {
             val invitationBody = InvitationBody2(false)
             return ServiceLocator.getRepository(app.applicationContext)
-                    .update(Any::class.java, ErrorDto::class.java, it.url, it.contentType, invitationBody, TAG)
-
+                    .update(Unit::class.java, ErrorDto::class.java, it.url, it.contentType, invitationBody, TAG)
         }
         return null
     }

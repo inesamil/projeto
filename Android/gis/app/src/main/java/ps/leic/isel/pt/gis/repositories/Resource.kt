@@ -11,7 +11,7 @@ enum class Status {
 class Resource<out T, out E> private constructor(val status: Status, val data: T?, val apiError: E?, val message: String?) {
 
     companion object {
-        fun <T, E> success(data: T): Resource<T, E> {
+        fun <T, E> success(data: T?): Resource<T, E> {
             return Resource(Status.SUCCESS, data, null, null)
         }
 
