@@ -44,7 +44,7 @@ public class IndexOutputModel {
     private HashMap<String, ResourceObject> initResources() {
         HashMap<String, ResourceObject> resources = new HashMap<>();
         resources.put("/rel/house", createPostHouses());
-        resources.put("/rel/users/search", createPostUsers());
+        resources.put("/rel/users/search", createGetUsers());
         resources.put("/rel/users", createPostUsers());
         resources.put("/rel/user", createGetUser());
         resources.put("/rel/categories", createGetCategories());

@@ -305,7 +305,7 @@ public class UriBuilderUtils {
      * @return The specific user
      */
     public static String buildUsersUriTemplate() {
-        return String.format("%s/%s/%s?q={username}", HOST, VERSION, USERS);
+        return String.format("%s/%s/%s?search={username}", HOST, VERSION, USERS);
     }
 
     /**

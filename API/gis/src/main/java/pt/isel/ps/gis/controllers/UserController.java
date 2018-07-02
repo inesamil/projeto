@@ -42,11 +42,11 @@ public class UserController {
 
     @GetMapping("")
     public ResponseEntity<UsersOutputModel> getStartsWithUsername(
-            @RequestParam String username
+            @RequestParam String search
     ) throws BadRequestException {
         List<Users> users;
         try {
-            users = userService.getUsersStartsWithUsername(username);
+            users = userService.getUsersStartsWithUsername(search);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         }
