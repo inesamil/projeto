@@ -8,14 +8,12 @@ public class UriBuilderUtils {
     private static String HOST;
 
     static {
-        /*try {
+        try {
             HOST = String.format("http://%s:8081", InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownHostException e) {
             HOST = "http://localhost:8081";
             e.printStackTrace();
-        }*/
-        HOST = "http://192.168.1.76:8081";
-        //HOST = "http://10.10.4.173:8081";
+        }
     }
 
     private static final String
@@ -258,6 +256,15 @@ public class UriBuilderUtils {
     }
 
     /**
+     * URI Template: http://10.0.2.2:8081/v1/users
+     *
+     * @return The specific user
+     */
+    public static String buildUsersUri() {
+        return String.format("%s/%s/%s", HOST, VERSION, USERS);
+    }
+
+    /**
      * URI Template: http://10.0.2.2:8081/v1/users?q={username}
      *
      * @return The specific user
@@ -277,12 +284,12 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: http://10.0.2.2:8081/v1/users
+     * URI Template: http://10.0.2.2:8081/v1/users/{username}
      *
-     * @return The specific user
+     * @return URI template to user
      */
-    public static String buildUsersUri() {
-        return String.format("%s/%s/%s", HOST, VERSION, USERS);
+    public static String buildUserUriTemplate() {
+        return String.format("%s/%s/%s/{username}", HOST, VERSION, USERS);
     }
 
     /**
@@ -296,6 +303,15 @@ public class UriBuilderUtils {
     }
 
     /**
+     * URI Template: http://10.0.2.2:8081/v1/users/{username}/houses
+     *
+     * @return URI template to user houses
+     */
+    public static String buildUserHousesUriTemplate() {
+        return String.format("%s/%s/%s/{username}/%s", HOST, VERSION, USERS, HOUSES);
+    }
+
+    /**
      * URI Template: http://10.0.2.2:8081/v1/users/{username}/lists
      *
      * @param username The id of the user
@@ -303,15 +319,6 @@ public class UriBuilderUtils {
      */
     public static String buildUserListsUri(String username) {
         return String.format("%s/%s/%s/%s/%s", HOST, VERSION, USERS, username, LISTS);
-    }
-
-    /**
-     * URI Template: http://10.0.2.2:8081/v1/users/{username}
-     *
-     * @return URI template to user
-     */
-    public static String buildUserUriTemplate() {
-        return String.format("%s/%s/%s/{username}", HOST, VERSION, USERS);
     }
 
     /**
@@ -324,30 +331,12 @@ public class UriBuilderUtils {
     }
 
     /**
-     * URI Template: http://10.0.2.2:8081/v1/users/{username}/houses
-     *
-     * @return URI template to user houses
-     */
-    public static String buildUserHousesUriTemplate() {
-        return String.format("%s/%s/%s/{username}/%s", HOST, VERSION, USERS, HOUSES);
-    }
-
-    /**
-     * URI Template: http://10.0.2.2:8081/v1/users/{username}/invitations
+     * URI Template: http://10.0.2.2:8081/v1/invitations/houses/{house-id}
      *
      * @return URI template to user lists
      */
-    public static String buildUserInvitationsUriTemplate() {
-        return String.format("%s/%s/%s/{username}/%s", HOST, VERSION, USERS, INVITATIONS);
-    }
-
-    /**
-     * URI Template: http://10.0.2.2:8081/v1/invitations
-     *
-     * @return URI template invitations
-     */
-    public static String buildInvitationsUri() {
-        return String.format("%s/%s/%s", HOST, VERSION, INVITATIONS);
+    public static String buildHouseInvitationsUriTemplate() {
+        return String.format("%s/%s/%s/%s/{house-id}", HOST, VERSION, INVITATIONS, HOUSES);
     }
 
     /**
@@ -357,5 +346,14 @@ public class UriBuilderUtils {
      */
     public static String buildInvitationUri(Long houseId, String username) {
         return String.format("%s/%s/%s/%s/%d/%s/%s", HOST, VERSION, INVITATIONS, HOUSES, houseId, USERS, username);
+    }
+
+    /**
+     * URI Template: http://10.0.2.2:8081/v1/invitations/users/{username}
+     *
+     * @return URI template to user lists
+     */
+    public static String buildUserInvitationsUriTemplate() {
+        return String.format("%s/%s/%s/%s/{username}", HOST, VERSION, INVITATIONS, USERS);
     }
 }
