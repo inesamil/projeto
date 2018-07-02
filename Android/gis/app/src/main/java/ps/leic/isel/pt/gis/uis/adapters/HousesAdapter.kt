@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
@@ -64,8 +65,8 @@ class HousesAdapter(private val username: String, private val usernamePlaceholde
         internal val seniorsNumber: TextView = itemView.findViewById(R.id.seniorsNumberText)
         internal val storages: Button = itemView.findViewById(R.id.storageBtn)
         internal val allergies: Button = itemView.findViewById(R.id.allergiesBtn)
-        internal val membersAdapter: MembersAdapter
         internal val addMemberButton: ImageButton = itemView.findViewById(R.id.addMemberButton)
+        internal val membersAdapter: MembersAdapter
 
         init {
             val context: Context = itemView.context

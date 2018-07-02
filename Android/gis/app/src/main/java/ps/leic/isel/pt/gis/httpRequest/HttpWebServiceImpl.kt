@@ -42,6 +42,7 @@ class HttpWebServiceImpl(private val applicationContext: Context) : HttpWebServi
             error is ServerError ->  applicationContext.getString(R.string.could_not_connect_to_server)
             error is NetworkError -> applicationContext.getString(R.string.network_error_has_occurred)
             error is NoConnectionError -> applicationContext.getString(R.string.network_error_has_occurred)
+            //TODO: error is ClientError ->
             else -> applicationContext.getString(R.string.unfortunately_an_error_has_occurred)
         }
         onError(message)

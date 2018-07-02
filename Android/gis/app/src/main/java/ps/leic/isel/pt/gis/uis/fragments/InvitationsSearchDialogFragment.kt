@@ -14,6 +14,7 @@ import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.SearchView
 import android.widget.Toast
+import kotlinx.android.synthetic.main.layout_inivitations_search_dialog.view.*
 import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
