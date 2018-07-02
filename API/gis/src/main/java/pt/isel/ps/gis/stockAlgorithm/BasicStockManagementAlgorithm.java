@@ -10,7 +10,7 @@ public class BasicStockManagementAlgorithm implements StockManagementAlgorithm {
     private static final float T_SEG = 0.25F;
 
     @Override
-    public short[] estimateNextWeek(short[] history) {
+    public Item[] estimateNextWeek(Item[] history) {
         if (history == null || history.length < 21)
             throw new IllegalArgumentException("The history array must be non null or must have at least 21 positions");
         float pSeg = (T1 * history[0]) + (T2 * history[7]) + (T3 * history[14]);
