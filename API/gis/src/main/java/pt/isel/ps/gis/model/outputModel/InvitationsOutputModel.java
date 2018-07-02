@@ -88,7 +88,7 @@ public class InvitationsOutputModel {
         String type = "application/json";
 
         // URIs
-        String invitationsUri = UriBuilderUtils.buildInvitationsUri(username);
+        String invitationsUri = UriBuilderUtils.buildUserInvitationsUri(username);
 
         // POST Invitation
         Action postInvitation = new Action(
@@ -110,7 +110,7 @@ public class InvitationsOutputModel {
         //Link-index
         Link indexLink = new Link(new String[]{"index"}, new String[]{"index"}, UriBuilderUtils.buildIndexUri());
         //Link-self
-        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, UriBuilderUtils.buildInvitationsUri(username));
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, UriBuilderUtils.buildUserInvitationsUri(username));
         //Link-houses
         Link houses = new Link(new String[]{"related"}, new String[]{"houses", "collection"}, UriBuilderUtils.buildHousesUri());
 
