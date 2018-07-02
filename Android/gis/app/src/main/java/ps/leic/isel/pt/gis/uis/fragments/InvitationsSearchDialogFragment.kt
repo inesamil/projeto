@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AlertDialog
@@ -37,7 +38,7 @@ class InvitationsSearchDialogFragment : DialogFragment(), InvitationsSearchAdapt
 
     private var state: State = State.SUCCESS
     private lateinit var progressBar: ProgressBar
-    private lateinit var resultsScrollView: ScrollView
+    private lateinit var content: ConstraintLayout
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity!!)
@@ -60,7 +61,7 @@ class InvitationsSearchDialogFragment : DialogFragment(), InvitationsSearchAdapt
         adapter.setOnItemClickListener(this)
 
         progressBar = view.invitationsSearchProgressBar
-        resultsScrollView = view.searchResultsScrollView
+        content = view.searchResultsLayout
 
         showProgressBarOrContent()
 
@@ -81,11 +82,11 @@ class InvitationsSearchDialogFragment : DialogFragment(), InvitationsSearchAdapt
     override fun onQueryTextSubmit(query: String?): Boolean {
         query?.let {
             state = State.LOADING
-            val gisApplication = context as GisApplication
+            val gisApplication = activity?.applicationContext as GisApplication
             val index = gisApplication.index
             val url = index.getUsersUrl(it)
             url?.let {
-                usersViewModel.init(url)
+                usersViewModel.init(it)
                 usersViewModel.getUsers()?.observe(this, Observer {
                     when (it?.status) {
                         Status.SUCCESS -> onSuccess(it.data)
@@ -138,7 +139,7 @@ class InvitationsSearchDialogFragment : DialogFragment(), InvitationsSearchAdapt
 
     private fun showProgressBarOrContent() {
         progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-        resultsScrollView.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+        content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
     }
 
 
