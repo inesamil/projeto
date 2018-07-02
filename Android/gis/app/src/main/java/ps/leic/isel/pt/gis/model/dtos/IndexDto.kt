@@ -15,7 +15,7 @@ class IndexDto(jsonHome: JsonHome) {
     class Resources(resources: HashMap<String, ResourceObject>) {
         val getHouses: ResourceObject? = resources[relHousesLabel]
         val postHouse: ResourceObject? = resources[relHouseLabel]
-        val getUsers: ResourceObject? = resources[relUsersLabel]
+        val getUsers: ResourceObject? = resources[relUsersSearchLabel]
         val getUser: ResourceObject? = resources[relUserLabel]
         val postUser: ResourceObject? = resources[relUsersLabel]
         val getCategories: ResourceObject? = resources[relCategoriesLabel]
