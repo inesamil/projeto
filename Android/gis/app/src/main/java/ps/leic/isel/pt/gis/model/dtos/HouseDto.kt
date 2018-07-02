@@ -28,13 +28,9 @@ class HouseDto(siren: Siren) {
     }
 
     class HousesActions(actions: Array<Action>?) {
-        var addHouse: ActionDto? = null
         var sendInvitation: ActionDto? = null
 
         init {
-            actions?.find { it.name == addHouseLabel }?.let {
-                addHouse = ActionDto(it.name, it.href, it.type)
-            }
             actions?.find { it.name ==  inviteUserLabel}?.let {
                 sendInvitation = ActionDto(it.name, it.href, it.type)
             }
@@ -81,7 +77,6 @@ class HouseDto(siren: Siren) {
         private const val stockItemsLabel: String = "items"
         private const val movementsLabel: String = "movements"
         private const val listsLabel: String = "lists"
-        private const val addHouseLabel: String = "add-house"
         private const val inviteUserLabel: String = "invite-user"
     }
 }
