@@ -45,8 +45,9 @@ public class UriBuilderUtilsTest {
             HOUSE_INVITATIONS_TEMPLATE = HOST + "/v1/invitations/houses/{house-id}",
             INVITATION = HOST + "/v1/invitations/houses/1/users/test",
             USER_INVITATIONS_TEMPLATE = HOST + "/v1/invitations/users/{username}",
+            USER_INVITATIONS = HOST + "/v1/invitations/users/test",
             USERS = HOST + "/v1/users",
-            USERS_QUERY_STRING = HOST + "/v1/users?q={username}",
+            USERS_QUERY_STRING = HOST + "/v1/users?search={username}",
             USER_TEMPLATE = HOST + "/v1/users/{username}",
             USER = HOST + "/v1/users/test",
             USER_HOUSES_TEMPLATE = HOST + "/v1/users/{username}/houses",
@@ -177,6 +178,11 @@ public class UriBuilderUtilsTest {
     @Test
     public void test_build_user_invitations_uri_template() {
         assertEquals(USER_INVITATIONS_TEMPLATE, UriBuilderUtils.buildUserInvitationsUriTemplate());
+    }
+
+    @Test
+    public void test_build_user_invitations_uri() {
+        assertEquals(USER_INVITATIONS, UriBuilderUtils.buildUserInvitationsUri("test"));
     }
 
     @Test
