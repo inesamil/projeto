@@ -62,7 +62,7 @@ public class DateUtils {
      * @throws ParseException
      */
     public static Date convertStringToDate(String date) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date parsedDate = dateFormat.parse(date);
         return new Date(parsedDate.getTime());
     }
@@ -79,7 +79,7 @@ public class DateUtils {
     }
 
     public static Timestamp convertStringToTimestamp(String timestamp) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         java.util.Date parsedDate = dateFormat.parse(timestamp);
         return new Timestamp(parsedDate.getTime());
     }
