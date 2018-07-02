@@ -84,6 +84,7 @@ public class InvitationServiceImpl implements InvitationService {
         return invitationRepository.save(new Invitation(invitedUser.getUsersId(), houseId));
     }
 
+    @Transactional
     @Override
     public void updateInvitation(Long houseId, String username, Boolean accept, Locale locale) throws EntityException, EntityNotFoundException {
         if (accept == null)
