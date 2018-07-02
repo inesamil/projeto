@@ -264,6 +264,24 @@ public class UriBuilderUtils {
     }
 
     /**
+     * URI Template: http://10.0.2.2:8081/v1/invitations/users/{username}
+     *
+     * @return URI to an invitation
+     */
+    public static String buildInvitationsUri( String username) {
+        return String.format("%s/%s/%s/%s/%s", HOST, VERSION, INVITATIONS, USERS, username);
+    }
+
+    /**
+     * URI Template: http://10.0.2.2:8081/v1/invitations/houses/{house-id}
+     *
+     * @return URI to an invitation
+     */
+    public static String buildInvitationUri(Long houseId) {
+        return String.format("%s/%s/%s/%s/%d", HOST, VERSION, INVITATIONS, HOUSES, houseId);
+    }
+
+    /**
      * URI Template: http://10.0.2.2:8081/v1/invitations/houses/{house-id}/users/{username}
      *
      * @return URI to an invitation
@@ -279,15 +297,6 @@ public class UriBuilderUtils {
      */
     public static String buildUserInvitationsUriTemplate() {
         return String.format("%s/%s/%s/%s/{username}", HOST, VERSION, INVITATIONS, USERS);
-    }
-
-    /**
-     * URI Template: http://10.0.2.2:8081/v1/invitations/users/{username}
-     *
-     * @return URI to an invitation
-     */
-    public static String buildUserInvitationsUri(String username) {
-        return String.format("%s/%s/%s/%s/%s", HOST, VERSION, INVITATIONS, USERS, username);
     }
 
     /**
