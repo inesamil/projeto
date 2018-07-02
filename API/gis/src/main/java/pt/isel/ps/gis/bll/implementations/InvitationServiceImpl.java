@@ -40,10 +40,16 @@ public class InvitationServiceImpl implements InvitationService {
         this.messageSource = messageSource;
     }
 
+    @Transactional
     @Override
     public List<Invitation> getReceivedInvitationsByUserUsername(String username) throws EntityException {
         ValidationsUtils.validateUserUsername(username);
-        return invitationRepository.findAllByUsersByUsersId_UsersUsername(username);
+        List<Invitation> invitations = invitationRepository.findAllByUsersByUsersId_UsersUsername(username);
+        invitations.forEach(invitation -> {
+            invitation.getUsersByUsersId().getUsersUsername();
+            invitation.getHouseByHouseId().getHouseName();
+        });
+        return invitations;
     }
 
     @Transactional
