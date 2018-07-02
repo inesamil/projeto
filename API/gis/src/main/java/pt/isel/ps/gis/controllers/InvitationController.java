@@ -39,7 +39,7 @@ public class InvitationController {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new InvitationsOutputModel(invitations), setSirenContentType(headers),
+        return new ResponseEntity<>(new InvitationsOutputModel(username, invitations), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 

@@ -28,12 +28,12 @@ public class InvitationsOutputModel {
     @JsonProperty
     private final Link[] links;
 
-    public InvitationsOutputModel(List<Invitation> invitations) {
+    public InvitationsOutputModel(String username, List<Invitation> invitations) {
         this.klass = initKlass();
         this.properties = initProperties(invitations);
         this.entities = initEntities(invitations);
-        this.actions = initActions();
-        this.links = initLinks();
+        this.actions = initActions(username);
+        this.links = initLinks(username);
     }
 
     private String[] initKlass() {
@@ -83,12 +83,12 @@ public class InvitationsOutputModel {
         return entities;
     }
 
-    private Action[] initActions() {
+    private Action[] initActions(String username) {
         // Type
         String type = "application/json";
 
         // URIs
-        String invitationsUri = UriBuilderUtils.buildInvitationsUri();
+        String invitationsUri = UriBuilderUtils.buildInvitationsUri(username);
 
         // POST Invitation
         Action postInvitation = new Action(
@@ -106,15 +106,11 @@ public class InvitationsOutputModel {
         return new Action[]{postInvitation};
     }
 
-    private Link[] initLinks() {
-        //URIs
-        String indexUri = UriBuilderUtils.buildIndexUri();
-        String invitationsUri = UriBuilderUtils.buildInvitationsUri();
-
+    private Link[] initLinks(String username) {
         //Link-index
-        Link indexLink = new Link(new String[]{"index"}, new String[]{"index"}, indexUri);
+        Link indexLink = new Link(new String[]{"index"}, new String[]{"index"}, UriBuilderUtils.buildIndexUri());
         //Link-self
-        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, invitationsUri);
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, UriBuilderUtils.buildInvitationsUri(username));
         //Link-houses
         Link houses = new Link(new String[]{"related"}, new String[]{"houses", "collection"}, UriBuilderUtils.buildHousesUri());
 
