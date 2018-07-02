@@ -107,7 +107,7 @@ public class HouseOutputModel {
 
         // Link-collection
         String housesUri = UriBuilderUtils.buildUserHousesUri(username);
-        Link housesLink = new Link(new String[]{"collection"}, new String[]{"houses", "collection"}, housesUri);
+        Link housesLink = new Link(new String[]{"related"}, new String[]{"houses", "collection"}, housesUri);
 
         // Link-items
         String itemsUri = UriBuilderUtils.buildStockItemsUri(houseId);

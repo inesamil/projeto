@@ -92,8 +92,8 @@ public class InvitationsOutputModel {
 
         // POST Invitation
         Action postInvitation = new Action(
-                "add-invitation",
-                "Add Invitation",
+                "invite-user",
+                "Invite User",
                 Method.POST,
                 invitationsUri,
                 type,
@@ -114,6 +114,6 @@ public class InvitationsOutputModel {
         //Link-houses
         Link houses = new Link(new String[]{"related"}, new String[]{"houses", "collection"}, UriBuilderUtils.buildHousesUri());
 
-        return new Link[]{self, indexLink};
+        return new Link[]{self, indexLink, houses};
     }
 }
