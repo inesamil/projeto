@@ -36,11 +36,14 @@ class Requester<T, E>(
      */
     override fun parseNetworkResponse(response: NetworkResponse): Response<Resource<T, E>> {
         return try {
-            val hypermediaType = response.headers["content-type"]
-            val hypermedia = mapper.readValue(response.data, hypermediaClasses[hypermediaType])
-            val constructor = dtoType.getConstructor(hypermediaClasses[hypermediaType])
-            val dto = constructor.newInstance(hypermedia)
-            Response.success(Resource.success(dto), null)
+            if (response.data.isNotEmpty()) {
+                val hypermediaType = response.headers["content-type"]
+                val hypermedia = mapper.readValue(response.data, hypermediaClasses[hypermediaType])
+                val constructor = dtoType.getConstructor(hypermediaClasses[hypermediaType])
+                val dto = constructor.newInstance(hypermedia)
+                return Response.success(Resource.success(dto), null)
+            }
+            return Response.success(Resource.success(null), null)
         } catch (e: IOException) {
             Response.error(VolleyError(e))
         }
