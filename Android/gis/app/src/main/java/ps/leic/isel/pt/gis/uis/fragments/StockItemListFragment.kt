@@ -139,6 +139,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
 
     private fun onSuccess(houses: HousesDto?) {
         houses?.let {
+            //TODO: listas vazias
             // Show progress bar or content
             showProgressBarOrContent()
 
