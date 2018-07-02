@@ -74,11 +74,24 @@ public class UserHousesOutputModel {
             String listsUri = UriBuilderUtils.buildListsUri(houseId);
             String storagesUri = UriBuilderUtils.buildStoragesUri(houseId);
 
+            // POST Invitation
+            Action postInvitation = new Action(
+                    "invite-user",
+                    "Invite User",
+                    Method.POST,
+                    UriBuilderUtils.buildInvitationUri(houseId),
+                    "application/json",
+                    new Field[]{
+                            new Field("house-id", Field.Type.number, null, "House Id"),
+                            new Field("user-username", Field.Type.text, null, "User Username")
+                    }
+            );
+
             entities[i] = new Entity(
                     new String[]{"house"},
                     new String[]{"item"},
                     properties,
-                    null,
+                    new Action[]{postInvitation},
                     new Link[]{new Link(new String[]{"self"}, new String[]{"house"}, houseUri),
                             new Link(new String[]{"related"}, new String[]{"items", "collection"}, itemsUri),
                             new Link(new String[]{"related"}, new String[]{"movements", "collection"}, movementsUri),

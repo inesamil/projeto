@@ -24,15 +24,12 @@ public class InvitationsOutputModel {
     @JsonProperty
     private final Entity[] entities;
     @JsonProperty
-    private final Action[] actions;
-    @JsonProperty
     private final Link[] links;
 
     public InvitationsOutputModel(String username, List<Invitation> invitations) {
         this.klass = initKlass();
         this.properties = initProperties(invitations);
         this.entities = initEntities(invitations);
-        this.actions = initActions(username);
         this.links = initLinks(username);
     }
 
@@ -81,29 +78,6 @@ public class InvitationsOutputModel {
                     null);
         }
         return entities;
-    }
-
-    private Action[] initActions(String username) {
-        // Type
-        String type = "application/json";
-
-        // URIs
-        String invitationsUri = UriBuilderUtils.buildUserInvitationsUri(username);
-
-        // POST Invitation
-        Action postInvitation = new Action(
-                "invite-user",
-                "Invite User",
-                Method.POST,
-                invitationsUri,
-                type,
-                new Field[]{
-                        new Field("house-id", Field.Type.number, null, "House Id"),
-                        new Field("user-username", Field.Type.text, null, "User Username")
-                }
-        );
-
-        return new Action[]{postInvitation};
     }
 
     private Link[] initLinks(String username) {
