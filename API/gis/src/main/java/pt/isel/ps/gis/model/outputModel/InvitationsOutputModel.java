@@ -37,7 +37,7 @@ public class InvitationsOutputModel {
         return new String[]{ENTITY_CLASS, "collection"};
     }
 
-    private Map<String,Object> initProperties(List<Invitation> invitations) {
+    private Map<String, Object> initProperties(List<Invitation> invitations) {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("size", invitations.size());
 
@@ -84,7 +84,7 @@ public class InvitationsOutputModel {
         //Link-index
         Link indexLink = new Link(new String[]{"index"}, new String[]{"index"}, UriBuilderUtils.buildIndexUri());
         //Link-self
-        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, UriBuilderUtils.buildInvitationsUri(username));
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS, "collection"}, UriBuilderUtils.buildUserInvitationsUri(username));
         //Link-houses
         Link houses = new Link(new String[]{"related"}, new String[]{"houses", "collection"}, UriBuilderUtils.buildHousesUri());
 

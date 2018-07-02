@@ -79,7 +79,7 @@ public class UserHousesOutputModel {
                     "invite-user",
                     "Invite User",
                     Method.POST,
-                    UriBuilderUtils.buildInvitationUri(houseId),
+                    UriBuilderUtils.buildHouseInvitationUri(houseId),
                     "application/json",
                     new Field[]{
                             new Field("house-id", Field.Type.number, null, "House Id"),
