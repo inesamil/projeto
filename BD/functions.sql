@@ -19,10 +19,16 @@ BEGIN
 	DELETE FROM public."list" WHERE list_id IN (select(unnest(ids_array)));
 	
 	-- Remove User From Houses	
-	DELETE FROM public."userhouse" WHERE public."userlist".users_id = userId;
+	DELETE FROM public."userhouse" WHERE public."userhouse".users_id = userId;
+
+	-- Remove UserRole
+	DELETE FROM public."usersrole" WHERE public."usersrole".users_id = userId;
+	
+	-- Remove Invitations
+	DELETE FROM public."invitation" WHERE public."invitation".users_id = userId;
 
 	-- Remove User
-	DELETE FROM public."users" WHERE public."userlist".users_id = userId;
+	DELETE FROM public."users" WHERE public."users".users_id = userId;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -35,6 +41,9 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION delete_house(id bigint) 
 RETURNS VOID AS $$
 BEGIN
+	-- Remove Invitations
+	DELETE FROM public."invitation" WHERE public."invitation".house_id = id;
+	
 	-- Remove StockItemMovement
 	DELETE FROM public."stockitemmovement" WHERE house_id = id;
 
