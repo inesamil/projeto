@@ -44,8 +44,9 @@ public class IndexOutputModel {
     private HashMap<String, ResourceObject> initResources() {
         HashMap<String, ResourceObject> resources = new HashMap<>();
         resources.put("/rel/house", createPostHouses());
+        resources.put("/rel/users/search", createPostUsers());
         resources.put("/rel/users", createPostUsers());
-        resources.put("/rel/user", createGetUsers());
+        resources.put("/rel/user", createGetUser());
         resources.put("/rel/categories", createGetCategories());
         resources.put("/rel/allergies", createGetAllergies());
         resources.put("/rel/houses", createGetHouses());
@@ -86,8 +87,27 @@ public class IndexOutputModel {
         );
     }
 
-    // GET /users/{username}
+    // GET /users?q={username}
     private ResourceObject createGetUsers() {
+        HashMap<String, String> hrefVars = new HashMap<>();
+        hrefVars.put("username", "String");
+
+        return new ResourceObject(
+                null,
+                UriBuilderUtils.buildUsersUriTemplate(),
+                hrefVars,
+                new Hints(
+                        new Method[]{Method.GET},
+                        applicationJsonFormat,
+                        null,
+                        null,
+                        null
+                )
+        );
+    }
+
+    // GET /users/{username}
+    private ResourceObject createGetUser() {
         HashMap<String, String> hrefVars = new HashMap<>();
         hrefVars.put("username", "String");
 
