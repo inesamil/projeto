@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (existsUserByUserUsername(username))
             throw new EntityAlreadyExistsException(String.format("Username %s is already in use.", username), messageSource.getMessage("username_Already_Exist", new Object[]{username}, locale));
         ValidationsUtils.validateUserEmail(email);
-        if (!usersRepository.existsByUsersEmail(email))
+        if (usersRepository.existsByUsersEmail(email))
             throw new EntityAlreadyExistsException(String.format("Already exists a user with email: %s", email), messageSource.getMessage("email_Aready_Exist", new Object[]{email}, locale));
         Users users = new Users(username, email, age, name, passwordEncoder.encode(password));
         users = usersRepository.save(users);
