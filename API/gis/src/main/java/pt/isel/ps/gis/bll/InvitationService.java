@@ -20,20 +20,21 @@ public interface InvitationService {
     List<Invitation> getReceivedInvitationsByUserUsername(String username) throws EntityException, EntityNotFoundException;
 
     /**
-     * Enviar um convite do utilizador com username @username para a casa com ID @houseId
+     * Enviar um convite para ser membro da casa com ID @houseId do utilizador com username @from_username para o utilizador com username @to_username
      *
-     * @param username identificador do utilizador
      * @param houseId  identificador da casa
+     * @param from_username identificador do utilizador a enviar o convite
+     * @param to_username identificador do utilizador a receber o convite
      * @return Invitation
      */
-    Invitation sentInvitation(String username, Long houseId, Locale locale) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException, InsufficientPrivilegesException;
+    Invitation sentInvitation(Long houseId, String from_username, String to_username, Locale locale) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException, InsufficientPrivilegesException;
 
     /**
      * Atualizar um convite, aceitar ou recusar consoante o paramêtro accept
      *
-     * @param username identificador do utilizador
      * @param houseId  identificador da casa
+     * @param username identificador do utilizador
      * @param accept   true para aceitar o convite, false para recusar o convite
      */
-    void updateInvitation(String username, Long houseId, Boolean accept, Locale locale) throws EntityException, EntityNotFoundException;
+    void updateInvitation(Long houseId, String username, Boolean accept, Locale locale) throws EntityException, EntityNotFoundException;
 }

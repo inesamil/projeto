@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.InvitationService;
+import pt.isel.ps.gis.components.AuthenticationFacade;
 import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.Invitation;
 import pt.isel.ps.gis.model.inputModel.InvitationInputModel;
@@ -21,9 +22,11 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setSirenContentType;
 public class InvitationController {
 
     private final InvitationService invitationService;
+    private final AuthenticationFacade authenticationFacade;
 
-    public InvitationController(InvitationService invitationService) {
+    public InvitationController(InvitationService invitationService, AuthenticationFacade authenticationFacade) {
         this.invitationService = invitationService;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @GetMapping("/users/{username}")
@@ -49,8 +52,9 @@ public class InvitationController {
             @RequestBody InvitationInputModel body,
             Locale locale
     ) throws BadRequestException, NotFoundException, ConflictException, ForbiddenException {
+        String username = authenticationFacade.getAuthentication().getName();
         try {
-            invitationService.sentInvitation(body.getUsername(), houseId, locale);
+            invitationService.sentInvitation(houseId, username, body.getUsername(), locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
@@ -71,7 +75,7 @@ public class InvitationController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         try {
-            invitationService.updateInvitation(username, houseId, body.getAccept(), locale);
+            invitationService.updateInvitation(houseId, username, body.getAccept(), locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
