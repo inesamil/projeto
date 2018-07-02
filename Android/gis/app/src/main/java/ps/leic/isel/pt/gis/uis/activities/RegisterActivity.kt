@@ -13,6 +13,7 @@ import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.R.id.fullnameEditText
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.body.UserBody
+import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.stores.CredentialsStore
@@ -50,25 +51,43 @@ class RegisterActivity : AppCompatActivity() {
         usersViewModel = ViewModelProviders.of(this).get(UsersViewModel::class.java)
         usersViewModel?.addUser(UserBody(username, name, email, age, password))?.observe(this, Observer {
             when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data!!, password)
+                it?.status == Status.SUCCESS -> onSuccess(it.data, password)
+                it?.status == Status.UNSUCCESS -> onUnsuccess(it.apiError)
                 it?.status == Status.ERROR -> onError(it.message!!)
             }
         })
     }
 
-    private fun onSuccess(user: UserDto, password: String) {
+    private fun onSuccess(user: UserDto?, password: String) {
         Log.i(TAG, "Registe user with success")
-        if (user.username != null) {
-            ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(user.username, password))
-            Log.i(TAG, "Credentials stored. Login succeeded.")
-            finish()
-            startActivity(Intent(this, InitialSetupActivity::class.java))
+        user?.let {
+            if (it.username != null) {
+                ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(user.username, password))
+                Log.i(TAG, "Credentials stored. Login succeeded.")
+                finish()
+                startActivity(Intent(this, HomeActivity::class.java))
+            }
         }
     }
 
-    private fun onError(message: String) {
-        Log.i(LoginActivity.TAG, "Unable to registe user")
-        Toast.makeText(this, getString(R.string.registe_user_failed), Toast.LENGTH_SHORT).show()
+    private fun onUnsuccess(error: ErrorDto?) {
+        error?.let {
+            Log.e(TAG, it.developerErrorMessage)
+            if (it.statusCode == 401) {
+                Log.i(TAG, "Wrong credentials.")
+                Toast.makeText(this, getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials()
+                Log.i(TAG, "Credentials deleted.")
+            }
+        }
+    }
+
+    private fun onError(message: String?) {
+        message?.let {
+            Log.e(LoginActivity.TAG, it)
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     companion object {
