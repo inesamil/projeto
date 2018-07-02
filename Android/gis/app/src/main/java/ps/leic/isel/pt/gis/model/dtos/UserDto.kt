@@ -5,7 +5,7 @@ import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
 import ps.leic.isel.pt.gis.hypermedia.siren.Siren
 
 class UserDto(siren: Siren) {
-    val username: String?
+    val username: String
     val name: String?
     val email: String?
     val age: Short

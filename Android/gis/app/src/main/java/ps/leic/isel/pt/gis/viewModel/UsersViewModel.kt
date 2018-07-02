@@ -8,13 +8,19 @@ import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.body.UserBody
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.UserDto
+import ps.leic.isel.pt.gis.model.dtos.UsersDto
 import ps.leic.isel.pt.gis.repositories.Resource
 
 class UsersViewModel(private val app: Application) : AndroidViewModel(app) {
 
+    private lateinit var url: String
+
     private var users: LiveData<Resource<UsersDto, ErrorDto>>? = null
 
     fun init(url: String) {
+        if (users != null && this.url == url) return
+        if (users != null) cancel()
+        this.url = url
         if (users?.value?.data != null) return
         users = ServiceLocator.getRepository(app.applicationContext)
                 .get(UsersDto::class.java, ErrorDto::class.java, url, TAG)

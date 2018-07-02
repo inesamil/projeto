@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.dtos.HouseDto
+import ps.leic.isel.pt.gis.model.dtos.UserDto
 
-class InvitationsSearchAdapter : RecyclerView.Adapter<InvitationsSearchAdapter.ViewHolder>() {
+class InvitationsSearchAdapter(private val usernamePlaceholder: String) : RecyclerView.Adapter<InvitationsSearchAdapter.ViewHolder>() {
 
-    private var data: Array<HouseDto>? = null
+    private var data: Array<UserDto>? = null
     private lateinit var mOnItemClickListener: OnItemClickListener
 
     // Inflates the cell layout from xml when needed
@@ -26,10 +26,9 @@ class InvitationsSearchAdapter : RecyclerView.Adapter<InvitationsSearchAdapter.V
         data?.let {
             val item = it[position]
             // Fill ViewHolder
-            holder.houseNameText.text = item.name
-            holder.adminNameText.text = item.members?.find { member -> member.administrator == true }?.username
+            holder.adminNameText.text = String.format(usernamePlaceholder, item.username)
             holder.sendIcon.setOnClickListener {
-                mOnItemClickListener.onSendInvitation(item.houseId)
+                mOnItemClickListener.onSendInvitation(item.username)
             }
         }
     }
@@ -37,14 +36,13 @@ class InvitationsSearchAdapter : RecyclerView.Adapter<InvitationsSearchAdapter.V
     // Total number of cells
     override fun getItemCount() = data?.size ?: 0
 
-    fun setData(data: Array<HouseDto>) {
+    fun setData(data: Array<UserDto>) {
         this.data = data
         notifyDataSetChanged()
     }
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val houseNameText: TextView = itemView.findViewById(R.id.houseNameText)
         internal val adminNameText: TextView = itemView.findViewById(R.id.adminNameText)
         internal val sendIcon: ImageView = itemView.findViewById(R.id.sendIcon)
     }
@@ -56,6 +54,6 @@ class InvitationsSearchAdapter : RecyclerView.Adapter<InvitationsSearchAdapter.V
 
     // Parent activity will implement this method to respond to click events
     interface OnItemClickListener {
-        fun onSendInvitation(houseId: Long)
+        fun onSendInvitation(username: String)
     }
 }
