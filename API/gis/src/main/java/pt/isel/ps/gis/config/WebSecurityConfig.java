@@ -11,10 +11,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import pt.isel.ps.gis.components.BasicAuthenticationPoint;
+import pt.isel.ps.gis.filters.DebugFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -37,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .cors().configurationSource(getCorsConfigurationSource())
                 .and()
+                .addFilterBefore(new DebugFilter(), ChannelProcessingFilter.class)
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/v1/users").permitAll()

@@ -2,7 +2,6 @@ package pt.isel.ps.gis.filters;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.*;
@@ -14,7 +13,6 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Function;
 
-@Component
 public class DebugFilter implements Filter {
 
     private static final Logger log = LoggerFactory.getLogger(DebugFilter.class);
@@ -44,7 +42,8 @@ public class DebugFilter implements Filter {
     private String headers(Collection<String> headerNames, Function<String, String> getHeader) {
         StringBuilder buf = new StringBuilder();
         for (String name : headerNames)
-            buf.append(name).append(":").append(getHeader.apply(name)).append("\n");
+            if (!name.equalsIgnoreCase("authorization"))
+                buf.append(name).append(":").append(getHeader.apply(name)).append("\n");
         return buf.toString();
     }
 
