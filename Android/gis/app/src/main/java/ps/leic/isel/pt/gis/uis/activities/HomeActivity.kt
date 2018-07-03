@@ -1,13 +1,9 @@
 package ps.leic.isel.pt.gis.uis.activities
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
@@ -25,14 +21,12 @@ import ps.leic.isel.pt.gis.model.House
 import ps.leic.isel.pt.gis.model.List
 import ps.leic.isel.pt.gis.model.ListProduct
 import ps.leic.isel.pt.gis.model.UserDTO
-import ps.leic.isel.pt.gis.model.dtos.*
-import ps.leic.isel.pt.gis.repositories.Resource
-import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.uis.adapters.PageTabsAdapter
+import ps.leic.isel.pt.gis.model.dtos.HouseDto
+import ps.leic.isel.pt.gis.model.dtos.ListProductDto
+import ps.leic.isel.pt.gis.model.dtos.StorageDto
 import ps.leic.isel.pt.gis.uis.fragments.*
 import ps.leic.isel.pt.gis.utils.getCurrentFragment
 import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
-import ps.leic.isel.pt.gis.viewModel.ListDetailViewModel
 
 class HomeActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
@@ -113,7 +107,7 @@ class HomeActivity : AppCompatActivity(),
         val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
         if (username == null) {
             Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            //TODO: logout
+            logout()
             return
         }
         index.getHousesUrl(username)?.let {
@@ -128,7 +122,7 @@ class HomeActivity : AppCompatActivity(),
         val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
         if (username == null) {
             Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            //TODO: logout
+            logout()
             return
         }
         index.getHousesUrl(username)?.let {
@@ -145,7 +139,7 @@ class HomeActivity : AppCompatActivity(),
         val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
         if (username == null) {
             Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            //TODO: logout
+            logout()
             return
         }
         index.getUserUrl(username)?.let {
@@ -162,7 +156,7 @@ class HomeActivity : AppCompatActivity(),
         val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
         if (username == null) {
             Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            //TODO: logout
+            logout()
             return
         }
         index.getUserListUrl(username)?.let {
@@ -225,7 +219,7 @@ class HomeActivity : AppCompatActivity(),
         val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
         if (username == null) {
             Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            //TODO: logout
+            logout()
             return
         }
         index.getUserListUrl(username)?.let {
@@ -244,7 +238,7 @@ class HomeActivity : AppCompatActivity(),
         val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
         if (username == null) {
             Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            //TODO: logout
+            logout()
             return
         }
         index.getCategoriesUrl()?.let {
@@ -295,7 +289,7 @@ class HomeActivity : AppCompatActivity(),
         val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
         if (username == null) {
             Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            //TODO: logout
+            logout()
             return
         }
         index.getHousesUrl(username)?.let {
@@ -316,7 +310,7 @@ class HomeActivity : AppCompatActivity(),
         val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
         if (username == null) {
             Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            //TODO: logout
+            logout()
             return
         }
         index.getHousesUrl(username)?.let {
@@ -396,7 +390,7 @@ class HomeActivity : AppCompatActivity(),
                 val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
                 if (username == null) {
                     Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-                    //TODO: logout
+                    logout()
                     return false
                 }
                 val url: String? = index.getInvitationsUrl(username)
@@ -427,7 +421,7 @@ class HomeActivity : AppCompatActivity(),
                 val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
                 if (username == null) {
                     Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-                    //TODO: logout
+                    logout()
                     return true
                 }
                 val url: String? = index.getUserListUrl(username)
@@ -446,25 +440,24 @@ class HomeActivity : AppCompatActivity(),
                 }
                 Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
             }
-            R.id.nav_profile -> run {
-                val index = gisApplication.index
-                val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
-                if (username == null) {
-                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-                    //TODO: logout
-                    return true
-                }
-                index.getUserUrl(username)?.let {
-                    supportFragmentManager.replaceCurrentFragmentWith(BasicInformationFragment.TAG, BasicInformationFragment.Companion::newInstance, it)
-                    return@run
-                }
-                Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
-            }
             R.id.nav_settings -> {
                 supportFragmentManager.replaceCurrentFragmentWith(SettingsFragment.TAG, SettingsFragment.Companion::newInstance)
+            }
+            R.id.nav_logout -> run {
+                logout()
             }
         }
         homeDrawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    /***
+     * Private Methods
+     ***/
+
+    private fun logout() {
+        ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials()
+        finish()
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 }

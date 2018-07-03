@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_register.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.R.id.fullnameEditText
 import ps.leic.isel.pt.gis.ServiceLocator
@@ -17,11 +16,10 @@ import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.stores.CredentialsStore
-import ps.leic.isel.pt.gis.viewModel.UserViewModel
 import ps.leic.isel.pt.gis.viewModel.UsersViewModel
 
 class RegisterActivity : AppCompatActivity() {
-    
+
     private var usersViewModel: UsersViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,12 +59,10 @@ class RegisterActivity : AppCompatActivity() {
     private fun onSuccess(user: UserDto?, password: String) {
         Log.i(TAG, "Registe user with success")
         user?.let {
-            if (it.username != null) {
-                ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(user.username, password))
-                Log.i(TAG, "Credentials stored. Login succeeded.")
-                finish()
-                startActivity(Intent(this, HomeActivity::class.java))
-            }
+            ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(user.username, password))
+            Log.i(TAG, "Credentials stored. Login succeeded.")
+            finish()
+            startActivity(Intent(this, HomeActivity::class.java))
         }
     }
 

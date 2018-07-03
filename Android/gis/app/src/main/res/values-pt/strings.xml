@@ -181,4 +181,5 @@
     <string name="unfortunately_an_error_has_occurred">Infelizmente ocorreu um erro</string>
     <string name="invitation_question">Quer juntar-se à casa %1$s?</string>
     <string name="invitation_sent_successfully">Convite enviado com sucesso</string>
+    <string name="logout">Terminar sessão</string>
 </resources>

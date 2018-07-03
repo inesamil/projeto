@@ -217,4 +217,5 @@
     <string name="invitation_question">Do you want to join to the house %1$s?</string>
     <string name="at_username" translatable="false">\@%1$s</string>
     <string name="invitation_sent_successfully">Invitation sent successfully</string>
+    <string name="logout">Logout</string>
 </resources>
