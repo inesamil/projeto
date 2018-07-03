@@ -17,10 +17,8 @@ import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.IndexDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.stores.CredentialsStore
-import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.SplashScreenViewModel
 import ps.leic.isel.pt.gis.viewModel.UserViewModel
-import java.lang.Thread.sleep
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -43,7 +41,6 @@ class SplashScreenActivity : AppCompatActivity() {
         splashScreenViewModel = ViewModelProviders.of(this).get(SplashScreenViewModel::class.java)
         splashScreenViewModel.init()
         getIndex()
-
     }
 
     override fun onResume() {
@@ -57,7 +54,7 @@ class SplashScreenActivity : AppCompatActivity() {
                     ++retry
                     getIndex()
                 }
-                handler.postDelayed(run, 3000)
+                handler.postDelayed(run, SPLASH_SCREEN_DELAY_IN_MS)
                 return
             }
         }
@@ -81,7 +78,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
                 credentials?.let {
                     Log.d(TAG, "Credentials retrieved.")
-                    validateCredentials(credentials)
+                    validateCredentials(it)
                 }
                 // No credentials retrieved
                 finish()
@@ -162,5 +159,6 @@ class SplashScreenActivity : AppCompatActivity() {
         private const val TAG: String = "SplashScreenActivity"
         private const val FIRST_TIME_TAG = "first_time"
         private const val MAX_RETRY = 1
+        private const val SPLASH_SCREEN_DELAY_IN_MS: Long = 3000
     }
 }
