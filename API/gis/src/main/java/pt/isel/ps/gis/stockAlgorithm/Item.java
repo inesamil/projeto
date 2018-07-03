@@ -3,6 +3,7 @@ package pt.isel.ps.gis.stockAlgorithm;
 import java.util.Date;
 
 public class Item {
+
     private final String product;
     private final short quantity;
     private final Date date;
