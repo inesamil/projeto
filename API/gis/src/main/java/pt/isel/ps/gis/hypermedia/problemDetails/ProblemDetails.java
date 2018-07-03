@@ -33,11 +33,11 @@ public class ProblemDetails {
         this.userFriendlyMessage = userFriendlyMessage;
     }
 
-    public ProblemDetails(String title, int status, String detail, String userFriendlyMessage, String instance) {
+    public ProblemDetails(String title, int status, String detail, String instance, String userFriendlyMessage) {
         this("about:blank", title, status, detail, instance, userFriendlyMessage);
     }
 
     public ProblemDetails(String title, int status, String detail, String userFriendlyMessage) {
-        this(title, status, detail,null, userFriendlyMessage);
+        this(title, status, detail, null, userFriendlyMessage);
     }
 }
