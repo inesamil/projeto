@@ -9,8 +9,20 @@ import Login from './login'
 import PrivateRoute from './privateRoute'
 import User from './user'
 
-const homePath = '/'
+
+const home = '/'
+const loginTempl = new URITemplate('/login/{url}')
+const stockItemsTempl = new URITemplate('/stock-items/{url}')
+const stockItemTempl = new URITemplate('/stock-item/{url}')
+const userHousesTempl = new URITemplate('/houses/{url}')
+const houseAllergiesTempl = new URITemplate('/allergies/{url}')
+const storagesTempl = new URITemplate('/storages/{url}')
 const userTempl = new URITemplate('/user/{url}')
+const userListsTempl = new URITemplate('/lists/{url}')
+const listTempl = new URITemplate('/list/{url}')
+const categoriesTempl = new URITemplate('/categories/{url}')
+const productsTempl = new URITemplate('/products/{url}')
+
 
 // Keys
 const authKey = 'auth'
@@ -20,15 +32,16 @@ export default class extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      home: this.props.home
+      index: this.props.home
     }
     this.setAuthorization = this.setAuthorization.bind(this)
   }
 
   setAuthorization (user) {
+    console.log(user)
     const authorization = `${user.token_type} ${user.token}`
     window.sessionStorage.setItem(authKey, authorization)
-    this.setUserUrl(new URITemplate(this.state.home.hrefTempl).expand({ username: user.username }))
+    this.setUserUrl(new URITemplate(this.state.index.userHrefTempl).expand({ username: user.username }))
   }
 
   signout () {
@@ -60,29 +73,31 @@ export default class extends React.Component {
       <BrowserRouter>
         <div>
           <Navigation
-            onHomeClick={() => window.location.assign(homePath)}
+            onHomeClick={() => window.location.assign(home)}
             isAuthenticated={this.isAuthenticated}
             onLogin={() => window.location.assign('/login')}
             onLogout={() => {
               this.signout()
               this.removeUserUrl()
-              window.location.replace(homePath)
+              window.location.replace(home)
             }} />
           <Switch>
             <Route exact path='/login' render={({ history }) => {
               if (!this.isAuthenticated()) {
                 return (
                   <Login
-                    urlTempl={this.state.home.hrefTempl}
+                    urlTempl={this.state.index.userHrefTempl}
                     previousLocation={history.location.state}
+                    getAuthorization={this.getAuthorization}
                     onLogin={this.setAuthorization} />
                 )
               }
               return (
                 <Redirect
-                  to={homePath} />
+                  to={home} />
               )
             }} />
+            
             <PrivateRoute exact path='/user/:url' isAuthenticated={this.isAuthenticated} component={User} componentProps={({ match, history }) => {
               return {
                 url: URI.decode(match.params.url),
@@ -90,6 +105,8 @@ export default class extends React.Component {
                 // TODO meter os listeners para os links relacionados com o user
               }
             }} />
+            
+            
             <Route exact path='/' render={({ history }) =>
               <Home
                 home={this.state.home}
@@ -99,7 +116,7 @@ export default class extends React.Component {
             <Route path='/' render={({ history }) =>
               <div>
                 <h2>Route not found</h2>
-                <button onClick={() => history.push(homePath)}>Home</button>
+                <button onClick={() => history.push(home)}>Home</button>
               </div>
             } />
           </Switch>

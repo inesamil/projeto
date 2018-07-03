@@ -17,6 +17,7 @@ export default class Login extends React.Component {
   }
 
   login () {
+    console.log('login()')
     if (this.promise) {
       this.promise.cancel()
     }
@@ -29,6 +30,8 @@ export default class Login extends React.Component {
       }
     }
     const url = this.state.urlTempl.expand({ username: this.state.username })
+    console.log(url)
+    console.log(options)
     this.promise = request(url, options)
       .then(([resp, json]) => {
         if (resp.status === 200) {
@@ -79,6 +82,7 @@ export default class Login extends React.Component {
     const from = this.props.previousLocation || '/'
 
     if (this.state.redirectToReferrer) {
+      console.log('Redirecting..')
       return <Redirect to={from} />
     }
 
@@ -93,11 +97,11 @@ export default class Login extends React.Component {
         <div className='login-column'>
           <h5>LOGIN</h5>
           <div className='form-group'>
-            <label for='username'>Username: </label>
+            <label htmlFor='username'>Username</label>
             <input type='text' onChange={this.handleChange} placeholder='Enter Username' name='username' className='form-control' required />
           </div>
           <div className='form-group'>
-            <label for='password'>Password: </label>
+            <label htmlFor='password'>Password:</label>
             <input type='password' onChange={this.handleChange} placeholder='Enter Password' name='password' className='form-control' required />
           </div>
           <div className='form-group'>
