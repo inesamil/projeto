@@ -107,12 +107,6 @@
     <!-- StockItemList Activity -->
     <string name="stockItemListLabel">List</string>
 
-    <!-- content_recipes_item.xml -->
-    <string name="tryRecipe">Try</string>
-
-    <!-- Recipes Activity -->
-    <string name="recipesLabel">Recipes</string>
-
     <!-- StockItemDetails Activity -->
     <string name="stockItemDetailsLabel">Stock Item Details</string>
 

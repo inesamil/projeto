@@ -53,7 +53,6 @@ class SettingsFragment : Fragment() {
      * activity.
      */
     interface OnSettingsFragmentInteractionListener {
-        //TODO
     }
 
     /**

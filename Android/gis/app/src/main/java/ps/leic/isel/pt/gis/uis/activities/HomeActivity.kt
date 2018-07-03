@@ -34,7 +34,6 @@ class HomeActivity : AppCompatActivity(),
         HomePageFragment.OnHomeFragmentInteractionListener,
         HousesFragment.OnHousesFragmentInteractionListener,
         NewHouseDialogFragment.OnNewHouseDialogFragmentInteractionListener,
-        BasicInformationFragment.OnBasicInformationFragmentInteractionListener,
         CategoriesFragment.OnCategoriesFragmentInteractionListener,
         ListsFragment.OnListsFragmentInteractionListener,
         NewListDialogFragment.OnNewListDialogFragmentInteractionListener,
@@ -206,12 +205,6 @@ class HomeActivity : AppCompatActivity(),
         dialog.show(supportFragmentManager, DeleteConfirmationDialogFragment.TAG)
     }
 
-    // Listener for BasicInformationFragment interaction
-    override fun onBasicInformationUpdate(user: UserDTO) {
-        Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
-        // TODO atualizar info do user
-    }
-
     // Listener for CategoriesFragement interaction
     override fun onCategoryInteraction(url: String, categoryName: String) {
         val gisApplication = application as GisApplication
@@ -342,7 +335,6 @@ class HomeActivity : AppCompatActivity(),
     }
 
     override fun onStorageInteraction(storage: StorageDto) {
-        //TODO
         Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
     }
 

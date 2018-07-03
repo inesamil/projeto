@@ -28,7 +28,6 @@ class StockItemDetailsMovementsAdapter
             // Fill View Holder
             holder.movementDatetimeText.text = item.movementDateTime
             holder.movementsTypeText.text = if (item.movementType) "Entrada" else "Saída"
-            //TODO
         }
     }
 
@@ -45,7 +44,6 @@ class StockItemDetailsMovementsAdapter
         internal val movementDatetimeText: TextView = itemView.findViewById(R.id.movementDatetimeText)
         internal val movementsTypeText: TextView = itemView.findViewById(R.id.movementsTypeText)
 
-        //TODO
         init {
             itemView.setOnClickListener {
                 mOnItemClickListener.onItemClick(it, adapterPosition)

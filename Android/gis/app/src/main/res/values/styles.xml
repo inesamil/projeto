@@ -7,7 +7,7 @@
     </style>
 
     <style name="SmartStocksTheme.Button" parent="Widget.AppCompat.Button.Colored">
-        <item name="android:background">@color/sunglow</item>
+        <item name="android:background">@drawable/round_edges_rectangle</item>
         <item name="android:textColor">@color/primaryTextColor</item>
     </style>
 

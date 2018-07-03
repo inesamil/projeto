@@ -26,7 +26,6 @@ class StockItemDetailsStorageAdapter
             val item = it[position]
             // Fill ViewHolder
             holder.storageItemText.text = item
-            //TODO
         }
     }
 
@@ -41,7 +40,6 @@ class StockItemDetailsStorageAdapter
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val storageItemText: TextView = itemView.findViewById(R.id.storageItemText)
-        //TODO
 
         init {
             itemView.setOnClickListener {

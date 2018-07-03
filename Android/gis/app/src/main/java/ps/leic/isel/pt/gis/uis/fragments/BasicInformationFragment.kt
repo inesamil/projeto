@@ -33,22 +33,12 @@ import ps.leic.isel.pt.gis.viewModel.UserViewModel
  */
 class BasicInformationFragment : Fragment() {
 
-    private var listener: OnBasicInformationFragmentInteractionListener? = null
     private lateinit var basicInfoVM: UserViewModel
     private lateinit var url: String
 
     private var state: State = State.LOADING
     private lateinit var progressBar: ProgressBar
     private lateinit var content: ConstraintLayout
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnBasicInformationFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnBasicInformationFragmentInteractionListener")
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,11 +90,6 @@ class BasicInformationFragment : Fragment() {
         basicInfoVM.cancel()
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
     /***
      * Auxiliary Methods
      ***/
@@ -150,16 +135,6 @@ class BasicInformationFragment : Fragment() {
     /***
      * Listeners
      ***/
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     */
-    interface OnBasicInformationFragmentInteractionListener {
-        fun onBasicInformationUpdate(user: UserDTO)
-    }
 
     companion object {
         const val TAG: String = "BasicInfoFragment"

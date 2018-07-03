@@ -77,10 +77,6 @@
     <string name="details">Detalhes</string>
     <!-- StockItemList Activity -->
     <string name="stockItemListLabel">Lista</string>
-    <!-- content_recipes_item.xml -->
-    <string name="tryRecipe">Experimentar</string>
-    <!-- Recipes Activity -->
-    <string name="recipesLabel">Receitas</string>
     <!-- StockItemDetails Activity -->
     <string name="stockItemDetailsLabel">Detalhes do Item</string>
     <!-- content_stock_item_details.xml -->
