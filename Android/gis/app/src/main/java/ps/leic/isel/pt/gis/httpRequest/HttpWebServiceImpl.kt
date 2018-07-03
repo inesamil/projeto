@@ -48,9 +48,11 @@ class HttpWebServiceImpl(private val applicationContext: Context) : HttpWebServi
             }
             // Unauthorized e forbidden é auth failure
             is AuthFailureError -> {
+                //TODO: if unauthorized
                 val constructor = errorType.getConstructor(String::class.java, Int::class.java, String::class.java, String::class.java)
                 val errorDto = constructor.newInstance("Unauthorized", 401, "Wrong credentials", applicationContext.getString(R.string.wrong_credentials))
                 Resource.apiError(errorDto)
+                //TODO: if forbidden
             }
             is ParseError -> Resource.error("") // TODO ver o que fazer quando da erro no parse da resposta do pedido
             is NetworkError, is NoConnectionError -> Resource.error(applicationContext.getString(R.string.network_error_has_occurred))
