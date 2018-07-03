@@ -5,7 +5,10 @@ import ps.leic.isel.pt.gis.httpRequest.HttpWebService
 import ps.leic.isel.pt.gis.httpRequest.HttpWebServiceImpl
 import ps.leic.isel.pt.gis.repositories.Repository
 import ps.leic.isel.pt.gis.repositories.RepositoryImpl
-import ps.leic.isel.pt.gis.stores.*
+import ps.leic.isel.pt.gis.stores.CredentialsStore
+import ps.leic.isel.pt.gis.stores.CredentialsStoreImpl
+import ps.leic.isel.pt.gis.stores.SmartLock
+import ps.leic.isel.pt.gis.stores.SmartLockImpl
 
 object ServiceLocator {
 
@@ -13,7 +16,6 @@ object ServiceLocator {
     private var repository: Repository? = null
     private var smartLock: SmartLock? = null
     private var credentialsStore: CredentialsStore? = null
-    private var cookieStore: CookieStore? = null
 
     fun getWebService(context: Context): HttpWebService {
         if (httpWebService == null)
@@ -28,24 +30,17 @@ object ServiceLocator {
         return repository as Repository
     }
 
-    fun getSmartLock(context: Context) : SmartLock {
-        if (smartLock == null){
+    fun getSmartLock(context: Context): SmartLock {
+        if (smartLock == null) {
             smartLock = SmartLockImpl(context)
         }
         return smartLock as SmartLock
     }
 
-    fun getCredentialsStore(context: Context) : CredentialsStore {
+    fun getCredentialsStore(context: Context): CredentialsStore {
         if (credentialsStore == null) {
             credentialsStore = CredentialsStoreImpl(context)
         }
         return credentialsStore as CredentialsStore
-    }
-
-    fun getCookieStore(context: Context) : CookieStore {
-        if (cookieStore == null) {
-            cookieStore = CookieStoreImpl(context)
-        }
-        return cookieStore as CookieStore
     }
 }
