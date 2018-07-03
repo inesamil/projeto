@@ -9,7 +9,7 @@ object HeadersUtils {
      */
     const val AUTHORIZATION: String = "Authorization"
 
-    fun getAuthorizationHeader(headers: Map<String, String>) : String? {
+    fun getAuthorizationHeader(headers: Map<String, String>): String? {
         return headers[AUTHORIZATION]
     }
 
@@ -19,26 +19,11 @@ object HeadersUtils {
     }
 
     /**
-     * COOKIE HEADER
-     */
-    const val COOKIE: String = "Cookie"
-
-    fun getCookieHeader(headers: Map<String, String>) : String? {
-        return headers[COOKIE]
-    }
-
-    fun setCookieHeader(headers: MutableMap<String, String>, cookies: List<Pair<String, String>>) {
-        CookieUtils.getCookieString(cookies)?.let {
-            headers[COOKIE] = it
-        }
-    }
-
-    /**
      * CONTENT-TYPE HEADER
      */
     const val CONTENT_TYPE: String = "Content-Type"
 
-    fun getContentTypeHeader(headers: Map<String, String>) : String? {
+    fun getContentTypeHeader(headers: Map<String, String>): String? {
         return headers[CONTENT_TYPE]
     }
 
