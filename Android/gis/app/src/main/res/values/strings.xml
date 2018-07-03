@@ -141,8 +141,6 @@
     <string name="in_stock">In stock</string>
     <string name="allergies">Allergies</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="write_nfc_tag">Write to an NFC tag</string>
     <string name="user_icon_description">User Icon</string>
     <string name="list_icon_description">List Icon</string>
     <string name="download_icon_description">Download Icon</string>
