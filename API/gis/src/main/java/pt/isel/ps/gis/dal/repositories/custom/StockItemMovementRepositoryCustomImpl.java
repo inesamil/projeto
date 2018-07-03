@@ -65,17 +65,7 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
                     ps.setLong(8, houseId);
                 if (isNotNull(ps, 9, storageId))
                     ps.setShort(9, storageId);
-                try (ResultSet resultSet = ps.executeQuery()) {
-                    List<StockItemMovement> stockItemMovements = new ArrayList<>();
-                    while (resultSet.next()) {
-                        try {
-                            stockItemMovements.add(extractStockItemMovementFromResultSet(resultSet));
-                        } catch (EntityException e) {
-                            throw new SQLException(e.getMessage());
-                        }
-                    }
-                    return stockItemMovements;
-                }
+                return executeQuery(ps);
             }
         });
     }
@@ -115,6 +105,47 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
                 }
             }
         });
+    }
+
+    @Override
+    public List<StockItemMovement> findAllByStartDateAndEndDate(Date startDate, Date endDate) {
+        Session session = entityManager.unwrap(Session.class);
+        return session.doReturningWork(connection -> {
+            String sql = "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, " +
+                    "public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity, " +
+                    "public.\"stockitemmovement\".stockitemmovement_finalquantity FROM public.\"stockitemmovement\" " +
+                    "WHERE public.\"stockitemmovement\".stockitemmovement_datetime >= ? " +
+                    "AND public.\"stockitemmovement\".stockitemmovement_datetime <= ?;";
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                if (isNotNull(ps, 1, startDate))
+                    ps.setDate(1, startDate);
+                if (isNotNull(ps, 2, endDate))
+                    ps.setDate(2, endDate);
+                return executeQuery(ps);
+            }
+        });
+    }
+
+    /**
+     * Execute the query and return List with StockItemMovements.
+     *
+     * @param ps instance of PreparedStatement
+     * @return List with all StockItemMovements
+     * @throws SQLException throw by PreparedStatement or trying to extract StockItemMovement from ResultSet
+     */
+    private List<StockItemMovement> executeQuery(PreparedStatement ps) throws SQLException {
+        try (ResultSet resultSet = ps.executeQuery()) {
+            List<StockItemMovement> stockItemMovements = new ArrayList<>();
+            while (resultSet.next()) {
+                try {
+                    stockItemMovements.add(extractStockItemMovementFromResultSet(resultSet));
+                } catch (EntityException e) {
+                    throw new SQLException(e.getMessage());
+                }
+            }
+            return stockItemMovements;
+        }
     }
 
     /**
