@@ -1,7 +1,7 @@
 package pt.isel.ps.gis.dal.repositories;
 
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemId;
@@ -9,7 +9,7 @@ import pt.isel.ps.gis.model.StockItemId;
 import java.util.List;
 import java.util.Optional;
 
-public interface StockItemRepository extends CrudRepository<StockItem, StockItemId>, StockItemRepositoryCustom {
+public interface StockItemRepository extends PagingAndSortingRepository<StockItem, StockItemId>, StockItemRepositoryCustom {
 
     /**
      * Find all stock items associated with specific house where stock item quantity is greater than param greaterThan
