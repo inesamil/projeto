@@ -12,7 +12,6 @@ import ps.leic.isel.pt.gis.repositories.Resource
 import ps.leic.isel.pt.gis.utils.UrlUtils
 import java.io.IOException
 
-
 class Requester<T, E>(
         method: Int, url: String, body: Any?, private val headers: MutableMap<String, String>,
         private val dtoType: Class<T>, onSuccess: (Resource<T, E>) -> Unit,

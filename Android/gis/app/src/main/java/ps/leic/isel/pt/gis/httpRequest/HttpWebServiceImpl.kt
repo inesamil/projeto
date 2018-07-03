@@ -4,7 +4,6 @@ import android.content.Context
 import com.android.volley.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.hypermedia.problemDetails.ProblemDetails
-import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.repositories.Resource
 import ps.leic.isel.pt.gis.volley.RequestQueue
 import ps.leic.isel.pt.gis.volley.Requester
@@ -40,21 +39,12 @@ class HttpWebServiceImpl(private val applicationContext: Context) : HttpWebServi
 
     private fun <T, E> onVolleyError(error: VolleyError?, onError: (Resource<T, E>) -> Unit, errorType: Class<E>) {
         val resource: Resource<T, E> = when (error) {
-            is ClientError -> {
+            is ClientError, is AuthFailureError -> {
                 val problemDetails = Requester.mapper.readValue(error.networkResponse.data, ProblemDetails::class.java)
                 val constructor = errorType.getConstructor(ProblemDetails::class.java)
                 val errorDto = constructor.newInstance(problemDetails)
                 Resource.apiError(errorDto)
             }
-            // Unauthorized e forbidden é auth failure
-            is AuthFailureError -> {
-                //TODO: if unauthorized
-                val constructor = errorType.getConstructor(String::class.java, Int::class.java, String::class.java, String::class.java)
-                val errorDto = constructor.newInstance("Unauthorized", 401, "Wrong credentials", applicationContext.getString(R.string.wrong_credentials))
-                Resource.apiError(errorDto)
-                //TODO: if forbidden
-            }
-            is ParseError -> Resource.error("") // TODO ver o que fazer quando da erro no parse da resposta do pedido
             is NetworkError, is NoConnectionError -> Resource.error(applicationContext.getString(R.string.network_error_has_occurred))
             is ServerError, is TimeoutError -> Resource.error(applicationContext.getString(R.string.could_not_connect_to_server))
             else -> Resource.error(applicationContext.getString(R.string.unfortunately_an_error_has_occurred))
