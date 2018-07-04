@@ -446,7 +446,9 @@ class HomeActivity : AppCompatActivity(),
      ***/
 
     private fun logout() {
-        ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials()
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .disableAutoSignIn()
         finish()
         startActivity(Intent(this, LoginActivity::class.java))
     }
