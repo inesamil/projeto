@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.google.android.gms.auth.api.credentials.Credential
 import kotlinx.android.synthetic.main.activity_login.*
 import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
@@ -15,7 +16,7 @@ import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.stores.CredentialsStore
+import ps.leic.isel.pt.gis.stores.SmartLock
 import ps.leic.isel.pt.gis.viewModel.UserViewModel
 
 class LoginActivity : AppCompatActivity() {
@@ -35,6 +36,19 @@ class LoginActivity : AppCompatActivity() {
         signinBtn.setOnClickListener(::onLoginClick)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SmartLock.RC_READ) {
+            if (resultCode == RESULT_OK) {
+                val credential: Credential = data?.getParcelableExtra(Credential.EXTRA_KEY)!!
+                onComplete(credential, credential.id)
+            } else {
+                Log.e(TAG, "Credential Read: NOT OK")
+                Toast.makeText(this, "Credential Read Failed", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun onLoginClick(view: View) {
         val username = usernameEditText.text.toString()
         val password = passwordEditText.text.toString()
@@ -44,7 +58,12 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(username, password))
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .retrieveCredentials(this, { onComplete(it, username) }, ::onUncomplete)
+    }
+
+    private fun onComplete(credential: Credential, username: String) {
         Log.i(TAG, "Credentials stored.")
 
         val gisApplication = application as GisApplication
@@ -58,11 +77,15 @@ class LoginActivity : AppCompatActivity() {
             userViewModel?.getUser()?.observe(this, Observer {
                 when (it?.status) {
                     Status.SUCCESS -> onSuccess(it.data)
-                    Status.UNSUCCESS -> onUnsuccess(it.apiError)
-                    Status.ERROR -> onError(it.message)
+                    Status.UNSUCCESS -> onUnsuccess(it.apiError, credential)
+                    Status.ERROR -> onError(it.message, credential)
                 }
             })
         }
+    }
+
+    private fun onUncomplete() {
+        // TODO o qe fazer?
     }
 
     private fun onSuccess(user: UserDto?) {
@@ -71,29 +94,32 @@ class LoginActivity : AppCompatActivity() {
         startActivity(Intent(this, HomeActivity::class.java))
     }
 
-    private fun onUnsuccess(error: ErrorDto?) {
+    private fun onUnsuccess(error: ErrorDto?, credential: Credential) {
         error?.let {
             Log.e(TAG, it.developerErrorMessage)
+            // TODO e se n for 401 n mostra nada ao user?
             if (it.statusCode == 401) {
                 Log.i(TAG, "Wrong credentials.")
                 Toast.makeText(this, getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show()
+                // TODo é necessario este toast?
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials()
-                Log.i(TAG, "Credentials deleted.")
             }
         }
+        onError(null, credential)
     }
 
-    private fun onError(message: String?) {
+    private fun onError(message: String?, credential: Credential) {
         message?.let {
             Log.e(TAG, it)
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .deleteCredentials(credential)
     }
 
 
     companion object {
         const val TAG: String = "LoginActivity"
-
     }
 }
