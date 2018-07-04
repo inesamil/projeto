@@ -9,14 +9,16 @@ import Login from './login'
 import PrivateRoute from './privateRoute'
 import User from './user'
 import Categories from './categories'
+import Lists from './lists'
+import List from './list'
 
 /* import StockItems from './stockItems'
 import StockItem from './stockItem'
 import Houses from './houses'
 import Allergies from './allergies'
 import Storages from './storages'
-import Lists from './lists'
-import List from './list'
+
+
 
 import Products from './products' */
 
@@ -127,6 +129,19 @@ export default class extends React.Component {
               }
             }} />
             <PrivateRoute exact path='/user/:url' isAuthenticated={this.isAuthenticated} component={User} componentProps={({ match, history }) => {
+              return {
+                url: URI.decode(match.params.url),
+                getAuthorization: this.getAuthorization
+              }
+            }} />
+            <PrivateRoute exact path='/lists/:url' isAuthenticated={this.isAuthenticated} component={Lists} componentProps={({ match, history }) => {
+              return {
+                url: URI.decode(match.params.url),
+                getAuthorization: this.getAuthorization,
+                redirectToList: url => history.push(listTempl.expand({ url }))
+              }
+            }} />
+            <PrivateRoute exact path='/list/:url' isAuthenticated={this.isAuthenticated} component={List} componentProps={({ match, history }) => {
               return {
                 url: URI.decode(match.params.url),
                 getAuthorization: this.getAuthorization
