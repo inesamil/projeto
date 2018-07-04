@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.google.android.gms.auth.api.credentials.Credential
 import kotlinx.android.synthetic.main.activity_register.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
@@ -46,14 +47,29 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .storeCredentials(this,
+                        username,
+                        password,
+                        { onComplete(it, username, name, email, age, password) },
+                        ::onUncomplete
+                )
+    }
+
+    private fun onComplete(credential: Credential, username: String, name: String, email: String, age: Short, password: String) {
         usersViewModel = ViewModelProviders.of(this).get(UsersViewModel::class.java)
         usersViewModel?.addUser(UserBody(username, name, email, age, password))?.observe(this, Observer {
             when {
                 it?.status == Status.SUCCESS -> onSuccess(it.data, password)
-                it?.status == Status.UNSUCCESS -> onUnsuccess(it.apiError)
-                it?.status == Status.ERROR -> onError(it.message)
+                it?.status == Status.UNSUCCESS -> onUnsuccess(it.apiError, credential)
+                it?.status == Status.ERROR -> onError(it.message, credential)
             }
         })
+    }
+
+    private fun onUncomplete(exception: Exception?) {
+        // TODO o qe fazer?
     }
 
     private fun onSuccess(user: UserDto?, password: String) {
@@ -66,24 +82,26 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun onUnsuccess(error: ErrorDto?) {
+    private fun onUnsuccess(error: ErrorDto?, credential: Credential) {
         error?.let {
             Log.e(TAG, it.developerErrorMessage)
             if (it.statusCode == 401) {
                 Log.i(TAG, "Wrong credentials.")
                 Toast.makeText(this, getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show()
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials()
-                Log.i(TAG, "Credentials deleted.")
             }
         }
+        onError(null, credential)
     }
 
-    private fun onError(message: String?) {
+    private fun onError(message: String?, credential: Credential) {
         message?.let {
             Log.e(LoginActivity.TAG, it)
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .deleteCredentials(credential)
     }
 
     companion object {
