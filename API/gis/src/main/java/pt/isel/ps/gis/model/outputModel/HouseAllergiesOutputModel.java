@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import pt.isel.ps.gis.hypermedia.siren.components.subentities.*;
-import pt.isel.ps.gis.model.Allergy;
 import pt.isel.ps.gis.model.HouseAllergy;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 

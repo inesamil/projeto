@@ -38,7 +38,7 @@ public class HouseMembersOutputModel {
         return new String[]{ENTITY_CLASS, "collection"};
     }
 
-    private Map<String,Object> initProperties(List<UserHouse> users) {
+    private Map<String, Object> initProperties(List<UserHouse> users) {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("size", users.size());
 
@@ -61,7 +61,7 @@ public class HouseMembersOutputModel {
                     new String[]{"item"},
                     properties,
                     null,
-                    new Link[]{new Link(new String[]{"related"},  new String[]{"user"}, userUri)});
+                    new Link[]{new Link(new String[]{"related"}, new String[]{"user"}, userUri)});
         }
         return entities;
     }

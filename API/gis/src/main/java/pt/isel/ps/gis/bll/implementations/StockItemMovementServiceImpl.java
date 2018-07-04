@@ -99,32 +99,32 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
                 .findById_HouseIdAndProduct_ProductNameAndStockitemBrandAndStockitemVarietyAndStockitemSegmentAndStockitemSegmentunit(houseId, productName, brand, variety, segm, segmUnit)
                 .orElseThrow(() -> new EntityNotFoundException("Stock Item does not exist.", messageSource.getMessage("stock_Item_Not_Exist", null, locale)));
         if (stockItem.getStockitemQuantity() == 0) {
-            throw new EntityNotFoundException("Stock Item does not exist.",messageSource.getMessage("stock_Item_Not_Exist", null, locale));
+            throw new EntityNotFoundException("Stock Item does not exist.", messageSource.getMessage("stock_Item_Not_Exist", null, locale));
         }
     }
 
     private void checkHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateHouseId(houseId);
         if (!houseRepository.existsById(houseId))
-            throw new EntityNotFoundException("House does not exist.",messageSource.getMessage("house_Not_Exist", null, locale));
+            throw new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale));
     }
 
     private void checkProductName(String productName, Locale locale) throws EntityException, EntityNotFoundException {
         ValidationsUtils.validateProductName(productName);
         if (!productRepository.existsByProductName(productName))
-            throw new EntityNotFoundException("Product does not exist.",messageSource.getMessage("product_Not_Exist", null, locale));
+            throw new EntityNotFoundException("Product does not exist.", messageSource.getMessage("product_Not_Exist", null, locale));
     }
 
     private void checkStorageId(long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException {
         StorageId id = new StorageId(houseId, storageId);
         if (!storageRepository.existsById(id))
-            throw new EntityNotFoundException("Storage does not exist.",messageSource.getMessage("storage_Not_Exist", null, locale));
+            throw new EntityNotFoundException("Storage does not exist.", messageSource.getMessage("storage_Not_Exist", null, locale));
     }
 
     private String[] splitSegment(String segment, Locale locale) throws EntityException {
         String[] segmentSplitted = InputUtils.splitNumbersFromLetters(segment);
         if (segmentSplitted.length != 2)
-            throw new EntityException("Segment does not exist.",messageSource.getMessage("segment_Invalid", null, locale));
+            throw new EntityException("Segment does not exist.", messageSource.getMessage("segment_Invalid", null, locale));
         return segmentSplitted;
     }
 }

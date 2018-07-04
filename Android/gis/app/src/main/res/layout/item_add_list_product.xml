@@ -38,7 +38,7 @@
 
         <Button
             android:id="@+id/minusButton"
-            style="@style/SmartStocksTheme.Button"
+            style="@style/SmartStocksTheme.SunglowButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginBottom="8dp"
@@ -111,7 +111,7 @@
 
     <Button
         android:id="@+id/actionButton"
-        style="@style/SmartStocksTheme.Button"
+        style="@style/SmartStocksTheme.SunglowButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -121,7 +121,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/add"
-        android:theme="@style/SmartStocksTheme.Button"
+        android:theme="@style/SmartStocksTheme.SunglowButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/quantityLayout"

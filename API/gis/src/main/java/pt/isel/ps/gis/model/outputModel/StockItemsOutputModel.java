@@ -41,7 +41,7 @@ public class StockItemsOutputModel {
         return new String[]{ENTITY_CLASS, "collection"};
     }
 
-    private Map<String,Object> initProperties(List<StockItem> stockItems) {
+    private Map<String, Object> initProperties(List<StockItem> stockItems) {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("size", stockItems.size());
 

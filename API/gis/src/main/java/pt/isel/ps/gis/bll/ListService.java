@@ -4,7 +4,6 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.List;
-import pt.isel.ps.gis.model.SystemList;
 
 import java.util.Locale;
 

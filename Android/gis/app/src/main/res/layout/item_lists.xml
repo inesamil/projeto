@@ -43,7 +43,6 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:paddingStart="8dp"
-                android:text="Lista de Compras"
                 android:textColor="@color/primaryTextColor"
                 android:textColorLink="@android:color/black"
                 android:textSize="24sp"

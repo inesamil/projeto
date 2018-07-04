@@ -210,4 +210,6 @@
     <string name="at_username" translatable="false">\@%1$s</string>
     <string name="invitation_sent_successfully">Invitation sent successfully</string>
     <string name="logout">Logout</string>
+    <string name="fridge_icon_description">Fridge Icon</string>
+    <string name="add_member_icon_description">Add Member Icon</string>
 </resources>

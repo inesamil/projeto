@@ -22,9 +22,9 @@ public interface InvitationService {
     /**
      * Enviar um convite para ser membro da casa com ID @houseId do utilizador com username @from_username para o utilizador com username @to_username
      *
-     * @param houseId  identificador da casa
+     * @param houseId       identificador da casa
      * @param from_username identificador do utilizador a enviar o convite
-     * @param to_username identificador do utilizador a receber o convite
+     * @param to_username   identificador do utilizador a receber o convite
      * @return Invitation
      */
     Invitation sentInvitation(Long houseId, String from_username, String to_username, Locale locale) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException, InsufficientPrivilegesException;

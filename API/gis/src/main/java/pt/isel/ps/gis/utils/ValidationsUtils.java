@@ -281,7 +281,7 @@ public class ValidationsUtils {
         MessageSource messageSource = MessageSourceHolder.getMessageSource();
         Locale locale = LocaleContextHolder.getLocale();
         if (roleName == null)
-            throw new EntityException("Role name is required.", messageSource.getMessage("role_Name_Required", null ,locale));
+            throw new EntityException("Role name is required.", messageSource.getMessage("role_Name_Required", null, locale));
         if (roleName.length() > RestrictionsUtils.ROLE_NAME_MAX_LENGTH)
             throw new EntityException(String.format("Invalid role name. Role name must contain a maximum of %d characters.", RestrictionsUtils.ROLE_NAME_MAX_LENGTH), messageSource.getMessage("invalid_Role_Name", new Object[]{RestrictionsUtils.ROLE_NAME_MAX_LENGTH}, locale));
 

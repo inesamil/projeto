@@ -49,7 +49,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_kitchen_black_85op_24dp" />
+                    app:srcCompat="@drawable/ic_kitchen_black_85op_24dp"
+                    android:contentDescription="@string/fridge_icon_description" />
 
                 <TextView
                     android:id="@+id/myPantriesText"
@@ -129,7 +130,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_home_black_85op_24dp" />
+                    app:srcCompat="@drawable/ic_home_black_85op_24dp"
+                    android:contentDescription="@string/home_icon_description" />
 
                 <TextView
                     android:id="@+id/myHousesText"
@@ -216,7 +218,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_person_black_85op_24dp" />
+                    app:srcCompat="@drawable/ic_person_black_85op_24dp"
+                    android:contentDescription="@string/user_icon_description" />
 
                 <TextView
                     android:id="@+id/myProfileText"
@@ -289,7 +292,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_format_list_bulleted_black_85op_24dp" />
+                    app:srcCompat="@drawable/ic_format_list_bulleted_black_85op_24dp"
+                    android:contentDescription="@string/list_icon_description" />
 
                 <TextView
                     android:id="@+id/myListsText"
@@ -347,7 +351,7 @@
             android:layout_height="match_parent">
 
             <android.support.constraint.Guideline
-                android:id="@+id/listsTopGuideline"
+                android:id="@+id/tagsTopGuideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -356,10 +360,10 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/listsBottomGuideline"
+                app:layout_constraintBottom_toTopOf="@+id/tagsBottomGuideline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/listsTopGuideline">
+                app:layout_constraintTop_toTopOf="@+id/tagsTopGuideline">
 
                 <ImageView
                     android:id="@+id/tagsIcon"
@@ -369,7 +373,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_nfc_black_24dp" />
+                    app:srcCompat="@drawable/ic_nfc_black_24dp"
+                    android:contentDescription="@string/nfc_icon_description" />
 
                 <TextView
                     android:id="@+id/tagsText"
@@ -389,7 +394,7 @@
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.Guideline
-                android:id="@+id/listsBottomGuideline"
+                android:id="@+id/tagsBottomGuideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

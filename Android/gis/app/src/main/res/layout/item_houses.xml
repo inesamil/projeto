@@ -132,7 +132,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
-                    android:text="Babies"
+                    android:text="@string/babies"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -147,7 +147,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="0"
+                    android:text="@string/default_number"
                     app:layout_constraintBottom_toTopOf="@+id/babiesText"
                     app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -162,7 +162,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
-                    android:text="Children"
+                    android:text="@string/children"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline2"
                     app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline1"
@@ -177,7 +177,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="0"
+                    android:text="@string/default_number"
                     app:layout_constraintBottom_toTopOf="@+id/childrenText"
                     app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline2"
                     app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline1"
@@ -192,7 +192,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
-                    android:text="Adults"
+                    android:text="@string/adults"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline3"
                     app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline2"
@@ -207,7 +207,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="0"
+                    android:text="@string/default_number"
                     app:layout_constraintBottom_toTopOf="@+id/adultsText"
                     app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline3"
                     app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline2"
@@ -222,7 +222,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
-                    android:text="Seniors"
+                    android:text="@string/seniors"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline3"
@@ -237,7 +237,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="0"
+                    android:text="@string/default_number"
                     app:layout_constraintBottom_toTopOf="@+id/seniorsText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline3"
@@ -255,6 +255,7 @@
                 android:id="@+id/membersText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
@@ -264,12 +265,11 @@
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/membersRecyclerView"
+                app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/HorizontalGuideline2"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toTopOf="@+id/HorizontalGuideline2" />
 
             <android.support.v4.widget.NestedScrollView
                 android:id="@+id/nestedScrollView"
@@ -280,7 +280,6 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:fillViewport="true"
                 app:layout_constraintBottom_toTopOf="@+id/buttonsLayout"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -327,6 +326,7 @@
 
                 <Button
                     android:id="@+id/storageBtn"
+                    style="@style/SmartStocksTheme.SunsetOrangeButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -335,17 +335,16 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@color/sunset_orange"
                     android:text="@string/storages"
-                    android:theme="@style/SmartStocksTheme.Button"
+                    android:theme="@style/SmartStocksTheme.SunglowButton"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="h,1:1"
-                    app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline1"
+                    app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline4"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.constraint.Guideline
-                    android:id="@+id/innerVerticalGuideline1"
+                    android:id="@+id/innerVerticalGuideline4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -353,6 +352,7 @@
 
                 <Button
                     android:id="@+id/allergiesBtn"
+                    style="@style/SmartStocksTheme.SunsetOrangeButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -361,12 +361,11 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@color/sunset_orange"
                     android:text="@string/allergies"
-                    android:theme="@style/SmartStocksTheme.Button"
+                    android:theme="@style/SmartStocksTheme.SunglowButton"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline1"
+                    app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline4"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
@@ -387,7 +386,8 @@
                 app:layout_constraintStart_toEndOf="@+id/houseNameText"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ic_person_add_black" />
+                app:srcCompat="@drawable/ic_person_add_black"
+                android:contentDescription="@string/add_member_icon_description" />
 
         </android.support.constraint.ConstraintLayout>
 

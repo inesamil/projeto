@@ -68,7 +68,7 @@ public class CategoryOutputModel {
         String productsCategoryUri = UriBuilderUtils.buildProductsCategoryUri(categoryId);
 
         // Link-self
-        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS},categoryUri);
+        Link self = new Link(new String[]{"self"}, new String[]{ENTITY_CLASS}, categoryUri);
 
         // Link-related-productsCategory
         Link productsCategoryLink = new Link(new String[]{"related"}, new String[]{"products-category", "collection"}, productsCategoryUri);

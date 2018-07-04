@@ -152,7 +152,7 @@
 
                 <Button
                     android:id="@+id/signupBtn"
-                    style="@style/SmartStocksTheme.Button"
+                    style="@style/SmartStocksTheme.SunglowButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -162,7 +162,7 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/sing_up"
                     android:textStyle="bold"
-                    android:theme="@style/SmartStocksTheme.Button"
+                    android:theme="@style/SmartStocksTheme.SunglowButton"
                     app:layout_constraintBottom_toTopOf="@+id/listLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

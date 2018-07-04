@@ -177,4 +177,6 @@
     <string name="invitation_question">Quer juntar-se à casa %1$s?</string>
     <string name="invitation_sent_successfully">Convite enviado com sucesso</string>
     <string name="logout">Terminar sessão</string>
+    <string name="fridge_icon_description">Ícone do Frigorífico</string>
+    <string name="add_member_icon_description">Ícone de Adicionar Membro</string>
 </resources>

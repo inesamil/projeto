@@ -28,7 +28,6 @@ class InvitationsAdapter(private val usernamePlaceholder: String, private val qu
         data?.let {
             val item = it[position]
             // Fill ViewHolder
-            holder.requesterUser.text = String.format(usernamePlaceholder, item.username)
             holder.invitationQuestion.text = String.format(questionPlaceholder, item.houseName)
 
             // Set on accept invitation listener
@@ -53,7 +52,6 @@ class InvitationsAdapter(private val usernamePlaceholder: String, private val qu
 
     // Stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val requesterUser: TextView = itemView.findViewById(R.id.requesterUserText)
         internal val invitationQuestion: TextView = itemView.findViewById(R.id.invitationQuestionText)
         internal val acceptInvitation: Button = itemView.findViewById(R.id.acceptInvitationBtn)
         internal val declineInvitation: Button = itemView.findViewById(R.id.declineInvitationBtn)

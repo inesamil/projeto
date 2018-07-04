@@ -42,7 +42,7 @@ public class UserHousesOutputModel {
         return new String[]{ENTITY_CLASS, "collection"};
     }
 
-    private Map<String,Object> initProperties(List<House> houses) {
+    private Map<String, Object> initProperties(List<House> houses) {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("size", houses.size());
 

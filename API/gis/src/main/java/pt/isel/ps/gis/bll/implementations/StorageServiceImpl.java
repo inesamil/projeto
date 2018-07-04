@@ -72,7 +72,7 @@ public class StorageServiceImpl implements StorageService {
     public void deleteStorageByStorageId(long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException {
         StorageId id = new StorageId(houseId, storageId);
         if (!storageRepository.existsById(id))
-            throw new EntityNotFoundException(String.format("Storage with ID %d does not exist in the house with ID %d.", storageId, houseId), messageSource.getMessage("storage_Id_Not_Exist", new Object[]{ storageId, houseId}, locale));
+            throw new EntityNotFoundException(String.format("Storage with ID %d does not exist in the house with ID %d.", storageId, houseId), messageSource.getMessage("storage_Id_Not_Exist", new Object[]{storageId, houseId}, locale));
         storageRepository.deleteCascadeStorageById(id);
     }
 
