@@ -30,7 +30,7 @@ public class RestrictionsUtils {
     public static final int ALLERGY_ALLERGEN_MAX_LENGTH = 75;
 
     /// HouseAllergy
-    public static final short HOUSEALLERGY_ALERGICSNUM_MIN = 1;
+    public static final short HOUSEALLERGY_ALERGICSNUM_MIN = 0;
 
     /// List
     public static final short LIST_ID_MIN = 1;

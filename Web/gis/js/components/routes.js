@@ -129,8 +129,8 @@ export default class extends React.Component {
               return {
                 url: URI.decode(match.params.url),
                 getAuthorization: this.getAuthorization,
-                storagesUrltempl: storagesTempl,
-                allergiesUrlTempl: houseAllergiesTempl
+                redirectToStorages: url => history.push(storagesTempl.expand({ url })),
+                redirectToAllergies: url => history.push(houseAllergiesTempl.expand({ url }))
               }
             }} />
             <PrivateRoute exact path='/categories/:url' isAuthenticated={this.isAuthenticated} component={Categories} componentProps={({ match, history }) => {

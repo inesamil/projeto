@@ -52,13 +52,13 @@ public class HouseAllergiesOutputModel {
         Entity[] entities = new Entity[houseAllergies.size()];
         // Type
         String type = "application/json";
+        HashMap<String, Object> properties;
 
         for (int i = 0; i < houseAllergies.size(); ++i) {
             HouseAllergy houseAllergy = houseAllergies.get(i);
-            Allergy allergy = houseAllergy.getAllergyByAllergyAllergen();
-            String allergen = allergy.getAllergyAllergen();
+            String allergen = houseAllergy.getId().getAllergyAllergen();
 
-            HashMap<String, Object> properties = new HashMap<>();
+            properties = new HashMap<>();
             properties.put("house-id", houseId);
             properties.put("allergy-allergen", allergen);
             properties.put("allergics-number", houseAllergy.getHouseallergyAllergicsnum());

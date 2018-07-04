@@ -4,7 +4,7 @@ import HttpGetSwitch from './http-get-switch'
 import Error from './error'
 import { mapSirenToUserHouses } from '../utils/mapHypermedia'
 
-export default ({ url, getAuthorization, storagesUrltempl, allergiesUrlTempl }) => (
+export default ({ url, getAuthorization, redirectToStorages, redirectToAllergies }) => (
   <HttpGet
     url={url}
     getAuthorization={getAuthorization}
@@ -27,10 +27,10 @@ export default ({ url, getAuthorization, storagesUrltempl, allergiesUrlTempl }) 
                     <h3 style={{'font-size': '30px;'}}> {house.houseName}</h3>
                     <br />
 
-                    <button className='button' href={storagesUrltempl.expand({ url: house.storagesLink.href })}>
+                    <button className='button' onClick={() => redirectToStorages(house.storagesLink.href)}>
                       <h4> Storages</h4>
                     </button>
-                    <button className='button' href={allergiesUrlTempl.expand({ url: house.houseAllergiesLink.href })}>
+                    <button className='button' onClick={() => redirectToAllergies(house.houseAllergiesLink.href)}>
                       <h4> Allergies</h4>
                     </button>
                   </div>

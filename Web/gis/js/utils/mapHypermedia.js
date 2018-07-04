@@ -70,7 +70,7 @@ export function mapSirenToAllergies (json) {
 // HouseAllergies
 export function mapSirenToHouseAllergies (json) {
   const houseAllergiesLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
-  const houseLink = josn.links.find(link => link.rel.find(rel => rel === 'related'))
+  const houseLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
   const houseAllergies = {
     houseAllergies: [],
     selfHref: houseAllergiesLink ? houseAllergiesLink.href : undefined,
