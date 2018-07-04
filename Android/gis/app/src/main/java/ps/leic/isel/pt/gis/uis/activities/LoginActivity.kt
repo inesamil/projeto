@@ -97,11 +97,11 @@ class LoginActivity : AppCompatActivity() {
     private fun onUnsuccess(error: ErrorDto?, credential: Credential) {
         error?.let {
             Log.e(TAG, it.developerErrorMessage)
-            // TODO e se n for 401 n mostra nada ao user?
+            // TODO e se n for 401 n mostra nada ao user? Se houver mais casos tem de se por aqui
             if (it.statusCode == 401) {
                 Log.i(TAG, "Wrong credentials.")
                 Toast.makeText(this, getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show()
-                // TODo é necessario este toast?
+                // TODo é necessario este toast? Se calhar não, não sei o que vem na message
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
         }
