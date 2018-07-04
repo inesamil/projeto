@@ -411,6 +411,11 @@ export function mapSirenToStockItem (json) {
   const stockItemLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const stockItemsLink = json.links.find(link => link.class.find(c => c === 'stock-items'))
   const itemAllergiesLink = json.links.find(link => link.class.find(c => c === 'stock-item-allergens'))
+  const allergensEntity = json.entities.find(entity => entity.class.find(c => c === 'allergens'))
+  const expirationDatesEntity = json.entities.find(entity => entity.class.find(c => c === 'expiration-dates'))
+  const storagesEntity = json.entities.find(entity => entity.class.find(c => c === 'storages'))
+  const movementsEntity = json.entities.find(entity => entity.class.find(c => c === 'movements'))
+  console.log(expirationDatesEntity)
   return {
     houseId: json.properties['house-id'],
     stockItemSku: json.properties['stock-item-sku'],
@@ -422,18 +427,17 @@ export function mapSirenToStockItem (json) {
     quantity: json.properties['stock-item-quantity'],
     segment: json.properties['stock-item-segment'],
     variety: json.properties['stock-item-variety'],
-    allergensEntity: {
-      elements: json.entities.find(entity => entity.class.find(c => c === 'allergens'))
-    },
-    expirationDatesEntity: {
-      elements: json.entities.find(entity => entity.class.find(c => c === 'expiration-dates'))
-    },
-    storagesEntity: {
-      elements: json.entities.find(entity => entity.class.find(c => c === 'storages'))
-    },
-    movementsEntity: {
-      elements: json.entities.find(entity => entity.class.find(c => c === 'movements'))
-    },
+    // Allergens
+    allergens: allergensEntity.properties.elements,
+    // Expiration Dates
+    expirationDates: expirationDatesEntity.properties.elements
+      .map(obj => { return { date: obj['expiration-date'], quantity: obj['quantity'] } }),
+    // Storages
+    storages: storagesEntity.properties.elements,
+    // Movements
+    movements: movementsEntity.properties.elements
+      .map(obj => { return { type: obj['movement-type'], dateTime: obj['movement-datetime'], quantity: obj['movement-quantity'] } }),
+    // Links
     selfHref: stockItemLink ? stockItemLink.href : undefined,
     stockItemsLink: stockItemsLink ? stockItemsLink.href : undefined,
     itemAllergiesLink: itemAllergiesLink ? itemAllergiesLink.href : undefined
