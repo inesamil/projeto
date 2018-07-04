@@ -15,10 +15,9 @@ import List from './list'
 import Houses from './houses'
 import Storages from './storages'
 import Allergies from './allergies'
-
-/* import StockItems from './stockItems'
 import StockItem from './stockItem'
-import Allergies from './allergies' */
+
+/* import StockItems from './stockItems' */
 
 const home = '/'
 const loginTempl = new URITemplate('/login/{url}')
@@ -166,6 +165,12 @@ export default class extends React.Component {
               }
             }} />
             <PrivateRoute exact path='/storages/:url' isAuthenticated={this.isAuthenticated} component={Storages} componentProps={({ match, history }) => {
+              return {
+                url: URI.decode(match.params.url),
+                getAuthorization: this.getAuthorization
+              }
+            }} />
+            <PrivateRoute exact path='/stock-item/:url' isAuthenticated={this.isAuthenticated} component={StockItem} componentProps={({ match, history }) => {
               return {
                 url: URI.decode(match.params.url),
                 getAuthorization: this.getAuthorization
