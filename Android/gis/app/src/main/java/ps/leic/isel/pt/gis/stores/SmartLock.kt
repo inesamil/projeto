@@ -12,6 +12,8 @@ interface SmartLock {
 
     fun deleteCredentials(credential: Credential)
 
+    fun disableAutoSignIn()
+
     companion object {
         // These are the API calls that can be made.
         const val RC_SAVE = 1

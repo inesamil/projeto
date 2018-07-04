@@ -107,6 +107,10 @@ class SmartLockImpl(applicationContext: Context) : SmartLock {
         }
     }
 
+    override fun disableAutoSignIn() {
+        mCredentialsClient.disableAutoSignIn()
+    }
+
     companion object {
         private const val TAG: String = "SmartLock"
     }
