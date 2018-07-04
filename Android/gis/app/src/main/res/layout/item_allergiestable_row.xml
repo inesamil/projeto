@@ -9,6 +9,7 @@
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:gravity="center_vertical|start"
+        android:paddingLeft="8dp"
         android:paddingStart="8dp"
         android:text="Allergens"
         app:layout_constraintBottom_toBottomOf="parent"
