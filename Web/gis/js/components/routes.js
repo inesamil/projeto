@@ -8,7 +8,17 @@ import Navigation from './navigation'
 import Login from './login'
 import PrivateRoute from './privateRoute'
 import User from './user'
+import Categories from './categories'
 
+/* import StockItems from './stockItems'
+import StockItem from './stockItem'
+import Houses from './houses'
+import Allergies from './allergies'
+import Storages from './storages'
+import Lists from './lists'
+import List from './list'
+
+import Products from './products' */
 
 const home = '/'
 const loginTempl = new URITemplate('/login/{url}')
@@ -23,10 +33,10 @@ const listTempl = new URITemplate('/list/{url}')
 const categoriesTempl = new URITemplate('/categories/{url}')
 const productsTempl = new URITemplate('/products/{url}')
 
-
 // Keys
 const authKey = 'auth'
 const userUrlKey = 'userUrl'
+const userUsernameKey = 'userUsername'
 
 export default class extends React.Component {
   constructor (props) {
@@ -38,10 +48,10 @@ export default class extends React.Component {
   }
 
   setAuthorization (user) {
-    console.log(user)
     const authorization = `${user.token_type} ${user.token}`
     window.sessionStorage.setItem(authKey, authorization)
     this.setUserUrl(new URITemplate(this.state.index.userHrefTempl).expand({ username: user.username }))
+    this.setUserUsername(user.username)
   }
 
   signout () {
@@ -64,8 +74,20 @@ export default class extends React.Component {
     return window.sessionStorage.getItem(userUrlKey)
   }
 
+  setUserUsername (username) {
+    window.sessionStorage.setItem(userUsernameKey, username)
+  }
+
+  getUserUsername () {
+    return window.sessionStorage.getItem(userUsernameKey)
+  }
+
   removeUserUrl () {
     window.sessionStorage.removeItem(userUrlKey)
+  }
+
+  removeUserUsername () {
+    window.sessionStorage.removeItem(userUsernameKey)
   }
 
   render () {
@@ -97,22 +119,34 @@ export default class extends React.Component {
                   to={home} />
               )
             }} />
-            
+            <PrivateRoute exact path='/categories/:url' isAuthenticated={this.isAuthenticated} component={Categories} componentProps={({ match, history }) => {
+              return {
+                url: URI.decode(match.params.url),
+                getAuthorization: this.getAuthorization,
+                productsUrltempl: productsTempl
+              }
+            }} />
             <PrivateRoute exact path='/user/:url' isAuthenticated={this.isAuthenticated} component={User} componentProps={({ match, history }) => {
               return {
                 url: URI.decode(match.params.url),
                 getAuthorization: this.getAuthorization
-                // TODO meter os listeners para os links relacionados com o user
               }
             }} />
-            
-            
-            <Route exact path='/' render={({ history }) =>
-              <Home
-                home={this.state.home}
-                isAuthenticated={this.isAuthenticated}
-                onProfileClick={() => history.push(userTempl.expand({ url: this.getUserUrl() }))} />
-            } />
+            <Route exact path='/' render={({ history }) => {
+              if (this.isAuthenticated()) {
+                return (
+                  <Home
+                    onProfileClick={() => history.push(userTempl.expand({ url: this.getUserUrl() }))}
+                    onStockItemClick={() => history.push(stockItemsTempl.expand({ url: new URITemplate(this.state.index.housesHrefTempl).expand({ username: this.getUserUsername() }) }))}
+                    onHousesClick={() => history.push(userHousesTempl.expand({ url: new URITemplate(this.state.index.housesHrefTempl).expand({ username: this.getUserUsername() }) }))}
+                    onListsClick={() => history.push(userListsTempl.expand({ url: new URITemplate(this.state.index.listsHrefTempl).expand({ username: this.getUserUsername() }) }))} />
+                )
+              }
+              return (
+                <Redirect
+                  to='/login' />
+              )
+            }} />
             <Route path='/' render={({ history }) =>
               <div>
                 <h2>Route not found</h2>

@@ -128,7 +128,7 @@ export function mapSirenToStockItemsAllergen (json) {
 //Categories
 export function mapSirenToCategories (json) {
   const categoriesLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
-  const indexLink = josn.links.find(link => link.rel.find(rel => rel === 'index'))
+  const indexLink = json.links.find(link => link.rel.find(rel => rel === 'index'))
   const categories = {
     categories: [],
     selfHref: categoriesLink ? categoriesLink.href : undefined,
