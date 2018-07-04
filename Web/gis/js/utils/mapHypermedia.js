@@ -100,7 +100,7 @@ export function mapSirenToHouseAllergies (json) {
 // StockItemAllergen
 export function mapSirenToStockItemsAllergen (json) {
   const stockItemsAllergenLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
-  const houseAllergiesLink = josn.links.find(link => link.rel.find(rel => rel === 'related'))
+  const houseAllergiesLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
   const stockItemsAllergen = {
     stockItemsAllergen: [],
     selfHref: stockItemsAllergenLink ? stockItemsAllergenLink.href : undefined,
@@ -164,7 +164,7 @@ export function mapSirenToHouse (json) {
   const categoriesEntity = json.entities.find(entity => entity.class.find(elem => elem === 'categories'))
   const houseLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const indexLink = json.links.find(link => link.rel.find(rel => rel === 'index'))
-  const housesLink = josn.links.find(link => link.class.find(c => c === 'houses'))
+  const housesLink = json.links.find(link => link.class.find(c => c === 'houses'))
   const itemsLink = itemsLink.link.find(link => link.class.find(c => c === 'items'))
   const movementsLink = movementsLink.link.find(link => link.class.find(c => c === 'movements'))
   const allergiesLink = allergiesLink.link.find(link => link.class.find(c => c === 'house-allergies'))
@@ -464,12 +464,12 @@ export function mapSirenToStockItems (json) {
       productId: properties['product-id'],
       productName: properties['product-name'],
       brand: properties['stock-item-brand'],
-      conservationStorage: properties['stock-item--conservation-storage'],
+      conservationStorage: properties['stock-item-conservation-storage'],
       description: properties['stock-item-brand'],
       quantity: properties['stock-item-quantity'],
       segment: properties['stock-item-segment'],
       variety: properties['stock-item-variety'],
-      href: entity.links.find(link => link.rel.find(rel => rel === 'self'))
+      href: entity.links.find(link => link.rel.find(rel => rel === 'self')).href
     }
     stockItems.stockItems.push(stockItem)
   })
@@ -605,7 +605,7 @@ export function mapSirenToUserHouses (json) {
         }
       }),
       href: entity.links.find(link => link.rel.find(rel => rel === 'self')),
-      itemsLink: entity.links.find(link => link.class.find(c => c === 'items')),
+      itemsHref: entity.links.find(link => link.class.find(c => c === 'items')).href,
       movementsLink: entity.links.find(link => link.class.find(c => c === 'movements')),
       houseAllergiesLink: entity.links.find(link => link.class.find(c => c === 'house-allergies')),
       listsLink: entity.links.find(link => link.class.find(c => c === 'lists')),
