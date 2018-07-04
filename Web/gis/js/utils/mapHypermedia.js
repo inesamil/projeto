@@ -263,11 +263,11 @@ export function mapSirenToLists (json) {
       name: properties['list-name'],
       type: properties['list-type'],
       username: properties['user-username'] ? properties['user-username'] : undefined,
-      shareable: properties['list-shareable'] ?  properties['list-shareable'] : undefined,
+      shareable: properties['list-shareable'] ? properties['list-shareable'] : undefined,
       actions: {
         putListProduct: entity.actions.find(action => action.name === 'update-list-product')
       },
-      href: entity.links.find(link => link.rel.find(rel => rel === 'self'))
+      href: entity.links.find(link => link.rel.find(rel => rel === 'self')).href
     }
     lists.lists.push(list)
   })
@@ -284,8 +284,8 @@ export function mapSirenToList (json) {
     listId: json.properties['list-id'],
     listName: json.properties['list-name'],
     listType: json.properties['list-type'],
-    username: json.properties['user-username'] ? json.properties['user-username'] : undefined,
-    shareable: json.properties['list-shareable'] ? json.properties['list-shareable'] : undefined,
+    username: json.properties['user-username'] !== undefined ? json.properties['user-username'] : undefined,
+    shareable: json.properties['list-shareable'] !== undefined ? json.properties['list-shareable'] : undefined,
     listProducts: [],
     actions: {
       addListProduct: json.actions.find(action => action.name === 'add-list-product'),
@@ -308,8 +308,7 @@ export function mapSirenToList (json) {
       actions: {
         putListProduct: entity.actions.find(action => action.name === 'update-list-product'),
         deleteListProduct: entity.actions.find(action => action.name === 'delete-list-product')
-      },
-      href: entity.links.find(link => link.rel.find(rel => rel === 'self'))
+      }
     }
     list.listProducts.push(listProduct)
   })
