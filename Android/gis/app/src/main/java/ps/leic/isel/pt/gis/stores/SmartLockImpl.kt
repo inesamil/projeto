@@ -44,16 +44,6 @@ class SmartLockImpl(applicationContext: Context) : SmartLock {
                 }
             }
         }
-
-
-        /*if (requestCode == RC_SAVE) {
-            if (resultCode == RESULT_OK) {
-                Log.d(TAG, "SAVE: OK");
-                Toast.makeText(this, "Credentials saved", Toast.LENGTH_SHORT).show();
-            } else {
-                Log.e(TAG, "SAVE: Canceled by user", e);
-            }
-        }*/
     }
 
     override fun retrieveCredentials(activity: Activity, onSuccess: (Credential) -> Unit, onUnsuccess: () -> Unit) {

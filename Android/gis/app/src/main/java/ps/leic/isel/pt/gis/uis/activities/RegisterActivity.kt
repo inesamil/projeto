@@ -16,7 +16,7 @@ import ps.leic.isel.pt.gis.model.body.UserBody
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.stores.CredentialsStore
+import ps.leic.isel.pt.gis.stores.SmartLock
 import ps.leic.isel.pt.gis.viewModel.UsersViewModel
 
 class RegisterActivity : AppCompatActivity() {
@@ -32,6 +32,24 @@ class RegisterActivity : AppCompatActivity() {
         signinBtn.setOnClickListener {
             finish()
             startActivity(Intent(this, LoginActivity::class.java))
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SmartLock.RC_SAVE) {
+            if (resultCode == RESULT_OK) {
+                Log.d(TAG, "SAVE: OK")
+            } else {
+                Log.e(TAG, "SAVE: Canceled by user")
+            }
+            val name = fullnameEditText.text.toString()
+            val username = usernameEditText.text.toString()
+            val email = emailEditText.text.toString()
+            val age = ageEditText.text.toString().toShort()
+            val password = passwordEditText.text.toString()
+            val credential: Credential = data?.getParcelableExtra(Credential.EXTRA_KEY)!!
+            onComplete(credential, username, name, email, age, password)
         }
     }
 
@@ -61,7 +79,7 @@ class RegisterActivity : AppCompatActivity() {
         usersViewModel = ViewModelProviders.of(this).get(UsersViewModel::class.java)
         usersViewModel?.addUser(UserBody(username, name, email, age, password))?.observe(this, Observer {
             when {
-                it?.status == Status.SUCCESS -> onSuccess(it.data, password)
+                it?.status == Status.SUCCESS -> onSuccess(it.data)
                 it?.status == Status.UNSUCCESS -> onUnsuccess(it.apiError, credential)
                 it?.status == Status.ERROR -> onError(it.message, credential)
             }
@@ -72,14 +90,10 @@ class RegisterActivity : AppCompatActivity() {
         // TODO o qe fazer?
     }
 
-    private fun onSuccess(user: UserDto?, password: String) {
-        Log.i(TAG, "Registe user with success")
-        user?.let {
-            ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(user.username, password))
-            Log.i(TAG, "Credentials stored. Login succeeded.")
-            finish()
-            startActivity(Intent(this, HomeActivity::class.java))
-        }
+    private fun onSuccess(user: UserDto?) {
+        Log.i(TAG, "Register user with success")
+        finish()
+        startActivity(Intent(this, HomeActivity::class.java))
     }
 
     private fun onUnsuccess(error: ErrorDto?, credential: Credential) {
