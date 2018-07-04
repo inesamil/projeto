@@ -9,6 +9,7 @@ import Login from './login'
 import PrivateRoute from './privateRoute'
 import User from './user'
 import Categories from './categories'
+import Products from './products'
 import Lists from './lists'
 import List from './list'
 import Houses from './houses'
@@ -17,11 +18,7 @@ import Allergies from './allergies'
 /* import StockItems from './stockItems'
 import StockItem from './stockItem'
 import Allergies from './allergies'
-import Storages from './storages'
-
-
-
-import Products from './products' */
+import Storages from './storages' */
 
 const home = '/'
 const loginTempl = new URITemplate('/login/{url}')
@@ -141,6 +138,12 @@ export default class extends React.Component {
                 url: URI.decode(match.params.url),
                 getAuthorization: this.getAuthorization,
                 productsUrltempl: productsTempl
+              }
+            }} />
+            <PrivateRoute exact path='/products/:url' isAuthenticated={this.isAuthenticated} component={Products} componentProps={({ match, history }) => {
+              return {
+                url: URI.decode(match.params.url),
+                getAuthorization: this.getAuthorization
               }
             }} />
             <PrivateRoute exact path='/user/:url' isAuthenticated={this.isAuthenticated} component={User} componentProps={({ match, history }) => {
