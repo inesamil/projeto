@@ -11,12 +11,11 @@ import com.google.android.gms.auth.api.credentials.IdentityProviders
 import com.google.android.gms.common.api.ResolvableApiException
 import java.lang.Exception
 
-
 class SmartLockImpl(applicationContext: Context) : SmartLock {
 
     private val mCredentialsClient = Credentials.getClient(applicationContext) // Credentials
 
-    override fun storeCredentials(activity: Activity, username: String, password: String, onSuccess: () -> Unit, onException: (Exception?) -> Unit) {
+    override fun storeCredentials(activity: Activity, username: String, password: String, onSuccess: (Credential) -> Unit, onException: (Exception?) -> Unit) {
         val credential = Credential.Builder(username)
                 .setPassword(password)  // Important: only store passwords in this field.
                 // Android autofill uses this value to complete
@@ -26,7 +25,7 @@ class SmartLockImpl(applicationContext: Context) : SmartLock {
 
         mCredentialsClient.save(credential).addOnCompleteListener {
             if (it.isSuccessful) {
-                onSuccess()
+                onSuccess(credential)
             } else {
                 val e = it.exception
                 if (e is ResolvableApiException) {
