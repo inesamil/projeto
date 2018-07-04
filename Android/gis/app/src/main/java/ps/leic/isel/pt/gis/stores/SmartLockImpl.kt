@@ -1,18 +1,22 @@
 package ps.leic.isel.pt.gis.stores
 
+import android.app.Activity
 import android.content.Context
+import android.content.IntentSender
 import android.util.Log
 import com.google.android.gms.auth.api.credentials.Credential
 import com.google.android.gms.auth.api.credentials.CredentialRequest
 import com.google.android.gms.auth.api.credentials.Credentials
 import com.google.android.gms.auth.api.credentials.IdentityProviders
+import com.google.android.gms.common.api.ResolvableApiException
 import java.lang.Exception
+
 
 class SmartLockImpl(applicationContext: Context) : SmartLock {
 
     private val mCredentialsClient = Credentials.getClient(applicationContext) // Credentials
 
-    override fun storeCredentials(username: String, password: String, onSuccess: () -> Unit, onException: (Exception?) -> Unit) {
+    override fun storeCredentials(activity: Activity, username: String, password: String, onSuccess: () -> Unit, onException: (Exception?) -> Unit) {
         val credential = Credential.Builder(username)
                 .setPassword(password)  // Important: only store passwords in this field.
                 // Android autofill uses this value to complete
@@ -24,12 +28,36 @@ class SmartLockImpl(applicationContext: Context) : SmartLock {
             if (it.isSuccessful) {
                 onSuccess()
             } else {
-                onException(it.exception)
+                val e = it.exception
+                if (e is ResolvableApiException) {
+                    // Try to resolve the save request. This will prompt the user if
+                    // the credential is new.
+                    try {
+                        e.startResolutionForResult(activity, SmartLock.RC_SAVE)
+                    } catch (e: IntentSender.SendIntentException) {
+                        // Could not resolve the request
+                        Log.e(TAG, "Failed to send resolution.", e)
+                        onException(it.exception)
+                    }
+                } else {
+                    // Request has no resolution
+                    onException(it.exception)
+                }
             }
         }
+
+
+        /*if (requestCode == RC_SAVE) {
+            if (resultCode == RESULT_OK) {
+                Log.d(TAG, "SAVE: OK");
+                Toast.makeText(this, "Credentials saved", Toast.LENGTH_SHORT).show();
+            } else {
+                Log.e(TAG, "SAVE: Canceled by user", e);
+            }
+        }*/
     }
 
-    override fun retrieveCredentials(onSuccess: (Credential) -> Unit, onUnsuccess: () -> Unit) {
+    override fun retrieveCredentials(activity: Activity, onSuccess: (Credential) -> Unit, onUnsuccess: () -> Unit) {
         val mCredentialRequest: CredentialRequest = CredentialRequest.Builder()
                 .setPasswordLoginSupported(true)    // Password-based sign-in
                 //.setAccountTypes(IdentityProviders.GOOGLE, IdentityProviders.TWITTER) // Federated sign-in services such as Google Sign-In
@@ -43,8 +71,21 @@ class SmartLockImpl(applicationContext: Context) : SmartLock {
                 }
                 return@addOnCompleteListener
             }
-            // Unsuccessful and incomplete credential requests
-            onUnsuccess()
+            val e = it.exception
+            if (e is ResolvableApiException) {
+                // This is most likely the case where the user has multiple saved
+                // credentials and needs to pick one. This requires showing UI to
+                // resolve the read request.
+                try {
+                    e.startResolutionForResult(activity, SmartLock.RC_READ)
+                } catch (e: IntentSender.SendIntentException) {
+                    Log.e(TAG, "Failed to send resolution.", e)
+                    onUnsuccess()
+                }
+            } else {
+                // Unsuccessful and incomplete credential requests
+                onUnsuccess()
+            }
         }
     }
 

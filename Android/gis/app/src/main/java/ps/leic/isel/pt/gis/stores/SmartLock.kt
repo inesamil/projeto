@@ -1,13 +1,14 @@
 package ps.leic.isel.pt.gis.stores
 
+import android.app.Activity
 import com.google.android.gms.auth.api.credentials.Credential
 import java.lang.Exception
 
 interface SmartLock {
 
-    fun storeCredentials(username: String, password: String, onSuccess: () -> Unit, onException: (Exception?) -> Unit)
+    fun storeCredentials(activity: Activity, username: String, password: String, onSuccess: () -> Unit, onException: (Exception?) -> Unit)
 
-    fun retrieveCredentials(onSuccess: (Credential) -> Unit, onUnsuccess: () -> Unit)
+    fun retrieveCredentials(activity: Activity, onSuccess: (Credential) -> Unit, onUnsuccess: () -> Unit)
 
     fun deleteCredentials(credential: Credential)
 
