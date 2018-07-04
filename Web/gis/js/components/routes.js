@@ -11,10 +11,11 @@ import User from './user'
 import Categories from './categories'
 import Lists from './lists'
 import List from './list'
+import Houses from './houses'
+import Allergies from './allergies'
 
 /* import StockItems from './stockItems'
 import StockItem from './stockItem'
-import Houses from './houses'
 import Allergies from './allergies'
 import Storages from './storages'
 
@@ -120,6 +121,20 @@ export default class extends React.Component {
                 <Redirect
                   to={home} />
               )
+            }} />
+            <PrivateRoute exact path='/allergies/:url' isAuthenticated={this.isAuthenticated} component={Allergies} componentProps={({ match, history }) => {
+              return {
+                url: URI.decode(match.params.url),
+                getAuthorization: this.getAuthorization
+              }
+            }} />
+            <PrivateRoute exact path='/houses/:url' isAuthenticated={this.isAuthenticated} component={Houses} componentProps={({ match, history }) => {
+              return {
+                url: URI.decode(match.params.url),
+                getAuthorization: this.getAuthorization,
+                storagesUrltempl: storagesTempl,
+                allergiesUrlTempl: houseAllergiesTempl
+              }
             }} />
             <PrivateRoute exact path='/categories/:url' isAuthenticated={this.isAuthenticated} component={Categories} componentProps={({ match, history }) => {
               return {

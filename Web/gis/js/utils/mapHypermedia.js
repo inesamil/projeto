@@ -50,7 +50,7 @@ export function mapJsonHomeToIndex (json) {
   return index
 }
 
-//Allergies
+// Allergies
 export function mapSirenToAllergies (json) {
   const allergiesLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const allergies = {
@@ -67,7 +67,7 @@ export function mapSirenToAllergies (json) {
   return allergies
 }
 
-//HouseAllergies
+// HouseAllergies
 export function mapSirenToHouseAllergies (json) {
   const houseAllergiesLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const houseLink = josn.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -97,7 +97,7 @@ export function mapSirenToHouseAllergies (json) {
   return houseAllergies
 }
 
-//StockItemAllergen
+// StockItemAllergen
 export function mapSirenToStockItemsAllergen (json) {
   const stockItemsAllergenLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const houseAllergiesLink = josn.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -125,7 +125,7 @@ export function mapSirenToStockItemsAllergen (json) {
   return stockItemsAllergen
 }
 
-//Categories
+// Categories
 export function mapSirenToCategories (json) {
   const categoriesLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const indexLink = json.links.find(link => link.rel.find(rel => rel === 'index'))
@@ -147,7 +147,7 @@ export function mapSirenToCategories (json) {
   return categories
 }
 
-//Category
+// Category
 export function mapSirenToCategory (json) {
   const categoriesEntity = json.entities.find(entity => entity.class.find(elem => elem === 'categories'))
   const categoryLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
@@ -159,7 +159,7 @@ export function mapSirenToCategory (json) {
   }
 }
 
-//House
+// House
 export function mapSirenToHouse (json) {
   const categoriesEntity = json.entities.find(entity => entity.class.find(elem => elem === 'categories'))
   const houseLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
@@ -181,7 +181,7 @@ export function mapSirenToHouse (json) {
     },
     selfHref: houseLink ? houseLink.href : undefined,
     indexLink: indexLink ? indexLink.href : undefined,
-    housesLink: housesLink ?  housesLink.href : undefined,
+    housesLink: housesLink ? housesLink.href : undefined,
     itemsLink: itemsLink ? itemsLink.href : undefined,
     movementsLink: movementsLink ? movementsLink.href : undefined,
     allergiesLink: allergiesLink ? allergiesLink.href : undefined,
@@ -190,14 +190,14 @@ export function mapSirenToHouse (json) {
   }
 }
 
-//HouseMembers
+// HouseMembers
 export function mapSirenToHouseMembers (json) {
   const houseMembersLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const houseLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
   const houseMembers = {
     members: [],
     selfHref: houseMembersLink ? houseMembersLink.href : undefined,
-    houseLink: houseLink ? houseLink.href :undefined
+    houseLink: houseLink ? houseLink.href : undefined
   }
   json.entities.forEach(entity => {
     const properties = entity.properties
@@ -212,7 +212,7 @@ export function mapSirenToHouseMembers (json) {
   return houseMembers
 }
 
-//Invitations
+// Invitations
 export function mapSirenToInvitations (json) {
   const invitationsLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const indexLink = json.links.find(link => link.rel.find(rel => rel === 'index'))
@@ -221,7 +221,7 @@ export function mapSirenToInvitations (json) {
     invitations: [],
     selfHref: invitationsLink ? invitationsLink.href : undefined,
     indexLink: indexLink ? indexLink.href : undefined,
-    housesLink: housesLink ? housesLink.href : undefined,    
+    housesLink: housesLink ? housesLink.href : undefined,
     actions: {
       postInvitation: json.actions.find(action => action.name === 'invite-user')
     }
@@ -241,7 +241,7 @@ export function mapSirenToInvitations (json) {
   return invitations
 }
 
-//Lists
+// Lists
 export function mapSirenToLists (json) {
   const listsLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const houseLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -274,7 +274,7 @@ export function mapSirenToLists (json) {
   return lists
 }
 
-//List
+// List
 export function mapSirenToList (json) {
   const listLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const listsLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -315,7 +315,7 @@ export function mapSirenToList (json) {
   return list
 }
 
-//ListProducts
+// ListProducts
 export function mapSirenToListProducts (json) {
   const listProductsLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const listLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -345,7 +345,7 @@ export function mapSirenToListProducts (json) {
   return listProducts
 }
 
-//Product
+// Product
 export function mapSirenToProduct (json) {
   const productLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const productsCategoryLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -361,7 +361,7 @@ export function mapSirenToProduct (json) {
   }
 }
 
-//ProductsCategory
+// ProductsCategory
 export function mapSirenToProductsCategory (json) {
   const productsCategoryLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const categoryLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -385,7 +385,7 @@ export function mapSirenToProductsCategory (json) {
   return productsCategory
 }
 
-//AllergiesStockItem
+// AllergiesStockItem
 export function mapSirenToAllergiesStockItem (json) {
   const allergiesStockItemLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const stockItemLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -406,7 +406,7 @@ export function mapSirenToAllergiesStockItem (json) {
   return allergiesStockItem
 }
 
-//StockItem
+// StockItem
 export function mapSirenToStockItem (json) {
   const stockItemLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const stockItemsLink = json.links.find(link => link.class.find(c => c === 'stock-items'))
@@ -440,7 +440,7 @@ export function mapSirenToStockItem (json) {
   }
 }
 
-//StockItems
+// StockItems
 export function mapSirenToStockItems (json) {
   const StockItemsLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const houseLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -472,7 +472,7 @@ export function mapSirenToStockItems (json) {
   return stockItems
 }
 
-//Movements
+// Movements
 export function mapSirenToMovements (json) {
   const movementsLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const houseLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -499,7 +499,7 @@ export function mapSirenToMovements (json) {
   return movements
 }
 
-//Storages
+// Storages
 export function mapSirenToStorages (json) {
   const storagesLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const houseLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -526,7 +526,7 @@ export function mapSirenToStorages (json) {
   return storages
 }
 
-//Storage
+// Storage
 export function mapSirenToStorage (json) {
   const storageLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const storagesLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -538,14 +538,14 @@ export function mapSirenToStorage (json) {
     shelflifetime: json.properties['product-shelflifetime'],
     actions: {
       putStorage: json.actions.find(action => action.name === 'update-storage'),
-      deleteStorage: json.actions.find(action => action.name === 'delete-storage'),
+      deleteStorage: json.actions.find(action => action.name === 'delete-storage')
     },
     selfHref: storageLink ? storageLink.href : undefined,
     storagesLink: storagesLink ? storagesLink.href : undefined
   }
 }
 
-//UserLists
+// UserLists
 export function mapSirenToUserLists (json) {
   const userListsLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const userLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -573,7 +573,7 @@ export function mapSirenToUserLists (json) {
   return userLists
 }
 
-//UserHouses
+// UserHouses
 export function mapSirenToUserHouses (json) {
   const userHousesLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const userLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
@@ -590,8 +590,16 @@ export function mapSirenToUserHouses (json) {
     const userHouse = {
       houseId: properties['house-id'],
       houseName: properties['house-name'],
-      characteristics: properties['house-characteristics'],
-      members: properties['house-members'],
+      babiesNumber: properties['house-characteristics']['babies-number'],
+      childrenNumber: properties['house-characteristics']['children-number'],
+      adultsNumber: properties['house-characteristics']['adults-number'],
+      seniorsNumber: properties['house-characteristics']['seniors-number'],
+      members: properties['house-members'].map(member => {
+        return {
+          username: member['user-username'],
+          administrator: member.administrator
+        }
+      }),
       href: entity.links.find(link => link.rel.find(rel => rel === 'self')),
       itemsLink: entity.links.find(link => link.class.find(c => c === 'items')),
       movementsLink: entity.links.find(link => link.class.find(c => c === 'movements')),
@@ -604,7 +612,7 @@ export function mapSirenToUserHouses (json) {
   return userHouses
 }
 
-//Users
+// Users
 export function mapSirenToUsers (json) {
   const usersLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const indexLink = json.links.find(link => link.rel.find(rel => rel === 'index'))
@@ -631,7 +639,7 @@ export function mapSirenToUsers (json) {
   return users
 }
 
-//User
+// User
 export function mapSirenToUser (json) {
   const userLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const indexLink = json.links.find(link => link.rel.find(rel => rel === 'index'))
@@ -643,7 +651,7 @@ export function mapSirenToUser (json) {
     age: json.properties['user-age'],
     actions: {
       putUser: json.actions.find(action => action.name === 'update-user'),
-      deleteUser: json.actions.find(action => action.name === 'delete-user'),
+      deleteUser: json.actions.find(action => action.name === 'delete-user')
     },
     userHousesHref: userHousesEntity.links.find(links => links.rel.find(rel => rel === 'self')),
     selfHref: userLink ? userLink.href : undefined,
