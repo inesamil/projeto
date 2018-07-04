@@ -362,17 +362,17 @@ export function mapSirenToProduct (json) {
 }
 
 // ProductsCategory
-export function mapSirenToProductsCategory (json) {
-  const productsCategoryLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
+export function mapSirenToCategoryProducts (json) {
+  const categoryProductsLink = json.links.find(link => link.rel.find(rel => rel === 'self'))
   const categoryLink = json.links.find(link => link.rel.find(rel => rel === 'related'))
-  const productsCategory = {
-    productsCategory: [],
-    selfHref: productsCategoryLink ? productsCategoryLink.href : undefined,
+  const categoryProducts = {
+    categoryProducts: [],
+    selfHref: categoryProductsLink ? categoryProductsLink.href : undefined,
     categoryLink: categoryLink ? categoryLink.href : undefined
   }
   json.entities.forEach(entity => {
     const properties = entity.properties
-    const productCategory = {
+    const product = {
       categoryId: properties['category-id'],
       id: properties['product-id'],
       name: properties['product-name'],
@@ -380,9 +380,9 @@ export function mapSirenToProductsCategory (json) {
       shelflifetime: properties['product-shelflifetime'],
       href: entity.links.find(link => link.rel.find(rel => rel === 'self'))
     }
-    productsCategory.productsCategory.push(productCategory)
+    categoryProducts.categoryProducts.push(product)
   })
-  return productsCategory
+  return categoryProducts
 }
 
 // AllergiesStockItem
