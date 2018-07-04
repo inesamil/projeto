@@ -240,7 +240,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         listDetailViewModel.removeListProduct(ListProductBody(listProduct.productId, listProduct.productListBrand, listProduct.productsListQuantity))?.observe(this, Observer {
             when {
                 it?.status == Status.SUCCESS -> {
-                    onSuccess(it.data!!)
+                    onSuccess(it.data)
                     Toast.makeText(context, getString(R.string.list_product_removed_successfully), Toast.LENGTH_SHORT).show()
                 }
                 it?.status == Status.ERROR -> {

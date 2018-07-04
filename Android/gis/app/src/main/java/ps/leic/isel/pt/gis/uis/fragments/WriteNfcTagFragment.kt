@@ -221,9 +221,6 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun onRightDrawableTouchListener(v: View, event: MotionEvent, editText: EditText, title: String, info: String): Boolean {
-        //val DRAWABLE_LEFT = 0, DRAWABLE_TOP = 1, DRAWABLE_BOTTOM = 3
-        val DRAWABLE_RIGHT = 2
-
         if (event.action == MotionEvent.ACTION_UP) {
             if (event.rawX >= (editText.right - editText.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
                 val infoDialogFragment = InfoDialogFragment.newInstance(title, info)
@@ -276,6 +273,11 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
     companion object {
         val TAG: String = WriteNfcTagFragment::class.java.simpleName
         private const val URL_KEY: String = "URL"
+        // private const val DRAWABLE_LEFT = 0
+        // private const val DRAWABLE_TOP = 1
+        private const val DRAWABLE_RIGHT = 2
+        // private const val DRAWABLE_BOTTOM = 3
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

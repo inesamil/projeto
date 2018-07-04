@@ -51,7 +51,7 @@ class RegisterActivity : AppCompatActivity() {
             when {
                 it?.status == Status.SUCCESS -> onSuccess(it.data, password)
                 it?.status == Status.UNSUCCESS -> onUnsuccess(it.apiError)
-                it?.status == Status.ERROR -> onError(it.message!!)
+                it?.status == Status.ERROR -> onError(it.message)
             }
         })
     }
