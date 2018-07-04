@@ -19,7 +19,6 @@ import ps.leic.isel.pt.gis.model.dtos.CategoriesDto
 import ps.leic.isel.pt.gis.model.dtos.CategoryDto
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.CategoriesAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
@@ -42,7 +41,7 @@ class CategoriesFragment : Fragment(), CategoriesAdapter.OnItemClickListener {
     private val adapter = CategoriesAdapter()
     private lateinit var url: String
 
-    private var state: State = State.LOADING;
+    private var state: State = State.LOADING
     private lateinit var progressBar: ProgressBar
     private lateinit var content: ConstraintLayout
 

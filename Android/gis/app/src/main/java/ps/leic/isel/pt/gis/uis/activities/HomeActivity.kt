@@ -20,7 +20,6 @@ import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.House
 import ps.leic.isel.pt.gis.model.List
 import ps.leic.isel.pt.gis.model.ListProduct
-import ps.leic.isel.pt.gis.model.UserDTO
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.ListProductDto
 import ps.leic.isel.pt.gis.model.dtos.StorageDto
@@ -30,7 +29,6 @@ import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
 
 class HomeActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
-        SettingsFragment.OnSettingsFragmentInteractionListener,
         HomePageFragment.OnHomeFragmentInteractionListener,
         HousesFragment.OnHousesFragmentInteractionListener,
         NewHouseDialogFragment.OnNewHouseDialogFragmentInteractionListener,

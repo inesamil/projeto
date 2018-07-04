@@ -23,12 +23,9 @@ import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.HousesAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.utils.addElement
-import ps.leic.isel.pt.gis.utils.removeFragment
-import ps.leic.isel.pt.gis.utils.removeFragmentByTag
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 import ps.leic.isel.pt.gis.viewModel.InvitationsViewModel
 

@@ -7,7 +7,7 @@ object HeadersUtils {
     /**
      * AUTHORIZATION HEADER
      */
-    const val AUTHORIZATION: String = "Authorization"
+    private const val AUTHORIZATION: String = "Authorization"
 
     fun getAuthorizationHeader(headers: Map<String, String>): String? {
         return headers[AUTHORIZATION]
@@ -21,7 +21,7 @@ object HeadersUtils {
     /**
      * CONTENT-TYPE HEADER
      */
-    const val CONTENT_TYPE: String = "Content-Type"
+    private const val CONTENT_TYPE: String = "Content-Type"
 
     fun getContentTypeHeader(headers: Map<String, String>): String? {
         return headers[CONTENT_TYPE]

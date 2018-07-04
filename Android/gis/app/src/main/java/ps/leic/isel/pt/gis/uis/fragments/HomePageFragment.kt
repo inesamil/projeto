@@ -12,9 +12,6 @@ import ps.leic.isel.pt.gis.R
 
 /**
  * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [HomePageFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
  * Use the [HomePageFragment.newInstance] factory method to
  * create an instance of this fragment.
  *

@@ -26,9 +26,6 @@ import ps.leic.isel.pt.gis.viewModel.InvitationsViewModel
 
 /**
  * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [InvitationsFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
  * Use the [InvitationsFragment.newInstance] factory method to
  * create an instance of this fragment.
  *

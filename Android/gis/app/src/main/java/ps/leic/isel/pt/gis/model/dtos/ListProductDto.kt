@@ -25,7 +25,7 @@ class ListProductDto(siren: Siren) {
     }
 
 
-    class ListProductActions (actions: Array<Action>?) {
+    class ListProductActions(actions: Array<Action>?) {
         var updateListProduct: ActionDto? = null
         var removeListProduct: ActionDto? = null
 

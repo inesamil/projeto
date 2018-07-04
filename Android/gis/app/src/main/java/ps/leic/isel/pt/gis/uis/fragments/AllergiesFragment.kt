@@ -23,16 +23,12 @@ import ps.leic.isel.pt.gis.model.body.HouseAllergyBody
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.HouseAllergiesDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.AllergiesTableAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.AllergiesViewModel
 
 /**
  * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [AllergiesFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
  * Use the [AllergiesFragment.newInstance] factory method to
  * create an instance of this fragment.
  *

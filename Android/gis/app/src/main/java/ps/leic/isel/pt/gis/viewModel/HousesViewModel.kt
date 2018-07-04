@@ -3,8 +3,6 @@ package ps.leic.isel.pt.gis.viewModel
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.body.HouseBody
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
@@ -44,6 +42,5 @@ class HousesViewModel(private val app: Application) : AndroidViewModel(app) {
 
     companion object {
         const val TAG: String = "HousesViewModel"
-        private val mapper: ObjectMapper = jacksonObjectMapper()
     }
 }

@@ -41,7 +41,7 @@ class WritingNfcTagFragment : DialogFragment() {
      * WritingNfcTagFragment Factory
      */
     companion object {
-        val TAG: String = "WritingNfcTagFragment"
+        const val TAG: String = "WritingNfcTagFragment"
         private const val NFC_MESSAGE_KEY: String = "NFC_MESSAGE"
 
         @JvmStatic

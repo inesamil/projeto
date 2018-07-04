@@ -1,6 +1,5 @@
 package ps.leic.isel.pt.gis.uis.adapters
 
-import android.support.constraint.Placeholder
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View

@@ -21,14 +21,12 @@ import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
-import ps.leic.isel.pt.gis.viewModel.ListsViewModel
 
 class NewListDialogFragment : DialogFragment() {
 
     private lateinit var url: String
 
     private lateinit var housesViewModel: HousesViewModel
-    private var listsViewModel: ListsViewModel? = null
 
     private var houses: Array<HouseDto>? = null
 
@@ -64,7 +62,7 @@ class NewListDialogFragment : DialogFragment() {
                 .setPositiveButton(R.string.add, { _, _ ->
                     addList(view)
                 })
-                .setNegativeButton(R.string.cancel, { _, _ -> this@NewListDialogFragment.getDialog().cancel() })
+                .setNegativeButton(R.string.cancel, { _, _ -> this@NewListDialogFragment.dialog.cancel() })
 
         housesSpinner = view.newListHousesSpinner
 

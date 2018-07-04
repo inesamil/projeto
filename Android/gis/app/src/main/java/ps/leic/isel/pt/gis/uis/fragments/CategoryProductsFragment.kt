@@ -2,7 +2,6 @@ package ps.leic.isel.pt.gis.uis.fragments
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
@@ -20,7 +19,6 @@ import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.ProductDto
 import ps.leic.isel.pt.gis.model.dtos.ProductsDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.CategoryProductsAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.CategoryProductsViewModel
@@ -28,9 +26,6 @@ import ps.leic.isel.pt.gis.viewModel.CategoryProductsViewModel
 
 /**
  * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [CategoryProductsFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
  * Use the [CategoryProductsFragment.newInstance] factory method to
  * create an instance of this fragment.
  *

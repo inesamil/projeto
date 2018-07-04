@@ -91,8 +91,8 @@
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/orText"
             android:layout_toLeftOf="@id/orText"
+            android:layout_toStartOf="@id/orText"
             android:background="@color/secondaryColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/orText"
@@ -154,12 +154,12 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/user_icon_description"
         android:src="@mipmap/ic_user_round_hi_res_512"
         app:layout_constraintBottom_toTopOf="@+id/horizontalTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/user_icon_description" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.Guideline
         android:id="@+id/horizontalTopGuideline"

@@ -12,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.ScrollView
 import android.widget.SearchView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.layout_inivitations_search_dialog.view.*

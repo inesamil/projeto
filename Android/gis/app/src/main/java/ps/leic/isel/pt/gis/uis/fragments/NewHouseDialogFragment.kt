@@ -1,8 +1,6 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.app.Dialog
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -11,13 +9,8 @@ import android.view.View
 import kotlinx.android.synthetic.main.layout_new_house_dialog.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.House
-import ps.leic.isel.pt.gis.model.body.HouseBody
-import ps.leic.isel.pt.gis.model.dtos.ErrorDto
-import ps.leic.isel.pt.gis.model.dtos.HouseDto
-import ps.leic.isel.pt.gis.repositories.Resource
 import ps.leic.isel.pt.gis.utils.EditTextUtils
 import ps.leic.isel.pt.gis.utils.RestrictionsUtils
-import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 
 class NewHouseDialogFragment : DialogFragment() {
 
@@ -45,7 +38,7 @@ class NewHouseDialogFragment : DialogFragment() {
                 .setPositiveButton(R.string.add, { _, _ ->
                     addHouse(view)
                 })
-                .setNegativeButton(R.string.cancel, { _, _ -> this@NewHouseDialogFragment.getDialog().cancel() })
+                .setNegativeButton(R.string.cancel, { _, _ -> this@NewHouseDialogFragment.dialog.cancel() })
 
         // Set listeners
         setButtonsListeners(view)

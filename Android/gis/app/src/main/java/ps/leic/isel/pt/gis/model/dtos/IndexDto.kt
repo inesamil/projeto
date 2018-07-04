@@ -33,7 +33,7 @@ class IndexDto(jsonHome: JsonHome) {
         return null
     }
 
-    fun getUsersUrl(query: String) : String? {
+    fun getUsersUrl(query: String): String? {
         val users = resources.getUsers
         users?.hrefVars?.containsKey(USERNAME_LABEL)?.let {
             if (!it) return@let
@@ -42,10 +42,10 @@ class IndexDto(jsonHome: JsonHome) {
         return null
     }
 
-    fun getUsersAction() : ActionDto? {
+    fun getUsersAction(): ActionDto? {
         val users = resources.postUser
         users?.let {
-            return it.href?.let { url -> it.hints?.acceptPost?.let { types -> ActionDto("add-user", url, types[0]) }}
+            return it.href?.let { url -> it.hints?.acceptPost?.let { types -> ActionDto("add-user", url, types[0]) } }
         }
         return null
     }
@@ -68,7 +68,7 @@ class IndexDto(jsonHome: JsonHome) {
         return null
     }
 
-    fun getInvitationsUrl(username: String) : String? {
+    fun getInvitationsUrl(username: String): String? {
         val invitations = resources.getInvitations
         invitations?.hrefVars?.containsKey(USERNAME_LABEL)?.let {
             if (!it) return@let
@@ -77,7 +77,7 @@ class IndexDto(jsonHome: JsonHome) {
         return null
     }
 
-    fun getCategoriesUrl() : String? {
+    fun getCategoriesUrl(): String? {
         val categories = resources.getCategories
         return categories?.href
     }

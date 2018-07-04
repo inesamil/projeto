@@ -29,7 +29,7 @@ class InvitationsAdapter(private val usernamePlaceholder: String, private val qu
             val item = it[position]
             // Fill ViewHolder
             holder.requesterUser.text = String.format(usernamePlaceholder, item.username)
-            holder.invitationQuestion.text = String.format(questionPlaceholder, item.houseName);
+            holder.invitationQuestion.text = String.format(questionPlaceholder, item.houseName)
 
             // Set on accept invitation listener
             holder.acceptInvitation.setOnClickListener {

@@ -24,11 +24,9 @@ import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.model.dtos.ListsDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.ListsAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.utils.addElement
-import ps.leic.isel.pt.gis.utils.removeFragment
 import ps.leic.isel.pt.gis.viewModel.ListsViewModel
 
 /**

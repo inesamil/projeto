@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.fragment_stock_item_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.*
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.StockItemListAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
@@ -260,7 +259,6 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param args Arguments
          * @return A new instance of fragment StockItemListFragment.
          */
         @JvmStatic

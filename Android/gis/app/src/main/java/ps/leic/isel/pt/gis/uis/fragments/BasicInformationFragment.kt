@@ -2,7 +2,6 @@ package ps.leic.isel.pt.gis.uis.fragments
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
@@ -15,7 +14,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_basic_information.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.model.UserDTO
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
@@ -24,9 +22,6 @@ import ps.leic.isel.pt.gis.viewModel.UserViewModel
 
 /**
  * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [BasicInformationFragment.OnBasicInformationFragmentInteractionListener] interface
- * to handle interaction events.
  * Use the [BasicInformationFragment.newInstance] factory method to
  * create an instance of this fragment.
  *

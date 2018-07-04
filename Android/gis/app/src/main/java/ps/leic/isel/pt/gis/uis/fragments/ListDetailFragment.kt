@@ -22,7 +22,6 @@ import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.ListDto
 import ps.leic.isel.pt.gis.model.dtos.ListProductDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.ListDetailAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.ListDetailViewModel
@@ -244,17 +243,19 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
                     onSuccess(it.data!!)
                     Toast.makeText(context, getString(R.string.list_product_removed_successfully), Toast.LENGTH_SHORT).show()
                 }
-                it?.status == Status.ERROR -> { Toast.makeText(context, getString(R.string.could_not_remove_list_product), Toast.LENGTH_SHORT).show()}
+                it?.status == Status.ERROR -> {
+                    Toast.makeText(context, getString(R.string.could_not_remove_list_product), Toast.LENGTH_SHORT).show()
+                }
             }
         })
     }
 
-    override fun onEditClick(listProduct: ListProductDto) {
-        listener?.onEditListProductInteraction(listProduct)
+    override fun onEditClick(listProductDto: ListProductDto) {
+        listener?.onEditListProductInteraction(listProductDto)
     }
 
-    override fun onDeleteClick(listProduct: ListProductDto) {
-        listener?.onDeleteListProductInteraction(listProduct)
+    override fun onDeleteClick(listProductDto: ListProductDto) {
+        listener?.onDeleteListProductInteraction(listProductDto)
     }
 
     /**

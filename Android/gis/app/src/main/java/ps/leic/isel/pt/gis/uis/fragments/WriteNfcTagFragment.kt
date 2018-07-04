@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.fragment_write_nfc_tag.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.*
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.utils.NFCUtils
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
@@ -27,9 +26,6 @@ import ps.leic.isel.pt.gis.viewModel.CategoryProductsViewModel
 
 /**
  * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [WriteNfcTagFragment.OnWriteNfcTagFragmentInteractionListener] interface
- * to handle interaction events.
  * Use the [WriteNfcTagFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
@@ -108,13 +104,13 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         // Set brand info listener
         val brandEditText = view.brandEditText
         brandEditText.setOnTouchListener { v, event ->
-            return@setOnTouchListener onRigthDrawableTouchListener(v, event, brandEditText, getString(R.string.brand), getString(R.string.brand_info))
+            return@setOnTouchListener onRightDrawableTouchListener(v, event, brandEditText, getString(R.string.brand), getString(R.string.brand_info))
         }
 
         // Set variety info listener
         val varietyEditText = view.varietyEditText
         varietyEditText.setOnTouchListener { v, event ->
-            return@setOnTouchListener onRigthDrawableTouchListener(v, event, varietyEditText, getString(R.string.variety), getString(R.string.variety_info))
+            return@setOnTouchListener onRightDrawableTouchListener(v, event, varietyEditText, getString(R.string.variety), getString(R.string.variety_info))
         }
 
         return view
@@ -224,15 +220,15 @@ class WriteNfcTagFragment : Fragment(), AdapterView.OnItemSelectedListener {
         content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
     }
 
-    private fun onRigthDrawableTouchListener(v: View, event: MotionEvent, editText: EditText, title: String, info: String): Boolean {
+    private fun onRightDrawableTouchListener(v: View, event: MotionEvent, editText: EditText, title: String, info: String): Boolean {
         //val DRAWABLE_LEFT = 0, DRAWABLE_TOP = 1, DRAWABLE_BOTTOM = 3
         val DRAWABLE_RIGHT = 2
 
-        if(event.getAction() == MotionEvent.ACTION_UP) {
-            if(event.rawX >= (editText.right - editText.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
+        if (event.action == MotionEvent.ACTION_UP) {
+            if (event.rawX >= (editText.right - editText.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
                 val infoDialogFragment = InfoDialogFragment.newInstance(title, info)
                 infoDialogFragment.show(fragmentManager, InfoDialogFragment.TAG)
-                return true;
+                return true
             }
         }
         return false

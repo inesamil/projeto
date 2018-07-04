@@ -31,7 +31,7 @@ class ListDetailViewModel(private val app: Application) : AndroidViewModel(app) 
         return null
     }
 
-    fun updateListProduct(listProduct: ListProductBody) : LiveData<Resource<ListDto, ErrorDto>>? {
+    fun updateListProduct(listProduct: ListProductBody): LiveData<Resource<ListDto, ErrorDto>>? {
         listDetail?.value?.data?.listProducts?.find { elem -> elem.productId == listProduct.productId }?.actions?.updateListProduct?.let {
             return ServiceLocator.getRepository(app.applicationContext)
                     .update(ListDto::class.java, ErrorDto::class.java, it.url, it.contentType, listProduct, TAG)
@@ -39,7 +39,7 @@ class ListDetailViewModel(private val app: Application) : AndroidViewModel(app) 
         return null
     }
 
-    fun removeListProduct(listProduct: ListProductBody) : LiveData<Resource<ListDto, ErrorDto>>? {
+    fun removeListProduct(listProduct: ListProductBody): LiveData<Resource<ListDto, ErrorDto>>? {
         listDetail?.value?.data?.listProducts?.find { elem -> elem.productId == listProduct.productId }?.actions?.removeListProduct?.let {
             return ServiceLocator.getRepository(app.applicationContext)
                     .delete(ListDto::class.java, ErrorDto::class.java, it.url, TAG)

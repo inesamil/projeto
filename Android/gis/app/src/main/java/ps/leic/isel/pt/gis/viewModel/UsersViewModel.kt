@@ -26,11 +26,11 @@ class UsersViewModel(private val app: Application) : AndroidViewModel(app) {
                 .get(UsersDto::class.java, ErrorDto::class.java, url, TAG)
     }
 
-    fun getUsers() : LiveData<Resource<UsersDto, ErrorDto>>? {
+    fun getUsers(): LiveData<Resource<UsersDto, ErrorDto>>? {
         return users
     }
 
-    fun addUser(user: UserBody) : LiveData<Resource<UserDto, ErrorDto>>? {
+    fun addUser(user: UserBody): LiveData<Resource<UserDto, ErrorDto>>? {
         val gisApplication = app as GisApplication
         val index = gisApplication.index
         index.getUsersAction()?.let {

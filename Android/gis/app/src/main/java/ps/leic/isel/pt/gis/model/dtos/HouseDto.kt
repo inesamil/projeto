@@ -2,9 +2,9 @@ package ps.leic.isel.pt.gis.model.dtos
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import ps.leic.isel.pt.gis.hypermedia.siren.Siren
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
-import ps.leic.isel.pt.gis.hypermedia.siren.Siren
 import ps.leic.isel.pt.gis.model.ActionDto
 
 class HouseDto(siren: Siren) {
@@ -31,7 +31,7 @@ class HouseDto(siren: Siren) {
         var sendInvitation: ActionDto? = null
 
         init {
-            actions?.find { it.name ==  inviteUserLabel}?.let {
+            actions?.find { it.name == inviteUserLabel }?.let {
                 sendInvitation = ActionDto(it.name, it.href, it.type)
             }
         }

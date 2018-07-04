@@ -19,16 +19,12 @@ import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.StoragesDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.StoragesAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.StoragesViewModel
 
 /**
  * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [StoragesFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
  * Use the [StoragesFragment.newInstance] factory method to
  * create an instance of this fragment.
  *

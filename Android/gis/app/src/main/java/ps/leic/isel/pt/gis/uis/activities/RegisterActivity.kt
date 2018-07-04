@@ -10,7 +10,6 @@ import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_register.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.R.id.fullnameEditText
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.body.UserBody
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto

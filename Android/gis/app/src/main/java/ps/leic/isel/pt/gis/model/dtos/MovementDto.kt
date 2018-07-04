@@ -2,7 +2,7 @@ package ps.leic.isel.pt.gis.model.dtos
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class MovementDto (
+data class MovementDto(
         @field:JsonProperty(value = "house-id") val houseId: Long,
         @field:JsonProperty(value = "storage-id") val storageId: Short,
         @field:JsonProperty(value = "stock-item-sku") val stockItemSku: String,

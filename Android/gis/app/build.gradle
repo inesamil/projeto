@@ -46,6 +46,7 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     // Handy Uri Templates
     implementation 'com.damnhandy:handy-uri-templates:2.1.6'
+    // Test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

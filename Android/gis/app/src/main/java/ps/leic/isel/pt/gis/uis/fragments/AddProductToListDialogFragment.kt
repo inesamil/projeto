@@ -1,7 +1,6 @@
 package ps.leic.isel.pt.gis.uis.fragments
 
 import android.app.Dialog
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -13,20 +12,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.*
-import kotlinx.android.synthetic.main.fragment_write_nfc_tag.view.*
 import kotlinx.android.synthetic.main.layout_add_list_product_dialog.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ListProduct
 import ps.leic.isel.pt.gis.model.dtos.*
-import ps.leic.isel.pt.gis.repositories.Resource
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.uis.adapters.AddProductToListAdapter
 import ps.leic.isel.pt.gis.utils.State
 import ps.leic.isel.pt.gis.viewModel.CategoriesViewModel
 import ps.leic.isel.pt.gis.viewModel.CategoryProductsViewModel
-import ps.leic.isel.pt.gis.viewModel.ListDetailViewModel
-import ps.leic.isel.pt.gis.viewModel.ListsViewModel
 
 class AddProductToListDialogFragment : DialogFragment(), AddProductToListAdapter.OnItemClickListener, AdapterView.OnItemSelectedListener {
     private lateinit var url: String

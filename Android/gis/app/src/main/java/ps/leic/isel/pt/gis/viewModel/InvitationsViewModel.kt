@@ -29,7 +29,7 @@ class InvitationsViewModel(private val app: Application) : AndroidViewModel(app)
         return invitations
     }
 
-    fun sendInvitation(from_house: HouseDto, to_username: String) : LiveData<Resource<Unit, ErrorDto>>? {
+    fun sendInvitation(from_house: HouseDto, to_username: String): LiveData<Resource<Unit, ErrorDto>>? {
         from_house.actions.sendInvitation?.let {
             val invitationBody = InvitationBody1(to_username)
             return ServiceLocator.getRepository(app.applicationContext)
@@ -38,7 +38,7 @@ class InvitationsViewModel(private val app: Application) : AndroidViewModel(app)
         return null
     }
 
-    fun acceptInvitation(invitation: InvitationDto) : LiveData<Resource<Unit, ErrorDto>>? {
+    fun acceptInvitation(invitation: InvitationDto): LiveData<Resource<Unit, ErrorDto>>? {
         invitation.actions.updateInvitation?.let {
             val invitationBody = InvitationBody2(true)
             return ServiceLocator.getRepository(app.applicationContext)
@@ -47,7 +47,7 @@ class InvitationsViewModel(private val app: Application) : AndroidViewModel(app)
         return null
     }
 
-    fun declineInvitation(invitation: InvitationDto) : LiveData<Resource<Unit, ErrorDto>>? {
+    fun declineInvitation(invitation: InvitationDto): LiveData<Resource<Unit, ErrorDto>>? {
         invitation.actions.updateInvitation?.let {
             val invitationBody = InvitationBody2(false)
             return ServiceLocator.getRepository(app.applicationContext)

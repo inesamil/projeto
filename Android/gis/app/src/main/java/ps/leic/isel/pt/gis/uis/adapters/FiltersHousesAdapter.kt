@@ -40,7 +40,7 @@ class FiltersHousesAdapter : RecyclerView.Adapter<FiltersHousesAdapter.ViewHolde
     }
 
     // Return an array of the selected houses
-    fun getSelectedItems() : Array<HouseDto>? {
+    fun getSelectedItems(): Array<HouseDto>? {
         val selectedItems = data?.filter { it.selected }?.map { it.house }?.toTypedArray()
         selectedItems?.let {
             if (it.isEmpty())
@@ -56,6 +56,6 @@ class FiltersHousesAdapter : RecyclerView.Adapter<FiltersHousesAdapter.ViewHolde
     }
 
     // Stored the data and selection state
-    private data class SelectedItem (val house: HouseDto, var selected: Boolean)
+    private data class SelectedItem(val house: HouseDto, var selected: Boolean)
 
 }

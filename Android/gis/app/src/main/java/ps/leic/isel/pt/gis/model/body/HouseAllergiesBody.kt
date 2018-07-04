@@ -3,7 +3,7 @@ package ps.leic.isel.pt.gis.model.body
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.*
 
-data class HouseAllergiesBody (
+data class HouseAllergiesBody(
         @field:JsonProperty(value = "allergies") val allergies: Array<HouseAllergyBody>
 ) {
     override fun equals(other: Any?): Boolean {

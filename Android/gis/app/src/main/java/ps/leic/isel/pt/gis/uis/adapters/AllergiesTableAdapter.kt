@@ -73,7 +73,7 @@ class AllergiesTableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     // Return an array of the allergens
-    fun getHouseAllergyItems() : Array<HouseAllergy>? {
+    fun getHouseAllergyItems(): Array<HouseAllergy>? {
         return data
     }
 
@@ -92,7 +92,7 @@ class AllergiesTableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     /***
      * TextWatcher
      ***/
-    inner class  MyTextWatcher(val idx: Int) : TextWatcher {
+    inner class MyTextWatcher(val idx: Int) : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             // Nothing to do here
         }
