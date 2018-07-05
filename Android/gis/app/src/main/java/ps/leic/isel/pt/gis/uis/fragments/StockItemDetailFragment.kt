@@ -170,8 +170,6 @@ class StockItemDetailFragment : Fragment(), StockItemDetailsStorageAdapter.OnIte
 
             // Set Adapter (Storages)
             storagesAdapter.setData(it.storages)
-            // TODO stockItem.storages é um array de string e para o listener é preciso um array de storage dto
-            // this.storages = stockItem.storages
 
             // Set Adapter (Movements)
             movementsAdapter.setData(it.movements)
