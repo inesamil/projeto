@@ -4,18 +4,18 @@ import android.app.Activity
 import android.content.Context
 import android.content.IntentSender
 import android.util.Log
-import com.google.android.gms.auth.api.credentials.Credential
-import com.google.android.gms.auth.api.credentials.CredentialRequest
-import com.google.android.gms.auth.api.credentials.Credentials
-import com.google.android.gms.auth.api.credentials.IdentityProviders
+import com.google.android.gms.auth.api.credentials.*
 import com.google.android.gms.common.api.ResolvableApiException
 import java.lang.Exception
 
 class SmartLockImpl(applicationContext: Context) : SmartLock {
 
-    private val mCredentialsClient = Credentials.getClient(applicationContext) // Credentials
+    private val options: CredentialsOptions = CredentialsOptions.Builder()
+            .forceEnableSaveDialog()
+            .build()
+    private val mCredentialsClient = Credentials.getClient(applicationContext, options) // Credentials
 
-    override fun storeCredentials(activity: Activity, username: String, password: String, onSuccess: (Credential) -> Unit, onException: (Exception?) -> Unit) {
+    override fun storeCredentials(activity: Activity, username: String, password: String, onSuccess: () -> Unit, onException: (Exception?) -> Unit) {
         val credential = Credential.Builder(username)
                 .setPassword(password)  // Important: only store passwords in this field.
                 // Android autofill uses this value to complete
@@ -25,7 +25,7 @@ class SmartLockImpl(applicationContext: Context) : SmartLock {
 
         mCredentialsClient.save(credential).addOnCompleteListener {
             if (it.isSuccessful) {
-                onSuccess(credential)
+                onSuccess()
             } else {
                 val e = it.exception
                 if (e is ResolvableApiException) {

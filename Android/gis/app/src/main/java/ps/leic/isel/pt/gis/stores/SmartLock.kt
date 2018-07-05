@@ -6,7 +6,7 @@ import java.lang.Exception
 
 interface SmartLock {
 
-    fun storeCredentials(activity: Activity, username: String, password: String, onSuccess: (Credential) -> Unit, onException: (Exception?) -> Unit)
+    fun storeCredentials(activity: Activity, username: String, password: String, onSuccess: () -> Unit, onException: (Exception?) -> Unit)
 
     fun retrieveCredentials(activity: Activity, onSuccess: (Credential) -> Unit, onUnsuccess: () -> Unit)
 
