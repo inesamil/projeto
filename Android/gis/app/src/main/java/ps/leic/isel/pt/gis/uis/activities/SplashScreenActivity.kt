@@ -60,6 +60,16 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 
+    private fun getIndex() {
+        splashScreenViewModel.getIndex()?.observe(this, Observer {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+            }
+        })
+    }
+
     private fun onSuccess(index: IndexDto?) {
         index?.let {
             val gisApplication = application as GisApplication
@@ -83,32 +93,11 @@ class SplashScreenActivity : AppCompatActivity() {
     private fun onComplete(credential: Credential) {
         Log.d(TAG, "Credentials retrieved.")
         validateCredentials(credential)
-        // No credentials retrieved
-        finish()
-        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun onUncomplete() {
-        // TODO o que fazer?
-    }
-
-    private fun onError(message: String?) {
-        message?.let {
-            Log.i(TAG, it)
-        }
-        Toast.makeText(this, getString(R.string.could_not_connect_to_server), Toast.LENGTH_SHORT).show()
-        if (retry >= MAX_RETRY)
-            finish()
-    }
-
-    private fun getIndex() {
-        splashScreenViewModel.getIndex()?.observe(this, Observer {
-            when (it?.status) {
-                Status.SUCCESS -> onSuccess(it.data)
-                Status.UNSUCCESS -> onUnsuccess(it.apiError)
-                Status.ERROR -> onError(it.message)
-            }
-        })
+        finish()
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun validateCredentials(credential: Credential) {
@@ -132,11 +121,15 @@ class SplashScreenActivity : AppCompatActivity() {
                         // Invalid Credentials
                         Log.d(TAG, "Retrieved invalid credentials, so delete retrieved credential.")
                         ServiceLocator.getSmartLock(applicationContext).deleteCredentials(credential)
-                        onUnsuccess(it.apiError)
+                        it.apiError?.let { error ->
+                            Toast.makeText(this, "Wrong Credentials. Please login again.", Toast.LENGTH_SHORT).show()
+                            finish()
+                            startActivity(Intent(this, LoginActivity::class.java))
+                        }
                     }
                     Status.ERROR -> {
                         // Invalid Credentials
-                        Log.d(TAG, "Retrieved invalid credentials, so delete retrieved credential.")
+                        Log.d(TAG, "May have retrieved invalid credentials, so delete retrieved credential.")
                         ServiceLocator.getSmartLock(applicationContext).deleteCredentials(credential)
                         onError(it.message)
                     }
@@ -150,6 +143,15 @@ class SplashScreenActivity : AppCompatActivity() {
             Log.e(TAG, it.developerErrorMessage)
             onError(it.message)
         }
+    }
+
+    private fun onError(message: String?) {
+        message?.let {
+            Log.i(TAG, it)
+        }
+        Toast.makeText(this, getString(R.string.could_not_connect_to_server), Toast.LENGTH_SHORT).show()
+        if (retry >= MAX_RETRY)
+            finish()
     }
 
     private fun isFirstTime(): Boolean {
