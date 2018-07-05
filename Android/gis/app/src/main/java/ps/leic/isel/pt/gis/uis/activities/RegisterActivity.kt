@@ -58,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
         if (password != confirmationPassword) {
-            Toast.makeText(this, "Passwords devem ser iguais", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Passwords devem ser iguais", Toast.LENGTH_LONG).show() // TODO meter nas strings
             return
         }
 
@@ -100,7 +100,6 @@ class RegisterActivity : AppCompatActivity() {
             if (it.statusCode == 401) {
                 Log.i(TAG, "Wrong credentials.")
                 Toast.makeText(this, getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show()
-                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
         }
         onError(null)
