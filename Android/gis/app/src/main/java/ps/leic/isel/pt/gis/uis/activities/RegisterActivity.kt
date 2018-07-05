@@ -58,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
         if (password != confirmationPassword) {
-            Toast.makeText(this, "Passwords devem ser iguais", Toast.LENGTH_LONG).show() // TODO meter nas strings
+            Toast.makeText(this, getString(R.string.passwords_must_be_equal), Toast.LENGTH_LONG).show()
             return
         }
 
@@ -79,8 +79,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun onUncomplete(exception: Exception?) {
-        Log.i(TAG, "exception")
-        // TODO o qe fazer?
+        onError(getString(R.string.something_went_wrong_please_try_again))
     }
 
     private fun onSuccess(username: String, password: String) {
@@ -97,10 +96,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun onUnsuccess(error: ErrorDto?) {
         error?.let {
             Log.e(TAG, it.developerErrorMessage)
-            if (it.statusCode == 401) {
-                Log.i(TAG, "Wrong credentials.")
-                Toast.makeText(this, getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show()
-            }
+            Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
         }
         onError(null)
     }
