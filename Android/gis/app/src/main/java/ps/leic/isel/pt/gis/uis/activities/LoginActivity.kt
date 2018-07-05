@@ -93,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onUncomplete() {
-        // TODO o qe fazer?
+        onError(getString(R.string.something_went_wrong_please_try_again), null)
     }
 
     private fun onSuccess(user: UserDto?) {
@@ -105,10 +105,8 @@ class LoginActivity : AppCompatActivity() {
     private fun onUnsuccess(error: ErrorDto?, credential: Credential?) {
         error?.let {
             Log.e(TAG, it.developerErrorMessage)
-            if (it.statusCode == 401) {
-                Log.i(TAG, "Wrong credentials.")
-                Toast.makeText(this, getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show()
-            }
+            Log.i(TAG, "Wrong credentials.")
+            Toast.makeText(this, getString(R.string.wrong_credentials_please_login_again), Toast.LENGTH_SHORT).show()
         }
         onError(null, credential)
     }
