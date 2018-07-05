@@ -12,9 +12,9 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
     override fun <T, E> create(dtoType: Class<T>, errorType: Class<E>, url: String, contentType: String?, body: Any?, tag: String): LiveData<Resource<T, E>> {
         val data = MutableLiveData<Resource<T, E>>()
         data.value = Resource.loading()
+        val headers = mutableMapOf<String, String>()
+        HeadersUtils.setContentTypeHeader(headers, contentType)
         ServiceLocator.getSmartLock(applicationContext).retrieveCredentials(null, {
-            val headers = mutableMapOf<String, String>()
-            HeadersUtils.setContentTypeHeader(headers, contentType)
             val password = it.password
             if (password == null) {
                 data.value = Resource.error("Password can not be null.")// TODO mensagem
@@ -25,7 +25,10 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
                     HttpWebService.Method.POST, url, body, headers, dtoType, errorType,
                     { data.value = it }, tag)
         }, {
-            data.value = Resource.error("Cannot retrieve credentials")// TODO mensagem
+            data.value = Resource.error("Not found credentials")// TODO mensagem
+            ServiceLocator.getWebService(applicationContext).fetch(
+                    HttpWebService.Method.POST, url, body, headers, dtoType, errorType,
+                    { data.value = it }, tag)
         })
         return data
     }
@@ -33,8 +36,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
     override fun <T, E> get(dtoType: Class<T>, errorType: Class<E>, url: String, tag: String): LiveData<Resource<T, E>> {
         val data = MutableLiveData<Resource<T, E>>()
         data.value = Resource.loading()
+        val headers = mutableMapOf<String, String>()
         ServiceLocator.getSmartLock(applicationContext).retrieveCredentials(null, {
-            val headers = mutableMapOf<String, String>()
             val password = it.password
             if (password == null) {
                 data.value = Resource.error("Password can not be null.")// TODO mensagem
@@ -45,7 +48,10 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
                     HttpWebService.Method.GET, url, null, headers, dtoType, errorType,
                     { data.value = it }, tag)
         }, {
-            data.value = Resource.error("Cannot retrieve credentials")// TODO mensagem
+            data.value = Resource.error("Not found credentials")// TODO mensagem
+            ServiceLocator.getWebService(applicationContext).fetch(
+                    HttpWebService.Method.GET, url, null, headers, dtoType, errorType,
+                    { data.value = it }, tag)
         })
         return data
     }
@@ -53,9 +59,9 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
     override fun <T, E> update(dtoType: Class<T>, errorType: Class<E>, url: String, contentType: String?, body: Any?, tag: String): LiveData<Resource<T, E>> {
         val data = MutableLiveData<Resource<T, E>>()
         data.value = Resource.loading()
+        val headers = mutableMapOf<String, String>()
+        HeadersUtils.setContentTypeHeader(headers, contentType)
         ServiceLocator.getSmartLock(applicationContext).retrieveCredentials(null, {
-            val headers = mutableMapOf<String, String>()
-            HeadersUtils.setContentTypeHeader(headers, contentType)
             val password = it.password
             if (password == null) {
                 data.value = Resource.error("Password can not be null.")// TODO mensagem
@@ -66,7 +72,10 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
                     HttpWebService.Method.PUT, url, body, headers, dtoType, errorType,
                     { data.value = it }, tag)
         }, {
-            data.value = Resource.error("Cannot retrieve credentials")// TODO mensagem
+            data.value = Resource.error("Not found credentials")// TODO mensagem
+            ServiceLocator.getWebService(applicationContext).fetch(
+                    HttpWebService.Method.PUT, url, body, headers, dtoType, errorType,
+                    { data.value = it }, tag)
         })
         return data
     }
@@ -74,8 +83,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
     override fun <T, E> delete(dtoType: Class<T>, errorType: Class<E>, url: String, tag: String): LiveData<Resource<T, E>> {
         val data = MutableLiveData<Resource<T, E>>()
         data.value = Resource.loading()
+        val headers = mutableMapOf<String, String>()
         ServiceLocator.getSmartLock(applicationContext).retrieveCredentials(null, {
-            val headers = mutableMapOf<String, String>()
             val password = it.password
             if (password == null) {
                 data.value = Resource.error("Password can not be null.")// TODO mensagem
@@ -86,7 +95,10 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
                     HttpWebService.Method.DELETE, url, null, headers, dtoType, errorType,
                     { data.value = it }, tag)
         }, {
-            data.value = Resource.error("Cannot retrieve credentials")// TODO mensagem
+            data.value = Resource.error("Not found credentials")// TODO mensagem
+            ServiceLocator.getWebService(applicationContext).fetch(
+                    HttpWebService.Method.DELETE, url, null, headers, dtoType, errorType,
+                    { data.value = it }, tag)
         })
         return data
     }
