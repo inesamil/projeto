@@ -181,7 +181,7 @@
     <string name="initial_setup">Initial Setup</string>
     <string name="please_fill_in_all_required_fields">Please, fill in all required fields</string>
     <string name="functionality_not_available">Functionality not available</string>
-    <string name="wrong_credentials">Wrong credentials</string>
+    <string name="wrong_credentials_please_login_again">Wrong credentials. Please login again.</string>
     <string name="could_not_connect_to_server">Couldn\'t connect to SmartStocksServer</string>
     <string name="list_added_successfully">List added successfully</string>
     <string name="could_not_add_list">Could not add list, please try again</string>
@@ -214,4 +214,6 @@
     <string name="add_member_icon_description">Add Member Icon</string>
     <string name="password_can_not_null">Password can not be null.</string>
     <string name="credentials_not_found">Not found credentials.</string>
+    <string name="something_went_wrong_please_try_again">Something went wrong. Please try again</string>
+    <string name="passwords_must_be_equal">Password does not match the confirm password</string>
 </resources>

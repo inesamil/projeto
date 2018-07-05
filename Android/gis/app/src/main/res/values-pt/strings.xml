@@ -151,7 +151,7 @@
     <string name="add_list_product">Adicionar produto</string>
     <string name="please_fill_in_all_required_fields">Por favor, preencha todos os campos obrigatórios</string>
     <string name="functionality_not_available">Funcionalidade não disponível</string>
-    <string name="wrong_credentials">Credenciais erradas</string>
+    <string name="wrong_credentials_please_login_again">Credenciais erradas. Por favor volte a iniciar sessão.</string>
     <string name="could_not_connect_to_server">Não foi possível conectar ao SmartStocksServer</string>
     <string name="list_added_successfully">Lista adicionada com sucesso</string>
     <string name="could_not_add_list">Não foi possível adicionar a lista, por favor tente novamente</string>
@@ -181,4 +181,6 @@
     <string name="add_member_icon_description">Ícone de Adicionar Membro</string>
     <string name="password_can_not_null">A password não pode ser nula.</string>
     <string name="credentials_not_found">Credenciais não encontradas.</string>
+    <string name="something_went_wrong_please_try_again">Ocorreu um erro inesperado. Por favor tente outra vez</string>
+    <string name="passwords_must_be_equal">A palavra-chave não corresponde à palavra-chave de confirmação</string>
 </resources>
