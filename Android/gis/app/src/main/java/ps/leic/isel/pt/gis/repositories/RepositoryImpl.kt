@@ -3,6 +3,7 @@ package ps.leic.isel.pt.gis.repositories
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.content.Context
+import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.httpRequest.HttpWebService
 import ps.leic.isel.pt.gis.utils.HeadersUtils
@@ -17,7 +18,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         ServiceLocator.getSmartLock(applicationContext).retrieveCredentials(null, {
             val password = it.password
             if (password == null) {
-                data.value = Resource.error("Password can not be null.")// TODO mensagem
+                data.value = Resource.error(applicationContext.getString(R.string.password_can_not_null))
                 return@retrieveCredentials
             }
             HeadersUtils.setAuthorizationHeader(headers, it.id, password)
@@ -25,7 +26,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
                     HttpWebService.Method.POST, url, body, headers, dtoType, errorType,
                     { data.value = it }, tag)
         }, {
-            data.value = Resource.error("Not found credentials")// TODO mensagem
+            data.value = Resource.error(applicationContext.getString(R.string.credentials_not_found))
             ServiceLocator.getWebService(applicationContext).fetch(
                     HttpWebService.Method.POST, url, body, headers, dtoType, errorType,
                     { data.value = it }, tag)
@@ -40,7 +41,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         ServiceLocator.getSmartLock(applicationContext).retrieveCredentials(null, {
             val password = it.password
             if (password == null) {
-                data.value = Resource.error("Password can not be null.")// TODO mensagem
+                data.value = Resource.error(applicationContext.getString(R.string.password_can_not_null))
                 return@retrieveCredentials
             }
             HeadersUtils.setAuthorizationHeader(headers, it.id, password)
@@ -48,7 +49,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
                     HttpWebService.Method.GET, url, null, headers, dtoType, errorType,
                     { data.value = it }, tag)
         }, {
-            data.value = Resource.error("Not found credentials")// TODO mensagem
+            data.value = Resource.error(applicationContext.getString(R.string.credentials_not_found))
             ServiceLocator.getWebService(applicationContext).fetch(
                     HttpWebService.Method.GET, url, null, headers, dtoType, errorType,
                     { data.value = it }, tag)
@@ -64,7 +65,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         ServiceLocator.getSmartLock(applicationContext).retrieveCredentials(null, {
             val password = it.password
             if (password == null) {
-                data.value = Resource.error("Password can not be null.")// TODO mensagem
+                data.value = Resource.error(applicationContext.getString(R.string.password_can_not_null))
                 return@retrieveCredentials
             }
             HeadersUtils.setAuthorizationHeader(headers, it.id, password)
@@ -72,7 +73,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
                     HttpWebService.Method.PUT, url, body, headers, dtoType, errorType,
                     { data.value = it }, tag)
         }, {
-            data.value = Resource.error("Not found credentials")// TODO mensagem
+            data.value = Resource.error(applicationContext.getString(R.string.credentials_not_found))
             ServiceLocator.getWebService(applicationContext).fetch(
                     HttpWebService.Method.PUT, url, body, headers, dtoType, errorType,
                     { data.value = it }, tag)
@@ -87,7 +88,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         ServiceLocator.getSmartLock(applicationContext).retrieveCredentials(null, {
             val password = it.password
             if (password == null) {
-                data.value = Resource.error("Password can not be null.")// TODO mensagem
+                data.value = Resource.error(applicationContext.getString(R.string.password_can_not_null))
                 return@retrieveCredentials
             }
             HeadersUtils.setAuthorizationHeader(headers, it.id, password)
@@ -95,7 +96,7 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
                     HttpWebService.Method.DELETE, url, null, headers, dtoType, errorType,
                     { data.value = it }, tag)
         }, {
-            data.value = Resource.error("Not found credentials")// TODO mensagem
+            data.value = Resource.error(applicationContext.getString(R.string.credentials_not_found))
             ServiceLocator.getWebService(applicationContext).fetch(
                     HttpWebService.Method.DELETE, url, null, headers, dtoType, errorType,
                     { data.value = it }, tag)

@@ -212,4 +212,6 @@
     <string name="logout">Logout</string>
     <string name="fridge_icon_description">Fridge Icon</string>
     <string name="add_member_icon_description">Add Member Icon</string>
+    <string name="password_can_not_null">Password can not be null.</string>
+    <string name="credentials_not_found">Not found credentials.</string>
 </resources>

@@ -179,4 +179,6 @@
     <string name="logout">Terminar sessão</string>
     <string name="fridge_icon_description">Ícone do Frigorífico</string>
     <string name="add_member_icon_description">Ícone de Adicionar Membro</string>
+    <string name="password_can_not_null">A password não pode ser nula.</string>
+    <string name="credentials_not_found">Credenciais não encontradas.</string>
 </resources>
