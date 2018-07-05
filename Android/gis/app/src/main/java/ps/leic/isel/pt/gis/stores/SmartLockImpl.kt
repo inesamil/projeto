@@ -46,7 +46,7 @@ class SmartLockImpl(applicationContext: Context) : SmartLock {
         }
     }
 
-    override fun retrieveCredentials(activity: Activity, onSuccess: (Credential) -> Unit, onUnsuccess: () -> Unit) {
+    override fun retrieveCredentials(activity: Activity?, onSuccess: (Credential) -> Unit, onUnsuccess: () -> Unit) {
         val mCredentialRequest: CredentialRequest = CredentialRequest.Builder()
                 .setPasswordLoginSupported(true)    // Password-based sign-in
                 //.setAccountTypes(IdentityProviders.GOOGLE, IdentityProviders.TWITTER) // Federated sign-in services such as Google Sign-In
@@ -61,7 +61,7 @@ class SmartLockImpl(applicationContext: Context) : SmartLock {
                 return@addOnCompleteListener
             }
             val e = it.exception
-            if (e is ResolvableApiException) {
+            if (activity != null && e is ResolvableApiException) {
                 // This is most likely the case where the user has multiple saved
                 // credentials and needs to pick one. This requires showing UI to
                 // resolve the read request.

@@ -8,7 +8,7 @@ interface SmartLock {
 
     fun storeCredentials(activity: Activity, username: String, password: String, onSuccess: () -> Unit, onException: (Exception?) -> Unit)
 
-    fun retrieveCredentials(activity: Activity, onSuccess: (Credential) -> Unit, onUnsuccess: () -> Unit)
+    fun retrieveCredentials(activity: Activity?, onSuccess: (Credential) -> Unit, onUnsuccess: () -> Unit)
 
     fun deleteCredentials(credential: Credential)
 
