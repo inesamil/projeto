@@ -36,12 +36,19 @@ class LoginActivity : AppCompatActivity() {
         signinBtn.setOnClickListener(::onLoginClick)
     }
 
+    override fun onStart() {
+        super.onStart()
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .retrieveCredentials(this, ::onComplete, ::onUncomplete)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == SmartLock.RC_READ) {
             if (resultCode == RESULT_OK) {
                 val credential: Credential = data?.getParcelableExtra(Credential.EXTRA_KEY)!!
-                onComplete(credential, credential.id)
+                onComplete(credential)
             } else {
                 Log.e(TAG, "Credential Read: NOT OK")
                 Toast.makeText(this, "Credential Read Failed", Toast.LENGTH_SHORT).show()
@@ -52,19 +59,12 @@ class LoginActivity : AppCompatActivity() {
     private fun onLoginClick(view: View) {
         val username = usernameEditText.text.toString()
         val password = passwordEditText.text.toString()
+        val credential = signinBtn.tag as Credential
 
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, getString(R.string.please_fill_in_all_required_fields), Toast.LENGTH_LONG).show()
             return
         }
-
-        ServiceLocator
-                .getSmartLock(applicationContext)
-                .retrieveCredentials(this, { onComplete(it, username) }, ::onUncomplete)
-    }
-
-    private fun onComplete(credential: Credential, username: String) {
-        Log.i(TAG, "Credentials stored.")
 
         val gisApplication = application as GisApplication
         gisApplication.index
@@ -84,6 +84,14 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun onComplete(credential: Credential) {
+        Log.i(TAG, "Credentials stored.")
+
+        usernameEditText.setText(credential.id)
+        passwordEditText.setText(credential.password)
+        signinBtn.tag = credential
+    }
+
     private fun onUncomplete() {
         // TODO o qe fazer?
     }
@@ -97,7 +105,7 @@ class LoginActivity : AppCompatActivity() {
     private fun onUnsuccess(error: ErrorDto?, credential: Credential) {
         error?.let {
             Log.e(TAG, it.developerErrorMessage)
-            // TODO e se n for 401 n mostra nada ao user? Se houver mais casos tem de se por aqui
+            // TODO e se n for 401 n mostra nada ao user? Se houver mais casos tem de se por aqui.
             if (it.statusCode == 401) {
                 Log.i(TAG, "Wrong credentials.")
                 Toast.makeText(this, getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show()
