@@ -10,13 +10,13 @@ import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import com.google.android.gms.auth.api.credentials.Credential
 import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.IndexDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.stores.CredentialsStore
 import ps.leic.isel.pt.gis.viewModel.SplashScreenViewModel
 import ps.leic.isel.pt.gis.viewModel.UserViewModel
 
@@ -75,16 +75,21 @@ class SplashScreenActivity : AppCompatActivity() {
             } else {
                 // Already used the app
                 Log.d(TAG, "Try to retrieve credentials.")
-                val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
-                credentials?.let {
-                    Log.d(TAG, "Credentials retrieved.")
-                    validateCredentials(it)
-                }
-                // No credentials retrieved
-                finish()
-                startActivity(Intent(this, LoginActivity::class.java))
+                ServiceLocator.getSmartLock(applicationContext).retrieveCredentials(this, ::onComplete, ::onUncomplete)
             }
         }
+    }
+
+    private fun onComplete(credential: Credential) {
+        Log.d(TAG, "Credentials retrieved.")
+        validateCredentials(credential)
+        // No credentials retrieved
+        finish()
+        startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+    private fun onUncomplete() {
+        // TODO o que fazer?
     }
 
     private fun onError(message: String?) {
@@ -106,11 +111,11 @@ class SplashScreenActivity : AppCompatActivity() {
         })
     }
 
-    private fun validateCredentials(credentials: CredentialsStore.Credentials) {
+    private fun validateCredentials(credential: Credential) {
         val gisApplication = application as GisApplication
         gisApplication.index
 
-        val url = gisApplication.index.getUserUrl(credentials.username)
+        val url = gisApplication.index.getUserUrl(credential.id)
 
         url?.let {
             userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
@@ -126,13 +131,13 @@ class SplashScreenActivity : AppCompatActivity() {
                     Status.UNSUCCESS -> {
                         // Invalid Credentials
                         Log.d(TAG, "Retrieved invalid credentials, so delete retrieved credential.")
-                        ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials()
+                        ServiceLocator.getSmartLock(applicationContext).deleteCredentials(credential)
                         onUnsuccess(it.apiError)
                     }
                     Status.ERROR -> {
                         // Invalid Credentials
                         Log.d(TAG, "Retrieved invalid credentials, so delete retrieved credential.")
-                        ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials()
+                        ServiceLocator.getSmartLock(applicationContext).deleteCredentials(credential)
                         onError(it.message)
                     }
                 }
