@@ -3,7 +3,6 @@ package ps.leic.isel.pt.gis.model.dtos
 import ps.leic.isel.pt.gis.hypermedia.siren.Siren
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
-import ps.leic.isel.pt.gis.model.ActionDto
 
 class HouseAllergiesDto(siren: Siren) {
     val houseAllergies: Array<HouseAllergyDto>

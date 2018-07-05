@@ -5,7 +5,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import ps.leic.isel.pt.gis.hypermedia.siren.Siren
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Action
 import ps.leic.isel.pt.gis.hypermedia.siren.subentities.Link
-import ps.leic.isel.pt.gis.model.ActionDto
 
 class HouseDto(siren: Siren) {
     val houseId: Long

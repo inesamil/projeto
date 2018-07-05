@@ -4,7 +4,7 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import ps.leic.isel.pt.gis.ServiceLocator
-import ps.leic.isel.pt.gis.model.ActionDto
+import ps.leic.isel.pt.gis.model.dtos.ActionDto
 import ps.leic.isel.pt.gis.model.body.ListBody
 import ps.leic.isel.pt.gis.model.body.ListProductBody
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
