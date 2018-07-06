@@ -2,6 +2,7 @@ package pt.isel.ps.gis.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,10 +13,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import pt.isel.ps.gis.components.AuthenticationFacade;
 import pt.isel.ps.gis.components.BasicAuthenticationPoint;
+import pt.isel.ps.gis.filters.AuthorizeFilter;
 import pt.isel.ps.gis.filters.DebugFilter;
 
 @Configuration
@@ -25,11 +29,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final BasicAuthenticationPoint basicAuthenticationPoint;
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationFacade authenticationFacade;
+    private final MessageSource messageSource;
 
-    public WebSecurityConfig(BasicAuthenticationPoint basicAuthenticationPoint, @Qualifier("userServiceImpl") UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+    public WebSecurityConfig(BasicAuthenticationPoint basicAuthenticationPoint, @Qualifier("userServiceImpl") UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, AuthenticationFacade authenticationFacade, MessageSource messageSource) {
         this.basicAuthenticationPoint = basicAuthenticationPoint;
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationFacade = authenticationFacade;
+        this.messageSource = messageSource;
     }
 
     @Override
@@ -40,12 +48,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().configurationSource(getCorsConfigurationSource())
                 .and()
                 .addFilterBefore(new DebugFilter(), ChannelProcessingFilter.class)
+                .addFilterAfter(new AuthorizeFilter(authenticationFacade, messageSource), FilterSecurityInterceptor.class)
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/v1/users").permitAll()
                 .antMatchers("/v1/houses/{house-id}/movements").permitAll()
                 .antMatchers("/v1").permitAll()
-                .anyRequest().authenticated()
                 .and()
                 .httpBasic()
                 .authenticationEntryPoint(basicAuthenticationPoint);

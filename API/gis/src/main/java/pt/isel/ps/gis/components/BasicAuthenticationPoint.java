@@ -42,7 +42,7 @@ public class BasicAuthenticationPoint extends BasicAuthenticationEntryPoint {
         HttpStatus httpStatus = HttpStatus.UNAUTHORIZED;
         Locale locale = LocaleContextHolder.getLocale();
         ProblemDetails problemDetails = new ProblemDetails(
-                "Requires authentication.",
+                "Requires authentication.", // TODO requires authentication meter nas strings
                 httpStatus.value(),
                 messageSource.getMessage("need_Authenticate_First", null, locale),
                 messageSource.getMessage("need_Authenticate_First", null, locale));
