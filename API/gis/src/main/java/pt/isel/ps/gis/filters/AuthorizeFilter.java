@@ -57,10 +57,10 @@ public class AuthorizeFilter implements Filter {
         HttpStatus httpStatus = HttpStatus.FORBIDDEN;
         Locale locale = LocaleContextHolder.getLocale();
         ProblemDetails problemDetails = new ProblemDetails(
-                "You don't have permissions to access this resource.", // TODO meter nas strings
+                messageSource.getMessage("dont_have_permission_access_resource", null, locale),
                 httpStatus.value(),
-                messageSource.getMessage("need_Authenticate_First", null, locale), // TODO meter nas strings e mudar a mensagem
-                messageSource.getMessage("need_Authenticate_First", null, locale)); // TODO igual ao de cima
+                messageSource.getMessage("dont_have_permission_access_resource", null, locale),
+                messageSource.getMessage("dont_have_permission_access_resource", null, locale));
         String body = new ObjectMapper().writeValueAsString(problemDetails);
         PrintWriter writer = response.getWriter();
         writer.print(body);
