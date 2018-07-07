@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -25,27 +26,49 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.constraint.Guideline
-                android:id="@+id/VerticalGuideline1"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/houseNameLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="100dp" />
-
-            <ImageView
-                android:id="@+id/houseIcon"
-                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:contentDescription="@string/home_icon_description"
                 app:layout_constraintBottom_toTopOf="@+id/HorizontalGuideline1"
-                app:layout_constraintDimensionRatio="w,1:1"
-                app:layout_constraintEnd_toStartOf="@+id/VerticalGuideline1"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_house_sunset_orange_round_hi_res_512" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/houseIcon"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/home_icon_description"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="w,1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/houseNameText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@mipmap/ic_house_sunset_orange_round_hi_res_512" />
+
+                <TextView
+                    android:id="@+id/houseNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/sunset_orange"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/houseIcon"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.Guideline
                 android:id="@+id/HorizontalGuideline1"
@@ -55,35 +78,21 @@
                 app:layout_constraintGuide_begin="100dp" />
 
             <TextView
-                android:id="@+id/houseNameText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/sunset_orange"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/HorizontalGuideline1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/VerticalGuideline1"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/characteristicsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/characteristics"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/characteristicsLayout"
+                app:layout_constraintEnd_toStartOf="@+id/verticalGuideline"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/HorizontalGuideline1" />
 
@@ -91,52 +100,14 @@
                 android:id="@+id/characteristicsLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/HorizontalGuideline2"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/verticalGuideline"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/characteristicsText">
-
-                <android.support.constraint.Guideline
-                    android:id="@+id/innerVerticalGuideline1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.25" />
-
-                <android.support.constraint.Guideline
-                    android:id="@+id/innerVerticalGuideline2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.5" />
-
-                <android.support.constraint.Guideline
-                    android:id="@+id/innerVerticalGuideline3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.75" />
-
-                <TextView
-                    android:id="@+id/babiesText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/babies"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/babiesNumberText" />
 
                 <TextView
                     android:id="@+id/babiesNumberText"
@@ -149,12 +120,12 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/default_number"
                     app:layout_constraintBottom_toTopOf="@+id/babiesText"
-                    app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline1"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/childrenText"
+                    android:id="@+id/babiesText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -162,11 +133,11 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
-                    android:text="@string/children"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline2"
-                    app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline1"
-                    app:layout_constraintTop_toBottomOf="@+id/childrenNumberText" />
+                    android:text="@string/babies"
+                    app:layout_constraintBottom_toTopOf="@+id/childrenNumberText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/babiesNumberText" />
 
                 <TextView
                     android:id="@+id/childrenNumberText"
@@ -179,12 +150,12 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/default_number"
                     app:layout_constraintBottom_toTopOf="@+id/childrenText"
-                    app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline2"
-                    app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline1"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/babiesText" />
 
                 <TextView
-                    android:id="@+id/adultsText"
+                    android:id="@+id/childrenText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -192,11 +163,11 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
-                    android:text="@string/adults"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline3"
-                    app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline2"
-                    app:layout_constraintTop_toBottomOf="@+id/adultsNumberText" />
+                    android:text="@string/children"
+                    app:layout_constraintBottom_toTopOf="@+id/adultsNumberText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/childrenNumberText" />
 
                 <TextView
                     android:id="@+id/adultsNumberText"
@@ -209,12 +180,12 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/default_number"
                     app:layout_constraintBottom_toTopOf="@+id/adultsText"
-                    app:layout_constraintEnd_toStartOf="@+id/innerVerticalGuideline3"
-                    app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline2"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/childrenText" />
 
                 <TextView
-                    android:id="@+id/seniorsText"
+                    android:id="@+id/adultsText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -222,11 +193,11 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
-                    android:text="@string/seniors"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="@string/adults"
+                    app:layout_constraintBottom_toTopOf="@+id/seniorsNumberText"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline3"
-                    app:layout_constraintTop_toBottomOf="@+id/seniorsNumberText" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/adultsNumberText" />
 
                 <TextView
                     android:id="@+id/seniorsNumberText"
@@ -240,51 +211,66 @@
                     android:text="@string/default_number"
                     app:layout_constraintBottom_toTopOf="@+id/seniorsText"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/innerVerticalGuideline3"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/adultsText" />
+
+                <TextView
+                    android:id="@+id/seniorsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/seniors"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/seniorsNumberText" />
+
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.Guideline
-                android:id="@+id/HorizontalGuideline2"
+                android:id="@+id/verticalGuideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="190dp" />
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
 
             <TextView
                 android:id="@+id/membersText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/members"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/HorizontalGuideline2" />
+                app:layout_constraintStart_toStartOf="@+id/verticalGuideline"
+                app:layout_constraintTop_toTopOf="@+id/HorizontalGuideline1" />
 
             <android.support.v4.widget.NestedScrollView
                 android:id="@+id/nestedScrollView"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:fillViewport="true"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/buttonsLayout"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/addMemberButton"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/verticalGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/membersText">
 
                 <LinearLayout
@@ -322,7 +308,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nestedScrollView">
+                app:layout_constraintTop_toBottomOf="@+id/characteristicsLayout">
 
                 <Button
                     android:id="@+id/storageBtn"
@@ -380,14 +366,16 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/sunset_orange_round_edges_rectangle"
+                android:contentDescription="@string/add_member_icon_description"
+                android:padding="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/buttonsLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/houseNameText"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/membersText"
+                app:layout_constraintTop_toTopOf="@+id/HorizontalGuideline1"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ic_person_add_black"
-                android:contentDescription="@string/add_member_icon_description" />
+                app:srcCompat="@drawable/ic_person_add_black" />
 
         </android.support.constraint.ConstraintLayout>
 

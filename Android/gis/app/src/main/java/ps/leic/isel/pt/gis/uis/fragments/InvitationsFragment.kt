@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_invitations.view.*
 import ps.leic.isel.pt.gis.R
@@ -42,6 +43,7 @@ class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
     private var state: State = State.LOADING
     private lateinit var progressBar: ProgressBar
     private lateinit var invitationsRecyclerView: RecyclerView
+    private lateinit var noInvitationsText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +65,7 @@ class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
 
         progressBar = view.invitationsProgressBar
         invitationsRecyclerView = view.invitationsRecyclerView
+        noInvitationsText = view.noInvitationsText
 
         // Set Adapter
         invitationsRecyclerView.layoutManager = LinearLayoutManager(view.context)
@@ -110,7 +113,6 @@ class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
             state = State.SUCCESS
 
             this.invitations = it.invitations
-            adapter.setData(it.invitations)
 
             // Show progress bar or content
             showProgressBarOrContent()
@@ -135,8 +137,25 @@ class InvitationsFragment : Fragment(), InvitationsAdapter.OnItemClickListener {
     }
 
     private fun showProgressBarOrContent() {
-        progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-        invitationsRecyclerView.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+        when (state) {
+            State.LOADING -> {
+                progressBar.visibility = View.VISIBLE
+                invitationsRecyclerView.visibility = View.INVISIBLE
+            }
+            State.SUCCESS -> {
+                progressBar.visibility = View.GONE
+                invitationsRecyclerView.visibility = View.VISIBLE
+                // Show houses or hint
+                invitations.let {
+                    if (it.isEmpty()) {
+                        noInvitationsText.visibility = View.VISIBLE
+                    } else {
+                        noInvitationsText.visibility = View.GONE
+                        adapter.setData(it)
+                    }
+                }
+            }
+        }
     }
 
     private fun removeInvitation(invitation: InvitationDto) {

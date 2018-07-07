@@ -45,6 +45,8 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     private var state: State = State.LOADING
     private lateinit var progressBar: ProgressBar
     private lateinit var content: ConstraintLayout
+    private lateinit var noHousesText: TextView
+    private lateinit var noItemsText: TextView
 
     private lateinit var housesSpinner: Spinner
 
@@ -68,19 +70,6 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         getHouses()
     }
 
-    private fun getHouses() {
-        housesViewModel.getHouses()?.observe(this, Observer {
-            when (it?.status) {
-                Status.SUCCESS -> onSuccess(it.data)
-                Status.UNSUCCESS -> onUnsuccess(it.apiError)
-                Status.ERROR -> onError(it.message)
-                Status.LOADING -> {
-                    state = State.LOADING
-                }
-            }
-        })
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -91,11 +80,10 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
         stockItemListAdapter.setOnItemClickListener(this)
 
         housesSpinner = view.housesSpinner
-
-        setSpinnerData()
-
         progressBar = view.stockItemListProgressBar
         content = view.stockItemListLayout
+        noHousesText = view.noHousesYetText
+        noItemsText = view.noItemsYetText
 
         // Show progress bar or content
         showProgressBarOrContent()
@@ -133,18 +121,26 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     }
 
     /***
-     * Auxiliary Methods
+     * Private Methods
      ***/
+
+    private fun getHouses() {
+        housesViewModel.getHouses()?.observe(this, Observer {
+            when (it?.status) {
+                Status.SUCCESS -> onSuccess(it.data)
+                Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                Status.ERROR -> onError(it.message)
+                Status.LOADING -> {
+                    state = State.LOADING
+                }
+            }
+        })
+    }
 
     private fun onSuccess(houses: HousesDto?) {
         houses?.let {
-            //TODO: listas vazias
-            // Show progress bar or content
-            showProgressBarOrContent()
 
             this.houses = it.houses
-
-            setSpinnerData()
 
             val size = this.houses?.size ?: 0
             if (size > 0) {
@@ -152,6 +148,9 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
                     getHouseStockItemList(it)
                 }
             }
+
+            // Show progress bar or content
+            showProgressBarOrContent()
         }
     }
 
@@ -172,8 +171,10 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     private fun onSuccess(stockItems: StockItemsDto?) {
         stockItems?.let {
             state = State.SUCCESS
-            stockItemListAdapter.setData(it.stockItems)
+
             this.stockItems = it.stockItems
+
+            // Show progress bar or content
             showProgressBarOrContent()
         }
     }
@@ -196,18 +197,42 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     }
 
     private fun showProgressBarOrContent() {
-        progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-        content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+        when (state) {
+            State.LOADING -> {
+                progressBar.visibility = View.VISIBLE
+                content.visibility = View.INVISIBLE
+            }
+            State.SUCCESS -> {
+                progressBar.visibility = View.GONE
+                // Show houses or hint
+                houses?.let {
+                    if (it.isEmpty()) {
+                        noHousesText.visibility = View.VISIBLE
+                    } else {
+                        noHousesText.visibility = View.GONE
+                        setDataToSpinner(it)
+                    }
+                }
+                // Show items or hint
+                stockItems?.let {
+                    content.visibility = View.VISIBLE
+                    if (it.isEmpty()) {
+                        noItemsText.visibility = View.VISIBLE
+                    } else {
+                        noItemsText.visibility = View.GONE
+                        stockItemListAdapter.setData(it)
+                    }
+                }
+            }
+        }
     }
 
-    private fun setSpinnerData() {
-        houses?.let {
-            val spinnerAdapter = ArrayAdapter<String>(housesSpinner.context, android.R.layout.simple_spinner_item, it.map { house -> house.name })
-            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            housesSpinner.adapter = spinnerAdapter
-            housesSpinner.onItemSelectedListener = this
-            housesSpinner.setSelection(0)
-        }
+    private fun setDataToSpinner(houses: Array<HouseDto>) {
+        val spinnerAdapter = ArrayAdapter<String>(housesSpinner.context, android.R.layout.simple_spinner_item, houses.map { house -> house.name })
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        housesSpinner.adapter = spinnerAdapter
+        housesSpinner.onItemSelectedListener = this
+        housesSpinner.setSelection(FIRST)
     }
 
     /***
@@ -255,6 +280,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     companion object {
         const val TAG: String = "StockItemListFragment"
         private const val URL_KEY: String = "URL"
+        private const val FIRST: Int = 0
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

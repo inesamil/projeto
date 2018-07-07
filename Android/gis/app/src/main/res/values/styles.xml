@@ -16,6 +16,11 @@
         <item name="android:textColor">@color/primaryTextColor</item>
     </style>
 
+    <style name="SmartStocksTheme.IrisBlueButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/iris_blue_round_edges_rectangle</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
     <style name="SmartStocksTheme.CardView" parent="CardView.Light">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
         <item name="android:textColor">@color/primaryTextColor</item>

@@ -51,6 +51,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     private var state: State = State.LOADING
     private lateinit var progressBar: ProgressBar
     private lateinit var content: ConstraintLayout
+    private lateinit var emptyLayout: ConstraintLayout
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -89,6 +90,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
 
         progressBar = view.housesProgressBar
         content = view.housesLayout
+        emptyLayout = view.emptyLayout
 
         // Show progress bar or content
         showProgressBarOrContent()
@@ -180,11 +182,10 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         houses?.let {
             state = State.SUCCESS
 
+            this.houses = houses.houses
+
             // Show progress bar or content
             showProgressBarOrContent()
-
-            this.houses = houses.houses
-            adapter.setData(it.houses)
         }
     }
 
@@ -206,8 +207,25 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     }
 
     private fun showProgressBarOrContent() {
-        progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-        content.visibility = if (state == State.SUCCESS) View.VISIBLE else View.INVISIBLE
+        when (state) {
+            State.LOADING -> {
+                progressBar.visibility = View.VISIBLE
+                content.visibility = View.INVISIBLE
+            }
+            State.SUCCESS -> {
+                progressBar.visibility = View.GONE
+                content.visibility = View.VISIBLE
+                // Show houses or hint
+                houses?.let {
+                    if (it.isEmpty()) {
+                        emptyLayout.visibility = View.VISIBLE
+                    } else {
+                        emptyLayout.visibility = View.GONE
+                        adapter.setData(it)
+                    }
+                }
+            }
+        }
     }
 
     /***

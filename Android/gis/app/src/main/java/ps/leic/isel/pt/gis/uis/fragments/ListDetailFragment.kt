@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ListProduct
@@ -47,6 +48,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     private var state: State = State.LOADING
     private lateinit var progressBar: ProgressBar
     private lateinit var content: ConstraintLayout
+    private lateinit var emptyLayout: ConstraintLayout
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -95,6 +97,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
         progressBar = view.listProgressBar
         content = view.listLayout
+        emptyLayout = view.emptyLayout
 
         // Show progress bar or content
         showProgressBarOrContent()
@@ -141,10 +144,6 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
             this.list = list
 
-            list.listProducts.let {
-                adapter.setData(it)
-            }
-
             // Show progress bar or content
             showProgressBarOrContent()
         }
@@ -168,12 +167,26 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     }
 
     private fun showProgressBarOrContent() {
-        progressBar.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
-        if (state == State.SUCCESS) {
-            content.visibility = View.VISIBLE
-            showUserListDetailOrSystemListDetail()
-        } else {
-            content.visibility = View.INVISIBLE
+        when (state) {
+            State.LOADING -> {
+                progressBar.visibility = View.VISIBLE
+                content.visibility = View.INVISIBLE
+            }
+            State.SUCCESS -> {
+                progressBar.visibility = View.GONE
+                content.visibility = View.VISIBLE
+                // Show list details
+                showUserListDetailOrSystemListDetail()
+                // Show list products or hint
+                list?.listProducts?.let {
+                    if (it.isEmpty()) {
+                        emptyLayout.visibility = View.VISIBLE
+                    } else {
+                        emptyLayout.visibility = View.GONE
+                        adapter.setData(it)
+                    }
+                }
+            }
         }
     }
 

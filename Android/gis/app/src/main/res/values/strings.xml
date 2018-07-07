@@ -216,4 +216,12 @@
     <string name="credentials_not_found">Not found credentials.</string>
     <string name="something_went_wrong_please_try_again">Something went wrong. Please try again</string>
     <string name="passwords_must_be_equal">Password does not match the confirm password</string>
+    <string name="you_have_no_houses_yet">You haven\'t added any houses yet</string>
+    <string name="tap_plus_to_add_house">Tap on the + to add a new house</string>
+    <string name="you_have_no_items_yet">You have no items yet</string>
+    <string name="you_have_no_lists_yet">You haven\'t added any lists yet</string>
+    <string name="you_have_no_products">You haven\'t added any products to this list yet</string>
+    <string name="tap_plus_to_add_list">Tap on the + to add a new list</string>
+    <string name="tap_add_to_add_products">Tap on the add button to add products to this list</string>
+    <string name="no_invitations_received">You haven\'t received any invitations</string>
 </resources>

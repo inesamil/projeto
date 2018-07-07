@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
@@ -120,11 +121,10 @@ class NewListDialogFragment : DialogFragment() {
     }
 
     private fun onError(message: String?) {
-
         message?.let {
             Log.e(TAG, it)
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-            (activity as? HomeActivity)?.goBackInStack()
+            fragmentManager?.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 

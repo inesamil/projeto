@@ -183,4 +183,12 @@
     <string name="credentials_not_found">Credenciais não encontradas.</string>
     <string name="something_went_wrong_please_try_again">Ocorreu um erro inesperado. Por favor tente outra vez</string>
     <string name="passwords_must_be_equal">A palavra-chave não corresponde à palavra-chave de confirmação</string>
+    <string name="you_have_no_houses_yet">Ainda não adicionou nenhuma casa</string>
+    <string name="tap_plus_to_add_house">Clique no + para adicionar uma nova casa</string>
+    <string name="you_have_no_items_yet">Ainda não tem itens</string>
+    <string name="you_have_no_lists_yet">Ainda não adicionou nenhuma lista</string>
+    <string name="you_have_no_products">Ainda não adicionou nenhum produto a esta lista</string>
+    <string name="tap_plus_to_add_list">Clique no + para adicionar uma nova lista</string>
+    <string name="tap_add_to_add_products">Clique no botão de adicionar para adicionar produtos à lista</string>
+    <string name="no_invitations_received">Não recebeu nenhum convite</string>
 </resources>
