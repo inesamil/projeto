@@ -90,10 +90,6 @@ class HomeActivity : AppCompatActivity(),
         supportActionBar?.title = title
     }
 
-    fun goBackInStack() {
-
-    }
-
     /**
      * Fragment Listeners
      */
