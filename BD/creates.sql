@@ -176,6 +176,6 @@ CREATE TABLE IF NOT EXISTS public."dailyquantity" (
 	stockitem_sku character varying(128) NOT NULL,
 	dailyquantity_date date NOT NULL,
 	dailyquantity_quantity smallint NOT NULL CHECK (dailyquantity_quantity >= 0),
-	PRIMARY KEY (house_id, stockitem_sku, date_date),
+	PRIMARY KEY (house_id, stockitem_sku, dailyquantity_date),
 	FOREIGN KEY (house_id, stockitem_sku) REFERENCES public."stockitem" (house_id, stockitem_sku)
 );

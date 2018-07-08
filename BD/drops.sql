@@ -11,6 +11,7 @@ DROP FUNCTION IF EXISTS generate_sku;
 DROP FUNCTION IF EXISTS insert_storage;
 
 -- DROP tables
+DROP TABLE IF EXISTS public."dailyquantity";
 DROP TABLE IF EXISTS public."invitation";
 DROP TABLE IF EXISTS public."expirationdate";
 DROP TABLE IF EXISTS public."date";
