@@ -273,7 +273,6 @@ RETURNS TABLE(
 DECLARE 
 	productId integer;
 	quantity smallint;
-	finalQuantity smallint;
 	sku character varying(128) = 0;
 	movementDatetime timestamp;
 BEGIN
@@ -324,14 +323,9 @@ BEGIN
 	
 	movementDatetime := CURRENT_TIMESTAMP;
 	
-	-- Get final quantity
-	SELECT public."stockitem".stockitem_quantity INTO finalQuantity 
-		FROM public."stockitem"
-		WHERE public."stockitem".house_id = houseId AND public."stockitem".stockitem_sku = sku;
-	
 	-- Insert Movement
-	INSERT INTO public."stockitemmovement" (house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-		VALUES (houseId, sku, storageId, movementType, movementDatetime, movementQuantity, finalQuantity);
+	INSERT INTO public."stockitemmovement" (house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity)
+		VALUES (houseId, sku, storageId, movementType, movementDatetime, movementQuantity);
 
 	RETURN query
 	SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, public."stockitemmovement".storage_id, public."stockitemmovement".stockitemmovement_type, 
