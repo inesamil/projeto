@@ -7,6 +7,7 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.Characteristics;
 import pt.isel.ps.gis.model.Numrange;
 
+import java.sql.Date;
 import java.util.Locale;
 
 public class ValidationsUtils {
@@ -740,6 +741,40 @@ public class ValidationsUtils {
             throw new EntityException("Movement quantity is required.", messageSource.getMessage("movement_Quantity_Required", null, locale));
         if (quantity < RestrictionsUtils.MOVEMENT_QUANTITY_MIN)
             throw new EntityException(String.format("Invalid Movement quantity. Quantity must be greater or equal to %d.", RestrictionsUtils.MOVEMENT_QUANTITY_MIN), messageSource.getMessage("invalid_Movement_Quantity", new Object[]{RestrictionsUtils.MOVEMENT_QUANTITY_MIN}, locale));
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////                                            DailyQuantity                                                   ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Valida se a quantidade está dentro dos limites aceites
+     *
+     * @param quantity quantidade a validar
+     * @throws EntityException se a quantidade não for válida
+     */
+    public static void validateDailyQuantityQuantity(Short quantity) throws EntityException {
+        MessageSource messageSource = MessageSourceHolder.getMessageSource();
+        Locale locale = LocaleContextHolder.getLocale();
+        if (quantity == null)
+            throw new EntityException("Quantity is required.", messageSource.getMessage("movement_Quantity_Required", null, locale));
+        if (quantity < RestrictionsUtils.MOVEMENT_QUANTITY_MIN)
+            throw new EntityException(String.format("Invalid Movement quantity. Quantity must be greater or equal to %d.", RestrictionsUtils.MOVEMENT_QUANTITY_MIN), messageSource.getMessage("invalid_Movement_Quantity", new Object[]{RestrictionsUtils.MOVEMENT_QUANTITY_MIN}, locale));
+    }
+
+    /**
+     * Valida a data
+     *
+     * @param date data a validar
+     * @throws EntityException se a data não for válida
+     */
+    public static void validateDailyQuantityDate(Date date) throws EntityException {
+        MessageSource messageSource = MessageSourceHolder.getMessageSource();
+        Locale locale = LocaleContextHolder.getLocale();
+        if (date == null)
+            throw new EntityException("Date is required.", messageSource.getMessage("date_Required", null, locale));
+        if (DateUtils.isStringValidDate(date.toString()))
+            throw new EntityException("Invalid date.", messageSource.getMessage("invalid_Date", null, locale));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
