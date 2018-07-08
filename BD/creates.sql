@@ -171,11 +171,11 @@ CREATE TABLE IF NOT EXISTS public."invitation" (
 	PRIMARY KEY (house_id, users_id)
 );
 
-CREATE TABLE IF NOT EXISTS public."dailyQuantity" (
+CREATE TABLE IF NOT EXISTS public."dailyquantity" (
 	house_id bigint NOT NULL CHECK (house_id > 0),
 	stockitem_sku character varying(128) NOT NULL,
-	date_date date NOT NULL,
-	dailyquantity_quantity smallint NOT NULL CHECK (dailyquantity_quantity >= 0)
+	dailyquantity_date date NOT NULL,
+	dailyquantity_quantity smallint NOT NULL CHECK (dailyquantity_quantity >= 0),
 	PRIMARY KEY (house_id, stockitem_sku, date_date),
 	FOREIGN KEY (house_id, stockitem_sku) REFERENCES public."stockitem" (house_id, stockitem_sku)
 );
