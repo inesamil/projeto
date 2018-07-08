@@ -65,7 +65,5 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
                 .addResourceHandler("/v1/documentation/**").addResourceLocations("classpath:/META-INF/resources/");
-        registry
-                .addResourceHandler("/favicon.ico").addResourceLocations("classpath:/");
     }
 }

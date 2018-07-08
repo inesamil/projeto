@@ -65,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/swagger-resources/**", "/v2/api-docs", "/favicon.ico");
+                .antMatchers("/swagger-resources/**", "/v2/api-docs");
     }
 
     @Autowired
