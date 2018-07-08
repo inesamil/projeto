@@ -23,27 +23,27 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
             String sql = "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
-                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity, public.\"stockitemmovement\".stockitemmovement_finalquantity " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
                     "FROM public.\"stockitemmovement\" " +
                     "WHERE public.\"stockitemmovement\".house_id = ? " +
                     "EXCEPT " +
                     "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
-                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity, public.\"stockitemmovement\".stockitemmovement_finalquantity " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
                     "FROM public.\"stockitemmovement\" " +
                     "WHERE public.\"stockitemmovement\".house_id = ? AND public.\"stockitemmovement\".stockitem_sku != ? " +
                     "EXCEPT " +
                     "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
-                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity, public.\"stockitemmovement\".stockitemmovement_finalquantity " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
                     "FROM public.\"stockitemmovement\" " +
                     "WHERE public.\"stockitemmovement\".house_id = ? AND public.\"stockitemmovement\".stockitemmovement_type != ? " +
                     "EXCEPT " +
                     "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
-                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity, public.\"stockitemmovement\".stockitemmovement_finalquantity " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
                     "FROM public.\"stockitemmovement\" " +
                     "WHERE public.\"stockitemmovement\".house_id = ? AND DATE(public.\"stockitemmovement\".stockitemmovement_datetime) != ? " +
                     "EXCEPT " +
                     "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
-                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity, public.\"stockitemmovement\".stockitemmovement_finalquantity " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
                     "FROM public.\"stockitemmovement\" " +
                     "WHERE public.\"stockitemmovement\".house_id = ? AND public.\"stockitemmovement\".storage_id != ?;";
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -108,20 +108,23 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
     }
 
     @Override
-    public List<StockItemMovement> findAllByStartDateAndEndDate(Date startDate, Date endDate) {
+    public List<StockItemMovement> findAllByStartDateAndEndDate(String sku, Date startDate, Date endDate) {
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
             String sql = "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, " +
                     "public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
-                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity, " +
-                    "public.\"stockitemmovement\".stockitemmovement_finalquantity FROM public.\"stockitemmovement\" " +
-                    "WHERE public.\"stockitemmovement\".stockitemmovement_datetime >= ? " +
+                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
+                    "FROM public.\"stockitemmovement\" " +
+                    "WHERE public.\"stockitemmovement\".stockitem_sku = ? " +
+                    "AND public.\"stockitemmovement\".stockitemmovement_datetime >= ? " +
                     "AND public.\"stockitemmovement\".stockitemmovement_datetime <= ?;";
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                if (isNotNull(ps, 1, startDate))
-                    ps.setDate(1, startDate);
-                if (isNotNull(ps, 2, endDate))
-                    ps.setDate(2, endDate);
+                if (isNotNull(ps, 1, sku))
+                    ps.setString(1, sku);
+                if (isNotNull(ps, 2, startDate))
+                    ps.setDate(2, startDate);
+                if (isNotNull(ps, 3, endDate))
+                    ps.setDate(3, endDate);
                 return executeQuery(ps);
             }
         });
@@ -163,9 +166,8 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
         boolean stockitemmovement_type = resultSet.getBoolean(4);
         String stockitemmovement_datetime = DateUtils.convertTimestampFormat(resultSet.getTimestamp(5));
         short stockitemmovement_quantity = resultSet.getShort(6);
-        short stockitemmovement_finalQuantity = resultSet.getShort(7);
         return new StockItemMovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime,
-                stockitemmovement_quantity, stockitemmovement_finalQuantity);
+                stockitemmovement_quantity);
     }
 
     /**

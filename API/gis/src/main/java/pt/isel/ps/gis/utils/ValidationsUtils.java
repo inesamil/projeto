@@ -742,15 +742,6 @@ public class ValidationsUtils {
             throw new EntityException(String.format("Invalid Movement quantity. Quantity must be greater or equal to %d.", RestrictionsUtils.MOVEMENT_QUANTITY_MIN), messageSource.getMessage("invalid_Movement_Quantity", new Object[]{RestrictionsUtils.MOVEMENT_QUANTITY_MIN}, locale));
     }
 
-    public static void validateStockItemMovementFinalQuantity(Short finalQuantity) throws EntityException {
-        MessageSource messageSource = MessageSourceHolder.getMessageSource();
-        Locale locale = LocaleContextHolder.getLocale();
-        if (finalQuantity == null)
-            throw new EntityException("Movement final quantity is required.", messageSource.getMessage("movement_Final_Quantity_Required", null, locale));
-        if (finalQuantity < RestrictionsUtils.MOVEMENT_FINAL_QUANTITY_MIN)
-            throw new EntityException(String.format("Invalid movement final quantity. Final quantity must be greater or equal to %d.", RestrictionsUtils.MOVEMENT_FINAL_QUANTITY_MIN), messageSource.getMessage("invalid_Movement_Final_Quantity", new Object[]{RestrictionsUtils.MOVEMENT_FINAL_QUANTITY_MIN}, locale));
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////                                            ExpirationDate                                                  ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
