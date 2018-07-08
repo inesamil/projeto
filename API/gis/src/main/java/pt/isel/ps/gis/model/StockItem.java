@@ -74,6 +74,9 @@ public class StockItem {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockitem")
     private Collection<StockItemStorage> stockitemstorages;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockitem")
+    private Collection<DailyQuantity> dailyQuantities;
+
     /**
      * CONSTRUTORES
      */
@@ -254,6 +257,14 @@ public class StockItem {
 
     public void setStockitemstorages(Collection<StockItemStorage> stockitemstorages) {
         this.stockitemstorages = stockitemstorages;
+    }
+
+    public Collection<DailyQuantity> getDailyQuantities() {
+        return dailyQuantities;
+    }
+
+    public void setDailyQuantities(Collection<DailyQuantity> dailyQuantities) {
+        this.dailyQuantities = dailyQuantities;
     }
 
     @Override
