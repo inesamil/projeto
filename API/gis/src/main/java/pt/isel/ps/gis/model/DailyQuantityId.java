@@ -1,6 +1,8 @@
 package pt.isel.ps.gis.model;
 
+import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
+import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -29,10 +31,10 @@ public class DailyQuantityId implements Serializable {
     protected DailyQuantityId() {
     }
 
-    public DailyQuantityId(Long houseId, String stockitemSku, Date dailyquantityDate) {
-        this.houseId = houseId;
-        this.stockitemSku = stockitemSku;
-        this.dailyquantityDate = dailyquantityDate;
+    public DailyQuantityId(Long houseId, String stockitemSku, Date dailyquantityDate) throws EntityException {
+        setHouseId(houseId);
+        setStockitemSku(stockitemSku);
+        setDailyquantityDate(dailyquantityDate);
     }
 
     /**
@@ -42,7 +44,8 @@ public class DailyQuantityId implements Serializable {
         return houseId;
     }
 
-    public void setHouseId(Long houseId) {
+    public void setHouseId(Long houseId) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
         this.houseId = houseId;
     }
 
@@ -50,7 +53,8 @@ public class DailyQuantityId implements Serializable {
         return stockitemSku;
     }
 
-    public void setStockitemSku(String stockitemSku) {
+    public void setStockitemSku(String stockitemSku) throws EntityException {
+        ValidationsUtils.validateStockItemSku(stockitemSku);
         this.stockitemSku = stockitemSku;
     }
 
@@ -58,7 +62,8 @@ public class DailyQuantityId implements Serializable {
         return dailyquantityDate;
     }
 
-    public void setDailyquantityDate(Date dailyquantityDate) {
+    public void setDailyquantityDate(Date dailyquantityDate) throws EntityException {
+        ValidationsUtils.validateDailyQuantityDate(dailyquantityDate);
         this.dailyquantityDate = dailyquantityDate;
     }
 

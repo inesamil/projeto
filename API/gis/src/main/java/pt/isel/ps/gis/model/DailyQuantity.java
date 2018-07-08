@@ -1,5 +1,8 @@
 package pt.isel.ps.gis.model;
 
+import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
@@ -34,13 +37,14 @@ public class DailyQuantity {
     protected DailyQuantity() {
     }
 
-    public DailyQuantity(DailyQuantityId id, Short dailyquantity_quantity) {
+    public DailyQuantity(DailyQuantityId id, Short dailyquantity_quantity) throws EntityException {
         this.id = id;
-        this.dailyquantity_quantity = dailyquantity_quantity;
+        setDailyquantity_quantity(dailyquantity_quantity);
     }
 
-    public DailyQuantity(Long houseId, String stockitemSku, Date dailyquantityDate, Short dailyquantity_quantity) {
-        this.dailyquantity_quantity = dailyquantity_quantity;
+    public DailyQuantity(Long houseId, String stockitemSku, Date dailyquantityDate, Short dailyquantity_quantity) throws EntityException {
+        setId(houseId, stockitemSku, dailyquantityDate);
+        setDailyquantity_quantity(dailyquantity_quantity);
     }
 
     /**
@@ -54,7 +58,7 @@ public class DailyQuantity {
         this.id = id;
     }
 
-    public void setId(Long houseId, String stockitemSku, Date dailyquantityDate) {
+    public void setId(Long houseId, String stockitemSku, Date dailyquantityDate) throws EntityException {
         setId(new DailyQuantityId(houseId, stockitemSku, dailyquantityDate));
     }
 
@@ -62,7 +66,8 @@ public class DailyQuantity {
         return dailyquantity_quantity;
     }
 
-    public void setDailyquantity_quantity(Short dailyquantity_quantity) {
+    public void setDailyquantity_quantity(Short dailyquantity_quantity) throws EntityException {
+        ValidationsUtils.validateDailyQuantityQuantity(dailyquantity_quantity);
         this.dailyquantity_quantity = dailyquantity_quantity;
     }
 
