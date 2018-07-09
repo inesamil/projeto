@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.controllers;
 
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,12 @@ public class UserController {
         this.listService = listService;
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("")
     public ResponseEntity<UsersOutputModel> getStartsWithUsername(
             @RequestParam String search
@@ -51,10 +59,18 @@ public class UserController {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<UsersOutputModel>(new UsersOutputModel(users), setSirenContentType(headers),
+        return new ResponseEntity<>(new UsersOutputModel(users), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("/{username}")
     public ResponseEntity<UserOutputModel> getUser(
             @PathVariable("username") String username,
@@ -72,6 +88,14 @@ public class UserController {
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("/{username}/houses")
     public ResponseEntity<UserHousesOutputModel> getUserHouses(
             @PathVariable("username") String username,
@@ -90,6 +114,14 @@ public class UserController {
                 HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("/{username}/lists")
     public ResponseEntity<UserListsOutputModel> getUserLists(
             @PathVariable("username") String username,
@@ -123,6 +155,13 @@ public class UserController {
                 HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Created"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 409, message = "Conflict"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @PostMapping("")
     public ResponseEntity<UserOutputModel> registerUser(
             @RequestBody RegisterUserInputModel body,
@@ -141,6 +180,14 @@ public class UserController {
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), HttpStatus.CREATED);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Created"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @PostMapping("/{username}/lists")
     public ResponseEntity<ListOutputModel> postUserList(
             @PathVariable("username") String username,
@@ -167,6 +214,15 @@ public class UserController {
         return new ResponseEntity<>(new ListOutputModel(username, list), setSirenContentType(headers), HttpStatus.CREATED);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 409, message = "Conflict"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @PutMapping("/{username}")
     public ResponseEntity<UserOutputModel> putUser(
             @PathVariable("username") String username,
@@ -194,6 +250,14 @@ public class UserController {
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @DeleteMapping("/{username}")
     public ResponseEntity<IndexOutputModel> deleteUser(
             @PathVariable("username") String username,

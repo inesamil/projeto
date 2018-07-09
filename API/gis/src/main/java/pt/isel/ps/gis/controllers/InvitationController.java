@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.controllers;
 
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,14 @@ public class InvitationController {
         this.authenticationFacade = authenticationFacade;
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("/users/{username}")
     public ResponseEntity<InvitationsOutputModel> getInvitations(
             @PathVariable("username") String username
@@ -46,6 +56,15 @@ public class InvitationController {
                 HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 409, message = "Conflict"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @PostMapping("/houses/{house-id}")
     public ResponseEntity postInvitation(
             @PathVariable("house-id") long houseId,
@@ -67,6 +86,14 @@ public class InvitationController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @PutMapping("/houses/{house-id}/users/{username}")
     public ResponseEntity putInvitation(
             @PathVariable("house-id") Long houseId,

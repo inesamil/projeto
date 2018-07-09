@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.controllers;
 
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,11 @@ public class AllergiesController {
         this.allergyService = allergyService;
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("")
     public ResponseEntity<AllergiesOutputModel> getAllergies() {
         List<Allergy> allergies = allergyService.getAllergies();

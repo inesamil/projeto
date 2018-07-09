@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.controllers;
 
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -40,6 +42,13 @@ public class StockItemController {
         this.messageSource = messageSource;
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("")
     public ResponseEntity<StockItemsOutputModel> getStockItems(
             @PathVariable("house-id") long houseId,
@@ -70,6 +79,13 @@ public class StockItemController {
                 HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("/{stock-item-id}")
     public ResponseEntity<StockItemOutputModel> getStockItem(
             @PathVariable("house-id") long houseId,
@@ -88,6 +104,13 @@ public class StockItemController {
         return new ResponseEntity<>(new StockItemOutputModel(stockItem), setSirenContentType(headers), HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("/{stock-item-id}/allergies")
     public ResponseEntity<AllergiesStockItemOutputModel> getAllergiesFromStockItem(
             @PathVariable("house-id") long houseId,

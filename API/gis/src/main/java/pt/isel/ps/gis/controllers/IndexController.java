@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.controllers;
 
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,10 @@ import static pt.isel.ps.gis.utils.HeadersUtils.setJsonHomeContentType;
 @RequestMapping("/v1")
 public class IndexController {
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("")
     public ResponseEntity<IndexOutputModel> getIndex() {
         HttpHeaders headers = new HttpHeaders();

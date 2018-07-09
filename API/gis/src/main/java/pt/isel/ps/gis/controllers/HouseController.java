@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.controllers;
 
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -45,6 +47,13 @@ public class HouseController {
         this.messageSource = messageSource;
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("/{house-id}")
     public ResponseEntity<HouseOutputModel> getHouse(@PathVariable("house-id") long houseId, Locale locale)
             throws NotFoundException, BadRequestException {
@@ -61,6 +70,13 @@ public class HouseController {
         return new ResponseEntity<>(new HouseOutputModel(username, house), setSirenContentType(headers), HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("/{house-id}/users")
     public ResponseEntity<HouseMembersOutputModel> getHousehold(
             @PathVariable("house-id") long houseId,
@@ -79,6 +95,13 @@ public class HouseController {
                 HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Created"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @PostMapping("")
     public ResponseEntity<HouseOutputModel> postHouse(
             @RequestBody HouseInputModel body,
@@ -106,6 +129,13 @@ public class HouseController {
         return new ResponseEntity<>(new HouseOutputModel(username, house), setSirenContentType(headers), HttpStatus.CREATED);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @PutMapping("/{house-id}")
     public ResponseEntity<HouseOutputModel> putHouse(
             @PathVariable("house-id") long houseId,
@@ -133,6 +163,13 @@ public class HouseController {
         return new ResponseEntity<>(new HouseOutputModel(username, house), setSirenContentType(headers), HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @PutMapping("/{house-id}/users/{username}")
     public ResponseEntity<HouseMembersOutputModel> putMember(
             @PathVariable("house-id") long houseId,
@@ -154,6 +191,13 @@ public class HouseController {
                 HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @DeleteMapping("/{house-id}")
     public ResponseEntity<IndexOutputModel> deleteHouse(
             @PathVariable("house-id") long houseId,
@@ -170,6 +214,13 @@ public class HouseController {
         return new ResponseEntity<>(new IndexOutputModel(), setJsonHomeContentType(headers), HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @DeleteMapping("/{house-id}/users/{username}")
     public ResponseEntity<HouseMembersOutputModel> deleteUser(
             @PathVariable("house-id") long houseId,

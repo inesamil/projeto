@@ -1,5 +1,7 @@
 package pt.isel.ps.gis.controllers;
 
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,13 @@ public class AllergyController {
         this.messageSource = messageSource;
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("")
     public ResponseEntity<HouseAllergiesOutputModel> getHouseAllergies(
             @PathVariable("house-id") long houseId,
@@ -56,6 +65,13 @@ public class AllergyController {
                 HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @GetMapping("/{allergen}/items")
     public ResponseEntity<StockItemsAllergenOutputModel> getStockItemsAllergen(
             @PathVariable("house-id") long houseId,
@@ -75,6 +91,13 @@ public class AllergyController {
                 setSirenContentType(headers), HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @PutMapping("")
     public ResponseEntity<HouseAllergiesOutputModel> putAllergens(
             @PathVariable("house-id") long houseId,
@@ -102,6 +125,13 @@ public class AllergyController {
                 HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @PutMapping("/{allergen}")
     public ResponseEntity<HouseAllergiesOutputModel> putAllergen(
             @PathVariable("house-id") long houseId,
@@ -123,6 +153,13 @@ public class AllergyController {
                 HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @DeleteMapping("")
     public ResponseEntity<HouseAllergiesOutputModel> deleteAllergies(
             @PathVariable("house-id") long houseId,
@@ -142,6 +179,13 @@ public class AllergyController {
                 HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     @DeleteMapping("/{allergen}")
     public ResponseEntity<HouseAllergiesOutputModel> deleteAllergen(
             @PathVariable("house-id") long houseId,
