@@ -39,6 +39,8 @@ public class StockManagementServiceImpl implements StockManagementService {
     private static final long DAY_IN_MS = SECOND_IN_MS * MINUTE_IN_SECONDS * HOUR_IN_MINUTES * DAY_IN_HOURS;
     private static final long WEEK_IN_MS = WEEK_IN_DAYS * DAY_IN_MS;
 
+    private static final short THRESHOLD = 2;
+
     private final StockItemRepository stockItemRepository;
     private final DailyQuantityRepository dailyQuantityRepository;
     private final StockManagementAlgorithm stockManagementAlgorithm;
@@ -87,14 +89,21 @@ public class StockManagementServiceImpl implements StockManagementService {
         for (int i = 0; i < quantities.size(); i++)
             items[i] = new Item(null, quantities.get(i).getDailyquantity_quantity(), null);
 
-
         Item[] nextWeek = stockManagementAlgorithm.estimateNextWeek(items);
 
-        for (int i = nextWeek.length - 1; i >= nextWeek.length - WEEK_IN_DAYS; i--) {
-            if (nextWeek[i].getQuantity() < 5) {
-                addToSystemList(stockItem, nextWeek[i].getQuantity());
-                break;
+        short min = Short.MAX_VALUE, max = Short.MIN_VALUE;
+        for (Item item : nextWeek) {
+            short quantity = item.getQuantity();
+            if (quantity < min) {
+                min = quantity;
             }
+            if (quantity > max) {
+                max = quantity;
+            }
+        }
+
+        if (min < THRESHOLD) {
+            addToSystemList(stockItem, (short) (max - min));
         }
     }
 
