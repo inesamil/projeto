@@ -4,10 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pt.isel.ps.gis.bll.StockManagementService;
-import pt.isel.ps.gis.dal.repositories.StockItemMovementRepository;
+import pt.isel.ps.gis.dal.repositories.DailyQuantityRepository;
 import pt.isel.ps.gis.dal.repositories.StockItemRepository;
+import pt.isel.ps.gis.model.DailyQuantity;
 import pt.isel.ps.gis.model.StockItem;
-import pt.isel.ps.gis.model.StockItemMovement;
+import pt.isel.ps.gis.model.StockItemId;
 import pt.isel.ps.gis.stockAlgorithm.Item;
 import pt.isel.ps.gis.stockAlgorithm.StockManagementAlgorithm;
 
@@ -30,12 +31,12 @@ public class StockManagementServiceImpl implements StockManagementService {
     private static final long WEEK_IN_MS = WEEK_IN_DAYS * DAY_IN_MS;
 
     private final StockItemRepository stockItemRepository;
-    private final StockItemMovementRepository stockItemMovementRepository;
+    private final DailyQuantityRepository dailyQuantityRepository;
     private final StockManagementAlgorithm stockManagementAlgorithm;
 
-    public StockManagementServiceImpl(StockItemRepository stockItemRepository, StockItemMovementRepository stockItemMovementRepository, StockManagementAlgorithm stockManagementAlgorithm) {
+    public StockManagementServiceImpl(StockItemRepository stockItemRepository, DailyQuantityRepository dailyQuantityRepository, StockManagementAlgorithm stockManagementAlgorithm) {
         this.stockItemRepository = stockItemRepository;
-        this.stockItemMovementRepository = stockItemMovementRepository;
+        this.dailyQuantityRepository = dailyQuantityRepository;
         this.stockManagementAlgorithm = stockManagementAlgorithm;
     }
 
@@ -55,12 +56,16 @@ public class StockManagementServiceImpl implements StockManagementService {
                 long millis = System.currentTimeMillis();
                 Date startDate = new Date(millis - (WEEKS_TO_ESTIMATE * WEEK_IN_MS));
                 Date endDate = new Date(millis);
-                List<StockItemMovement> movements = stockItemMovementRepository.findAllByStartDateAndEndDate(startDate, endDate);
-
-                Item[] items = new Item[WEEKS_TO_ESTIMATE * WEEK_IN_DAYS];
-                for (StockItemMovement movement : movements) {
-
-                }
+                StockItemId id = stockItem.getId();
+                List<DailyQuantity> quantities = dailyQuantityRepository
+                        .findAllByStartDateAndEndDate(id.getHouseId(), id.getStockitemSku(), startDate, endDate);
+                int size = WEEKS_TO_ESTIMATE * WEEK_IN_DAYS;
+                if (quantities.size() != size)
+                    return;
+                Item[] items = new Item[size];
+                
+                for (int i = 0; i < quantities.size(); i++)
+                    items[i] = new Item(null, quantities.get(i).getDailyquantity_quantity(), null);
 
 
                 Item[] nextWeek = stockManagementAlgorithm.estimateNextWeek(items);
