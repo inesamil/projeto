@@ -110,22 +110,22 @@ SELECT insert_user_list(1, 'Festa de Aniversário do Xavier', 'pedro', false);
 SELECT insert_user_list(1, 'Lista Negra', 'pedro', true);
 SELECT insert_user_list(2, 'Dia na Piscina', 'pedro', true);
 SELECT insert_user_list(2, 'Produtos para Experimentar', 'xavier', true);
-SELECT insert_system_list(1, 'Lista de Compras');
-SELECT insert_system_list(2, 'Lista de Compras');
+SELECT insert_system_list(1, 1::int2, 'Lista de Compras');
+SELECT insert_system_list(2, 1::int2, 'Lista de Compras');
 
 --LIST-PRODUCT
 INSERT INTO public.listproduct(house_id, list_id, product_id, listproduct_brand, listproduct_quantity) 
-	VALUES (1, 3, 4, 'Marlene', 6);
+	VALUES (1, 1, 4, 'Marlene', 6);
 INSERT INTO public.listproduct(house_id, list_id, product_id, listproduct_brand, listproduct_quantity) 
-	VALUES (1, 3, 5, 'Strawberry', 15);
+	VALUES (1, 1, 5, 'Strawberry', 15);
 INSERT INTO public.listproduct(house_id, list_id, product_id, listproduct_brand, listproduct_quantity) 
-	VALUES (1, 3, 6, 'Lucato', 4);
+	VALUES (1, 1, 6, 'Lucato', 4);
 INSERT INTO public.listproduct(house_id, list_id, product_id, listproduct_brand, listproduct_quantity) 
-	VALUES (2, 3, 4, 'Marlene', 2);
+	VALUES (2, 1, 4, 'Marlene', 2);
 INSERT INTO public.listproduct(house_id, list_id, product_id, listproduct_brand, listproduct_quantity) 
-	VALUES (2, 3, 5, 'Strawberry', 12);
+	VALUES (2, 1, 5, 'Strawberry', 12);
 INSERT INTO public.listproduct(house_id, list_id, product_id, listproduct_brand, listproduct_quantity) 
-	VALUES (2, 3, 6, 'Lucato', 6);
+	VALUES (2, 1, 6, 'Lucato', 6);
 	
 --STOCKITEM-ALLERGY
 INSERT INTO public.stockitemallergy(house_id, stockitem_sku, allergy_allergen)

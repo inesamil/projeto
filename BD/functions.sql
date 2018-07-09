@@ -180,7 +180,7 @@ BEGIN
 	-- Get last id
 	SELECT public."list".list_id FROM public."list" WHERE public."list".house_id = houseID ORDER BY public."list".list_id DESC LIMIT 1 INTO listID;
 	IF listID IS NULL THEN
-		listID := 1; 	-- First list inserted
+		listID := 16; 	-- First list inserted
 	ELSE
 		listID := listID + 1;	-- Increment
 	END IF;
@@ -212,23 +212,13 @@ $$ LANGUAGE plpgsql;
 
  -- Procedure to insert a SystemList
  -- DROP FUNCTION insert_system_list
-CREATE OR REPLACE FUNCTION insert_system_list(houseID bigint, listName character varying(35))
+CREATE OR REPLACE FUNCTION insert_system_list(houseID bigint, listID smallint, listName character varying(35))
 RETURNS TABLE(
 	house_id bigint,
 	list_id smallint,
 	list_name character varying(35)
 ) AS $$
-DECLARE 
-	listID smallint;
-BEGIN
-	-- Get last id
-	SELECT public."list".list_id FROM public."list" WHERE public."list".house_id = houseID ORDER BY public."list".list_id DESC LIMIT 1 INTO listID;
-	IF listID IS NULL THEN
-		listID := 1; 	-- First list inserted
-	ELSE
-		listID := listID + 1;	-- Increment
-	END IF;
-		
+BEGIN		
 	-- Add List
 	INSERT INTO public."list" (house_id, list_id, list_name, list_type) VALUES (houseId, listID, listName, 'system');
 
