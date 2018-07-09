@@ -107,29 +107,6 @@ public class StockItemMovementRepositoryCustomImpl implements StockItemMovementR
         });
     }
 
-    @Override
-    public List<StockItemMovement> findAllByStartDateAndEndDate(String sku, Date startDate, Date endDate) {
-        Session session = entityManager.unwrap(Session.class);
-        return session.doReturningWork(connection -> {
-            String sql = "SELECT public.\"stockitemmovement\".house_id, public.\"stockitemmovement\".stockitem_sku, " +
-                    "public.\"stockitemmovement\".storage_id, public.\"stockitemmovement\".stockitemmovement_type, " +
-                    "public.\"stockitemmovement\".stockitemmovement_datetime, public.\"stockitemmovement\".stockitemmovement_quantity " +
-                    "FROM public.\"stockitemmovement\" " +
-                    "WHERE public.\"stockitemmovement\".stockitem_sku = ? " +
-                    "AND public.\"stockitemmovement\".stockitemmovement_datetime >= ? " +
-                    "AND public.\"stockitemmovement\".stockitemmovement_datetime <= ?;";
-            try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                if (isNotNull(ps, 1, sku))
-                    ps.setString(1, sku);
-                if (isNotNull(ps, 2, startDate))
-                    ps.setDate(2, startDate);
-                if (isNotNull(ps, 3, endDate))
-                    ps.setDate(3, endDate);
-                return executeQuery(ps);
-            }
-        });
-    }
-
     /**
      * Execute the query and return List with StockItemMovements.
      *

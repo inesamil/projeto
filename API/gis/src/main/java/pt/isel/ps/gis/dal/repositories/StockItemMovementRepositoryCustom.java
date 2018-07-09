@@ -42,13 +42,4 @@ public interface StockItemMovementRepositoryCustom {
                                               String productName, String brand, String variety, float segment,
                                               String segmentUnit, String conservationConditions, String description,
                                               Date date);
-
-    /**
-     * Find all stock item movements by movements datetime
-     *
-     * @param startDate Start date, inclusive
-     * @param endDate   End date, exclusive
-     * @return List with all stock item movements that have movements between startDate and endDate
-     */
-    List<StockItemMovement> findAllByStartDateAndEndDate(Date startDate, Date endDate);
 }
