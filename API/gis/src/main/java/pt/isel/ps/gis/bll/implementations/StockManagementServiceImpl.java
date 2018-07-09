@@ -9,7 +9,6 @@ import pt.isel.ps.gis.bll.StockManagementService;
 import pt.isel.ps.gis.dal.repositories.DailyQuantityRepository;
 import pt.isel.ps.gis.dal.repositories.ListProductRepository;
 import pt.isel.ps.gis.dal.repositories.StockItemRepository;
-import pt.isel.ps.gis.dal.repositories.SystemListRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.DailyQuantity;
 import pt.isel.ps.gis.model.ListProduct;
@@ -44,14 +43,12 @@ public class StockManagementServiceImpl implements StockManagementService {
     private final StockItemRepository stockItemRepository;
     private final DailyQuantityRepository dailyQuantityRepository;
     private final StockManagementAlgorithm stockManagementAlgorithm;
-    private final SystemListRepository systemListRepository;
     private final ListProductRepository listProductRepository;
 
-    public StockManagementServiceImpl(StockItemRepository stockItemRepository, DailyQuantityRepository dailyQuantityRepository, StockManagementAlgorithm stockManagementAlgorithm, SystemListRepository systemListRepository, ListProductRepository listProductRepository) {
+    public StockManagementServiceImpl(StockItemRepository stockItemRepository, DailyQuantityRepository dailyQuantityRepository, StockManagementAlgorithm stockManagementAlgorithm, ListProductRepository listProductRepository) {
         this.stockItemRepository = stockItemRepository;
         this.dailyQuantityRepository = dailyQuantityRepository;
         this.stockManagementAlgorithm = stockManagementAlgorithm;
-        this.systemListRepository = systemListRepository;
         this.listProductRepository = listProductRepository;
     }
 
@@ -113,17 +110,6 @@ public class StockManagementServiceImpl implements StockManagementService {
         } catch (EntityException e) {
             log.warn(stockItem.getId().getHouseId() + ", " + stockItem.getId().getStockitemSku() + ", " + stockItem.getProductId());
             log.warn(e.getMessage());
-        }
-    }
-
-    private class Tuple {
-
-        public StockItem stockItem;
-        public short quantity;
-
-        public Tuple(StockItem stockItem, short quantity) {
-            this.stockItem = stockItem;
-            this.quantity = quantity;
         }
     }
 }
