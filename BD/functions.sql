@@ -232,7 +232,7 @@ BEGIN
 	-- Add List
 	INSERT INTO public."list" (house_id, list_id, list_name, list_type) VALUES (houseId, listID, listName, 'system');
 
-	-- Add UserList
+	-- Add SystemList
 	INSERT INTO public."systemlist" (house_id, list_id) VALUES (houseID, listID);
 	
 	RETURN query
