@@ -2,6 +2,8 @@ package pt.isel.ps.gis.bll.implementations;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import pt.isel.ps.gis.stockAlgorithm.StockManagementAlgorithm;
 import javax.persistence.EntityNotFoundException;
 import java.sql.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class StockManagementServiceImpl implements StockManagementService {
@@ -44,19 +47,22 @@ public class StockManagementServiceImpl implements StockManagementService {
     private final DailyQuantityRepository dailyQuantityRepository;
     private final StockManagementAlgorithm stockManagementAlgorithm;
     private final ListProductRepository listProductRepository;
+    private final MessageSource messageSource;
 
-    public StockManagementServiceImpl(StockItemRepository stockItemRepository, DailyQuantityRepository dailyQuantityRepository, StockManagementAlgorithm stockManagementAlgorithm, ListProductRepository listProductRepository) {
+    public StockManagementServiceImpl(StockItemRepository stockItemRepository, DailyQuantityRepository dailyQuantityRepository, StockManagementAlgorithm stockManagementAlgorithm, ListProductRepository listProductRepository, MessageSource messageSource) {
         this.stockItemRepository = stockItemRepository;
         this.dailyQuantityRepository = dailyQuantityRepository;
         this.stockManagementAlgorithm = stockManagementAlgorithm;
         this.listProductRepository = listProductRepository;
+        this.messageSource = messageSource;
     }
 
     @Override
     public void processOneItem(long houseId, String stockitemSku) throws EntityException {
+        Locale locale = LocaleContextHolder.getLocale();
         StockItem stockItem = stockItemRepository
                 .findById(new StockItemId(houseId, stockitemSku))
-                .orElseThrow(() -> new EntityNotFoundException("")); // TODO meter mensagem
+                .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("stock_Item_Id_Not_Exist", new Object[]{houseId, stockitemSku}, locale)));
         processOneItem(stockItem);
     }
 
