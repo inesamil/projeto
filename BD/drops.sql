@@ -1,4 +1,5 @@
 -- DROP functions
+DROP FUNCTION IF EXISTS update_daily_quantity;
 DROP FUNCTION IF EXISTS delete_user;
 DROP FUNCTION IF EXISTS delete_house;
 DROP FUNCTION IF EXISTS delete_user_list;
