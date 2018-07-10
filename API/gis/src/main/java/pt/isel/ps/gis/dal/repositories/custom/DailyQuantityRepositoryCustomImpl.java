@@ -55,6 +55,18 @@ public class DailyQuantityRepositoryCustomImpl implements DailyQuantityRepositor
         });
     }
 
+    public void updateDailyQuantity(Date date) {
+        Session session = entityManager.unwrap(Session.class);
+        session.doWork(connection -> {
+            try (CallableStatement function = connection.prepareCall(
+                    "{call update_daily_quantity(?::date)}"
+            )) {
+                function.setDate(1, date);
+                function.execute();
+            }
+        });
+    }
+
     /**
      * Verify if t is null and it is true call ps.setNull in position idx and return false. Otherwise return true.
      *

@@ -17,4 +17,11 @@ public interface DailyQuantityRepositoryCustom {
      * @return List with all daily quantities between startDate and endDate
      */
     List<DailyQuantity> findAllByStartDateAndEndDate(Long houseId, String sku, Date startDate, Date endDate);
+
+    /**
+     * Insert movements final quantity at param date in daily quantity table
+     *
+     * @param date The date to copy movements final quantity to daily quantity
+     */
+    void updateDailyQuantity(Date date);
 }
