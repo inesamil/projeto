@@ -65,9 +65,12 @@ public class StockManagementServiceImpl implements StockManagementService {
         int startPage = 0;
         Page<StockItem> all = stockItemRepository.findAll(PageRequest.of(startPage, PAGE_SIZE));
         int totalPages = all.getTotalPages();
-        while (startPage < totalPages) {
+        while (true) {
             startPage++;
             all.forEach(this::processOneItem);
+            if (startPage >= totalPages)
+                break;
+            all = stockItemRepository.findAll(PageRequest.of(startPage, PAGE_SIZE));
         }
     }
 
