@@ -25,7 +25,7 @@ public class StockManagementTask {
         this.stockManagementService = stockManagementService;
     }
 
-    @Scheduled(cron = "*/5 * * * * *")
+    @Scheduled(cron = "0 */5 * * * *")
     public void reportCurrentTime() {
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
         log.info("Start at {}", dateFormat.format(date));
