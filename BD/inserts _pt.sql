@@ -21,6 +21,11 @@ INSERT INTO public.users(users_username, users_email, users_age, users_name, use
 INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('alice', 'alice@example.com', 21, 'Alice Oliveira', '$2a$04$L0KJGuuVT7zCfrX8FQg5XeuZxaCz9MMBlO67iwwPiEyD2J3J4cOKG');
 INSERT INTO public.users(users_username, users_email, users_age, users_name, users_password) VALUES ('xavier', 'xavier@example.com', 21, 'Xavier Santos', '$2a$04$/bbnfYLs0szIUgHSsF.ixumynyCAUiCWLsablvd0E7Kpn4G2eEjUa');
 
+--USER-ROLE
+INSERT INTO public.usersrole(users_id, role_id) VALUES (1, 2);
+INSERT INTO public.usersrole(users_id, role_id) VALUES (2, 2);
+INSERT INTO public.usersrole(users_id, role_id) VALUES (3, 2);
+
 --USER-HOUSE
 INSERT INTO public.userhouse(house_id, users_id, userhouse_administrator) VALUES (1, 1, true);
 INSERT INTO public.userhouse(house_id, users_id, userhouse_administrator) VALUES (1, 2, false);
@@ -140,26 +145,155 @@ INSERT INTO public.stockitemallergy(house_id, stockitem_sku, allergy_allergen)
 --STOCKITEM-MOVEMENT
 --House1-Milk
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2017-10-20'::timestamp, 1, 1);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-20 09:00:00'::timestamp, 1, 11);
+	
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2017-10-22'::timestamp, 1, 2);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-06-20 09:02:00'::timestamp, 1, 12);
+	
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-03-14 01:01:01'::timestamp, 1, 3);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-20 09:30:00'::timestamp, 1, 11);
+	
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-03-16 01:01:01'::timestamp, 1, 4);
---House1-yogurt
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-06-20 09:32:00'::timestamp, 1, 12);
+	
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-03-14 01:02:01'::timestamp, 1, 1);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-20 23:32:00'::timestamp, 1, 11);
+	
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-03-16 01:01:02'::timestamp, 1, 2);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-21 09:28:00'::timestamp, 1, 10);
+	
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-03-14 01:00:01'::timestamp, 1, 3);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-06-21 09:40:00'::timestamp, 1, 11);
+	
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-03-17 05:21:52'::timestamp, 1, 4);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-21 20:28:00'::timestamp, 1, 10);
+	
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-03-17 09:21:52'::timestamp, 1, 5);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-06-21 20:35:00'::timestamp, 1, 11);
+	
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-03-20'::timestamp, 1, 6);
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-22 09:35:00'::timestamp, 1, 10);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-22 09:35:20'::timestamp, 1, 9);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-06-22 09:40:00'::timestamp, 1, 10);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-22 10:40:00'::timestamp, 1, 9);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-06-22 10:45:00'::timestamp, 1, 10);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-22 23:40:00'::timestamp, 1, 9);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-23 09:40:00'::timestamp, 1, 8);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-06-23 09:42:00'::timestamp, 1, 9);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-24 09:42:00'::timestamp, 1, 8);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-06-24 09:43:00'::timestamp, 1, 9);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-25 09:40:00'::timestamp, 1, 8);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-06-25 09:42:00'::timestamp, 1, 9);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-26 09:40:00'::timestamp, 1, 8);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-27 09:40:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-06-27 09:41:00'::timestamp, 1, 8);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-28 09:35:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-06-28 09:36:00'::timestamp, 1, 8);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-29 09:34:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-06-29 09:36:00'::timestamp, 1, 8);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-30 09:31:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-30 09:31:02'::timestamp, 1, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-06-30 09:35:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-07-01 09:30:00'::timestamp, 1, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-07-01 09:35:00'::timestamp, 1, 5);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-07-01 09:37:00'::timestamp, 1, 4);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-07-02 09:30:00'::timestamp, 1, 3);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-07-02 09:32:00'::timestamp, 1, 4);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-07-03 09:30:00'::timestamp, 1, 3);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-07-04 09:30:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-07-05 09:30:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-07-05 17:30:00'::timestamp, 6, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-07-06 09:30:00'::timestamp, 1, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-07-06 09:35:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-07-07 09:30:00'::timestamp, 1, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-07-08 09:30:00'::timestamp, 1, 5);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-07-08 09:35:00'::timestamp, 1, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-07-09 09:30:00'::timestamp, 1, 5);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-07-10 09:30:00'::timestamp, 1, 4);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-07-10 09:35:00'::timestamp, 1, 5);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-07-11 09:30:00'::timestamp, 1, 4);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-07-11 09:35:00'::timestamp, 1, 5);
+
 --House2-yogurt
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
 	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-01'::timestamp, 6, 6);
@@ -167,9 +301,136 @@ INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stocki
 	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-01'::timestamp, 6, 12);
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
 	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-02'::timestamp, 3, 15);
+	
 --House2-butter
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-04-14'::timestamp, 1, 1);
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-06-20 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-06-20 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-06-21 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-06-21 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-06-22 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-06-22 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-06-23 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-06-23 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-06-24 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-06-24 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-06-25 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-06-25 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-06-26 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-06-26 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-06-27 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-06-27 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-06-28 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-06-28 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-06-29 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-06-29 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-06-30 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-06-30 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-07-01 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-07-01 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-07-02 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-07-02 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-07-03 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-07-03 09:38:00'::timestamp, 1, 2);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-07-04 09:31:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-07-05 09:31:00'::timestamp, 1, 0);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-07-05 09:38:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-07-06 09:31:00'::timestamp, 1, 0);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-07-06 09:38:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-07-07 09:31:00'::timestamp, 1, 0);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-07-07 09:38:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-07-08 09:31:00'::timestamp, 1, 0);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-07-08 09:38:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-07-09 09:31:00'::timestamp, 1, 0);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-07-09 09:38:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-07-10 09:31:00'::timestamp, 1, 0);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-07-10 09:38:00'::timestamp, 1, 1);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-07-11 09:31:00'::timestamp, 1, 0);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-07-11 09:38:00'::timestamp, 1, 1);
 	
 --STOCKITEM-STORAGE
 INSERT INTO public.stockitemstorage(house_id, stockitem_sku, storage_id, stockitemstorage_quantity)
@@ -180,5 +441,138 @@ INSERT INTO public.stockitemstorage(house_id, stockitem_sku, storage_id, stockit
 	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 1, 15);
 INSERT INTO public.stockitemstorage(house_id, stockitem_sku, storage_id, stockitemstorage_quantity)
 	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, 1);
+	
+--DAILY-QUANTITY
+--House1-Milk
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-06-20', 11);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-06-21', 11);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-06-22', 9);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-06-23', 9);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-06-24', 9);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-06-25', 9);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-06-26', 8);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-06-27', 8);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-06-28', 8);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-06-29', 8);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-06-30', 7);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-07-01', 4);
 
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-07-02', 4);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-07-03', 3);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-07-04', 2);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-07-05', 7);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-07-06', 7);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-07-07', 6);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-07-08', 6);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-07-09', 5);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-07-10', 5);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-07-11', 5);
+	
+--House2-butter
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-06-20', 2);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-06-21', 2);
 
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-06-22', 2);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-06-23', 2);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-06-24', 2);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-06-25', 2);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-06-26', 2);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-06-27', 2);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-06-28', 2);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-06-29', 2);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-06-30', 2);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-01', 2);	
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-02', 2);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-03', 2);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-04', 1);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-05', 1);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-06', 1);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-07', 1);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-08', 1);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-09', 1);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-10', 1);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-11', 1);
