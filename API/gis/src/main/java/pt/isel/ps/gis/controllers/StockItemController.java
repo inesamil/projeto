@@ -12,16 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pt.isel.ps.gis.bll.StockItemAllergenService;
 import pt.isel.ps.gis.bll.StockItemService;
-import pt.isel.ps.gis.exceptions.BadRequestException;
-import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.exceptions.EntityNotFoundException;
-import pt.isel.ps.gis.exceptions.NotFoundException;
+import pt.isel.ps.gis.components.AuthenticationFacade;
+import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.Allergy;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.outputModel.AllergiesStockItemOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemsOutputModel;
 import pt.isel.ps.gis.model.requestParams.StockItemRequestParam;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 
 import java.util.List;
 import java.util.Locale;
@@ -35,11 +34,13 @@ public class StockItemController {
     private final StockItemService stockItemService;
     private final StockItemAllergenService stockItemAllergenService;
     private final MessageSource messageSource;
+    private final AuthenticationFacade authenticationFacade;
 
-    public StockItemController(StockItemService stockItemService, StockItemAllergenService stockItemAllergenService, MessageSource messageSource) {
+    public StockItemController(StockItemService stockItemService, StockItemAllergenService stockItemAllergenService, MessageSource messageSource, AuthorizationProvider authorizationProvider, AuthenticationFacade authenticationFacade) {
         this.stockItemService = stockItemService;
         this.stockItemAllergenService = stockItemAllergenService;
         this.messageSource = messageSource;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @ApiResponses(value = {
@@ -54,11 +55,12 @@ public class StockItemController {
             @PathVariable("house-id") long houseId,
             StockItemRequestParam params,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<StockItem> stockItems;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
             if (params.isNull())
-                stockItems = stockItemService.getStockItemsByHouseId(houseId, locale);
+                stockItems = stockItemService.getStockItemsByHouseId(username, houseId, locale);
             else {
                 StockItemService.StockItemFilters filters = new StockItemService.StockItemFilters(
                         params.getProduct(),
@@ -67,12 +69,14 @@ public class StockItemController {
                         params.getSegment(),
                         params.getStorage()
                 );
-                stockItems = stockItemService.getStockItemsByHouseIdFiltered(houseId, filters, locale);
+                stockItems = stockItemService.getStockItemsByHouseIdFiltered(username, houseId, filters, locale);
             }
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemsOutputModel(houseId, stockItems), setSirenContentType(headers),
@@ -91,14 +95,17 @@ public class StockItemController {
             @PathVariable("house-id") long houseId,
             @PathVariable("stock-item-id") String sku,
             Locale locale
-    ) throws NotFoundException, BadRequestException {
+    ) throws NotFoundException, BadRequestException, ForbiddenException {
         StockItem stockItem;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
-            stockItem = stockItemService.getStockItemByStockItemId(houseId, sku, locale);
+            stockItem = stockItemService.getStockItemByStockItemId(username, houseId, sku, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemOutputModel(stockItem), setSirenContentType(headers), HttpStatus.OK);
@@ -116,14 +123,17 @@ public class StockItemController {
             @PathVariable("house-id") long houseId,
             @PathVariable("stock-item-id") String sku,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<Allergy> allergens;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
-            allergens = stockItemAllergenService.getAllergensByStockItemId(houseId, sku, locale);
+            allergens = stockItemAllergenService.getAllergensByStockItemId(username, houseId, sku, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new AllergiesStockItemOutputModel(houseId, sku, allergens),

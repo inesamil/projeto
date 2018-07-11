@@ -8,9 +8,11 @@ import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.dal.repositories.StorageRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.Numrange;
 import pt.isel.ps.gis.model.Storage;
 import pt.isel.ps.gis.model.StorageId;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
@@ -24,10 +26,13 @@ public class StorageServiceImpl implements StorageService {
 
     private final MessageSource messageSource;
 
-    public StorageServiceImpl(StorageRepository storageRepository, HouseRepository houseRepository, MessageSource messageSource) {
+    private final AuthorizationProvider authorizationProvider;
+
+    public StorageServiceImpl(StorageRepository storageRepository, HouseRepository houseRepository, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
         this.storageRepository = storageRepository;
         this.houseRepository = houseRepository;
         this.messageSource = messageSource;
+        this.authorizationProvider = authorizationProvider;
     }
 
     @Override
@@ -36,7 +41,9 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public Storage getStorageByStorageId(long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException {
+    public Storage getStorageByStorageId(String username, long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
+        checkHouse(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         return storageRepository
                 .findById(new StorageId(houseId, storageId))
                 .orElseThrow(() -> new EntityNotFoundException("Storage does not exist in this house.", messageSource.getMessage("storage_In_House_Not_Exist", null, locale)));
@@ -44,9 +51,9 @@ public class StorageServiceImpl implements StorageService {
 
     @Transactional
     @Override
-    public List<Storage> getStorageByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
-        ValidationsUtils.validateHouseId(houseId);
+    public List<Storage> getStorageByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         checkHouse(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         return storageRepository.findAllById_HouseId(houseId);
     }
 
@@ -61,7 +68,9 @@ public class StorageServiceImpl implements StorageService {
     @Transactional
     @Override
     public Storage updateStorage(long houseId, short storageId, String name, Float minimumTemperature, Float maximumTemperature, Locale locale) throws EntityNotFoundException, EntityException {
-        Storage storage = getStorageByStorageId(houseId, storageId, locale);
+        Storage storage = storageRepository
+                .findById(new StorageId(houseId, storageId))
+                .orElseThrow(() -> new EntityNotFoundException("Storage does not exist in this house.", messageSource.getMessage("storage_In_House_Not_Exist", null, locale)));
         storage.setStorageName(name);
         storage.setStorageTemperature(new Numrange(minimumTemperature, maximumTemperature));
         return storage;
@@ -76,7 +85,8 @@ public class StorageServiceImpl implements StorageService {
         storageRepository.deleteCascadeStorageById(id);
     }
 
-    private void checkHouse(long houseId, Locale locale) throws EntityNotFoundException {
+    private void checkHouse(long houseId, Locale locale) throws EntityNotFoundException, EntityException {
+        ValidationsUtils.validateHouseId(houseId);
         if (!houseRepository.existsById(houseId))
             throw new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale));
     }

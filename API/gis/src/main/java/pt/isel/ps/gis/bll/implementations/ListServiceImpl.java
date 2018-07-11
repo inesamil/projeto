@@ -9,6 +9,7 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.*;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
@@ -27,7 +28,9 @@ public class ListServiceImpl implements ListService {
 
     private final MessageSource messageSource;
 
-    public ListServiceImpl(HouseRepository houseRepository, ListRepository listRepository, UserListRepository userListRepository, SystemListRepository systemListRepository, UsersRepository usersRepository, ListProductRepository listProductRepository, MessageSource messageSource) {
+    private final AuthorizationProvider authorizationProvider;
+
+    public ListServiceImpl(HouseRepository houseRepository, ListRepository listRepository, UserListRepository userListRepository, SystemListRepository systemListRepository, UsersRepository usersRepository, ListProductRepository listProductRepository, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
         this.houseRepository = houseRepository;
         this.listRepository = listRepository;
         this.userListRepository = userListRepository;
@@ -35,6 +38,7 @@ public class ListServiceImpl implements ListService {
         this.usersRepository = usersRepository;
         this.listProductRepository = listProductRepository;
         this.messageSource = messageSource;
+        this.authorizationProvider = authorizationProvider;
     }
 
     @Override
@@ -54,14 +58,17 @@ public class ListServiceImpl implements ListService {
 
     @Transactional
     @Override
-    public java.util.List<List> getListsByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
+    public java.util.List<List> getListsByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         checkHouseId(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         return listRepository.findAllById_HouseId(houseId);
     }
 
     @Transactional
     @Override
-    public List getListByListId(long houseId, short listId, Locale locale) throws EntityException, EntityNotFoundException {
+    public List getListByListId(String username, long houseId, short listId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
+        checkHouseId(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         List list = listRepository
                 .findById(new ListId(houseId, listId))
                 .orElseThrow(() -> new EntityNotFoundException(String.format("List with ID %d does not exist in the house with ID %d.", listId, houseId), messageSource.getMessage("list_Id_Not_Exist", new Object[]{listId, houseId}, locale)));

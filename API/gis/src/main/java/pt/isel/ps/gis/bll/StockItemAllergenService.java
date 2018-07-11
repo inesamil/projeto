@@ -2,6 +2,7 @@ package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.Allergy;
 import pt.isel.ps.gis.model.StockItem;
 
@@ -24,20 +25,22 @@ public interface StockItemAllergenService {
     /**
      * Obter as alergias de um StockItem duma casa
      *
+     * @param username identificador do utilizador
      * @param houseId      identificador da casa
      * @param stockItemSku identificador do item em stock
      * @return List<Allergy>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<Allergy> getAllergensByStockItemId(long houseId, String stockItemSku, Locale locale) throws EntityException, EntityNotFoundException;
+    List<Allergy> getAllergensByStockItemId(String username, long houseId, String stockItemSku, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Listar os itens com um determinado alergénio
      *
+     * @param username identificador do utilizador
      * @param houseId  identificador da casa
      * @param allergen identificador do alergénio
      * @return List<StockItem>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<StockItem> getStockItemsByHouseIdAndAllergenId(long houseId, String allergen, Locale locale) throws EntityException, EntityNotFoundException;
+    List<StockItem> getStockItemsByHouseIdAndAllergenId(String username, long houseId, String allergen, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 }

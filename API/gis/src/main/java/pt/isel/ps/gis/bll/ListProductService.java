@@ -3,6 +3,7 @@ package pt.isel.ps.gis.bll;
 import pt.isel.ps.gis.exceptions.EntityAlreadyExistsException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.ListProduct;
 
 import java.util.List;
@@ -24,23 +25,25 @@ public interface ListProductService {
     /**
      * Obter um dado produto de uma lista através dos seus IDs
      *
+     * @param username identificador do utilizador
      * @param houseId   identificador da casa
      * @param listId    identificador da lista
      * @param productId identificador do produto
      * @return Optional<ListProduct>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    ListProduct getListProductByListProductId(long houseId, short listId, int productId, Locale locale) throws EntityException;
+    ListProduct getListProductByListProductId(String username, long houseId, short listId, int productId, Locale locale) throws EntityException, InsufficientPrivilegesException, EntityNotFoundException;
 
     /**
      * Listar os produtos de uma lista
      *
+     * @param username identificador do utilizador
      * @param houseId identificador da casa
      * @param listId  identificador da lista
      * @return List<ListProduct>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<ListProduct> getListProductsByListId(long houseId, short listId, Locale locale) throws EntityException, EntityNotFoundException;
+    List<ListProduct> getListProductsByListId(String username, long houseId, short listId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Adicionar um produto a uma lista

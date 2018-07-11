@@ -38,12 +38,13 @@ public interface ListService {
     /**
      * Obter as listas de uma casa através do seu ID
      *
+     * @param username identificador do utilizador
      * @param houseId identificador da casa
      * @return List<List>
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se a casa com ID {houseId} não existir
      */
-    java.util.List<List> getListsByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
+    java.util.List<List> getListsByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Obter uma lista através do seu ID
@@ -54,7 +55,7 @@ public interface ListService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se a lista especificada não existir
      */
-    List getListByListId(long houseId, short listId, Locale locale) throws EntityException, EntityNotFoundException;
+    List getListByListId(String username, long houseId, short listId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Listar as listas através do username do user

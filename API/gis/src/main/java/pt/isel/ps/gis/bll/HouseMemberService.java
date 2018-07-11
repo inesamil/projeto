@@ -2,6 +2,7 @@ package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.UserHouse;
 
 import java.util.List;
@@ -32,11 +33,12 @@ public interface HouseMemberService {
     /**
      * Listar os membros de uma casa através do ID da casa
      *
+     * @param username identificador do utilizador
      * @param houseId identificador da casa
      * @return List<UserHouse>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<UserHouse> getMembersByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
+    List<UserHouse> getMembersByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Associar ou atualizar um membro de uma casa

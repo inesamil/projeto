@@ -2,6 +2,7 @@ package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.HouseAllergy;
 
 import java.util.List;
@@ -22,12 +23,13 @@ public interface HouseAllergyService {
     /**
      * Listar as alergias de uma casa através do ID da casa
      *
+     * @param username identificador do utilizador
      * @param houseId identificador da casa
      * @return List<HouseAllergy>
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se não encontrar a casa especificada
      */
-    List<HouseAllergy> getAllergiesByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
+    List<HouseAllergy> getAllergiesByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Atualizar ou associar uma alergia a uma casa

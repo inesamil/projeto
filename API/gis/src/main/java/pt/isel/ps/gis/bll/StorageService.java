@@ -2,6 +2,7 @@ package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.Storage;
 
 import java.util.List;
@@ -22,21 +23,23 @@ public interface StorageService {
     /**
      * Obter um local de armazenamento através do seu ID
      *
+     * @param username identificador do utilizador
      * @param houseId   identificador da casa
      * @param storageId identificador do local de armazenamento
      * @return Optional<Storage>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    Storage getStorageByStorageId(long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException;
+    Storage getStorageByStorageId(String username, long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Listar todos os locais de armazenamento duma casa através do ID da casa
      *
+     * @param username identificador do utilizador
      * @param houseId identificador da casa
      * @return List<Storage>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<Storage> getStorageByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
+    List<Storage> getStorageByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Adicionar um local de armazenamento numa casa

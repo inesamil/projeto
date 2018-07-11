@@ -7,10 +7,12 @@ import pt.isel.ps.gis.bll.StockItemMovementService;
 import pt.isel.ps.gis.dal.repositories.*;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.StockItemMovementId;
 import pt.isel.ps.gis.model.StorageId;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.DateUtils;
 import pt.isel.ps.gis.utils.InputUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
@@ -30,13 +32,16 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     private final MessageSource messageSource;
 
-    public StockItemMovementServiceImpl(StockItemMovementRepository stockItemMovementRepository, HouseRepository houseRepository, StorageRepository storageRepository, ProductRepository productRepository, StockItemRepository stockItemRepository, MessageSource messageSource) {
+    private final AuthorizationProvider authorizationProvider;
+
+    public StockItemMovementServiceImpl(StockItemMovementRepository stockItemMovementRepository, HouseRepository houseRepository, StorageRepository storageRepository, ProductRepository productRepository, StockItemRepository stockItemRepository, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
         this.stockItemMovementRepository = stockItemMovementRepository;
         this.houseRepository = houseRepository;
         this.storageRepository = storageRepository;
         this.productRepository = productRepository;
         this.stockItemRepository = stockItemRepository;
         this.messageSource = messageSource;
+        this.authorizationProvider = authorizationProvider;
     }
 
     @Override
@@ -46,17 +51,17 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     @Transactional
     @Override
-    public List<StockItemMovement> getStockItemMovementsByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
-        ValidationsUtils.validateHouseId(houseId);
+    public List<StockItemMovement> getStockItemMovementsByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         checkHouseId(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         return stockItemMovementRepository.findAllById_HouseId(houseId);
     }
 
     @Transactional
     @Override
-    public List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters, Locale locale) throws EntityException, EntityNotFoundException {
-        ValidationsUtils.validateHouseId(houseId);
+    public List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(String username, long houseId, MovementFilters filters, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         checkHouseId(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         return stockItemMovementRepository.findMovementsFiltered(houseId, filters.item, filters.type, filters.dateTime, filters.storage);
     }
 

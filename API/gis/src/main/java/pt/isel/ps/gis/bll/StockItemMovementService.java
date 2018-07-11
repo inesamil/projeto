@@ -2,6 +2,7 @@ package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.StockItemMovement;
 
 import java.sql.Timestamp;
@@ -27,21 +28,23 @@ public interface StockItemMovementService {
     /**
      * Listar os movimentos dos itens de uma casa
      *
+     * @param username identificador do utilizador
      * @param houseId identificador da casa
      * @return List<StockItemMovement>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<StockItemMovement> getStockItemMovementsByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
+    List<StockItemMovement> getStockItemMovementsByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Listar os movimentos filtrados dos itens de uma casa
      *
+     * @param username identificador do utilizador
      * @param houseId identificador da casa
      * @param filters filtros para aplicar na filtragem dos resultados
      * @return List<StockItemMovement>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(long houseId, MovementFilters filters, Locale locale) throws EntityException, EntityNotFoundException;
+    List<StockItemMovement> getStockItemMovementsByHouseIdFiltered(String username, long houseId, MovementFilters filters, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Adicionar um movimento à casa

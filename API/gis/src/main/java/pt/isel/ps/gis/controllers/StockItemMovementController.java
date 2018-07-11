@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.StockItemMovementService;
+import pt.isel.ps.gis.components.AuthenticationFacade;
 import pt.isel.ps.gis.exceptions.BadRequestException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
@@ -18,6 +19,7 @@ import pt.isel.ps.gis.model.TagCsv;
 import pt.isel.ps.gis.model.inputModel.MovementInputModel;
 import pt.isel.ps.gis.model.outputModel.MovementsOutputModel;
 import pt.isel.ps.gis.model.requestParams.StockItemMovementRequestParam;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 
 import java.io.StringReader;
 import java.util.List;
@@ -31,10 +33,12 @@ public class StockItemMovementController {
 
     private final StockItemMovementService stockItemMovementService;
     private final MessageSource messageSource;
+    private final AuthenticationFacade authenticationFacade;
 
-    public StockItemMovementController(StockItemMovementService stockItemMovementService, MessageSource messageSource) {
+    public StockItemMovementController(StockItemMovementService stockItemMovementService, MessageSource messageSource, AuthorizationProvider authorizationProvider, AuthenticationFacade authenticationFacade) {
         this.stockItemMovementService = stockItemMovementService;
         this.messageSource = messageSource;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @ApiResponses(value = {
@@ -51,9 +55,10 @@ public class StockItemMovementController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         List<StockItemMovement> movements;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
             if (params.isNull())
-                movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId, locale);
+                movements = stockItemMovementService.getStockItemMovementsByHouseId(username, houseId, locale);
             else {
                 StockItemMovementService.MovementFilters filters = new StockItemMovementService.MovementFilters(
                         params.getType(),
@@ -61,7 +66,7 @@ public class StockItemMovementController {
                         params.getStorage(),
                         params.getItem()
                 );
-                movements = stockItemMovementService.getStockItemMovementsByHouseIdFiltered(houseId, filters, locale);
+                movements = stockItemMovementService.getStockItemMovementsByHouseIdFiltered(username, houseId, filters, locale);
             }
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
@@ -107,7 +112,7 @@ public class StockItemMovementController {
                     tag.getDate(),
                     locale
             );
-            movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId, locale);
+            movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId, locale);   //TODO: o que fazer, talvez não se devesse retornar nada já que isto vai para o hardware
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {

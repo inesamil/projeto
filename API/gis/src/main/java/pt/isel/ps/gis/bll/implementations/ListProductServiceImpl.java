@@ -4,15 +4,18 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.ListProductService;
+import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.dal.repositories.ListProductRepository;
 import pt.isel.ps.gis.dal.repositories.ListRepository;
 import pt.isel.ps.gis.dal.repositories.ProductRepository;
 import pt.isel.ps.gis.exceptions.EntityAlreadyExistsException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.ListId;
 import pt.isel.ps.gis.model.ListProduct;
 import pt.isel.ps.gis.model.ListProductId;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
@@ -24,14 +27,19 @@ public class ListProductServiceImpl implements ListProductService {
     private final ListRepository listRepository;
     private final ProductRepository productRepository;
     private final ListProductRepository listProductRepository;
+    private final HouseRepository houseRepository;
 
     private final MessageSource messageSource;
 
-    public ListProductServiceImpl(ListRepository listRepository, ProductRepository productRepository, ListProductRepository listProductRepository, MessageSource messageSource) {
+    private final AuthorizationProvider authorizationProvider;
+
+    public ListProductServiceImpl(ListRepository listRepository, ProductRepository productRepository, ListProductRepository listProductRepository, HouseRepository houseRepository, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
         this.listRepository = listRepository;
         this.productRepository = productRepository;
         this.listProductRepository = listProductRepository;
+        this.houseRepository = houseRepository;
         this.messageSource = messageSource;
+        this.authorizationProvider = authorizationProvider;
     }
 
     @Override
@@ -40,7 +48,9 @@ public class ListProductServiceImpl implements ListProductService {
     }
 
     @Override
-    public ListProduct getListProductByListProductId(long houseId, short listId, int productId, Locale locale) throws EntityException {
+    public ListProduct getListProductByListProductId(String username, long houseId, short listId, int productId, Locale locale) throws EntityException, InsufficientPrivilegesException, EntityNotFoundException {
+        checkHouseId(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         return listProductRepository
                 .findById(new ListProductId(houseId, listId, productId))
                 .orElseThrow(() -> new EntityException(String.format("Product with ID %d does not exist in the list with ID %d in the house with ID %d.", productId, listId, houseId), messageSource.getMessage("product_Id_Not_Exist", new Object[]{productId, listId, houseId}, locale)));
@@ -48,7 +58,9 @@ public class ListProductServiceImpl implements ListProductService {
 
     @Transactional
     @Override
-    public List<ListProduct> getListProductsByListId(long houseId, short listId, Locale locale) throws EntityException, EntityNotFoundException {
+    public List<ListProduct> getListProductsByListId(String username, long houseId, short listId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
+        checkHouseId(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         checkListId(new ListId(houseId, listId), locale);
         return listProductRepository.findAllById_HouseIdAndId_ListId(houseId, listId);
     }
@@ -77,6 +89,12 @@ public class ListProductServiceImpl implements ListProductService {
         ListProductId id = new ListProductId(houseId, listId, productId);
         checkListProductId(id, locale);
         listProductRepository.deleteById(id);
+    }
+
+    private void checkHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
+        ValidationsUtils.validateHouseId(houseId);
+        if (!houseRepository.existsById(houseId))
+            throw new EntityNotFoundException(String.format("House Id %d does not exist.", houseId), messageSource.getMessage("house_Id_Not_Exist", new Object[]{houseId}, locale));
     }
 
     private void checkListProductId(ListProductId listProductId, Locale locale) throws EntityNotFoundException {

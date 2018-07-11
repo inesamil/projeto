@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.HouseMemberService;
 import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.components.AuthenticationFacade;
-import pt.isel.ps.gis.exceptions.BadRequestException;
-import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.exceptions.EntityNotFoundException;
-import pt.isel.ps.gis.exceptions.NotFoundException;
+import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.model.inputModel.HouseInputModel;
@@ -21,6 +18,7 @@ import pt.isel.ps.gis.model.inputModel.HouseholdInputModel;
 import pt.isel.ps.gis.model.outputModel.HouseMembersOutputModel;
 import pt.isel.ps.gis.model.outputModel.HouseOutputModel;
 import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.net.URI;
@@ -40,7 +38,7 @@ public class HouseController {
     private final AuthenticationFacade authenticationFacade;
     private final MessageSource messageSource;
 
-    public HouseController(HouseService houseService, HouseMemberService houseMemberService, AuthenticationFacade authenticationFacade, MessageSource messageSource) {
+    public HouseController(HouseService houseService, HouseMemberService houseMemberService, AuthenticationFacade authenticationFacade, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
         this.houseService = houseService;
         this.houseMemberService = houseMemberService;
         this.authenticationFacade = authenticationFacade;
@@ -56,15 +54,17 @@ public class HouseController {
     })
     @GetMapping("/{house-id}")
     public ResponseEntity<HouseOutputModel> getHouse(@PathVariable("house-id") long houseId, Locale locale)
-            throws NotFoundException, BadRequestException {
+            throws NotFoundException, BadRequestException, ForbiddenException {
         House house;
         String username = authenticationFacade.getAuthentication().getName();
         try {
-            house = houseService.getHouseByHouseId(houseId, locale);
+            house = houseService.getHouseByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseOutputModel(username, house), setSirenContentType(headers), HttpStatus.OK);
@@ -81,14 +81,17 @@ public class HouseController {
     public ResponseEntity<HouseMembersOutputModel> getHousehold(
             @PathVariable("house-id") long houseId,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<UserHouse> household;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
-            household = houseMemberService.getMembersByHouseId(houseId, locale);
+            household = houseMemberService.getMembersByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseMembersOutputModel(houseId, household), setSirenContentType(headers),
@@ -176,15 +179,17 @@ public class HouseController {
             @PathVariable("username") String username,
             @RequestBody HouseholdInputModel body,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<UserHouse> household;
         try {
             houseMemberService.associateMember(houseId, username, body.getAdministrator(), locale);
-            household = houseMemberService.getMembersByHouseId(houseId, locale);
+            household = houseMemberService.getMembersByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseMembersOutputModel(houseId, household), setSirenContentType(headers),
@@ -226,15 +231,17 @@ public class HouseController {
             @PathVariable("house-id") long houseId,
             @PathVariable("username") String username,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<UserHouse> household;
         try {
             houseMemberService.deleteMemberByMemberId(houseId, username, locale);
-            household = houseMemberService.getMembersByHouseId(houseId, locale);
+            household = houseMemberService.getMembersByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseMembersOutputModel(houseId, household), setSirenContentType(headers),

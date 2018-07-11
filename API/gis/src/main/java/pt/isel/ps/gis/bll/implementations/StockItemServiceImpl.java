@@ -8,8 +8,10 @@ import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.dal.repositories.StockItemRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.StockItemId;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
@@ -23,10 +25,13 @@ public class StockItemServiceImpl implements StockItemService {
 
     private final MessageSource messageSource;
 
-    public StockItemServiceImpl(StockItemRepository stockItemRepository, HouseRepository houseRepository, MessageSource messageSource) {
+    private final AuthorizationProvider authorizationProvider;
+
+    public StockItemServiceImpl(StockItemRepository stockItemRepository, HouseRepository houseRepository, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
         this.stockItemRepository = stockItemRepository;
         this.houseRepository = houseRepository;
         this.messageSource = messageSource;
+        this.authorizationProvider = authorizationProvider;
     }
 
     @Override
@@ -36,7 +41,9 @@ public class StockItemServiceImpl implements StockItemService {
 
     @Transactional
     @Override
-    public StockItem getStockItemByStockItemId(long houseId, String stockItemSku, Locale locale) throws EntityException, EntityNotFoundException {
+    public StockItem getStockItemByStockItemId(String username, long houseId, String stockItemSku, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
+        checkHouse(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         StockItem stockItem = stockItemRepository
                 .findById(new StockItemId(houseId, stockItemSku))
                 .orElseThrow(() -> new EntityNotFoundException("Stock item does not exist in this house.", messageSource.getMessage("stock_Item_In_House_Not_Exist", null, locale)));
@@ -49,17 +56,17 @@ public class StockItemServiceImpl implements StockItemService {
 
     @Transactional
     @Override
-    public List<StockItem> getStockItemsByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
-        ValidationsUtils.validateHouseId(houseId);
+    public List<StockItem> getStockItemsByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         checkHouse(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         return stockItemRepository.findAllById_HouseIdAndStockitemQuantityGreaterThan(houseId, (short) 0);
     }
 
     @Transactional
     @Override
-    public List<StockItem> getStockItemsByHouseIdFiltered(long houseId, StockItemFilters filters, Locale locale) throws EntityException, EntityNotFoundException {
-        ValidationsUtils.validateHouseId(houseId);
+    public List<StockItem> getStockItemsByHouseIdFiltered(String username, long houseId, StockItemFilters filters, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         checkHouse(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         return stockItemRepository.findStockItemsFiltered(houseId, filters.product, filters.brand, filters.variety,
                 filters.segment, filters.storage);
     }
@@ -94,7 +101,8 @@ public class StockItemServiceImpl implements StockItemService {
         stockItemRepository.incrementStockitemQuantity(id, increasingQuantity);
     }
 
-    private void checkHouse(long houseId, Locale locale) throws EntityNotFoundException {
+    private void checkHouse(long houseId, Locale locale) throws EntityNotFoundException, EntityException {
+        ValidationsUtils.validateHouseId(houseId);
         if (!houseRepository.existsById(houseId))
             throw new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale));
     }

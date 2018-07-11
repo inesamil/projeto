@@ -9,8 +9,10 @@ import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
 import pt.isel.ps.gis.dal.repositories.UsersRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.model.Users;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
@@ -25,11 +27,14 @@ public class HouseMemberServiceImpl implements HouseMemberService {
 
     private final MessageSource messageSource;
 
-    public HouseMemberServiceImpl(UserHouseRepository userHouseRepository, HouseRepository houseRepository, UsersRepository usersRepository, MessageSource messageSource) {
+    private final AuthorizationProvider authorizationProvider;
+
+    public HouseMemberServiceImpl(UserHouseRepository userHouseRepository, HouseRepository houseRepository, UsersRepository usersRepository, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
         this.userHouseRepository = userHouseRepository;
         this.houseRepository = houseRepository;
         this.usersRepository = usersRepository;
         this.messageSource = messageSource;
+        this.authorizationProvider = authorizationProvider;
     }
 
     @Override
@@ -41,7 +46,7 @@ public class HouseMemberServiceImpl implements HouseMemberService {
 
     @Override
     public UserHouse getMemberByMemberId(long houseId, String username, Locale locale) throws EntityException, EntityNotFoundException {
-        ValidationsUtils.validateHouseId(houseId);
+        checkHouse(houseId, locale);
         ValidationsUtils.validateUserUsername(username);
         return userHouseRepository
                 .findById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username)
@@ -50,9 +55,9 @@ public class HouseMemberServiceImpl implements HouseMemberService {
 
     @Transactional
     @Override
-    public List<UserHouse> getMembersByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
-        ValidationsUtils.validateHouseId(houseId);
+    public List<UserHouse> getMembersByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         checkHouse(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         return userHouseRepository.findAllById_HouseId(houseId);
     }
 
@@ -74,7 +79,8 @@ public class HouseMemberServiceImpl implements HouseMemberService {
         userHouseRepository.deleteById(member.getId());
     }
 
-    private void checkHouse(long houseId, Locale locale) throws EntityNotFoundException {
+    private void checkHouse(long houseId, Locale locale) throws EntityNotFoundException, EntityException {
+        ValidationsUtils.validateHouseId(houseId);
         if (!houseRepository.existsById(houseId))
             throw new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale));
     }

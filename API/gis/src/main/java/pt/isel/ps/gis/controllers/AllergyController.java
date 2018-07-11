@@ -9,16 +9,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.HouseAllergyService;
 import pt.isel.ps.gis.bll.StockItemAllergenService;
-import pt.isel.ps.gis.exceptions.BadRequestException;
-import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.exceptions.EntityNotFoundException;
-import pt.isel.ps.gis.exceptions.NotFoundException;
+import pt.isel.ps.gis.components.AuthenticationFacade;
+import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.HouseAllergy;
 import pt.isel.ps.gis.model.StockItem;
 import pt.isel.ps.gis.model.inputModel.AllergiesInputModel;
 import pt.isel.ps.gis.model.inputModel.AllergyInputModel;
 import pt.isel.ps.gis.model.outputModel.HouseAllergiesOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemsAllergenOutputModel;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 
 import java.util.List;
 import java.util.Locale;
@@ -31,13 +30,14 @@ public class AllergyController {
 
     private final HouseAllergyService houseAllergyService;
     private final StockItemAllergenService stockItemAllergenService;
-
+    private final AuthenticationFacade authenticationFacade;
     private final MessageSource messageSource;
 
-    public AllergyController(HouseAllergyService houseAllergyService, StockItemAllergenService stockItemAllergenService, MessageSource messageSource) {
+    public AllergyController(HouseAllergyService houseAllergyService, StockItemAllergenService stockItemAllergenService, MessageSource messageSource, AuthorizationProvider authorizationProvider, AuthenticationFacade authenticationFacade) {
         this.houseAllergyService = houseAllergyService;
         this.stockItemAllergenService = stockItemAllergenService;
         this.messageSource = messageSource;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @ApiResponses(value = {
@@ -51,14 +51,17 @@ public class AllergyController {
     public ResponseEntity<HouseAllergiesOutputModel> getHouseAllergies(
             @PathVariable("house-id") long houseId,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<HouseAllergy> allergies;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
-            allergies = houseAllergyService.getAllergiesByHouseId(houseId, locale);
+            allergies = houseAllergyService.getAllergiesByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
@@ -77,14 +80,17 @@ public class AllergyController {
             @PathVariable("house-id") long houseId,
             @PathVariable("allergen") String allergen,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<StockItem> stockItemsAllergen;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
-            stockItemsAllergen = stockItemAllergenService.getStockItemsByHouseIdAndAllergenId(houseId, allergen, locale);
+            stockItemsAllergen = stockItemAllergenService.getStockItemsByHouseIdAndAllergenId(username, houseId, allergen, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StockItemsAllergenOutputModel(houseId, allergen, stockItemsAllergen),
@@ -138,15 +144,18 @@ public class AllergyController {
             @PathVariable("allergen") String allergen,
             @RequestBody AllergyInputModel body,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<HouseAllergy> allergies;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
             houseAllergyService.associateHouseAllergy(houseId, allergen, body.getAllergicsNum(), locale);
-            allergies = houseAllergyService.getAllergiesByHouseId(houseId, locale);
+            allergies = houseAllergyService.getAllergiesByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
@@ -164,15 +173,18 @@ public class AllergyController {
     public ResponseEntity<HouseAllergiesOutputModel> deleteAllergies(
             @PathVariable("house-id") long houseId,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<HouseAllergy> allergies;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
             houseAllergyService.deleteAllHouseAllergiesByHouseId(houseId, locale);
-            allergies = houseAllergyService.getAllergiesByHouseId(houseId, locale);
+            allergies = houseAllergyService.getAllergiesByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
@@ -191,15 +203,18 @@ public class AllergyController {
             @PathVariable("house-id") long houseId,
             @PathVariable("allergen") String allergen,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<HouseAllergy> allergies;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
             houseAllergyService.deleteHouseAllergyByHouseAllergyId(houseId, allergen, locale);
-            allergies = houseAllergyService.getAllergiesByHouseId(houseId, locale);
+            allergies = houseAllergyService.getAllergiesByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),

@@ -10,7 +10,9 @@ import pt.isel.ps.gis.dal.repositories.HouseRepository;
 import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.*;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.ArrayList;
@@ -28,12 +30,15 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     private final MessageSource messageSource;
 
-    public HouseAllergyServiceImpl(HouseAllergyRepository houseAllergyRepository, UserHouseRepository membersRepository, HouseRepository houseService, AllergyRepository allergyRepository, MessageSource messageSource) {
+    private final AuthorizationProvider authorizationProvider;
+
+    public HouseAllergyServiceImpl(HouseAllergyRepository houseAllergyRepository, UserHouseRepository membersRepository, HouseRepository houseService, AllergyRepository allergyRepository, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
         this.houseAllergyRepository = houseAllergyRepository;
         this.membersRepository = membersRepository;
         this.houseRepository = houseService;
         this.allergyRepository = allergyRepository;
         this.messageSource = messageSource;
+        this.authorizationProvider = authorizationProvider;
     }
 
     @Override
@@ -43,8 +48,9 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     @Transactional
     @Override
-    public List<HouseAllergy> getAllergiesByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
+    public List<HouseAllergy> getAllergiesByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         checkHouse(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         List<HouseAllergy> houseAllergies = houseAllergyRepository.findAllById_HouseId(houseId);
         List<HouseAllergy> allergies = new ArrayList<>();
         for (Allergy allergy : allergyRepository.findAll()) {
@@ -126,3 +132,5 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
                 + characteristics.getHouse_adultsNumber() + characteristics.getHouse_seniorsNumber());
     }
 }
+
+

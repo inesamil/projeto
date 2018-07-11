@@ -8,15 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.StorageService;
-import pt.isel.ps.gis.exceptions.BadRequestException;
-import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.exceptions.EntityNotFoundException;
-import pt.isel.ps.gis.exceptions.NotFoundException;
+import pt.isel.ps.gis.components.AuthenticationFacade;
+import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.Storage;
 import pt.isel.ps.gis.model.StorageId;
 import pt.isel.ps.gis.model.inputModel.StorageInputModel;
 import pt.isel.ps.gis.model.outputModel.StorageOutputModel;
 import pt.isel.ps.gis.model.outputModel.StoragesOutputModel;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.net.URI;
@@ -32,10 +31,12 @@ public class StorageController {
 
     private final StorageService storageService;
     private final MessageSource messageSource;
+    private final AuthenticationFacade authenticationFacade;
 
-    public StorageController(StorageService storageService, MessageSource messageSource) {
+    public StorageController(StorageService storageService, MessageSource messageSource, AuthorizationProvider authorizationProvider, AuthenticationFacade authenticationFacade) {
         this.storageService = storageService;
         this.messageSource = messageSource;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @ApiResponses(value = {
@@ -49,14 +50,17 @@ public class StorageController {
     public ResponseEntity<StoragesOutputModel> getStorages(
             @PathVariable("house-id") long houseId,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<Storage> storages;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
-            storages = storageService.getStorageByHouseId(houseId, locale);
+            storages = storageService.getStorageByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),
@@ -75,14 +79,17 @@ public class StorageController {
             @PathVariable("house-id") long houseId,
             @PathVariable("storage-id") short storageId,
             Locale locale
-    ) throws NotFoundException, BadRequestException {
+    ) throws NotFoundException, BadRequestException, ForbiddenException {
         Storage storage;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
-            storage = storageService.getStorageByStorageId(houseId, storageId, locale);
+            storage = storageService.getStorageByStorageId(username, houseId, storageId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StorageOutputModel(storage), setSirenContentType(headers), HttpStatus.OK);
@@ -168,15 +175,18 @@ public class StorageController {
             @PathVariable("house-id") long houseId,
             @PathVariable("storage-id") short storageId,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<Storage> storages;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
             storageService.deleteStorageByStorageId(houseId, storageId, locale);
-            storages = storageService.getStorageByHouseId(houseId, locale);
+            storages = storageService.getStorageByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StoragesOutputModel(houseId, storages), setSirenContentType(headers),

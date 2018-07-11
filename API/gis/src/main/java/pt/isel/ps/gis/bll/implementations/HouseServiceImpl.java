@@ -10,7 +10,9 @@ import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
 import pt.isel.ps.gis.dal.repositories.UsersRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.*;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.ArrayList;
@@ -28,12 +30,15 @@ public class HouseServiceImpl implements HouseService {
 
     private final MessageSource messageSource;
 
-    public HouseServiceImpl(HouseRepository houseRepository, UsersRepository usersRepository, UserHouseRepository userHouseRepository, SystemListRepository systemListRepository, MessageSource messageSource) {
+    private final AuthorizationProvider authorizationProvider;
+
+    public HouseServiceImpl(HouseRepository houseRepository, UsersRepository usersRepository, UserHouseRepository userHouseRepository, SystemListRepository systemListRepository, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
         this.houseRepository = houseRepository;
         this.usersRepository = usersRepository;
         this.userHouseRepository = userHouseRepository;
         this.systemListRepository = systemListRepository;
         this.messageSource = messageSource;
+        this.authorizationProvider = authorizationProvider;
     }
 
     @Override
@@ -43,9 +48,11 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public House getHouseByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
+    public House getHouseByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         ValidationsUtils.validateHouseId(houseId);
-        return houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale)));
+        House house = houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale)));
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
+        return house;
     }
 
     @Transactional
@@ -83,7 +90,7 @@ public class HouseServiceImpl implements HouseService {
     public House updateHouse(
             long houseId, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber, Locale locale
     ) throws EntityNotFoundException, EntityException {
-        House house = getHouseByHouseId(houseId, locale);
+        House house = houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale)));
         Characteristics characteristics = new Characteristics(
                 babiesNumber,
                 childrenNumber,

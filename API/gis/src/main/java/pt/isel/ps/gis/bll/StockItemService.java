@@ -2,6 +2,7 @@ package pt.isel.ps.gis.bll;
 
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.StockItem;
 
 import java.util.List;
@@ -22,30 +23,33 @@ public interface StockItemService {
     /**
      * Obter um item em stock através do seu ID
      *
+     * @param username identificador do utilizador
      * @param houseId      identificador da casa
      * @param stockItemSku identificador do item
      * @return Optional<StockItem>
      * @throws EntityException se os parâmetros forem inválidos
      */
-    StockItem getStockItemByStockItemId(long houseId, String stockItemSku, Locale locale) throws EntityException, EntityNotFoundException;
+    StockItem getStockItemByStockItemId(String username, long houseId, String stockItemSku, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Listar todos os itens em stock duma casa através do ID da casa
      *
+     * @param username identificador do utilizador
      * @param houseId identificador da casa
      * @return List<StockItem>
      */
-    List<StockItem> getStockItemsByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
+    List<StockItem> getStockItemsByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Listar todos os itens em stock filtrados duma casa através do ID da casa
      *
+     * @param username identificador do utilizador
      * @param houseId identificador da casa
      * @param filters filtros para aplicar na filtragem dos resultados
      * @return List<StockItem>
      * @throws EntityException se os parâmetros forem inválidos
      */
-    List<StockItem> getStockItemsByHouseIdFiltered(long houseId, StockItemFilters filters, Locale locale) throws EntityException, EntityNotFoundException;
+    List<StockItem> getStockItemsByHouseIdFiltered(String username, long houseId, StockItemFilters filters, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Adicionar um item ao stock duma casa
