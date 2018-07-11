@@ -7,8 +7,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
 import pt.isel.ps.gis.stockAlgorithm.BasicStockManagementAlgorithm;
 import pt.isel.ps.gis.stockAlgorithm.StockManagementAlgorithm;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
+import pt.isel.ps.gis.utils.AuthorizationProviderImpl;
 
 import java.util.Locale;
 
@@ -35,5 +38,10 @@ public class GisApplication {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("locales/messages");
         return messageSource;
+    }
+
+    @Bean
+    public AuthorizationProvider authorizationProvider(UserHouseRepository userHouseRepository) {
+        return new AuthorizationProviderImpl(userHouseRepository);
     }
 }
