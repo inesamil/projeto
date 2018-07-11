@@ -403,7 +403,7 @@ DECLARE
 BEGIN
 	-- Insert batch of existing movements in dailyquantity table
 	INSERT INTO public.dailyquantity (house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-		SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, DATE(maxDateTime), public."stockitemmovement".stockitemmovement_quantity--, public."stockitemmovement".stockitemmovement_finalquantity
+		SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, DATE(maxDateTime), public."stockitemmovement".stockitemmovement_finalquantity
 			FROM public."stockitemmovement"
 				JOIN (SELECT house_id, stockitem_sku, Max(stockitemmovement_datetime) AS maxDateTime
 						FROM public."stockitemmovement"
@@ -413,9 +413,9 @@ BEGIN
 	-- Get all existing and non-existing movements of the day of today
 	CREATE TEMP TABLE tempQuantities
 	AS(
-	SELECT public."stockitem".house_id AS houseid, public."stockitem".stockitem_sku AS sku, Movements.stockitemmovement_quantity AS quantity --stockitemmovement_finalquantity
+	SELECT public."stockitem".house_id AS houseid, public."stockitem".stockitem_sku AS sku, Movements.stockitemmovement_quantity AS quantity, Movements.stockitemmovement_finalquantity AS finalquantity
 	FROM public."stockitem"
-		LEFT OUTER JOIN (SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, public."stockitemmovement".stockitemmovement_quantity--, public."stockitemmovement".stockitemmovement_finalquantity
+		LEFT OUTER JOIN (SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, public."stockitemmovement".stockitemmovement_quantity, public."stockitemmovement".stockitemmovement_finalquantity
 							FROM public."stockitemmovement"
 								JOIN (SELECT house_id, stockitem_sku, Max(stockitemmovement_datetime) AS maxDateTime
 										FROM public."stockitemmovement"
@@ -425,7 +425,7 @@ BEGIN
 		ON (public."stockitem".house_id = Movements.house_id AND public."stockitem".stockitem_sku = Movements.stockitem_sku));
 	-- For each stockitem in an house that hadn't had movements insert in the daily quantity table with the quantity of the previous day	
 	FOR dquantity IN SELECT * FROM tempQuantities LOOP
-		IF dquantity.quantity IS NULL THEN
+		IF dquantity.finalquantity IS NULL THEN
 			SELECT public."dailyquantity".dailyquantity_quantity INTO previousQuantity 
 				FROM public."dailyquantity" 
 				WHERE house_id = dquantity.houseId AND stockitem_sku = dquantity.sku AND dailyquantity.dailyquantity_date = today - 1::int;
