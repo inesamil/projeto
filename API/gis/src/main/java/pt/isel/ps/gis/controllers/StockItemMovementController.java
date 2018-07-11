@@ -10,16 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.StockItemMovementService;
 import pt.isel.ps.gis.components.AuthenticationFacade;
-import pt.isel.ps.gis.exceptions.BadRequestException;
-import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.exceptions.EntityNotFoundException;
-import pt.isel.ps.gis.exceptions.NotFoundException;
+import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.StockItemMovement;
 import pt.isel.ps.gis.model.TagCsv;
 import pt.isel.ps.gis.model.inputModel.MovementInputModel;
 import pt.isel.ps.gis.model.outputModel.MovementsOutputModel;
 import pt.isel.ps.gis.model.requestParams.StockItemMovementRequestParam;
-import pt.isel.ps.gis.utils.AuthorizationProvider;
 
 import java.io.StringReader;
 import java.util.List;
@@ -35,7 +31,7 @@ public class StockItemMovementController {
     private final MessageSource messageSource;
     private final AuthenticationFacade authenticationFacade;
 
-    public StockItemMovementController(StockItemMovementService stockItemMovementService, MessageSource messageSource, AuthorizationProvider authorizationProvider, AuthenticationFacade authenticationFacade) {
+    public StockItemMovementController(StockItemMovementService stockItemMovementService, MessageSource messageSource, AuthenticationFacade authenticationFacade) {
         this.stockItemMovementService = stockItemMovementService;
         this.messageSource = messageSource;
         this.authenticationFacade = authenticationFacade;
@@ -45,6 +41,7 @@ public class StockItemMovementController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -53,7 +50,7 @@ public class StockItemMovementController {
             @PathVariable("house-id") long houseId,
             StockItemMovementRequestParam params,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<StockItemMovement> movements;
         String username = authenticationFacade.getAuthentication().getName();
         try {
@@ -72,6 +69,8 @@ public class StockItemMovementController {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new MovementsOutputModel(houseId, movements), setSirenContentType(headers),
@@ -118,6 +117,7 @@ public class StockItemMovementController {
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         }
+        // TODO autorizacao?
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new MovementsOutputModel(houseId, movements), setSirenContentType(headers),
                 HttpStatus.CREATED);

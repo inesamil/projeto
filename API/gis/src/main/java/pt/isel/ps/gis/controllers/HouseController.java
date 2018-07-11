@@ -18,7 +18,6 @@ import pt.isel.ps.gis.model.inputModel.HouseholdInputModel;
 import pt.isel.ps.gis.model.outputModel.HouseMembersOutputModel;
 import pt.isel.ps.gis.model.outputModel.HouseOutputModel;
 import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
-import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.net.URI;
@@ -38,7 +37,7 @@ public class HouseController {
     private final AuthenticationFacade authenticationFacade;
     private final MessageSource messageSource;
 
-    public HouseController(HouseService houseService, HouseMemberService houseMemberService, AuthenticationFacade authenticationFacade, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
+    public HouseController(HouseService houseService, HouseMemberService houseMemberService, AuthenticationFacade authenticationFacade, MessageSource messageSource) {
         this.houseService = houseService;
         this.houseMemberService = houseMemberService;
         this.authenticationFacade = authenticationFacade;
@@ -49,6 +48,7 @@ public class HouseController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -74,6 +74,7 @@ public class HouseController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -148,6 +149,7 @@ public class HouseController {
         House house;
         String username = authenticationFacade.getAuthentication().getName();
         try {
+            // TODO autorizacao?
             house = houseService.updateHouse(
                     houseId,
                     body.getName(),
@@ -170,6 +172,7 @@ public class HouseController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -182,6 +185,7 @@ public class HouseController {
     ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<UserHouse> household;
         try {
+            // TODO autorizacao no associate?
             houseMemberService.associateMember(houseId, username, body.getAdministrator(), locale);
             household = houseMemberService.getMembersByHouseId(username, houseId, locale);
         } catch (EntityException e) {
@@ -209,6 +213,7 @@ public class HouseController {
             Locale locale
     ) throws NotFoundException, BadRequestException {
         try {
+            // TODO Autorizacao?
             houseService.deleteHouseByHouseId(houseId, locale);
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
@@ -223,6 +228,7 @@ public class HouseController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -234,6 +240,7 @@ public class HouseController {
     ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<UserHouse> household;
         try {
+            // TODO autorizacao no delete?
             houseMemberService.deleteMemberByMemberId(houseId, username, locale);
             household = houseMemberService.getMembersByHouseId(username, houseId, locale);
         } catch (EntityException e) {

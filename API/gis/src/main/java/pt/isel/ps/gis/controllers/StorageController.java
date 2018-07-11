@@ -15,7 +15,6 @@ import pt.isel.ps.gis.model.StorageId;
 import pt.isel.ps.gis.model.inputModel.StorageInputModel;
 import pt.isel.ps.gis.model.outputModel.StorageOutputModel;
 import pt.isel.ps.gis.model.outputModel.StoragesOutputModel;
-import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.UriBuilderUtils;
 
 import java.net.URI;
@@ -33,7 +32,7 @@ public class StorageController {
     private final MessageSource messageSource;
     private final AuthenticationFacade authenticationFacade;
 
-    public StorageController(StorageService storageService, MessageSource messageSource, AuthorizationProvider authorizationProvider, AuthenticationFacade authenticationFacade) {
+    public StorageController(StorageService storageService, MessageSource messageSource, AuthenticationFacade authenticationFacade) {
         this.storageService = storageService;
         this.messageSource = messageSource;
         this.authenticationFacade = authenticationFacade;
@@ -43,6 +42,7 @@ public class StorageController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -71,6 +71,7 @@ public class StorageController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -110,6 +111,7 @@ public class StorageController {
     ) throws BadRequestException, NotFoundException, URISyntaxException {
         Storage storage;
         try {
+            // TODO autorizacao no add?
             storage = storageService.addStorage(
                     houseId,
                     body.getName(),
@@ -145,6 +147,7 @@ public class StorageController {
     ) throws BadRequestException, NotFoundException {
         Storage storage;
         try {
+            // TODO autorizacao no update?
             storage = storageService.updateStorage(
                     houseId,
                     storageId,
@@ -167,6 +170,7 @@ public class StorageController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -179,6 +183,7 @@ public class StorageController {
         List<Storage> storages;
         String username = authenticationFacade.getAuthentication().getName();
         try {
+            // TODO autorizacao no delete?
             storageService.deleteStorageByStorageId(houseId, storageId, locale);
             storages = storageService.getStorageByHouseId(username, houseId, locale);
         } catch (EntityException e) {

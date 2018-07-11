@@ -17,7 +17,6 @@ import pt.isel.ps.gis.model.inputModel.AllergiesInputModel;
 import pt.isel.ps.gis.model.inputModel.AllergyInputModel;
 import pt.isel.ps.gis.model.outputModel.HouseAllergiesOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemsAllergenOutputModel;
-import pt.isel.ps.gis.utils.AuthorizationProvider;
 
 import java.util.List;
 import java.util.Locale;
@@ -33,7 +32,7 @@ public class AllergyController {
     private final AuthenticationFacade authenticationFacade;
     private final MessageSource messageSource;
 
-    public AllergyController(HouseAllergyService houseAllergyService, StockItemAllergenService stockItemAllergenService, MessageSource messageSource, AuthorizationProvider authorizationProvider, AuthenticationFacade authenticationFacade) {
+    public AllergyController(HouseAllergyService houseAllergyService, StockItemAllergenService stockItemAllergenService, MessageSource messageSource, AuthenticationFacade authenticationFacade) {
         this.houseAllergyService = houseAllergyService;
         this.stockItemAllergenService = stockItemAllergenService;
         this.messageSource = messageSource;
@@ -44,6 +43,7 @@ public class AllergyController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -72,6 +72,7 @@ public class AllergyController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -120,6 +121,7 @@ public class AllergyController {
                 AllergiesInputModel.Allergy allergy = bodyAllergies[i];
                 houseAllergies[i] = new HouseAllergy(houseId, allergy.getAllergy(), allergy.getAllergicsNum());
             }
+            // TODO autorizacao no associate?
             allergies = houseAllergyService.associateHouseAllergies(houseId, houseAllergies, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
@@ -135,6 +137,7 @@ public class AllergyController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -148,6 +151,7 @@ public class AllergyController {
         List<HouseAllergy> allergies;
         String username = authenticationFacade.getAuthentication().getName();
         try {
+            // TODO autorizacao no associate?
             houseAllergyService.associateHouseAllergy(houseId, allergen, body.getAllergicsNum(), locale);
             allergies = houseAllergyService.getAllergiesByHouseId(username, houseId, locale);
         } catch (EntityException e) {
@@ -166,6 +170,7 @@ public class AllergyController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -177,6 +182,7 @@ public class AllergyController {
         List<HouseAllergy> allergies;
         String username = authenticationFacade.getAuthentication().getName();
         try {
+            // TODO autorizacao no delete?
             houseAllergyService.deleteAllHouseAllergiesByHouseId(houseId, locale);
             allergies = houseAllergyService.getAllergiesByHouseId(username, houseId, locale);
         } catch (EntityException e) {
@@ -195,6 +201,7 @@ public class AllergyController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -207,6 +214,7 @@ public class AllergyController {
         List<HouseAllergy> allergies;
         String username = authenticationFacade.getAuthentication().getName();
         try {
+            // TODO autorizacao no delete?
             houseAllergyService.deleteHouseAllergyByHouseAllergyId(houseId, allergen, locale);
             allergies = houseAllergyService.getAllergiesByHouseId(username, houseId, locale);
         } catch (EntityException e) {

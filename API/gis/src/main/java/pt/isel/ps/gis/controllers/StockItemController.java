@@ -20,7 +20,6 @@ import pt.isel.ps.gis.model.outputModel.AllergiesStockItemOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemOutputModel;
 import pt.isel.ps.gis.model.outputModel.StockItemsOutputModel;
 import pt.isel.ps.gis.model.requestParams.StockItemRequestParam;
-import pt.isel.ps.gis.utils.AuthorizationProvider;
 
 import java.util.List;
 import java.util.Locale;
@@ -36,7 +35,7 @@ public class StockItemController {
     private final MessageSource messageSource;
     private final AuthenticationFacade authenticationFacade;
 
-    public StockItemController(StockItemService stockItemService, StockItemAllergenService stockItemAllergenService, MessageSource messageSource, AuthorizationProvider authorizationProvider, AuthenticationFacade authenticationFacade) {
+    public StockItemController(StockItemService stockItemService, StockItemAllergenService stockItemAllergenService, MessageSource messageSource, AuthenticationFacade authenticationFacade) {
         this.stockItemService = stockItemService;
         this.stockItemAllergenService = stockItemAllergenService;
         this.messageSource = messageSource;
@@ -47,6 +46,7 @@ public class StockItemController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -87,6 +87,7 @@ public class StockItemController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -115,6 +116,7 @@ public class StockItemController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })

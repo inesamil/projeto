@@ -21,7 +21,6 @@ import pt.isel.ps.gis.model.outputModel.ListOutputModel;
 import pt.isel.ps.gis.model.outputModel.ListProductsOutputModel;
 import pt.isel.ps.gis.model.outputModel.ListsOutputModel;
 import pt.isel.ps.gis.model.outputModel.UserListsOutputModel;
-import pt.isel.ps.gis.utils.AuthorizationProvider;
 
 import java.util.Locale;
 
@@ -37,7 +36,7 @@ public class ListController {
     private final AuthenticationFacade authenticationFacade;
     private final MessageSource messageSource;
 
-    public ListController(ListService listService, ListProductService listProductService, HouseService houseService, AuthenticationFacade authenticationFacade, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
+    public ListController(ListService listService, ListProductService listProductService, HouseService houseService, AuthenticationFacade authenticationFacade, MessageSource messageSource) {
         this.listService = listService;
         this.listProductService = listProductService;
         this.houseService = houseService;
@@ -49,6 +48,7 @@ public class ListController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -76,6 +76,7 @@ public class ListController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -104,6 +105,7 @@ public class ListController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -133,6 +135,7 @@ public class ListController {
             @ApiResponse(code = 201, message = "Created"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 409, message = "Conflict"),
             @ApiResponse(code = 500, message = "Internal Server Error")
@@ -147,6 +150,7 @@ public class ListController {
         List list;
         String username = authenticationFacade.getAuthentication().getName();
         try {
+            // TODO autorizacao no add?
             listProductService.addListProduct(houseId, listId, body.getProductId(), body.getBrand(), body.getQuantity(), locale);
             list = listService.getListByListId(username, houseId, listId, locale);
         } catch (EntityException e) {
@@ -198,6 +202,7 @@ public class ListController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -212,6 +217,7 @@ public class ListController {
         List list;
         String username = authenticationFacade.getAuthentication().getName();
         try {
+            // TODO autorizacao no associate?
             listProductService.associateListProduct(houseId, listId, productId, body.getBrand(), body.getQuantity(), locale);
             list = listService.getListByListId(username, houseId, listId, locale);
         } catch (EntityException e) {
@@ -273,6 +279,7 @@ public class ListController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -286,6 +293,7 @@ public class ListController {
         List list;
         String username = authenticationFacade.getAuthentication().getName();
         try {
+            // TODO autorizacao no delete?
             listProductService.deleteListProductByListProductId(houseId, listId, productId, locale);
             list = listService.getListByListId(username, houseId, listId, locale);
         } catch (EntityException e) {
