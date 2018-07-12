@@ -14,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.ListProduct
@@ -44,6 +43,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
     private lateinit var listDetailViewModel: ListDetailViewModel
     private lateinit var url: String
     private val adapter = ListDetailAdapter()
+    private var listProducts: Array<ListProductDto>? = null
 
     private var state: State = State.LOADING
     private lateinit var progressBar: ProgressBar
@@ -90,11 +90,6 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         view.listRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
 
-        // Set listener to transferToOfflineLayout clicks
-        view.transferToOfflineButton.setOnClickListener {
-            listener?.onListDownload()
-        }
-
         progressBar = view.listProgressBar
         content = view.listLayout
         emptyLayout = view.emptyLayout
@@ -102,6 +97,15 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         // Show progress bar or content
         showProgressBarOrContent()
 
+        // Set listener to transferToOfflineLayout clicks
+        view.transferToOfflineButton.setOnClickListener {
+            listProducts?.let {
+                if (it.isEmpty()) return@let
+                listener?.onListDownload(it)
+                return@setOnClickListener
+            }
+            Toast.makeText(context, "Nothing to save", Toast.LENGTH_SHORT).show() // TODO meter nas strings
+        }
         return view
     }
 
@@ -183,6 +187,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
                         emptyLayout.visibility = View.VISIBLE
                     } else {
                         emptyLayout.visibility = View.GONE
+                        listProducts = it
                         adapter.setData(it)
                     }
                 }
@@ -281,7 +286,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         fun onAddProductToListInteraction()
         fun onEditListProductInteraction(listProduct: ListProductDto)
         fun onDeleteListProductInteraction(listProduct: ListProductDto)
-        fun onListDownload()    //TODO: o que é preciso passar?
+        fun onListDownload(listProducts: Array<ListProductDto>)
     }
 
     /**
