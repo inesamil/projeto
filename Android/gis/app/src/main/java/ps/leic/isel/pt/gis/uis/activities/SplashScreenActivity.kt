@@ -17,6 +17,7 @@ import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.IndexDto
 import ps.leic.isel.pt.gis.repositories.Status
+import ps.leic.isel.pt.gis.stores.SmartLock
 import ps.leic.isel.pt.gis.viewModel.SplashScreenViewModel
 import ps.leic.isel.pt.gis.viewModel.UserViewModel
 
@@ -56,6 +57,19 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
                 handler.postDelayed(run, SPLASH_SCREEN_DELAY_IN_MS)
                 return
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SmartLock.RC_READ) {
+            if (resultCode == RESULT_OK) {
+                val credential: Credential = data?.getParcelableExtra(Credential.EXTRA_KEY)!!
+                onComplete(credential)
+            } else {
+                Log.e(LoginActivity.TAG, "Credential Read: NOT OK")
+                onUncomplete()
             }
         }
     }
@@ -149,9 +163,20 @@ class SplashScreenActivity : AppCompatActivity() {
         message?.let {
             Log.i(TAG, it)
         }
-        Toast.makeText(this, getString(R.string.could_not_connect_to_server), Toast.LENGTH_SHORT).show()
-        if (retry >= MAX_RETRY)
-            finish()
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .retrieveCredentials(this, {
+                    ServiceLocator
+                            .getSmartLock(applicationContext)
+                            .deleteCredentials(it)
+                    Toast.makeText(this, getString(R.string.could_not_connect_to_server), Toast.LENGTH_SHORT).show()
+                    if (retry >= MAX_RETRY)
+                        finish()
+                }, {
+                    Toast.makeText(this, getString(R.string.could_not_connect_to_server), Toast.LENGTH_SHORT).show()
+                    if (retry >= MAX_RETRY)
+                        finish()
+                })
     }
 
     private fun isFirstTime(): Boolean {

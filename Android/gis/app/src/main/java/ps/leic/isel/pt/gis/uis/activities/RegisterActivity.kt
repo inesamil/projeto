@@ -38,10 +38,11 @@ class RegisterActivity : AppCompatActivity() {
         if (requestCode == SmartLock.RC_SAVE) {
             if (resultCode == RESULT_OK) {
                 Log.d(TAG, "SAVE: OK")
+                onComplete()
             } else {
                 Log.e(TAG, "SAVE: Canceled by user")
+                Toast.makeText(this, "Precisa aceitar o smart lock guardar a password", Toast.LENGTH_SHORT).show() // TODO msg nas strings
             }
-            onComplete()
         }
     }
 
@@ -49,7 +50,6 @@ class RegisterActivity : AppCompatActivity() {
         val name = fullnameEditText.text.toString()
         val username = usernameEditText.text.toString()
         val email = emailEditText.text.toString()
-        val age = ageEditText.text.toString().toShort()
         val password = passwordEditText.text.toString()
         val confirmationPassword = confirmPasswordEditText.text.toString()
 
@@ -62,27 +62,6 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        usersViewModel = ViewModelProviders.of(this).get(UsersViewModel::class.java)
-        usersViewModel?.addUser(UserBody(username, name, email, age, password))?.observe(this, Observer {
-            when {
-                it?.status == Status.SUCCESS -> onSuccess(username, password)
-                it?.status == Status.UNSUCCESS -> onUnsuccess(it.apiError)
-                it?.status == Status.ERROR -> onError(it.message)
-            }
-        })
-    }
-
-    private fun onComplete() {
-        Log.i(TAG, "Register user with success")
-        finish()
-        startActivity(Intent(this, HomeActivity::class.java))
-    }
-
-    private fun onUncomplete(exception: Exception?) {
-        onError(getString(R.string.something_went_wrong_please_try_again))
-    }
-
-    private fun onSuccess(username: String, password: String) {
         ServiceLocator
                 .getSmartLock(applicationContext)
                 .storeCredentials(this,
@@ -91,6 +70,33 @@ class RegisterActivity : AppCompatActivity() {
                         ::onComplete,
                         ::onUncomplete
                 )
+    }
+
+    private fun onComplete() {
+        val name = fullnameEditText.text.toString()
+        val username = usernameEditText.text.toString()
+        val email = emailEditText.text.toString()
+        val age = ageEditText.text.toString().toShort()
+        val password = passwordEditText.text.toString()
+
+        usersViewModel = ViewModelProviders.of(this).get(UsersViewModel::class.java)
+        usersViewModel?.addUser(UserBody(username, name, email, age, password))?.observe(this, Observer {
+            when {
+                it?.status == Status.SUCCESS -> onSuccess()
+                it?.status == Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                it?.status == Status.ERROR -> onError(it.message)
+            }
+        })
+    }
+
+    private fun onUncomplete(exception: Exception?) {
+        onError(getString(R.string.something_went_wrong_please_try_again)) // TODO mudar para a mensagem: tem de ativar o smart lock for passwords nas definiçoes do tlmv
+    }
+
+    private fun onSuccess() {
+        Log.i(TAG, "Register user with success")
+        finish()
+        startActivity(Intent(this, HomeActivity::class.java))
     }
 
     private fun onUnsuccess(error: ErrorDto?) {
@@ -106,6 +112,13 @@ class RegisterActivity : AppCompatActivity() {
             Log.e(LoginActivity.TAG, it)
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .retrieveCredentials(this, {
+                    ServiceLocator
+                            .getSmartLock(applicationContext)
+                            .deleteCredentials(it)
+                }, {})
     }
 
     companion object {

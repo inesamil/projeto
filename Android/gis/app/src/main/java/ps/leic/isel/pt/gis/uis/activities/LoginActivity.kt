@@ -14,7 +14,6 @@ import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
-import ps.leic.isel.pt.gis.model.dtos.UserDto
 import ps.leic.isel.pt.gis.repositories.Status
 import ps.leic.isel.pt.gis.stores.SmartLock
 import ps.leic.isel.pt.gis.viewModel.UserViewModel
@@ -51,7 +50,14 @@ class LoginActivity : AppCompatActivity() {
                 onComplete(credential)
             } else {
                 Log.e(TAG, "Credential Read: NOT OK")
-                Toast.makeText(this, "Credential Read Failed", Toast.LENGTH_SHORT).show()
+            }
+        } else if (requestCode == SmartLock.RC_SAVE) {
+            if (resultCode == RESULT_OK) {
+                Log.d(TAG, "SAVE: OK")
+                getUser()
+            } else {
+                Log.e(TAG, "SAVE: Canceled by user")
+                Toast.makeText(this, "Precisa aceitar o smart lock guardar a password", Toast.LENGTH_SHORT).show() // TODO msg nas strings
             }
         }
     }
@@ -66,6 +72,18 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
+        if (credential == null) {
+            ServiceLocator
+                    .getSmartLock(applicationContext)
+                    .storeCredentials(this, username, password, ::getUser, { onError("Precisa ativar smart lock for password nas definições") }) // TODO meter nas strings
+        } else {
+            getUser()
+        }
+    }
+
+    private fun getUser() {
+        val username = usernameEditText.text.toString()
+
         val gisApplication = application as GisApplication
         gisApplication.index
 
@@ -76,9 +94,9 @@ class LoginActivity : AppCompatActivity() {
             userViewModel?.init(it)
             userViewModel?.getUser()?.observe(this, Observer {
                 when (it?.status) {
-                    Status.SUCCESS -> onSuccess(it.data)
-                    Status.UNSUCCESS -> onUnsuccess(it.apiError, credential)
-                    Status.ERROR -> onError(it.message, credential)
+                    Status.SUCCESS -> onSuccess()
+                    Status.UNSUCCESS -> onUnsuccess(it.apiError)
+                    Status.ERROR -> onError(it.message)
                 }
             })
         }
@@ -86,41 +104,42 @@ class LoginActivity : AppCompatActivity() {
 
     private fun onComplete(credential: Credential) {
         Log.i(TAG, "Credentials stored.")
-
         usernameEditText.setText(credential.id)
         passwordEditText.setText(credential.password)
         signinBtn.tag = credential
     }
 
     private fun onUncomplete() {
-        onError(getString(R.string.something_went_wrong_please_try_again), null)
+        Log.w(TAG, "Precisa ativar smart lock for password nas definições") // TODO meter nas strings
     }
 
-    private fun onSuccess(user: UserDto?) {
+    private fun onSuccess() {
         Log.i(TAG, "Login succeeded.")
         finish()
         startActivity(Intent(this, HomeActivity::class.java))
     }
 
-    private fun onUnsuccess(error: ErrorDto?, credential: Credential?) {
+    private fun onUnsuccess(error: ErrorDto?) {
         error?.let {
             Log.e(TAG, it.developerErrorMessage)
             Log.i(TAG, "Wrong credentials.")
             Toast.makeText(this, getString(R.string.wrong_credentials_please_login_again), Toast.LENGTH_SHORT).show()
         }
-        onError(null, credential)
+        onError(null)
     }
 
-    private fun onError(message: String?, credential: Credential?) {
+    private fun onError(message: String?) {
         message?.let {
             Log.e(TAG, it)
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
-        credential?.let {
-            ServiceLocator
-                    .getSmartLock(applicationContext)
-                    .deleteCredentials(it)
-        }
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .retrieveCredentials(this, {
+                    ServiceLocator
+                            .getSmartLock(applicationContext)
+                            .deleteCredentials(it)
+                }, {})
     }
 
     companion object {
