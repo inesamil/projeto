@@ -16,7 +16,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_lists.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.List
 import ps.leic.isel.pt.gis.model.body.ListBody
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
@@ -229,22 +228,19 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         })
     }
 
-    fun onFiltersApplied(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?) {
-        activity?.applicationContext?.let {
-            val loggedInUser = ServiceLocator.getCredentialsStore(it).getUsername()
-            lists?.filter {
-                // List in the house
-                val houseId = it.houseId
-                if (houses == null) return
-                val listInHouse: Boolean = houses.any { it.houseId == houseId }
-                if (!listInHouse) return@filter false
+    fun onFiltersApplied(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?, loggedInUser: String) {
+        lists?.filter {
+            // List in the house
+            val houseId = it.houseId
+            if (houses == null) return
+            val listInHouse: Boolean = houses.any { it.houseId == houseId }
+            if (!listInHouse) return@filter false
 
-                return@filter (systemLists && it.listType == ListDto.SYSTEM_TYPE)    // System lists
-                        || (userLists && it.listType == ListDto.USER_TYPE && it.username == loggedInUser)  // From the logged in user lists
-                        || (it.username != loggedInUser && it.listType == ListDto.USER_TYPE && it.shareable == sharedLists) // Lists shared by other members
-            }?.let {
-                adapter.setData(it.toTypedArray())
-            }
+            return@filter (systemLists && it.listType == ListDto.SYSTEM_TYPE)    // System lists
+                    || (userLists && it.listType == ListDto.USER_TYPE && it.username == loggedInUser)  // From the logged in user lists
+                    || (it.username != loggedInUser && it.listType == ListDto.USER_TYPE && it.shareable == sharedLists) // Lists shared by other members
+        }?.let {
+            adapter.setData(it.toTypedArray())
         }
     }
 

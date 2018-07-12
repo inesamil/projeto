@@ -16,7 +16,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_houses.view.*
 import ps.leic.isel.pt.gis.R
-import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.House
 import ps.leic.isel.pt.gis.model.body.HouseBody
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
@@ -67,10 +66,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         arguments?.let {
             url = it.getString(URL_TAG)
         }
-
-        val username = context?.let { ServiceLocator.getCredentialsStore(it).getUsername() } ?: ""
-
-        adapter = HousesAdapter(username, getString(R.string.at_username))
+        adapter = HousesAdapter(/*username*/, getString(R.string.at_username))
         housesViewModel = ViewModelProviders.of(activity!!).get(HousesViewModel::class.java)
         housesViewModel.init(url)
         getHouses()
@@ -275,7 +271,7 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
          * @return A new instance of fragment HousesFragment.
          */
         @JvmStatic
-        fun newInstance(url: String) =
+        fun newInstance(url: String, username: String) =
                 HousesFragment().apply {
                     arguments = Bundle().apply {
                         putString(URL_TAG, url)

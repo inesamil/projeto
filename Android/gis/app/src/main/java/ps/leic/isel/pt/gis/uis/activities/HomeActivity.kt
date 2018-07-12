@@ -1,13 +1,15 @@
 package ps.leic.isel.pt.gis.uis.activities
 
 import android.content.Intent
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.media.MediaScannerConnection
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
 import android.os.Environment
-import android.support.annotation.Dimension
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
@@ -34,7 +36,6 @@ import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.io.InputStream
 
 class HomeActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
@@ -106,64 +107,68 @@ class HomeActivity : AppCompatActivity(),
     override fun onMyPantryInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
-        if (username == null) {
-            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            logout()
-            return
-        }
-        index.getHousesUrl(username)?.let {
-            supportFragmentManager.replaceCurrentFragmentWith(StockItemListFragment.TAG, StockItemListFragment.Companion::newInstance, it)
-        }
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .retrieveCredentials(null, {
+                    index.getHousesUrl(it.id)?.let {
+                        supportFragmentManager.replaceCurrentFragmentWith(StockItemListFragment.TAG, StockItemListFragment.Companion::newInstance, it)
+                    }
+                }, {
+                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+                    logout()
+                })
     }
 
     // Listener for HomePageFragment
     override fun onMyHousesInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
-        if (username == null) {
-            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            logout()
-            return
-        }
-        index.getHousesUrl(username)?.let {
-            supportFragmentManager.replaceCurrentFragmentWith(HousesFragment.TAG, HousesFragment.Companion::newInstance, it)
-            return
-        }
-        Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .retrieveCredentials(null, {
+                    index.getHousesUrl(it.id)?.let {
+                        supportFragmentManager.replaceCurrentFragmentWith(HousesFragment.TAG, HousesFragment.Companion::newInstance, it)
+                        return@retrieveCredentials
+                    }
+                    Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
+                }, {
+                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+                    logout()
+                })
     }
 
     // Listener for HomePageFragment
     override fun onMyProfileInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
-        if (username == null) {
-            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            logout()
-            return
-        }
-        index.getUserUrl(username)?.let {
-            supportFragmentManager.replaceCurrentFragmentWith(BasicInformationFragment.TAG, BasicInformationFragment.Companion::newInstance, it)
-            return
-        }
-        Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .retrieveCredentials(null, {
+                    index.getUserUrl(it.id)?.let {
+                        supportFragmentManager.replaceCurrentFragmentWith(BasicInformationFragment.TAG, BasicInformationFragment.Companion::newInstance, it)
+                        return@retrieveCredentials
+                    }
+                    Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
+                }, {
+                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+                    logout()
+                })
     }
 
     // Listener for HomePageFragment
     override fun onMyListsInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
-        if (username == null) {
-            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            logout()
-            return
-        }
-        index.getUserListUrl(username)?.let {
-            supportFragmentManager.replaceCurrentFragmentWith(ListsFragment.TAG, ListsFragment.Companion::newInstance, it)
-        }
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .retrieveCredentials(null, {
+                    index.getUserListUrl(it.id)?.let {
+                        supportFragmentManager.replaceCurrentFragmentWith(ListsFragment.TAG, ListsFragment.Companion::newInstance, it)
+                    }
+                }, {
+                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+                    logout()
+                })
     }
 
     // Listener for HomPageFragment interaction
@@ -212,35 +217,37 @@ class HomeActivity : AppCompatActivity(),
     override fun onCategoryInteraction(url: String, categoryName: String) {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
-        if (username == null) {
-            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            logout()
-            return
-        }
-        index.getUserListUrl(username)?.let {
-            val args: Map<String, Any> = mapOf(
-                    Pair(CategoryProductsFragment.URL_ARG, url),
-                    Pair(CategoryProductsFragment.CATEGORY_NAME_ARG, categoryName)
-            )
-            supportFragmentManager.replaceCurrentFragmentWith(CategoryProductsFragment.TAG, CategoryProductsFragment.Companion::newInstance, args)
-        }
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .retrieveCredentials(null, {
+                    index.getUserListUrl(it.id)?.let {
+                        val args: Map<String, Any> = mapOf(
+                                Pair(CategoryProductsFragment.URL_ARG, url),
+                                Pair(CategoryProductsFragment.CATEGORY_NAME_ARG, categoryName)
+                        )
+                        supportFragmentManager.replaceCurrentFragmentWith(CategoryProductsFragment.TAG, CategoryProductsFragment.Companion::newInstance, args)
+                    }
+                }, {
+                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+                    logout()
+                })
     }
 
     // Listener for CategoryProductsFragement interaction
     override fun onAddProductToListInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
-        if (username == null) {
-            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            logout()
-            return
-        }
-        index.getCategoriesUrl()?.let {
-            val dialog = AddProductToListDialogFragment.newInstance(it)
-            dialog.show(supportFragmentManager, AddProductToListDialogFragment.TAG)
-        }
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .retrieveCredentials(null, {
+                    index.getCategoriesUrl()?.let {
+                        val dialog = AddProductToListDialogFragment.newInstance(it)
+                        dialog.show(supportFragmentManager, AddProductToListDialogFragment.TAG)
+                    }
+                }, {
+                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+                    logout()
+                })
     }
 
     override fun onEditListProductInteraction(listProduct: ListProductDto) {
@@ -282,16 +289,17 @@ class HomeActivity : AppCompatActivity(),
     override fun onNewListInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
-        if (username == null) {
-            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            logout()
-            return
-        }
-        index.getHousesUrl(username)?.let {
-            val fragment = NewListDialogFragment.newInstance(it)
-            fragment.show(supportFragmentManager, NewListDialogFragment.TAG)
-        }
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .retrieveCredentials(null, {
+                    index.getHousesUrl(it.id)?.let {
+                        val fragment = NewListDialogFragment.newInstance(it)
+                        fragment.show(supportFragmentManager, NewListDialogFragment.TAG)
+                    }
+                }, {
+                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+                    logout()
+                })
     }
 
     override fun onAddList(list: List) {
@@ -303,16 +311,17 @@ class HomeActivity : AppCompatActivity(),
     override fun onFiltersInteraction() {
         val gisApplication = application as GisApplication
         val index = gisApplication.index
-        val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
-        if (username == null) {
-            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-            logout()
-            return
-        }
-        index.getHousesUrl(username)?.let {
-            val fragment = ListsFiltersDialogFragment.newInstance(it)
-            fragment.show(supportFragmentManager, ListsFiltersDialogFragment.TAG)
-        }
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .retrieveCredentials(null, {
+                    index.getHousesUrl(it.id)?.let {
+                        val fragment = ListsFiltersDialogFragment.newInstance(it)
+                        fragment.show(supportFragmentManager, ListsFiltersDialogFragment.TAG)
+                    }
+                }, {
+                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+                    logout()
+                })
     }
 
     // Listener for ListDetailFragment interaction
@@ -434,18 +443,19 @@ class HomeActivity : AppCompatActivity(),
         when (item.itemId) {
             R.id.invitationsItem -> {
                 val index = gisApplication.index
-                val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
-                if (username == null) {
-                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-                    logout()
-                    return false
-                }
-                val url: String? = index.getInvitationsUrl(username)
-                url?.let {
-                    supportFragmentManager.replaceCurrentFragmentWith(InvitationsFragment.TAG, InvitationsFragment.Companion::newInstance, url)
-                    return true
-                }
-                Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
+                ServiceLocator
+                        .getSmartLock(applicationContext)
+                        .retrieveCredentials(null, {
+                            val url: String? = index.getInvitationsUrl(it.id)
+                            url?.let {
+                                supportFragmentManager.replaceCurrentFragmentWith(InvitationsFragment.TAG, InvitationsFragment.Companion::newInstance, url)
+                                return@retrieveCredentials
+                            }
+                            Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
+                        }, {
+                            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+                            logout()
+                        })
                 return true
             }
             R.id.aboutItem -> {
@@ -465,18 +475,20 @@ class HomeActivity : AppCompatActivity(),
             }
             R.id.nav_lists -> run {
                 val index = gisApplication.index
-                val username = ServiceLocator.getCredentialsStore(applicationContext).getUsername()
-                if (username == null) {
-                    Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
-                    logout()
-                    return true
-                }
-                val url: String? = index.getUserListUrl(username)
-                url?.let {
-                    supportFragmentManager.replaceCurrentFragmentWith(ListsFragment.TAG, ListsFragment.Companion::newInstance, url)
-                    return@run
-                }
-                Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
+                ServiceLocator
+                        .getSmartLock(applicationContext)
+                        .retrieveCredentials(null, {
+                            val url: String? = index.getUserListUrl(it.id)
+                            url?.let {
+                                supportFragmentManager.replaceCurrentFragmentWith(ListsFragment.TAG, ListsFragment.Companion::newInstance, url)
+                                return@retrieveCredentials
+                            }
+                            Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
+                        }, {
+                            Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
+                            logout()
+                        })
+                return true
             }
             R.id.nav_products -> run {
                 val index = gisApplication.index
