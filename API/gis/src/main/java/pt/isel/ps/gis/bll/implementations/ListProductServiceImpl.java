@@ -67,7 +67,9 @@ public class ListProductServiceImpl implements ListProductService {
 
     @Transactional
     @Override
-    public ListProduct addListProduct(long houseId, short listId, Integer productId, String brand, Short quantity, Locale locale) throws EntityException, EntityAlreadyExistsException {
+    public ListProduct addListProduct(String username, long houseId, short listId, Integer productId, String brand, Short quantity, Locale locale) throws EntityException, EntityAlreadyExistsException, EntityNotFoundException, InsufficientPrivilegesException {
+        checkHouseId(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         if (listProductRepository.existsById(new ListProductId(houseId, listId, productId)))
             throw new EntityAlreadyExistsException("The product already exist.", messageSource.getMessage("product_Already_Exist", null, locale));
         ListProduct listProduct = new ListProduct(houseId, listId, productId, brand, quantity);
@@ -76,7 +78,9 @@ public class ListProductServiceImpl implements ListProductService {
 
     @Transactional
     @Override
-    public ListProduct associateListProduct(long houseId, short listId, Integer productId, String brand, Short quantity, Locale locale) throws EntityException, EntityNotFoundException {
+    public ListProduct associateListProduct(String username, long houseId, short listId, Integer productId, String brand, Short quantity, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
+        checkHouseId(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         checkListId(new ListId(houseId, listId), locale);
         checkProductId(productId, locale);
         ListProduct listProduct = new ListProduct(houseId, listId, productId, brand, quantity);
@@ -85,7 +89,9 @@ public class ListProductServiceImpl implements ListProductService {
 
     @Transactional
     @Override
-    public void deleteListProductByListProductId(long houseId, short listId, int productId, Locale locale) throws EntityException, EntityNotFoundException {
+    public void deleteListProductByListProductId(String username, long houseId, short listId, int productId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
+        checkHouseId(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         ListProductId id = new ListProductId(houseId, listId, productId);
         checkListProductId(id, locale);
         listProductRepository.deleteById(id);

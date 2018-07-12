@@ -150,8 +150,7 @@ public class ListController {
         List list;
         String username = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO autorizacao no add?
-            listProductService.addListProduct(houseId, listId, body.getProductId(), body.getBrand(), body.getQuantity(), locale);
+            listProductService.addListProduct(username, houseId, listId, body.getProductId(), body.getBrand(), body.getQuantity(), locale);
             list = listService.getListByListId(username, houseId, listId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
@@ -217,8 +216,7 @@ public class ListController {
         List list;
         String username = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO autorizacao no associate?
-            listProductService.associateListProduct(houseId, listId, productId, body.getBrand(), body.getQuantity(), locale);
+            listProductService.associateListProduct(username, houseId, listId, productId, body.getBrand(), body.getQuantity(), locale);
             list = listService.getListByListId(username, houseId, listId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
@@ -293,8 +291,7 @@ public class ListController {
         List list;
         String username = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO autorizacao no delete?
-            listProductService.deleteListProductByListProductId(houseId, listId, productId, locale);
+            listProductService.deleteListProductByListProductId(username, houseId, listId, productId, locale);
             list = listService.getListByListId(username, houseId, listId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));

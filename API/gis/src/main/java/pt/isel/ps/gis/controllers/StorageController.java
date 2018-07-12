@@ -108,11 +108,12 @@ public class StorageController {
             @PathVariable("house-id") long houseId,
             @RequestBody StorageInputModel body,
             Locale locale
-    ) throws BadRequestException, NotFoundException, URISyntaxException {
+    ) throws BadRequestException, NotFoundException, URISyntaxException, ForbiddenException {
         Storage storage;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO autorizacao no add?
             storage = storageService.addStorage(
+                    username,
                     houseId,
                     body.getName(),
                     body.getMinimumTemperature(),
@@ -123,6 +124,8 @@ public class StorageController {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         StorageId storageId = storage.getId();
@@ -144,11 +147,12 @@ public class StorageController {
             @PathVariable("storage-id") short storageId,
             @RequestBody StorageInputModel body,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         Storage storage;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO autorizacao no update?
             storage = storageService.updateStorage(
+                    username,
                     houseId,
                     storageId,
                     body.getName(),
@@ -160,6 +164,8 @@ public class StorageController {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new StorageOutputModel(storage), setSirenContentType(headers),

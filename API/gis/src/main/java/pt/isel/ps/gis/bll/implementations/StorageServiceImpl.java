@@ -59,15 +59,18 @@ public class StorageServiceImpl implements StorageService {
 
     @Transactional
     @Override
-    public Storage addStorage(long houseId, String name, Float minimumTemperature, Float maximumTemperature, Locale locale) throws EntityException, EntityNotFoundException {
-        Storage storage = new Storage(houseId, name, new Numrange(minimumTemperature, maximumTemperature));
+    public Storage addStorage(String username, long houseId, String name, Float minimumTemperature, Float maximumTemperature, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         checkHouse(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
+        Storage storage = new Storage(houseId, name, new Numrange(minimumTemperature, maximumTemperature));
         return storageRepository.insertStorage(storage);
     }
 
     @Transactional
     @Override
-    public Storage updateStorage(long houseId, short storageId, String name, Float minimumTemperature, Float maximumTemperature, Locale locale) throws EntityNotFoundException, EntityException {
+    public Storage updateStorage(String username, long houseId, short storageId, String name, Float minimumTemperature, Float maximumTemperature, Locale locale) throws EntityNotFoundException, EntityException, InsufficientPrivilegesException {
+        checkHouse(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         Storage storage = storageRepository
                 .findById(new StorageId(houseId, storageId))
                 .orElseThrow(() -> new EntityNotFoundException("Storage does not exist in this house.", messageSource.getMessage("storage_In_House_Not_Exist", null, locale)));

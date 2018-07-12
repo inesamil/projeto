@@ -216,6 +216,7 @@ public class HouseController {
     ) throws NotFoundException, BadRequestException, ForbiddenException {
         String username = authenticationFacade.getAuthentication().getName();
         try {
+            //TODO: qualquer membro pode apagar a casa ?
             houseService.deleteHouseByHouseId(username, houseId, locale);
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));

@@ -46,7 +46,7 @@ public interface StorageService {
      *
      * @return Storage
      */
-    Storage addStorage(long houseId, String name, Float minimumTemperature, Float maximumTemperature, Locale locale) throws EntityException, EntityNotFoundException;
+    Storage addStorage(String username, long houseId, String name, Float minimumTemperature, Float maximumTemperature, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Atualizar um local de armazenamento duma casa
@@ -54,7 +54,7 @@ public interface StorageService {
      * @return Storage
      * @throws EntityNotFoundException se o local de armazenamento especificado não existir na casa particularizada
      */
-    Storage updateStorage(long houseId, short storageId, String name, Float minimumTemperature, Float maximumTemperature, Locale locale) throws EntityNotFoundException, EntityException;
+    Storage updateStorage(String username, long houseId, short storageId, String name, Float minimumTemperature, Float maximumTemperature, Locale locale) throws EntityNotFoundException, EntityException, InsufficientPrivilegesException;
 
     /**
      * Remover um local de armazenamento duma casa

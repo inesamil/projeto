@@ -48,6 +48,8 @@ public interface ListProductService {
     /**
      * Adicionar um produto a uma lista
      *
+     *
+     * @param username
      * @param houseId   identificador da casa
      * @param listId    identificador da lista
      * @param productId identificador do produto
@@ -55,12 +57,14 @@ public interface ListProductService {
      * @param quantity  quantidade do produto
      * @return ListProduct
      */
-    ListProduct addListProduct(long houseId, short listId, Integer productId, String brand, Short quantity, Locale locale) throws EntityException, EntityAlreadyExistsException;
+    ListProduct addListProduct(String username, long houseId, short listId, Integer productId, String brand, Short quantity, Locale locale) throws EntityException, EntityAlreadyExistsException, EntityNotFoundException, InsufficientPrivilegesException;
 
 
     /**
      * Atualizar um produto a uma lista
      *
+     *
+     * @param username
      * @param houseId   identificador da casa
      * @param listId    identificador da lista
      * @param productId identificador do produto
@@ -68,15 +72,17 @@ public interface ListProductService {
      * @param quantity  quantidade do produto
      * @return ListProduct
      */
-    ListProduct associateListProduct(long houseId, short listId, Integer productId, String brand, Short quantity, Locale locale) throws EntityException, EntityNotFoundException;
+    ListProduct associateListProduct(String username, long houseId, short listId, Integer productId, String brand, Short quantity, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Remover um produto de uma lista
      *
+     *
+     * @param username
      * @param productId identificador do produto
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o produto especificado não existir na lista particularizada
      */
-    void deleteListProductByListProductId(long houseId, short listId, int productId, Locale locale) throws EntityException, EntityNotFoundException;
+    void deleteListProductByListProductId(String username, long houseId, short listId, int productId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
 }
