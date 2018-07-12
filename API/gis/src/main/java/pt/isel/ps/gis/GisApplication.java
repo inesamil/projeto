@@ -41,7 +41,7 @@ public class GisApplication {
     }
 
     @Bean
-    public AuthorizationProvider authorizationProvider(UserHouseRepository userHouseRepository) {
+    public AuthorizationProvider authorizationProvider(UserHouseRepository userHouseRepository, MessageSource messageSource) {
         return new AuthorizationProviderImpl(userHouseRepository, messageSource);
     }
 }
