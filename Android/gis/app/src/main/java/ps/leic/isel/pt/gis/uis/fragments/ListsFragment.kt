@@ -63,7 +63,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            url = it.getString(URL_KEY)
+            url = it.getString(URL_TAG)
         }
         listsViewModel = ViewModelProviders.of(activity!!).get(ListsViewModel::class.java)
         listsViewModel.init(url)
@@ -101,7 +101,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
-            url = it.getString(URL_KEY)
+            url = it.getString(URL_TAG)
         }
     }
 
@@ -112,7 +112,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(URL_KEY, url)
+        outState.putString(URL_TAG, url)
     }
 
     override fun onStop() {
@@ -261,7 +261,10 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
      */
     companion object {
         const val TAG: String = "ListsFragment"
-        private const val URL_KEY: String = "URL"
+        private const val URL_TAG: String = "URL"
+        const val URL_ARG: String = "url"
+        private const val USERNAME_TAG: String = "USERNAME"
+        const val USERNAME_ARG: String = "username"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -269,10 +272,11 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
          * @return A new instance of fragment ListsFragment.
          */
         @JvmStatic
-        fun newInstance(url: String) =
+        fun newInstance(args: Map<String, Any>) =
                 ListsFragment().apply {
                     arguments = Bundle().apply {
-                        putString(URL_KEY, url)
+                        putString(URL_TAG, args[URL_ARG] as String)
+                        putString(USERNAME_TAG, args[USERNAME_ARG] as String)
                     }
                 }
     }

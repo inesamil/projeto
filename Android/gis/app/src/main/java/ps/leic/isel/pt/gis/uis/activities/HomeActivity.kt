@@ -125,9 +125,13 @@ class HomeActivity : AppCompatActivity(),
         val index = gisApplication.index
         ServiceLocator
                 .getSmartLock(applicationContext)
-                .retrieveCredentials(null, {
-                    index.getHousesUrl(it.id)?.let {
-                        supportFragmentManager.replaceCurrentFragmentWith(HousesFragment.TAG, HousesFragment.Companion::newInstance, it)
+                .retrieveCredentials(null, { credentials ->
+                    index.getHousesUrl(credentials.id)?.let {url ->
+                        val args: Map<String, Any> = mapOf(
+                                Pair(HousesFragment.URL_ARG, url),
+                                Pair(HousesFragment.USERNAME_ARG, credentials.id)
+                        )
+                        supportFragmentManager.replaceCurrentFragmentWith(HousesFragment.TAG, HousesFragment.Companion::newInstance, args)
                         return@retrieveCredentials
                     }
                     Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()
@@ -161,9 +165,13 @@ class HomeActivity : AppCompatActivity(),
         val index = gisApplication.index
         ServiceLocator
                 .getSmartLock(applicationContext)
-                .retrieveCredentials(null, {
-                    index.getUserListUrl(it.id)?.let {
-                        supportFragmentManager.replaceCurrentFragmentWith(ListsFragment.TAG, ListsFragment.Companion::newInstance, it)
+                .retrieveCredentials(null, {credentials ->
+                    index.getUserListUrl(credentials.id)?.let {url ->
+                        val args: Map<String, Any> = mapOf(
+                                Pair(HousesFragment.URL_ARG, url),
+                                Pair(HousesFragment.USERNAME_ARG, credentials.id)
+                        )
+                        supportFragmentManager.replaceCurrentFragmentWith(ListsFragment.TAG, ListsFragment.Companion::newInstance, args)
                     }
                 }, {
                     Toast.makeText(this, getString(R.string.user_needs_to_login_first), Toast.LENGTH_SHORT).show()
@@ -383,9 +391,9 @@ class HomeActivity : AppCompatActivity(),
     }
 
     // Listener for ListsFiltersDialogFragment interaction
-    override fun onFiltersApply(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?) {
+    override fun onFiltersApply(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?, loggedInUser: String) {
         val listsFragment = supportFragmentManager.findFragmentByTag(ListsFragment.TAG) as? ListsFragment
-        listsFragment?.onFiltersApplied(systemLists, userLists, sharedLists, houses)
+        listsFragment?.onFiltersApplied(systemLists, userLists, sharedLists, houses, loggedInUser)
     }
 
     // Listener for StockItemListFragment interaction
@@ -477,10 +485,14 @@ class HomeActivity : AppCompatActivity(),
                 val index = gisApplication.index
                 ServiceLocator
                         .getSmartLock(applicationContext)
-                        .retrieveCredentials(null, {
-                            val url: String? = index.getUserListUrl(it.id)
+                        .retrieveCredentials(null, {credentials ->
+                            val url: String? = index.getUserListUrl(credentials.id)
                             url?.let {
-                                supportFragmentManager.replaceCurrentFragmentWith(ListsFragment.TAG, ListsFragment.Companion::newInstance, url)
+                                val args: Map<String, Any> = mapOf(
+                                        Pair(HousesFragment.URL_ARG, it),
+                                        Pair(HousesFragment.USERNAME_ARG, credentials.id)
+                                )
+                                supportFragmentManager.replaceCurrentFragmentWith(ListsFragment.TAG, ListsFragment.Companion::newInstance, args)
                                 return@retrieveCredentials
                             }
                             Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_SHORT).show()

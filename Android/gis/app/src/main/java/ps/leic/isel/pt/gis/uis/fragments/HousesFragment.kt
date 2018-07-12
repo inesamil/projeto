@@ -65,11 +65,13 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
         super.onCreate(savedInstanceState)
         arguments?.let {
             url = it.getString(URL_TAG)
+            val username: String = it.getString(USERNAME_TAG)
+
+            adapter = HousesAdapter(username, getString(R.string.at_username))
+            housesViewModel = ViewModelProviders.of(activity!!).get(HousesViewModel::class.java)
+            housesViewModel.init(url)
+            getHouses()
         }
-        adapter = HousesAdapter(/*username*/, getString(R.string.at_username))
-        housesViewModel = ViewModelProviders.of(activity!!).get(HousesViewModel::class.java)
-        housesViewModel.init(url)
-        getHouses()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -263,6 +265,9 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
     companion object {
         const val TAG: String = "HousesFragment"
         private const val URL_TAG: String = "URL"
+        const val URL_ARG: String = "url"
+        private const val USERNAME_TAG: String = "USERNAME"
+        const val USERNAME_ARG: String = "username"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -271,10 +276,11 @@ class HousesFragment : Fragment(), HousesAdapter.OnItemClickListener {
          * @return A new instance of fragment HousesFragment.
          */
         @JvmStatic
-        fun newInstance(url: String, username: String) =
+        fun newInstance(args: Map<String, Any>) =
                 HousesFragment().apply {
                     arguments = Bundle().apply {
-                        putString(URL_TAG, url)
+                        putString(URL_TAG, args[URL_ARG] as String)
+                        putString(USERNAME_TAG, args[USERNAME_ARG] as String)
                     }
                 }
     }
