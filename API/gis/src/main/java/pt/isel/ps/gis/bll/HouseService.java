@@ -32,11 +32,13 @@ public interface HouseService {
     /**
      * Listar as casas de um utilizador através do seu nome do utilizador
      *
+     *
+     * @param authenticatedUsername
      * @param username identificador do utilizador
      * @return List<House>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List<House> getHousesByUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException;
+    List<House> getHousesByUserUsername(String authenticatedUsername, String username, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Adicionar uma casa

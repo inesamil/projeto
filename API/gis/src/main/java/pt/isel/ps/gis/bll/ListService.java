@@ -60,16 +60,20 @@ public interface ListService {
     /**
      * Listar as listas através do username do user
      *
+     *
+     * @param authenticatedUsername
      * @param username identificador do user
      * @return List<List>
      * @throws EntityException         se os parâmetros recebeidos forem inválidos
      * @throws EntityNotFoundException se o utilizador não existir
      */
-    java.util.List<List> getAvailableListsByUserUsername(String username, AvailableListFilters filters, Locale locale) throws EntityException, EntityNotFoundException;
+    java.util.List<List> getAvailableListsByUserUsername(String authenticatedUsername, String username, AvailableListFilters filters, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Adicionar uma lista a uma casa
      *
+     *
+     * @param authenticatedUsername
      * @param houseId       identificador da casa
      * @param listName      nome da lista
      * @param username      nome de utilizador do autor da lista
@@ -77,7 +81,7 @@ public interface ListService {
      * @return UserList
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
-    List addUserList(Long houseId, String listName, String username, Boolean listShareable, Locale locale) throws EntityException, EntityNotFoundException;
+    List addUserList(String authenticatedUsername, Long houseId, String listName, String username, Boolean listShareable, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Atualizar uma lista duma casa

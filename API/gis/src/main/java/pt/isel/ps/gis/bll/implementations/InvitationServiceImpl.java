@@ -46,8 +46,9 @@ public class InvitationServiceImpl implements InvitationService {
 
     @Transactional
     @Override
-    public List<Invitation> getReceivedInvitationsByUserUsername(String username) throws EntityException {
+    public List<Invitation> getReceivedInvitationsByUserUsername(String authenticatedUsername, String username) throws EntityException, InsufficientPrivilegesException {
         ValidationsUtils.validateUserUsername(username);
+        authorizationProvider.checkUserAuthorizationToAccessResource(authenticatedUsername, username);
         List<Invitation> invitations = invitationRepository.findAllByUsersByUsersId_UsersUsername(username);
         invitations.forEach(invitation -> {
             invitation.getUsersByUsersId().getUsersUsername();
@@ -86,7 +87,8 @@ public class InvitationServiceImpl implements InvitationService {
 
     @Transactional
     @Override
-    public void updateInvitation(Long houseId, String username, Boolean accept, Locale locale) throws EntityException, EntityNotFoundException {
+    public void updateInvitation(String authenticatedUsername, Long houseId, String username, Boolean accept, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
+        authorizationProvider.checkUserAuthorizationToAccessResource(authenticatedUsername, username);
         if (accept == null)
             throw new EntityException("You must specify the body correctly.", messageSource.getMessage("body_Error_Msg", null, locale));
         if (accept)

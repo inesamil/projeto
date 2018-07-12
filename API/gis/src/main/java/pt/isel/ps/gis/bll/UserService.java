@@ -3,6 +3,7 @@ package pt.isel.ps.gis.bll;
 import pt.isel.ps.gis.exceptions.EntityAlreadyExistsException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.Users;
 
 import java.util.List;
@@ -32,12 +33,14 @@ public interface UserService {
     /**
      * Obter um utilizador através do seu nome de utilizador
      *
+     *
+     * @param authenticatedUsername
      * @param username identificador do utilizador
      * @return User
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador com o ID especificado não existir
      */
-    Users getUserByUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException;
+    Users getUserByUserUsername(String authenticatedUsername, String username, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
     /**
      * Obter os utilizadores cujo nome de utilizador começe por username
@@ -63,6 +66,8 @@ public interface UserService {
     /**
      * Atualizar um utilizador
      *
+     *
+     * @param authenticatedUsername
      * @param username identificador do utilizador
      * @param email    email do utilizador
      * @param age      idade do utilizador
@@ -72,14 +77,16 @@ public interface UserService {
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador especificado não existir
      */
-    Users updateUser(String username, String email, Short age, String name, String password, Locale locale) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException;
+    Users updateUser(String authenticatedUsername, String username, String email, Short age, String name, String password, Locale locale) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException, InsufficientPrivilegesException;
 
     /**
      * Remover um utilizador
      *
+     *
+     * @param authenticatedUsername
      * @param username identificador do utilizador
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o utilizador especificado não existir
      */
-    void deleteUserByUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException;
+    void deleteUserByUserUsername(String authenticatedUsername, String username, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 }

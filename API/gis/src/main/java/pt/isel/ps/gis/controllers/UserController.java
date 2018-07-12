@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pt.isel.ps.gis.bll.HouseService;
 import pt.isel.ps.gis.bll.ListService;
 import pt.isel.ps.gis.bll.UserService;
+import pt.isel.ps.gis.components.AuthenticationFacade;
 import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.ListId;
@@ -35,11 +36,13 @@ public class UserController {
     private final UserService userService;
     private final HouseService houseService;
     private final ListService listService;
+    private final AuthenticationFacade authenticationFacade;
 
-    public UserController(UserService userService, HouseService houseService, ListService listService) {
+    public UserController(UserService userService, HouseService houseService, ListService listService, AuthenticationFacade authenticationFacade) {
         this.userService = userService;
         this.houseService = houseService;
         this.listService = listService;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @ApiResponses(value = {
@@ -75,15 +78,17 @@ public class UserController {
     public ResponseEntity<UserOutputModel> getUser(
             @PathVariable("username") String username,
             Locale locale
-    ) throws NotFoundException, BadRequestException {
+    ) throws NotFoundException, BadRequestException, ForbiddenException {
+        String authenticatedUsername = authenticationFacade.getAuthentication().getName();
         Users user;
         try {
-            // TODO verificar no path
-            user = userService.getUserByUserUsername(username, locale);
+            user = userService.getUserByUserUsername(authenticatedUsername, username, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), HttpStatus.OK);
@@ -101,15 +106,17 @@ public class UserController {
     public ResponseEntity<UserHousesOutputModel> getUserHouses(
             @PathVariable("username") String username,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
+        String authenticatedUsername = authenticationFacade.getAuthentication().getName();
         List<House> userHouses;
         try {
-            // TODO verificar no path
-            userHouses = houseService.getHousesByUserUsername(username, locale);
+            userHouses = houseService.getHousesByUserUsername(authenticatedUsername, username, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserHousesOutputModel(username, userHouses), setSirenContentType(headers),
@@ -129,13 +136,13 @@ public class UserController {
             @PathVariable("username") String username,
             ListRequestParam params,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
+        String authenticatedUsername = authenticationFacade.getAuthentication().getName();
         List<pt.isel.ps.gis.model.List> lists;
         try {
-            // TODO verificar no path
             ListService.AvailableListFilters filters;
             if (params.isNull()) {
-                Long[] housesIds = houseService.getHousesByUserUsername(username, locale)
+                Long[] housesIds = houseService.getHousesByUserUsername(authenticatedUsername, username, locale)
                         .stream()
                         .map(House::getHouseId)
                         .toArray(Long[]::new);
@@ -147,11 +154,13 @@ public class UserController {
                         params.getUser(),
                         params.getShareable()
                 );
-            lists = listService.getAvailableListsByUserUsername(username, filters, locale);
+            lists = listService.getAvailableListsByUserUsername(authenticatedUsername, username, filters, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders httpHeaders = new HttpHeaders();
         return new ResponseEntity<>(new UserListsOutputModel(username, lists), setSirenContentType(httpHeaders),
@@ -196,11 +205,12 @@ public class UserController {
             @PathVariable("username") String username,
             @RequestBody ListInputModel body,
             Locale locale
-    ) throws BadRequestException, NotFoundException, URISyntaxException {
+    ) throws BadRequestException, NotFoundException, URISyntaxException, ForbiddenException {
+        String authenticatedUsername = authenticationFacade.getAuthentication().getName();
         pt.isel.ps.gis.model.List list;
         try {
-            // TODO verificar no path
             list = listService.addUserList(
+                    authenticatedUsername,
                     body.getHouseId(),
                     body.getName(),
                     username,
@@ -211,6 +221,8 @@ public class UserController {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         ListId listId = list.getId();
@@ -232,11 +244,12 @@ public class UserController {
             @PathVariable("username") String username,
             @RequestBody UserInputModel body,
             Locale locale
-    ) throws BadRequestException, NotFoundException, ConflictException {
+    ) throws BadRequestException, NotFoundException, ConflictException, ForbiddenException {
+        String authenticatedUsername = authenticationFacade.getAuthentication().getName();
         Users user;
         try {
-            // TODO verificar no path
             user = userService.updateUser(
+                    authenticatedUsername,
                     username,
                     body.getEmail(),
                     body.getAge(),
@@ -250,6 +263,8 @@ public class UserController {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityAlreadyExistsException e) {
             throw new ConflictException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new UserOutputModel(user), setSirenContentType(headers), HttpStatus.OK);
@@ -267,14 +282,16 @@ public class UserController {
     public ResponseEntity<IndexOutputModel> deleteUser(
             @PathVariable("username") String username,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
+        String authenticatedUsername = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO verificar no path
-            userService.deleteUserByUserUsername(username, locale);
+            userService.deleteUserByUserUsername(authenticatedUsername, username, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new IndexOutputModel(), setJsonHomeContentType(headers), HttpStatus.OK);

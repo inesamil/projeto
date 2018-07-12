@@ -57,8 +57,9 @@ public class HouseServiceImpl implements HouseService {
 
     @Transactional
     @Override
-    public List<House> getHousesByUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException {
+    public List<House> getHousesByUserUsername(String authenticatedUsername, String username, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         ValidationsUtils.validateUserUsername(username);
+        authorizationProvider.checkUserAuthorizationToAccessResource(authenticatedUsername, username);
         if (!usersRepository.existsByUsersUsername(username))
             throw new EntityNotFoundException(String.format("Username %s does not exist.", username), messageSource.getMessage("user_Username_Not_Exist", new String[]{username}, locale));
         return houseRepository.findAllByUsersUsername(username);

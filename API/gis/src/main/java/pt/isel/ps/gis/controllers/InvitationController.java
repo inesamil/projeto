@@ -42,15 +42,17 @@ public class InvitationController {
     @GetMapping("/users/{username}")
     public ResponseEntity<InvitationsOutputModel> getInvitations(
             @PathVariable("username") String username
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<Invitation> invitations;
+        String authenticatedUsername = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO verificar no path
-            invitations = invitationService.getReceivedInvitationsByUserUsername(username);
+            invitations = invitationService.getReceivedInvitationsByUserUsername(authenticatedUsername, username);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new InvitationsOutputModel(username, invitations), setSirenContentType(headers),
@@ -72,10 +74,9 @@ public class InvitationController {
             @RequestBody InvitationInputModel body,
             Locale locale
     ) throws BadRequestException, NotFoundException, ConflictException, ForbiddenException {
-        String username = authenticationFacade.getAuthentication().getName();
+        String authenticatedUsername = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO se sou admin da casa qe tou a adicionar
-            invitationService.sendInvitation(houseId, username, body.getUsername(), locale);
+            invitationService.sendInvitation(houseId, authenticatedUsername, body.getUsername(), locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
@@ -103,9 +104,9 @@ public class InvitationController {
             @RequestBody InvitationInputModelUpdate body,
             Locale locale
     ) throws BadRequestException, NotFoundException {
+        String authenticatedUsername = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO nao sei que username vai no path. Nao sei o qe fazer neste
-            invitationService.updateInvitation(houseId, username, body.getAccept(), locale);
+            invitationService.updateInvitation(authenticatedUsername, houseId, username, body.getAccept(), locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {

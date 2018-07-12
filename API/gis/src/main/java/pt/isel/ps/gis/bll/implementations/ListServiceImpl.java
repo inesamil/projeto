@@ -79,14 +79,16 @@ public class ListServiceImpl implements ListService {
 
     @Transactional
     @Override
-    public java.util.List<List> getAvailableListsByUserUsername(String username, AvailableListFilters filters, Locale locale) throws EntityException, EntityNotFoundException {
+    public java.util.List<List> getAvailableListsByUserUsername(String authenticatedUsername, String username, AvailableListFilters filters, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
+        authorizationProvider.checkUserAuthorizationToAccessResource(authenticatedUsername, username);
         checkUserUsername(username, locale);
         return listRepository.findAvailableListsByUserUsername(username, filters.houses, filters.systemLists, filters.listsFromUser, filters.sharedLists);
     }
 
     @Transactional
     @Override
-    public List addUserList(Long houseId, String listName, String username, Boolean listShareable, Locale locale) throws EntityException, EntityNotFoundException {
+    public List addUserList(String authenticatedUsername, Long houseId, String listName, String username, Boolean listShareable, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
+        authorizationProvider.checkUserAuthorizationToAccessResource(authenticatedUsername, username);
         ValidationsUtils.validateListName(listName);
         ValidationsUtils.validateListShareable(listShareable);
         checkHouseId(houseId, locale);

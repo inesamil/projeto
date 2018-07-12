@@ -18,9 +18,11 @@ import pt.isel.ps.gis.dal.repositories.UsersRepository;
 import pt.isel.ps.gis.exceptions.EntityAlreadyExistsException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
+import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
 import pt.isel.ps.gis.model.Role;
 import pt.isel.ps.gis.model.UserRole;
 import pt.isel.ps.gis.model.Users;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
@@ -36,14 +38,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final RoleRepository roleRepository;
     private final UserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthorizationProvider authorizationProvider;
 
     private final MessageSource messageSource;
 
-    public UserServiceImpl(UsersRepository usersRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository, PasswordEncoder passwordEncoder, MessageSource messageSource) {
+    public UserServiceImpl(UsersRepository usersRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository, PasswordEncoder passwordEncoder, AuthorizationProvider authorizationProvider, MessageSource messageSource) {
         this.usersRepository = usersRepository;
         this.roleRepository = roleRepository;
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authorizationProvider = authorizationProvider;
         this.messageSource = messageSource;
     }
 
@@ -62,8 +66,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Users getUserByUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException {
+    public Users getUserByUserUsername(String authenticatedUsername, String username, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         ValidationsUtils.validateUserUsername(username);
+        authorizationProvider.checkUserAuthorizationToAccessResource(authenticatedUsername, username);
         return usersRepository
                 .findByUsersUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("User with username %s does not exist.", username), messageSource.getMessage("user_Username_Not_Exist", new Object[]{username}, locale)));
@@ -92,8 +97,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public Users updateUser(String username, String email, Short age, String name, String password, Locale locale) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException {
-        Users user = getUserByUserUsername(username, locale);
+    public Users updateUser(String authenticatedUsername, String username, String email, Short age, String name, String password, Locale locale) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException, InsufficientPrivilegesException {
+        Users user = getUserByUserUsername(authenticatedUsername, username, locale);
         ValidationsUtils.validateUserEmail(email);
         if (!user.getUsersEmail().equals(email) && !usersRepository.existsByUsersEmail(email))
             throw new EntityAlreadyExistsException(String.format("Already exists a user with email: %s", email), messageSource.getMessage("email_Aready_Exist", new Object[]{email}, locale));
@@ -106,7 +111,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public void deleteUserByUserUsername(String username, Locale locale) throws EntityException, EntityNotFoundException {
+    public void deleteUserByUserUsername(String authenticatedUsername, String username, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
+        authorizationProvider.checkUserAuthorizationToAccessResource(authenticatedUsername, username);
         checkUserUsername(username, locale);
         // Remover o utilizador bem como todas as relações das quais o utilizador seja parte integrante
         usersRepository.deleteCascadeUserByUsername(username);
@@ -125,7 +131,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Users user;
         try {
             Locale locale = LocaleContextHolder.getLocale();
-            user = getUserByUserUsername(username, locale);
+            //TODO: o que fazemos aqui ? Passamos o mesmo username ?
+            user = getUserByUserUsername(authenticatedUsername, username, locale);
         } catch (EntityException | EntityNotFoundException e) {
             throw new UsernameNotFoundException(e.getMessage());
         }

@@ -211,9 +211,9 @@ public class HouseController {
             Locale locale
     ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<UserHouse> household;
+        String authenticatedUsername = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO falta autorizacao. Verificar
-            houseMemberService.deleteMemberByMemberId(username, houseId, username, locale);
+            houseMemberService.deleteMemberByMemberId(authenticatedUsername, houseId, username, locale);
             household = houseMemberService.getMembersByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));

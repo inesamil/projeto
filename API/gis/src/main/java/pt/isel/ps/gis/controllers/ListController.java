@@ -248,12 +248,12 @@ public class ListController {
         String username = authenticationFacade.getAuthentication().getName();
         try {
             listService.deleteUserListByListId(username, houseId, listId, locale);
-            Long[] housesIds = houseService.getHousesByUserUsername(username, locale)
+            Long[] housesIds = houseService.getHousesByUserUsername(authenticatedUsername, username, locale)
                     .stream()
                     .map(House::getHouseId)
                     .toArray(Long[]::new);
             lists = listService.getAvailableListsByUserUsername(
-                    username,
+                    authenticatedUsername, username,
                     new ListService.AvailableListFilters(
                             housesIds,
                             false,

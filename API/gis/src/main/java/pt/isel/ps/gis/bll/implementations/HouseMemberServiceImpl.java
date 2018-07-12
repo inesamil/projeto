@@ -74,8 +74,12 @@ public class HouseMemberServiceImpl implements HouseMemberService {
 
     @Transactional
     @Override
-    public void deleteMemberByMemberId(String s, long houseId, String username, Locale locale) throws EntityException, EntityNotFoundException {
+    public void deleteMemberByMemberId(String authenticatedUsername, long houseId, String username, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         UserHouse member = getMemberByMemberId(houseId, username, locale);
+        if (!authenticatedUsername.equals(username)) {
+            // Se o utilizador autenticado não for o mesmo que o membro a remover então é preciso que o utilizador autenticado seja administrador
+            authorizationProvider.checkUserAuthorizationToAdminHouse(authenticatedUsername, houseId);
+        }
         userHouseRepository.deleteById(member.getId());
     }
 
