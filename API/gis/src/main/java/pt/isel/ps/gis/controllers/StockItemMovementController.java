@@ -96,10 +96,8 @@ public class StockItemMovementController {
         if (tagCsvList.size() <= 0)
             throw new BadRequestException("No empty Tags allowed.", messageSource.getMessage("no_empty_tags_allowed", null, locale));
         TagCsv tag = tagCsvList.get(0);
-        String username = authenticationFacade.getAuthentication().getName();
         try {
             stockItemMovementService.addStockItemMovement(
-                    username,
                     houseId,
                     body.getStorageId(),
                     body.getType(),
