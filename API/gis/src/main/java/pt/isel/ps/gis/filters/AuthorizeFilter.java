@@ -36,11 +36,14 @@ public class AuthorizeFilter implements Filter {
         HttpServletResponse hres = (HttpServletResponse) response;
         String uri = hreq.getRequestURI();
         if (uri.contains("/users")) {
-            String username = uri.split("/users")[1].split("/")[1];
-            String authenticatedUsername = authenticationFacade.getAuthentication().getName();
-            if (!authenticatedUsername.equals(username)) {
-                sendForbiddenError(hres);
-                return;
+            String[] split = uri.split("/users");
+            if (split.length == 2) {
+                String username = split[1].split("/")[1];
+                String authenticatedUsername = authenticationFacade.getAuthentication().getName();
+                if (!authenticatedUsername.equals(username)) {
+                    sendForbiddenError(hres);
+                    return;
+                }
             }
         }
         chain.doFilter(request, response);
