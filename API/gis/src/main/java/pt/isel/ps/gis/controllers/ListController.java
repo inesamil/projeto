@@ -245,15 +245,15 @@ public class ListController {
             Locale locale
     ) throws BadRequestException, NotFoundException, ForbiddenException {
         java.util.List<List> lists;
-        String username = authenticationFacade.getAuthentication().getName();
+        String authenticatedUsername = authenticationFacade.getAuthentication().getName();
         try {
-            listService.deleteUserListByListId(username, houseId, listId, locale);
-            Long[] housesIds = houseService.getHousesByUserUsername(authenticatedUsername, username, locale)
+            listService.deleteUserListByListId(authenticatedUsername, houseId, listId, locale);
+            Long[] housesIds = houseService.getHousesByUserUsername(authenticatedUsername, authenticatedUsername, locale)
                     .stream()
                     .map(House::getHouseId)
                     .toArray(Long[]::new);
             lists = listService.getAvailableListsByUserUsername(
-                    authenticatedUsername, username,
+                    authenticatedUsername, authenticatedUsername,
                     new ListService.AvailableListFilters(
                             housesIds,
                             false,
@@ -269,7 +269,7 @@ public class ListController {
             throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new UserListsOutputModel(username, lists), setSirenContentType(headers),
+        return new ResponseEntity<>(new UserListsOutputModel(authenticatedUsername, lists), setSirenContentType(headers),
                 HttpStatus.OK);
     }
 

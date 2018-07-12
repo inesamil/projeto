@@ -103,7 +103,7 @@ public class InvitationController {
             @PathVariable("username") String username,
             @RequestBody InvitationInputModelUpdate body,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         String authenticatedUsername = authenticationFacade.getAuthentication().getName();
         try {
             invitationService.updateInvitation(authenticatedUsername, houseId, username, body.getAccept(), locale);
@@ -111,6 +111,8 @@ public class InvitationController {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         return new ResponseEntity(HttpStatus.OK);
     }
