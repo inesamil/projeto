@@ -30,6 +30,6 @@ public class AuthorizationProviderImpl implements AuthorizationProvider {
         Locale locale = LocaleContextHolder.getLocale();
         UserHouse member = userHouseRepository.findById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username).orElseThrow(() -> new InsufficientPrivilegesException("No authorization.", messageSource.getMessage("no_authorization", null, locale)));
         if (!member.getUserhouseAdministrator())
-            throw new InsufficientPrivilegesException("Lack of administrative privileges associated with your user account.", messageSource.getMessage("no_admin_privileges", null, locale));
+            throw new InsufficientPrivilegesException("Lack of administrative privileges.", messageSource.getMessage("no_admin_privileges", null, locale));
     }
 }

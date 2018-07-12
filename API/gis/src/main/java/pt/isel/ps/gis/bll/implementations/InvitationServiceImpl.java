@@ -16,6 +16,7 @@ import pt.isel.ps.gis.model.Invitation;
 import pt.isel.ps.gis.model.InvitationId;
 import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.model.Users;
+import pt.isel.ps.gis.utils.AuthorizationProvider;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
@@ -32,12 +33,15 @@ public class InvitationServiceImpl implements InvitationService {
 
     private final MessageSource messageSource;
 
-    public InvitationServiceImpl(InvitationRepository invitationRepository, HouseRepository houseRepository, UsersRepository usersRepository, UserHouseRepository userHouseRepository, MessageSource messageSource) {
+    private final AuthorizationProvider authorizationProvider;
+
+    public InvitationServiceImpl(InvitationRepository invitationRepository, HouseRepository houseRepository, UsersRepository usersRepository, UserHouseRepository userHouseRepository, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
         this.invitationRepository = invitationRepository;
         this.houseRepository = houseRepository;
         this.usersRepository = usersRepository;
         this.userHouseRepository = userHouseRepository;
         this.messageSource = messageSource;
+        this.authorizationProvider = authorizationProvider;
     }
 
     @Transactional
@@ -64,6 +68,9 @@ public class InvitationServiceImpl implements InvitationService {
         checkUserUsername(from_username, locale);
         Users invitedUser = checkUserUsername(to_username, locale);
 
+        // Verificar se o utilizador que está a convidar é administrador da casa
+        authorizationProvider.checkUserAuthorizationToAdminHouse(from_username, houseId);
+
         // Verificar se o convite já existe
         boolean existsInvitation = invitationRepository.existsAllById_HouseIdAndUsersByUsersId_UsersUsername(houseId, to_username);
         if (existsInvitation)
@@ -73,13 +80,6 @@ public class InvitationServiceImpl implements InvitationService {
         Optional<UserHouse> invitedMember = userHouseRepository.findById_HouseIdAndUsersByUsersId_UsersUsername(houseId, to_username);
         if (invitedMember.isPresent())
             throw new EntityException("User is already member in the house.", messageSource.getMessage("member_already_exists", null, locale));
-
-        // Verificar se o utilizador que está a convidar é administrador da casa
-        UserHouse member = userHouseRepository
-                .findById_HouseIdAndUsersByUsersId_UsersUsername(houseId, from_username)
-                .orElseThrow(() -> new EntityNotFoundException("Member does not exist.", messageSource.getMessage("member_Not_Exist", null, locale)));
-        if (!member.getUserhouseAdministrator())
-            throw new InsufficientPrivilegesException("You are not administrator of the house", messageSource.getMessage("not_Administrator_Of_House", null, locale));
 
         return invitationRepository.save(new Invitation(invitedUser.getUsersId(), houseId));
     }
