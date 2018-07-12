@@ -131,9 +131,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Users user;
         try {
             Locale locale = LocaleContextHolder.getLocale();
-            //TODO: o que fazemos aqui ? Passamos o mesmo username ?
-            user = getUserByUserUsername(authenticatedUsername, username, locale);
-        } catch (EntityException | EntityNotFoundException e) {
+            user = getUserByUserUsername(username, username, locale);
+        } catch (EntityException | EntityNotFoundException | InsufficientPrivilegesException e) {
             throw new UsernameNotFoundException(e.getMessage());
         }
         List<GrantedAuthority> authorities = user.getUsersrolesByUsersId()
