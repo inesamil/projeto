@@ -212,7 +212,7 @@ public class HouseController {
     ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<UserHouse> household;
         try {
-            // TODO falta autorizacao
+            // TODO falta autorizacao. Verificar
             houseMemberService.deleteMemberByMemberId(username, houseId, username, locale);
             household = houseMemberService.getMembersByHouseId(username, houseId, locale);
         } catch (EntityException e) {

@@ -78,6 +78,7 @@ public class UserController {
     ) throws NotFoundException, BadRequestException {
         Users user;
         try {
+            // TODO verificar no path
             user = userService.getUserByUserUsername(username, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
@@ -103,6 +104,7 @@ public class UserController {
     ) throws BadRequestException, NotFoundException {
         List<House> userHouses;
         try {
+            // TODO verificar no path
             userHouses = houseService.getHousesByUserUsername(username, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
@@ -130,6 +132,7 @@ public class UserController {
     ) throws BadRequestException, NotFoundException {
         List<pt.isel.ps.gis.model.List> lists;
         try {
+            // TODO verificar no path
             ListService.AvailableListFilters filters;
             if (params.isNull()) {
                 Long[] housesIds = houseService.getHousesByUserUsername(username, locale)
@@ -196,6 +199,7 @@ public class UserController {
     ) throws BadRequestException, NotFoundException, URISyntaxException {
         pt.isel.ps.gis.model.List list;
         try {
+            // TODO verificar no path
             list = listService.addUserList(
                     body.getHouseId(),
                     body.getName(),
@@ -231,6 +235,7 @@ public class UserController {
     ) throws BadRequestException, NotFoundException, ConflictException {
         Users user;
         try {
+            // TODO verificar no path
             user = userService.updateUser(
                     username,
                     body.getEmail(),
@@ -264,6 +269,7 @@ public class UserController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         try {
+            // TODO verificar no path
             userService.deleteUserByUserUsername(username, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());

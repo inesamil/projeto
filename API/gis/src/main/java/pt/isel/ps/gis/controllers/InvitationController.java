@@ -45,6 +45,7 @@ public class InvitationController {
     ) throws BadRequestException, NotFoundException {
         List<Invitation> invitations;
         try {
+            // TODO verificar no path
             invitations = invitationService.getReceivedInvitationsByUserUsername(username);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
@@ -73,6 +74,7 @@ public class InvitationController {
     ) throws BadRequestException, NotFoundException, ConflictException, ForbiddenException {
         String username = authenticationFacade.getAuthentication().getName();
         try {
+            // TODO se sou admin da casa qe tou a adicionar
             invitationService.sendInvitation(houseId, username, body.getUsername(), locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
@@ -102,6 +104,7 @@ public class InvitationController {
             Locale locale
     ) throws BadRequestException, NotFoundException {
         try {
+            // TODO nao sei que username vai no path. Nao sei o qe fazer neste
             invitationService.updateInvitation(houseId, username, body.getAccept(), locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
