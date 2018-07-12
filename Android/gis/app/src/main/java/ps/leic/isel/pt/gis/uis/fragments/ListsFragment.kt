@@ -45,6 +45,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     private var listener: OnListsFragmentInteractionListener? = null
     private lateinit var listsViewModel: ListsViewModel
     private lateinit var url: String
+    private lateinit var loggedInUser: String
 
     private var state: State = State.LOADING
     private lateinit var progressBar: ProgressBar
@@ -64,6 +65,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         super.onCreate(savedInstanceState)
         arguments?.let {
             url = it.getString(URL_TAG)
+            loggedInUser = it.getString(USERNAME_TAG)
         }
         listsViewModel = ViewModelProviders.of(activity!!).get(ListsViewModel::class.java)
         listsViewModel.init(url)
@@ -102,6 +104,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.let {
             url = it.getString(URL_TAG)
+            loggedInUser = it.getString(USERNAME_TAG)
         }
     }
 
@@ -113,6 +116,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(URL_TAG, url)
+        outState.putString(USERNAME_TAG, loggedInUser)
     }
 
     override fun onStop() {
@@ -228,7 +232,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         })
     }
 
-    fun onFiltersApplied(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?, loggedInUser: String) {
+    fun onFiltersApplied(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?) {
         lists?.filter {
             // List in the house
             val houseId = it.houseId

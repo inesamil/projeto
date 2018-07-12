@@ -126,7 +126,7 @@ class HomeActivity : AppCompatActivity(),
         ServiceLocator
                 .getSmartLock(applicationContext)
                 .retrieveCredentials(null, { credentials ->
-                    index.getHousesUrl(credentials.id)?.let {url ->
+                    index.getHousesUrl(credentials.id)?.let { url ->
                         val args: Map<String, Any> = mapOf(
                                 Pair(HousesFragment.URL_ARG, url),
                                 Pair(HousesFragment.USERNAME_ARG, credentials.id)
@@ -165,8 +165,8 @@ class HomeActivity : AppCompatActivity(),
         val index = gisApplication.index
         ServiceLocator
                 .getSmartLock(applicationContext)
-                .retrieveCredentials(null, {credentials ->
-                    index.getUserListUrl(credentials.id)?.let {url ->
+                .retrieveCredentials(null, { credentials ->
+                    index.getUserListUrl(credentials.id)?.let { url ->
                         val args: Map<String, Any> = mapOf(
                                 Pair(HousesFragment.URL_ARG, url),
                                 Pair(HousesFragment.USERNAME_ARG, credentials.id)
@@ -391,9 +391,9 @@ class HomeActivity : AppCompatActivity(),
     }
 
     // Listener for ListsFiltersDialogFragment interaction
-    override fun onFiltersApply(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?, loggedInUser: String) {
+    override fun onFiltersApply(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?) {
         val listsFragment = supportFragmentManager.findFragmentByTag(ListsFragment.TAG) as? ListsFragment
-        listsFragment?.onFiltersApplied(systemLists, userLists, sharedLists, houses, loggedInUser)
+        listsFragment?.onFiltersApplied(systemLists, userLists, sharedLists, houses)
     }
 
     // Listener for StockItemListFragment interaction
@@ -485,7 +485,7 @@ class HomeActivity : AppCompatActivity(),
                 val index = gisApplication.index
                 ServiceLocator
                         .getSmartLock(applicationContext)
-                        .retrieveCredentials(null, {credentials ->
+                        .retrieveCredentials(null, { credentials ->
                             val url: String? = index.getUserListUrl(credentials.id)
                             url?.let {
                                 val args: Map<String, Any> = mapOf(
