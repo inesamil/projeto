@@ -19,9 +19,9 @@ export default ({ url, getAuthorization }) => (
           const stockitem = mapSirenToStockItem(json)
           return (
             <div>
-              <h1>{stockitem.productName} {stockitem.variety}</h1>
-              <h3>{stockitem.brand}</h3>
-              <h5>Qty. {stockitem.quantity} units</h5>
+              <h2 align='center'>{stockitem.productName} {stockitem.variety}</h2>
+              <h3 align='center'>{stockitem.brand}</h3>
+              <h5 align='center'>Qty. {stockitem.quantity} units</h5>
               <div>
                 <div className='card'>
                   <details>
@@ -33,7 +33,7 @@ export default ({ url, getAuthorization }) => (
                 </div>
                 <div className='card'>
                   <details>
-                    <summary style={{fonSize: '22px'}}>Expiration Dates</summary>
+                    <summary style={{fontSize: '22px'}}>Expiration Dates</summary>
                     {stockitem.expirationDates.map((expiration, idx) => (
                       <p key={idx} style={{textIndent: '5%', color: 'black'}}>{expiration.date} - {expiration.quantity} units</p>
                     ))}
@@ -43,7 +43,7 @@ export default ({ url, getAuthorization }) => (
                   <details>
                     <summary style={{fontSize: '22px'}}>Storages</summary>
                     {stockitem.storages.map((storage, idx) => (
-                      <p key={idx} style={{textIndent: '5%', color: 'black'}}>storage</p>
+                      <p key={idx} style={{textIndent: '5%', color: 'black'}}>{storage}</p>
                     ))}
                   </details>
                 </div>

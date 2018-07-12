@@ -15,16 +15,17 @@ class Lists extends React.Component {
   render () {
     return (
       <div>
-        <h1>Lists</h1>
+        <h2 align='center'>Lists</h2>
         <div id='myUL'>
           {this.props.lists.map((list, idx) => (
             <div key={idx}>
-              <li id='divCard' className='card' onClick={() => this.props.redirectToList(list.href)}>
+              <div id='divCard' className='card' onClick={() => this.props.redirectToList(list.href)}>
                 <div style={{textAlign: 'center'}}>
-                  <h4 style={{fontSize: '30px', display: 'inline-block', color: 'black'}}> {list.name}</h4>
-                  <p style={{display: 'inline-block', align: 'left'}}>{list.houseName}</p>
+                  <h4 style={{fontSize: '30px', color: 'black', paddingLeft: '10px'}}> {list.name}</h4>
+                  <span className='glyphicon glyphicon-home' style={{'font-size': '15px', display: 'inline-block', marginRight: '10px', color: 'rgba(253, 73, 82, 0.8)'}} />
+                  <p style={{display: 'inline-block', align: 'left'}}> {list.houseName}</p>
                 </div>
-              </li>
+              </div>
               <br />
             </div>))}
         </div>

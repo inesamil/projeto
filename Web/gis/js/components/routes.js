@@ -101,7 +101,8 @@ export default class extends React.Component {
               this.removeUserUrl()
               window.location.replace(home)
             }}
-            userUrl={userTempl.expand({ url: this.getUserUrl() })} />
+            userUrl={userTempl.expand({ url: this.getUserUrl() })}
+            homeUrl={() => window.location.replace(home)} />
           <Switch>
             <Route exact path='/login' render={({ history }) => {
               if (!this.isAuthenticated()) {

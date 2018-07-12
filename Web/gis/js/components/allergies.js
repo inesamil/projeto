@@ -26,31 +26,30 @@ export default ({ url, getAuthorization }) => (
                         Are there members with allergies in the house ?
                 </h4>
                 <label className='containerLabel'> Yes
-                  <input type='radio' checked='checked' name='radio' />
-                  <span className='checkmark' />
+                  {allergies.houseAllergies ? (<input type='radio' checked='checked' name='radio' />) : (<input type='radio' name='radio' />) }
                 </label>
-                <label className='containerLabel'> No
-                  <input type='radio' name='radio' />
-                  <span className='checkmark' />
+                <label className='containerLabel'> No 
+                  {allergies.houseAllergies ? (<input type='radio' name='radio' />) : (<input type='radio' checked='checked' name='radio' />) }
                 </label>
               </div>
               <p><br /><h3 style={{'text-indent': '400px'}}>Allergens :</h3><br /></p>
-              <div>
+              {allergies.houseAllergies
+                ? (<div>
                 <table className='table card' >
-                  {allergies.houseAllergies.map((allergy, idx) =>
-                    <tr key={idx}>
-                      <td>
-                        <h3 style={{'text-indent': '40px'}}>{allergy.allergen}</h3>
-                      </td>
-                      <td>
-                        <div class='number-input'>
-                          <h3>{allergy.allergicsNumber}</h3>
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-                </table>
-              </div>
+                    {allergies.houseAllergies.map((allergy, idx) =>
+                      <tr key={idx}>
+                        <td>
+                          <h3 style={{'text-indent': '40px'}}>{allergy.allergen}</h3>
+                        </td>
+                        <td>
+                          <div class='number-input'>
+                            <h3>{allergy.allergicsNumber}</h3>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </table>
+              </div>) : ('')}
             </div>
           )
         }}

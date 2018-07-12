@@ -12,7 +12,7 @@ a {
  
 .nav{  
   font-size: 0;
-  background:#ff9800;
+  background: rgb(255, 203, 61);
   height: 1px;
 }
 
@@ -76,13 +76,13 @@ a {
 }
 
 .header {
-  height: calc(240px + (160 - 240)*(100vw - 400px)/(600-200));
+  height: calc(310px + (160 - 310)*(100vw - 400px)/(600-200));
   width: 100%;
-  background: #ff9800;
+  background: rgb(255, 203, 61);
 }
 
 .header:hover {
-  background: #ff9800;
+  background: rgb(255, 203, 61);
 }
 
 .header-title {
@@ -125,8 +125,8 @@ a {
 
 /* Login Style */
 .login-row {
+  text-align: center;
   margin-top: 10px;
-  margin-left: 10px;
 }
 
 .login-column {
@@ -151,19 +151,6 @@ a {
   margin-top: 8hw;
 }
 
-.login-vertical-line {
-  display: inline-block;
-  width: 5px;
-}
-
-.login-vertical-line div {
-  display: inline-block;
-  border-left: thick solid black;
-  height: 25vh;
-  width: 35vw;
-  padding: 10px;
-  text-align: center;
-}
 
 /* Category */
 .grid-container {
@@ -217,6 +204,8 @@ a {
   display: inline-block;
   width: 100%;
   margin-top: 1vh;
+  padding-left: 30px;
+  font-size: 16px;
 }
 
 /* Style the tab */
@@ -264,7 +253,8 @@ a {
 
 .profile-title {
   float: left;
-  margin-left: 1vw
+  margin-left: 1vw;
+  padding-left: 20px;
 }
 
 .card {
@@ -298,6 +288,7 @@ a {
 }
 .col-sm-3:before {
   padding-top: 100%;
+  max-width: 1000px;
   /* makes expand to a square */
 }
 
@@ -329,4 +320,31 @@ a {
 
 #listsTile {
   background: rgba(0, 190, 190, 0.8)
+}
+
+.inner {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 3px 5px;
+}
+
+.buttonsHouse {
+  background-color: rgba(253, 73, 82, 0.8); 
+  color: black; 
+  border: none;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 6px 40px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.select {
+  position: relative;
+  margin-left: 30%;
+  background-color: rgb(255, 206, 61, 0.8);
+  border: 6px solid transparent;
 }

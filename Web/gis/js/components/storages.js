@@ -20,10 +20,11 @@ export default ({ url, getAuthorization }) => (
           return (
             <div>
               <div id='myUL'>
+                <h2 align='center'>Storages</h2>
                 {storages.map((storage, idx) => (
                   <li key={idx} id='divCard' className='card' style={{listStyleType: 'none'}}>
                     <h3 className='container'>{storage.storageName}</h3>
-                    <p>{`[${storage.temperature.minimum},${storage.temperature.maximum}]`}</p>
+                    <h5 className='container' style={{'padding-bottom': '10px'}}>{`[${storage.temperature.minimum},${storage.temperature.maximum}]`}</h5>
                   </li>
                 ))}
               </div>

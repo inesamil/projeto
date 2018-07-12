@@ -5,7 +5,7 @@ export default ({result, onJson, onLoading, onError}) => {
     if (onLoading) {
       return onLoading(result.loading)
     } else {
-      return <div> loading ... </div>
+      return <div > <i class='fa fa-spinner fa-spin' style={{'font-size': '50px'}} /> </div>
     }
   } else if (result.error) {
     if (onError) {

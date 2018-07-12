@@ -2,8 +2,8 @@ import React from 'react'
 
 export default ({ onProfileClick, onStockItemClick, onHousesClick, onListsClick }) => (
 
-  <div className='container center'>
-    <div className='row section-box'>
+  <div style={{width: '1795px'}}>
+    <div className='row'>
       <div className='col-sm-3 text-center' id='stockItemTile' onClick={onStockItemClick}>
         <div className='ib'>
           <img src='../static/images/kitchen_web_hi_res_512.png' style={{width: '60px'}} />

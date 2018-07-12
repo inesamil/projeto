@@ -19,29 +19,29 @@ export default ({ url, getAuthorization }) => (
           const list = mapSirenToList(json)
           return (
             <div>
-              <h4>{list.listName}</h4>
+              <h2 align='center'>{list.listName}</h2>
               {list.listType === 'system'
-                ? <p>System List</p>
+                ? <h3 style={{paddingLeft: '350px'}}>System List</h3>
                 : <div>
-                  <p>{list.username}</p>
-                  {console.log(list.shareable)}
+                  <h3 style={{paddingLeft: '350px'}}>{list.username}</h3>
                   <p>Private List: {list.shareable
                     ? <input type='checkbox' disabled='true' unchecked='true' />
                     : <input type='checkbox' disabled='true' checked='true' />}
                   </p>
                 </div>
               }
-              <p>{list.houseName}</p>
-              <table className='center'>
+              <span className='glyphicon glyphicon-home' style={{'font-size': '15px', display: 'inline-block', marginRight: '10px', color: 'rgba(253, 73, 82, 0.8)', paddingLeft: '350px'}} />
+              <h4 style={{display: 'inline-block', align: 'left'}}> {list.houseName}</h4>
+              <table className='card'>
                 <tbody>
                   <tr>
-                    <th>Item</th>
-                    <th style={{width: '1vw', whiteSpace: 'nowrap', textAlign: 'right'}}>Quantity</th>
+                    <th style={{paddingLeft: '20px'}}>Item</th>
+                    <th style={{width: '1vw', whiteSpace: 'nowrap', textAlign: 'right', paddingRight: '20px'}}>Quantity</th>
                   </tr>
                   {list.listProducts.map((product, idx) => (
                     <tr>
-                      <td>{product.productName}</td>
-                      <td style={{width: '1vw', whiteSpace: 'nowrap', textAlign: 'right'}}>{product.quantity}</td>
+                      <td style={{paddingLeft: '20px'}}>{product.productName}</td>
+                      <td style={{width: '1vw', whiteSpace: 'nowrap', textAlign: 'right', paddingRight: '42px'}}>{product.quantity}</td>
                     </tr>
                   ))}
                 </tbody>
