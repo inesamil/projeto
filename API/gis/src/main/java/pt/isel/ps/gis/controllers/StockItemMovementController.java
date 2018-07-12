@@ -81,6 +81,7 @@ public class StockItemMovementController {
             @ApiResponse(code = 201, message = "Created"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -92,7 +93,8 @@ public class StockItemMovementController {
     ) throws BadRequestException, NotFoundException, ForbiddenException {
         CsvToBeanBuilder<TagCsv> builder = new CsvToBeanBuilder<>(new StringReader(body.getTag()));
         List<TagCsv> tagCsvList = builder.withType(TagCsv.class).build().parse();
-        if (tagCsvList.size() <= 0) throw new BadRequestException("No empty Tags allowed.", messageSource.getMessage("no_empty_tags_allowed", null, locale));
+        if (tagCsvList.size() <= 0)
+            throw new BadRequestException("No empty Tags allowed.", messageSource.getMessage("no_empty_tags_allowed", null, locale));
         TagCsv tag = tagCsvList.get(0);
         String username = authenticationFacade.getAuthentication().getName();
         try {
@@ -118,7 +120,6 @@ public class StockItemMovementController {
         } catch (InsufficientPrivilegesException e) {
             throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }

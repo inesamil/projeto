@@ -14,7 +14,6 @@ import pt.isel.ps.gis.exceptions.*;
 import pt.isel.ps.gis.model.House;
 import pt.isel.ps.gis.model.UserHouse;
 import pt.isel.ps.gis.model.inputModel.HouseInputModel;
-import pt.isel.ps.gis.model.inputModel.HouseholdInputModel;
 import pt.isel.ps.gis.model.outputModel.HouseMembersOutputModel;
 import pt.isel.ps.gis.model.outputModel.HouseOutputModel;
 import pt.isel.ps.gis.model.outputModel.IndexOutputModel;
@@ -137,6 +136,7 @@ public class HouseController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -168,38 +168,6 @@ public class HouseController {
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseOutputModel(username, house), setSirenContentType(headers), HttpStatus.OK);
-    }
-
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 500, message = "Internal Server Error")
-    })
-    @PutMapping("/{house-id}/users/{username}")
-    public ResponseEntity<HouseMembersOutputModel> putMember(
-            @PathVariable("house-id") long houseId,
-            @PathVariable("username") String username,
-            @RequestBody HouseholdInputModel body,
-            Locale locale
-    ) throws BadRequestException, NotFoundException, ForbiddenException {
-        List<UserHouse> household;
-        try {
-            // TODO autorizacao no associate? Este pode ter autorização ? Como? Se calhar esta rota não existe
-            houseMemberService.associateMember(houseId, username, body.getAdministrator(), locale);
-            household = houseMemberService.getMembersByHouseId(username, houseId, locale);
-        } catch (EntityException e) {
-            throw new BadRequestException(e.getMessage(), e.getMessage());
-        } catch (EntityNotFoundException e) {
-            throw new NotFoundException(e.getMessage(), e.getMessage());
-        } catch (InsufficientPrivilegesException e) {
-            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
-        }
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new HouseMembersOutputModel(houseId, household), setSirenContentType(headers),
-                HttpStatus.OK);
     }
 
     @ApiResponses(value = {
@@ -245,6 +213,7 @@ public class HouseController {
     ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<UserHouse> household;
         try {
+            // TODO falta autorizacao
             houseMemberService.deleteMemberByMemberId(username, houseId, username, locale);
             household = houseMemberService.getMembersByHouseId(username, houseId, locale);
         } catch (EntityException e) {

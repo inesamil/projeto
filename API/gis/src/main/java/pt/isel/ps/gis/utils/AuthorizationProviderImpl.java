@@ -11,7 +11,6 @@ public class AuthorizationProviderImpl implements AuthorizationProvider {
 
     private final UserHouseRepository userHouseRepository;
     private final MessageSource messageSource;
-    private final Locale locale = LocaleContextHolder.getLocale();
 
     public AuthorizationProviderImpl(UserHouseRepository userHouseRepository, MessageSource messageSource) {
         this.userHouseRepository = userHouseRepository;
@@ -20,6 +19,7 @@ public class AuthorizationProviderImpl implements AuthorizationProvider {
 
     @Override
     public void checkUserAuthorizationToAccessHouse(String username, long houseId) throws InsufficientPrivilegesException {
+        Locale locale = LocaleContextHolder.getLocale();
         if (!userHouseRepository.existsById_HouseIdAndUsersByUsersId_UsersUsername(houseId, username))
             throw new InsufficientPrivilegesException("No authorization.", messageSource.getMessage("no_authorization", null, locale));
     }
