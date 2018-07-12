@@ -54,7 +54,7 @@ public class InvitationServiceImpl implements InvitationService {
 
     @Transactional
     @Override
-    public Invitation sentInvitation(
+    public Invitation sendInvitation(
             Long houseId,
             String from_username,
             String to_username,

@@ -73,7 +73,7 @@ public class InvitationController {
     ) throws BadRequestException, NotFoundException, ConflictException, ForbiddenException {
         String username = authenticationFacade.getAuthentication().getName();
         try {
-            invitationService.sentInvitation(houseId, username, body.getUsername(), locale);
+            invitationService.sendInvitation(houseId, username, body.getUsername(), locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {

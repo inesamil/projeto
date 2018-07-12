@@ -27,7 +27,7 @@ public interface InvitationService {
      * @param to_username   identificador do utilizador a receber o convite
      * @return Invitation
      */
-    Invitation sentInvitation(Long houseId, String from_username, String to_username, Locale locale) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException, InsufficientPrivilegesException;
+    Invitation sendInvitation(Long houseId, String from_username, String to_username, Locale locale) throws EntityException, EntityNotFoundException, EntityAlreadyExistsException, InsufficientPrivilegesException;
 
     /**
      * Atualizar um convite, aceitar ou recusar consoante o paramêtro accept
