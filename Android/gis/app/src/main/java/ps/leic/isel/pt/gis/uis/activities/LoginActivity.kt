@@ -65,20 +65,15 @@ class LoginActivity : AppCompatActivity() {
     private fun onLoginClick(view: View) {
         val username = usernameEditText.text.toString()
         val password = passwordEditText.text.toString()
-        val credential = signinBtn.tag as? Credential
 
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, getString(R.string.please_fill_in_all_required_fields), Toast.LENGTH_LONG).show()
             return
         }
 
-        if (credential == null) {
-            ServiceLocator
-                    .getSmartLock(applicationContext)
-                    .storeCredentials(this, username, password, ::getUser, { onError("Precisa ativar smart lock for password nas definições") }) // TODO meter nas strings
-        } else {
-            getUser()
-        }
+        ServiceLocator
+                .getSmartLock(applicationContext)
+                .storeCredentials(this, username, password, ::getUser, { onError("Precisa ativar smart lock for password nas definições") }) // TODO meter nas strings
     }
 
     private fun getUser() {
@@ -106,7 +101,6 @@ class LoginActivity : AppCompatActivity() {
         Log.i(TAG, "Credentials stored.")
         usernameEditText.setText(credential.id)
         passwordEditText.setText(credential.password)
-        signinBtn.tag = credential
     }
 
     private fun onUncomplete() {

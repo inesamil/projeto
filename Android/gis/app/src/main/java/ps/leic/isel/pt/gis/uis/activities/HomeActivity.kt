@@ -1,11 +1,6 @@
 package ps.leic.isel.pt.gis.uis.activities
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.media.MediaScannerConnection
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
@@ -15,7 +10,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -33,9 +27,6 @@ import ps.leic.isel.pt.gis.model.dtos.StorageDto
 import ps.leic.isel.pt.gis.uis.fragments.*
 import ps.leic.isel.pt.gis.utils.getCurrentFragment
 import ps.leic.isel.pt.gis.utils.replaceCurrentFragmentWith
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
 class HomeActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
@@ -334,52 +325,6 @@ class HomeActivity : AppCompatActivity(),
 
     // Listener for ListDetailFragment interaction
     override fun onListDownload(listProducts: Array<ListProductDto>) {
-        if (!isExternalStorageWritable()) {
-            Toast.makeText(this, "Midia não está disponivel", Toast.LENGTH_SHORT).show() // TODO meter nas strings
-            return
-        }
-        val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-        val file = File(path, "test") // TODO mudar
-        try {
-            if (!path.mkdirs()) {
-                Toast.makeText(this, "Cannot save, cannot create pictures directory.", Toast.LENGTH_SHORT).show() // TODO strings
-                return
-            }
-
-            val dest = Bitmap.createBitmap(300, 300, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(dest)
-            val paint = Paint()
-            paint.textSize = 35F
-            paint.color = Color.BLACK
-            paint.style = Paint.Style.FILL
-            canvas.drawBitmap(dest, 0F, 0F, null)
-            val height = paint.measureText("yY")
-            val width = paint.measureText("test")
-            canvas.drawText("test", width, height + 15F, paint)
-
-            dest.compress(Bitmap.CompressFormat.PNG, 50, FileOutputStream(file))
-
-            // Very simple code to copy a picture from the application's
-            // resource into the external file.  Note that this code does
-            // no error checking, and assumes the picture is small (does not
-            // try to copy it in chunks).  Note that if external storage is
-            // not currently mounted this will silently fail.
-
-
-            // Tell the media scanner about the new file so that it is
-            // immediately available to the user.
-            MediaScannerConnection.scanFile(this, arrayOf(file.toString()), null) { path, uri ->
-                Log.i("ExternalStorage", "Scanned $path:")
-                Log.i("ExternalStorage", "-> uri=$uri")
-            }
-        } catch (e: IOException) {
-            // Unable to create file, likely because external storage is
-            // not currently mounted.
-            Toast.makeText(this, "Midia não está disponivel", Toast.LENGTH_SHORT).show() // TODO meter nas strings
-            Log.w("HomeActivity", "Error writing $file", e) // TODO qual a tag a usar?
-        }
-
-
         // TODO: download
         // Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_LONG).show()
     }
