@@ -26,7 +26,6 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
                     HttpWebService.Method.POST, url, body, headers, dtoType, errorType,
                     { data.value = it }, tag)
         }, {
-            data.value = Resource.error(applicationContext.getString(R.string.credentials_not_found))
             ServiceLocator.getWebService(applicationContext).fetch(
                     HttpWebService.Method.POST, url, body, headers, dtoType, errorType,
                     { data.value = it }, tag)
@@ -49,7 +48,6 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
                     HttpWebService.Method.GET, url, null, headers, dtoType, errorType,
                     { data.value = it }, tag)
         }, {
-            data.value = Resource.error(applicationContext.getString(R.string.credentials_not_found))
             ServiceLocator.getWebService(applicationContext).fetch(
                     HttpWebService.Method.GET, url, null, headers, dtoType, errorType,
                     { data.value = it }, tag)
@@ -73,7 +71,6 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
                     HttpWebService.Method.PUT, url, body, headers, dtoType, errorType,
                     { data.value = it }, tag)
         }, {
-            data.value = Resource.error(applicationContext.getString(R.string.credentials_not_found))
             ServiceLocator.getWebService(applicationContext).fetch(
                     HttpWebService.Method.PUT, url, body, headers, dtoType, errorType,
                     { data.value = it }, tag)
@@ -96,7 +93,6 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
                     HttpWebService.Method.DELETE, url, null, headers, dtoType, errorType,
                     { data.value = it }, tag)
         }, {
-            data.value = Resource.error(applicationContext.getString(R.string.credentials_not_found))
             ServiceLocator.getWebService(applicationContext).fetch(
                     HttpWebService.Method.DELETE, url, null, headers, dtoType, errorType,
                     { data.value = it }, tag)
