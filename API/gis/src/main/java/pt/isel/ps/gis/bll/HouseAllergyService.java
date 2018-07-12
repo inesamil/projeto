@@ -34,18 +34,22 @@ public interface HouseAllergyService {
     /**
      * Atualizar ou associar uma alergia a uma casa
      *
+     *
+     * @param username
      * @param houseId   identificador da casa
      * @param allergies alergias a adicionar ou atualizar
      * @return List<HouseAllergy>
      * @throws EntityNotFoundException se não encontrar a alergia especificada na casa particularizada
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      */
-    List<HouseAllergy> associateHouseAllergies(long houseId, HouseAllergy[] allergies, Locale locale) throws EntityNotFoundException, EntityException;
+    List<HouseAllergy> associateHouseAllergies(String username, long houseId, HouseAllergy[] allergies, Locale locale) throws EntityNotFoundException, EntityException, InsufficientPrivilegesException;
 
 
     /**
      * Atualizar ou associar uma alergia a uma casa
      *
+     *
+     * @param username
      * @param houseId      identificador da casa
      * @param allergen     identificador da alergia
      * @param allergicsNum número de pessoas com a alergia identificada pelo parametro allergen
@@ -53,24 +57,28 @@ public interface HouseAllergyService {
      * @throws EntityNotFoundException se não encontrar a alergia especificada na casa particularizada
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      */
-    HouseAllergy associateHouseAllergy(long houseId, String allergen, Short allergicsNum, Locale locale) throws EntityNotFoundException, EntityException;
+    HouseAllergy associateHouseAllergy(String username, long houseId, String allergen, Short allergicsNum, Locale locale) throws EntityNotFoundException, EntityException, InsufficientPrivilegesException;
 
     /**
      * Desassociar uma alergia de uma casa
      *
+     *
+     * @param username
      * @param houseId  identificador da casa
      * @param allergen identificador da alergia
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se não encontrar a alergia especificada na casa particularizada
      */
-    void deleteHouseAllergyByHouseAllergyId(long houseId, String allergen, Locale locale) throws EntityException, EntityNotFoundException;
+    void deleteHouseAllergyByHouseAllergyId(String username, long houseId, String allergen, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 
 
     /**
      * Remover todas as alergias associadas a uma casa
      *
+     *
+     * @param username
      * @param houseId identificador da casa
      * @throws EntityNotFoundException se não a casa especificada não existir
      */
-    void deleteAllHouseAllergiesByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException;
+    void deleteAllHouseAllergiesByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 }

@@ -65,17 +65,19 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     @Transactional
     @Override
-    public List<HouseAllergy> associateHouseAllergies(long houseId, HouseAllergy[] allergies, Locale locale) throws EntityNotFoundException, EntityException {
+    public List<HouseAllergy> associateHouseAllergies(String username, long houseId, HouseAllergy[] allergies, Locale locale) throws EntityNotFoundException, EntityException, InsufficientPrivilegesException {
         List<HouseAllergy> houseAllergies = new ArrayList<>();
         for (HouseAllergy houseAllergy : allergies) {
-            houseAllergies.add(associateHouseAllergy(houseId, houseAllergy.getId().getAllergyAllergen(), houseAllergy.getHouseallergyAllergicsnum(), locale));
+            houseAllergies.add(associateHouseAllergy(username, houseId, houseAllergy.getId().getAllergyAllergen(), houseAllergy.getHouseallergyAllergicsnum(), locale));
         }
         return houseAllergies;
     }
 
     @Transactional
     @Override
-    public HouseAllergy associateHouseAllergy(long houseId, String allergen, Short allergicsNum, Locale locale) throws EntityNotFoundException, EntityException {
+    public HouseAllergy associateHouseAllergy(String username, long houseId, String allergen, Short allergicsNum, Locale locale) throws EntityNotFoundException, EntityException, InsufficientPrivilegesException {
+        checkHouse(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         ValidationsUtils.validateHouseAllergyAllergicsNum(allergicsNum);
         // Total Membros na casa
         short totalMembers = getTotalHouseMembers(houseId, locale);
@@ -87,7 +89,6 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
             houseAllergy = optionalHouseAllergy.get();
             houseAllergy.setHouseallergyAllergicsnum(allergicsNum);
         } else {
-            checkHouse(houseId, locale);
             checkAllergy(allergen, locale);
             houseAllergy = new HouseAllergy(houseId, allergen, allergicsNum);
             houseAllergyRepository.save(houseAllergy);
@@ -96,7 +97,9 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
     }
 
     @Override
-    public void deleteHouseAllergyByHouseAllergyId(long houseId, String allergen, Locale locale) throws EntityException, EntityNotFoundException {
+    public void deleteHouseAllergyByHouseAllergyId(String username, long houseId, String allergen, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
+        checkHouse(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         HouseAllergyId id = new HouseAllergyId(houseId, allergen);
         checkAllergen(houseId, allergen, locale);
         houseAllergyRepository.deleteById(id);
@@ -104,8 +107,9 @@ public class HouseAllergyServiceImpl implements HouseAllergyService {
 
     @Transactional
     @Override
-    public void deleteAllHouseAllergiesByHouseId(long houseId, Locale locale) throws EntityException, EntityNotFoundException {
+    public void deleteAllHouseAllergiesByHouseId(String username, long houseId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
         checkHouse(houseId, locale);
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         houseAllergyRepository.deleteAllById_HouseId(houseId);
     }
 

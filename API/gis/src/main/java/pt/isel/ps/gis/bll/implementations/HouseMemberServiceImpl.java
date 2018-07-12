@@ -74,7 +74,7 @@ public class HouseMemberServiceImpl implements HouseMemberService {
 
     @Transactional
     @Override
-    public void deleteMemberByMemberId(long houseId, String username, Locale locale) throws EntityException, EntityNotFoundException {
+    public void deleteMemberByMemberId(String s, long houseId, String username, Locale locale) throws EntityException, EntityNotFoundException {
         UserHouse member = getMemberByMemberId(houseId, username, locale);
         userHouseRepository.deleteById(member.getId());
     }

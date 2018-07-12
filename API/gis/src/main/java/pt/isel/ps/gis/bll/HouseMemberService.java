@@ -55,10 +55,12 @@ public interface HouseMemberService {
     /**
      * Remover um membro da casa
      *
+     *
+     * @param s
      * @param houseId  identificador da casa
      * @param username identificador do utilizador
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o membro especificado não existir na casa particularizada
      */
-    void deleteMemberByMemberId(long houseId, String username, Locale locale) throws EntityException, EntityNotFoundException;
+    void deleteMemberByMemberId(String s, long houseId, String username, Locale locale) throws EntityException, EntityNotFoundException;
 }

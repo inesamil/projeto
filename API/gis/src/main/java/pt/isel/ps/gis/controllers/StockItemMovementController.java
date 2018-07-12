@@ -85,17 +85,15 @@ public class StockItemMovementController {
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @PostMapping("")
-    public ResponseEntity<MovementsOutputModel> postMovement(
+    public ResponseEntity postMovement(
             @PathVariable("house-id") long houseId,
             @RequestBody MovementInputModel body,
             Locale locale
     ) throws BadRequestException, NotFoundException {
-        // TODO o que acontece qnd um atributo é null? qual é a excecao lancada pelo jackson e no qe resulta essa excecao?
         CsvToBeanBuilder<TagCsv> builder = new CsvToBeanBuilder<>(new StringReader(body.getTag()));
         List<TagCsv> tagCsvList = builder.withType(TagCsv.class).build().parse();
         if (tagCsvList.size() <= 0) throw new BadRequestException("", ""); // TODO ver a mensagem da excecao
         TagCsv tag = tagCsvList.get(0);
-        List<StockItemMovement> movements;
         try {
             stockItemMovementService.addStockItemMovement(
                     houseId,
@@ -111,7 +109,6 @@ public class StockItemMovementController {
                     tag.getDate(),
                     locale
             );
-            movements = stockItemMovementService.getStockItemMovementsByHouseId(houseId, locale);   //TODO: o que fazer, talvez não se devesse retornar nada já que isto vai para o hardware
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
@@ -119,7 +116,6 @@ public class StockItemMovementController {
         }
         // TODO autorizacao?
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(new MovementsOutputModel(houseId, movements), setSirenContentType(headers),
-                HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

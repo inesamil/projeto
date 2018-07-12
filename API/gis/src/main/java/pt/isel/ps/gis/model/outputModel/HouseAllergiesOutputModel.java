@@ -110,7 +110,9 @@ public class HouseAllergiesOutputModel {
                 houseAllergiesUri,
                 type,
                 new Field[]{
-                        new Field("allergies", Field.Type.checkbox, null, "Allergies")  //TODO: tipo do array --> isto refere-se a receber um AllergiesInputModel
+                        new Field("allergy", Field.Type.text, null, "Allergy"),
+                        new Field("allergics-number", Field.Type.number, null, "Allergics Number")
+                        //new Field("allergies", Field.Type.checkbox, null, "Allergies")  //TODO: mandamos como se constrói um objeto e na docs têm de ver que é um array de cenas destas, concordam?
                 }
         );
 

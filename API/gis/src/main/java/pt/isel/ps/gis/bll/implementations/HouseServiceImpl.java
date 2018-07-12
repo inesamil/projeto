@@ -88,9 +88,10 @@ public class HouseServiceImpl implements HouseService {
     @Transactional
     @Override
     public House updateHouse(
-            long houseId, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber, Locale locale
-    ) throws EntityNotFoundException, EntityException {
+            String username, long houseId, String name, Short babiesNumber, Short childrenNumber, Short adultsNumber, Short seniorsNumber, Locale locale
+    ) throws EntityNotFoundException, EntityException, InsufficientPrivilegesException {
         House house = houseRepository.findById(houseId).orElseThrow(() -> new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale)));
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         Characteristics characteristics = new Characteristics(
                 babiesNumber,
                 childrenNumber,
@@ -104,9 +105,10 @@ public class HouseServiceImpl implements HouseService {
 
     @Transactional
     @Override
-    public void deleteHouseByHouseId(long houseId, Locale locale) throws EntityNotFoundException, EntityException {
+    public void deleteHouseByHouseId(String username, long houseId, Locale locale) throws EntityNotFoundException, EntityException, InsufficientPrivilegesException {
         if (!existsHouseByHouseId(houseId))
             throw new EntityNotFoundException(String.format("House Id %d does not exist.", houseId), messageSource.getMessage("house_Id_Not_Exist", new Object[]{houseId}, locale));
+        authorizationProvider.checkUserAuthorizationToAccessHouse(username, houseId);
         // Remover a casa bem como todas as relações das quais a casa seja parte integrante
         houseRepository.deleteCascadeHouseById(houseId);
     }

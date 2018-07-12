@@ -145,12 +145,12 @@ public class HouseController {
             @PathVariable("house-id") long houseId,
             @RequestBody HouseInputModel body,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         House house;
         String username = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO autorizacao?
             house = houseService.updateHouse(
+                    username,
                     houseId,
                     body.getName(),
                     body.getBabiesNumber(),
@@ -163,6 +163,8 @@ public class HouseController {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseOutputModel(username, house), setSirenContentType(headers), HttpStatus.OK);
@@ -185,7 +187,7 @@ public class HouseController {
     ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<UserHouse> household;
         try {
-            // TODO autorizacao no associate?
+            // TODO autorizacao no associate? Este pode ter autorização ? Como? Se calhar esta rota não existe
             houseMemberService.associateMember(houseId, username, body.getAdministrator(), locale);
             household = houseMemberService.getMembersByHouseId(username, houseId, locale);
         } catch (EntityException e) {
@@ -211,14 +213,16 @@ public class HouseController {
     public ResponseEntity<IndexOutputModel> deleteHouse(
             @PathVariable("house-id") long houseId,
             Locale locale
-    ) throws NotFoundException, BadRequestException {
+    ) throws NotFoundException, BadRequestException, ForbiddenException {
+        String username = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO Autorizacao?
-            houseService.deleteHouseByHouseId(houseId, locale);
+            houseService.deleteHouseByHouseId(username, houseId, locale);
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new IndexOutputModel(), setJsonHomeContentType(headers), HttpStatus.OK);
@@ -240,8 +244,7 @@ public class HouseController {
     ) throws BadRequestException, NotFoundException, ForbiddenException {
         List<UserHouse> household;
         try {
-            // TODO autorizacao no delete?
-            houseMemberService.deleteMemberByMemberId(houseId, username, locale);
+            houseMemberService.deleteMemberByMemberId(username, houseId, username, locale);
             household = houseMemberService.getMembersByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));

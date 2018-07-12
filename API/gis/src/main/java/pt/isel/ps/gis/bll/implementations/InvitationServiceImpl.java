@@ -72,7 +72,7 @@ public class InvitationServiceImpl implements InvitationService {
         // Verificar se o utilizador já é membro da casa
         Optional<UserHouse> invitedMember = userHouseRepository.findById_HouseIdAndUsersByUsersId_UsersUsername(houseId, to_username);
         if (invitedMember.isPresent())
-            throw new EntityException("User is already member in the house.", messageSource.getMessage("", null, locale));//TODO: adicionar esta mensagem as mensagens
+            throw new EntityException("User is already member in the house.", messageSource.getMessage("member_already_exists", null, locale));
 
         // Verificar se o utilizador que está a convidar é administrador da casa
         UserHouse member = userHouseRepository

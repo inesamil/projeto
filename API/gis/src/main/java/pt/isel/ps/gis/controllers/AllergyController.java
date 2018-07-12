@@ -110,10 +110,11 @@ public class AllergyController {
             @PathVariable("house-id") long houseId,
             @RequestBody AllergiesInputModel body,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         if (body.getAllergies() == null)
             throw new BadRequestException(messageSource.getMessage("body_Error_Msg", null, locale), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         List<HouseAllergy> allergies;
+        String username = authenticationFacade.getAuthentication().getName();
         try {
             AllergiesInputModel.Allergy[] bodyAllergies = body.getAllergies();
             HouseAllergy[] houseAllergies = new HouseAllergy[bodyAllergies.length];
@@ -121,12 +122,13 @@ public class AllergyController {
                 AllergiesInputModel.Allergy allergy = bodyAllergies[i];
                 houseAllergies[i] = new HouseAllergy(houseId, allergy.getAllergy(), allergy.getAllergicsNum());
             }
-            // TODO autorizacao no associate?
-            allergies = houseAllergyService.associateHouseAllergies(houseId, houseAllergies, locale);
+            allergies = houseAllergyService.associateHouseAllergies(username, houseId, houseAllergies, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(new HouseAllergiesOutputModel(houseId, allergies), setSirenContentType(headers),
@@ -151,8 +153,7 @@ public class AllergyController {
         List<HouseAllergy> allergies;
         String username = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO autorizacao no associate?
-            houseAllergyService.associateHouseAllergy(houseId, allergen, body.getAllergicsNum(), locale);
+            houseAllergyService.associateHouseAllergy(username, houseId, allergen, body.getAllergicsNum(), locale);
             allergies = houseAllergyService.getAllergiesByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), e.getUserFriendlyMessage());
@@ -182,8 +183,7 @@ public class AllergyController {
         List<HouseAllergy> allergies;
         String username = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO autorizacao no delete?
-            houseAllergyService.deleteAllHouseAllergiesByHouseId(houseId, locale);
+            houseAllergyService.deleteAllHouseAllergiesByHouseId(username, houseId, locale);
             allergies = houseAllergyService.getAllergiesByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
@@ -214,8 +214,7 @@ public class AllergyController {
         List<HouseAllergy> allergies;
         String username = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO autorizacao no delete?
-            houseAllergyService.deleteHouseAllergyByHouseAllergyId(houseId, allergen, locale);
+            houseAllergyService.deleteHouseAllergyByHouseAllergyId(username, houseId, allergen, locale);
             allergies = houseAllergyService.getAllergiesByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
