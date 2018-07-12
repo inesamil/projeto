@@ -189,8 +189,7 @@ public class StorageController {
         List<Storage> storages;
         String username = authenticationFacade.getAuthentication().getName();
         try {
-            // TODO autorizacao no delete?
-            storageService.deleteStorageByStorageId(houseId, storageId, locale);
+            storageService.deleteStorageByStorageId(username, houseId, storageId, locale);
             storages = storageService.getStorageByHouseId(username, houseId, locale);
         } catch (EntityException e) {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));

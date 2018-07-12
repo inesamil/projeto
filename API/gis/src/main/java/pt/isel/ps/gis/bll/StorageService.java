@@ -59,10 +59,12 @@ public interface StorageService {
     /**
      * Remover um local de armazenamento duma casa
      *
+     *
+     * @param username
      * @param houseId   identificador da casa
      * @param storageId identifcador do local de armazenamento
      * @throws EntityException         se os parâmetros recebidos forem inválidos
      * @throws EntityNotFoundException se o local de armazenamento especificado não existir na casa particularizada
      */
-    void deleteStorageByStorageId(long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException;
+    void deleteStorageByStorageId(String username, long houseId, short storageId, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
 }

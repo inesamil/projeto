@@ -89,13 +89,15 @@ public class StockItemMovementController {
             @PathVariable("house-id") long houseId,
             @RequestBody MovementInputModel body,
             Locale locale
-    ) throws BadRequestException, NotFoundException {
+    ) throws BadRequestException, NotFoundException, ForbiddenException {
         CsvToBeanBuilder<TagCsv> builder = new CsvToBeanBuilder<>(new StringReader(body.getTag()));
         List<TagCsv> tagCsvList = builder.withType(TagCsv.class).build().parse();
-        if (tagCsvList.size() <= 0) throw new BadRequestException("", ""); // TODO ver a mensagem da excecao
+        if (tagCsvList.size() <= 0) throw new BadRequestException("No empty Tags allowed.", messageSource.getMessage("no_empty_tags_allowed", null, locale));
         TagCsv tag = tagCsvList.get(0);
+        String username = authenticationFacade.getAuthentication().getName();
         try {
             stockItemMovementService.addStockItemMovement(
+                    username,
                     houseId,
                     body.getStorageId(),
                     body.getType(),
@@ -113,8 +115,9 @@ public class StockItemMovementController {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
+        } catch (InsufficientPrivilegesException e) {
+            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
-        // TODO autorizacao?
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
