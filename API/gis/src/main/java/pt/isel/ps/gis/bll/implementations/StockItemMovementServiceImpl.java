@@ -67,7 +67,7 @@ public class StockItemMovementServiceImpl implements StockItemMovementService {
 
     @Transactional
     @Override
-    public StockItemMovement addStockItemMovement(long houseId, short storageId, boolean movementType, short quantity, String productName, String brand, String variety, String segment, String conservationConditions, String description, String date, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException {
+    public StockItemMovement addStockItemMovement(long houseId, short storageId, boolean movementType, short quantity, String productName, String brand, String variety, String segment, String conservationConditions, String description, String date, Locale locale) throws EntityException, EntityNotFoundException {
         checkHouseId(houseId, locale);
         checkStorageId(houseId, storageId, locale);
         checkProductName(productName, locale);

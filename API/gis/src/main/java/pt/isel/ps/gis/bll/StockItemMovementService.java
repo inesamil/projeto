@@ -29,7 +29,7 @@ public interface StockItemMovementService {
      * Listar os movimentos dos itens de uma casa
      *
      * @param username identificador do utilizador
-     * @param houseId identificador da casa
+     * @param houseId  identificador da casa
      * @return List<StockItemMovement>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
@@ -39,8 +39,8 @@ public interface StockItemMovementService {
      * Listar os movimentos filtrados dos itens de uma casa
      *
      * @param username identificador do utilizador
-     * @param houseId identificador da casa
-     * @param filters filtros para aplicar na filtragem dos resultados
+     * @param houseId  identificador da casa
+     * @param filters  filtros para aplicar na filtragem dos resultados
      * @return List<StockItemMovement>
      * @throws EntityException se os parâmetros recebidos forem inválidos
      */
@@ -48,7 +48,6 @@ public interface StockItemMovementService {
 
     /**
      * Adicionar um movimento à casa
-     *
      *
      * @param houseId                identificador da casa
      * @param storageId              identificador do local de armazenamento
@@ -66,7 +65,7 @@ public interface StockItemMovementService {
      * @throws EntityNotFoundException
      */
     StockItemMovement addStockItemMovement(long houseId, short storageId, boolean movementType, short quantity, String productName, String brand, String variety, String segment,
-                                           String conservationConditions, String description, String date, Locale locale) throws EntityException, EntityNotFoundException, InsufficientPrivilegesException;
+                                           String conservationConditions, String description, String date, Locale locale) throws EntityException, EntityNotFoundException;
 
     /**
      * Filtros - filtragem dos movimentos

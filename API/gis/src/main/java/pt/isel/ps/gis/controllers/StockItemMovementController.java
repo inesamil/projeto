@@ -81,7 +81,6 @@ public class StockItemMovementController {
             @ApiResponse(code = 201, message = "Created"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
@@ -90,7 +89,7 @@ public class StockItemMovementController {
             @PathVariable("house-id") long houseId,
             @RequestBody MovementInputModel body,
             Locale locale
-    ) throws BadRequestException, NotFoundException, ForbiddenException {
+    ) throws BadRequestException, NotFoundException {
         CsvToBeanBuilder<TagCsv> builder = new CsvToBeanBuilder<>(new StringReader(body.getTag()));
         List<TagCsv> tagCsvList = builder.withType(TagCsv.class).build().parse();
         if (tagCsvList.size() <= 0)
@@ -115,8 +114,6 @@ public class StockItemMovementController {
             throw new BadRequestException(e.getMessage(), messageSource.getMessage("request_Not_Be_Completed", null, locale));
         } catch (EntityNotFoundException e) {
             throw new NotFoundException(e.getMessage(), e.getUserFriendlyMessage());
-        } catch (InsufficientPrivilegesException e) {
-            throw new ForbiddenException(e.getMessage(), e.getUserFriendlyMessage());
         }
         return new ResponseEntity(HttpStatus.CREATED);
     }
