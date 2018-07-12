@@ -6,7 +6,8 @@ import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.Characteristics;
 import pt.isel.ps.gis.model.Numrange;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class ValidationsUtilsTest {
 
@@ -79,9 +80,9 @@ public class ValidationsUtilsTest {
 
         // Setup das características a testar
         try {
-            invalidCharacteristics_emptyHouse = new Characteristics((short)0, (short)0, (short)0, (short)0);
-            invalidCharacteristics_noAdultsNorSeniors = new Characteristics((short)0, (short)2, (short)0, (short)0);
-            validCharacteristics = new Characteristics((short)0, (short)2, (short)2, (short)1);
+            invalidCharacteristics_emptyHouse = new Characteristics((short) 0, (short) 0, (short) 0, (short) 0);
+            invalidCharacteristics_noAdultsNorSeniors = new Characteristics((short) 0, (short) 2, (short) 0, (short) 0);
+            validCharacteristics = new Characteristics((short) 0, (short) 2, (short) 2, (short) 1);
         } catch (EntityException e) {
             fail("No exception expected. Thrown EntityException. Message:" + e.getMessage());
         }

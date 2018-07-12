@@ -112,7 +112,6 @@ public class HouseAllergiesOutputModel {
                 new Field[]{
                         new Field("allergy", Field.Type.text, null, "Allergy"),
                         new Field("allergics-number", Field.Type.number, null, "Allergics Number")
-                        //new Field("allergies", Field.Type.checkbox, null, "Allergies")  //TODO: mandamos como se constrói um objeto e na docs têm de ver que é um array de cenas destas, concordam?
                 }
         );
 
