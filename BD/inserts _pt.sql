@@ -94,7 +94,7 @@ INSERT INTO public.stockitem(house_id, stockitem_sku, product_id, stockitem_bran
 INSERT INTO public.stockitem(house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
 	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 2, 'Agros', '250', 'Iogurte Natural', 15, 'ml', 'Sem corantes nem conservantes.', 'Conservar entre 0ºC e 6ºC.');
 INSERT INTO public.stockitem(house_id, stockitem_sku, product_id, stockitem_brand, stockitem_segment, stockitem_variety, stockitem_quantity, stockitem_segmentunit, stockitem_description, stockitem_conservationstorage)
-	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 3, 'Becel', '250', 'Manteiga Vegetal', 1, 'kg', 'Menos 50% de gordura. Sem sal adicionado.', 'Fridge');
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 3, 'Becel', '1', 'Manteiga Vegetal', 1, 'kg', 'Menos 50% de gordura. Sem sal adicionado.', 'Fridge');
 	
 --EXPIRATION-DATE
 INSERT INTO public.expirationdate(house_id, stockitem_sku, date_date, date_quantity) VALUES (1, 'P1-Mimosa-UHT Magro-1l', to_date('2018-05-01', 'YYYY-MM-DD'), 2);
@@ -302,10 +302,7 @@ INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stocki
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
 	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-02'::timestamp, 3, 15);
 	
---House2-butter
-INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-06-20 09:31:00'::timestamp, 1, 1);
-	
+--House2-butter	
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
 	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-06-20 09:38:00'::timestamp, 1, 2);
 	
