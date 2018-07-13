@@ -69,9 +69,8 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun onUnsuccess(error: ErrorDto?) {
-        Log.i(TAG, "Wrong credentials.")
-        Toast.makeText(this, getString(R.string.wrong_credentials_please_login_again), Toast.LENGTH_SHORT).show()
         error?.let {
+            Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             Log.e(TAG, it.developerErrorMessage)
         }
     }
