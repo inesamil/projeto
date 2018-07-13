@@ -323,7 +323,7 @@ INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stocki
 	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, false, '2018-06-24 09:31:00'::timestamp, 6, 10);
 	
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
-	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-06-24 09:38:00'::timestamp, 2, 12);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-24 09:38:00'::timestamp, 2, 12);
 	
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
 	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-25 09:31:00'::timestamp, 6, 6);
