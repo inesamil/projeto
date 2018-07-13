@@ -197,22 +197,23 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     }
 
     private fun showProgressBarOrContent() {
+        // Show houses or hint
+        houses?.let {
+            if (it.isEmpty()) {
+                progressBar.visibility = View.GONE
+                noHousesText.visibility = View.VISIBLE
+                return
+            } else {
+                noHousesText.visibility = View.GONE
+                setDataToSpinner(it)
+            }
+        }
         when (state) {
             State.LOADING -> {
                 progressBar.visibility = View.VISIBLE
                 content.visibility = View.INVISIBLE
             }
             State.SUCCESS -> {
-                // Show houses or hint
-                houses?.let {
-                    if (it.isEmpty()) {
-                        progressBar.visibility = View.GONE
-                        noHousesText.visibility = View.VISIBLE
-                    } else {
-                        noHousesText.visibility = View.GONE
-                        setDataToSpinner(it)
-                    }
-                }
                 // Show items or hint
                 stockItems?.let {
                     progressBar.visibility = View.GONE
