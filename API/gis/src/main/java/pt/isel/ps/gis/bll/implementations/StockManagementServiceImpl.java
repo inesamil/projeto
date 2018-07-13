@@ -109,7 +109,7 @@ public class StockManagementServiceImpl implements StockManagementService {
         }
 
         if (min < THRESHOLD) {
-            addToSystemList(stockItem, (short) (max - min));
+            addToSystemList(stockItem, (short) ((max - min) == 0 ? THRESHOLD : max - min));
         }
     }
 

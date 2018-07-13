@@ -132,7 +132,7 @@ SELECT get_movements_filtered (1, 'SKU 2', false, null, null);	-- EXPECTED: Todo
 SELECT * FROM public."stockitem" WHERE public."stockitem".house_id = 1 AND public."stockitem".stockitem_sku = 'P1-Mimosa-UHT Magro-1l';
 SELECT * FROM public."expirationdate"
 SELECT insert_movement(1::int8, 1::int2, false, 1::int2, 'Leite'::varchar(35), 'Mimosa'::varchar(35), 'UHT Magro'::varchar(35), 1::real, 'l'::varchar(5), null::text,	null::varchar(128), '2018-09-01'::date);
-SELECT insert_movement(2::int8, 1::int2, false, 1::int2, 'Manteiga'::varchar(35), 'Becel'::varchar(35), 'Manteiga Vegetal'::varchar(35), 250::real, 'kg'::varchar(5), null::text,	null::varchar(128), '2019-06-01'::date);
+SELECT insert_movement(2::int8, 1::int2, false, 1::int2, 'Manteiga'::varchar(35), 'Becel'::varchar(35), 'Manteiga Vegetal'::varchar(35), 1::real, 'kg'::varchar(5), null::text,	null::varchar(128), '2019-06-01'::date);
 
 
 SELECT public."list".house_id, public."list".list_id, public."list".list_name,
