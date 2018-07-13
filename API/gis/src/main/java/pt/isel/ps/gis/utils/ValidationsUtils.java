@@ -773,7 +773,7 @@ public class ValidationsUtils {
         Locale locale = LocaleContextHolder.getLocale();
         if (date == null)
             throw new EntityException("Date is required.", messageSource.getMessage("date_Required", null, locale));
-        if (DateUtils.isStringValidDate(date.toString()))
+        if (!DateUtils.isStringValidDate(date.toString()))
             throw new EntityException("Invalid date.", messageSource.getMessage("invalid_Date", null, locale));
     }
 
