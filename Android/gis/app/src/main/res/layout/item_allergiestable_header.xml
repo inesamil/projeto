@@ -34,14 +34,14 @@
         app:layout_constraintEnd_toStartOf="@+id/allergicsNumHeaderText"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/allergicsNumHeaderText"
         android:layout_width="100dp"
         android:layout_height="45dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:ems="10"
         android:gravity="center|start"
-        android:hint="@string/default_number"
-        android:inputType="number"
         android:paddingEnd="8dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
@@ -51,6 +51,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/allergiesVerticalLine"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View

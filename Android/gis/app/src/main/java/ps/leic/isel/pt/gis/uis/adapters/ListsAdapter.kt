@@ -27,6 +27,9 @@ class ListsAdapter : RecyclerView.Adapter<ListsAdapter.ViewHolder>() {
             // Fill ViewHolder
             holder.listNameText.text = item.listName
             holder.houseNameText.text = item.houseName
+            holder.view.setOnClickListener {
+                mOnItemClickListener.onItemClick(item.houseId, item.listId)
+            }
         }
     }
 
@@ -39,16 +42,9 @@ class ListsAdapter : RecyclerView.Adapter<ListsAdapter.ViewHolder>() {
     override fun getItemCount() = data?.size ?: 0
 
     // Stores and recycles views as they are scrolled off screen
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(internal val view: View) : RecyclerView.ViewHolder(view) {
         internal val listNameText: TextView = view.findViewById(R.id.listNameEditText)
         internal val houseNameText: TextView = view.findViewById(R.id.houseNameText)
-
-        init {
-            view.setOnClickListener {
-                mOnItemClickListener.onItemClick(it, adapterPosition)
-
-            }
-        }
     }
 
     // Sets listener for items click
@@ -58,6 +54,6 @@ class ListsAdapter : RecyclerView.Adapter<ListsAdapter.ViewHolder>() {
 
     // Parent activity will implement this method to respond to click events
     interface OnItemClickListener {
-        fun onItemClick(view: View, position: Int)
+        fun onItemClick(houseId: Long, listId: Short)
     }
 }

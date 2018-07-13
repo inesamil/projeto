@@ -206,11 +206,11 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
      ***/
 
     // Listener for list clicks (from adapter)
-    override fun onItemClick(view: View, position: Int) {
-        lists?.let {
-            val list = it[position]
-            list.links.selfLink?.let {
-                listener?.onListInteraction(it, list.listName)
+    override fun onItemClick(houseId: Long, listId: Short) {
+        val list = lists?.find { list -> list.houseId == houseId && list.listId == listId }
+        list?.let {
+            it.links.selfLink?.let { url ->
+                listener?.onListInteraction(url, it.listName)
             }
         }
     }

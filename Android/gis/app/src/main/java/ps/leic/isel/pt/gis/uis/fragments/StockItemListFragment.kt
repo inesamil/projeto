@@ -138,11 +138,12 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     }
 
     private fun onSuccess(houses: HousesDto?) {
-        houses?.let {
-            this.houses = it.houses
+        houses?.houses?.let {
+            this.houses = it
 
-            val size = this.houses?.size ?: 0
+            val size = it.size
             if (size > 0) {
+                setDataToSpinner(it)
                 this.houses?.get(0)?.links?.stockItemsLink?.let {
                     getHouseStockItemList(it)
                 }
@@ -207,7 +208,6 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
                 return
             } else {
                 noHousesText.visibility = View.GONE
-                setDataToSpinner(it)
             }
         }
         when (state) {

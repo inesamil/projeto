@@ -137,8 +137,9 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         list?.let {
             state = State.SUCCESS
 
-            this.list = list
-
+            this.list = it
+            listProducts = it.listProducts
+            adapter.setData(it.listProducts)
             // Show progress bar or content
             showProgressBarOrContent()
         }
@@ -178,8 +179,6 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
                         emptyLayout.visibility = View.VISIBLE
                     } else {
                         emptyLayout.visibility = View.GONE
-                        listProducts = it
-                        adapter.setData(it)
                     }
                 }
             }
