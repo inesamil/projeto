@@ -758,8 +758,8 @@ public class ValidationsUtils {
         Locale locale = LocaleContextHolder.getLocale();
         if (quantity == null)
             throw new EntityException("Quantity is required.", messageSource.getMessage("movement_Quantity_Required", null, locale));
-        if (quantity < RestrictionsUtils.MOVEMENT_QUANTITY_MIN)
-            throw new EntityException(String.format("Invalid Movement quantity. Quantity must be greater or equal to %d.", RestrictionsUtils.MOVEMENT_QUANTITY_MIN), messageSource.getMessage("invalid_Movement_Quantity", new Object[]{RestrictionsUtils.MOVEMENT_QUANTITY_MIN}, locale));
+        if (quantity < RestrictionsUtils.MOVEMENT_FINAL_QUANTITY_MIN)
+            throw new EntityException(String.format("Invalid daily quantity. Quantity must be greater or equal to %d.", RestrictionsUtils.MOVEMENT_FINAL_QUANTITY_MIN), messageSource.getMessage("invalid_Movement_Quantity", new Object[]{RestrictionsUtils.MOVEMENT_QUANTITY_MIN}, locale));
     }
 
     /**
