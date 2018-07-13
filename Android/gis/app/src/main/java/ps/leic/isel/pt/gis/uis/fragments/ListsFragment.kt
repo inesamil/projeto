@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_lists.view.*
 import ps.leic.isel.pt.gis.R
@@ -51,6 +52,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
     private lateinit var progressBar: ProgressBar
     private lateinit var content: ConstraintLayout
     private lateinit var emptyLayout: ConstraintLayout
+    private lateinit var filters: TextView
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -93,6 +95,7 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
         progressBar = view.listsProgressBar
         content = view.listsLayout
         emptyLayout = view.emptyLayout
+        filters = view.filtersText
 
         // Show progress bar or content
         showProgressBarOrContent()
@@ -187,8 +190,10 @@ class ListsFragment : Fragment(), ListsAdapter.OnItemClickListener {
                 lists?.let {
                     if (it.isEmpty()) {
                         emptyLayout.visibility = View.VISIBLE
+                        filters.visibility = View.INVISIBLE
                     } else {
                         emptyLayout.visibility = View.GONE
+                        filters.visibility = View.VISIBLE
                         adapter.setData(it)
                     }
                 }
