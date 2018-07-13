@@ -97,15 +97,6 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         // Show progress bar or content
         showProgressBarOrContent()
 
-        // Set listener to transferToOfflineLayout clicks
-        view.transferToOfflineButton.setOnClickListener {
-            listProducts?.let {
-                if (it.isEmpty()) return@let
-                listener?.onListDownload(it)
-                return@setOnClickListener
-            }
-            Toast.makeText(context, "Nothing to save", Toast.LENGTH_SHORT).show() // TODO meter nas strings
-        }
         return view
     }
 
@@ -286,7 +277,6 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
         fun onAddProductToListInteraction()
         fun onEditListProductInteraction(listProduct: ListProductDto)
         fun onDeleteListProductInteraction(listProduct: ListProductDto)
-        fun onListDownload(listProducts: Array<ListProductDto>)
     }
 
     /**

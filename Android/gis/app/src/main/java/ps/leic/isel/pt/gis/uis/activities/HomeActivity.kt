@@ -313,12 +313,6 @@ class HomeActivity : AppCompatActivity(),
         }
     }
 
-    // Listener for ListDetailFragment interaction
-    override fun onListDownload(listProducts: Array<ListProductDto>) {
-        // TODO: download
-        // Toast.makeText(this, getString(R.string.functionality_not_available), Toast.LENGTH_LONG).show()
-    }
-
     // Listener for ListsFiltersDialogFragment interaction
     override fun onFiltersApply(systemLists: Boolean, userLists: Boolean, sharedLists: Boolean, houses: Array<HouseDto>?) {
         val listsFragment = supportFragmentManager.findFragmentByTag(ListsFragment.TAG) as? ListsFragment
