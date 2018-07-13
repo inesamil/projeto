@@ -1,6 +1,7 @@
 package pt.isel.ps.gis.dal.repositories.custom;
 
 import org.hibernate.Session;
+import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.dal.repositories.DailyQuantityRepositoryCustom;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.model.DailyQuantity;
@@ -16,6 +17,7 @@ public class DailyQuantityRepositoryCustomImpl implements DailyQuantityRepositor
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     @Override
     public List<DailyQuantity> findAllByStartDateAndEndDate(Long houseId, String sku, Date startDate, Date endDate) {
         Session session = entityManager.unwrap(Session.class);
@@ -55,6 +57,8 @@ public class DailyQuantityRepositoryCustomImpl implements DailyQuantityRepositor
         });
     }
 
+    @Transactional
+    @Override
     public void updateDailyQuantity(Date date) {
         Session session = entityManager.unwrap(Session.class);
         session.doWork(connection -> {
