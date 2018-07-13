@@ -206,6 +206,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
                 // Show houses or hint
                 houses?.let {
                     if (it.isEmpty()) {
+                        progressBar.visibility = View.GONE
                         noHousesText.visibility = View.VISIBLE
                     } else {
                         noHousesText.visibility = View.GONE
