@@ -8,14 +8,13 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.google.android.gms.auth.api.credentials.Credential
 import kotlinx.android.synthetic.main.activity_login.*
 import ps.leic.isel.pt.gis.GisApplication
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.stores.SmartLock
+import ps.leic.isel.pt.gis.stores.CredentialsStore
 import ps.leic.isel.pt.gis.viewModel.UserViewModel
 
 class LoginActivity : AppCompatActivity() {
@@ -35,33 +34,6 @@ class LoginActivity : AppCompatActivity() {
         signinBtn.setOnClickListener(::onLoginClick)
     }
 
-    override fun onStart() {
-        super.onStart()
-        ServiceLocator
-                .getSmartLock(applicationContext)
-                .retrieveCredentials(this, ::onComplete, ::onUncomplete)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SmartLock.RC_READ) {
-            if (resultCode == RESULT_OK) {
-                val credential: Credential = data?.getParcelableExtra(Credential.EXTRA_KEY)!!
-                onComplete(credential)
-            } else {
-                Log.e(TAG, "Credential Read: NOT OK")
-            }
-        } else if (requestCode == SmartLock.RC_SAVE) {
-            if (resultCode == RESULT_OK) {
-                Log.d(TAG, "SAVE: OK")
-                getUser()
-            } else {
-                Log.e(TAG, "SAVE: Canceled by user")
-                Toast.makeText(this, "Precisa aceitar o smart lock guardar a password", Toast.LENGTH_SHORT).show() // TODO msg nas strings
-            }
-        }
-    }
-
     private fun onLoginClick(view: View) {
         val username = usernameEditText.text.toString()
         val password = passwordEditText.text.toString()
@@ -71,13 +43,8 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        ServiceLocator
-                .getSmartLock(applicationContext)
-                .storeCredentials(this, username, password, ::getUser, { onError("Precisa ativar smart lock for password nas definições") }) // TODO meter nas strings
-    }
-
-    private fun getUser() {
-        val username = usernameEditText.text.toString()
+        ServiceLocator.getCredentialsStore(applicationContext).storeCredentials(CredentialsStore.Credentials(username, password))
+        Log.i(TAG, "Credentials stored.")
 
         val gisApplication = application as GisApplication
         gisApplication.index
@@ -97,16 +64,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun onComplete(credential: Credential) {
-        Log.i(TAG, "Credentials stored.")
-        usernameEditText.setText(credential.id)
-        passwordEditText.setText(credential.password)
-    }
-
-    private fun onUncomplete() {
-        Log.w(TAG, "Precisa ativar smart lock for password nas definições") // TODO meter nas strings
-    }
-
     private fun onSuccess() {
         Log.i(TAG, "Login succeeded.")
         finish()
@@ -114,26 +71,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onUnsuccess(error: ErrorDto?) {
+        Log.i(TAG, "Wrong credentials.")
+        Toast.makeText(this, getString(R.string.wrong_credentials_please_login_again), Toast.LENGTH_SHORT).show()
+        ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials()
+        Log.i(TAG, "Credentials deleted.")
         error?.let {
-            Log.e(TAG, it.developerErrorMessage)
-            Log.i(TAG, "Wrong credentials.")
-            Toast.makeText(this, getString(R.string.wrong_credentials_please_login_again), Toast.LENGTH_SHORT).show()
+            Log.w(TAG, it.developerErrorMessage)
         }
-        onError(null)
     }
 
     private fun onError(message: String?) {
+        ServiceLocator.getCredentialsStore(applicationContext).deleteCredentials()
+        Log.i(TAG, "Credentials deleted.")
+        Toast.makeText(this, getString(R.string.could_not_connect_to_server), Toast.LENGTH_SHORT).show()
         message?.let {
-            Log.e(TAG, it)
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            Log.w(TAG, it)
         }
-        ServiceLocator
-                .getSmartLock(applicationContext)
-                .retrieveCredentials(this, {
-                    ServiceLocator
-                            .getSmartLock(applicationContext)
-                            .deleteCredentials(it)
-                }, {})
     }
 
     companion object {

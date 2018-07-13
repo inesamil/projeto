@@ -25,8 +25,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.android.gms:play-services-auth:15.0.1'
-    // Google Play services library, to integrat Smart Lock for Passwords
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:mediarouter-v7:27.1.1'
