@@ -5,7 +5,7 @@ import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_nfc.*
 import ps.leic.isel.pt.hardwaresimulator.utils.NFCUtils
@@ -16,23 +16,16 @@ class NFCActivity : AppCompatActivity(), Listener {
     private var readFragment: ReadFragment? = null
     private var isDialogDisplayed = false
 
+    private lateinit var houseIdEditText: EditText
+    private lateinit var storageIdEditText: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc)
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 
-        val houses = arrayOf("Santos", "Oliveira")
-        val storages = arrayOf("Frigorífico")
-
-        val housesSpinnerAdapter = ArrayAdapter<String>(housesSpinner.context, android.R.layout.simple_spinner_item, houses)
-        housesSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        housesSpinner.adapter = housesSpinnerAdapter
-        housesSpinner.setSelection(0)
-
-        val storagesSpinnerAdapter = ArrayAdapter<String>(storagesSpinner.context, android.R.layout.simple_spinner_item, storages)
-        storagesSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        storagesSpinner.adapter = storagesSpinnerAdapter
-        storagesSpinner.setSelection(0)
+        houseIdEditText = houseIdEditText
+        storageIdEditText = storageIdEditText
 
         readBtn.setOnClickListener {
             readFragment = supportFragmentManager.findFragmentByTag(ReadFragment.TAG) as? ReadFragment
@@ -65,9 +58,9 @@ class NFCActivity : AppCompatActivity(), Listener {
             readFragment?.isVisible?.let {
                 if (it) {
                     val type = switchBtn.isChecked
-                    // val storageId = storagesSpinner.selectedItem as Short
-                    // val houseId = housesSpinner.selectedItem as Long
-                    readFragment?.onNfcDetected(intent, 1, type, 1)
+                    val storageId = storageIdEditText.text.toString().toShort()
+                    val houseId = houseIdEditText.text.toString().toLong()
+                    readFragment?.onNfcDetected(intent, storageId, type, houseId)
                 }
             }
         }
