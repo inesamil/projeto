@@ -27,7 +27,7 @@ public class DailyQuantityRepositoryCustomImpl implements DailyQuantityRepositor
                     "FROM public.\"dailyquantity\" " +
                     "WHERE public.\"dailyquantity\".house_id = ? " +
                     "AND public.\"dailyquantity\".stockitem_sku = ? " +
-                    "AND public.\"dailyquantity\".dailyquantity_date >= ? " +
+                    "AND public.\"dailyquantity\".dailyquantity_date > ? " +
                     "AND public.\"dailyquantity\".dailyquantity_date <= ?;";
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 if (isNotNull(ps, 1, houseId))

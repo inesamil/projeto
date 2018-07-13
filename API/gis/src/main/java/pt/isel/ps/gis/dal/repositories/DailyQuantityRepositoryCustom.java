@@ -12,7 +12,7 @@ public interface DailyQuantityRepositoryCustom {
      *
      * @param houseId   The id of the house
      * @param sku       The id of the stock item
-     * @param startDate Start date, inclusive
+     * @param startDate Start date, exclusive
      * @param endDate   End date, inclusive
      * @return List with all daily quantities between startDate and endDate
      */
