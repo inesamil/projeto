@@ -4,10 +4,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ps.gis.bll.HouseService;
-import pt.isel.ps.gis.dal.repositories.HouseRepository;
-import pt.isel.ps.gis.dal.repositories.SystemListRepository;
-import pt.isel.ps.gis.dal.repositories.UserHouseRepository;
-import pt.isel.ps.gis.dal.repositories.UsersRepository;
+import pt.isel.ps.gis.dal.repositories.*;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
@@ -27,16 +24,19 @@ public class HouseServiceImpl implements HouseService {
     private final UsersRepository usersRepository;
     private final UserHouseRepository userHouseRepository;
     private final SystemListRepository systemListRepository;
+    //TODO: remove this before deployment
+    private final StorageRepository storageRepository;
 
     private final MessageSource messageSource;
 
     private final AuthorizationProvider authorizationProvider;
 
-    public HouseServiceImpl(HouseRepository houseRepository, UsersRepository usersRepository, UserHouseRepository userHouseRepository, SystemListRepository systemListRepository, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
+    public HouseServiceImpl(HouseRepository houseRepository, UsersRepository usersRepository, UserHouseRepository userHouseRepository, SystemListRepository systemListRepository, StorageRepository storageRepository, MessageSource messageSource, AuthorizationProvider authorizationProvider) {
         this.houseRepository = houseRepository;
         this.usersRepository = usersRepository;
         this.userHouseRepository = userHouseRepository;
         this.systemListRepository = systemListRepository;
+        this.storageRepository = storageRepository;
         this.messageSource = messageSource;
         this.authorizationProvider = authorizationProvider;
     }
@@ -83,6 +83,8 @@ public class HouseServiceImpl implements HouseService {
         house.setUserhousesByHouseId(new ArrayList<>(Collections.singleton(userHouse)));
         //Create SystemList
         systemListRepository.insertSystemList(new SystemList(house.getHouseId(), messageSource.getMessage("systemListName", null, locale)));
+        //TODO: remove this before deployment
+        storageRepository.save(new Storage(house.getHouseId(), messageSource.getMessage("fridge", null, locale), new Numrange((float) 1, (float) 5)));
         return house;
     }
 
