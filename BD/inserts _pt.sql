@@ -294,6 +294,9 @@ INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stocki
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
 	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-07-11 09:35:00'::timestamp, 1, 5);
 
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, true, '2018-07-12 09:35:00'::timestamp, 1, 6);
+
 --House2-yogurt
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
 	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-01'::timestamp, 6, 6);
@@ -428,6 +431,9 @@ INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stocki
 	
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
 	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-07-11 09:38:00'::timestamp, 1, 1);
+
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, true, '2018-07-12 09:38:00'::timestamp, 1, 2);
 	
 --STOCKITEM-STORAGE
 INSERT INTO public.stockitemstorage(house_id, stockitem_sku, storage_id, stockitemstorage_quantity)
@@ -507,6 +513,9 @@ INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, da
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
 	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-07-11', 5);
 	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-07-12', 6);
+	
 --House2-butter
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
 	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-06-20', 2);
@@ -573,3 +582,6 @@ INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, da
 	
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
 	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-11', 1);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-12', 2);
