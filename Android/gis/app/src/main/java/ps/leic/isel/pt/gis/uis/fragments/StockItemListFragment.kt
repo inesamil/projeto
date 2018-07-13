@@ -146,6 +146,8 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
                 this.houses?.get(0)?.links?.stockItemsLink?.let {
                     getHouseStockItemList(it)
                 }
+            } else if (size == 0) {
+                state = State.SUCCESS
             }
 
             // Show progress bar or content
