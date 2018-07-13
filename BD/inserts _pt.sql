@@ -640,73 +640,73 @@ INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, da
 	
 --House2-iogurte
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-06-20', 6);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-06-20', 6);
 	
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-06-21', 11);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-06-21', 11);
 
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-06-22', 16);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-06-22', 16);
 
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-06-23', 16);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-06-23', 16);
 
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-06-24', 12);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-06-24', 12);
 
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-06-25', 12);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-06-25', 12);
 
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-06-26', 12);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-06-26', 12);
 
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-06-27', 10);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-06-27', 10);
 
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-06-28', 12);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-06-28', 12);
 
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-06-29', 17);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-06-29', 17);
 
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-06-30', 16);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-06-30', 16);
 
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-07-01', 7);	
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-07-01', 7);	
 	
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-07-02', 10);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-07-02', 10);
 	
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-07-03', 8);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-07-03', 8);
 	
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-07-04', 7);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-07-04', 7);
 	
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-07-05', 7);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-07-05', 7);
 	
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-07-06', 7);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-07-06', 7);
 	
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-07-07', 7);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-07-07', 7);
 	
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-07-08', 7);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-07-08', 7);
 	
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-07-09', 7);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-07-09', 7);
 	
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-07-10', 7);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-07-10', 7);
 	
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-07-11', 7);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-07-11', 7);
 
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
-	VALUES (2, 'P2-Agros-Iogurte Natural-250m', '2018-07-12', 10);
+	VALUES (2, 'P2-Agros-Iogurte Natural-250ml', '2018-07-12', 10);
 	
 --House2-butter
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
