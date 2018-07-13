@@ -86,13 +86,14 @@ class SplashScreenActivity : AppCompatActivity() {
                 // Already used the app
                 Log.d(TAG, "Try to retrieve credentials.")
                 val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
-                credentials?.let {
-                    Log.d(TAG, "Credentials retrieved.")
-                    validateCredentials(it)
+                if (credentials == null) {
+                    // No credentials retrieved
+                    finish()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    return@let
                 }
-                // No credentials retrieved
-                finish()
-                startActivity(Intent(this, LoginActivity::class.java))
+                Log.d(TAG, "Credentials retrieved.")
+                validateCredentials(credentials)
             }
         }
     }
