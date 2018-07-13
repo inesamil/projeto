@@ -139,7 +139,6 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
 
     private fun onSuccess(houses: HousesDto?) {
         houses?.let {
-
             this.houses = it.houses
 
             val size = this.houses?.size ?: 0
@@ -155,6 +154,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
     }
 
     private fun getHouseStockItemList(url: String) {
+        state = State.LOADING
         stockItemListViewModel.init(url)
         stockItemListViewModel.getStockItems()?.observe(this, Observer {
             when (it?.status) {
@@ -203,7 +203,6 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
                 content.visibility = View.INVISIBLE
             }
             State.SUCCESS -> {
-                progressBar.visibility = View.GONE
                 // Show houses or hint
                 houses?.let {
                     if (it.isEmpty()) {
@@ -215,6 +214,7 @@ class StockItemListFragment : Fragment(), StockItemListAdapter.OnItemClickListen
                 }
                 // Show items or hint
                 stockItems?.let {
+                    progressBar.visibility = View.GONE
                     content.visibility = View.VISIBLE
                     if (it.isEmpty()) {
                         noItemsText.visibility = View.VISIBLE
