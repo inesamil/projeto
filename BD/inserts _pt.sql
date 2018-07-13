@@ -143,6 +143,137 @@ INSERT INTO public.stockitemallergy(house_id, stockitem_sku, allergy_allergen)
 	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 'Leite');
 
 --STOCKITEM-MOVEMENT
+--House1-yogurt
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-20 09:38:00'::timestamp, 6, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-21 09:31:00'::timestamp, 1, 5);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-21 09:38:00'::timestamp, 6, 11);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-22 09:31:00'::timestamp, 1, 10);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-22 09:38:00'::timestamp, 6, 16);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-23 09:31:00'::timestamp, 4, 12);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-23 09:38:00'::timestamp, 4, 16);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-24 09:31:00'::timestamp, 6, 10);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-24 09:38:00'::timestamp, 2, 12);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-25 09:31:00'::timestamp, 6, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-25 09:38:00'::timestamp, 6, 12);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-26 09:31:00'::timestamp, 1, 11);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-26 09:38:00'::timestamp, 1, 12);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-27 09:31:00'::timestamp, 3, 9);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-27 09:38:00'::timestamp, 1, 10);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-28 09:31:00'::timestamp, 4, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-28 09:38:00'::timestamp, 6, 12);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-29 09:31:00'::timestamp, 1, 11);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-29 09:38:00'::timestamp, 6, 17);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-06-30 09:31:00'::timestamp, 4, 13);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-06-30 09:38:00'::timestamp, 3, 16);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-07-01 09:31:00'::timestamp, 10, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-07-01 09:38:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-07-02 09:31:00'::timestamp, 1, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-07-02 09:38:00'::timestamp, 4, 10);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-07-03 09:31:00'::timestamp, 3, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-07-03 09:38:00'::timestamp, 1, 8);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-07-04 09:31:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-07-05 09:31:00'::timestamp, 1, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-07-05 09:38:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-07-06 09:31:00'::timestamp, 1, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-07-06 09:38:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-07-07 09:31:00'::timestamp, 1, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-07-07 09:38:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-07-08 09:31:00'::timestamp, 1, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-07-08 09:38:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-07-09 09:31:00'::timestamp, 1, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-07-09 09:38:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-07-10 09:31:00'::timestamp, 1, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-07-10 09:38:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, false, '2018-07-11 09:31:00'::timestamp, 1, 6);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-07-11 09:38:00'::timestamp, 1, 7);
+	
+INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', 1, true, '2018-07-12 09:38:00'::timestamp, 3, 10);
+	
+
 --House1-Milk
 INSERT INTO public.stockitemmovement(house_id, stockitem_sku, storage_id, stockitemmovement_type, stockitemmovement_datetime, stockitemmovement_quantity, stockitemmovement_finalquantity)
 	VALUES (1, 'P1-Mimosa-UHT Magro-1l', 1, false, '2018-06-20 09:00:00'::timestamp, 1, 11);
@@ -568,6 +699,76 @@ INSERT INTO public.stockitemstorage(house_id, stockitem_sku, storage_id, stockit
 	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', 1, 1);
 	
 --DAILY-QUANTITY
+--House1-iogurte
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-06-20', 6);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-06-21', 11);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-06-22', 16);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-06-23', 16);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-06-24', 12);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-06-25', 12);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-06-26', 12);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-06-27', 10);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-06-28', 12);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-06-29', 17);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-06-30', 16);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-07-01', 7);	
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-07-02', 10);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-07-03', 8);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-07-04', 7);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-07-05', 7);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-07-06', 7);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-07-07', 7);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-07-08', 7);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-07-09', 7);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-07-10', 7);
+	
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-07-11', 7);
+
+INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+	VALUES (1, 'P2-Agros-Iogurte Natural-250ml', '2018-07-12', 10);
+
 --House1-Milk
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
 	VALUES (1, 'P1-Mimosa-UHT Magro-1l', '2018-06-20', 11);
