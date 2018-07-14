@@ -6,6 +6,7 @@ import android.content.Context
 import ps.leic.isel.pt.gis.ServiceLocator
 import ps.leic.isel.pt.gis.httpRequest.HttpWebService
 import ps.leic.isel.pt.gis.utils.HeadersUtils
+import java.util.*
 
 class RepositoryImpl(private val applicationContext: Context) : Repository {
 
@@ -17,6 +18,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
 
         val headers = mutableMapOf<String, String>()
         HeadersUtils.setContentTypeHeader(headers, contentType)
+        val language = Locale.getDefault().toString()
+        HeadersUtils.setAcceptLanguageHeader(headers, language)
         credentials?.let {
             HeadersUtils.setAuthorizationHeader(headers, it.username, it.password)
         }
@@ -34,6 +37,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
 
         val headers = mutableMapOf<String, String>()
+        val language = Locale.getDefault().toString()
+        HeadersUtils.setAcceptLanguageHeader(headers, language)
         credentials?.let {
             HeadersUtils.setAuthorizationHeader(headers, it.username, it.password)
         }
@@ -52,6 +57,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
 
         val headers = mutableMapOf<String, String>()
         HeadersUtils.setContentTypeHeader(headers, contentType)
+        val language = Locale.getDefault().toString()
+        HeadersUtils.setAcceptLanguageHeader(headers, language)
         credentials?.let {
             HeadersUtils.setAuthorizationHeader(headers, it.username, it.password)
         }
@@ -69,6 +76,8 @@ class RepositoryImpl(private val applicationContext: Context) : Repository {
         val credentials = ServiceLocator.getCredentialsStore(applicationContext).getCredentials()
 
         val headers = mutableMapOf<String, String>()
+        val language = Locale.getDefault().toString()
+        HeadersUtils.setAcceptLanguageHeader(headers, language)
         credentials?.let {
             HeadersUtils.setAuthorizationHeader(headers, it.username, it.password)
         }

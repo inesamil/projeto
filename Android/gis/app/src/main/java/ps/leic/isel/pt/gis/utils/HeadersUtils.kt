@@ -32,4 +32,19 @@ object HeadersUtils {
             headers[CONTENT_TYPE] = it
         }
     }
+
+    /**
+     * ACCEPT-LANGUAGE HEADER
+     */
+    private const val ACCEPT_LANGUAGE: String = "Accept-Language"
+
+    fun getAcceptLanguageHeader(headers: Map<String, String>): String? {
+        return headers[ACCEPT_LANGUAGE]
+    }
+
+    fun setAcceptLanguageHeader(headers: MutableMap<String, String>, acceptLanguage: String?) {
+        acceptLanguage?.let {
+            headers[ACCEPT_LANGUAGE] = it
+        }
+    }
 }
