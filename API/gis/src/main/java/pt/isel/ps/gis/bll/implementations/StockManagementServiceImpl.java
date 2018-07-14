@@ -12,10 +12,7 @@ import pt.isel.ps.gis.dal.repositories.DailyQuantityRepository;
 import pt.isel.ps.gis.dal.repositories.ListProductRepository;
 import pt.isel.ps.gis.dal.repositories.StockItemRepository;
 import pt.isel.ps.gis.exceptions.EntityException;
-import pt.isel.ps.gis.model.DailyQuantity;
-import pt.isel.ps.gis.model.ListProduct;
-import pt.isel.ps.gis.model.StockItem;
-import pt.isel.ps.gis.model.StockItemId;
+import pt.isel.ps.gis.model.*;
 import pt.isel.ps.gis.stockAlgorithm.Item;
 import pt.isel.ps.gis.stockAlgorithm.StockManagementAlgorithm;
 
@@ -109,7 +106,21 @@ public class StockManagementServiceImpl implements StockManagementService {
         }
 
         if (min < THRESHOLD) {
-            addToSystemList(stockItem, (short) ((max - min) == 0 ? THRESHOLD - min : max - min));
+            addToSystemList(stockItem, (short) ((max - min) == 0 ? THRESHOLD : max - min));
+        } else {
+            removeFromSystemList(stockItem);
+        }
+    }
+
+    private void removeFromSystemList(StockItem stockItem) {
+        try {
+            ListProductId id = new ListProductId(stockItem.getId().getHouseId(), (short) 1, stockItem.getProductId());
+            if (listProductRepository.existsById(id)) {
+                listProductRepository.deleteById(id);
+            }
+        } catch (EntityException e) {
+            log.warn(stockItem.getId().getHouseId() + ", " + stockItem.getId().getStockitemSku() + ", " + stockItem.getProductId());
+            log.warn(e.getMessage());
         }
     }
 
