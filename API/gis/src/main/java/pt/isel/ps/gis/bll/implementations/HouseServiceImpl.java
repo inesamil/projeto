@@ -82,9 +82,9 @@ public class HouseServiceImpl implements HouseService {
         userHouse.setUsersByUsersId(user);
         house.setUserhousesByHouseId(new ArrayList<>(Collections.singleton(userHouse)));
         //Create SystemList
-        systemListRepository.insertSystemList(new SystemList(house.getHouseId(), messageSource.getMessage("systemListName", null, locale)));
+        systemListRepository.insertSystemList(new SystemList(house.getHouseId(), (short) 1, messageSource.getMessage("systemListName", null, locale)));
         //TODO: remove this before deployment
-        storageRepository.save(new Storage(house.getHouseId(), messageSource.getMessage("fridge", null, locale), new Numrange((float) 1, (float) 5)));
+        storageRepository.save(new Storage(house.getHouseId(), (short) 1, messageSource.getMessage("fridge",null, locale), new Numrange((float) 1, (float) 5)));
         return house;
     }
 

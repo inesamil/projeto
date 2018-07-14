@@ -21,10 +21,11 @@ public class SystemListRepositoryCustomImpl implements SystemListRepositoryCusto
         Session session = entityManager.unwrap(Session.class);
         return session.doReturningWork(connection -> {
             try (CallableStatement function = connection.prepareCall(
-                    "{call insert_system_list(?,?)}"
+                    "{call insert_system_list(?,?,?)}"
             )) {
                 function.setLong(1, systemList.getId().getHouseId());
-                function.setString(2, systemList.getList().getListName());
+                function.setShort(2, systemList.getList().getId().getListId());
+                function.setString(3, systemList.getList().getListName());
                 try (ResultSet resultSet = function.executeQuery()) {
                     if (!resultSet.next()) throw new SQLException("Result set is empty.");
                     long house_id = resultSet.getLong(1);

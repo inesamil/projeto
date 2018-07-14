@@ -16,16 +16,10 @@ class NFCActivity : AppCompatActivity(), Listener {
     private var readFragment: ReadFragment? = null
     private var isDialogDisplayed = false
 
-    private lateinit var houseIdEditText: EditText
-    private lateinit var storageIdEditText: EditText
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc)
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-
-        houseIdEditText = houseIdEditText
-        storageIdEditText = storageIdEditText
 
         readBtn.setOnClickListener {
             readFragment = supportFragmentManager.findFragmentByTag(ReadFragment.TAG) as? ReadFragment

@@ -8,8 +8,8 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/storagesCardView"
-        android:layout_width="136dp"
-        android:layout_height="29dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -26,8 +26,8 @@
 
             <EditText
                 android:id="@+id/houseIdEditText"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="number"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -40,8 +40,8 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/housesCardView"
-        android:layout_width="136dp"
-        android:layout_height="29dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -55,8 +55,8 @@
 
             <EditText
                 android:id="@+id/storageIdEditText"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="number"
                 app:layout_constraintBottom_toBottomOf="parent"
