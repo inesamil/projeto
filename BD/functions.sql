@@ -401,6 +401,7 @@ DECLARE
 	dquantity record;
 	previousQuantity smallint;
 BEGIN
+	DELETE FROM public.dailyquantity WHERE public.dailyquantity.dailyquantity_date = today;
 	-- Insert batch of existing movements in dailyquantity table
 	INSERT INTO public.dailyquantity (house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
 		SELECT public."stockitemmovement".house_id, public."stockitemmovement".stockitem_sku, DATE(maxDateTime), public."stockitemmovement".stockitemmovement_finalquantity
