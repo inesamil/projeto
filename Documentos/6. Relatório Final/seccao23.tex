@@ -1,0 +1,61 @@
+%
+% Secção 2.3
+%
+\section{Arquitetura da Solução}\label{sec23}
+
+Nesta secção pretende-se abordar de forma geral a solução implementada para resolver o problema apresentado no capítulo \ref{cap1}.
+
+%
+% Subsecção 2.3.1 Abordagem
+%
+\subsection{Abordagem}\label{subsec231}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=16cm, height=8cm, scale=1]{img/architecture.png}
+	\caption{Arquitetura Geral do Projeto}
+	\label{project-general-architecture}
+\end{figure}
+
+Após uma ida às compras, os itens adquiridos com rótulos não tradicionais, Figura \ref{project-general-architecture}(a), são armazenados nos seus respetivos locais, Figura \ref{project-general-architecture}(d). Como forma de automatizar a recolha de informação relativa quer aos artigos obtidos quer às suas caraterísticas, utilizam-se rótulos digitais e sensores.
+
+Ao guardar os artigos nos locais de armazenamento, os seus rótulos devem ser lidos por dispositivos de hardware, conjunto sensor mais leitor de rótulos digitais, presentes no local, de forma a que a informação e identificação do item, bem como, o tipo de movimento (entrada ou saída) possam ser enviados para a componente servidora, Figura \ref{project-general-architecture}(e). Assim, estes dados são posteriormente tratados e armazenados de forma persistente na \acrfull{bd}, Figura \ref{project-general-architecture}(f). A componente servidora é responsável por retornar dados para as aplicações cliente, Figura \ref{project-general-architecture}(b, c). É ainda nesta que está presente o algoritmo de previsão de stocks utilizado para efetuar a previsão quanto à duração de cada um dos itens em stock, assim como, o controlo da gestão de stocks.
+
+No contexto da gestão de stocks assume-se a existência de duas formas de apresentação para os itens em stock: avulsos e embalados. Os primeiros são conservados em sistemas de arrumação identificados com \textit{tags} programáveis por \textit{smartphones}, \ref{project-general-architecture}(c). Os detalhes dos itens são especificados pelo utilizador e carregados para a \textit{tag}. Já os segundos contêm os seus rótulos digitais com o detalhe guardado pelos embaladores.
+
+%
+% Tags
+%
+\input{tags.tex}
+
+\subsection{Dispositivos de \textit{Hardware}}
+
+Posto que a componente de \textit{hardware}, sensores e leitores de \textit{tags}, não foi âmbito do projeto, mas é parte integrante e essencial para o correto funcionamento do sistema desenvolvido, foi fundamental efetuar análise e pesquisa alusiva ao assunto. Por isso, estudou-se como se deveria proceder para incorporar os dispositivos \textit{hardware} no sistema Smart Stocks. 
+
+Assim, para adicionar um dispositivo de \textit{hardware} usar-se-ia um \textit{QRCode} \cite{qrcode:about}. Este \textit{QRCode} deveria conter informação acerca do dispositivo, como o seu identificador e possivelmente o local de armazenamento a que se destina. Este ao ser comprado e sem ter sido ainda instalado no local de armazenamento, seria adicionado à casa, pelo utilizador, recorrendo a uma funcionalidade extra da aplicação móvel. O utilizador passaria o \textit{scanner} \textit{QRCode} sobre o \textit{QRCode} presente no dispositivo de \textit{hardware} e assim a aplicação móvel comunicaria com a \gls{api-web} para associar aquele dispositivo à casa do utilizador. Caso este utilizador tenha várias casas, este teria de, previamente, especificar a qual casa pretendia associar o dispositivo. Uma vez associado, o dispositivo necessita de comunicar com a \gls{api-web} de forma a registar os movimentos presentes ocorridos naquele local de armazenamento. Para tal, quando o dispositivo for instalado e ligado, este faria um \textit{ping} à \gls{api-web} a sinalizar que está ativo e enviando a sua informação, nomeadamente o seu identificador. A \gls{api-web} respondia com o link ao qual o dispositivo \textit{hardware} teria de enviar a informação dos movimentos que deteta.
+
+%
+% Subsecção 2.3.2 Estrutura
+%
+\subsection{Arquitetura por Camadas}\label{subsec232}
+
+O sistema de gestão de stocks é composto por 2 blocos principais: o bloco do lado do cliente e o bloco do lado do servidor, que se relacionam. A representação destes blocos é apresentada na Figura \ref{project-layers-structure}.
+
+A arquitetura do projeto segue uma arquitetura por camadas, dado que este padrão permite individualizar cada camada \cite{Haque:2007:ADA:1698307.1698331}. Assim, estas tornam-se independentes umas das outras, fornecendo não só abstração sobre as camadas inferiores, mas também, oferecendo a possibilidade de testar e/ou substituir cada uma das camadas de forma independente, desde que seja mantido o contrato.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth, scale=1]{img/project.png}
+	\caption{Arquitetura por Camadas do Projeto}
+	\label{project-layers-structure}
+\end{figure}
+
+No lado do cliente existem três camadas: a camada Apresentação que é responsável por representar os dados solicitados pelo utilizador; o Controlo que está encarregue de despoletar ações na camada do \textit{Web Service} de forma a satisfazer as solicitações do utilizador; e assim o \textit{Web Service} interage com a \gls{api-web}. 
+
+As camadas que compõem o lado do servidor são: o Controlo que processa pedidos e retorna uma resposta; a camada da Lógica de Negócio que é responsável por satisfazer as regras de negócio; e por fim o Acesso a Dados que efetua leituras e escritas sobre a \acrshort{bd}.
+
+\subsubsection{Tecnologias Inerentes à Solução}\label{subsec233}
+
+O lado do servidor incluí três camadas e expõe uma \gls{api-web}. A \acrfull{dal} é produzida com a linguagem de programação \textit{Java}, usando a \acrfull{jpa}, e é responsável pelas leituras e escritas sobre a \acrfull{bd}. A \acrshort{bd} é externa ao servidor, utilizando para isso o \acrfull{sgbd} \textit{PostgreSQL}. A \acrfull{bll} é responsável pela aplicação das regras de negócio. A implementação desta camada é também realizada com linguagem \textit{Java}. Os \textit{controllers} foram desenvolvidos em \textit{Java} com a \textit{framework} da \textit{Spring}, chamada de \textit{Spring Boot}\footnote{https://spring.io/projects/spring-boot}. A \gls{api-web} disponibiliza recursos em diferentes \textit{hypermedias}. Para a implementação do algoritmo de previsão de stocks usou-se a linguagem \textit{R}.
+
+Do lado do cliente existem dois modos de interação: usando uma aplicação móvel ou usando uma aplicação web. A aplicação móvel está disponível para a plataforma \textit{Android}, e foi desenvolvida na linguagem \textit{Kotlin}. A aplicação web é compatível com a maioria dos \textit{browsers}, e é implementada utilizando a linguagem \textit{JavaScript} com o auxilio da biblioteca \textit{React}\footnote{https://reactjs.org}.

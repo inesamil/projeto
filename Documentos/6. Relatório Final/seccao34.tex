@@ -1,0 +1,54 @@
+\section{Algoritmo de Previsão de Stocks}\label{sec34}
+
+Uma vez que para uma boa gestão de stocks existe a necessidade de prever a duração de cada um dos itens em stock, com base no historial de consumo e reposição da casa. De forma a garantir este requisito inerente ao sistema Smart Stocks, usou-se um algoritmo de previsão de stocks.
+
+Para a realização deste algoritmo, teve-se a preocupação de analisar os vários tipos de modelo existentes e adotar o mais adequado ao sistema. Durante a pesquisa, deparou-se com a existência de dois tipos de modelo de previsão, sendo eles, Modelos Quantitativos e Qualitativos \cite{GestaoStocks:MetodosPrevisaoStocks}. Os primeiros baseiam-se em análises numéricas dos dados históricos, enquanto que os qualitativos privilegiam dados subjetivos baseados na opinião de especialistas. Como se deseja realizar este algoritmo com base no histórico de consumo e reposição, optou-se pelo Modelo Quantitativo. 
+
+Dos sub-modelos disponíveis elegeu-se um modelo de séries temporais visto que este pode incluir nos seus dados um conjunto de elementos, por exemplo, sazonalidade, tendências, influências cíclicas ou comportamento aleatório. Decidiu-se, então, utilizar o método da média móvel devido a esta ser simples e fácil de implementar e ser suficiente para o desenvolvimento do projeto. No entanto, dentro do método da média móvel existem diversos tipos, dos quais escolheu-se o da média móvel ponderada, que é uma variação do modelo da média móvel simples em que os valores dos períodos mais recentes recebem um peso maior que os valores correspondentes aos períodos anteriores, podendo assim dar maior relevância aos dados mais atuais.
+
+%
+% Implementação
+%
+\subsection{Implementação}\label{subsec341}
+
+Aplicou-se o método da média móvel ponderada para um período mínimo de 3 semanas. Este procedimento começa por atribuir pesos aos dados consoante a semana a que se referem, sendo que as mais recentes têm maior peso.
+
+Como se tratam de dados diários e para evitar a descompensação de valores provocada por dias com consumo excecionais amortecem-se  os valores. Assim os resultados tornam-se mais homogéneos e com um comportamento mais sazonal.   
+
+Com base nestes dois aspetos construiu-se um dia típico, que servirá de base para uma previsão. Seguiu-se o seguinte procedimento:\\
+
+\textbf{1º Passo}\\
+A primeira fase consiste em aplicar o método da média móvel ponderada aos dados, para isso usou-se a seguinte expressão:
+
+\begin{equation} 
+Pdiax'= T1 \times Rdia1 + T2 \times Rdia2 + T3 \times Rdia3
+\end{equation}
+
+Onde os valores de $Tx$ correspondem às taxas definidas como pesos para os dados diários ($Rdiax$) da semana $x$, sendo a semana mais recente a com o valor superior. As taxas escolhidas foram: 
+\begin{center}
+	\textit{T1 = 10\%, T2 = 30\% e T3 = 60\%}
+\end{center}
+A escolha destes valores foi realizada de modo a atribuir determinados pesos a cada elemento, garantindo que a soma de todos os pesos seja igual a 100\%, tendo em atenção em dar um peso maior às semanas mais recentes.\\
+
+\textbf{2º Passo}\\
+Aos valores obtidos anteriormente aplicou-se um método de amortização de forma a homogeneizar e harmonizar a previsão. Assim, o valor obtido para um dia da semana resulta da soma do seu valor e do valor do dia da semana anterior e da seguinte, multiplicados por taxas, ou seja: 
+
+\begin{equation} 
+Pdiax''= Tant \times PdiaxAnt' + Tdiax \times Pdiax' + Tseg \times PdiaxSeg'
+\end{equation}
+
+Onde os valores de $Tant$, $Tdiax$ e $Tseg$ correspondem às taxas definidas como pesos para os dias da semana anterior, atual e seguinte, respetivamente. Os valores $PdiaxAnt'$, $Pdiax'$ e $PdiaxSeg'$ são os valores previstos no 1º passo do método de previsão para os dias da semana anterior, atual e seguinte, respetivamente. As taxas escolhidas foram: 
+
+\begin{center}
+	\textit{Tant = Tseg = 25\%  e Tdiax = 50\%.}
+\end{center}
+A escolha destes valores foi realizada de modo a atribuir determinados pesos a cada elemento, garantindo que a soma de todos os pesos seja igual a 100\%, tendo em atenção dar um peso maior ao dia da semana a calcular.
+
+%
+% Integração
+%
+\subsection{Integração no Sistema Smart Stocks}\label{subsec342}
+
+De forma a tornar o sistema Smart Stocks independente de um só algoritmo de previsão de stocks, estipulou-se uma interface para separar o contrato da implementação. De forma geral, a informação mínima exigida a cada dia para se obter a previsão de uma semana é: o nome do produto, a sua quantidade e a respetiva data do dia em questão. Esta informação compõe um objeto, que pode ser utilizado pelas várias implementações do algoritmo de previsão de stocks.
+
+Foi criada uma \textit{task}, a ser executada periodicamente \footnote{Para efeitos de teste, a periodicidade da \textit{task} é de 5 minutos. No entanto, num cenário real esta tarefa seria executada no final de cada dia.}, cuja função é percorrer todos os itens na base de dados, obter o seu histórico de quantidades e realizar a previsão para a semana seguinte. De seguida, os dados obtidos da previsão são analisados, e caso a quantidade prevista esteja abaixo de um determinado limite \footnote{Considera-se como stock mínimo de segurança, a quantidade mínima abaixo da qual um produto é inserido na lista de compras. Atualmente, esse limite está definido como duas unidades. No entanto, este é um ponto a melhorar. Esta melhoria poderia consistir no utilizador poder definir os seus próprios valores limite,  através de configurações nas aplicações cliente.}, este item é inserido na lista de compras gerida pelo sistema Smart Stocks. 

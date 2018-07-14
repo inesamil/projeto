@@ -1,0 +1,219 @@
+% Classe do documento e parâmetros gerais.
+\documentclass[a4paper,openright,twoside,11pt]{report}
+
+%
+% Times New Roman font.
+%
+\usefont{T1}{ptm}{m}{n}
+\selectfont
+
+% Packages a utilizar e respetivos parâmetros.
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage[Algoritmo]{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{indentfirst}
+\usepackage[utf8]{inputenc}
+\usepackage[toc, acronym]{glossaries}
+\usepackage[final]{pdfpages}
+\usepackage{pdflscape}
+\usepackage[normalem]{ulem} % Sublinhar a Tracejado
+\usepackage{paralist}
+% Table packages:
+\usepackage{tabularx}
+\usepackage{threeparttable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage[section]{placeins}
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+
+\addto{\captionsportuguese}{\renewcommand{\bibname}{Refer\^{e}ncias}}
+\addto{\captionsportuguese}{\renewcommand{\contentsname}{\'Indice}}
+\addto{\captionsportuguese}{\renewcommand{\appendixname}{Anexo}}
+
+\renewcommand{\algorithmicrequire}{\textbf{Dados: }}
+\renewcommand{\algorithmicensure}{\textbf{Resultado: }}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% Definições das dimensões das páginas
+\setlength{\textheight}{24.00cm}
+\setlength{\textwidth}{15.50cm}
+\setlength{\topmargin}{0.35cm}
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\oddsidemargin}{0.25cm}
+\setlength{\evensidemargin}{0.25cm}
+
+%
+% Times New Roman font.
+%
+\usefont{T1}{ptm}{m}{n}
+\selectfont
+
+% Glossários
+\makeglossaries
+
+% Abreviaturas
+\include{abreviaturas}
+
+% Terminologia
+\include{terminologia}
+
+%
+% Página inicial (capa)
+%
+\title{
+   \vspace{-60mm}
+   \begin{minipage}[l]{160mm}
+   	\resizebox{90mm}{!}{\includegraphics{img/logo_ISEL_principal_PNG.png}}\\
+   \end{minipage}\\
+   \vspace{15mm}
+   % Título do projeto na forma capitalizada. A primeira letra de cada palavra deve ser maiúscula.
+   {\bf Gestão Inteligente de Stocks}
+}
+
+% Nome dos autores (um por linha)
+\author{
+	\begin{tabular}{ll}
+		& Ana Rita Ferreira dos Santos \\
+		& Inês Lima Amil Soares \\
+		& Nuno Manuel Olival Veloso \\
+	\end{tabular}
+}
+
+
+\date{
+	\vspace{80mm}
+	\begin{tabular}{ll}
+		{Orientadores} & Matilde Pós-de-Mina Pato \\
+		& Nuno Miguel Soares Datia \\
+	\end{tabular}\\
+	% Deixar o indicador respetivo em função da versão do relatório.
+	\vspace{10mm}
+	Relatório final realizado no âmbito de Projeto e Seminário,\\
+	do curso de licenciatura em Engenharia Informática e de Computadores\\
+	Semestre de Verão 2017/2018\\
+	\vspace{20mm}
+	Julho de 2018
+}
+
+\begin{document}
+
+\pagenumbering{roman}
+\thispagestyle{empty}
+\maketitle
+\raggedbottom
+
+\baselineskip 18pt % line spacing: 12pt for single, 18pt for 1 1/2, and 24pt for double spacing
+
+\newpage
+\thispagestyle{empty}
+% Fim da contracapa
+
+% Página com identificação completa (número e nome) e assinaturas dos estudante(s) e do(s) orientador(es)
+\cleardoublepage\newpage
+\setcounter{page}{1}
+\begin{center}
+{\Large\bf Instituto Superior de Engenharia de Lisboa}\\
+{\large Licenciatura em Engenharia Informática e de Computadores}\\
+%Projecto e Seminário\\
+\vspace{46mm}
+{\large \bf  Gestão Inteligente de Stocks}\\
+\vspace{16mm}
+\begin{tabular}{rl}
+  42142 & Ana Rita Ferreira dos Santos\\
+  42162 & Inês Lima Amil Soares\\
+  42181 & Nuno Manuel Olival Veloso\\
+\end{tabular}\\
+\vspace{8mm}
+\noindent\rule{12cm}{0.6pt}\\
+\vspace{8mm}
+\noindent\rule{12cm}{0.6pt}\\
+\vspace{8mm}
+\noindent\rule{12cm}{0.6pt}\\
+\vspace{10mm}
+\begin{tabular}{rl}
+  Orientadores: & Matilde Pós-de-Mina Pato\\
+                & Nuno Miguel Soares Datia\\   
+\end{tabular}\\
+\vspace{8mm}
+\noindent\rule{12cm}{0.6pt}\\
+\vspace{8mm}
+\noindent\rule{12cm}{0.6pt}\\
+\vspace{15mm}
+Relatório final realizado no âmbito de Projeto e Seminário,\\
+do curso de licenciatura em Engenharia Informática e de Computadores\\
+Semestre de Verão 2017/2018\\
+\vspace{20mm}
+Julho de 2018\\
+\end{center}
+
+% Página de resumo em Português
+\include{resumo}
+
+% Página de resumo em Inglês
+%\include{abstract}
+
+% Página de agradecimentos
+%\include{agradecimentos}
+
+% Geração do índice de figuras
+\listoffigures
+\cleardoublepage
+
+% Geração do índice de tabelas
+\listoftables
+\cleardoublepage
+
+% Geração do índice de Acrónimos e Abreviaturas
+%\printglossary[type=\acronymtype, style=long, toctitle={Acronyms}, title={Acronyms}]
+%\glsaddall
+%\printglossary[]
+%\cleardoublepage
+
+% Geração do índice de conteúdos
+\cleardoublepage\newpage
+\tableofcontents
+\cleardoublepage
+
+% Iniciar a numeração de páginas
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+% Capitulo 1
+\include{capitulo1}
+
+% Capitulo 2
+\include{capitulo2}
+
+% Capitulo 3
+\include{capitulo3}
+
+% Capitulo 4
+\include{capitulo4}
+
+% Referências
+\bibliographystyle{unsrt}
+\bibliography{referencias}
+
+% Anexos (opcional)
+\appendix
+
+% Anexo 1
+\include{anexo1}
+
+% Anexo 2
+%\include{anexo2}
+
+\end{document}

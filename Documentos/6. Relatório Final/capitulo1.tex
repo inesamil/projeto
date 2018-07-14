@@ -1,0 +1,74 @@
+%
+% Capítulo 1
+%
+\chapter{Introdução} \label{cap1}
+
+O conceito Sistema de Gestão de Stocks (GES) compreende o registo de todos os movimentos de stocks que, através da disponibilização de ferramentas informáticas, permitem efetuar a gestão administrativa de stocks, gestão de armazéns e a gestão económica de stocks, com controlo em tempo-real do stock existente. Assim, é possível responder eficazmente às necessidades de fluxo de stocks, que envolve três decisões principais:
+\begin{inparaenum}[i)]
+\item decidir quando comprar,
+\item escolher quanto comprar, e
+\item determinar a quantidade de stock de segurança.
+\end{inparaenum}
+Estas decisões assumem uma dinâmica repetitiva ao longo do tempo, e tornam-se complexas quando estão envolvidos muitos fatores na tomada das mesmas.  
+O GES é complementado por sistema de alertas de rotura de stock mínimo e por um conjunto de mecanismos que permitem efetuar o apuramento de custos vitais para uma gestão eficiente da organização. Todas as organizações, seja qual for o sector onde operam, partilham o mesmo problema: como efetuar a manutenção e controle de stock. Este problema não reside apenas nas empresas como indústria, distribuição, operadores logísticos, retalho. Numa outra escala, como as nossas casas, a gestão de stocks também merece destaque. Quem nunca se deparou com produtos fora de validade ou legumes e frutas muito velhas? 
+
+Para além da gestão de stocks, automatizar a recolha de informação sobre o que compramos, quando compramos, e quando consumimos permite identificar situações onde compramos quase sempre os mesmos produtos, esquecendo outros que não comemos há muito tempo. Estes padrões tornam a alimentação pouco variada, podendo contribuir para eventuais problemas de saúde que possam surgir. A razão prende-se, essencialmente, com as alterações nas rotinas diárias das famílias. A gestão de stocks é uma tarefa repetitiva e estruturada, para a qual já existem soluções como as listas de compras, nomeadamente \textit{OutOfMilk}\footnote[1]{https://www.outofmilk.com/} e \textit{Bring}\footnote[2]{https://www.getbring.com/\#!/app} são exemplos dessas soluções no formato de aplicações \textit{mobile}. No entanto, estas soluções não permitem o controlo de stocks e ``aprendizagem'' dos hábitos dos seus utilizadores.
+
+A ideia geral deste projeto consiste na gestão ``inteligente'' de stocks, ligado à \textit{Internet of Things}(IoT). Através de uma aplicação \textit{mobile} e \textit{web} com suporte inteligente de um algoritmo de previsão de stocks, é possível fazer a gestão de produtos numa casa. Tendo por base a automatização da recolha de dados recorrendo a sensores, simplifica-se, não só, o controlo de stocks, como também, a análise dos padrões de consumo e reposição numa casa.
+Desta forma, auxilia-se os utilizadores a manter o stock adequado às suas necessidades, bem como alertá-los para a proximidade do fim da validade e/ou quantidade dos produtos. 
+
+Este trabalho vai no sentido de responder a questões como: ``De que forma podemos evitar transtornos causados na altura de reabastecer a nossa despensa?'', ``Como proceder ao controlo de stocks de alimentos e outros produtos?", ``Como impedir artigos fora de prazo?''. Se se entender que uma casa funciona como uma empresa e existem quantidades mínimas recomendadas, é possível gerar uma nota de encomenda com os produtos em falta ou prestes a terminar para o utilizador poder consultar e exercer a compra.
+
+%
+% Secção 1.1
+%
+\section{Contexto} \label{sec11}
+
+Uma boa gestão de stocks de mercadorias é de extrema importância porque tem reflexos imediatos nos resultados de uma empresa, o que permite manter os clientes satisfeitos não só a nível da quantidade como da qualidade. Para manter o stock ideal não basta bom senso e intuição, é necessário conhecer o fluxo de vendas, utilizar ferramentas adequadas de gestão de informação sobre movimentos e eventuais constrangimentos no fornecimento. Nas nossas casas, o problema é idêntico apenas numa escala diferente. Organizar a despensa como se de uma empresa se tratasse possibilita uma melhor logística de custos e tempo. Ao elaborar uma lista de compras, onde se vai anotando os produtos que se tem, o que está a acabar e o que se tem de comprar, passa por uma solução indispensável. Que por vezes se torna numa tarefa que ``não é para todos''.
+
+Perante este problema, pretende-se desenvolver um sistema, utilizando uma solução digital, aplicação \textit{mobile} e de \textit{web}, que tem como objetivo ajudar os portugueses nesta repetitiva tarefa que é adotar e manter, ao longo do tempo, a sua despensa sem faltas.
+Através desta solução, o individuo terá sempre presente informação útil e prática, com possibilidade de utilizar um formato de lembretes e de registar as tendências para uma futura investigação no que diz respeito aos hábitos de consumo.
+
+Destaca-se ainda o facto de, no contexto atual, existir um aumento na facilidade de acesso às novas tecnologias, nomeadamente à \textit{internet}. Em plena era da informação a proliferação dos meios de comunicação e da própria \textit{internet} permitiu que os utilizadores se liguem à rede 24 horas, por dia, através de telemóveis, portáteis, \textit{tablets} e outros. A cada dia que passa assiste-se a uma mudança do comportamento do consumidor nesta área, graças à utilização dos dispositivos móveis dos ``8 aos 80" anos. Conforme os dados divulgados em Dezembro de 2016 pelo Gabinete de Estatísticas da União Europeia (Eurostat) \cite{eurostat:internetAccess2016}.
+
+Atualmente, a evolução tecnológica move-se a uma velocidade nunca vista. %No contexto empresarial já existem muitas soluções e softwares que permitem otimizar os processos e melhorar a eficiência dos resultados. 
+Segundo um estudo da Accenture \cite{Accenture:2016}, estima-se que, esta tendência venha adicionar 14,2 mil milhões de dólares à economia global até 2030. A IoT surgiu nos últimos anos e está a alterar os nossos hábitos, sem nos darmos conta, já que está presente em televisões, frigoríficos e outros aparelhos. Casa inteligente é uma das áreas mais proeminentes de aparelhos inteligentes \cite{miller2015internet}, e a cozinha é um dos lugares onde tais aparelhos são usados.
+Em Junho de 2000, a LG lançou o primeiro frigorífico ligado à internet, o ``Internet Digital DIOS''\footnote{Acedido a 21 Junho 2018, https://www.itweb.co.za/content/KA3WwqdlozkqrydZ}. Também conhecido por frigorífico inteligente foi programado para detetar que tipos de produtos são armazenados e manter o controle de stock por meio de leitura de código de barras ou RFID (Radio Frequency IDentification). Este frigorífico foi um produto mal sucedido porque os consumidores o viram como um produto desnecessário e devido ao preço excessivo (à época, mais de \$20,000) para além da falta de capacidade de comunicar aos utilizadores para futuras compras quando existem vários e a comunicação é informal. Desde essa altura, começaram a surgir muitas soluções com mais funcionalidades. Na CES 2018\footnote{51ª edicão da \textit{Consumer Electronics Show}, Las Vegas, EUA}, a Samsung mostrou o novo Family Hub com assistente pessoal inteligente Bixby, integração SmartThings com outros aparelhos de casa entre outras funcionalidades. A Siemens Home Connect é outra solução entre outros fabricantes de electrodomésticos. Atualmente, os preços são mais convidativos. O Family Hub não atinge os \$4,000\footnote{Acedido a 21 Junho 2018, https://www.samsung.com/us/home-appliances/refrigerators/s/}. Outra solução é o módulo Intelligent Refrigerator \cite{shweta2017intelligent}. Este foi projetado para converter qualquer frigorífico existente num aparelho inteligente e económico usando Inteligência Artificial. O frigorífico é capaz de detetar e monitorizar o seu conteúdo remotamente, tem uma funcionalidade de indicar itens que não são consumidos há muito tempo. A principal funcionalidade é manter, com mínimo esforço, uma lista de stocks de alimentos assim que necessário. Como resultado, o utilizador é notificado todos os dias sobre a quantidade, idade e itens descarregados. 
+%
+% Secção 1.2
+%
+\section{Metas e Objetivos} \label{sec12}
+Face ao exposto, a existência de um sistema de gestão de stocks na agenda de tarefas de uma organização doméstica poderá ser uma mais valia. Para concretizar esse sistema foi necessário equacionar os objetivos específicos que respondessem à seguinte questão: \\
+``Quais as características e funcionalidades que o sistema devera ter para que seja útil para os utilizadores e se diferencia das restantes?"
+
+Deste modo, definiram-se os seguintes objetivos:
+\begin{itemize} \itemsep 0pt
+	\item Implementar uma interface com o utilizador para dispositivos móveis;
+	\item Implementar uma interface com o utilizador para dispositivos \textit{desktop};
+	\item Implementar a componente servidora de um sistema de gestão de stocks;
+	\item Implementar um algoritmo de previsão de stocks.
+\end{itemize}
+
+%
+% Secção 1.3
+%
+\section{Abordagem do Projeto} \label{sec13}
+
+Este trabalho divide-se em duas partes principais. A primeira com o enquadramento teórico, em que se fez uma revisão da literatura focando os principais temas associados ao projeto, nomeadamente, gestão de stocks, a utilização das novas tecnologias. Reviu-se também estratégias de usabilidade e promoção de literatura na construção das aplicações móveis bem como a regulamentação existente e possibilidade de certificação.
+Ainda nesta parte, efetuou-se investigação exploratória de suporte à elaboração do projeto, assim como análise e discussão dos resultados obtidos.
+
+Na segunda parte encontra-se todo o trabalho desenvolvido para o projeto. Inicialmente definiram-se os requisitos fundamentais ao sistema de gestão de stocks a desenvolver. Aqui, foi também importante comparar as funcionalidades que se pretendiam implementar com as de outros sistemas já existentes, de forma a garantir elementos inovadores na solução. Posteriormente, definiu-se a arquitetura do sistema tal como todas as partes envolvidas. Foi ainda necessário estabelecer o modo como o utilizador iria interagir com o sistema, através do desenho das interfaces gráficas.
+
+%
+% Secção 1.4
+%
+\section{Estrutura do Relatório} \label{sec14}
+Este relatório está organizado em 4 capítulos.
+
+O capítulo 2 introduz o sistema de gestão de stocks desenvolvido, como também, formaliza o problema indicando os requisitos, as entidades para a resolução do mesmo e, ainda, apresenta a solução implementada.
+
+O capítulo 3 aborda a modelagem dada aos dados, as aplicações de interação direta com o utilizador, a \gls{api-web} bem como, todas as suas particularidades. Por fim, é também explicado o desenvolvimento e implementação do algoritmo de previsão de stocks.
+
+Conclusões, testes e diretrizes relativas a trabalho futuro são disponibilizadas no capítulo 4.
+
+No Anexo A definem-se as tabelas de domínio de cada uma das entidades do projeto.

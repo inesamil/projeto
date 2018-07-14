@@ -1,0 +1,73 @@
+\babel@toc {portuguese}{}
+\contentsline {chapter}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o}{1}
+\contentsline {section}{\numberline {1.1}Contexto}{2}
+\contentsline {section}{\numberline {1.2}Metas e Objetivos}{3}
+\contentsline {section}{\numberline {1.3}Abordagem do Projeto}{4}
+\contentsline {section}{\numberline {1.4}Estrutura do Relat\IeC {\'o}rio}{4}
+\contentsline {chapter}{\numberline {2}Sistema de Gest\IeC {\~a}o de Stocks}{5}
+\contentsline {section}{\numberline {2.1}Conceitos B\IeC {\'a}sicos de Gest\IeC {\~a}o de Stocks}{5}
+\contentsline {section}{\numberline {2.2}Sistema Smart Stocks}{6}
+\contentsline {subsection}{\numberline {2.2.1}Requisitos}{7}
+\contentsline {paragraph}{Requisitos Funcionais}{7}
+\contentsline {paragraph}{Requisitos N\IeC {\~a}o Funcionais}{7}
+\contentsline {paragraph}{Requisitos Opcionais}{7}
+\contentsline {section}{\numberline {2.3}Arquitetura da Solu\IeC {\c c}\IeC {\~a}o}{7}
+\contentsline {subsection}{\numberline {2.3.1}Abordagem}{8}
+\contentsline {subsection}{\numberline {2.3.2}R\IeC {\'o}tulos dos Itens em Stock}{9}
+\contentsline {subsubsection}{Requisitos Legais dos R\IeC {\'o}tulos}{9}
+\contentsline {subsubsection}{R\IeC {\'o}tulos Tradicionais \textit {vs} R\IeC {\'o}tulos Digitais}{9}
+\contentsline {subsubsection}{Compara\IeC {\c c}\IeC {\~a}o entre \textit {Tags} NFC e RFID}{11}
+\contentsline {subsection}{\numberline {2.3.3}Dispositivos de \textit {Hardware}}{12}
+\contentsline {subsection}{\numberline {2.3.4}Arquitetura por Camadas}{12}
+\contentsline {subsubsection}{Tecnologias Inerentes \IeC {\`a} Solu\IeC {\c c}\IeC {\~a}o}{13}
+\contentsline {section}{\numberline {2.4}Entidades}{14}
+\contentsline {subsubsection}{Casa}{14}
+\contentsline {subsubsection}{Utilizador}{14}
+\contentsline {subsubsection}{Listas}{14}
+\contentsline {subsubsection}{Categoria}{14}
+\contentsline {subsubsection}{Produtos}{15}
+\contentsline {subsubsection}{Item em Stock}{15}
+\contentsline {subsubsection}{Movimento}{15}
+\contentsline {subsubsection}{Local de armazenamento}{15}
+\contentsline {chapter}{\numberline {3}Implementa\IeC {\c c}\IeC {\~a}o do Sistema de Gest\IeC {\~a}o de Stocks}{17}
+\contentsline {section}{\numberline {3.1}Modelo de Dados}{17}
+\contentsline {subsection}{\numberline {3.1.1}Base de Dados}{17}
+\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{18}
+\contentsline {subsection}{\numberline {3.1.2}Modelo Entidade-Associa\IeC {\c c}\IeC {\~a}o}{18}
+\contentsline {subsection}{\numberline {3.1.3}Particularidades do Modelo de Dados}{19}
+\contentsline {subsubsection}{Alergias dos Membros de uma Casa}{19}
+\contentsline {subsubsection}{Internacionaliza\IeC {\c c}\IeC {\~a}o}{19}
+\contentsline {section}{\numberline {3.2}Aplica\IeC {\c c}\IeC {\~o}es Cliente}{19}
+\contentsline {subsection}{\numberline {3.2.1}Aplica\IeC {\c c}\IeC {\~a}o M\IeC {\'o}vel}{20}
+\contentsline {subsubsection}{Interface com o Utilizador}{20}
+\contentsline {subsubsection}{Padr\IeC {\~o}es de Desenho}{24}
+\contentsline {subsubsection}{Internacionaliza\IeC {\c c}\IeC {\~a}o}{25}
+\contentsline {subsubsection}{Seguran\IeC {\c c}a}{25}
+\contentsline {subsubsection}{Implementa\IeC {\c c}\IeC {\~a}o}{26}
+\contentsline {subsection}{\numberline {3.2.2}Aplica\IeC {\c c}\IeC {\~a}o \textit {Web}}{28}
+\contentsline {subsubsection}{Internacionaliza\IeC {\c c}\IeC {\~a}o}{28}
+\contentsline {subsubsection}{Seguran\IeC {\c c}a}{28}
+\contentsline {section}{\numberline {3.3}Componente Servidora}{28}
+\contentsline {subsubsection}{Internacionaliza\IeC {\c c}\IeC {\~a}o}{29}
+\contentsline {subsubsection}{\textit {Logging}}{30}
+\contentsline {subsubsection}{Documenta\IeC {\c c}\IeC {\~a}o}{30}
+\contentsline {subsection}{\numberline {3.3.1}Seguran\IeC {\c c}a}{31}
+\contentsline {subsubsection}{\acrlong {cors}}{31}
+\contentsline {subsubsection}{Armazenamento de \textit {Passwords}}{32}
+\contentsline {subsection}{\numberline {3.3.2}\textit {Controllers}}{32}
+\contentsline {subsubsection}{Formato dos Erros}{33}
+\contentsline {subsection}{\numberline {3.3.3}L\IeC {\'o}gica de Neg\IeC {\'o}cio}{33}
+\contentsline {subsection}{\numberline {3.3.4}Acesso a Dados}{34}
+\contentsline {section}{\numberline {3.4}Algoritmo de Previs\IeC {\~a}o de Stocks}{35}
+\contentsline {subsection}{\numberline {3.4.1}Implementa\IeC {\c c}\IeC {\~a}o}{35}
+\contentsline {subsection}{\numberline {3.4.2}Integra\IeC {\c c}\IeC {\~a}o no Sistema Smart Stocks}{36}
+\contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{39}
+\contentsline {section}{\numberline {4.1}Sum\IeC {\'a}rio}{39}
+\contentsline {section}{\numberline {4.2}Testes}{39}
+\contentsline {subsection}{\numberline {4.2.1}Testes \IeC {\`a} Resist\IeC {\^e}ncia das \textit {Tags} NFC}{39}
+\contentsline {subsection}{\numberline {4.2.2}Testes ao Funcionamento do Sistema Smart Stocks}{41}
+\contentsline {subsection}{\numberline {4.2.3}Testes ao Algoritmo de Previs\IeC {\~a}o de Stocks}{41}
+\contentsline {subsection}{\numberline {4.2.4}Testes Unit\IeC {\'a}rios}{41}
+\contentsline {section}{\numberline {4.3}Trabalho Futuro}{42}
+\contentsline {chapter}{\numberline {A}Modelo de Dados}{49}
+\contentsline {section}{\numberline {A.1}Dom\IeC {\'\i }nio dos Atributos}{49}
