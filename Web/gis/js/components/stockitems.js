@@ -62,7 +62,7 @@ class StockItems extends React.Component {
   render () {
     return (
       <div>
-        <h2 align='center'>Items</h2>
+        <h2 align='center'>Itens</h2>
         <select className='select' onChange={this.onChange} value={this.state.selectedValue}>
           {this.props.houses.map((house, idx) => (
             <option key={idx} value={idx}>{house.houseName}</option>
@@ -75,7 +75,7 @@ class StockItems extends React.Component {
                 <a onClick={() => this.props.redirectToStockItem(stockitem.href)} style={{color: 'black'}} >
                   <h3 className='container'>{stockitem.productName} {stockitem.variety}</h3>
                   <p style={{textIndent: '4%'}}>{stockitem.brand}</p>
-                  <h5 style={{textAlign: 'right', 'padding-bottom': '10px', 'padding-right': '10px'}}>Qty. {stockitem.quantity}</h5>
+                  <h5 style={{textAlign: 'right', 'padding-bottom': '10px', 'padding-right': '10px'}}>Qtd. {stockitem.quantity}</h5>
                 </a>
               </li>
             ))}

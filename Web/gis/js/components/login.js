@@ -97,7 +97,7 @@ export default class Login extends React.Component {
         <div className='login-column'>
           <h5>LOGIN</h5>
           <div className='form-group'>
-            <label htmlFor='username'>Username</label>
+            <label htmlFor='username'>Username:</label>
             <input type='text' onChange={this.handleChange} placeholder='Enter Username' name='username' className='form-control' required />
           </div>
           <div className='form-group'>

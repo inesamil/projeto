@@ -21,13 +21,13 @@ export default ({ url, getAuthorization }) => (
             <div>
               <h2 align='center'>{list.listName}</h2>
               {list.listType === 'system'
-                ? <h3 style={{paddingLeft: '350px'}}>System List</h3>
+                ? <h4 style={{paddingLeft: '350px'}}>Lista Sistema</h4>
                 : <div>
                   <h3 style={{paddingLeft: '350px'}}>{list.username}</h3>
-                  <p>Private List: {list.shareable
+                  <h4 style={{paddingLeft: '350px'}}>Lista Privada: {list.shareable
                     ? <input type='checkbox' disabled='true' unchecked='true' />
                     : <input type='checkbox' disabled='true' checked='true' />}
-                  </p>
+                  </h4>
                 </div>
               }
               <span className='glyphicon glyphicon-home' style={{'font-size': '15px', display: 'inline-block', marginRight: '10px', color: 'rgba(253, 73, 82, 0.8)', paddingLeft: '350px'}} />
@@ -36,7 +36,7 @@ export default ({ url, getAuthorization }) => (
                 <tbody>
                   <tr>
                     <th style={{paddingLeft: '20px'}}>Item</th>
-                    <th style={{width: '1vw', whiteSpace: 'nowrap', textAlign: 'right', paddingRight: '20px'}}>Quantity</th>
+                    <th style={{width: '1vw', whiteSpace: 'nowrap', textAlign: 'right', paddingRight: '20px'}}>Quantidade</th>
                   </tr>
                   {list.listProducts.map((product, idx) => (
                     <tr>

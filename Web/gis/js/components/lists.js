@@ -15,7 +15,7 @@ class Lists extends React.Component {
   render () {
     return (
       <div>
-        <h2 align='center'>Lists</h2>
+        <h2 align='center'>Listas</h2>
         <div id='myUL'>
           {this.props.lists.map((list, idx) => (
             <div key={idx}>

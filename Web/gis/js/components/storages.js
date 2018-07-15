@@ -20,7 +20,7 @@ export default ({ url, getAuthorization }) => (
           return (
             <div>
               <div id='myUL'>
-                <h2 align='center'>Storages</h2>
+                <h2 align='center'>Armazenamentos</h2>
                 {storages.map((storage, idx) => (
                   <li key={idx} id='divCard' className='card' style={{listStyleType: 'none'}}>
                     <h3 className='container'>{storage.storageName}</h3>

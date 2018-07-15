@@ -20,16 +20,16 @@ export default ({ url, getAuthorization }) => (
           return (
             <div>
               <div>
-                <h2 className='profile-title'>Profile</h2>
+                <h2 className='profile-title'>Perfil</h2>
               </div>
 
               <div className='box'>
                 <div>
                   <p />
                   <fieldset>
-                    <legend>Basic Information</legend>
+                    <legend>Informação Básica</legend>
                     <div>
-                      <label>Full Name: </label>
+                      <label>Nome completo: </label>
                       <span> {user.name}</span>
                     </div>
                     <div>
@@ -41,7 +41,7 @@ export default ({ url, getAuthorization }) => (
                       <span> {user.username}</span>
                     </div>
                     <div>
-                      <label>Age: </label>
+                      <label>Idade: </label>
                       <span> {user.age}</span>
                     </div>
                   </fieldset>

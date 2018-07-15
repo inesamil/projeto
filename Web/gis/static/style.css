@@ -13,7 +13,7 @@ a {
 .nav{  
   font-size: 0;
   background: rgb(255, 203, 61);
-  height: 1px;
+  height: 60px;
 }
 
 .navbar-brand{
@@ -64,7 +64,7 @@ a {
   top: 0;
   display: inline-block;
   height: 50px;
-  width: 100px;
+  width: 125px;
   text-align: center;
   line-height: 50px;
   color: black;
@@ -307,7 +307,7 @@ a {
 }
 
 #stockItemTile {
-  background: rgb(255, 206, 61, 0.8)
+  background: rgb(255, 206, 61);
 }
 
 #housesTile {
@@ -345,6 +345,6 @@ a {
 .select {
   position: relative;
   margin-left: 30%;
-  background-color: rgb(255, 206, 61, 0.8);
+  background-color: rgb(255, 206, 61);
   border: 6px solid transparent;
 }

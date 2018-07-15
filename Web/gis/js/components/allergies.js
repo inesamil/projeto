@@ -19,22 +19,10 @@ export default ({ url, getAuthorization }) => (
           const allergies = mapSirenToHouseAllergies(json)
           return (
             <div>
-              <h2 align='center'>Allergies</h2>
+              <h2 align='center'>Alergias</h2>
               <br />
-              <div align='center'>
-                <h4>
-                        Are there members with allergies in the house ?
-                </h4>
-                <label className='containerLabel'> Yes
-                  {allergies.houseAllergies ? (<input type='radio' checked='checked' name='radio' />) : (<input type='radio' name='radio' />) }
-                </label>
-                <label className='containerLabel'> No 
-                  {allergies.houseAllergies ? (<input type='radio' name='radio' />) : (<input type='radio' checked='checked' name='radio' />) }
-                </label>
-              </div>
-              <p><br /><h3 style={{'text-indent': '400px'}}>Allergens :</h3><br /></p>
-              {allergies.houseAllergies
-                ? (<div>
+              <p><h3 style={{'text-indent': '400px'}}>Alergénios :</h3></p>
+              <div>
                 <table className='table card' >
                     {allergies.houseAllergies.map((allergy, idx) =>
                       <tr key={idx}>
@@ -49,7 +37,7 @@ export default ({ url, getAuthorization }) => (
                       </tr>
                     )}
                   </table>
-              </div>) : ('')}
+              </div>
             </div>
           )
         }}
