@@ -12,11 +12,9 @@ import pt.isel.ps.gis.exceptions.EntityAlreadyExistsException;
 import pt.isel.ps.gis.exceptions.EntityException;
 import pt.isel.ps.gis.exceptions.EntityNotFoundException;
 import pt.isel.ps.gis.exceptions.InsufficientPrivilegesException;
-import pt.isel.ps.gis.model.Invitation;
-import pt.isel.ps.gis.model.InvitationId;
-import pt.isel.ps.gis.model.UserHouse;
-import pt.isel.ps.gis.model.Users;
+import pt.isel.ps.gis.model.*;
 import pt.isel.ps.gis.utils.AuthorizationProvider;
+import pt.isel.ps.gis.utils.RestrictionsUtils;
 import pt.isel.ps.gis.utils.ValidationsUtils;
 
 import java.util.List;
@@ -105,6 +103,23 @@ public class InvitationServiceImpl implements InvitationService {
                 .orElseThrow(() -> new EntityNotFoundException("The invitation does not found.", messageSource.getMessage("invitation_not_found", null, locale)));
         InvitationId id = invitation.getId();
         userHouseRepository.save(new UserHouse(houseId, id.getUsersId(), false));
+        Users user = usersRepository
+                .findByUsersUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found.", messageSource.getMessage("user_Username_Not_Exist", new Object[]{username}, locale)));
+        House house = houseRepository
+                .findById(houseId)
+                .orElseThrow(() -> new EntityNotFoundException("House does not exist.", messageSource.getMessage("house_Not_Exist", null, locale)));
+        Characteristics characteristics = house.getHouseCharacteristics();
+        Short age = user.getUsersAge();
+        if (age >= RestrictionsUtils.CHARACTERISTICS_BABIES_MIN_AGE && age <= RestrictionsUtils.CHARACTERISTICS_BABIES_MAX_AGE)
+            characteristics.setHouse_babiesNumber((short) (characteristics.getHouse_babiesNumber() + 1));
+        else if (age >= RestrictionsUtils.CHARACTERISTICS_CHILDREN_MIN_AGE && age <= RestrictionsUtils.CHARACTERISTICS_CHILDREN_MAX_AGE)
+            characteristics.setHouse_childrenNumber((short) (characteristics.getHouse_childrenNumber() + 1));
+        else if (age >= RestrictionsUtils.CHARACTERISTICS_ADULTS_MIN_AGE && age <= RestrictionsUtils.CHARACTERISTICS_ADULTS_MAX_AGE)
+            characteristics.setHouse_adultsNumber((short) (characteristics.getHouse_adultsNumber() + 1));
+        else if (age >= RestrictionsUtils.CHARACTERISTICS_SENIORS_MIN_AGE && age <= RestrictionsUtils.CHARACTERISTICS_SENIORS_MAX_AGE)
+            characteristics.setHouse_seniorsNumber((short) (characteristics.getHouse_seniorsNumber() + 1));
+        houseRepository.save(house);
         invitationRepository.deleteById(id);
     }
 

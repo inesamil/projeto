@@ -13,6 +13,18 @@ public class RestrictionsUtils {
     public static final short CHARACTERISTICS_AGE_GROUP_MIN = 0;
     public static final short CHARACTERISTICS_AGE_GROUP_MAX = 100;
 
+    public static final short CHARACTERISTICS_BABIES_MIN_AGE = 0;
+    public static final short CHARACTERISTICS_BABIES_MAX_AGE = 3;
+
+    public static final short CHARACTERISTICS_CHILDREN_MIN_AGE = 4;
+    public static final short CHARACTERISTICS_CHILDREN_MAX_AGE = 14;
+
+    public static final short CHARACTERISTICS_ADULTS_MIN_AGE = 15;
+    public static final short CHARACTERISTICS_ADULTS_MAX_AGE = 64;
+
+    public static final short CHARACTERISTICS_SENIORS_MIN_AGE = 65;
+    public static final short CHARACTERISTICS_SENIORS_MAX_AGE = 150;
+
     /// User
     public static final short USER_ID_MIN = 1;
     public static final int USER_USERNAME_MAX_LENGTH = 30;

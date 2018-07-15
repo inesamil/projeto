@@ -193,18 +193,20 @@ class AllergiesFragment : Fragment() {
                 }
             })
         } else {
-            adapter.getHouseAllergyItems()?.map { houseAllergy -> HouseAllergyBody(houseAllergy.allergy, houseAllergy.allergics) }?.let {
-                allergiesViewModel.addHouseAllergies(HouseAllergiesBody(it.toTypedArray()))?.observe(this, Observer {
-                    when {
-                        it?.status == Status.SUCCESS -> {
-                            Toast.makeText(context, getString(R.string.allergies_saved_successfully), Toast.LENGTH_SHORT).show()
-                        }
-                        it?.status == Status.ERROR -> {
-                            Toast.makeText(context, getString(R.string.could_not_save_allergies), Toast.LENGTH_SHORT).show()
-                        }
+            adapter.getHouseAllergyItems()
+                    ?.filter { houseAllergy -> houseAllergy.allergics > 0 }
+                    ?.map { houseAllergy -> HouseAllergyBody(houseAllergy.allergy, houseAllergy.allergics) }?.let {
+                        allergiesViewModel.addHouseAllergies(HouseAllergiesBody(it.toTypedArray()))?.observe(this, Observer {
+                            when {
+                                it?.status == Status.SUCCESS -> {
+                                    Toast.makeText(context, getString(R.string.allergies_saved_successfully), Toast.LENGTH_SHORT).show()
+                                }
+                                it?.status == Status.ERROR -> {
+                                    Toast.makeText(context, getString(R.string.could_not_save_allergies), Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        })
                     }
-                })
-            }
         }
     }
 

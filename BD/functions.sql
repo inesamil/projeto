@@ -178,7 +178,7 @@ DECLARE
 	userId bigint;
 BEGIN
 	-- Get last id
-	SELECT public."list".list_id FROM public."list" WHERE public."list".house_id = houseID ORDER BY public."list".list_id DESC LIMIT 1 INTO listID;
+	SELECT public."userlist".list_id FROM public."userlist" WHERE public."userlist".house_id = houseID ORDER BY public."userlist".list_id DESC LIMIT 1 INTO listID;
 	IF listID IS NULL THEN
 		listID := 16; 	-- First list inserted
 	ELSE

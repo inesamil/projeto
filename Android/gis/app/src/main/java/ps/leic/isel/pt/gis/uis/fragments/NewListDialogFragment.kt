@@ -21,7 +21,6 @@ import ps.leic.isel.pt.gis.model.dtos.ErrorDto
 import ps.leic.isel.pt.gis.model.dtos.HouseDto
 import ps.leic.isel.pt.gis.model.dtos.HousesDto
 import ps.leic.isel.pt.gis.repositories.Status
-import ps.leic.isel.pt.gis.uis.activities.HomeActivity
 import ps.leic.isel.pt.gis.viewModel.HousesViewModel
 
 class NewListDialogFragment : DialogFragment() {
@@ -112,7 +111,7 @@ class NewListDialogFragment : DialogFragment() {
     private fun onSuccess(houses: HousesDto?) {
         houses?.houses?.let {
             this.houses = it
-            if (it.size > 0) {
+            if (it.isNotEmpty()) {
                 noHousesLayout.visibility = View.GONE
                 addListLayout.visibility = View.VISIBLE
                 val spinnerAdapter = ArrayAdapter<String>(housesSpinner.context, android.R.layout.simple_spinner_item, it.map { house -> house.name })
@@ -122,6 +121,8 @@ class NewListDialogFragment : DialogFragment() {
             } else {
                 noHousesLayout.visibility = View.VISIBLE
                 addListLayout.visibility = View.GONE
+                val alertDialog = this@NewListDialogFragment.dialog as AlertDialog
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
             }
         }
     }
