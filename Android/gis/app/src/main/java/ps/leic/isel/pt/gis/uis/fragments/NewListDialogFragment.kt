@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AlertDialog
@@ -34,6 +35,9 @@ class NewListDialogFragment : DialogFragment() {
     private lateinit var housesSpinner: Spinner
 
     private var listener: OnNewListDialogFragmentInteractionListener? = null
+
+    private lateinit var noHousesLayout: ConstraintLayout
+    private lateinit var addListLayout: ConstraintLayout
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -65,7 +69,12 @@ class NewListDialogFragment : DialogFragment() {
                 })
                 .setNegativeButton(R.string.cancel, { _, _ -> this@NewListDialogFragment.dialog.cancel() })
 
+        noHousesLayout = view.cannotAddListLayout
+        addListLayout = view.addListLayout
         housesSpinner = view.newListHousesSpinner
+
+        noHousesLayout.visibility = View.GONE
+        addListLayout.visibility = View.GONE
 
         return builder.create()
     }
@@ -101,14 +110,18 @@ class NewListDialogFragment : DialogFragment() {
     }
 
     private fun onSuccess(houses: HousesDto?) {
-        houses?.let {
-            this.houses = it.houses
-
-            this.houses?.let {
+        houses?.houses?.let {
+            this.houses = it
+            if (it.size > 0) {
+                noHousesLayout.visibility = View.GONE
+                addListLayout.visibility = View.VISIBLE
                 val spinnerAdapter = ArrayAdapter<String>(housesSpinner.context, android.R.layout.simple_spinner_item, it.map { house -> house.name })
                 spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 housesSpinner.adapter = spinnerAdapter
                 housesSpinner.setSelection(0)
+            } else {
+                noHousesLayout.visibility = View.VISIBLE
+                addListLayout.visibility = View.GONE
             }
         }
     }

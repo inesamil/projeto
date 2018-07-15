@@ -191,4 +191,5 @@
     <string name="tap_plus_to_add_list">Clique no + para adicionar uma nova lista</string>
     <string name="tap_add_to_add_products">Clique no botão de adicionar para adicionar produtos à lista</string>
     <string name="no_invitations_received">Não recebeu nenhum convite</string>
+    <string name="cannot_add_list">Por favor, adicione uma casa primeiro para poder adicionar uma nova lista</string>
 </resources>
