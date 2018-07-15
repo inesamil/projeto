@@ -978,3 +978,24 @@ INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, da
 
 INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
 	VALUES (2, 'P3-Becel-Manteiga Vegetal-1kg', '2018-07-12', 2);
+
+CREATE OR REPLACE FUNCTION fillDailyQuantity() 
+RETURNS VOID AS $$
+DECLARE
+	dataa date = '2018-07-12';
+	datahoje date = CURRENT_DATE;
+	dat date = dataa;
+BEGIN
+	WHILE dat < datahoje LOOP
+		INSERT INTO public.dailyquantity(house_id, stockitem_sku, dailyquantity_date, dailyquantity_quantity)
+			SELECT public."dailyquantity".house_id, public."dailyquantity".stockitem_sku, public."dailyquantity".dailyquantity_date + 1::int, public."dailyquantity".dailyquantity_quantity
+				FROM public."dailyquantity" WHERE public."dailyquantity".dailyquantity_date = dat;
+		dat := dat + 1::int;
+	END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT fillDailyQuantity();
+
+DROP FUNCTION fillDailyQuantity;
+
