@@ -1,0 +1,24 @@
+O dossier do projeto está organizado da seguinte maneira:
+
+	1. Na pasta "entregas" encontram-se as entregas efectuadas durante a realização do projecto, incluindo:
+		– Proposta de projecto (pps.pdf)
+		– Relatório de progresso (rps.pdf)
+		– Apresentação individual de cada estudante (an.pdf (onde cada n representa o número do aluno))
+		– Versão inicial do cartaz (cs.pdf)
+		
+	2. Na pasta "executaveis" encontram-se os executaveis gerados (Nota: O ficheiro gis.apk e hardwaresimulator.apk necessitam de ser gerados de acordo com o Uniform Resource Locator (URL) onde a APIWeb está alojada.)
+	
+	3. Na pasta "projeto" encontra-se todo o código fonte resultante da realização do projeto, incluindo:
+		- Na pasta "APIWeb" encontra-se o código fonte correspondente à api web.
+		- Na pasta "AppsAndroid" encontram-se duas pastas ("gis" e "HardwareSimulator") correspondentes ao código fonte das aplicações móveis.
+		- Na pasta "AppWeb" encontra-se o código fonte correspondente à aplicação web.
+		- Na pasta "BD" encontram-se os scripts de criação (creates.sql), remoção (drops.sql), inserção (inserts.sql) e funções (functions.sql).
+		- No ficheiro Planeamento.pdf encontra-se o progresso sujeito ao longo do projeto.
+		
+	4. No ficheiro rfs.pdf encontra-se o relatório final em formato pdf.
+	
+	5. No ficheiro cs.pdf encontra-se a versão final do cartaz do projecto em formato pdf.
+	
+	6. No ficheiro rs.pdf encontra-se o resumo do projeto em formato pdf.
+	
+	7. No ficheiro "manual de instrucoes" encontram-se os passos necessários para executar o projeto.

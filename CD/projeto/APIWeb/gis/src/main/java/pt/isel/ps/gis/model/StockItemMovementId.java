@@ -1,0 +1,111 @@
+package pt.isel.ps.gis.model;
+
+import pt.isel.ps.gis.exceptions.EntityException;
+import pt.isel.ps.gis.utils.DateUtils;
+import pt.isel.ps.gis.utils.RestrictionsUtils;
+import pt.isel.ps.gis.utils.ValidationsUtils;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Objects;
+
+@Embeddable
+public class StockItemMovementId implements Serializable {
+
+    @Column(name = "house_id", nullable = false)
+    private Long houseId;
+
+    @Column(name = "stockitem_sku", length = RestrictionsUtils.STOCKITEM_SKU_MAX_LENGTH, nullable = false)
+    private String stockitemSku;
+
+    @Column(name = "storage_id", nullable = false)
+    private Short storageId;
+
+    @Column(name = "stockitemmovement_type", nullable = false)
+    private Boolean stockitemmovementType;
+
+    @Column(name = "stockitemmovement_datetime", nullable = false)
+    private Timestamp stockitemmovementDatetime;
+
+    /**
+     * CONSTRUTORES
+     */
+    protected StockItemMovementId() {
+    }
+
+    public StockItemMovementId(Long houseId, String stockitemSku, Short storageId, Boolean stockitemmovementType,
+                               String stockitemmovementDatetime) throws EntityException {
+        setHouseId(houseId);
+        setStockitemSku(stockitemSku);
+        setStorageId(storageId);
+        setStockitemmovementType(stockitemmovementType);
+        setStockitemmovementDatetime(stockitemmovementDatetime);
+    }
+
+    /**
+     * GETTERS E SETETRS
+     */
+    public Long getHouseId() {
+        return houseId;
+    }
+
+    public void setHouseId(Long houseId) throws EntityException {
+        ValidationsUtils.validateHouseId(houseId);
+        this.houseId = houseId;
+    }
+
+    public String getStockitemSku() {
+        return stockitemSku;
+    }
+
+    public void setStockitemSku(String stockitemSku) throws EntityException {
+        ValidationsUtils.validateStockItemSku(stockitemSku);
+        this.stockitemSku = stockitemSku;
+    }
+
+    public Short getStorageId() {
+        return storageId;
+    }
+
+    public void setStorageId(Short storageId) throws EntityException {
+        ValidationsUtils.validateStorageId(storageId);
+        this.storageId = storageId;
+    }
+
+    public Boolean getStockitemmovementType() {
+        return stockitemmovementType;
+    }
+
+    public void setStockitemmovementType(Boolean stockitemmovementType) throws EntityException {
+        ValidationsUtils.validateStockItemMovementType(stockitemmovementType);
+        this.stockitemmovementType = stockitemmovementType;
+    }
+
+    public String getStockitemmovementDatetime() {
+        return DateUtils.convertTimestampFormat(stockitemmovementDatetime);
+    }
+
+    public void setStockitemmovementDatetime(String stockitemmovementDatetime) throws EntityException {
+        ValidationsUtils.validateStockItemMovementDateTime(stockitemmovementDatetime);
+        this.stockitemmovementDatetime = Timestamp.valueOf(stockitemmovementDatetime);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        StockItemMovementId that = (StockItemMovementId) obj;
+        return Objects.equals(houseId, that.houseId) &&
+                Objects.equals(stockitemSku, that.stockitemSku) &&
+                Objects.equals(storageId, that.storageId) &&
+                Objects.equals(stockitemmovementType, that.stockitemmovementType) &&
+                Objects.equals(stockitemmovementDatetime, that.stockitemmovementDatetime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(houseId, stockitemSku, storageId, stockitemmovementType, stockitemmovementDatetime);
+    }
+}

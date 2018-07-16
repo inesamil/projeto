@@ -1,0 +1,9 @@
+Primeiramente deve criar uma base de dados PostgreSql com o nome "gis". Posteriormente deve executar os scripts pela seguinte ordem: creates.sql, functions.sql, inserts.sql. Estes estão presentes em /projeto/BD. Se for necessário eliminar as tabelas e as funções deverá executar o script drops.sql presente em /projeto/BD. Para a realização deste passo deve ter instalado na sua máquina o PostgreSql versão 10 ou superior.
+
+Para executar o projeto deve lançar primeiro a API Web, executando o ficheiro no formato jar na localização /executaveis/APIWeb.jar. Para lançar este ficheiro deve ter instalado previamente o Java 8 ou superior na sua máquina.
+
+Seguidamente pode optar por escolher executar a aplicação web ou móvel, ou ambas. Para executar a aplicação móvel deverá alterar o URL presente no ficheiro SplashScreenViewModel.kt na localização /projeto/AppsAndroid/gis/app/src/main/java/ps/leic/isel/pt/gis/viewModel para o URL base onde se encontra alojada a API Web. De seguida deve gerar o APK ou executar através do emulador do Android Studio. Para executar este passo deve ter instalado na sua máquina o Android Studio.
+
+Para executar a aplicação web precisa de abrir o ficheiro index.html presente em /executaveis/AppWeb. Para a realização deste passo necessita de um browser (Firefox, Chrome, Edge ou Opera).
+
+Para executar a aplicação móvel que simula o hardware necessita de alterar o URL no ficheiro ReadFragment.kt presente em /projeto/AppsAndroid/HardwareSimulator/app/src/main/java/ps/leic/isel/pt/hardwaresimulator para o URL base onde se encontra alojada a API Web. De seguida deve gerar o APK ou executar através do emulador do Android Studio. Para executar este passo deve ter instalado na sua máquina o Android Studio.

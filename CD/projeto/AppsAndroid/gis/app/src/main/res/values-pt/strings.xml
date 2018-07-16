@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- Login Activity -->
+    <string name="login">Iniciar Sessão</string>
+    <string name="sing_in">ENTRAR</string>
+    <string name="username">Nome de Utilizador</string>
+    <string name="password">Palavra-Chave</string>
+    <string name="register">Não tem conta?</string>
+    <string name="or">OU</string>
+    <string name="sing_up">REGISTE-SE</string>
+    <string name="about">Sobre</string>
+    <!-- Register Activity -->
+    <string name="basic_information">Informação Básica</string>
+    <string name="fullname">Nome Completo</string>
+    <string name="email">Email</string>
+    <string name="age">Idade</string>
+    <string name="private_information">Informação Privada</string>
+    <string name="confirm_password">Confirmar Palavra-Chave</string>
+    <string name="already_have_an_account">Já tem uma conta?</string>
+    <!-- Initial Setup 1 Activity -->
+    <string name="houses_name">Nome da casa</string>
+    <string name="next">PRÓXIMO</string>
+    <string name="already_have_house">Já tem uma casa?</string>
+    <!-- Product Category Activity -->
+    <string name="products_label">Produtos</string>
+    <string name="categories">Categorias</string>
+    <!-- right_menu_with_search and right_menu -->
+    <string name="search">Procurar</string>
+    <string name="invitations">Convites</string>
+    <string name="preferences">Definições</string>
+    <!-- content_product_category_item.xml -->
+    <string-array name="products_categories">
+        <item>DIÁRIO</item>
+        <item>BEBIDAS</item>
+        <item>MOLHOS</item>
+        <item>CONGELADOS</item>
+        <item>FRUTAS</item>
+        <item>PICANTES</item>
+    </string-array>
+    <!--Product Diary Activity-->
+    <string name="diary">Laticínios</string>
+    <!-- content_product_diary_item.xml -->
+    <string-array name="products_diaries">
+        <item>LEITE</item>
+        <item>IOGURTE</item>
+        <item>QUEIJO</item>
+    </string-array>
+    <!-- nav_bar_menu.xml -->
+    <string name="lists">Listas</string>
+    <string name="products">Produtos</string>
+    <string name="recipes">Receitas</string>
+    <string name="profile">Perfil</string>
+    <string name="settings">Definições</string>
+    <!-- content_list.xml -->
+    <string name="download">Transferir para offline</string>
+    <!-- content_list_item.xml -->
+    <string-array name="names">
+        <item>Leite</item>
+        <item>Açúcar</item>
+        <item>Ovos</item>
+    </string-array>
+    <string-array name="numbers">
+        <item>2</item>
+        <item>1</item>
+        <item>12</item>
+    </string-array>
+    <!-- List Activity -->
+    <string name="listLabel">Lista de Compras</string>
+    <!-- Settings Activity -->
+    <string name="settingsLabel">Definições</string>
+    <!-- About Activity -->
+    <string name="aboutLabel">Sobre</string>
+    <!-- content_stock_item_list_item -->
+    <string name="filters">Filtros</string>
+    <string name="details">Detalhes</string>
+    <!-- StockItemList Activity -->
+    <string name="stockItemListLabel">Lista</string>
+    <!-- StockItemDetails Activity -->
+    <string name="stockItemDetailsLabel">Detalhes do Item</string>
+    <!-- content_stock_item_details.xml -->
+    <string name="allergens">Alergénios</string>
+    <string name="expirationDate">Data de validade</string>
+    <string name="storages">Armazenamento</string>
+    <string name="description">Descrição</string>
+    <string name="movements">Movimentos</string>
+    <!-- Initial Setup - Family Members -->
+    <string name="initial_setup">Configuração Inicial</string>
+    <string name="babies">Bebés (0\-3 anos)</string>
+    <string name="children">Crianças (4\-14 anos)</string>
+    <string name="adults">Adultos (15\-64 anos)</string>
+    <string name="seniors">Seniores (65\+ anos)</string>
+    <string name="start">Vamos Começar</string>
+    <!-- Activity Lists -->
+    <string name="add_new_list">Adicionar nova lista</string>
+    <!-- Allergies -->
+    <string name="allergics_question">Existem membros com alergias em casa ?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="allergics">Alérgicos</string>
+    <string name="save">Gravar</string>
+    <!--NFC activity and fragment-->
+    <string name="write_button">Escrever</string>
+    <string name="message_write_error">Erro durante a escrita!</string>
+    <string name="message_write_success">Escrita efetuada com sucesso na Tag!</string>
+    <string name="message_write_progress">A escrever na Tag…</string>
+    <string name="message_tag_detected">Detetada Tag NFC!</string>
+    <string name="message_read_tag">Ler a Tag NFC</string>
+    <string name="message_write_tag">Escrever na Tag NFC</string>
+    <string name="message_tap_tag">Aproxime a Tag NFC do seu telemóvel!</string>
+    <string name="hint_message">Mensagem</string>
+    <string name="initial_setup_1_2">Configuração Inicial</string>
+    <string name="home_icon_description">Ícone da Casa</string>
+    <string name="in_stock">Em stock</string>
+    <string name="allergies">Alergias</string>
+    <string name="user_icon_description">Ícone do Utilizador</string>
+    <string name="download_icon_description">Ícone de Download</string>
+    <string name="houses">Casas</string>
+    <string name="my_pantry">Minha Despensa</string>
+    <string name="admin">admin</string>
+    <string name="accept">Aceitar</string>
+    <string name="decline">Recusar</string>
+    <string name="homePage">Página Principal</string>
+    <string name="add">Adicionar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="private_list">Privada</string>
+    <string name="shareable_list">Pública</string>
+    <string name="secret_list">Lista secreta</string>
+    <string name="house">House</string>
+    <string name="system_lists">Listas do Sistema</string>
+    <string name="sharedLists">Listas Partilhadas</string>
+    <string name="userLists">As Minhas Listas</string>
+    <string name="select">Selecionar</string>
+    <string name="apply">Aplicar</string>
+    <string name="tags">Tags</string>
+    <string name="nfc_icon_description">Ícone de NFC</string>
+    <string name="remove">Remover</string>
+    <string name="remove_list_product">Remover produto de</string>
+    <string name="quantity_abbreviation">Qtd.</string>
+    <string name="list_icon_description">Ícone da Lista</string>
+    <string name="members">Membros</string>
+    <string name="list_name">Nome da Lista</string>
+    <string name="add_new_house">Adicionar uma nova casa</string>
+    <string name="characteristics">Caraterísticas</string>
+    <string name="brand">Marca</string>
+    <string name="variety">Variedade</string>
+    <string name="conservation_storage">Condições de Conservação</string>
+    <string name="date">Data</string>
+    <string name="item">Item</string>
+    <string name="add_list_product">Adicionar produto</string>
+    <string name="please_fill_in_all_required_fields">Por favor, preencha todos os campos obrigatórios</string>
+    <string name="functionality_not_available">Funcionalidade não disponível</string>
+    <string name="wrong_credentials_please_login_again">Credenciais erradas. Por favor volte a iniciar sessão.</string>
+    <string name="could_not_connect_to_server">Não foi possível conectar ao SmartStocksServer</string>
+    <string name="list_added_successfully">Lista adicionada com sucesso</string>
+    <string name="could_not_add_list">Não foi possível adicionar a lista, por favor tente novamente</string>
+    <string name="house_added_successfully">Casa adicionada com sucesso</string>
+    <string name="could_not_add_house">Não foi possível adicionar a casa, por favor tente novamente</string>
+    <string name="allergies_saved_successfully">Alergias guardadas com sucesso</string>
+    <string name="could_not_save_allergies">Não foi possível guardar as alergias, por favor tente novamente</string>
+    <string name="user_needs_to_login_first">É necessário iniciar sessão</string>
+    <string name="registe_user_failed">Registo do utilizador falhou</string>
+    <string name="list_products_successfully">Produtos adicionados à lista com sucesso</string>
+    <string name="list_products_error">Alguns produtos não foram adicionados à lista</string>
+    <string name="system_list">Lista de Sistema</string>
+    <string name="system_list_icon_description">Ícone da Lista de Sistema</string>
+    <string name="color_system">Sistema de Cores</string>
+    <string name="brand_info">Um símbolo de identificação, marca, logótipo, nome, palavra e/ou frase que as empresas usam para distinguir os seus produtos dos outros.</string>
+    <string name="variety_info">A variedade é sobre a personalização de um produto para se adequar ao caráter do consumidor individual.\nExemplo: Note-se um pacote de leite com as caraterísticas - quantidade líquida igual a 1L, da marca X e do tipo UHT magro.\nEntão, identificar-se-ia da seguinte forma:\n\nCategoria: Laticínios\nProduto: Leite\nMarca: X\nSegmento: 1L\nVariedade:  UHT Magro</string>
+    <string name="edit_icon_description">Ícone de Editar</string>
+    <string name="delete_icon_description">Ícone de Remover</string>
+    <string name="delete_confirmation">Tem a certeza que pretende remover?</string>
+    <string name="no_internet_connection">Sem ligação à internet</string>
+    <string name="network_error_has_occurred">Ocorreu um erro de rede</string>
+    <string name="unfortunately_an_error_has_occurred">Infelizmente ocorreu um erro</string>
+    <string name="invitation_question">Quer juntar-se à casa %1$s?</string>
+    <string name="invitation_sent_successfully">Convite enviado com sucesso</string>
+    <string name="logout">Terminar sessão</string>
+    <string name="fridge_icon_description">Ícone do Frigorífico</string>
+    <string name="add_member_icon_description">Ícone de Adicionar Membro</string>
+    <string name="password_can_not_null">A password não pode ser nula.</string>
+    <string name="credentials_not_found">Credenciais não encontradas.</string>
+    <string name="something_went_wrong_please_try_again">Ocorreu um erro inesperado. Por favor tente outra vez</string>
+    <string name="passwords_must_be_equal">A palavra-chave não corresponde à palavra-chave de confirmação</string>
+    <string name="you_have_no_houses_yet">Ainda não adicionou nenhuma casa</string>
+    <string name="tap_plus_to_add_house">Clique no + para adicionar uma nova casa</string>
+    <string name="you_have_no_items_yet">Ainda não tem itens</string>
+    <string name="you_have_no_lists_yet">Ainda não adicionou nenhuma lista</string>
+    <string name="you_have_no_products">Ainda não adicionou nenhum produto a esta lista</string>
+    <string name="tap_plus_to_add_list">Clique no + para adicionar uma nova lista</string>
+    <string name="tap_add_to_add_products">Clique no botão de adicionar para adicionar produtos à lista</string>
+    <string name="no_invitations_received">Não recebeu nenhum convite</string>
+    <string name="cannot_add_list">Por favor, adicione uma casa primeiro para poder adicionar uma nova lista</string>
+</resources>

@@ -1,0 +1,33 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<resources>
+    <color name="primaryColor">@color/sunglow</color>
+    <color name="primaryLightColor">@color/sunset_orange</color>
+    <color name="primaryDarkColor">@color/port_gore</color>
+    <color name="secondaryColor">@color/turquoise_blue</color>
+    <color name="secondaryLightColor">@color/mint_green</color>
+    <color name="secondaryDarkColor">@color/iris_blue</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
+
+    <color name="sunglow">#ffd13d</color>
+    <color name="sunglow_opacity_200">#c8ffd13d</color>
+    <color name="orange_peel_opacity_200">#c8ff9800</color>
+    <color name="sunset_orange">#fd4952</color>
+    <color name="sunset_orange_opacity_200">#c8fd4952</color>
+    <color name="spring_bud">#afdf00</color>
+    <color name="spring_bud_opacity_200">#c8afdf00</color>
+    <color name="mint_green">#c9ff9a</color>
+    <color name="mint_green_opacity_200">#c8c9ff9a</color>
+    <color name="turquoise_blue">#76e5bb</color>
+    <color name="iris_blue">#00bcbe</color>
+    <color name="iris_blue_opacity_200">#c800bcbe</color>
+    <color name="port_gore">#385170</color>
+    <color name="port_gore_opacity_200">#c8385170</color>
+    <color name="fog">#d1c4e9</color>
+    <color name="empress">#757575</color>
+    <color name="fog_opacity_200">#c8d1c4e9</color>
+    <color name="turquoise_blue_opacity_200">#c876e5bb</color>
+    <color name="lavender_blush_opacity_200">#c8ffebee</color>
+
+
+</resources>

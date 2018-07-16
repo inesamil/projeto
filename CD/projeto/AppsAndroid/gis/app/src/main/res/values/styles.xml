@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SmartStocksTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/sunglow</item>
+        <item name="colorPrimaryDark">@color/port_gore</item>
+        <item name="colorAccent">@color/sunset_orange</item>
+    </style>
+
+    <style name="SmartStocksTheme.SunglowButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/sunglow_round_edges_rectangle</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="SmartStocksTheme.SunsetOrangeButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/sunset_orange_round_edges_rectangle</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="SmartStocksTheme.IrisBlueButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/iris_blue_round_edges_rectangle</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="SmartStocksTheme.CardView" parent="CardView.Light">
+        <item name="cardBackgroundColor">@color/cardview_light_background</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="SmartStocksTheme.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="colorAccent">@color/sunglow</item>
+    </style>
+
+    <style name="SmartStocksTheme.Switch.Blue" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="colorAccent">@color/iris_blue</item>
+    </style>
+</resources>

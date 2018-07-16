@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SmartStocksTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/primaryColor</item>
+        <item name="android:colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="android:colorAccent">@color/primaryLightColor</item>
+        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
+        <item name="colorPrimary">@color/sunglow</item>
+        <item name="colorPrimaryDark">@color/port_gore</item>
+        <item name="colorAccent">@color/sunset_orange</item>
+        <item name="android:statusBarColor">@android:color/black</item>
+    </style>
+
+    <style name="SmartStocksTheme.ProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/primaryColor</item>
+    </style>
+</resources>

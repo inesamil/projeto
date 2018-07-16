@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Smart Stocks</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Login Activity -->
+    <string name="login">Login</string>
+    <string name="sing_in">SIGN IN</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="register">Don\'t have an account?</string>
+    <string name="or">OR</string>
+    <string name="sing_up">SIGN UP</string>
+    <string name="about">About</string>
+
+    <!-- Register Activity -->
+    <string name="basic_information">Basic Information</string>
+    <string name="fullname">Full Name</string>
+    <string name="email">Email</string>
+    <string name="age">Age</string>
+    <string name="private_information">Private Information</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="already_have_an_account">Already have an account?</string>
+
+    <!-- Initial Setup Activity -->
+    <string name="initial_setup_1_2">Initial Setup</string>
+    <string name="houses_name">House\'s name</string>
+    <string name="next">NEXT</string>
+    <string name="already_have_house">Already have house?</string>
+    <string name="home_icon_description">House Icon</string>
+    <string name="babies">Babies (0\-3 years)</string>
+    <string name="children">Children (4\-14 years)</string>
+    <string name="adults">Adults (15\-64 years)</string>
+    <string name="seniors">Seniors (65\+ years)</string>
+    <string name="start">Let\'s Get Started</string>
+    <string name="default_number" translatable="false">0</string>
+    <string name="plus" translatable="false">+</string>
+    <string name="minus" translatable="false">-</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Product Category Activity -->
+    <string name="products_label">Products</string>
+    <string name="categories">Categories</string>
+
+    <!-- right_menu_with_search and right_menu -->
+    <string name="search">Search</string>
+    <string name="invitations">Invitations</string>
+    <string name="preferences">Preferences</string>
+
+    <!-- content_product_category_item.xml -->
+    <string-array name="products_categories">
+        <item>DIARY</item>
+        <item>DRINKS</item>
+        <item>SAUCES</item>
+        <item>FROZEN</item>
+        <item>FRUITS</item>
+        <item>SPICES</item>
+    </string-array>
+
+    <!-- Product Diary Activity -->
+    <string name="diary">Diary</string>
+
+    <!-- content_product_diary_item.xml -->
+    <string-array name="products_diaries">
+        <item>MILK</item>
+        <item>YOGURT</item>
+        <item>CHEESE</item>
+    </string-array>
+
+    <!-- nav_bar_menu.xml -->
+    <string name="homePage">Home Page</string>
+    <string name="lists">Lists</string>
+    <string name="products">Products</string>
+    <string name="recipes">Recipes</string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
+
+    <!-- content_list.xml -->
+    <string name="download">Transfer to offline</string>
+
+    <!-- content_list_item.xml -->
+    <string-array name="names">
+        <item>Milk</item>
+        <item>Sugar</item>
+        <item>Eggs</item>
+    </string-array>
+    <string-array name="numbers">
+        <item>2</item>
+        <item>1</item>
+        <item>12</item>
+    </string-array>
+
+    <!-- List Activity -->
+    <string name="listLabel">Groceries List</string>
+
+    <!-- Settings Activity -->
+    <string name="settingsLabel">Settings</string>
+
+    <!-- About Activity -->
+    <string name="aboutLabel">About</string>
+
+    <!-- content_stock_item_list_item -->
+    <string name="filters">Filters</string>
+    <string name="details">Details</string>
+
+    <!-- StockItemList Activity -->
+    <string name="stockItemListLabel">List</string>
+
+    <!-- StockItemDetails Activity -->
+    <string name="stockItemDetailsLabel">Stock Item Details</string>
+
+    <!-- content_stock_item_details.xml -->
+    <string name="allergens">Allergens</string>
+    <string name="expirationDate">Expiration Date</string>
+    <string name="storages">Storages</string>
+    <string name="description">Description</string>
+    <string name="movements">Movements</string>
+
+    <!-- Activity Lists -->
+    <string name="add_new_list">Add new list</string>
+
+    <!-- Allergies -->
+    <string name="allergics_question">Are there members with allergies in the house ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="allergics">Allergics</string>
+    <string name="save">Save</string>
+
+    <!--NFC activity and fragment-->
+    <string name="write_button">Write</string>
+    <string name="message_write_error">Error Writing Message !</string>
+    <string name="message_write_success">Successfully written to Tag !</string>
+    <string name="message_write_progress">Writing to Tag…</string>
+    <string name="message_tag_detected">NFC Tag Detected !</string>
+    <string name="message_read_tag">Read from NFC Tag</string>
+    <string name="message_write_tag">Write to NFC Tag</string>
+    <string name="message_tap_tag">Tap the NFC Tag to your device !</string>
+    <string name="hint_message">Message</string>
+
+    <string name="in_stock">In stock</string>
+    <string name="allergies">Allergies</string>
+
+    <string name="user_icon_description">User Icon</string>
+    <string name="list_icon_description">List Icon</string>
+    <string name="download_icon_description">Download Icon</string>
+    <string name="houses">Houses</string>
+    <string name="my_pantry">My Pantry</string>
+    <string name="members">Members</string>
+    <string name="admin">admin</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="list_name">List Name</string>
+    <string name="shareable_list">Public</string>
+    <string name="private_list">Private</string>
+    <string name="secret_list">Private list</string>
+    <string name="add_new_house">Add new house</string>
+    <string name="characteristics">Characteristics</string>
+    <string name="brand">Brand</string>
+    <string name="variety">Variety</string>
+    <string name="conservation_storage">Conservation Storage</string>
+    <string name="date">Date</string>
+    <string name="item">Item</string>
+    <string name="house">House</string>
+    <string name="system_lists">System Lists</string>
+    <string name="sharedLists">Shared Lists</string>
+    <string name="userLists">My Lists</string>
+    <string name="select">Select</string>
+    <string name="apply">Apply</string>
+    <string name="tags">Tags</string>
+    <string name="nfc_icon_description">NFC Icon</string>
+    <string name="add_list_product">Add product</string>
+    <string name="about_Text">Ao automatizarmos a recolha de dados relacionada com os stocks de produtos em casa, simplificamos a gestão dos mesmos. Desta forma, auxiliamos os utilizadores a manter o stock adequado às suas necessidades, bem como alertá-lo para a proximidade do fim da validade e/ou stock dos produtos. Assim, o nosso trabalho vai no sentido de responder a questões como: \'De que forma podemos evitar transtornos causados na altura de reabastecer a nossa despensa? Ou como proceder ao controlo de stocks de alimentos e outros produtos? Como impedir artigos fora de prazo?\'. Se entendermos que a nossa casa funciona como uma empresa, onde existem pessoas que podem realizar as mesmas tarefas, e.g. ir às compras seguindo uma lista previamente elaborada, capacitamos qualquer elemento da família para exercer a compra.</string>
+    <string name="Authores_Names">Autores: Ana Santos, Inês Soares e Nuno Veloso</string>
+    <string name="mentors_Names">Orientadores: Matilde Pato e Nuno Datia</string>
+    <string name="remove">Remove</string>
+    <string name="remove_list_product">Remove product from</string>
+    <string name="quantity_abbreviation">Qty.</string>
+    <string name="initial_setup">Initial Setup</string>
+    <string name="please_fill_in_all_required_fields">Please, fill in all required fields</string>
+    <string name="functionality_not_available">Functionality not available</string>
+    <string name="wrong_credentials_please_login_again">Wrong credentials. Please login again.</string>
+    <string name="could_not_connect_to_server">Couldn\'t connect to SmartStocksServer</string>
+    <string name="list_added_successfully">List added successfully</string>
+    <string name="could_not_add_list">Could not add list, please try again</string>
+    <string name="house_added_successfully">House added successfully</string>
+    <string name="could_not_add_house">Could not add house, please try again</string>
+    <string name="allergies_saved_successfully">Allergies saved successfully</string>
+    <string name="could_not_save_allergies">Could not save allergies, please try again</string>
+    <string name="user_needs_to_login_first">User needs to login first</string>
+    <string name="registe_user_failed">Registe user failed</string>
+    <string name="list_products_successfully">Products added to list with success</string>
+    <string name="list_products_error">Some products were not added to list</string>
+    <string name="system_list">System List</string>
+    <string name="system_list_icon_description">System List Icon</string>
+    <string name="color_system">Color System</string>
+    <string name="brand_info">An identification symbol, brand, logo, name, word and/or phrase that companies use to distinguish their products from others.</string>
+    <string name="variety_info">Variety is about personalizing a product to suit the character of the individual consumer.</string>
+    <string name="edit_icon_description">Edit Icon</string>
+    <string name="delete_icon_description">Delete Icon</string>
+    <string name="delete_confirmation">Are you sure you want to delete?</string>
+    <string name="list_product_removed_successfully">Product removed successfully</string>
+    <string name="could_not_remove_list_product">Sorry, we couldn\'t remove the product, please try again</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="network_error_has_occurred">A network error has occurred</string>
+    <string name="unfortunately_an_error_has_occurred">Unfortunately an error has occurred</string>
+    <string name="invitation_question">Do you want to join to the house %1$s?</string>
+    <string name="at_username" translatable="false">\@%1$s</string>
+    <string name="invitation_sent_successfully">Invitation sent successfully</string>
+    <string name="logout">Logout</string>
+    <string name="fridge_icon_description">Fridge Icon</string>
+    <string name="add_member_icon_description">Add Member Icon</string>
+    <string name="password_can_not_null">Password can not be null.</string>
+    <string name="credentials_not_found">Not found credentials.</string>
+    <string name="something_went_wrong_please_try_again">Something went wrong. Please try again</string>
+    <string name="passwords_must_be_equal">Password does not match the confirm password</string>
+    <string name="you_have_no_houses_yet">You haven\'t added any houses yet</string>
+    <string name="tap_plus_to_add_house">Tap on the + to add a new house</string>
+    <string name="you_have_no_items_yet">You have no items yet</string>
+    <string name="you_have_no_lists_yet">You haven\'t added any lists yet</string>
+    <string name="you_have_no_products">You haven\'t added any products to this list yet</string>
+    <string name="tap_plus_to_add_list">Tap on the + to add a new list</string>
+    <string name="tap_add_to_add_products">Tap on the add button to add products to this list</string>
+    <string name="no_invitations_received">You haven\'t received any invitations</string>
+    <string name="cannot_add_list">Please, add an house first so you can add a new list</string>
+</resources>

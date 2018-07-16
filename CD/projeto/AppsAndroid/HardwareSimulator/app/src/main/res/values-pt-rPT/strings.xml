@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HardwareSimulator</string>
+    <string name="message_read_tag">Ler da Tag NFC</string>
+    <string name="message_tag_detected">Detetada Tag NFC!</string>
+    <string name="message_read_progress">A ler a Tag NFC</string>
+    <string name="message_read_error">Erro ao ler a Tag NFC</string>
+</resources>
