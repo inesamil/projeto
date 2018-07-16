@@ -53,7 +53,7 @@ public class ListController {
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @GetMapping("")
-    public ResponseEntity<ListsOutputModel> geHouseLists(
+    public ResponseEntity<ListsOutputModel> getHouseLists(
             @PathVariable("house-id") long houseId,
             Locale locale
     ) throws NotFoundException, BadRequestException, ForbiddenException {
