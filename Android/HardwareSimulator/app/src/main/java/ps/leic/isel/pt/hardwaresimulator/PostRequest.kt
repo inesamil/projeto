@@ -13,9 +13,7 @@ class PostRequest(method: Int, url: String, body: Any?, onSuccess: (String) -> U
 
     override fun parseNetworkResponse(response: NetworkResponse?): Response<String> {
         return try {
-            if (response?.headers?.get("content-type") != "application/vnd.siren+json")
-                return Response.error(VolleyError("Your request is invalid."))
-            Response.success(response.statusCode.toString(), null)
+            Response.success(response?.statusCode.toString(), null)
         } catch (e: IOException) {
             Response.error(VolleyError(e))
         }
