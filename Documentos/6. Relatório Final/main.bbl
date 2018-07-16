@@ -103,6 +103,13 @@ Waqar Haque, Robert Lucas, and Paul Stokes.
   128--134, Anaheim, CA, USA, 2007. ACTA Press.
 \newblock [Online, Acedido a 22/06/2018].
 
+\bibitem{Singlepageapplication:online}
+Single-page application vs. multiple-page application.
+\newblock
+  \url{https://medium.com/@NeotericEU/single-page-application-vs-multiple-page-application-2591588efe58},
+  Dezembro 2016.
+\newblock [Online, Acedido a 12/05/2018].
+
 \bibitem{AppleVsAndroid:comparative}
 Jayanti Katariya.
 \newblock Apple vs android — a comparative study 2017 – androidpub.
@@ -121,13 +128,38 @@ Homepage - material design.
 \newblock \url{https://material.io/}.
 \newblock [Online, Acedido a 24/04/2018].
 
+\bibitem{mvc:online}
+Android architecture patterns part 1: Model-view-controller.
+\newblock
+  \url{https://medium.com/upday-devs/android-architecture-patterns-part-1-model-view-controller-3baecef5f2b6}.
+\newblock [Online, Acedido a 12/04/2018].
+
+\bibitem{mvp:online}
+Android architecture patterns part 2: Model-view-presenter.
+\newblock
+  \url{https://medium.com/upday-devs/android-architecture-patterns-part-2-model-view-presenter-8a6faaae14a5},
+  Novembro 2016.
+\newblock [Online, Acedido a 12/04/2018].
+
+\bibitem{mvvm:online}
+Android architecture patterns part 3: Model-view-viewmodel.
+\newblock
+  \url{https://medium.com/upday-devs/android-architecture-patterns-part-3-model-view-viewmodel-e7eeee76b73b},
+  Novembro 2016.
+\newblock [Online, Acedido a 12/04/2018].
+
+\bibitem{MartinFowler:dependencyinjection}
+Inversion of control containers and the dependency injection pattern.
+\newblock \url{https://martinfowler.com/articles/injection.html}, Janeiro 2004.
+\newblock [Online, Acedido a 20/04/2018].
+
 \bibitem{ServiceLocator:android}
 Daniel Novak.
 \newblock Service locator pattern in android – inloopx – medium.
 \newblock
   \url{https://medium.com/inloopx/service-locator-pattern-in-android-af3830924c69},
   Janeiro.
-\newblock [Online, Acedido a 20/03/2018].
+\newblock [Online, Acedido a 20/04/2018].
 
 \bibitem{Supportd:android}
 Support different languages and cultures | android developers.
@@ -158,6 +190,12 @@ Magnus Vinther.
   \url{https://medium.com/@magnus.chatt/why-you-should-totally-switch-to-kotlin-c7bbde9e10d5},
   Maio 2017.
 \newblock [Online, Acedido a 16/03/2018].
+
+\bibitem{android:activityLifecycle}
+Understand the activity lifecycle  |  android developers.
+\newblock
+  \url{https://developer.android.com/guide/components/activities/activity-lifecycle}.
+\newblock [Online, Acedido a 28/04/2018].
 
 \bibitem{Volley:android}
 Volley overview  |  android developers.
@@ -270,6 +308,12 @@ Bcrypt (spring security 4.2.5.release api).
   \url{https://docs.spring.io/spring-security/site/docs/4.2.5.RELEASE/apidocs/org/springframework/security/crypto/bcrypt/BCrypt.html}.
 \newblock [Online, Acedido a 29/05/2018].
 
+\bibitem{DeprecatedAlgorithms:online}
+Passwordencoder (spring security 4.2.4.release api).
+\newblock
+  \url{https://docs.spring.io/spring-security/site/docs/4.2.4.RELEASE/apidocs/org/springframework/security/authentication/encoding/PasswordEncoder.html}.
+\newblock [Online, Acedido a 21/06/2018].
+
 \bibitem{APIBestP87:hypermedia}
 Mike Stowe.
 \newblock Api best practices: Hypermedia (part 4.1) | mulesoft blog.
@@ -307,6 +351,16 @@ Randy Stafford.
 \newblock P of eaa: Service layer.
 \newblock \url{https://www.martinfowler.com/eaaCatalog/serviceLayer.html}.
 \newblock [Online, Acedido a 28/05/2018].
+
+\bibitem{javaee6:jpa}
+Introduction to the java persistence api - the java ee 6 tutorial.
+\newblock \url{https://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html}.
+\newblock [Online, Acedido a 28/04/2018].
+
+\bibitem{Hibernate:online}
+Hibernate. everything data. - hibernate.
+\newblock \url{http://hibernate.org/}.
+\newblock [Online, Acedido a 12/04/2018].
 
 \bibitem{GestaoStocks:MetodosPrevisaoStocks}
 Dulce Almeida and Lídia Teixeira.

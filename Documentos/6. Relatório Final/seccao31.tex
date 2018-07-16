@@ -7,13 +7,17 @@
 
 Os dados são armazenados de forma persistente numa \acrfull{bd}. A \acrshort{bd} utilizada é relacional uma vez que não se preveem alterações ao esquema das tabelas, não carecendo do dinamismo oferecido por uma \acrshort{bd} documental, por exemplo. 
 
-A escolha de qual o melhor \acrfull{sgbd} assentava em três possibilidades, \textit{SQL Server}, \textit{PostgreSQL} e \textit{MySQL}. O primeiro apesar de ser uma ferramenta com a qual o grupo estava familiarizado foi automaticamente excluído visto que um dos requisitos pretendidos era usar ferramentas \gls{open-source}, caraterística não presente neste sistema. Os restantes sistemas são \gls{open-source} e têm uma elevada compatibilidade com os principais fornecedores de serviços \textit{cloud}. Pelo que a verdadeira distinção se prende com as vantagens oferecidas pelo sistema \textit{PostgreSQL}:
+A escolha de qual o melhor \acrfull{sgbd} assentava em três possibilidades, \textit{SQL Server}, \textit{PostgreSQL} e \textit{MySQL}. O primeiro apesar de ser uma ferramenta com a qual o grupo estava familiarizado foi automaticamente excluído visto que um dos requisitos pretendidos era usar ferramentas \gls{open-source}, caraterística não presente neste sistema. Os restantes sistemas são \gls{open-source} e têm uma elevada compatibilidade com os principais fornecedores de serviços \textit{cloud}. Sendo as vantagens oferecidas pelo sistema \textit{PostgreSQL} as seguintes:
 \begin{itemize}
 	\item O \textit{PostgreSQL} é compatível com as propriedades \acrfull{acid}, garantindo assim que todos os requisitos sejam atendidos;
 	\item O \textit{PostgreSQL} aborda a concorrência de uma forma eficiente com a sua implementação de \acrfull{mvcc}, que alcança níveis muito altos de concorrência;
 	\item O \textit{PostgreSQL} possui vários recursos dedicados à extensibilidade. É possível adicionar novos tipos, novas funções, novos tipos de índice, etc.
 \end{itemize}
-Assim sendo, foi escolhido o \acrfull{sgbdro} \textit{PostgreSQL}, como já anteriormente mencionado, na secção \ref{subsec233} do capítulo \ref{cap2}.
+Assim sendo, foi escolhido o \acrfull{sgbdr} \textit{PostgreSQL}, como já anteriormente mencionado, na secção \ref{subsec233} do capítulo \ref{cap2}.
+
+\subsubsection{Internacionalização}
+
+A internacionalização não é suportada ao nível da base de dados, não tendo por tanto tradução das nomenclaturas das categorias nem dos produtos, nem qualquer informação destes. 
 
 \subsubsection{Implementação}\label{subsubsec3111}
 
@@ -24,7 +28,7 @@ Decidiu-se usar funções na \acrshort{bd} em vez de criar métodos em \textit{J
 % Modelo EA
 \subsection{Modelo Entidade-Associação}\label{subsec312}
 
-\begin{figure}
+\begin{figure}[H]
 %	\hspace*{-2,5cm}
 	\centering
 	\includegraphics[width=1\textwidth,scale=1,trim={5mm 5mm 5mm 5mm},clip]{img/EA.pdf}
@@ -32,8 +36,68 @@ Decidiu-se usar funções na \acrshort{bd} em vez de criar métodos em \textit{J
 	\label{modelo-ea}
 \end{figure}
 
-Com Figura \ref{modelo-ea} é possível entender as relações das entidades referidas na secção \ref{sec24} do capítulo \ref{cap2}. Para um maior detalhe do domínio de cada uma das entidades consultar o anexo \ref{seca11}. 
+Com Figura \ref{modelo-ea} é possível entender as relações das entidades referidas na secção \ref{subsubsec3121}. Para um maior detalhe do domínio de cada uma das entidades consultar o anexo \ref{seca11}.
 
+\subsubsection{Entidades} \label{subsubsec3121}
+
+Em seguida identificam-se as diversas entidades relevantes que compõem o sistema de informação, que permite gerir os itens em stock numa dada casa.
+\subsubsection{Casa}
+\begin{itemize}
+	\item Cada casa é caracterizada por um identificador único, um nome, atribuído por um utilizador no momento de registo da casa. 
+	\item Deve ser possível saber o número de bebés, crianças, adultos e seniores que vivem nessa casa.
+	\item Uma casa está associada a um ou mais utilizadores, podendo um utilizador ter várias casas. 
+	\item Existe um ou mais administradores de uma casa.
+	\item A casa pode ter vários itens em stock.
+	\item Para cada casa existem vários locais de armazenamento dos itens, por exemplo armários, frigoríficos, etc.
+	\item Em cada casa deve ser possível conhecer as alergias assim como quantos membros possuem essa alergia (os membros não precisam necessariamente de estar registados).
+\end{itemize}
+
+\subsubsection{Utilizador}
+\begin{itemize}
+	\item Uma pessoa é representada por um utilizador que é caracterizado por um email ou por um nome de utilizador, pelo nome da pessoa, a sua idade e uma \textit{password}.
+\end{itemize}
+
+\subsubsection{Listas}
+\begin{itemize}
+	\item Cada lista é composta por um identificador único e um nome.
+	\item Uma lista pode ter vários produtos.
+	\item Existem dois tipos de listas: de sistema e de utilizador. 
+	\item As listas de sistema são comuns a todos os utilizadores registados, contudo são particulares a cada casa.	
+	\item Um utilizador pode criar as suas listas, partilhando-as com outros utilizadores da casa ou tornando-as secretas.
+\end{itemize}
+
+\subsubsection{Categoria}
+\begin{itemize}
+	\item Uma categoria é identificada univocamente por um número ou por um nome.
+\end{itemize}
+
+
+\subsubsection{Produtos}
+\begin{itemize}
+	\item Um produto é constituído por um identificador único, um nome, se é ou não comestível, e a validade perecível.
+	\item Para os produtos presentes numa lista pode ser possível saber a sua marca e a quantidade.
+	\item Um produto pertence a uma categoria, podendo uma categoria ter vários produtos.
+	\item Um produto pode ser concretizado por diversos itens em stock na casa.
+\end{itemize}
+ 
+\subsubsection{Item em Stock}
+\begin{itemize}
+	\item Um item em stock é a concretização de um produto que existe numa casa. É identificado univocamente por um número ou por uma marca, uma variedade e um segmento, é também caracterizado por uma descrição, o local de conservação, a quantidade e as datas de validade. 
+	\item Para cada item deve ser possível saber os seus movimentos de entrada e saída de um local de armazenamento.
+	\item Deve também ser possível saber os alergénios de cada item presente na casa.
+\end{itemize}
+
+\subsubsection{Movimento}
+\begin{itemize}
+	\item Para cada movimento deve ser possível saber o tipo do movimento (entrada ou saída), a data em que ocorreu e a quantidade de produtos. 
+\end{itemize}
+
+\subsubsection{Local de armazenamento}
+\begin{itemize}
+	\item Cada local de armazenamento é caraterizado por um identificador único, a temperatura e um nome.
+	\item Deve ser possível saber a quantidade de cada item presente no local.
+	\item Um local de armazenamento pode ter vários itens em stock presentes na casa e estar associado a diversos movimentos.
+\end{itemize}
 
 \subsection{Particularidades do Modelo de Dados}
 
@@ -44,8 +108,4 @@ O sistema Smart Stocks disponibiliza um leque de funcionalidades, porém o foco 
 Um dos aspetos a ter em conta, seria a manutenção da consistência das alergias numa casa, aquando um utilizador é removido desta. Este aspeto é importante, pois o modelo de dados desenvolvido não garante essa coerência, visto que as alergias estão associadas a uma casa e aos seus membros e não a um utilizador do sistema. Tomou-se esta decisão, uma vez que faria mais sentido, na altura, as alergias estarem associadas a uma casa e ao seu conjunto de membros, que podem ou não estar registados no sistema. A razão desta escolha baseia-se na possibilidade de registar as alergias dos co-habitantes da casa, mesmo que estes não sejam utilizadores do sistema. 
 
 Um bom exemplo que apoia esta abordagem, é o caso das crianças, desta forma, os seus pais registam as alergias dos mais pequenos e conseguem melhor controlar o plano alimentar familiar. Imagine-se uma casa com três habitantes, dois dos quais intolerantes à lactose, e apenas um está registado no sistema. O contra da solução é não saber qual dos membros detém a alergia, todavia, sabe-se que a mesma existe e assim é possível alertar o utilizador do sistema. Para concluir, esta solução apesar das suas vantagens, está acompanhada de um problema, que é a saída de alguém da casa, ficando a informação relativa às alergias inconsistente. Uma possível solução passa por notificar o administrador da casa para esse facto, e alertá-lo para a necessidade de retificar os dados.
-
-\subsubsection{Internacionalização}
-
-A internacionalização não é suportada ao nível da base de dados, não tendo por tanto tradução das nomenclaturas das categorias nem dos produtos, nem qualquer informação destes.  
 

@@ -68,7 +68,7 @@
 		\begin{tabular}{|c|c|C{2.5cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
-			\multirow{5}{*}{Usersrole} & users\_id & Número inteiro & bigint & users\_id \textgreater{} 0 & não\\ \cline{2-6}
+			\multirow{3}{*}{Usersrole} & users\_id & Número inteiro & bigint & users\_id \textgreater{} 0 & não\\ \cline{2-6}
 			& role\_id & Número inteiro & smallserial & role\_id \textgreater{} 0 & não\\ \hline
 		\end{tabular}
 	}
@@ -354,7 +354,7 @@
 		\begin{tabular}{|c|c|C{3cm}|C{2.7cm}|C{3.6cm}|C{2.3cm}|}
 			\hline
 			\textbf{Entidade} & \textbf{Atributo} & \textbf{Domínio} & \textbf{Tipo Variável (PostgreSQL)} & \textbf{Restrições} & \textbf{Nullable}\\ \hline
-			\multirow{4}{*}{Invitations} & house\_id & Número inteiro & bigint & house\_id \textgreater{} 0 & não\\ \cline{2-6}
+			\multirow{2}{*}{Invitations} & house\_id & Número inteiro & bigint & house\_id \textgreater{} 0 & não\\ \cline{2-6}
 			& users\_id & Número inteiro & bigint & users\_id \textgreater{} 0 & não\\ \hline
 		\end{tabular}
 	}
@@ -376,3 +376,17 @@
 		\end{tabular}
 	}
 \end{table}
+
+
+%
+% Capítulo 2
+%
+%
+\chapter{Hypermedia Response}\label{a2}
+
+%
+% Secção B.1
+%
+% Siren Response
+\section{Siren Response}\label{seca21}
+\lstinputlisting[language=json, basicstyle=\small]{code/sirenResponse.json}

@@ -12,82 +12,13 @@ Neste capítulo apresentam-se as conclusões relativas ao desempenho e trabalho 
 
 A possibilidade de visualização em tempo real do estado do stock de uma casa é um auxílio enorme.
 No entanto, transmitir essa informação de forma simples, clara e percetível aos utilizadores é requerente de um prévio trabalho de pesquisa, para se poder conhecer o que os utilizadores procuram, de maneira a oferecer serviços adequados às suas necessidades, tornando-os acessíveis e dinamiza-los de forma simples e prática.
-Com a finalidade de implementação do sistema Smart Stocks usou-se um modelo de dados, \textit{PostgreSQL}, para o armazenamento dos dados indispensáveis à gestão de stocks. Implementou-se uma \gls{api-web}, independente do modelo de dados e das aplicações cliente, responsável por disponibilizar os dados às aplicações clientes, móvel e web. A aplicação móvel é responsável, não só, por permitir a visualização da informação fornecida pela \gls{api-web}, tal como a aplicação web, como também, por interagir com o sistema e escrever nas \textit{tags}.
+Com a finalidade de implementação do sistema Smart Stocks usou-se um modelo de dados para o armazenamento dos dados indispensáveis à gestão de stocks. Implementou-se uma \gls{api-web}, independente do modelo de dados e das aplicações cliente, responsável por disponibilizar os dados às aplicações clientes, móvel e web. A aplicação móvel é responsável, não só, por permitir a visualização da informação fornecida pela \gls{api-web}, tal como a aplicação web, como também, por interagir com o sistema e escrever nas \textit{tags}.
 
 Realizaram-se testes à resistência das \textit{Tags} NFC e testes unitários às funções utilitárias desenvolvidas. De forma a realizar testes ao sistema Smart Stocks num ambiente real, desenvolveu-se uma aplicação para dispositivos móveis \textit{Android}, cuja principal função é simular um dispositivo de \textit{hardware}, como os que estão presentes em armários e frigoríficos que integram o sistema desenvolvido neste projeto.
 
 %
-% Secção 4.2 Testes
+% Secção 4.2 Trabalho Futuro
 %
-\section{Testes}\label{sec42}
-
-\subsection{Testes à Resistência das \textit{Tags} NFC}\label{subsec421}
-
-Existem diferentes condições de conservação para os diversos locais de armazenamento, podendo estes variar em termos de temperatura, humidade, pressão, entre outros. Assim, os alimentos são expostos a circunstâncias distintas aquando armazenados em casa. Por exemplo, no caso dos frigoríficos as capacidades de congelação variam consoante o número de estrelas que possuem, de acordo com a DECO PROTESTE \cite{deco:fridgeStarsClassification}:
-
-\begin{itemize}
-    \item 1 estrela: até - 6ºC; conserva congelados até 1 semana.
-    \item 2 estrelas: até - 12ºC; conserva congelados até 1 mês.
-    \item 3 estrelas: permite conservar alimentos previamente congelados até 1 ano.
-    \item 4 estrelas: entre - 18º e - 24ºC; são os únicos que permitem congelar alimentos.
-\end{itemize}
-
-O período máximo de conservação de cada alimento varia conforme a classificação de estrelas de um determinado frigorífico/congelador, segundo a DECO PROTESTE \cite{deco:conservationTimeByProduct}. Nos modelos de quatro estrelas os tempos de conservação são os seguintes: 
-\begin{itemize}
-    \item Frutas e hortícolas cozidas e arrefecidas: 12 meses.
-    \item Bifes de vaca sem gordura, salsichas frescas, frango e peru: 10 meses.
-    \item Queijos de pasta mole ou semimole: 8 meses.
-    \item Pão, massa folhada ou quebrada, bolachas e crepes, manteiga, carne de porco pouco gorda, coelho, lebre e caça, peixe magro ou meio gordo: 6 meses.
-    \item Massas para pão e pizzas, tartes de fruta, peixe gordo, marisco, sopas, sobras de pratos cozinhados: 3 meses.
-    \item Hambúrgueres, carne picada, carne de porco gorda: 2 meses.
-    \item Bolos com creme: 1 mês.
-\end{itemize}
-
-Como tal, foi importante testar a resistência das \textit{tags} \acrshort{nfc} às várias condições de conservação, de forma a garantir a eficácia do sistema de gestão de stocks nos diversos espaços de cada casa. Realizaram-se testes em três locais de armazenamento distintos, um frigorífico, um congelador e um armário. Os testes compreenderam a escrita na \textit{tag} e sua arrumação no respetivo local durante um período de tempo estipulado. Após este período de tempo a \textit{tag} foi retirada e verificado o seu estado e ainda retificadas as funcionalidades de leitura e de escrita.
-
-\begin{itemize}
-    \item Teste às \textit{tags} \acrshort{nfc} no frigorífico: 
-    Duração: 1 mês
-    Estrelas:
-    Temperatura:
-    Humidade: média
-    Resultado: Leitura e escrita funcionais.
-    \item Teste às \textit{tags} \acrshort{nfc} no congelador:
-    Duração: 1 mês
-    Estrelas:
-    Temperatura: 
-    Humidade: baixa
-    Resultado: Leitura e escrita funcionais.
-    \item Teste às \textit{tags} \acrshort{nfc} no armário:
-    Duração: 1 mês
-    Temperatura: 15-20 graus Celsius
-    Humidade: alta
-    Resultado: Leitura e escrita funcionais.
-\end{itemize}
-
-Em conclusão, para curtos períodos de tempo pode-se garantir a resistência das \textit{tags}, bem como, a eficácia do sistema de gestão de stocks desenvolvido. Contudo, seria imprescindível uma avaliação extensa, com maior gama de períodos de tempo e múltiplas condições, para assim assegurar o sucesso da utilização do sistema Smart Stocks.
-
-\subsection{Testes ao Funcionamento do Sistema Smart Stocks}
-
-De forma a poder testar o correto funcionamento do sistema Smart Stocks, simulou-se um dispositivo de hardware por meio de uma aplicação móvel desenvolvida para o propósito. O intuito desta, para além de testar o algoritmo de previsão de stock, é o de simular movimentos, quer sejam de entrada, quer sejam de saída, dos itens numa casa.
-
-Esta aplicação deve ser usada por dispositivos moveis \textit{Android} que suportem a tecnologia \acrshort{nfc}. Requerem desta funcionalidade pois é através desta que é possível realizar as leituras das \textit{tags} \acrshort{nfc}, para obter a informação do item que está a ser movimentado. De maneira a simular um movimento de entrada ou de saída, existe um \textit{switch} na interface do utilizador que tem o propósito de indicar o tipo do movimento a ser testado. Existe, ainda, a possibilidade de especificar a casa e o identificador do local de armazenamento envolvidos. A aplicação ao ler a informação da \textit{tag}, se é um movimento de entrada ou de saída, o identificador da casa e do local de armazenamento, envia o aglomerado de informação para a \gls{api-web} e esta irá manusear e armazenar os dados na base de dados.
-
-Com a utilização desta aplicação torna-se fácil testar o algoritmo desenvolvido, pois é apenas necessário realizar movimentos de entrada e saída, num determinado armazenamento de uma determinada casa, para se perceber se algoritmo se encontra a funcionar ou não corretamente, inserindo na lista de compras do sistema Smart Stocks os produtos em vias de acabar.
-
-\subsection{Testes ao Algoritmo de Previsão de Stocks}
-
-A desenvolver...
-
-\subsection{Testes Unitários}\label{subsec422}
-
-Os testes unitários servem para garantir o funcionamento de um componente, por exemplo, se um método funciona, ou seja,  se é retornando o que é esperado, dando garantias ao programador de que a sua aplicação continua a funcionar mesmo após serem efetuadas alterações ou substituídas peças componentes, sendo, assim importante a realização dos testes. 
-
-Estão disponíveis testes unitários para as funções utilitárias. No entanto, a \acrfull{bll} carece de testes. Considerou-se que para realizar estes testes seria necessário demasiado tempo para estes ficarem realmente bem feitos, testando todas as particularidades, como por exemplo, garantir que todas as restrições de integridade estariam a funcionar corretamente, e testando casos em que seria suposto funcionar e noutros que não seria suposto funcionar. A \acrfull{dal} carece também de testes aos métodos desenvolvidos. Os métodos gerados pela \acrshort{jpa} não necessitam de testes uma vez que se confia nessa biblioteca. Para realizar os testes seria necessário simular o acesso à base de dados, usando uma base de dados em memória (\textit{mock}). O \textit{Spring Boot} tem integração com uma base de dados em memória chamada \textit{H2 Database Engine} \cite{H2DatabaseEngine:database}. Esta base de dados será construída com a informação presente nas classes do modelo, as anotações \acrshort{jpa}, pelo que facilitaria simular a base de dados. Contudo a realização destes testes demorariam mais tempo que o disponível para serem realizados da melhor forma.
-
-%
-% Secção 4.3 Trabalho Futuro
-%
-\section{Trabalho Futuro}\label{sec43}
+\section{Trabalho Futuro}\label{sec42}
 
 As principais vertentes para um trabalho futuro centram-se em adquirir um certificado para API, de modo a que o sistema possa ir para produção. Igualmente importante, é a aquisição de funcionalidades de administração do sistema Smart Stocks para o papel \textit{ADMIN}, de forma a criar uma aplicação de \textit{back-office}, que se ocupasse da gestão das categorias e produtos, multi-línguas, adição de novas listas de sistema, assim como, novas funcionalidades e/ou regras de negócio. Melhorar a gestão dos utilizadores de uma casa, de maneira, por exemplo, para quando um utilizador sair de uma casa, o administrador receber uma notificação e ter de verificar e atualizar os dados básicos da casa, como o caso das alergias e do número de pessoas alérgicas da casa. Realizar um sistema de cores que nas aplicações cliente serviria como um aviso visual do estado dos itens em stock, tanto para a sua quantidade, como para a sua validade, aproveitando a análise dos resultado do algoritmo de previsão de stocks. Seria ainda interessante, permitir que o utilizador definisse os seus próprios limites mínimos dos produtos a ter em stock de maneira a tornar o sistema mais pessoal a cada pessoa e a cada casa. Outra melhoria a incluir, seria a criação de um sistema de notificações, de modo a deixar os utilizador sempre informados de qualquer alteração que aconteça, fossem elas por \textit{e-mail} ou recorrendo às notificações do \textit{Android}. E ainda, realizar testes unitários que testem a grande maioria das particularidades e casos. Por fim, uma melhoria à qualidade da segurança oferecida, de forma a garantir a confidencialidade máxima dos dados dos utilizadores e das suas casas.

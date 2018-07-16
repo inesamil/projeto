@@ -20,7 +20,7 @@ Segundo o Regulamento (UE) nº1169/2011 \cite{asae:labeling} os rótulos devem c
 \subsubsection{Rótulos Tradicionais \textit{vs} Rótulos Digitais}
 Os códigos de barras são amplamente utilizados na identificação de produtos, quer seja dentro da própria organização, quer seja quando a empresa produtora pretende vender os seus produtos no mercado. Neste último caso, a codificação dos produtos, sendo uma obrigação do mercado, segue as normas da organização GS1\footnote[1]{https://www.gs1.org/}, organização responsável pelo sistema de Normas Globais de Identificação e Codificação de bens e serviços mais utilizado no mundo. A GS1 Portugal é a entidade competente geradora e reguladora da atribuição dos códigos de barras em Portugal. É garantido que não existem dois produtos com o mesmo código de barras em circulação quer a nível nacional, quer a nível global. 
 
-São três os componentes relevantes identificados por um código de barras: o país de origem, a empresa fabricante e o produto produzido, ilustrado na Figura~\ref{bar-code-example} (um exemplo fictício).
+São três os componentes relevantes identificados por um código de barras: o país de origem, a empresa fabricante e o produto produzido, ilustrado na Figura~\ref{bar-code-example}, um exemplo proposto.
 
 \begin{figure}[H]
 	\centering
@@ -46,7 +46,7 @@ Como os produtos avulsos têm de ser rotulados, decidiu-se usar \textit{tags} pr
 			\hline Distância & até 5cm & até 100m \\
 			\hline Componentes & Leitor \acrshort{nfc} e \textit{tag} \acrshort{nfc} & Leitor \acrshort{rfid}, \textit{tag} \acrshort{rfid} e uma antena \\
 			\hline Suporte em \textit{smartphones} & Na maioria dos \textit{smartphones} & Não \\
-			\hline Ativo/Passivo & Passivo, ativado na presença de um leitor \acrshort{nfc} & Passivo, ativado na presença de um leitor \acrshort{rfid} e Ativo, a \textit{tag} tem uma fonte de energia própria. \\
+			\hline Ativo/Passivo & Passivo, ativado na presença de um leitor \acrshort{nfc} & Passivo, ativado na presença de um leitor \acrshort{rfid} e Ativo, a \textit{tag} tem uma fonte de energia própria \\
 			\hline Uso aplicacional & Propriedade desenvolvidas para pagamentos móveis seguros & Usado globalmente para gestão de stocks, manipulação de bagagem no aeroporto, identificação de gado entre outros \\
 			\hline Capacidade das \textit{tags} & 64 Bytes até 1024 Bytes & 96 Bits até 512 Bits ou até 4k ou 8k Bytes \\
 			
@@ -54,4 +54,4 @@ Como os produtos avulsos têm de ser rotulados, decidiu-se usar \textit{tags} pr
 	}
 \end{table}
 
-Conforme se pode observar na tabela \ref{tab-comparacao-nfc-vs-rfid}, a comunicação com as \textit{tags} \acrshort{nfc} pode ser bidirecional o que torna mais fácil e intuitiva a transmissão entre telemóveis e \textit{tags} \acrshort{nfc}. Desta forma, optou-se pela utilização de \textit{tags} \acrshort{nfc} para os produtos avulsos em que é preciso usar o telemóvel para as programar, e, atualmente, os telemóveis só têm suporte para a tecnologia \acrshort{nfc}. Assim os locais de armazenamento têm obrigatoriamente de dispor de leitor de \textit{tags} \acrshort{nfc}. Contudo, se os embaladores decidirem utilizar \acrshort{rfid}, o hardware pode também ter leitor \acrshort{rfid}. O levantamento de requisitos feito, juntamente com a dimensão dos campos da base de dados, e sabendo que o formato utilizado na escrita das \textit{tags} é \acrlong{csv} \cite{RFC4180:csv}, estimou-se que a capacidade de armazenamento mínima das \textit{tags} é aproximadamente 324 Bytes.
+Conforme se pode observar na Tabela \ref{tab-comparacao-nfc-vs-rfid}, a comunicação com as \textit{tags} \acrshort{nfc} pode ser bidirecional o que torna mais fácil e intuitiva a transmissão entre telemóveis e \textit{tags} \acrshort{nfc}. Desta forma, optou-se pela utilização de \textit{tags} \acrshort{nfc} para os produtos avulsos em que é preciso usar o telemóvel para as programar, e, atualmente, os telemóveis só têm suporte para a tecnologia \acrshort{nfc}. Assim os locais de armazenamento têm obrigatoriamente de dispor de leitor de \textit{tags} \acrshort{nfc}. Contudo, se os embaladores decidirem utilizar \acrshort{rfid}, o hardware pode também ter leitor \acrshort{rfid}. O levantamento de requisitos feito, juntamente com a dimensão dos campos da base de dados, e sabendo que o formato utilizado na escrita das \textit{tags} é \acrfull{csv} \cite{RFC4180:csv}, estimou-se que a capacidade de armazenamento mínima das \textit{tags} é aproximadamente 324 Bytes.

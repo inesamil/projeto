@@ -8,8 +8,7 @@ O sistema de gestão de stocks desenvolvido neste projeto, denominado Smart Stoc
 \section{Conceitos Básicos de Gestão de Stocks} \label{sec21}
 % Contador de Exemplos
 \newcounter{ExampleCounter}
-Em qualquer gestão de stocks é necessário realizar uma catalogação, de forma regular, dos bens ou propriedades tangíveis existentes. A essa lista dá-se o nome de \textbf{Inventário}~\cite{businessDictionary:invetoryDefinition2018}. Quando há uma forma automatizada de dar entrada e saída dos bens, o inventário serve para determinar erros e não-conformidades. 
-Cada bem é identificado no stock por um código, cujo nome se dá \textbf{\acrfull{sku}} (Unidade de Manutenção de Stock, em Português)~\cite{investopedia:skuDefinition2018}. Esse código de identificação é muitas vezes retratado como um código de barras legível por máquinas que ajuda a rastrear o item para inventários. Note-se que um SKU não identifica o bem tangível, mas antes todos os bens que contêm as mesmas características. No exemplo~\ref{sec21}.1. está ilustrado um SKU.\\[0.25cm]
+Em qualquer gestão de stocks é necessário realizar uma catalogação, de forma regular, dos bens ou propriedades tangíveis existentes. A essa lista dá-se o nome de \textbf{Inventário}~\cite{businessDictionary:invetoryDefinition2018}. Quando há uma forma automatizada de dar entrada e saída dos bens, o inventário serve para determinar erros e não-conformidades. Cada bem é identificado no stock por um código, cujo nome se dá \textbf{\acrfull{sku}} (Unidade de Manutenção de Stock, em Português)~\cite{investopedia:skuDefinition2018}. Esse código de identificação é muitas vezes retratado como um código de barras legível por máquinas, que ajuda a rastrear o item para inventários. Note-se que um SKU não identifica o bem tangível, mas antes todos os bens que contêm as mesmas características. No Exemplo 1 está ilustrado um SKU.\\[0.25cm]
 
 \stepcounter{ExampleCounter}
 \noindent\fbox{
@@ -25,7 +24,7 @@ Cada bem é identificado no stock por um código, cujo nome se dá \textbf{\acrf
 	}
 }\\[0.25cm]
 
-Os itens que se mantêm em stock físico na loja são identificados como \textbf{Stock Item (Item em Stock, em Português)} \cite{sphereoi:itemIdentification2018}. O item em stock tem uma quantidade associada, e de cada vez que uma venda é feita a sua quantidade é reduzida. Ler mais em \cite{phostersoft:stockItemDefinition2018}.
+O \textbf{Stock Item (Item em Stock, em Português)} \cite{sphereoi:itemIdentification2018} representa um bem tangível presente, por exemplo, numa casa ou num armazém. O item em stock tem uma quantidade associada, e de cada vez que é retirado uma unidade de stock a sua quantidade é reduzida. Ler mais em \cite{phostersoft:stockItemDefinition2018}.
 A taxonomia de classificação que subdividem um setor ("yet another market construct") nos diferentes tipos de produtos para os quais existe demanda denomina-se por \textbf{Category (Categoria, em Português)}. Quanto mais especializada for uma categoria, mais especializado é o produto.
 
 {\footnotesize Nota: Neste projeto apenas se consideram as categorias de maior dimensão, são elas, por exemplo, Laticínios, Bebidas, Frescos, Congelados, entre outras.}
@@ -35,7 +34,7 @@ Quando os estrategistas de marca falam sobre \textbf{Segmentation (Segmento, em 
 
 {\footnotesize Nota: Neste projeto o segmento é a quantidade presente numa embalagem, i.e., para um pacote de leite de 1L, o segmento é 1L.}
 
-A \textbf{Variety (Variedade, em Português)} é confusa porque pode ser difícil de entender onde a especialização do segmento termina e a especialização em prol da variedade começa. A variedade é sobre a personalização de um produto para se adequar ao caráter do consumidor individual. Ver exemplo \ref{sec21}.2. Ler mais em \cite{sphereoi:itemIdentification2018}.\\[0.25cm]
+A \textbf{Variety (Variedade, em Português)} é confusa porque pode ser difícil de entender onde a especialização do segmento termina e a especialização em prol da variedade começa. A variedade é sobre a personalização de um produto para se adequar ao caráter do consumidor individual. Ver Exemplo 2. Ler mais em \cite{sphereoi:itemIdentification2018}.\\[0.25cm]
 
 \stepcounter{ExampleCounter}
 \noindent\fbox{
@@ -51,26 +50,6 @@ A \textbf{Variety (Variedade, em Português)} é confusa porque pode ser difíci
 		\end{itemize}
 	}
 }
-
-%\vspace{0.2cm}
-%\textbf{Stock Item (Item em Stock, em Português)} - Refere-se aos itens que se mantêm em stock físico na loja. O item em stock tem uma quantidade associada, e de cada vez que uma venda é feita a sua quantidade é reduzida. Ler mais em \cite{phostersoft:stockItemDefinition2018}.
-
-%\vspace{0.2cm}
-%\textbf{Category (Categoria, em Português)} - Taxonomia de classificação que subdividem um setor ("yet another market construct") nos diferentes tipos de produtos para os quais existe demanda. Quanto mais especializada for uma categoria, mais especializado é o produto. Ler mais em \cite{sphereoi:itemIdentification2018}.
-
-%{\footnotesize Nota: Neste projeto apenas se consideram as categorias de maior dimensão, são elas, por exemplo, Laticínios, Bebidas, Frescos, Congelados, entre outras.}
-
-%\vspace{0.2cm}
-%\textbf{Brand (Marca, em Português)} - Um símbolo de identificação, marca, logótipo, nome, palavra e/ou frase que as empresas usam para distinguir os seus produtos dos outros. Ler mais em \cite{investopedia:brandDefinition2018}
-
-%\vspace{0.2cm}
-%\textbf{Segmentation (Segmento, em Português)} - Quando os estrategistas de marca falam sobre segmento, referem-se à segmentação do consumidor/audiência. A maneira antiga de abordar isto era através da demografia (idade, sexo, etnia, faixa de renda, urbano-rural, etc.). Agora a segmentação é VALS (valores, atitudes e estilo de vida). Ler mais em \cite{sphereoi:itemIdentification2018}.
-
-%{\footnotesize Nota: Neste projeto o segmento é a quantidade presente numa embalagem, i.e., para um pacote de leite de 1L, o segmento é 1L.}
-
-
-%\vspace{0.2cm}
-%\textbf{Variety (Variedade, em Português)} - A variedade é confusa porque pode ser difícil de entender onde a especialização do segmento termina e a especialização em prol da variedade começa. A variedade é sobre a personalização de um produto para se adequar ao caráter do consumidor individual. Ver exemplo \ref{seca21}.2. Ler mais em \cite{sphereoi:itemIdentification2018}.
 
 %\vspace{0.5cm}
 
@@ -89,7 +68,6 @@ Como forma de assegurar as funcionalidades pretendidas para o sistema, são exig
 \paragraph{Requisitos Funcionais}
 \begin{itemize}
 	\item Informar o utilizador dos itens existentes, a sua validade e a sua quantidade;
-	\item Alertar sobre os produtos que estão perto do fim;
 	\item Gerar listas de compras com os produtos em falta;
 	\item Possibilidade de criar listas com produtos e suas quantidades;
 	\item Partilhar listas entre utilizadores da mesma casa;
@@ -108,72 +86,9 @@ Como forma de assegurar as funcionalidades pretendidas para o sistema, são exig
 	\item Criar listas de produtos quase a expirar;
 	\item Criar listas de produtos indesejados (Lista Negra);
 	\item Criar listas de contenção em situações de emergência (Lista SOS);
-	\item Inserir refeições extraordinárias de eventos a realizar num futuro próximo, para acrescentar alimentos não básicos à lista de compras.
-	\item Notificar o utilizador da proximidade do fim da data de validade de um determinado produto.
+	\item Inserir refeições extraordinárias de eventos a realizar num futuro próximo, para acrescentar alimentos não básicos à lista de compras;
+	\item Notificar o utilizador da proximidade do fim da data de validade de um determinado produto;
 	\item Notificar o utilizador para a rotura iminente da quantidade de um determinado produto.
 \end{itemize}
 
 \input{seccao23}
-%
-% Subsecção 2.4
-%
-\section{Entidades} \label{sec24}
-
-Em seguida identificam-se as diversas entidades relevantes que compõem o sistema de informação, que permite gerir os itens em stock numa dada casa.
-\subsubsection{Casa}
-\begin{itemize}
-	\item Cada casa é caracterizada por um identificador único, um nome, atribuído por um utilizador no momento de registo da casa. 
-	\item Deve ser possível saber o número de bebés, crianças, adultos e seniores que vivem nessa casa.
-	\item Uma casa está associada a um ou mais utilizadores, podendo um utilizador ter várias casas. 
-	\item Existe um ou mais administradores de uma casa.
-	\item A casa pode ter vários itens em stock.
-	\item Para cada casa existem vários locais de armazenamento dos itens, por exemplo armários, frigoríficos, etc.
-	\item Em cada casa deve ser possível conhecer as alergias assim como quantos membros possuem essa alergia (os membros não precisam necessariamente de estar registados).
-\end{itemize}
-
-\subsubsection{Utilizador}
-\begin{itemize}
-	\item Uma pessoa é representada por um utilizador que é caracterizado por um email ou por um nome de utilizador, pelo nome da pessoa, a sua idade e uma \textit{password}.
-\end{itemize}
-
-\subsubsection{Listas}
-\begin{itemize}
-	\item Cada lista é composta por um identificador único e um nome.
-	\item Uma lista pode ter vários produtos.
-	\item Existem dois tipos de listas: de sistema e de utilizador. 
-	\item As listas de sistema são comuns a todos os utilizadores registados, contudo são particulares a cada casa.	
-	\item Um utilizador pode criar as suas listas, partilhando-as com outros utilizadores da casa ou tornando-as secretas.
-\end{itemize}
-
-\subsubsection{Categoria}
-\begin{itemize}
-	\item Uma categoria é identificada univocamente por um número ou por um nome.
-\end{itemize}
-
-
-\subsubsection{Produtos}
-\begin{itemize}
-	\item Um produto é constituído por um identificador único, um nome, se é ou não comestível, e a validade perecível.
-	\item Para os produtos presentes numa lista pode ser possível saber a sua marca e a quantidade.
-	\item Um produto pertence a uma categoria, podendo uma categoria ter vários produtos.
-	\item Um produto pode ser concretizado por diversos itens em stock na casa.
-\end{itemize}
- 
-\subsubsection{Item em Stock}
-\begin{itemize}
-	\item Um item em stock é a concretização de um produto que existe numa casa. É identificado univocamente por um número ou por uma marca, uma variedade e um segmento, é também caracterizado por uma descrição, o local de conservação, a quantidade e as datas de validade. 
-	\item Para cada item deve ser possível saber os seus movimentos de entrada e saída de um local de armazenamento.
-	\item Deve também ser possível saber os alergénios de cada item presente na casa.
-\end{itemize}
-
-\subsubsection{Movimento}
-\begin{itemize}
-	\item Para cada movimento deve ser possível saber o tipo do movimento (entrada ou saída), a data em que ocorreu e a quantidade de produtos. 
-\end{itemize}
-
-\subsubsection{Local de armazenamento}
-\begin{itemize}
-	\item Cada local de armazenamento é caraterizado por um identificador único, a temperatura e um nome.
-	\item Deve ser possível saber a quantidade de cada item presente no local.
-	\item Um local de armazenamento pode ter vários itens em stock presentes na casa e estar associado a diversos movimentos.
-\end{itemize}

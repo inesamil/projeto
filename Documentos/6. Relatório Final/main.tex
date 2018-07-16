@@ -1,5 +1,6 @@
 % Classe do documento e parâmetros gerais.
-\documentclass[a4paper,openright,twoside,11pt]{report}
+\documentclass[usenames,dvipsnames,a4paper,openright,twoside,11pt]{report}
+
 
 %
 % Times New Roman font.
@@ -16,7 +17,6 @@
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
 \usepackage{indentfirst}
-\usepackage[utf8]{inputenc}
 \usepackage[toc, acronym]{glossaries}
 \usepackage[final]{pdfpages}
 \usepackage{pdflscape}
@@ -30,7 +30,59 @@
 \usepackage[section]{placeins}
 \usepackage{amssymb}% http://ctan.org/pkg/amssymb
 \usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage[margin=0.5in]{geometry}
+\usepackage{textcomp}
+\usepackage{pgfplots}
+\pgfplotsset{width=12cm,compat=1.9}
+\usepackage{listings}
+\usepackage{xcolor}
 
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+\lstset{language=Java,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{ForestGreen},
+  keywordstyle=\color{blue},
+  stringstyle=\color{red},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{grey}]{\$\$},
+  moredelim=[is][\textcolor{grey}]{\%\%}{\%\%}
+}
 
 \addto{\captionsportuguese}{\renewcommand{\bibname}{Refer\^{e}ncias}}
 \addto{\captionsportuguese}{\renewcommand{\contentsname}{\'Indice}}
@@ -62,7 +114,7 @@
 \selectfont
 
 % Glossários
-\makeglossaries
+%\makeglossaries
 
 % Abreviaturas
 \include{abreviaturas}

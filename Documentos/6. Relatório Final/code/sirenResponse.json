@@ -1,0 +1,133 @@
+{
+  "class": [
+      "user-lists",
+      "collection"
+  ],
+  "properties": {
+      "size": 2
+  },
+  "entities": [
+      {
+          "class": [
+              "list"
+          ],
+          "rel": [
+              "item"
+          ],
+          "properties": {
+              "house-id": 1,
+              "list-type": "system",
+              "house-name": "Casa do Pedro",
+              "list-name": "Lista de Compras",
+              "list-id": 1
+          },
+          "links": [
+              {
+                  "rel": [
+                      "self"
+                  ],
+                  "class": [
+                      "list"
+                  ],
+                  "href": "http://192.168.1.4:8081/v1/houses/1/lists/1"
+              }
+          ]
+      },
+      {
+          "class": [
+              "list"
+          ],
+          "rel": [
+              "item"
+          ],
+          "properties": {
+              "house-id": 1,
+              "list-type": "user",
+              "list-shareable": false,
+              "house-name": "Casa do Pedro",
+              "user-username": "pedro",
+              "list-name": "Festa de Aniversario do Xavier",
+              "list-id": 16
+          },
+          "actions": [
+              {
+                  "name": "update-list",
+                  "title": "Update List",
+                  "method": "PUT",
+                  "href": "http://192.168.1.4:8081/v1/houses/1/lists/16",
+                  "type": "application/json",
+                  "fields": [
+                      {
+                          "name": "list-name",
+                          "type": "number",
+                          "title": "Name"
+                      },
+                      {
+                          "name": "list-shareable",
+                          "type": "bool",
+                          "title": "Shareable"
+                      }
+                  ]
+              }
+          ],
+          "links": [
+              {
+                  "rel": [
+                      "self"
+                  ],
+                  "class": [
+                      "list"
+                  ],
+                  "href": "http://192.168.1.4:8081/v1/houses/1/lists/16"
+              }
+          ]
+      }
+  ],
+  "actions": [
+      {
+          "name": "add-list",
+          "title": "Add List",
+          "method": "POST",
+          "href": "http://192.168.1.4:8081/v1/users/pedro/lists",
+          "type": "application/json",
+          "fields": [
+              {
+                  "name": "house-id",
+                  "type": "number",
+                  "title": "House ID"
+              },
+              {
+                  "name": "list-name",
+                  "type": "number",
+                  "title": "Name"
+              },
+              {
+                  "name": "list-shareable",
+                  "type": "bool",
+                  "title": "Shareable"
+              }
+          ]
+      }
+  ],
+  "links": [
+      {
+          "rel": [
+              "self"
+          ],
+          "class": [
+              "user-lists",
+              "collection"
+          ],
+          "href": "http://192.168.1.4:8081/v1/users/pedro/lists"
+      },
+      {
+          "rel": [
+              "related"
+          ],
+          "class": [
+              "user"
+          ],
+          "href": "http://192.168.1.4:8081/v1/users/pedro"
+      }
+  ]
+}

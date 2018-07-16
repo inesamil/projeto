@@ -1,10 +1,10 @@
 \section{Aplicações Cliente}\label{sec32}
 
-Disponibilizam-se aplicações cliente em dispositivos móveis \textit{Android} (\textit{smartphones} e \textit{tablets}) e dispositivos \textit{desktop}, através do \textit{browser}. Na implementação das mesmas teve-se em atenção conceitos como \textit{responsive}, pois tal permite, não só, uma melhor experiência de utilizador, como também, uma interface mais apelativa aos diversos dispositivos suportados.
+Disponibilizam-se aplicações cliente em dispositivos móveis \textit{Android} (\textit{smartphones} e \textit{tablets}) e dispositivos \textit{desktop}, através do \textit{browser}. Na implementação das mesmas teve-se em atenção conceitos como \textit{responsive design}, pois tal permite, não só, uma melhor experiência de utilizador, como também, uma interface mais apelativa aos diversos dispositivos suportados.
 
-Realizou-se uma pesquisa pelas aplicações já existentes de maneira a estar cientes do que se pode encontrar no mercado e comparar com o que o sistema Smart Stock oferece, como se pode observar na tabela \ref{tab-comparacao-duas-aplicacoes}. 
+Realizou-se uma pesquisa pelas soluções já existentes de maneira a estar cientes do que se pode encontrar no mercado e comparar com o que o sistema Smart Stock oferece, como se pode observar na Tabela \ref{tab-comparacao-duas-aplicacoes}. 
 
-\begin{table}
+\begin{table}[H]
 	\centering
 	\caption{Comparação do sistema Smart Stocks com outros}\vspace{2mm}
 	\label{tab-comparacao-duas-aplicacoes}
@@ -29,77 +29,91 @@ Realizou-se uma pesquisa pelas aplicações já existentes de maneira a estar ci
 	}
 \end{table}
 
+É possível observar pela tabela que todas as soluções disponibilizam tanto uma aplicação móvel como uma aplicação \textit{web}. Todas têm como intuito a criação e gestão das listas de compras. É de notar que a solução \textit{OutOfMilk} permite adicionar detalhes aos itens, bem como, listas de tarefas, todavia na solução desenvolvida não se considera uma funcionalidade necessária. O sistema Smart Stocks introduz funcionalidades extras, são elas, a possibilidade de integrar com dispositivos inteligentes, a gestão automática da despensa de múltiplas casas que um utilizador pode ter. A derradeira vantagem é a aptidão do Sistema Smart Stocks prever o stock, através de um algoritmo de previsão de stocks.
+
 \subsection{Aplicação Móvel}
 
-Neste momento, a aplicação móvel está disponível apenas para a plataforma \textit{Android}, visto que, segundo um estudo do mercado de \textit{smartphones} de 2017 \cite{AppleVsAndroid:comparative}, 86.2\% da quota de mercado pertence a utilizadores de \textit{Android}, logo, nesta primeira fase faz mais sentido dirigir a aplicação ao maior número de utilizadores.
+Neste momento, a aplicação móvel está disponível apenas para a plataforma \textit{Android}, visto que, segundo um estudo do mercado de \textit{smartphones} de 2017 \cite{AppleVsAndroid:comparative}, 86.2\% da quota de mercado pertence a utilizadores de \textit{Android}. Assim, nesta primeira fase faz mais sentido dirigir a aplicação ao maior número de utilizadores.
 
-De seguida, analisando a distribuição das diversas versões da plataforma \textit{Android} \cite{Distribution:android}, optou-se por permitir compatibilidade desde a API 15 até à API atual, 27, acumulando assim 99.7\% dos dispositivos móveis.
+De seguida, analisando a distribuição das diversas versões da plataforma \textit{Android} \cite{Distribution:android}, optou-se por permitir compatibilidade desde a API 15 até à atual, a API 27, acumulando assim 99.7\% dos dispositivos móveis.
  
  
 \subsubsection{Interface com o Utilizador}
 
-Antes de desenvolver a interface com o utilizador foi efetuada pesquisa relativa às boas práticas de desenho de componentes \textit{Android}, leram-se diretrizes presentes no Material Design \cite{MaterialDesign:homepage}, e ainda, investigaram-se diversas aplicações móveis de forma a extrair particularidades que melhorassem a experiência de utilização. Nas Figuras \ref{wireframe1} a \ref{wireframe7} apresentam-se os esboços iniciais das \textit{user interfaces}.
+Antes de desenvolver a interface com o utilizador foi efetuada uma pesquisa relativa às boas práticas de desenho de componentes \textit{Android}. Leram-se diretrizes presentes no Material Design \cite{MaterialDesign:homepage}, e ainda, se investigaram diversas aplicações móveis de forma a extrair particularidades que melhorassem a experiência de utilização. Nas Figuras \ref{wireframe1} a \ref{wireframe7} apresentam-se os esboços iniciais das \textit{user interfaces}, e a implementação final de uma \textit{user interface} está presente na Figura \ref{ecra}
 
-Já durante o desenvolvimento da componente gráfica priorizaram-se técnicas de \textit{responsiveness}, i.e., adequação dos vários \textit{layouts} às múltiplas dimensões dos dispositivos suportados.
+Já durante o desenvolvimento da componente gráfica priorizaram-se técnicas de \textit{responsiveness}, i.e., de adequação dos vários \textit{layouts} às múltiplas dimensões dos dispositivos suportados.
 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=13cm, scale=1]{img/wireframe_1.jpg}
-	\caption{Esboço 1}
+	\includegraphics[width=16cm, scale=1]{img/wireframe_1.jpg}
+	\caption{Esboço 1 - Ecrãs de \textit{Login}, Registo e Configuração Inicial - Parte I, respetivamente}
 	\label{wireframe1}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=13cm, scale=1]{img/wireframe_2.jpg}
-	\caption{Esboço 2}
+	\includegraphics[width=16cm, scale=1]{img/wireframe_2.jpg}
+	\caption{Esboço 2 - Ecrãs de Configuração Inicial - Parte II, Configuração das Alergias e Vista Geral das Listas, respetivamente}
 	\label{wireframe2}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=13cm, scale=1]{img/wireframe_3.jpg}
-	\caption{Esboço 3}
+	\includegraphics[width=16cm, scale=1]{img/wireframe_3.jpg}
+	\caption{Esboço 3 - Ecrãs do Menu Lateral, Perfil e Alergias, respetivamente}
 	\label{wireframe3}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=13cm, scale=1]{img/wireframe_4.jpg}
-	\caption{Esboço 4}
+	\includegraphics[width=16cm, scale=1]{img/wireframe_4.jpg}
+	\caption{Esboço 4 - Ecrãs de Vista Geral de um Produto, Detalhe de um Item em Stock e Menu do Canto Superior Direito, respetivamente}
 	\label{wireframe4}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=13cm, scale=1]{img/wireframe_5.jpg}
-	\caption{Esboço 5}
+	\includegraphics[width=16cm, scale=1]{img/wireframe_5.jpg}
+	\caption{Esboço 5 - Ecrãs de Receitas, Detalhe de uma Receita e Vista das Listas a que um Utilizador tem acesso, respetivamente}
 	\label{wireframe5}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=13cm, scale=1]{img/wireframe_6.jpg}
-	\caption{Esboço 6}
+	\includegraphics[width=16cm, scale=1]{img/wireframe_6.jpg}
+	\caption{Esboço 6 - Ecrãs das Categorias existentes, Vista dos Produtos de uma Categoria e Detalhe de uma Lista, respetivamente}
 	\label{wireframe6}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=13cm, scale=1]{img/wireframe_7.jpg}
-	\caption{Esboço 7}
+	\includegraphics[width=16cm, scale=1]{img/wireframe_7.jpg}
+	\caption{Esboço 7 - Ecrãs das Casas de um Utilizador, Convites recebidos e Preferências, respetivamente}
 	\label{wireframe7}
 \end{figure}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=9cm, scale=1]{img/ecra.jpg}
+	\caption{Ecrã do Detalhe de uma Lista de um Utilizador}
+	\label{ecra}
+\end{figure}
 
 \subsubsection{Padrões de Desenho}
 
 \textbf{MVC \textit{vs} MVP \textit{vs} MVVM}
 
-Os padrões de desenho em \textit{Android} têm vindo a evoluir, de forma a tornar os componentes independentes e facilmente testáveis. Um dos primeiros padrões a surgir foi o padrão \acrfull{mvc}, porém nos últimos anos, emergiram dois novos padrões, a destacar o \acrfull{mvp} e o \acrfull{mvvm}. Estes padrões elevaram-se com o propósito de evitar a dispersão da lógica de negócio entre as camadas de dados e as gráficas, logo, reduzindo a duplicação de código. Assim como, facilitam a manutenção dos diversos módulos e a realização de testes unitários. Outro fator de relevo é o facto de permitirem trocar rapidamente de repositório de dados, seja este uma base de dados ou APIs.
+Os padrões de desenho em \textit{Android} têm vindo a evoluir de forma a tornar os componentes independentes e facilmente testáveis. Um dos primeiros padrões a surgir foi o \acrfull{mvc} \cite{mvc:online}, porém nos últimos anos, emergiram dois novos padrões, a destacar o \acrfull{mvp} \cite{mvp:online} e o \acrfull{mvvm} \cite{mvvm:online}. Estes padrões elevaram-se com o propósito de evitar a dispersão da lógica de negócio entre as camadas de dados e as gráficas, logo, reduzindo a duplicação de código. Assim como, facilitar a manutenção dos diversos módulos e a realização de testes unitários.
 
-Na tabela \ref{tab-comparacao-mvc-mvp-mvvm} apresenta-se uma comparação entre os três padrões, pretendendo-se tornar percetível as vantagens e desvantagens de cada um.
+O \textit{Controller} é responsável pelo que acontece na aplicação, por exemplo, quando um utilizador clica num botão, a \textit{View} tem como função notificar o \textit{Controller} de forma a que este atue em conformidade. Outro exemplo, é quando os dados são modificados no \textit{Model}, assim o \textit{Controller} é que decide se é necessário atualizar a \textit{View}. Deste modo o \textit{Controller} está acoplado à \textit{View} e ao \textit{Model} dificultando a testabilidade e manutenção do \textit{Controller}.
+
+O \textit{presenter} ao contrário do \textit{Controller} no padrão \acrshort{mvc} não está vinculado à \textit{View}, apenas a uma interface. Desta forma, o \textit{presenter} apenas delega à \textit{View} o que apresentar. Este desacoplamento permite que a lógica existente no \textit{presenter} possa ser testada com facilidade. Em termos de manutenção, o \textit{presenter} assemelha-se ao \textit{Controller} pois ambos são propensos a colecionar toda a lógica de negócio.
+
+A responsabilidade do \textit{ViewModel} é expor métodos e propriedades para manter o estado da \textit{View}, manipular o \textit{Model} após as ações efetuadas na \textit{View}, e por último preparar os dados necessários à exibição. O \textit{ViewModel} não está acoplado à \textit{View}, assim permite relações de N:1 com a \textit{View}, ou seja, um \textit{ViewModel} pode mapear mais do que uma \textit{View}. Por estes factos, os testes unitários tornam-se mais fáceis, uma vez que não existe dependência com a \textit{View}.
+
+A Tabela \ref{tab-comparacao-mvc-mvp-mvvm} mostra um resumo destes padrões.
 
 \begin{table} [H]
 	\centering
@@ -130,7 +144,7 @@ Na tabela \ref{tab-comparacao-mvc-mvp-mvvm} apresenta-se uma comparação entre 
 
 \textbf{Service Locator}
 
-Ao contrário do padrão atualmente muito utilizado, da injeção de dependências, o \textit{Service Locator} \cite{ServiceLocator:android} permite obter instâncias de serviços, através de um único ponto central na aplicação. É ainda possível trocar de implementações em \textit{runtime} consoante o dispositivo onde a aplicação está a ser utilizada.
+Também como o padrão atualmente muito utilizado, \textit{Dependency Injection} \cite{MartinFowler:dependencyinjection}, o \textit{Service Locator} \cite{ServiceLocator:android} permite obter instâncias de serviços, através de um único ponto central na aplicação. É ainda possível trocar de implementações em \textit{runtime} consoante o dispositivo onde a aplicação está a ser utilizada.
 
 
 \subsubsection{Internacionalização}
@@ -141,19 +155,19 @@ Na interface com o utilizador são disponibilizados dois idiomas, Português e I
 \subsubsection{Segurança}
 
 A segurança na aplicação móvel \textit{Android} é assegurada de duas formas, recorrendo às \textit{Shared Preferences} e realizando a autenticação através dos pedidos à \gls{api-web}. 
-Armazenar \textit{passwords} no \textit{Android} não é uma tarefa simples, uma vez que este não disponibiliza muitos locais onde se possa armazenar informação sensível. As hipóteses consistiram em armazenar nas \textit{Shared Preferences}, numa base de dados \textit{SQLite} ou no \textit{Keystore} do dispositivo. Existem diferentes formas de efetuar o armazenamento das \textit{passwords}, podendo estas serem guardadas em claro, encriptadas com uma chave simétrica, usando o \textit{Android Keystore}, ou encriptadas com uma chave assimétrica \cite{Bestplacetostorepassword:android}.
+Armazenar \textit{passwords} no \textit{Android} não é uma tarefa simples, uma vez que este não disponibiliza muitos locais onde se possa armazenar informação sensível. As hipóteses consistiram em armazenar, ou nas \textit{Shared Preferences}, ou numa base de dados \textit{SQLite}, ou no \textit{Keystore} do dispositivo. Existem diferentes formas de efetuar o armazenamento das \textit{passwords}, podendo estas serem guardadas em claro, encriptadas com uma chave simétrica, usando o \textit{Android Keystore}, ou encriptadas com uma chave assimétrica \cite{Bestplacetostorepassword:android}.
 
-As \textit{passwords} armazenadas em claro nas \textit{Shared Preferences} ou numa base de dados \textit{SQLite} não é de todo uma boa ideia, pois se um atacante conseguir aceder ao telemóvel obtém acesso ao ficheiro das \textit{Shared Preferences} ou à base de dados, conseguindo, assim, obter a \textit{password} armazenada. Encriptando a \textit{password} com uma chave simétrica, também, não se trata de uma boa ideia pois a chave iria ficar armazenada no \acrfull{apk}. Se um atacante fizer o \textit{decompile} do \acrshort{apk} pode encontrar a chave e assim desencriptar a password. Para além de que a encriptação da \textit{password} consistiria num custo adicional. 
+As \textit{passwords} armazenadas em claro, nas \textit{Shared Preferences} ou numa base de dados \textit{SQLite} não é de todo uma solução, pois se um atacante conseguir aceder ao telemóvel obtém acesso ao ficheiro das \textit{Shared Preferences} ou à base de dados, conseguindo, assim, obter a \textit{password} armazenada. Encriptando a \textit{password} com uma chave simétrica não se trata de uma solução pois a chave iria ficar armazenada no \acrfull{apk}. Se um atacante fizer o \textit{decompile} do \acrshort{apk} pode encontrar a chave e assim desencriptar a \textit{password}. Para além de que a encriptação da \textit{password} consistiria num custo adicional. 
 
-A outra opção passaria por usar o \textit{Android} \textit{Keystore} para encriptar as palavras-chave utilizando uma chave assimétrica. Porém, mais uma vez um atacante com acesso privilegiado (\textit{root}), visto que o \textit{Android} se baseia num sistema \textit{Linux}, conseguiria localizar a chave privada e assim aceder à \textit{password}. Uma opção mais viável seria armazenar a chave privada remotamente e sempre que fosse necessário desencriptar a \textit{password}, esta seria remetida para o servidor que compreende a chave privada para a desencriptação. Esta opção, também, não é a melhor pois necessita de aceder à \textit{password} do utilizador sempre que se realizar um pedido à \gls{api-web}, visto que é necessário enviar no \textit{header} \acrshort{http} \textit{Authorization} as credenciais do utilizador. Outro contra, é no momento do \textit{login} ser necessário fazer um pedido ao servidor fornecedor da chave privada para obter a \textit{password} e realizar o \textit{login} na \gls{api-web}, o que limitaria o futuro da aplicação móvel no sentido de só ser possível o uso desta com Internet. 
+A outra opção passaria por usar o \textit{Android} \textit{Keystore} para encriptar as palavras-chave utilizando uma chave assimétrica. Porém, mais uma vez um atacante com acesso privilegiado (\textit{root}), conseguiria localizar a chave privada e assim aceder à \textit{password}, visto que o \textit{Android} se baseia num sistema \textit{Linux}. Uma opção mais viável seria armazenar a chave privada remotamente e sempre que fosse necessário desencriptar a \textit{password}, esta seria remetida para o servidor que compreende a chave privada para a desencriptação. Esta opção, também, não é a melhor pois por cada pedido que se deseja realizar à \gls{api-web} tem de se efetuar previamente um pedido ao servidor fornecedor de chaves-privadas, visto que é necessário enviar no \textit{header} \acrfull{http} \textit{Authorization} as credenciais do utilizador.
 
-Existe ainda outra solução, que seria usar o \textit{Smart Lock for Passwords} da \textit{Google} \cite{SmartLock:android}. Esta foi, igualmente, descartada pela razão anterior de que é necessário ter acesso à Internet para obter a \textit{password}. 
+Existe ainda outra solução, que seria usar o \textit{Smart Lock for Passwords} da \textit{Google} \cite{SmartLock:android}. Esta foi, igualmente, descartada porque não se pretende vincular a aplicação com uma conta \textit{Google}. A \textit{user experience} proporcionada pela mesma não vai de encontro aos requisitos não funcionais do sistema, dado que o utilizador é que decidiria se pretendia ou não manter a sessão iniciada, indo contra o princípio desejado de manter a sessão constantemente iniciada.
 
 A solução implementada foi armazenar as \textit{passwords} em claro nas \textit{Shared Preferences}, no entanto, este é, sem dúvida, um ponto a melhorar futuramente, por exemplo, passando por utilizar um servidor de autorização do sistema Smart Stocks, em que os utilizadores podem iniciar sessão e em caso de sucesso seria armazenado um \textit{token} na aplicação móvel.
 
-As credenciais são solicitadas ao utilizador no \textit{loggin} e no registo. No caso destes serem sucedidos, a sessão fica iniciada ao longo do tempo, dado que as suas credenciais ficam registadas nas \textit{Shared Preferences}.
+As credenciais são solicitadas ao utilizador no \textit{login} e no registo. No caso destes serem bem sucedidos, a sessão fica iniciada ao longo do tempo, dado que as suas credenciais ficam registadas nas \textit{Shared Preferences}.
 
-O início de sessão é realizado efetuando um pedido à \gls{api-web}, este pedido é autenticado através do \textit{header} \textit{Authorization} e fazendo uso das credenciais inicialmente solicitadas. Em caso do pedido suceder significa que o \textit{loggin} pode ser efetuado com sucesso, caso contrário verifica-se se pode ter sido um erro de credenciais incorretas para assim puder informar o utilizador, ou se se trata de um outro problema.
+O início de sessão é realizado efetuando um pedido à \gls{api-web}, este pedido é autenticado através do \textit{header} \textit{Authorization} e fazendo uso das credenciais inicialmente solicitadas. Em caso do pedido suceder significa que o \textit{login} pode ser efetuado com sucesso, caso contrário verifica-se se pode ter sido um erro de credenciais incorretas para assim puder informar o utilizador, ou se se trata de um outro problema.
 
 \subsubsection{Implementação}
 
@@ -170,11 +184,16 @@ A aplicação móvel foi desenvolvida com a linguagem \textit{Kotlin}, pois esta
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1]{img/uml.png}
-	\caption{Arquitetura da Aplicação Móvel}
+	\caption{Diagrama UML geral dos componentes móveis}
 	\label{mobile-app-architecture}
 \end{figure}
 
-Na Figura \ref{mobile-app-architecture} expõe-se o \acrfull{uml} geral dos componentes da aplicação móvel. Assim de uma forma geral, a arquitetura é composta por \textit{Activities}, sendo a principal a controladora das transações entre fragmentos. Estes últimos utilizam \textit{ViewModels} na obtenção, inserção e remoção de dados, registando-se como observadores da resposta. Os \textit{ViewModels} recorrem ao Repositório para efetuarem as operações básicas \acrshort{crud}. É no repositório que se definem os métodos \acrshort{http} a utilizar e todas as partes integrantes de um pedido \acrshort{http}. Por fim o pedido é efetuado por uma implementação de \textit{HttpWebService}, responsável por adicionar os pedidos a uma fila. Para a realização de pedidos à \gls{api-web} utilizou-se a biblioteca \textit{Volley} \cite{Volley:android}, esta biblioteca permite realizar pedidos de forma rápida, simples e assíncrona a \textit{REST-Clients}.
+Na Figura \ref{mobile-app-architecture} expõe-se o \acrfull{uml} geral dos componentes da aplicação móvel. Inicialmente o \textit{Android} foi desenvolvido segundo o padrão \acrshort{mvc}, em que existem ficheiros \acrfull{xml} que representam as \textit{Views}, as \textit{Activities}/\textit{Fragments} que representam o \textit{Controller} e por fim o \textit{Model} que pode ser o acesso a dados ou a lógica da aplicação. A aplicação que se desenvolveu necessitaria de fazer pedidos à \gls{api-web}, pelo que o acesso aos dados ficaria alojado na \textit{Activity}. Como existe todo um ciclo de vida da \textit{Activity} no \textit{Android} \cite{android:activityLifecycle}, caso exista uma reconfiguração desta, como por exemplo, uma rotação de ecrã, a \textit{Activity} será destruída e será recriada uma nova com as novas configurações. 
+Se os pedidos forem feitos sobre a alçada da \textit{Activity}, e houver uma mudança na configuração do dispositivo móvel, o pedido feito não será entregue à \textit{Activity} pois esta foi destruída e será realizado um novo pedido. 
+
+Para ultrapassar esta dificuldade, usou-se o padrão \acrshort{mvvm}. Este padrão permite a \textit{Activity} separar-se do \textit{Model}, ao existir um intermediário, o \textit{ViewModel}. As \textit{Activities} mantém uma referência para os \textit{ViewModels} e nunca o contrário. Desta forma, o \textit{ViewModel} interage com o \textit{Model} de forma a que este realize os pedidos. Se houver uma reconfiguração do dispositivo a \textit{Activity} será destruída e criada uma nova, como mencionado anteriormente, no entanto, esta irá manter a mesma referência para o \textit{ViewModel}. Ou seja, evitando-se múltiplos pedidos e pedidos realizados com sucesso sem serem entregues às \textit{Activities}.
+
+A arquitetura é composta por \textit{Activities}, sendo responsável pelas transações entre fragmentos. Estes últimos utilizam \textit{ViewModels} na obtenção, inserção e remoção de dados, registando-se como observadores da resposta. Os \textit{ViewModels} recorrem ao Repositório para efetuarem as operações básicas \acrshort{crud}. É no repositório que se definem os métodos \acrshort{http} a utilizar e todas as partes integrantes de um pedido \acrshort{http}. Por fim, o pedido é efetuado por uma implementação de \textit{HttpWebService}, responsável por adicionar os pedidos a uma fila. Para a realização de pedidos à \gls{api-web} utilizou-se a biblioteca \textit{Volley} \cite{Volley:android}, esta biblioteca permite realizar pedidos de forma rápida, simples e assíncrona a \textit{REST-Clients}.
 
 %https://medium.com/@magnus.chatt/why-you-should-totally-switch-to-kotlin-c7bbde9e10d5
 
@@ -183,14 +202,14 @@ Na Figura \ref{mobile-app-architecture} expõe-se o \acrfull{uml} geral dos comp
 
 \subsection{Aplicação \textit{Web}}
 
-A aplicação \textit{web} foi pensada como uma aplicação de consulta, onde facilmente os utilizadores podem aceder, através dos diversos \textit{browsers} existentes, aos dados relativos às suas casas. Primeiramente pensou-se em desenvolver a aplicação recorrendo ao ambiente \textit{Node.js} com o auxílio da \textit{framework} \textit{Express}, contudo esta deve ser utilizada para desenvolver \gls{api-web} o que não era o pretendido. Deste modo, optou-se pelo o uso da biblioteca \textit{React}, que é amplamente empregue na criação de \textit{user interfaces} \cite{ReactvsExpress:web}.
+A aplicação \textit{web} foi pensada como uma aplicação de consulta, onde facilmente os utilizadores podem aceder aos dados relativos às suas casas, através dos \textit{browsers}: \textit{Google Chrome}, \textit{Microsoft Edge}, \textit{Mozilla Firefox} e \textit{Opera}. Primeiramente pensou-se em desenvolver a aplicação recorrendo ao ambiente \textit{Node.js} com o auxílio da \textit{framework} \textit{Express}, contudo esta deve ser utilizada para desenvolver \gls{api-web} o que não era o pretendido. Deste modo, optou-se pelo uso da biblioteca \textit{React}, que é amplamente empregue na criação de \textit{user interfaces} \cite{ReactvsExpress:web}.
 
 
 \subsubsection{Internacionalização}
 
-A aplicação \textit{Web} apenas está disponível no idioma Português.
+A aplicação \textit{Web} está disponível, apenas, no idioma Português.
 
 
 \subsubsection{Segurança}
 
-À semelhança da aplicação móvel a autenticação é efetuada nos pedidos através do \textit{header Authorization}. A sessão apenas permanece enquanto a janela estiver aberta, para este efeito utiliza-se a propriedade do \textit{Session Storage}.
+À semelhança da aplicação móvel, a autenticação é efetuada nos pedidos através do  \textit{header} \acrshort{http} \textit{Authorization}. A sessão apenas permanece enquanto a janela estiver aberta, para este efeito utiliza-se a propriedade do \textit{Session Storage}.
