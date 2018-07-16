@@ -9,10 +9,11 @@ import android.widget.TextView
 import ps.leic.isel.pt.gis.R
 import ps.leic.isel.pt.gis.model.dtos.ListProductDto
 
-class ListDetailAdapter : RecyclerView.Adapter<ListDetailAdapter.ViewHolder>() {
+class ListDetailAdapter() : RecyclerView.Adapter<ListDetailAdapter.ViewHolder>() {
 
     private lateinit var mOnItemClickListener: OnItemClickListener
     private var data: Array<ListProductDto>? = null
+    private var updatable: Boolean? = null
 
     // Inflates the cell layout from xml when needed
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,13 +29,23 @@ class ListDetailAdapter : RecyclerView.Adapter<ListDetailAdapter.ViewHolder>() {
             // Fill ViewHolder
             holder.nameItemText.text = item.productName
             holder.numberItemText.text = item.productsListQuantity.toString()
-            holder.editIcon.setOnClickListener { mOnItemClickListener.onEditClick(item) }
-            holder.deleteIcon.setOnClickListener { mOnItemClickListener.onDeleteClick(item) }
+            updatable?.let {
+                if (it) {
+                    holder.editIcon.visibility = View.VISIBLE
+                    holder.deleteIcon.visibility = View.VISIBLE
+                    holder.editIcon.setOnClickListener { mOnItemClickListener.onEditClick(item) }
+                    holder.deleteIcon.setOnClickListener { mOnItemClickListener.onDeleteClick(item) }
+                } else {
+                    holder.editIcon.visibility = View.GONE
+                    holder.deleteIcon.visibility = View.GONE
+                }
+            }
         }
     }
 
-    fun setData(data: Array<ListProductDto>) {
+    fun setData(data: Array<ListProductDto>, updatable: Boolean) {
         this.data = data
+        this.updatable = updatable
         notifyDataSetChanged()
     }
 

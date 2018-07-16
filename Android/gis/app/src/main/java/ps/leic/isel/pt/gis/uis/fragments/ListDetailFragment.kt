@@ -139,7 +139,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
 
             this.list = it
             listProducts = it.listProducts
-            adapter.setData(it.listProducts)
+            adapter.setData(it.listProducts, it.listType == ListDto.USER_TYPE)
             // Show progress bar or content
             showProgressBarOrContent()
         }
@@ -175,7 +175,7 @@ class ListDetailFragment : Fragment(), ListDetailAdapter.OnItemClickListener {
                 showUserListDetailOrSystemListDetail()
                 // Show list products or hint
                 list?.listProducts?.let {
-                    if (it.isEmpty()) {
+                    if (it.isEmpty() && list?.listType == ListDto.USER_TYPE) {
                         emptyLayout.visibility = View.VISIBLE
                     } else {
                         emptyLayout.visibility = View.GONE
