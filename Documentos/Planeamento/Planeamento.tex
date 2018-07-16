@@ -67,17 +67,17 @@
 		\gantttitlelist{1,...,20}{1} \\
 		
 		% Estudo do Problema 
-		\ganttgroup[progress=96.7]{Estudo do problema}{1}{2} \\
+		\ganttgroup[progress=100]{Estudo do problema}{1}{2} \\
 		\ganttbar[progress=100]{Comparação das Tecnologias (\textit{NFC} vs \textit{RFID})}{1}{1} \\
-		\ganttbar[progress=90]{Definição do Formato de Dados das \textit{Tags}}{1}{1} \\
+		\ganttbar[progress=100]{Definição do Formato de Dados das \textit{Tags}}{1}{1} \\
 		\ganttbar[progress=100]{Pesquisa sobre os dispositivos de HW}{1}{1} \\
 		
 		% Modelo de Dados
-		\ganttgroup[progress=96.3]{Modelo de Dados}{2}{3}\\ 
+		\ganttgroup[progress=100]{Modelo de Dados}{2}{3}\\ 
 		\ganttbar[progress=100]{Descrição do Problema}{2}{2} \\ 
-		\ganttbar[progress=95]{Modelo EA}{2}{2} \\
-		\ganttbar[progress=95]{Modelo Relacional}{2}{2} \\
-		\ganttbar[progress=95]{Domínio dos Atributos}{2}{2}  \ganttnewline[grid]
+		\ganttbar[progress=100]{Modelo EA}{2}{2} \\
+		\ganttbar[progress=100]{Modelo Relacional}{2}{2} \\
+		\ganttbar[progress=100]{Domínio dos Atributos}{2}{2}  \ganttnewline[grid]
 		
 		% MILESTONE: Proposta de Projeto
 		\ganttmilestone[ name=M1]{\textbf{Entrega da Proposta de Projeto}}{3}  \ganttnewline[grid]
@@ -88,8 +88,8 @@
 		\ganttbar[progress=100]{Documentação}{5}{5} \\
 		
 		% Camada de Acesso a Dados
-		\ganttgroup[progress=97.5]{Acesso a Dados}{5}{7}\\  
-		\ganttbar[progress=95]{Desenvolvimento}{5}{7}\\
+		\ganttgroup[progress=100]{Acesso a Dados}{5}{7}\\  
+		\ganttbar[progress=100]{Desenvolvimento}{5}{7}\\
 		\ganttbar[progress=100]{Documentação}{7}{7} \\
 		
 		% Camada da Lógica de Negócio
@@ -99,36 +99,36 @@
 		\ganttnewline[grid]
 		
 		% MILESTONE: Relatório de Progresso
-		\ganttmilestone[ name=M2]{\textbf{Entrega do Relatório de Progresso}}{9} \ganttnewline[grid]
+		\ganttmilestone[name=M2]{\textbf{Entrega do Relatório de Progresso}}{9} \ganttnewline[grid]
 		
 		% WEB API
-		\ganttgroup[progress=52.5]{WEB API}{9}{12}\\  
-		\ganttbar[progress=95]{Desenvolvimento}{9}{12}\\
-		\ganttbar[progress=0]{Documentação}{11}{12} \\
-		\ganttbar[progress=10]{Testes}{10}{12}  \\
+		\ganttgroup[progress=93.3]{WEB API}{9}{12}\\  
+		\ganttbar[progress=100]{Desenvolvimento}{9}{12}\\
+		\ganttbar[progress=100]{Documentação}{11}{12} \\
+		\ganttbar[progress=80]{Testes}{10}{12}  \\
 		
 		% Aplicações (Android e Website)
-		\ganttgroup[progress=45]{Aplicações (Android e Web)}{3}{20} \\
-		\ganttbar[progress=90]{Desenho das User Interfaces}{3}{4}\\
+		\ganttgroup[progress=81.6]{Aplicações (Android e Web)}{3}{20} \\
+		\ganttbar[progress=95]{Desenho das User Interfaces}{3}{4}\\
 		\ganttbar[progress=100]{Simulação - Leitor de Tags NFC}{8}{10}\\
-		\ganttbar[progress=80]{Desenvolvimento da Aplicação Móvel}{6}{16}\\
-		\ganttbar[progress=0]{Desenvolvimento da Aplicação Web}{14}{19}\\
+		\ganttbar[progress=100]{Desenvolvimento da Aplicação Móvel}{6}{16}\\
+		\ganttbar[progress=100]{Desenvolvimento da Aplicação Web}{14}{19}\\
 		\ganttbar[progress=0]{Documentação}{12}{15} \\
-		\ganttbar[progress=0]{Testes}{7}{20}  \ganttnewline[grid]
+		\ganttbar[progress=95]{Testes}{7}{20}  \ganttnewline[grid]
 		
 		% MILESTONE: Cartaz e Versão Beta
-		\ganttmilestone[ name=M3]{\textbf{Entrega do Cartaz e Versão Beta}}{13} \ganttnewline[grid]
+		\ganttmilestone[name=M3]{\textbf{Entrega do Cartaz e Versão Beta}}{13} \ganttnewline[grid]
 		
 		% Escrita
-		\ganttgroup[progress=69]{Escrita}{1}{20} \\
+		\ganttgroup[progress=100]{Escrita}{1}{20} \\
 		\ganttbar[progress=100,name=S1A]{Proposta de Projeto}{1}{3} \\
 		\ganttbar[progress=100,name=S1B]{Relatório de progresso}{4}{9} \\
-		\ganttbar[progress=50,name=S5C]{Relatório Beta}{10}{13} \\
-		\ganttbar[progress=0,name=S5D]{Relatório Final}{14}{20}\\
-		\ganttbar[progress=95,name=S5E]{Desenvolvimento do cartaz}{11}{13} \ganttnewline[grid]
+		\ganttbar[progress=100,name=S5C]{Relatório Beta}{10}{13} \\
+		\ganttbar[progress=100,name=S5D]{Relatório Final}{14}{20}\\
+		\ganttbar[progress=100,name=S5E]{Desenvolvimento do cartaz}{11}{13} \ganttnewline[grid]
 		
 		% MILESTONE: Entrega do Projeto
-		\ganttmilestone[ name=M4]{\textbf{Entrega do Projeto}}{20}  \ganttnewline[grid]
+		\ganttmilestone[name=M4]{\textbf{Entrega do Projeto}}{20}  \ganttnewline[grid]
 		
 \end{ganttchart}
 \end{document}
